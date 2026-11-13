@@ -1,0 +1,128 @@
+/* =====================================================================
+   strategy.css — THE SHARED DESIGN SYSTEM
+
+   Extracted from the inline <style> block in setups/pmh-break.html so
+   every page (the directory, 404, and future setup pages) can share
+   one source of truth for the house look instead of re-declaring it.
+
+   setups/pmh-break.html and setups/market-memory.html currently still
+   carry this CSS inline as well — that duplication is harmless (later
+   rules just re-state the same thing) but if you ever want a single
+   source of truth, point those pages at this file instead and drop
+   their inline <style> blocks.
+   ===================================================================== */
+
+  :root {
+  --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+  --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+  --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+  --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--sans); font-size:15px; line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+/* ---------- header ---------- */
+.top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+       border-bottom:1px solid var(--line); padding-bottom:26px; }
+h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+h1 span { color:var(--up); }
+.kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+.thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+.thesis em { font-style:normal; color:var(--up); font-weight:700; }
+.counts { display:flex; gap:26px; margin-top:16px; }
+.counts div { border-left:2px solid var(--up); padding-left:12px; }
+.counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+.counts small { color:var(--faint); font-size:13px; }
+
+/* ---------- ribbon ---------- */
+.ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+          background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+.ribbon div { background:var(--panel); padding:13px 16px; }
+.ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+.ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+/* ---------- main ---------- */
+.main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+.stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+         grid-template-columns:34px 1fr; gap:14px; }
+.stage:first-child { border-top:none; padding-top:0; }
+.num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+       background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+       justify-content:center; }
+.stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+.stage ul { margin:0; padding-left:17px; }
+.stage li { margin-bottom:4px; color:var(--ink); }
+.why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+       border-left:2px solid #24384f; }
+.panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+.panel + .panel { margin-top:22px; }
+.panel h4 { margin:0 0 4px; font-size:17px; }
+.panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+svg { display:block; width:100%; height:auto; }
+
+/* ---------- timing ---------- */
+.timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+.timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+.timing b { display:block; font-size:15px; margin-bottom:4px; }
+.timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+/* ---------- filters ---------- */
+.section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+.section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+.section-head p { margin:0; color:var(--dim); max-width:78ch; }
+.filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+          border-radius:11px; padding:16px 17px; }
+.filter h3 { margin:0 0 8px; font-size:17px; }
+.filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+.filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+/* ---------- risk ---------- */
+.risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+.calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+.calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+.calc .row b { font-weight:700; }
+.calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+.warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+.warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+.warn p { margin:0 0 10px; font-size:14px; }
+.warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+/* ---------- examples ---------- */
+table { width:100%; border-collapse:collapse; font-size:14px; }
+caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+tbody th { font-weight:600; color:var(--dim); width:190px; }
+td { font-family:var(--mono); font-size:13.6px; }
+td.txt { font-family:var(--sans); font-size:14px; }
+.tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+.tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+.pos { color:var(--up); } .neg { color:var(--down); }
+
+/* ---------- footer ---------- */
+.rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+        padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+.rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+.rule p { margin:0; color:var(--dim); }
+.rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+.src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+@media (max-width:1100px) {
+  .top,.main,.risk,.rule { grid-template-columns:1fr; }
+  .ribbon { grid-template-columns:repeat(2,1fr); }
+  .filters { grid-template-columns:repeat(2,1fr); }
+  .timing { grid-template-columns:1fr; }
+}
+@media print {
+  body { background:#fff; }
+  .sheet { max-width:none; padding:0; }
+  .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+  @page { size:A3 landscape; margin:12mm; }
+}

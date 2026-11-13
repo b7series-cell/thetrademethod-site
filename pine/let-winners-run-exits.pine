@@ -1,0 +1,101 @@
+//@version=6
+// =====================================================================
+// Let Winners Run Exits — thetrademethod.com
+//
+// Two exit rules on one indicator. Pick the rule in the settings;
+// One Below is the default.
+//
+//   ONE BELOW — exit on the first candle that CLOSES below the low of the
+//               previous candle. A wick below that closes back above does
+//               not count. Works as the stop from the first candle.
+//   ATR TRAIL — the cyan line is the highest high of the previous 10
+//               candles minus ATR(14). Exit on the first candle that CLOSES
+//               below the line. New highs lift it.
+//
+//   Shorts are the mirror (close above the previous high; lowest low of
+//   the previous 10 plus ATR).
+//
+//   The line is drawn on every bar. To follow one trade, turn on
+//   "Track a trade", then set the entry bar (drag the marker on the chart
+//   or type the time). The indicator marks the entry, the exit on the
+//   first close through the line, and the result. Closed bars only.
+//   Same rules as the Let Winners Run page. Draws and alerts only; it
+//   places no orders.
+// =====================================================================
+indicator("Let Winners Run Exits", shorttitle = "LWR Exits", overlay = true, max_labels_count = 500)
+
+// ---------------- inputs ----------------
+rule      = input.string("One Below", "Exit rule", options = ["One Below", "ATR trail"], group = "Rule")
+dir       = input.string("Long", "Direction", options = ["Long", "Short"], group = "Rule")
+hhLen     = input.int(10, "ATR trail: highest high of the previous N candles", minval = 1, group = "ATR trail")
+atrLen    = input.int(14, "ATR trail: ATR length", minval = 1, group = "ATR trail")
+atrMult   = input.float(1.0, "ATR trail: ATR multiple", minval = 0.0, step = 0.1, group = "ATR trail", tooltip = "1 = the rule as taught: highest high minus one ATR.")
+track     = input.bool(false, "Track a trade", group = "Trade")
+entryT    = input.time(timestamp("2026-01-02T09:30:00"), "Entry bar", group = "Trade", tooltip = "The trade is entered at the close of the first bar at or after this time. Drag the marker on the chart to move it.")
+entryIn   = input.float(0.0, "Entry price (0 = that bar's close)", minval = 0.0, group = "Trade")
+markAll   = input.bool(false, "Mark every close through the line (no trade tracked)", group = "Display")
+showPanel = input.bool(true, "Show status panel", group = "Display")
+
+isLong  = dir == "Long"
+isOne   = rule == "One Below"
+
+// ---------------- exit line ----------------
+float atrV   = ta.atr(atrLen)
+float hiPrev = ta.highest(high, hhLen)[1]
+float loPrev = ta.lowest(low, hhLen)[1]
+float oneLvl = isLong ? low[1] : high[1]
+float atrLvl = isLong ? hiPrev - atrMult * atrV : loPrev + atrMult * atrV
+float lvl    = isOne ? oneLvl : atrLvl
+bool  thru   = not na(lvl) and (isLong ? close < lvl : close > lvl)
+
+// ---------------- tracked trade ----------------
+var bool  inTrade = false
+var bool  done    = false
+var float ePx     = na
+var float xPx     = na
+var int   eBar    = na
+bool entered = false
+bool exited  = false
+
+if track and barstate.isconfirmed
+    if inTrade and bar_index > eBar and thru
+        inTrade := false
+        done    := true
+        xPx     := close
+        exited  := true
+    if not inTrade and not done and time >= entryT
+        inTrade := true
+        ePx     := entryIn > 0 ? entryIn : close
+        eBar    := bar_index
+        entered := true
+
+float pnl = na(ePx) ? na : (isLong ? 1 : -1) * ((done ? xPx : close) - ePx) / ePx * 100
+
+if entered
+    label.new(bar_index, isLong ? low : high, (isLong ? "IN " : "SHORT ") + str.tostring(ePx, format.mintick),
+         style = isLong ? label.style_label_up : label.style_label_down, color = color.new(#2997ff, 10), textcolor = color.white, size = size.small)
+if exited
+    label.new(bar_index, isLong ? high : low, "OUT " + str.tostring(xPx, format.mintick) + "\n" + (pnl >= 0 ? "+" : "") + str.tostring(pnl, "#.##") + "%",
+         style = isLong ? label.style_label_down : label.style_label_up, color = color.new(pnl >= 0 ? #30d158 : #ff453a, 10), textcolor = color.white, size = size.small)
+
+// ---------------- plots ----------------
+color lineCol = isOne ? #f4b942 : #00e5ff
+bool  dim     = track and not inTrade
+plot(lvl, "Exit line", color = color.new(lineCol, dim ? 70 : 0), linewidth = 2, style = plot.style_stepline)
+plotshape(markAll and not track and thru and barstate.isconfirmed, "Close through the line", shape.xcross, isLong ? location.abovebar : location.belowbar, color.new(lineCol, 0), size = size.tiny)
+barcolor(exited ? color.new(#ff453a, 0) : na, title = "Exit bar")
+
+// ---------------- status panel ----------------
+var table tb = table.new(position.top_right, 2, 3, bgcolor = color.new(#1d1d1f, 10), border_width = 0)
+if showPanel and barstate.islast
+    table.cell(tb, 0, 0, "Rule", text_color = #a1a1a6, text_size = size.small)
+    table.cell(tb, 1, 0, isOne ? "One Below · close " + (isLong ? "below the previous low" : "above the previous high") : "ATR trail · " + (isLong ? "high" : "low") + " " + str.tostring(hhLen) + " " + (isLong ? "− " : "+ ") + str.tostring(atrMult, "#.##") + "×ATR " + str.tostring(atrLen), text_color = lineCol, text_size = size.small)
+    table.cell(tb, 0, 1, "Exit level", text_color = #a1a1a6, text_size = size.small)
+    table.cell(tb, 1, 1, na(lvl) ? "—" : str.tostring(lvl, format.mintick), text_color = color.white, text_size = size.small)
+    table.cell(tb, 0, 2, "Trade", text_color = #a1a1a6, text_size = size.small)
+    table.cell(tb, 1, 2, not track ? "not tracking" : inTrade ? "open · " + (pnl >= 0 ? "+" : "") + str.tostring(pnl, "#.##") + "%" : done ? "closed · " + (pnl >= 0 ? "+" : "") + str.tostring(pnl, "#.##") + "%" : "waiting for the entry bar", text_color = not track ? #a1a1a6 : na(pnl) ? color.white : pnl >= 0 ? #30d158 : #ff453a, text_size = size.small)
+
+// ---------------- alerts ----------------
+alertcondition(exited, "Exit — tracked trade", "EXIT {{ticker}} @ {{close}} — closed through the exit line (Let Winners Run)")
+alertcondition(thru and barstate.isconfirmed, "Close through the line", "{{ticker}} @ {{close}} — candle closed through the exit line (Let Winners Run)")
+alertcondition(barstate.isconfirmed, "Test — Fires Every Bar", "🟢 TEST — plumbing works on {{ticker}} @ {{close}}")

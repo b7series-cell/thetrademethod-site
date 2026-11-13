@@ -1,0 +1,154 @@
+//@version=6
+// =====================================================================
+// Zero Lag Trend Pullback — thetrademethod.com
+//
+// Two zero-lag EMAs: 50 (white) and 100 (green). White above green = uptrend,
+// white below green = downtrend. The cross alone is never the trade.
+//
+//   LONG  — uptrend; a bar CLOSES between the lines (at/above green, below
+//           white): the pullback. Then a GREEN candle closes back ABOVE the
+//           white line with volume at or above its 20-bar average: BUY on
+//           that close. Stop on the green line, target 2R.
+//   SHORT — the mirror: downtrend, a close between the lines, then a RED
+//           candle closes back BELOW the white line on average-or-better
+//           volume. Stop on the green line, target 2R.
+//
+//   A close through the green line, or the lines crossing, cancels a
+//   pullback. One trade at a time: signals while a trade is open are
+//   marked but not taken. Signals and arming use closed bars only.
+//
+// The zero-lag EMA is EMA + (EMA − EMA of EMA), the formula of the public
+// "Zero Lag EMA v2" script by KıvanÇ (@fr3762), after John Ehlers.
+// Same rules as the site's live chart and backtest (js/zl-live.js,
+// api/zl-backtest.php). Draws and alerts only; it places no orders.
+// =====================================================================
+indicator("Zero Lag Trend Pullback", shorttitle = "ZL Pullback", overlay = true, max_lines_count = 500, max_labels_count = 500)
+
+// ---------------- inputs ----------------
+fastLen   = input.int(50, "Fast zero-lag EMA (white)", minval = 1, group = "Lines")
+slowLen   = input.int(100, "Slow zero-lag EMA (green)", minval = 2, group = "Lines")
+tintZone  = input.bool(true, "Tint between the lines by trend", group = "Lines")
+volLen    = input.int(20, "Volume average length", minval = 1, group = "Volume", tooltip = "Same as the moving average on TradingView's Volume indicator (20 by default).")
+volMult   = input.float(1.0, "Trigger volume ≥ average ×", minval = 0.0, step = 0.1, group = "Volume")
+needColor = input.bool(true, "Trigger candle must be green (long) / red (short)", group = "Signal")
+rrTarget  = input.float(2.0, "Target (R multiple)", minval = 0.1, step = 0.1, group = "Trade")
+stopAtr   = input.float(0.0, "Extra stop room past the green line (× ATR 14)", minval = 0.0, step = 0.05, group = "Trade", tooltip = "0 = stop exactly on the green line as it stood at entry (the site's backtest uses 0).")
+riskUsd   = input.float(100.0, "Risk per trade ($) for share size", minval = 0.0, group = "Trade")
+showLv    = input.bool(true, "Draw entry, stop and target", group = "Display")
+showPanel = input.bool(true, "Show status panel", group = "Display")
+
+// ---------------- zero-lag EMAs, volume ----------------
+zlema(float src, simple int len) =>
+    e1 = ta.ema(src, len)
+    e2 = ta.ema(e1, len)
+    e1 + (e1 - e2)
+
+fast   = zlema(close, fastLen)
+slow   = zlema(close, slowLen)
+volAvg = ta.sma(volume, volLen)
+atr14  = ta.atr(14)
+warm   = bar_index >= 3 * slowLen
+upTrend = fast > slow
+dnTrend = fast < slow
+volOk   = not na(volAvg) and volume >= volAvg * volMult
+
+// ---------------- state ----------------
+var bool  armL = false
+var bool  armS = false
+var int   pos  = 0          // 1 long · -1 short · 0 flat
+var float ePx  = na
+var float sPx  = na
+var float tPx  = na
+var line  lnE  = na
+var line  lnS  = na
+var line  lnT  = na
+
+// exits first, from the bar after entry; stop before target when one bar touches both
+bool hitT = false
+bool hitS = false
+if pos == 1
+    if low <= sPx
+        hitS := true
+    else if high >= tPx
+        hitT := true
+else if pos == -1
+    if high >= sPx
+        hitS := true
+    else if low <= tPx
+        hitT := true
+if hitS or hitT
+    pos := 0
+    if showLv and not na(lnE)
+        line.set_x2(lnE, bar_index)
+        line.set_x2(lnS, bar_index)
+        line.set_x2(lnT, bar_index)
+
+// the trigger, from the pullback armed on earlier bars
+bool longSig  = false
+bool shortSig = false
+if barstate.isconfirmed and warm
+    longSig  := upTrend and armL and close > fast and (not needColor or close > open) and volOk
+    shortSig := dnTrend and armS and close < fast and (not needColor or close < open) and volOk
+    // arming: a close between the lines; a close through the green line or a trend flip cancels
+    if longSig
+        armL := false
+    else if not upTrend or close < slow
+        armL := false
+    else if close < fast
+        armL := true
+    if shortSig
+        armS := false
+    else if not dnTrend or close > slow
+        armS := false
+    else if close > fast
+        armS := true
+
+bool buy  = longSig and pos == 0
+bool sell = shortSig and pos == 0
+bool busy = (longSig or shortSig) and pos != 0
+
+if buy or sell
+    pos := buy ? 1 : -1
+    ePx := close
+    sPx := buy ? slow - stopAtr * atr14 : slow + stopAtr * atr14
+    float risk = math.abs(ePx - sPx)
+    tPx := buy ? ePx + rrTarget * risk : ePx - rrTarget * risk
+    if showLv
+        lnE := line.new(bar_index, ePx, bar_index + 1, ePx, color = color.new(#2997ff, 0), width = 1)
+        lnS := line.new(bar_index, sPx, bar_index + 1, sPx, color = color.new(#ff453a, 0), width = 1, style = line.style_dashed)
+        lnT := line.new(bar_index, tPx, bar_index + 1, tPx, color = color.new(#30d158, 0), width = 1, style = line.style_dashed)
+        int shares = risk > 0 and riskUsd > 0 ? int(math.floor(riskUsd / risk)) : 0
+        label.new(bar_index, buy ? low : high, (buy ? "BUY " : "SELL ") + str.tostring(ePx, format.mintick) + "\nstop " + str.tostring(sPx, format.mintick) + " · target " + str.tostring(tPx, format.mintick) + (shares > 0 ? "\n" + str.tostring(shares) + " sh for $" + str.tostring(riskUsd, "#") : ""),
+             style = buy ? label.style_label_up : label.style_label_down, color = color.new(buy ? #30d158 : #ff453a, 15), textcolor = color.white, size = size.small)
+else if pos != 0 and showLv and not na(lnE)
+    line.set_x2(lnE, bar_index)
+    line.set_x2(lnS, bar_index)
+    line.set_x2(lnT, bar_index)
+
+// ---------------- plots ----------------
+pF = plot(fast, "Zero-lag fast (white)", color = color.white, linewidth = 2)
+pS = plot(slow, "Zero-lag slow (green)", color = #30d158, linewidth = 2)
+fill(pF, pS, color = tintZone ? (upTrend ? color.new(#30d158, 90) : color.new(#ff453a, 90)) : na, title = "Zone")
+plotshape(busy, "Signal while in a trade", shape.circle, location.abovebar, color.new(#8e8e93, 0), size = size.tiny)
+plotshape(hitT, "Target hit", shape.square, location.abovebar, color.new(#30d158, 0), size = size.tiny, text = "TP")
+plotshape(hitS, "Stop hit", shape.square, location.belowbar, color.new(#ff453a, 0), size = size.tiny, text = "SL")
+barcolor(buy or sell ? color.new(#f4b942, 0) : na, title = "Trigger bar")
+
+// ---------------- status panel ----------------
+var table tb = table.new(position.top_right, 2, 4, bgcolor = color.new(#1d1d1f, 10), border_width = 0)
+if showPanel and barstate.islast
+    table.cell(tb, 0, 0, "Trend", text_color = #a1a1a6, text_size = size.small)
+    table.cell(tb, 1, 0, upTrend ? "UP · white over green" : dnTrend ? "DOWN · white under green" : "flat", text_color = upTrend ? #30d158 : #ff453a, text_size = size.small)
+    table.cell(tb, 0, 1, "Pullback", text_color = #a1a1a6, text_size = size.small)
+    table.cell(tb, 1, 1, armL ? "armed · wait for a green close over white" : armS ? "armed · wait for a red close under white" : "not armed", text_color = color.white, text_size = size.small)
+    table.cell(tb, 0, 2, "Volume", text_color = #a1a1a6, text_size = size.small)
+    table.cell(tb, 1, 2, na(volAvg) or volAvg == 0 ? "—" : str.tostring(volume / volAvg, "#.##") + "× average", text_color = volOk ? #30d158 : #a1a1a6, text_size = size.small)
+    table.cell(tb, 0, 3, "Position", text_color = #a1a1a6, text_size = size.small)
+    table.cell(tb, 1, 3, pos == 1 ? "LONG · stop " + str.tostring(sPx, format.mintick) + " · target " + str.tostring(tPx, format.mintick) : pos == -1 ? "SHORT · stop " + str.tostring(sPx, format.mintick) + " · target " + str.tostring(tPx, format.mintick) : "flat", text_color = color.white, text_size = size.small)
+
+// ---------------- alerts ----------------
+alertcondition(buy, "BUY — pullback reclaimed", "BUY {{ticker}} @ {{close}} — green close back over the white line on above-average volume (zero-lag pullback)")
+alertcondition(sell, "SELL — pullback rejected", "SELL {{ticker}} @ {{close}} — red close back under the white line on above-average volume (zero-lag pullback)")
+alertcondition(hitT, "Target hit", "TARGET {{ticker}} @ {{close}} — zero-lag pullback trade hit its target")
+alertcondition(hitS, "Stop hit", "STOP {{ticker}} @ {{close}} — zero-lag pullback trade stopped on the green line")
+alertcondition(barstate.isconfirmed, "Test — Fires Every Bar", "🟢 TEST — plumbing works on {{ticker}} @ {{close}}")

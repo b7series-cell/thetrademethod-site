@@ -1,0 +1,265 @@
+//@version=6
+// =====================================================================
+// Hitchhiker Scalp — thetrademethod.com
+//
+// An SMB Capital trader's adapted hitchhiker scalp, on the 2-minute chart:
+// don't chase the move, ride the first pullback to the 9 EMA.
+//
+//   1. The move      An outsized move: price travels at least N ATRs in a
+//                    few bars, most of them in one direction, on volume
+//                    well above normal, and ends extended from the 9 EMA.
+//   2. The pullback  The FIRST pullback back toward the 9 EMA. It must
+//                    hold a close on the right side of the 21 EMA.
+//   3. The volume    The pullback's average volume against the move's.
+//                    Lighter is the setup; heavier than the move = skip.
+//   4. The entry     As the pullback slows: a bar takes out the prior
+//                    bar's high (long) or low (short) near the 9 EMA.
+//                    Entry is marked a tick past that prior bar.
+//   5. The stop      A 2-minute CLOSE past the 21 EMA. Once the trade
+//                    makes a new high (low) past the move's, the stop
+//                    tightens to the most recent low (high).
+//   6. The exit      About 70% trimmed into momentum, ~5% at a time, on
+//                    bars that push to new highs (lows). The last 30% is
+//                    trailed on the prior bar: out when a bar breaks the
+//                    prior bar's low (long) or high (short).
+//
+// "In play" (news, earnings, a theme, a key level) and the market's
+// direction are still your call; the panel shows RVOL as a hint.
+// Marks and alerts only; it places no orders.
+// =====================================================================
+indicator("Hitchhiker Scalp", shorttitle = "Hitchhiker", overlay = true, max_labels_count = 300, max_lines_count = 100)
+
+// ---------------- inputs ----------------
+grpS = "Setup"
+sideIn     = input.string("Both", "Trade", options = ["Long", "Short", "Both"], group = grpS)
+fastLen    = input.int(9, "Entry EMA (the 9)", minval = 2, group = grpS)
+slowLen    = input.int(21, "Stop EMA (the 21)", minval = 3, group = grpS)
+atrLen     = input.int(14, "ATR length", minval = 2, group = grpS)
+
+grpM = "The move"
+moveBars   = input.int(6, "Bars in the move", minval = 3, maxval = 20, group = grpM)
+moveAtr    = input.float(2.5, "Move size, in ATRs", minval = 0.5, step = 0.1, group = grpM)
+moveVolX   = input.float(1.5, "Move volume vs normal (x)", minval = 1.0, step = 0.1, group = grpM)
+volLen     = input.int(50, "Normal volume: average of", minval = 5, group = grpM)
+extAtr     = input.float(0.8, "Extended from the 9 EMA, in ATRs", minval = 0.0, step = 0.1, group = grpM)
+
+grpP = "The pullback"
+touchAtr   = input.float(0.25, "Counts as at the 9 EMA within (ATRs)", minval = 0.0, step = 0.05, group = grpP)
+maxPbBars  = input.int(12, "Give up after this many pullback bars", minval = 2, group = grpP)
+lightPct   = input.float(60, "Light: pullback volume at most (% of move)", minval = 1, group = grpP)
+heavyPct   = input.float(100, "Skip: pullback volume above (% of move)", minval = 1, group = grpP)
+
+grpX = "Management"
+trimTotal  = input.float(70, "Trim into momentum (%)", minval = 0, maxval = 100, group = grpX)
+trimPiece  = input.float(5, "Each piece (%)", minval = 1, maxval = 100, group = grpX)
+piecesBar  = input.int(2, "Pieces per new-high bar", minval = 1, group = grpX)
+tighten    = input.bool(true, "Tighten to the most recent low/high on a new extreme", group = grpX)
+
+grpV = "Display"
+showEma    = input.bool(true, "Show the 9 and 21 EMAs", group = grpV)
+showTrims  = input.bool(true, "Mark each trim", group = grpV)
+showPanel  = input.bool(true, "Show the panel", group = grpV)
+
+allowLong  = sideIn != "Short"
+allowShort = sideIn != "Long"
+tick       = syminfo.mintick
+
+// ---------------- series ----------------
+e9      = ta.ema(close, fastLen)
+e21     = ta.ema(close, slowLen)
+atr     = ta.atr(atrLen)
+volNorm = ta.sma(volume, volLen)
+rvol    = volNorm[1] > 0 ? volume / volNorm[1] : na
+
+plot(showEma ? e9 : na, "9 EMA", color.new(#ff9f0a, 0), 2)
+plot(showEma ? e21 : na, "21 EMA", color.new(#bf5af2, 0), 2)
+
+// the move: net travel, bars in the direction, volume, extension
+net     = close - close[moveBars]
+upBars  = math.sum(close > open ? 1 : 0, moveBars)
+dnBars  = math.sum(close < open ? 1 : 0, moveBars)
+mVol    = ta.sma(volume, moveBars)
+mNorm   = volNorm[moveBars]
+volOk   = mNorm > 0 and mVol >= moveVolX * mNorm
+moveUp   = allowLong  and net >=  moveAtr * atr and upBars >= moveBars - 2 and volOk and close - e9 >= extAtr * atr
+moveDown = allowShort and net <= -moveAtr * atr and dnBars >= moveBars - 2 and volOk and e9 - close >= extAtr * atr
+hhMove  = ta.highest(high, moveBars)
+llMove  = ta.lowest(low, moveBars)
+
+// ---------------- state ----------------
+// 0 idle · 1 move in, waiting for the pullback · 2 at the 9 EMA, waiting for the turn · 3 in the trade
+var int   state    = 0
+var int   dir      = 0
+var float moveExt  = na     // the move's high (long) or low (short)
+var float moveVAvg = na
+var int   extBar   = na
+var float pbVSum   = 0.0
+var int   pbN      = 0
+var float entry    = na
+var float risk     = na
+var float tight    = na
+var float best     = na
+var float trimmed  = 0.0
+var float trimSum  = 0.0    // sum of (piece % x price), for the average
+var bool  runner   = false
+var float lastR    = na
+var int   lastEnd  = na     // bar where the last setup ended: only a fresh move counts after it
+
+float pbPct = pbN > 0 and moveVAvg > 0 ? pbVSum / pbN / moveVAvg * 100 : na
+
+// alert flags for this bar
+bool aMove  = false
+bool aTouch = false
+bool aEntry = false
+bool aSkip  = false
+bool aTight = false
+bool aTrim  = false
+bool aExit  = false
+
+// a new move: starts (or flips) the hunt for the first pullback. After a setup ends,
+// only a move that started after it counts, so the 2nd, 3rd... pullback is never taken.
+int  mdir     = moveUp ? 1 : moveDown ? -1 : 0
+bool fresh    = na(lastEnd) or bar_index - moveBars >= lastEnd
+bool startNew = state <= 2 and mdir != 0 and fresh and (state == 0 or mdir != dir)
+
+if startNew
+    state    := 1
+    dir      := mdir
+    moveExt  := mdir == 1 ? hhMove : llMove
+    moveVAvg := mVol
+    extBar   := bar_index
+    pbVSum   := 0.0
+    pbN      := 0
+    aMove    := true
+    label.new(bar_index, mdir == 1 ? high : low, "Move · don't chase", style = mdir == 1 ? label.style_label_down : label.style_label_up,
+              color = color.new(color.gray, 70), textcolor = color.white, size = size.small)
+else if state == 1 or state == 2
+    // the move extends: new extreme before any pullback touch
+    bool newExt = dir == 1 ? high > moveExt : low < moveExt
+    if state == 1 and newExt
+        moveExt := dir == 1 ? high : low
+        extBar  := bar_index
+        moveVAvg := (moveVAvg * 3 + volume) / 4
+        pbVSum  := 0.0
+        pbN     := 0
+    else
+        pbVSum += volume
+        pbN    += 1
+    pbPct := pbN > 0 and moveVAvg > 0 ? pbVSum / pbN / moveVAvg * 100 : na
+    bool atNine  = dir == 1 ? low <= e9 + touchAtr * atr : high >= e9 - touchAtr * atr
+    bool tooDeep = dir == 1 ? close < e21 : close > e21
+    if tooDeep
+        label.new(bar_index, dir == 1 ? low : high, "Through the 21 · no trade", style = dir == 1 ? label.style_label_up : label.style_label_down,
+                  color = color.new(color.gray, 70), textcolor = color.white, size = size.tiny)
+        state   := 0
+        lastEnd := bar_index
+    else if pbN > maxPbBars
+        state   := 0
+        lastEnd := bar_index
+    else if state == 1 and atNine and pbN > 0
+        state  := 2
+        aTouch := true
+    if state == 2
+        bool turn = dir == 1 ? high > high[1] and close > e9 - touchAtr * atr : low < low[1] and close < e9 + touchAtr * atr
+        if turn
+            if not na(pbPct) and pbPct > heavyPct
+                label.new(bar_index, dir == 1 ? low : high, "Skip · heavy volume " + str.tostring(pbPct, "#") + "%",
+                          style = dir == 1 ? label.style_label_up : label.style_label_down, color = color.new(#ff453a, 30), textcolor = color.white, size = size.small)
+                aSkip   := true
+                state   := 0
+                lastEnd := bar_index
+            else
+                entry   := dir == 1 ? high[1] + tick : low[1] - tick
+                risk    := math.abs(entry - e21)
+                tight   := na
+                best    := dir == 1 ? high : low
+                trimmed := 0.0
+                trimSum := 0.0
+                runner  := false
+                state   := 3
+                aEntry  := true
+                string grade = na(pbPct) ? "" : pbPct <= lightPct ? " · light vol " : " · vol "
+                label.new(bar_index, dir == 1 ? low : high, (dir == 1 ? "Buy " : "Short ") + str.tostring(entry, format.mintick) + grade +
+                          (na(pbPct) ? "" : str.tostring(pbPct, "#") + "%"), style = dir == 1 ? label.style_label_up : label.style_label_down,
+                          color = dir == 1 ? color.new(#30d158, 0) : color.new(#ff453a, 0), textcolor = color.black, size = size.small)
+else if state == 3
+    float exitPx = na
+    string why = ""
+    // 1. the stop: a close past the 21 EMA
+    if dir == 1 ? close < e21 : close > e21
+        exitPx := close
+        why    := "Close past the 21"
+    // 2. the tightened stop
+    if na(exitPx) and not na(tight) and (dir == 1 ? low <= tight : high >= tight)
+        exitPx := dir == 1 ? math.min(open, tight) : math.max(open, tight)
+        why    := "Tight stop"
+    // 3. the runner: a break of the prior bar
+    if na(exitPx) and runner and (dir == 1 ? low < low[1] : high > high[1])
+        exitPx := dir == 1 ? math.min(open, low[1] - tick) : math.max(open, high[1] + tick)
+        why    := "Prior bar broken"
+    if na(exitPx)
+        bool newBest = dir == 1 ? high > best : low < best
+        if newBest
+            best := dir == 1 ? high : low
+            // tighten once price takes out the move's extreme
+            if tighten and (dir == 1 ? high > moveExt : low < moveExt)
+                float t = dir == 1 ? low[1] - tick : high[1] + tick
+                if na(tight) or (dir == 1 ? t > tight : t < tight)
+                    tight  := t
+                    aTight := true
+            // trim into momentum, only in profit
+            if trimmed < trimTotal and (dir == 1 ? close > entry : close < entry)
+                float add = math.min(trimTotal - trimmed, trimPiece * piecesBar)
+                trimmed += add
+                trimSum += add * close
+                aTrim := true
+                if showTrims
+                    label.new(bar_index, dir == 1 ? high : low, "", style = dir == 1 ? label.style_triangledown : label.style_triangleup,
+                              yloc = dir == 1 ? yloc.abovebar : yloc.belowbar, color = color.new(#ff453a, 0), size = size.tiny)
+                if trimmed >= trimTotal
+                    runner := true
+    if not na(exitPx)
+        float rest  = 100 - trimmed
+        float avgPx = (trimSum + rest * exitPx) / 100
+        lastR := risk > 0 ? dir * (avgPx - entry) / risk : na
+        label.new(bar_index, dir == 1 ? high : low, why + "\n" + (lastR >= 0 ? "+" : "") + str.tostring(lastR, "#.0") + "R",
+                  style = dir == 1 ? label.style_label_down : label.style_label_up, color = color.new(#22d3ee, 0), textcolor = color.black, size = size.small)
+        aExit   := true
+        state   := 0
+        lastEnd := bar_index
+
+// the stop lines while in the trade
+plot(state == 3 ? e21 : na, "Stop: close past the 21", color.new(#bf5af2, 0), 1, plot.style_linebr)
+plot(state == 3 ? tight : na, "Tight stop", color.new(#ff453a, 0), 2, plot.style_linebr)
+plot(state == 3 and runner ? (dir == 1 ? low[1] - tick : high[1] + tick) : na, "Runner trail", color.new(#22d3ee, 0), 1, plot.style_stepline)
+bgcolor(state == 2 ? color.new(#ff9f0a, 92) : na, title = "At the 9 EMA")
+
+// ---------------- panel ----------------
+var table panel = table.new(position.top_right, 2, 7, bgcolor = color.new(#1d1d1f, 5), border_color = color.new(#3a3a3c, 0), border_width = 1)
+if showPanel and barstate.islast
+    string st = state == 0 ? "Waiting for a move" : state == 1 ? "Move in · wait for the 9" : state == 2 ? "At the 9 · wait for the turn" : (dir == 1 ? "Long" : "Short") + " · " + str.tostring(trimmed, "#") + "% trimmed"
+    color  txt = color.new(#f5f5f7, 0)
+    table.cell(panel, 0, 0, "Hitchhiker", text_color = color.new(#ff9f0a, 0), text_size = size.small)
+    table.cell(panel, 1, 0, st, text_color = txt, text_size = size.small)
+    table.cell(panel, 0, 1, "RVOL (bar)", text_color = txt, text_size = size.small)
+    table.cell(panel, 1, 1, na(rvol) ? "—" : str.tostring(rvol, "#.0") + "x", text_color = txt, text_size = size.small)
+    table.cell(panel, 0, 2, "Pullback vol", text_color = txt, text_size = size.small)
+    table.cell(panel, 1, 2, state == 1 or state == 2 ? (na(pbPct) ? "—" : str.tostring(pbPct, "#") + "% of move") : "—",
+               text_color = state >= 1 and state <= 2 and not na(pbPct) ? (pbPct <= lightPct ? color.new(#30d158, 0) : pbPct > heavyPct ? color.new(#ff453a, 0) : color.new(#f4b942, 0)) : txt, text_size = size.small)
+    table.cell(panel, 0, 3, "Entry / risk", text_color = txt, text_size = size.small)
+    table.cell(panel, 1, 3, state == 3 ? str.tostring(entry, format.mintick) + " / " + str.tostring(risk, format.mintick) : "—", text_color = txt, text_size = size.small)
+    table.cell(panel, 0, 4, "Stop", text_color = txt, text_size = size.small)
+    table.cell(panel, 1, 4, state == 3 ? (na(tight) ? "close past 21 · " + str.tostring(e21, format.mintick) : "tight " + str.tostring(tight, format.mintick)) : "—", text_color = txt, text_size = size.small)
+    table.cell(panel, 0, 5, "Last trade", text_color = txt, text_size = size.small)
+    table.cell(panel, 1, 5, na(lastR) ? "—" : (lastR >= 0 ? "+" : "") + str.tostring(lastR, "#.0") + "R", text_color = txt, text_size = size.small)
+    table.cell(panel, 0, 6, "Chart", text_color = txt, text_size = size.small)
+    table.cell(panel, 1, 6, timeframe.period == "2" ? "2-minute" : timeframe.period + " (video uses 2)", text_color = txt, text_size = size.small)
+
+// ---------------- alerts ----------------
+alertcondition(aMove,  "Hitchhiker: move", "Outsized move on volume: don't chase, wait for the first pullback to the 9 EMA")
+alertcondition(aTouch, "Hitchhiker: at the 9 EMA", "First pullback is at the 9 EMA: watch for it to slow and turn")
+alertcondition(aEntry, "Hitchhiker: entry", "The pullback turned at the 9 EMA: entry, stop on a close past the 21 EMA")
+alertcondition(aSkip,  "Hitchhiker: skip (heavy volume)", "The pullback came in on heavier volume than the move: skip it")
+alertcondition(aTight, "Hitchhiker: tighten", "New extreme past the move: stop to the most recent low/high")
+alertcondition(aTrim,  "Hitchhiker: trim", "New extreme in profit: trim a piece")
+alertcondition(aExit,  "Hitchhiker: exit", "Stop, tight stop or prior bar broken: out")

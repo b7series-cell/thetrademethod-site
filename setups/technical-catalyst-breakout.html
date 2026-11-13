@@ -1,0 +1,1114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Technical Catalyst Breakout — when the level is the news | The Trade Method</title>
+<meta name="description" content="SMB Capital's 8-step breakout blueprint for when there's no headline: a stock or ETF clears a 9 out of 10 higher-timeframe level it couldn't break for weeks, on elevated RVOL and a volume spike, with the tape paying the offer. Size to the market, stop a penny past the round number, add over the pauses, and exit on a defined signal or scratch it.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/technical-catalyst-breakout.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Technical Catalyst Breakout — when the level is the news">
+<meta property="og:description" content="SMB Capital's 8-step breakout blueprint for when there's no headline: a stock or ETF clears a 9 out of 10 higher-timeframe level it couldn't break for weeks, on elevated RVOL and a volume spike, with the tape paying the offer. Size to the market, stop a penny past the round number, add over the pauses, and exit on a defined signal or scratch it.">
+<meta property="og:url" content="https://thetrademethod.com/setups/technical-catalyst-breakout.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Technical Catalyst Breakout — when the level is the news">
+<meta name="twitter:description" content="SMB Capital's 8-step breakout blueprint for when there's no headline: a stock or ETF clears a 9 out of 10 higher-timeframe level it couldn't break for weeks, on elevated RVOL and a volume spike, with the tape paying the offer. Size to the market, stop a penny past the round number, add over the pauses, and exit on a defined signal or scratch it.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Technical Catalyst Breakout — when the level is the news",
+ "name": "Technical Catalyst Breakout",
+ "description": "SMB Capital's 8-step breakout blueprint for when there's no headline: a stock or ETF clears a 9 out of 10 higher-timeframe level it couldn't break for weeks, on elevated RVOL and a volume spike, with the tape paying the offer. Size to the market, stop a penny past the round number, add over the pauses, and exit on a defined signal or scratch it.",
+ "url": "https://thetrademethod.com/setups/technical-catalyst-breakout.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/technical-catalyst-breakout.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-24",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/tc-anim.js?v=1" defer></script>
+<style>
+  /* steps across the page, the two panels side by side under them */
+  .tc-main { grid-template-columns:1fr; gap:22px; }
+  .tc-stages { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .sheet .tc-stages .stage, .sheet .tc-stages .stage:first-child { padding:26px 24px; background:var(--charcoal); align-content:start; }
+  .tc-side { display:grid; grid-template-columns:1fr 1.4fr; gap:16px; align-items:stretch; }
+  .tc-side .panel + .panel { margin-top:0; }
+  .tc-side .timing { grid-template-columns:1fr; }
+  @media (max-width:1100px) { .tc-stages { grid-template-columns:1fr 1fr; } .tc-side { grid-template-columns:1fr; } }
+  @media (max-width:680px) { .tc-stages { grid-template-columns:1fr; } }
+  /* the stepper (js/tc-anim.js builds it from the eight steps; same as gap-give-and-go.html, eight across) */
+  .tc-stages.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#f4b942; }
+  .gs-bar { display:grid; grid-template-columns:repeat(8,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:6.25%; right:6.25%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .tc-stages.is-stepper .stage, .sheet .tc-stages.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .tc-stages.is-stepper .stage .num { display:none; }
+  .sheet .tc-stages.is-stepper .stage[hidden] { display:none; }
+  .sheet .tc-stages.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .tc-stages.is-stepper { padding:20px 12px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:32px; height:32px; font-size:14px; }
+    .gs-line { top:15px; }
+    .gs-bar { margin-bottom:20px; }
+  }
+  /* video (same as pmh-break.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+  .watch { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:var(--ink); text-decoration:none;
+           background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); border-radius:9999px; padding:7px 14px 7px 10px; }
+  .watch:hover { background:rgba(255,255,255,0.14); }
+  .watch i { width:0; height:0; border-left:9px solid #ff453a; border-top:6px solid transparent; border-bottom:6px solid transparent; margin-left:4px; }
+
+  /* eight steps in the ribbon */
+  .sheet .ribbon { grid-template-columns:repeat(8,1fr); }
+  .ribbon .n { font-size:14px; }
+
+  /* the level scale */
+  .scale { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .scale div { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 18px 16px; }
+  .scale b { display:block; font-size:clamp(30px,3.4vw,42px); font-weight:800; letter-spacing:-0.03em; line-height:1; margin-bottom:8px; }
+  .scale b.pos { color:var(--up); } .scale b.mid { color:var(--gold); } .scale b.neg { color:var(--down); }
+  .scale h3 { margin:0 0 6px; font-size:16px; }
+  .scale p { margin:0; font-size:14px; color:var(--dim); }
+
+  /* the tape */
+  .tape5 { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .tape5 div { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--up); border-radius:11px; padding:15px 16px; }
+  .tape5 .sc { font-family:var(--mono); font-size:13px; color:var(--up); font-weight:700; display:block; margin-bottom:6px; }
+  .tape5 h3 { margin:0 0 6px; font-size:16px; }
+  .tape5 p { margin:0; font-size:13.6px; color:var(--dim); }
+
+  /* the checks */
+  .chk { display:grid; grid-template-columns:1fr; gap:8px; }
+  .chk-b { display:flex; align-items:flex-start; gap:12px; text-align:left; font:inherit; color:var(--ink); background:var(--panel2); border:1px solid var(--line);
+           border-radius:10px; padding:11px 14px; cursor:pointer; }
+  .chk-b::before { content:""; flex:0 0 20px; height:20px; border-radius:6px; border:2px solid #48484a; margin-top:1px; }
+  .chk-b[aria-pressed="true"] { border-color:#22855a; }
+  .chk-b[aria-pressed="true"]::before { background:var(--up); border-color:var(--up);
+           background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10.5l3.2 3L15 6.5' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+  .chk-b:focus-visible { outline:2px solid #2997ff; outline-offset:2px; }
+  .chk-b > span { display:block; }
+  .chk-b b { display:block; font-size:15px; color:var(--ink); }
+  .chk-b > span > span { display:block; font-size:13px; color:var(--dim); }
+  .chk-out { margin-top:14px; border-radius:11px; padding:14px 16px; border:1px solid var(--line); background:var(--panel2); }
+  .chk-out b { display:block; font-size:24px; font-weight:800; letter-spacing:-0.02em; margin-bottom:4px; }
+  .chk-out p { margin:0; font-size:14px; color:var(--dim); }
+  .chk-out.is-a { border-color:#22855a; } .chk-out.is-a b { color:var(--up); }
+  .chk-out.is-b { border-color:#1f4f86; } .chk-out.is-b b { color:var(--blue); }
+  .chk-out.is-wait b { color:var(--gold); }
+  .chk-out.is-no { border-color:#5e2a30; } .chk-out.is-no b { color:var(--down); }
+
+  /* stop calculator */
+  .calc-in { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in label { font-size:12px; color:var(--faint); display:block; }
+  .calc-in input { width:100%; margin-top:4px; background:var(--panel2); color:var(--ink); border:1px solid var(--line); border-radius:8px;
+                   padding:8px 10px; font-family:var(--mono); font-size:15px; }
+  .calc-in input:focus { outline:2px solid var(--blue); outline-offset:1px; }
+  .rv { margin:14px 0 0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+  .rv li { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:10px 12px; font-size:13.4px; color:var(--dim); }
+  .rv li b { display:block; font-family:var(--mono); color:var(--ink); font-size:15px; }
+
+  /* stay in or scratch */
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .two svg { border-radius:12px; }
+  .two-note { margin:14px 0 0; color:var(--dim); font-size:14px; max-width:86ch; }
+  .exits { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:16px; }
+  .exits div { background:var(--panel2); border:1px solid var(--line); border-radius:10px; padding:13px 15px; }
+  .exits b { display:block; font-size:15px; margin-bottom:4px; }
+  .exits p { margin:0; color:var(--dim); font-size:13.6px; }
+
+  /* the case */
+  .case { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .case div { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 17px; }
+  .case b { display:block; font-size:clamp(24px,2.6vw,32px); font-weight:800; letter-spacing:-0.03em; line-height:1.05; margin-bottom:6px; }
+  .case p { margin:0; font-size:13.6px; color:var(--dim); }
+
+  /* the code (same as qqe-mod.html) */
+  .code-wrap { background:var(--panel); border:1px solid var(--line); border-radius:12px; margin-top:16px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--faint); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#3a3a3c; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d1d6; tab-size:4; }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } }
+
+  /* the animation redraws for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .ribbon + .anim { margin-top:8px; }
+  @media (max-width:1100px) {
+    .sheet .ribbon { grid-template-columns:repeat(4,1fr); }
+    .scale, .exits { grid-template-columns:1fr; }
+    .tape5 { grid-template-columns:repeat(2,1fr); }
+    .case { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:760px) { .two { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    /* breathing room around the walkthrough on small screens */
+    .sheet .ribbon { grid-template-columns:repeat(2,1fr); }
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .counts { flex-wrap:wrap; gap:16px 22px; }
+    .tape5 { grid-template-columns:1fr; }
+    .case { grid-template-columns:1fr 1fr; }
+    .calc-in, .rv { grid-template-columns:1fr; }
+    .section-head { margin-top:52px; }
+  }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=12" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/setups/">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="technical-catalyst-breakout">
+    <div>
+      <p class="kicker">Higher-timeframe breakout &middot; no headline needed &middot; 1-minute</p>
+      <h1>Technical Catalyst <span>Breakout</span></h1>
+    </div>
+    <div>
+      <p class="thesis">A breakout doesn't always need breaking news. When a stock or ETF clears a level it couldn't get through for weeks or months,
+      <em>that level is the catalyst.</em> Take only 9 and 10 out of 10 levels, on elevated relative volume, with a volume spike on the breakout bar
+      and a tape that pays the offer. Then stop it, add to it and exit it by the rules.</p>
+      <div class="counts">
+        <div><b>9 / 10</b><small>the only levels worth trading</small></div>
+        <div><b>2&times;+</b><small>relative volume going in</small></div>
+        <div><b>8</b><small>steps: spot, enter, size, exit</small></div>
+      </div>
+      <a class="watch" href="#video"><i></i>Watch the video</a>
+      <a class="watch" href="#indicator" style="margin-left:8px">Get the indicator</a>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">1 &middot; the level</div><div class="n">9/10, higher timeframe</div></div>
+    <div><div class="t">2 &middot; RVOL</div><div class="n">Elevated going in</div></div>
+    <div><div class="t">3 &middot; the bar</div><div class="n">Volume spikes on the break</div></div>
+    <div><div class="t">4 &middot; the tape</div><div class="n">Paying the offer</div></div>
+    <div><div class="t">5 &middot; the market</div><div class="n">Tailwind? A size. If not, B</div></div>
+    <div><div class="t">6 &middot; the stop</div><div class="n">Under the breakout candle</div></div>
+    <div><div class="t">7 &middot; the add</div><div class="n">Over each pause</div></div>
+    <div><div class="t">8 &middot; the exit</div><div class="n">Defined, or scratch it</div></div>
+  </nav>
+
+  <section class="anim" data-tc-anim aria-label="Animated walkthrough of a technical catalyst breakout">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">8 / 8</p>
+        <h2 class="anim-title">Watch one breakout, start to finish</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 620" role="img" aria-label="Illustrative charts: on the daily chart price is capped under 19.12 for five weeks with four failed tests; on breakout day relative volume is 2.1 times normal and the market is not helping, so the plan is B size; a 1-minute bar clears 19.12 on 310 thousand shares, about seven times the morning's average, and the entry is 19.13 with the stop at 19.04, a penny under the round 19.05; the first dip is shallow on lighter volume; adds go in over two pauses at 19.32 and 19.48 with the stop trailed to 19.23 and 19.39; price reaches 19.60, the tape turns, and the position is flattened at 19.55, plus 0.42 or about 4.7R on the first unit"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main tc-main">
+    <div class="tc-stages" data-tc-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>A 9 out of 10 level on the longer-term chart</h3>
+          <ul>
+            <li>Not a random intraday squiggle, and not a 6 out of 10 inside a sloppy range. A level the stock or ETF couldn't clear for weeks or months.</li>
+            <li>Judge it on the higher timeframe and the intraday chart together. Ask every time: on a scale of 1 to 10, how important is this level?</li>
+            <li>ETHA had been capped under 19.12 for over a month, and Ethereum under 2,550 for weeks: four to five weeks of built-up energy.</li>
+          </ul>
+          <p class="why">When a product can't get above a price for a month and then pushes through, that breach is a catalyst on its own.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Elevated relative volume before the break</h3>
+          <ul>
+            <li>News brings attention; volume brings confirmation. Even without a headline, RVOL has to say big money is involved.</li>
+            <li>Going into Vince's session, full-day RVOL was running over two times normal.</li>
+            <li>Two or three times volume: real order flow. Pressing a monthly ceiling on half its normal volume: a trap.</li>
+          </ul>
+          <p class="why">If RVOL isn't elevated, that's a huge red flag. Maybe you don't stink at momentum trades. Maybe you just take them without a 9 and without volume.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>A volume spike on the exact breakout bar</h3>
+          <ul>
+            <li>Look for the see-it moment: the instant the character of the stock changes in front of you.</li>
+            <li>ETHA printed normal volume all morning. The second it cleared 19.12, 1-minute volume went vertical.</li>
+            <li>That's buyers and short covering stepping all over each other.</li>
+          </ul>
+          <p class="why">Volume acceleration on top of a 9 out of 10 daily level is the trigger to get involved.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Read the tape to confirm the break</h3>
+          <ul>
+            <li>Buyers are aggressively paying the offer, and the offers clear without friction, easier than expected.</li>
+            <li>Pullbacks are remarkably shallow, on decreasing volume. Buyers step right back up.</li>
+            <li>It goes higher and faster than anyone expected.</li>
+          </ul>
+          <p class="why">Trades printing on the offer, not the bid, are aggressive accumulation. Big money doesn't just want it, it needs it.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Market tailwinds set the size</h3>
+          <ul>
+            <li>Ask what the most relevant ETF, index or related product is doing, and use it as an indicator.</li>
+            <li>Lined up with the breakout: green light for maximum conviction, A size.</li>
+            <li>Vince's day: SPY near the low end of its range, Bitcoin and Ethereum still in their ranges. So he started with B size.</li>
+          </ul>
+          <p class="why">When the breakout is isolated, respect the setup but control the first risk.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Set a clear stop</h3>
+          <ul>
+            <li>Get long as the level clears (19.13 and up). The stop goes under the low of the breakout candle, or the base right before the break.</li>
+            <li>A real breakout works almost immediately. If it creeps back under the multi-week level, the trade is dead: scratch it or take the planned loss.</li>
+            <li>Never park the stop on a round number like 10, 20 or 25 cents. Give it a penny more: 9, 14 or 24 cents.</li>
+          </ul>
+          <p class="why">That one extra penny keeps you out of a lot of random liquidity sweeps.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">7</div>
+        <div>
+          <h3>Be ready to add to the winner</h3>
+          <ul>
+            <li>When it doesn't come back down and holds higher, don't just sit on your hands.</li>
+            <li>Find the consolidation pauses on the 1-minute chart. Put buy stops just above the wick highs, where sellers stepped in for a moment.</li>
+            <li>Add into each new push, and trail the stop up to the low of the consolidation.</li>
+          </ul>
+          <p class="why">The adds go in only after the trade has proven itself, and each one comes with a tighter stop behind the whole position.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">8</div>
+        <div>
+          <h3>A defined exit. Don't negotiate.</h3>
+          <ul>
+            <li>Use one of three structural exits: a break of the prior 2-minute bar low, a breakdown of a clean consolidation, or a distinct shift on the tape.</li>
+            <li>After charging to 19.60, ETHA's tape changed: buyers stopped lifting offers, sellers hit the bids, and the velocity died. Vince flattened.</li>
+            <li>No shorting the top. Recognize the exhaustion and get out.</li>
+          </ul>
+          <p class="why">And if it never gets going at all, scratch it: flat at break even or a two-cent loss, not a full stop.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="tc-side">
+      <div class="panel">
+        <h4>Score every level, 1 to 10</h4>
+        <p class="lead">The habit SMB trains: every time you spot a level, grade it. Only the top of the scale is a trade.</p>
+        <div class="timing">
+          <div><b>9 &ndash; 10: trade it</b><p>A multi-week or multi-month ceiling on the daily chart that kept turning price away. The breach is the news.</p></div>
+          <div><b>6 &ndash; 7: pass</b><p>A level inside a sloppy range. Aggressive momentum on a mediocre level is how breakout traders get chopped up.</p></div>
+          <div><b>4: not a level</b><p>A random intraday squiggle. It doesn't belong anywhere near your size.</p></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>What kills it</h4>
+        <p class="lead">Any one of these and there's no trade, a smaller one, or a scratch.</p>
+        <div class="filters kills" style="grid-template-columns:repeat(2,1fr); margin-top:14px;">
+    <div class="filter" style="background:var(--panel2)"><h3>Not a 9</h3><p>A 6 or 7 out of 10 level in a messy range. Mixing these in with the 9s and 10s is what turns results flat.</p><p class="kill">Under 9/10: skip it.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>No RVOL</h3><p>A monthly ceiling attempted on normal or half volume. There's no real order flow behind it.</p><p class="kill">Not elevated: red flag, no trade.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>No volume on the bar</h3><p>Price drifts through the level with nothing on the tape. No see-it moment, no change in character.</p><p class="kill">No spike: no trigger.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>No velocity</h3><p>You paid the new high and nothing happened. Bids soften, the tape dies. The reason you took it is gone.</p><p class="kill">Scratch it: flat at even or &minus;2 cents.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The edge is the waiting</h2>
+    <p>What Mike Bellafiore sees on the SMB floor: developing traders mix their 9 and 10 out of 10 breakouts with far too many 6s, 7s and frankly 4s.
+    The morning fills up with paper cuts, the day ends flat or red, and the setup gets the blame. It isn't the setup. Sitting in your seat and waiting
+    for only the best technical breakouts is the edge.</p>
+  </div>
+  <div class="scale">
+    <div><b class="pos">9 &ndash; 10</b><h3>The only ones to take</h3><p>Weeks or months of failures at one price on the higher timeframe. Clean chart, clear level, and the market is watching it too.</p></div>
+    <div><b class="mid">6 &ndash; 7</b><h3>The chop machine</h3><p>Looks like a breakout, sits inside a sloppy range. Taken with momentum size, these are the trades that bleed you.</p></div>
+    <div><b class="neg">4</b><h3>Not a level at all</h3><p>An intraday line drawn to have something to trade. Then the excuses start: breakouts don't work, it had no news.</p></div>
+  </div>
+
+  <div class="section-head">
+    <h2>Reading the tape on the break</h2>
+    <p>This is what separates an active trader reading the tape from someone staring at candles. When ETHA took out 19.12, the tape showed all five.</p>
+  </div>
+  <div class="tape5">
+    <div><span class="sc">01</span><h3>Paying the offer</h3><p>Buyers lift offers aggressively instead of waiting on the bid.</p></div>
+    <div><span class="sc">02</span><h3>Offers clear easily</h3><p>Size on the offer gets taken without friction, easier than you'd expect.</p></div>
+    <div><span class="sc">03</span><h3>Shallow pullbacks</h3><p>Dips are a few cents, not half a move. Buyers step right back up.</p></div>
+    <div><span class="sc">04</span><h3>Lighter on the dips</h3><p>Volume dries up on the pullbacks and comes back on the pushes.</p></div>
+    <div><span class="sc">05</span><h3>Faster than expected</h3><p>It goes higher, faster, than anyone expected. That's the move asking you to be in it.</p></div>
+  </div>
+
+  <div class="section-head">
+    <h2>A size, B size, or no trade?</h2>
+    <p>Tick what's true about the breakout in front of you. The first four decide whether it's a trade at all; the market decides how big.
+    It starts the way Vince's ETHA trade looked.</p>
+  </div>
+  <div class="risk">
+    <div class="panel" data-tc-check>
+      <div class="chk" role="group" aria-label="The five checks">
+        <button type="button" class="chk-b" data-k="level" aria-pressed="true"><span><b>A 9 or 10 out of 10 level</b><span>Higher timeframe, capped for weeks or months</span></span></button>
+        <button type="button" class="chk-b" data-k="rvol" aria-pressed="true"><span><b>Elevated RVOL going in</b><span>Two or three times normal, not half</span></span></button>
+        <button type="button" class="chk-b" data-k="bar" aria-pressed="true"><span><b>A volume spike on the breakout bar</b><span>The see-it moment</span></span></button>
+        <button type="button" class="chk-b" data-k="tape" aria-pressed="true"><span><b>The tape confirms</b><span>Paying the offer, shallow dips, velocity</span></span></button>
+        <button type="button" class="chk-b" data-k="mkt" aria-pressed="false"><span><b>The market is at your back</b><span>SPY, the sector or the related product moving your way</span></span></button>
+      </div>
+      <div class="chk-out" aria-live="polite"></div>
+    </div>
+    <div class="warn">
+      <h4>Stop blaming the setup</h4>
+      <p>&ldquo;Technical breakouts just don't work in this market.&rdquo; &ldquo;It didn't have a news catalyst, that's why it failed.&rdquo;
+      &ldquo;I guess I just suck at breakouts.&rdquo; No. Taking too many low-quality, undisciplined breakouts doesn't work.</p>
+      <p class="big">Take only 9 and 10 out of 10 breakouts. That is the edge.</p>
+      <p>And don't paralyze yourself staring at an empty news feed when a 9 is breaking on heavy volume. Asking &ldquo;where's the headline?&rdquo;
+      while it rips another 5% without you is its own mistake. As Brian Shannon puts it, only price pays.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Learn to scratch</h2>
+    <p>To trade this with real size you have to be able to scratch. You pay a new high expecting instant momentum. If the velocity simply isn't there,
+    the bids soften and the tape dies, get flat right away at break even or a two-cent loss. Don't sit there and take the full stop.</p>
+  </div>
+  <div class="panel" data-tc-two role="group" aria-label="Two illustrative charts of the same breakout: on the left the velocity shows up and the trade works almost immediately; on the right price pays the new high and stalls, so the trade is scratched at 19.11 for two cents instead of the nine-cent full stop">
+    <div class="two">
+      <svg viewBox="0 0 560 340" role="img" aria-label="The velocity shows up: stay in"></svg>
+      <svg viewBox="0 0 560 340" role="img" aria-label="No velocity: scratch it for two cents"></svg>
+    </div>
+    <div class="exits">
+      <div><b>Exit 1: the 2-minute bar</b><p>Price breaks the low of the prior 2-minute bar. The push is over.</p></div>
+      <div><b>Exit 2: the consolidation</b><p>A clean consolidation that held breaks down. The base under the move is gone.</p></div>
+      <div><b>Exit 3: the tape</b><p>A distinct shift: buyers stop lifting, sellers hit the bids, upward velocity dies.</p></div>
+    </div>
+    <p class="two-note">The two charts are illustrative. A scratch isn't a failure; it's what lets you take the next 9 out of 10 at full size.</p>
+  </div>
+
+  <div class="section-head">
+    <h2>A stop a penny past the round number</h2>
+    <p>The stop goes under the low of the breakout candle. If that lands on a round number (any multiple of 5 cents), take one more penny.
+    The default numbers are the walkthrough's, not Vince's fills, and the dollar risk is only an example.</p>
+  </div>
+  <div class="risk">
+    <div class="panel" data-tc-calc>
+      <div class="calc-in">
+        <label>Entry<input name="entry" type="number" inputmode="decimal" step="0.01" min="0" value="19.13"></label>
+        <label>Breakout candle low<input name="low" type="number" inputmode="decimal" step="0.01" min="0" value="19.06"></label>
+        <label>A-size risk ($)<input name="risk" type="number" inputmode="decimal" step="10" min="0" value="300"></label>
+      </div>
+      <div class="calc tc-out" aria-live="polite"></div>
+      <ul class="rv">
+        <li><b>.10 .20 .25</b>round: where the sweeps go</li>
+        <li><b>.09 .14 .24</b>one penny more</li>
+        <li><b>Back under</b>the level: the trade is dead</li>
+      </ul>
+    </div>
+    <div class="warn">
+      <h4>A real breakout works almost immediately</h4>
+      <p>The structural stop is under the breakout candle or the base before the break. But you shouldn't need it often. If price creeps back under
+      the multi-week level, the reason for the trade is gone.</p>
+      <p class="big">Scratch it or take the planned loss. Never a bigger one.</p>
+      <p>B size here is half the A-size risk, just as an example. Vince started at B size because SPY, Bitcoin and Ethereum weren't helping, then added
+      as the trade proved itself.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The trade in the video: ETHA</h2>
+    <p>An SMB Capital intern, Vince, caught a higher-timeframe breakout in ETHA, the iShares Ethereum Trust, without a single news headline.
+    The transcript reads the levels as 1912 and 1960; ETHA was trading around $19, so this page writes them as 19.12 and 19.60.</p>
+  </div>
+  <div class="case">
+    <div><b>19.12</b><p>ETHA capped under it for over a month. Vince rated it a 9 out of 10, and Mike agreed.</p></div>
+    <div><b>2,550</b><p>Where Ethereum itself had been trapped for weeks. Four to five weeks of built-up energy.</p></div>
+    <div><b>2&times;+</b><p>Full-day relative volume going in. Then a vertical volume spike on the 1-minute bar that cleared 19.12.</p></div>
+    <div><b>B size</b><p>SPY near the low end of its range, BTC and ETH still in range. He added on the 1-minute pauses and flattened after the run to 19.60.</p></div>
+  </div>
+  <p class="two-note">Vince's playbook presentation scored 83 out of 100; senior interns need 85. The points came off for formatting. The trading skill,
+  Mike said, is gold: momentum off major technical levels is how SMB trained its original desk in 2005, and it's still the best skill builder for a
+  developing trader. Like sprinting for a pitcher, it teaches you to think fast, read order flow, define risk precisely and control your emotions under pressure.</p>
+
+  <div class="section-head">
+    <h2>Long and short, side by side</h2>
+    <p>The video trades the long. A breakdown under a multi-week floor works the same way, mirrored.</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><span class="tick">Long<small>through a multi-week ceiling</small></span></th>
+        <th><span class="tick">Short<small>through a multi-week floor</small></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>The level</th><td class="txt">A 9/10 resistance it couldn't clear for weeks</td><td class="txt">A 9/10 support it couldn't break for weeks</td></tr>
+      <tr><th>Volume</th><td class="txt" colspan="2">Elevated RVOL going in, and a spike on the exact breakout bar</td></tr>
+      <tr><th>The tape</th><td class="txt">Paying the offer, offers clear, shallow dips</td><td class="txt">Hitting the bid, bids give way, shallow pops</td></tr>
+      <tr><th>Size</th><td class="txt" colspan="2">A size with the market and related ETF behind it; B size when it's on its own</td></tr>
+      <tr><th>Entry</th><td>a cent through the level</td><td>a cent through the level</td></tr>
+      <tr><th>Stop</th><td class="txt">Under the breakout candle or base, a penny past the round number</td><td class="txt">Over the breakdown candle or base, a penny past the round number</td></tr>
+      <tr><th>Add</th><td class="txt">Buy stops over the wick highs of each pause; trail to the pause low</td><td class="txt">Sell stops under the wick lows of each pause; trail to the pause high</td></tr>
+      <tr><th>Exit</th><td class="txt">Prior 2-minute bar low, a broken consolidation, or the tape turning</td><td class="txt">Prior 2-minute bar high, a broken consolidation, or the tape turning</td></tr>
+      <tr><th>Scratch</th><td class="txt" colspan="2">No velocity after paying the new extreme: flat at even or two cents</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-head" id="indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for the setup (Pine Script v6). It finds the multi-week level on the daily chart, checks RVOL and the
+    breakout bar's volume, sizes by the market, and draws the stop, the adds and the exits on your 1-minute chart. It marks and alerts. It does not place trades.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">Technical Catalyst Breakout</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">The level is the highest high of the last 25 completed days, and it only counts with at least 3 tests over at least 15 days
+      (the panel shows both). A close through it flags BREAKOUT when time-of-day RVOL is 2&times; or more and the bar's volume is 3&times; its recent
+      average; without them it marks &ldquo;No trade&rdquo;. It labels A or B size from SPY against its VWAP (set any symbol, like Ethereum for ETHA),
+      puts the stop under the breakout candle a penny past any round number, marks adds over tight pauses with the stop trailed under each one, and
+      exits on the stop, a close back through the level, a scratch after 5 bars with no progress, or a break of the prior two bars' low once the
+      trade is +2R. Every number is a setting.</p>
+      <p class="ind-blurb" style="color:var(--dim)">Two things stay with you: whether the level is really a 9 out of 10, and reading the tape. Pine
+      can't see the order flow, so the scratch rule stands in for &ldquo;the velocity isn't there.&rdquo; Shorts (a break below a multi-week floor) are
+      off by default; switch Trade to Both.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/technical-catalyst-breakout.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+  </ul>
+  <div class="code-wrap">
+    <div class="code-top">
+      <span>technical-catalyst-breakout.pine &middot; Pine Script v6</span>
+      <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/technical-catalyst-breakout.pine" download>Download</a></div>
+    </div>
+    <pre class="pine" tabindex="0"><code>//@version=6
+// =====================================================================
+// Technical Catalyst Breakout — thetrademethod.com
+//
+// SMB Capital's eight-step breakout blueprint for when there is no
+// headline: the level IS the catalyst.
+//
+//   1. The level   The highest high (or lowest low) of the last N
+//                  completed daily bars, tested several times and held
+//                  for weeks. The panel shows the tests and the days.
+//                  Whether it's a 9 out of 10 is still your call.
+//   2. RVOL        Today's volume so far against what the stock has
+//                  normally traded by this time of day (20 sessions).
+//   3. The bar     The breakout bar's volume against the recent average.
+//   4. The tape    Pine can't read the tape. Watch it yourself; the
+//                  scratch rule below is the stand-in for "no velocity".
+//   5. The market  A related symbol (SPY by default) above its VWAP for a
+//                  long, below it for a short: A size. Otherwise B size.
+//   6. The stop    Under the breakout candle (or the base before it), and
+//                  a penny past any round number (multiples of 5 cents).
+//   7. The add     A tight pause after the entry gets a buy stop a tick
+//                  over its high; the stop trails to a tick under its low.
+//   8. The exit    The trailing stop, a close back through the level, a
+//                  break of the prior bars' low once the trade is paying,
+//                  or a scratch when price hasn't moved after N bars.
+//
+// Use an intraday chart (1-minute in the video). Marks and alerts only;
+// it places no orders.
+// =====================================================================
+indicator("Technical Catalyst Breakout", shorttitle = "Tech Catalyst BO", overlay = true, max_labels_count = 200, max_lines_count = 200)
+
+// ---------------- inputs ----------------
+side      = input.string("Long only", "Trade", options = ["Long only", "Short only", "Both"], group = "Setup",
+     tooltip = "The video trades the long: a break above a multi-week ceiling. Short is the mirror: a break below a multi-week floor.")
+lenD      = input.int(25, "Level lookback (daily bars)", minval = 5, maxval = 250, group = "1 · The level",
+     tooltip = "25 trading days is about five weeks. The level is the highest high (or lowest low) of these completed days.")
+tolPct    = input.float(0.3, "A test is within this % of the level", minval = 0.0, step = 0.05, group = "1 · The level")
+minTests  = input.int(3, "Minimum tests", minval = 1, group = "1 · The level")
+minDays   = input.int(15, "Minimum days the level has held", minval = 1, group = "1 · The level",
+     tooltip = "Days since the oldest test inside the lookback. Weeks of failures is what makes the breach a catalyst.")
+
+useRvol   = input.bool(true, "Require elevated RVOL", group = "2 · RVOL")
+minRvol   = input.float(2.0, "Minimum RVOL", minval = 0.1, step = 0.1, group = "2 · RVOL")
+lenRvol   = input.int(20, "RVOL average (sessions)", minval = 1, maxval = 60, group = "2 · RVOL")
+
+useBarVol = input.bool(true, "Require a volume spike on the breakout bar", group = "3 · The breakout bar")
+barVolX   = input.float(3.0, "Breakout bar volume ≥ this × average", minval = 1.0, step = 0.5, group = "3 · The breakout bar")
+barVolLen = input.int(20, "…average of the previous N bars", minval = 2, group = "3 · The breakout bar")
+
+useMkt    = input.bool(true, "Size by the market", group = "5 · The market",
+     tooltip = "With the market (above its VWAP for a long, below for a short): A size. Against it or flat: B size.")
+mktSym    = input.symbol("AMEX:SPY", "Market or related symbol", group = "5 · The market",
+     tooltip = "SPY, the sector ETF, or the related product (for ETHA, Ethereum itself).")
+
+stopMode  = input.string("Breakout candle", "Stop under", options = ["Breakout candle", "Base before the break"], group = "6 · The stop")
+baseLen   = input.int(5, "Base: last N bars before the break", minval = 1, group = "6 · The stop")
+usePenny  = input.bool(true, "A penny past round numbers", group = "6 · The stop")
+roundStep = input.float(0.05, "Round number step", minval = 0.0, step = 0.01, group = "6 · The stop",
+     tooltip = "A stop on a multiple of this (.05, .10, .25…) gets one more tick: .04 instead of .05.")
+
+useAdds   = input.bool(true, "Mark adds over the pauses", group = "7 · The add")
+maxAdds   = input.int(2, "Maximum adds", minval = 0, maxval = 5, group = "7 · The add")
+pauseLen  = input.int(3, "A pause is N bars…", minval = 2, group = "7 · The add")
+pauseAtr  = input.float(1.2, "…with a range of at most this × ATR(14)", minval = 0.1, step = 0.1, group = "7 · The add")
+
+scratchN  = input.int(5, "Scratch: after N bars…", minval = 1, group = "8 · The exit")
+scratchR  = input.float(0.5, "…if it never went this many R in your favor", minval = 0.0, step = 0.1, group = "8 · The exit")
+useBarEx  = input.bool(true, "Exit on a break of the prior bars' low/high", group = "8 · The exit")
+barExN    = input.int(2, "Prior bars", minval = 1, group = "8 · The exit", tooltip = "2 one-minute bars ≈ the prior 2-minute bar.")
+barExR    = input.float(2.0, "…once the trade is at least this many R", minval = 0.0, step = 0.5, group = "8 · The exit")
+
+showPanel = input.bool(true, "Show status panel", group = "Display")
+
+// ---------------- colours ----------------
+cLevel = #f4b942
+cUp    = #30d158
+cDn    = #ff453a
+cAdd   = #22d3ee
+cExit  = #ff9f0a
+cDim   = #8e8e93
+cBlue  = #2997ff
+
+// ---------------- 1 · the level, from completed daily bars ----------------
+dayLevels(float h, float l, int len, float tol) =&gt;
+    float hi = ta.highest(h, len)
+    float lo = ta.lowest(l, len)
+    int tu = 0
+    int td = 0
+    int au = 0
+    int ad = 0
+    for i = 0 to len - 1
+        if h[i] &gt;= hi * (1 - tol / 100)
+            tu += 1
+            au := i + 1
+        if l[i] &lt;= lo * (1 + tol / 100)
+            td += 1
+            ad := i + 1
+    [hi, tu, au, lo, td, ad]
+
+// high[1]/low[1] with lookahead on = the previous completed days only (no repainting)
+[lvHi, testsHi, daysHi, lvLo, testsLo, daysLo] = request.security(syminfo.tickerid, "D", dayLevels(high[1], low[1], lenD, tolPct), lookahead = barmerge.lookahead_on)
+bool qualHi = testsHi &gt;= minTests and daysHi &gt;= minDays
+bool qualLo = testsLo &gt;= minTests and daysLo &gt;= minDays
+
+// ---------------- 2 · cumulative RVOL by time of day ----------------
+bool intra = timeframe.isintraday
+int  tfSec = timeframe.in_seconds()
+var int cols = intra ? int(math.ceil(86400.0 / tfSec)) : 1
+int secOfDay = hour(time, syminfo.timezone) * 3600 + minute(time, syminfo.timezone) * 60 + second(time, syminfo.timezone)
+int slot     = intra ? math.min(int(secOfDay / tfSec), cols - 1) : 0
+
+var matrix&lt;float&gt; hist  = matrix.new&lt;float&gt;(0, cols, na)
+var array&lt;float&gt;  today = array.new&lt;float&gt;(cols, na)
+var float cum      = 0.0
+var int   lastSlot = -1
+
+fillSlots(array&lt;float&gt; a, int fromIdx, int toIdx, float v) =&gt;
+    if toIdx &gt;= fromIdx
+        for i = fromIdx to toIdx
+            a.set(i, v)
+
+avgAt(matrix&lt;float&gt; m, int c, int n) =&gt;
+    int rows = m.rows()
+    int k    = math.min(n, rows)
+    float sum = 0.0
+    if k &gt; 0
+        for r = rows - k to rows - 1
+            float x = m.get(r, c)
+            sum += na(x) ? 0.0 : x
+    k &gt; 0 ? sum / k : na
+
+float rvol = na
+if intra
+    if session.isfirstbar and lastSlot &gt;= 0
+        fillSlots(today, lastSlot + 1, cols - 1, cum)
+        hist.add_row(hist.rows(), today.copy())
+        if hist.rows() &gt; lenRvol
+            hist.remove_row(0)
+        today.fill(na)
+        cum      := 0.0
+        lastSlot := -1
+    float prevCum = cum
+    cum += nz(volume)
+    if lastSlot &gt;= 0
+        fillSlots(today, lastSlot + 1, slot - 1, prevCum)
+    today.set(slot, cum)
+    lastSlot := math.max(lastSlot, slot)
+    float a = avgAt(hist, slot, lenRvol)
+    rvol := a &gt; 0 ? cum / a : na
+
+// ---------------- 3 · breakout bar volume ----------------
+float avgVol = ta.sma(volume, barVolLen)[1]
+float volX   = avgVol &gt; 0 ? volume / avgVol : na
+
+// ---------------- 5 · the market ----------------
+float mktClose = request.security(mktSym, timeframe.period, close)
+float mktVwap  = request.security(mktSym, timeframe.period, ta.vwap(hlc3))
+
+// ---------------- helpers ----------------
+float tick = syminfo.mintick
+// a stop for side d (1 long, -1 short) moved one more tick away when it lands on a round number
+pennyPast(float p, int d) =&gt;
+    float q = math.round(p / syminfo.mintick) * syminfo.mintick
+    bool isRound = roundStep &gt; 0 and math.abs(q / roundStep - math.round(q / roundStep)) &lt; 1e-6
+    usePenny and isRound ? q - d * syminfo.mintick : q
+
+float atr     = ta.atr(14)
+float pHi     = ta.highest(high, pauseLen)[1]
+float pLo     = ta.lowest(low, pauseLen)[1]
+float baseLo  = ta.lowest(low, baseLen)[1]
+float baseHi  = ta.highest(high, baseLen)[1]
+float exLo    = ta.lowest(low, barExN)[1]
+float exHi    = ta.highest(high, barExN)[1]
+
+// ---------------- the trade ----------------
+var int   pos      = 0        // 1 long, -1 short, 0 flat
+var float lvl      = na
+var float entry    = na
+var float stop     = na
+var float risk     = na
+var int   entryBar = na
+var int   lastAdd  = na
+var int   adds     = 0
+var float best     = na
+var bool  usedHi   = false
+var bool  usedLo   = false
+var string lastMsg = "Waiting for a qualified level to break"
+
+bool newDay = timeframe.change("D")
+if newDay
+    usedHi := false
+    usedLo := false
+
+bool allowLong  = side != "Short only"
+bool allowShort = side != "Long only"
+bool rvolOK = not useRvol or (not na(rvol) and rvol &gt;= minRvol)
+bool barOK  = not useBarVol or (not na(volX) and volX &gt;= barVolX)
+
+bool sigLong  = false
+bool sigShort = false
+bool sigAdd   = false
+bool sigExit  = false
+float exitPx  = na
+string exitWhy = ""
+
+// manage an open trade (from the bar after the entry)
+if pos != 0 and bar_index &gt; entryBar
+    best := pos == 1 ? math.max(best, high) : math.min(best, low)
+    float gainR = (best - entry) * pos / risk
+    float nowR  = (close - entry) * pos / risk
+    if (pos == 1 and low &lt;= stop) or (pos == -1 and high &gt;= stop)
+        sigExit := true
+        exitPx := stop
+        exitWhy := adds &gt; 0 ? "Trailing stop" : "Stop"
+    else if (pos == 1 and close &lt; lvl) or (pos == -1 and close &gt; lvl)
+        sigExit := true
+        exitPx := close
+        exitWhy := "Back through the level: dead"
+    else if bar_index - entryBar == scratchN and gainR &lt; scratchR
+        sigExit := true
+        exitPx := close
+        exitWhy := "Scratch: no velocity"
+    else if useBarEx and nowR &gt;= barExR and ((pos == 1 and low &lt; exLo) or (pos == -1 and high &gt; exHi))
+        sigExit := true
+        exitPx := pos == 1 ? exLo - tick : exHi + tick
+        exitWhy := "Prior bars broken"
+    else if useAdds and adds &lt; maxAdds and bar_index - pauseLen &gt; entryBar and (na(lastAdd) or bar_index - pauseLen &gt; lastAdd) and (pHi - pLo) &lt;= pauseAtr * atr[1]
+        bool trig = pos == 1 ? (high &gt; pHi and pHi &gt; entry) : (low &lt; pLo and pLo &lt; entry)
+        if trig
+            sigAdd  := true
+            adds    += 1
+            lastAdd := bar_index
+            float trail = pos == 1 ? pennyPast(pLo - tick, 1) : pennyPast(pHi + tick, -1)
+            stop := pos == 1 ? math.max(stop, trail) : math.min(stop, trail)
+    if sigExit
+        float r = (exitPx - entry) * pos / risk
+        lastMsg := exitWhy + " · first unit " + (r &gt;= 0 ? "+" : "") + str.tostring(r, "#.0") + "R"
+        label.new(bar_index, pos == 1 ? high : low, exitWhy + "\n" + str.tostring(exitPx, format.mintick) + " · " + (r &gt;= 0 ? "+" : "") + str.tostring(r, "#.0") + "R",
+             style = pos == 1 ? label.style_label_down : label.style_label_up, color = cExit, textcolor = color.black, size = size.small)
+        pos := 0
+
+// a new breakout (flat, intraday, once per side per day)
+if pos == 0 and intra and not sigExit
+    bool upBreak = allowLong and not usedHi and qualHi and close &gt; lvHi and open &lt;= lvHi + atr
+    bool dnBreak = allowShort and not usedLo and qualLo and close &lt; lvLo and open &gt;= lvLo - atr
+    if upBreak or dnBreak
+        int d = upBreak ? 1 : -1
+        if d == 1
+            usedHi := true
+        else
+            usedLo := true
+        if rvolOK and barOK
+            lvl   := d == 1 ? lvHi : lvLo
+            entry := d == 1 ? (open &gt; lvl ? open : lvl + tick) : (open &lt; lvl ? open : lvl - tick)
+            float raw = stopMode == "Breakout candle" ? (d == 1 ? low - tick : high + tick) : (d == 1 ? math.min(baseLo, low) - tick : math.max(baseHi, high) + tick)
+            stop  := pennyPast(raw, d)
+            risk  := (entry - stop) * d
+            if risk &gt; 0
+                pos      := d
+                entryBar := bar_index
+                lastAdd  := na
+                adds     := 0
+                best     := d == 1 ? high : low
+                bool withMkt = not useMkt or (d == 1 ? mktClose &gt; mktVwap : mktClose &lt; mktVwap)
+                string sz = withMkt ? "A size" : "B size"
+                sigLong  := d == 1
+                sigShort := d == -1
+                lastMsg  := (d == 1 ? "Long " : "Short ") + str.tostring(entry, format.mintick) + " · stop " + str.tostring(stop, format.mintick) + " · " + sz
+                label.new(bar_index, d == 1 ? low : high,
+                     (d == 1 ? "BREAKOUT · " : "BREAKDOWN · ") + sz + "\nEntry " + str.tostring(entry, format.mintick) + "  Stop " + str.tostring(stop, format.mintick) +
+                     "\nRVOL " + (na(rvol) ? "—" : str.tostring(rvol, "#.0") + "x") + " · bar " + (na(volX) ? "—" : str.tostring(volX, "#.0") + "x"),
+                     style = d == 1 ? label.style_label_up : label.style_label_down, color = d == 1 ? cUp : cDn, textcolor = color.black, size = size.small)
+        else
+            lastMsg := "Level broke without " + (not rvolOK ? "elevated RVOL" : "a volume spike") + ": no trade"
+            label.new(bar_index, d == 1 ? high : low, "No trade: " + (not rvolOK ? "RVOL" : "bar volume"),
+                 style = d == 1 ? label.style_label_down : label.style_label_up, color = color.new(cDim, 30), textcolor = color.white, size = size.tiny)
+
+if sigAdd
+    float addPx = pos == 1 ? pHi + tick : pLo - tick
+    lastMsg := "Add " + str.tostring(addPx, format.mintick) + " · stop to " + str.tostring(stop, format.mintick)
+    label.new(bar_index, pos == 1 ? low : high, "ADD " + str.tostring(addPx, format.mintick), style = pos == 1 ? label.style_label_up : label.style_label_down,
+         color = cAdd, textcolor = color.black, size = size.tiny)
+
+// ---------------- plots ----------------
+plot(intra and allowLong ? lvHi : na, "Level (ceiling)", color = qualHi ? cLevel : color.new(cDim, 40), linewidth = 2, style = plot.style_stepline)
+plot(intra and allowShort ? lvLo : na, "Level (floor)", color = qualLo ? cLevel : color.new(cDim, 40), linewidth = 2, style = plot.style_stepline)
+plot(pos != 0 ? entry : na, "Entry", color = color.white, style = plot.style_linebr)
+plot(pos != 0 ? stop : na, "Stop", color = cDn, linewidth = 2, style = plot.style_linebr)
+
+// ---------------- status panel ----------------
+var table tb = table.new(position.top_right, 2, 7, bgcolor = color.new(#1d1d1f, 10), border_width = 0)
+cell(int r, string k, string v, color c) =&gt;
+    table.cell(tb, 0, r, k, text_color = #a1a1a6, text_size = size.small, text_halign = text.align_left)
+    table.cell(tb, 1, r, v, text_color = c, text_size = size.small, text_halign = text.align_left)
+if showPanel and barstate.islast
+    bool showHi = allowLong
+    float lv = showHi ? lvHi : lvLo
+    int   ts = showHi ? testsHi : testsLo
+    int   ds = showHi ? daysHi : daysLo
+    bool  q  = showHi ? qualHi : qualLo
+    cell(0, showHi ? "Ceiling" : "Floor", str.tostring(lv, format.mintick), cLevel)
+    cell(1, "Tests · days held", str.tostring(ts) + " · " + str.tostring(ds), q ? cUp : cDim)
+    cell(2, "RVOL (time of day)", na(rvol) ? (intra ? "building history" : "intraday only") : str.tostring(rvol, "#.00") + "x", rvolOK ? cUp : cDim)
+    cell(3, "This bar's volume", na(volX) ? "—" : str.tostring(volX, "#.0") + "x avg", barOK ? cUp : cDim)
+    cell(4, "Market", useMkt ? (mktClose &gt; mktVwap ? "above VWAP" : "below VWAP") : "off", cBlue)
+    cell(5, "Trade", pos == 1 ? "Long" : pos == -1 ? "Short" : "Flat", pos == 0 ? color.white : pos == 1 ? cUp : cDn)
+    cell(6, "Last", lastMsg, color.white)
+
+// ---------------- alerts ----------------
+alertcondition(sigLong and barstate.isconfirmed, "Breakout long", "{{ticker}} cleared its multi-week level on elevated RVOL and a volume spike — technical catalyst breakout")
+alertcondition(sigShort and barstate.isconfirmed, "Breakdown short", "{{ticker}} broke its multi-week floor on elevated RVOL and a volume spike — technical catalyst breakdown")
+alertcondition(sigAdd and barstate.isconfirmed, "Add over the pause", "{{ticker}} cleared a pause — add, and trail the stop to the pause")
+alertcondition(sigExit and barstate.isconfirmed, "Exit", "{{ticker}} technical catalyst trade: exit signal (stop, back through the level, scratch, or prior bars broken)")
+</code></pre>
+  </div>
+
+  <section class="video" id="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/M1o0XqCaDiE" title="When the level is the catalyst: SMB's 8-step breakout blueprint (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Mike Bellafiore of SMB Capital walks through the eight-step blueprint on an intern's ETHA breakout, with no news behind it.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=M1o0XqCaDiE" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>The level is the news.</h2>
+      <p>Stop waiting for someone on TV or Twitter to hand you a headline. Look at the longer-term charts, find the 9 out of 10 levels, and practice
+      the eight steps on a demo until the trade is in your playbook. One good trade, then one good trade, then one good trade.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Only 9 and 10 out of 10 levels, on elevated RVOL.</li>
+        <li>A volume spike on the bar and a tape paying the offer, or no entry.</li>
+        <li>Size to the market, stop a penny past the round number, add over the pauses.</li>
+        <li>Exit on a defined signal, and scratch when the velocity isn't there.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">From an SMB Capital video by Mike Bellafiore (ETHA breakout traded by an SMB intern). The ETHA and Ethereum levels, the RVOL and the B size
+  are as told in the video. The walkthrough, the two charts and the calculator's default numbers are illustrative, made-up bars, not ETHA's actual prints.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+<script>
+  /* copy the Pine code */
+  (function () {
+    var b = document.querySelector("[data-copy]"), code = document.querySelector("pre.pine code");
+    if (!b || !code) return;
+    b.addEventListener("click", function () {
+      var t = code.textContent;
+      function done(ok) { b.textContent = ok ? "Copied" : "Select and copy"; setTimeout(function () { b.textContent = "Copy code"; }, 1800); }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { done(true); }, function () { done(false); });
+      else done(false);
+    });
+  })();
+</script>
+
+</body>
+</html>

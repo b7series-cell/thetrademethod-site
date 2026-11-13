@@ -1,0 +1,909 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dynamic Risk Sizing — press the A, coast the C | The Trade Method</title>
+<meta name="description" content="Why static sizing drains your P&amp;L: two traders take the same three trades, one risks $200 every time, the other sizes each trade to its grade. The A+, A, B, C risk tiering model, with subtle shifts and 20 examples per trade.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/dynamic-risk-sizing.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Dynamic Risk Sizing — press the A, coast the C">
+<meta property="og:description" content="Why static sizing drains your P&amp;L: two traders take the same three trades, one risks $200 every time, the other sizes each trade to its grade. The A+, A, B, C risk tiering model, with subtle shifts and 20 examples per trade.">
+<meta property="og:url" content="https://thetrademethod.com/dynamic-risk-sizing.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dynamic Risk Sizing — press the A, coast the C">
+<meta name="twitter:description" content="Why static sizing drains your P&amp;L: two traders take the same three trades, one risks $200 every time, the other sizes each trade to its grade. The A+, A, B, C risk tiering model, with subtle shifts and 20 examples per trade.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Dynamic Risk Sizing — press the A, coast the C",
+ "name": "Dynamic Risk Sizing",
+ "description": "Why static sizing drains your P&L: two traders take the same three trades, one risks $200 every time, the other sizes each trade to its grade. The A+, A, B, C risk tiering model, with subtle shifts and 20 examples per trade.",
+ "url": "https://thetrademethod.com/dynamic-risk-sizing.html",
+ "mainEntityOfPage": "https://thetrademethod.com/dynamic-risk-sizing.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-23",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* collecting vs building */
+  .loop { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:14px; }
+  .loop div { background:var(--charcoal); border-radius:18px; padding:16px 16px 17px; }
+  .loop .k { font-family:var(--mono-font); font-size:12px; color:#ff6961; }
+  .loop b { display:block; font-size:18px; margin:8px 0 6px; }
+  .loop p { margin:0; color:var(--mute); font-size:14px; }
+
+  /* decision vs result */
+  .dr { display:grid; grid-template-columns:auto 1fr 1fr; gap:8px; font-size:14px; }
+  .dr > span { color:var(--ash); font-family:var(--mono-font); font-size:12px; align-self:end; padding:0 4px 4px; }
+  .dr > b { color:var(--ash); font-family:var(--mono-font); font-size:12px; font-weight:500; align-self:center; writing-mode:horizontal-tb; padding-right:6px; }
+  .dr div { background:var(--raised); border-radius:14px; padding:12px 14px; }
+  .dr div strong { display:block; font-size:15px; margin-bottom:3px; }
+  .dr div p { margin:0; color:var(--mute); font-size:13.5px; }
+  .dr .g strong { color:var(--up); } .dr .w strong { color:var(--orange); } .dr .r strong { color:#ff6961; }
+
+  /* two-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* the four at a glance */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four a { display:block; background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; color:inherit; text-decoration:none; }
+  .four a:hover { background:var(--raised); }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--up); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .loop, .four { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim, .sheet .loop + .anim { margin-top:56px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .loop, .four, .pair { grid-template-columns:1fr; }
+    .dr { grid-template-columns:1fr 1fr; font-size:13px; }
+    .dr > span:first-child { display:none; }
+    .dr > b { grid-column:1 / -1; padding:6px 4px 0; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+  }
+
+  /* three-way comparisons */
+  .tri { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:14px; }
+  .tri div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .tri .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .tri b { display:block; margin:6px 0 4px; font-size:16px; }
+  .tri p { margin:0; color:var(--mute); font-size:14px; }
+  .tri .yes b { color:var(--up); } .tri .care b { color:var(--orange); } .tri .no b { color:#ff6961; }
+
+  /* feedback quotes */
+  .quotes { margin:0; padding:0; list-style:none; }
+  .quotes li { background:var(--raised); border-radius:14px; padding:11px 14px; margin-bottom:8px; font-size:15px; }
+  .quotes li:before { content:"\201C"; color:var(--up); font-weight:600; margin-right:2px; }
+  .quotes li:after { content:"\201D"; color:var(--up); font-weight:600; margin-left:1px; }
+
+  /* the boring path, nine cards */
+  .boring { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .boring div { background:var(--charcoal); border-radius:20px; padding:16px 18px 18px; }
+  .boring .k { font-family:var(--mono-font); font-size:12px; color:var(--up); }
+  .boring b { display:block; font-size:18px; margin:6px 0 5px; }
+  .boring p { margin:0; color:var(--mute); font-size:14px; }
+
+  /* the learning cycle: five cards, or a stepper once js/drs-anim.js runs */
+  .drs-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .drs-steps .stage, .sheet .drs-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .drs-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .drs-steps.is-stepper .stage, .sheet .drs-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .drs-steps.is-stepper .stage .num { display:none; }
+  .sheet .drs-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .drs-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .main + .boring { margin-top:22px; }
+
+  @media (max-width:1100px) {
+    .boring { grid-template-columns:repeat(2,1fr); }
+    .drs-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .tri, .boring, .drs-steps { grid-template-columns:1fr; }
+    .drs-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .main + .drs-steps, .sheet .section-head + .drs-steps { margin-top:24px; }
+  }
+  /* risk tier cards */
+  .tiers { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:22px; }
+  .tiers div { background:var(--charcoal); border-radius:20px; padding:16px 18px 18px; border-top:3px solid var(--tc); }
+  .tiers .g { font-size:30px; font-weight:700; color:var(--tc); line-height:1; }
+  .tiers .r { font-family:var(--mono-font); font-size:13px; color:var(--ash); margin:8px 0 6px; }
+  .tiers b { display:block; font-size:17px; margin-bottom:4px; }
+  .tiers p { margin:0; color:var(--mute); font-size:14px; }
+  .sheet .main + .tiers, .sheet .anim + .tiers { margin-top:8px; }
+  @media (max-width:1100px) { .tiers { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:680px) { .tiers { grid-template-columns:1fr; } }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/drs-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=11" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="dynamic-risk-sizing">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; not a setup, how much to risk on the setups you already trade</p>
+      <h1>Dynamic Risk <span>Sizing</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Two traders watch the same tickers and take the same trades. Four trades later, one is up $7,065 and the other $4,797. The difference isn't intelligence or discipline.
+      <em>One sizes every trade the same. The other sizes each trade to its grade.</em></p>
+      <div class="counts">
+        <div><b>$200</b><small>baseline risk, the B setup</small></div>
+        <div><b>+50%</b><small>on an A, not ten times more</small></div>
+        <div><b>20</b><small>examples of each trade to grade</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">the mistake</div><div class="n">Static sizing</div></div>
+    <div><div class="t">grade it</div><div class="n">A+, A, B or C</div></div>
+    <div><div class="t">press the gas</div><div class="n">More risk on the A</div></div>
+    <div><div class="t">coast</div><div class="n">Less risk on the C</div></div>
+    <div><div class="t">start subtle</div><div class="n">Small shifts, magnified</div></div>
+  </nav>
+  <div class="section-head" id="mistake">
+    <h2>The mistake: the same risk on every trade</h2>
+    <p>Most developing traders start with static sizing. They risk the same amount on every single trade, whether it's an A+ setup or a C setup they aren't even confident in. A really clean VWAP reclaim gets the same risk as a breakout in the middle of a midday chopfest.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Same edge, wildly different outcomes</h3>
+          <ul>
+            <li>Imagine trading next to someone. Same tickers, same setups, same trades.</li>
+            <li>They finish the day up $7,065. You walk away with $4,797.</li>
+            <li>It isn't intelligence and it isn't discipline. It's how much each of you risked on each trade.</li>
+          </ul>
+          <p class="why">It's the one mistake that quietly drains more P&amp;L than anything else, and it's avoidable.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Press the gas, then coast</h3>
+          <ul>
+            <li>Every trader who scales learns to size dynamically.</li>
+            <li>Press the gas when the edge is real. Sit back and coast a little when it isn't.</li>
+            <li>Dynamic doesn't mean wild: it doesn't mean risking either $100 or $1,000. It starts with small steps.</li>
+          </ul>
+          <p class="why">It's these little subtle shifts at first that get magnified over time.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Static vs dynamic</h4>
+        <p class="lead">Same playbook, same entries and stops. Only the risk per trade differs.</p>
+        <div class="pair">
+          <div class="care"><span class="k">static</span><b>One size for everything</b><p>&ldquo;I'm going to risk $200 because that's what I risk in the trade.&rdquo; The A+ and the C get the same dollars.</p></div>
+          <div class="yes"><span class="k">dynamic</span><b>Size to the grade</b><p>&ldquo;These variables define why I want to increase the risk in this trade.&rdquo; More on the A, less on the C.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Sam and Jack</h4>
+        <p class="lead">The names are changed. Two traders on the same team, in one trading day with three opportunities.</p>
+        <div class="calc">
+          <div class="row"><span>Same team, same training</span><b>✓</b></div>
+          <div class="row"><span>Same stocks on the screen</span><b>✓</b></div>
+          <div class="row"><span>Same setups and the same trades</span><b>✓</b></div>
+          <div class="row"><span>Same entries, stops and exits</span><b>✓</b></div>
+          <div class="row"><span>Risk per trade</span><b>different</b></div>
+          <div class="row tot"><span>Everything else identical</span><b>the gap is sizing</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-head" id="trade-1">
+    <h2>Trade 1 &middot; an A premarket high break</h2>
+    <p>In premarket planning: what if the stock breaks $125 to the upside? A positive catalyst, and a key resistance level on the higher time frame. If it gets volume and a clear premarket high break, that's the A version of the trade.</p>
+  </div>
+  <section class="anim" data-drs-anim="trade1" aria-label="Illustrative chart on made-up bars: a stock with a positive catalyst chops under a $125 premarket high and higher-time-frame level, then breaks on volume; both traders buy $125.00 with the stop at the low of the day, $124.48; Jack risks $200 and Sam risks $300; the momentum exit on a two-bar trailing break at $127.61 is about +5R, so Jack makes $1,002 and Sam makes $1,503">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Same trade, 50% more risk</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart on made-up bars: a stock with a positive catalyst chops under a $125 premarket high and higher-time-frame level, then breaks on volume; both traders buy $125.00 with the stop at the low of the day, $124.48; Jack risks $200 and Sam risks $300; the momentum exit on a two-bar trailing break at $127.61 is about +5R, so Jack makes $1,002 and Sam makes $1,503"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">A</div>
+        <div>
+          <h3>Why it's an A</h3>
+          <ul>
+            <li>The setup: a break above a higher-time-frame level with a positive catalyst. Pretty straightforward.</li>
+            <li>The trade: a premarket high break, a momentum trade. Only take it when something breaks a key level on momentum.</li>
+            <li>Volume plus a clear break of the premarket high: those are the variables that make it the A version.</li>
+          </ul>
+          <p class="why">Sam didn't go from $200 to $2,000. He risked 50% more.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">&#8635;</div>
+        <div>
+          <h3>Same exit for both</h3>
+          <ul>
+            <li>The stop for a premarket high break is the low of the day.</li>
+            <li>A momentum trade gets a momentum exit: after the acceleration, exit when a bar breaks the low of the prior two.</li>
+            <li>You could argue for holding it longer. That's outside this lesson: here both traders do exactly the same thing.</li>
+          </ul>
+          <p class="why">The only difference between their results is the size they chose before the entry.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Trade 1, side by side</h4>
+        <p class="lead">Entry $125.00, stop $124.48, exit $127.61: about +5R for both.</p>
+        <div class="calc">
+          <div class="row"><span>Jack · static · $200 risk</span><b>384 shares</b></div>
+          <div class="row"><span>Sam · graded it an A · $300 risk</span><b>576 shares</b></div>
+          <div class="row"><span>Jack's result</span><b>+$1,002</b></div>
+          <div class="row"><span>Sam's result</span><b>+$1,503</b></div>
+          <div class="row tot"><span>Gap after one trade</span><b>$501</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>The trade on this site</h4>
+        <p class="lead">The premarket high break has its own page, with the rules and a walkthrough.</p>
+        <div class="pair">
+          <div><span class="k">opening momentum</span><b><a class="more" href="/setups/pmh-break.html">PMH Break</a></b><p>The opening drive through the premarket high.</p></div>
+          <div><span class="k">the exit</span><b><a class="more" href="/trailing-stops.html">Trailing Stop Exits</a></b><p>Momentum exits, bar-by-bar trails and more.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-head" id="trade-2">
+    <h2>Trade 2 &middot; a B+ second chance short</h2>
+    <p>A stock with awful news gapped below its 52-week low, out from under every key support area. After 10:00 the traders were weighing a big dog consolidation, a VWAP continuation, an offside scalp, or a second chance scalp as it rose quickly into old support.</p>
+  </div>
+  <section class="anim" data-drs-anim="trade2" aria-label="Illustrative chart on made-up bars: a stock gaps below its $330 52-week low on very negative news, then rises back into $330, old support now resistance; the second chance short is $329.00 with the stop above the highs at $330.50; Jack risks $200 and Sam risks $250 because it is a B+; they cover into the prior low and trail the rest out at $320.50, about +5.7R, so Jack makes $1,131 and Sam $1,411">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">A little better than baseline</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart on made-up bars: a stock gaps below its $330 52-week low on very negative news, then rises back into $330, old support now resistance; the second chance short is $329.00 with the stop above the highs at $330.50; Jack risks $200 and Sam risks $250 because it is a B+; they cover into the prior low and trail the rest out at $320.50, about +5.7R, so Jack makes $1,131 and Sam $1,411"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">B+</div>
+        <div>
+          <h3>Why it's a B+, not an A</h3>
+          <ul>
+            <li>Second chance: price drives right back up into the area that was key support before. Now it's resistance.</li>
+            <li>You see the turn on the tape and take the short, with the stop right above the highs of that area.</li>
+            <li>An A would have been a big dog consolidation all below $330. The stock wasn't offering that.</li>
+          </ul>
+          <p class="why">Sam: &ldquo;I think it's a little bit better than baseline. Just a B+, not an A.&rdquo; So $250, not $300.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">&#8635;</div>
+        <div>
+          <h3>Same target, same exit</h3>
+          <ul>
+            <li>Let price look for the lows: cover half into the prior low.</li>
+            <li>Trail the rest.</li>
+            <li>Both traders use the same exit strategy, so both make about +5.7R.</li>
+          </ul>
+          <p class="why">Instead of being static with his risk, Sam is being a little bit dynamic.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Trade 2, side by side</h4>
+        <p class="lead">Short $329.00, stop $330.50, out at $320.50: about +5.7R.</p>
+        <div class="calc">
+          <div class="row"><span>Jack · static · $200 risk</span><b>133 shares</b></div>
+          <div class="row"><span>Sam · graded it a B+ · $250 risk</span><b>166 shares</b></div>
+          <div class="row"><span>Jack's result</span><b>+$1,131</b></div>
+          <div class="row"><span>Sam's result</span><b>+$1,411</b></div>
+          <div class="row"><span>Running total, Jack vs Sam</span><b>$2,133 vs $2,914</b></div>
+          <div class="row tot"><span>Gap after two trades</span><b>$781</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-head" id="trade-3">
+    <h2>Trade 3 &middot; a B&minus; range break, then the A</h2>
+    <p>Another stock with a positive catalyst, looking for a range break to the upside. Volume's coming in and it looks like it might break higher and continue. Jack enters with his normal $200. Sam doesn't like the wideness of the range.</p>
+  </div>
+  <section class="anim" data-drs-anim="trade3" aria-label="Illustrative chart on made-up bars: a wide, choppy range that already failed once; both traders buy the break at $241.75 with the stop at $238.80, Jack risking $200 and Sam $150; it rolls over and both lose a full stop, minus $200 and minus $150; then price wedges into a tight big dog consolidation and breaks on a big volume increase; both buy $241.50 with the stop under the tight lows at $240.70, Jack risking $200 and Sam $300; the exit at $253.00 is more than +14R, so Jack makes $2,864 and Sam $4,301">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The same stock, graded twice</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart on made-up bars: a wide, choppy range that already failed once; both traders buy the break at $241.75 with the stop at $238.80, Jack risking $200 and Sam $150; it rolls over and both lose a full stop, minus $200 and minus $150; then price wedges into a tight big dog consolidation and breaks on a big volume increase; both buy $241.50 with the stop under the tight lows at $240.70, Jack risking $200 and Sam $300; the exit at $253.00 is more than +14R, so Jack makes $2,864 and Sam $4,301"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">B&minus;</div>
+        <div>
+          <h3>The first try: less risk</h3>
+          <ul>
+            <li>The range was wide. It tried to break, then paused.</li>
+            <li>The consolidation before was choppy: it already failed once, rolled over and rebid. The time of day was a little weird.</li>
+            <li>It just wasn't trading in a fluid way. Same stop, but Sam risked $150 instead of $200.</li>
+          </ul>
+          <p class="why">Both lose a full stop. Jack is down $200, Sam is down $150.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">A</div>
+        <div>
+          <h3>The second try: more risk</h3>
+          <ul>
+            <li>Then it sets up as a very nice big dog consolidation: the price action wedges and gets tight.</li>
+            <li>The clear high where they bought before becomes the new entry, on a break above it with volume.</li>
+            <li>Tighter, cleaner, a better time of day, a significant volume increase. It's the exact same trade, just better than before.</li>
+          </ul>
+          <p class="why">So why would you risk the exact same amount? Jack: $200. Sam: $300.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Trade 3, twice, side by side</h4>
+        <p class="lead">First try: $241.75, stopped at $238.80. Second try: $241.50 to $253.00, stop $240.70.</p>
+        <div class="calc">
+          <div class="row"><span>First try · Jack 67 sh · Sam 50 sh</span><b>−$200 · −$150</b></div>
+          <div class="row"><span>Second try · Jack 249 sh · Sam 374 sh</span><b>+$2,864 · +$4,301</b></div>
+          <div class="row"><span>Trade 3 total, Jack</span><b>+$2,664</b></div>
+          <div class="row"><span>Trade 3 total, Sam</span><b>+$4,151</b></div>
+          <div class="row tot"><span>This is where the biggest gap occurs</span><b>$1,487</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>How much more do you like it now?</h4>
+        <p class="lead">Ask it every time a setup improves in front of you.</p>
+        <div class="pair">
+          <div class="care"><span class="k">first try</span><b>B or B&minus;</b><p>Wide range, choppy, failed once, odd time of day, not fluid.</p></div>
+          <div class="yes"><span class="k">second try</span><b>B+ or A</b><p>Tight wedge, a clear high to break, better time, big volume.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-head" id="day">
+    <h2>The day, added up</h2>
+    <p>Three different trades: a true momentum trade, a trend continuation and a trending trade, with three different exits. But this isn't about those trades. It's about the risk on each one.</p>
+  </div>
+  <section class="anim" data-drs-anim="day" aria-label="Illustrative bar chart of the made-up day: trade 1, an A, Jack plus $1,002 and Sam plus $1,503; trade 2, a B+, plus $1,131 and plus $1,411; trade 3, a B minus, minus $200 and minus $150; trade 3 again, an A, plus $2,864 and plus $4,301; Jack ends plus $4,797 having risked $800 and Sam ends plus $7,065 having risked $1,000">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Same trades, very different day</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative bar chart of the made-up day: trade 1, an A, Jack plus $1,002 and Sam plus $1,503; trade 2, a B+, plus $1,131 and plus $1,411; trade 3, a B minus, minus $200 and minus $150; trade 3 again, an A, plus $2,864 and plus $4,301; Jack ends plus $4,797 having risked $800 and Sam ends plus $7,065 having risked $1,000"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">&Sigma;</div>
+        <div>
+          <h3>Sam didn't just risk more</h3>
+          <ul>
+            <li>Over the day Sam risked $1,000 in total against Jack's $800: 25% more.</li>
+            <li>He made $7,065 against Jack's $4,797: 47% more, $2,268 on the same trades.</li>
+            <li>He took risk off the trade he liked least and put it on the ones he liked most.</li>
+          </ul>
+          <p class="why">Not a massive shift. Subtle shifts, magnified over the course of even a single day.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The whole day</h4>
+        <p class="lead">The numbers from the table in the video. Same entries, stops and exits for both.</p>
+        <table>
+          <thead><tr><th>Trade</th><th>Grade</th><th>R</th><th>Jack</th><th>Sam</th></tr></thead>
+          <tbody>
+            <tr><td class="txt">Premarket high break</td><td>A</td><td>+5R</td><td class="pos">+$1,002</td><td class="pos">+$1,503</td></tr>
+            <tr><td class="txt">Second chance short</td><td>B+</td><td>+5.7R</td><td class="pos">+$1,131</td><td class="pos">+$1,411</td></tr>
+            <tr><td class="txt">Range break</td><td>B&minus;</td><td>&minus;1R</td><td class="neg">&minus;$200</td><td class="neg">&minus;$150</td></tr>
+            <tr><td class="txt">Big dog break</td><td>A</td><td>+14.4R</td><td class="pos">+$2,864</td><td class="pos">+$4,301</td></tr>
+            <tr><td class="txt"><b>Day</b></td><td></td><td></td><td class="pos"><b>+$4,797</b></td><td class="pos"><b>+$7,065</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="section-head" id="tiers">
+    <h2>The risk tiering model</h2>
+    <p>Sam doesn't size randomly. He follows a simple risk tiering model: your A+ setups get the most risk, your A setups get really good risk, your B setups are your baseline, and your C setups you size really, really small.</p>
+  </div>
+  <section class="anim" data-drs-anim="tiers" aria-label="Illustrative chart of risk per trade by grade: static sizing puts $200 on every grade; the model keeps B at a $200 baseline, raises A to $300 and A+ to $400, and cuts C to $100; the day's trades are placed on it: the premarket high break and the big dog break as A at $300, the second chance short as B+ at $250, the choppy range break as B minus at $150">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Four grades, four sizes</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart of risk per trade by grade: static sizing puts $200 on every grade; the model keeps B at a $200 baseline, raises A to $300 and A+ to $400, and cuts C to $100; the day's trades are placed on it: the premarket high break and the big dog break as A at $300, the second chance short as B+ at $250, the choppy range break as B minus at $150"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="tiers">
+    <div style="--tc:#f4b942"><div class="g">A+</div><p class="r">the most risk &middot; e.g. $400</p><b>Everything lines up</b><p>The rare, best version of the trade: the favorite. Catalyst, level, volume, tight structure, good time of day.</p></div>
+    <div style="--tc:#30d158"><div class="g">A</div><p class="r">really good risk &middot; e.g. $300</p><b>The clean version</b><p>A clear trigger with the variables you've seen in your best examples. Press the gas.</p></div>
+    <div style="--tc:#2997ff"><div class="g">B</div><p class="r">baseline risk &middot; e.g. $200</p><b>Your standard trade</b><p>A normal, playable version of a trade in your playbook. Your usual risk.</p></div>
+    <div style="--tc:#ff6961"><div class="g">C</div><p class="r">really small &middot; e.g. $100</p><b>Coast</b><p>Choppy, late, wide, already failed once: the ones you take but aren't confident in.</p></div>
+  </div>
+  <div class="section-head" id="grades">
+    <h2>What moves a trade up or down a grade</h2>
+    <p>These are the variables the traders used in the three trades. Your own list comes from your own examples.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">&uarr;</div>
+        <div>
+          <h3>Toward an A</h3>
+          <ul>
+            <li>A positive (or, for a short, very negative) catalyst.</li>
+            <li>A key level on a higher time frame.</li>
+            <li>Volume coming in on the break.</li>
+            <li>A clear trigger: a premarket high break, a clear high to break.</li>
+            <li>A tight, clean consolidation that trades fluidly.</li>
+            <li>A good time of day.</li>
+          </ul>
+          <p class="why">These variables define why you want to increase the risk.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">&darr;</div>
+        <div>
+          <h3>Toward a C</h3>
+          <ul>
+            <li>A wide range.</li>
+            <li>A choppy consolidation that already failed once and rolled over.</li>
+            <li>A breakout in the middle of a midday chopfest.</li>
+            <li>A strange time of day.</li>
+            <li>A trade you're taking but aren't confident in.</li>
+          </ul>
+          <p class="why">When it isn't really trading in a fluid way, sit back and coast.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Grades can change in front of you</h4>
+        <p class="lead">Trade 3 was the same stock and the same entry level, twice.</p>
+        <div class="tri">
+          <div class="no"><span class="k">first look</span><b>B&minus; &middot; $150</b><p>Wide and choppy. Stopped out.</p></div>
+          <div class="care"><span class="k">it tightens</span><b>B &rarr; B+</b><p>A wedge forms under the same high.</p></div>
+          <div class="yes"><span class="k">the break</span><b>A &middot; $300</b><p>Tight, better time, big volume.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Sizing is one pillar</h4>
+        <p class="lead">For position sizing as part of a whole framework, with levels, context and discipline:</p>
+        <div class="pair">
+          <div><span class="k">framework</span><b><a class="more" href="/four-pillars.html#sizing">Four Pillars</a></b><p>Position sizing that keeps you in the game.</p></div>
+          <div><span class="k">process</span><b><a class="more" href="/get-better-faster.html">Get Better Faster</a></b><p>A real playbook and film-style review.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-head" id="magnified">
+    <h2>Subtle shifts, magnified</h2>
+    <p>People overthink this and assume being dynamic means risking either $100 or $1,000. No. It's small steps sized to the grade, and over a month they add up.</p>
+  </div>
+  <section class="anim" data-drs-anim="compound" aria-label="Illustrative chart of 60 made-up trades from one playbook, graded A plus, A, B and C: cumulative P and L with $200 on every trade, then the same trades and the same R with risk by grade, $400, $300, $200 and $100; a breakdown by grade shows the A and A plus trades earning more and the C trades losing less">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Same trades, two equity curves</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart of 60 made-up trades from one playbook, graded A plus, A, B and C: cumulative P and L with $200 on every trade, then the same trades and the same R with risk by grade, $400, $300, $200 and $100; a breakdown by grade shows the A and A plus trades earning more and the C trades losing less"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="section-head" id="build">
+    <h2>Build your own tiers</h2>
+    <p>The best way to do this is very simple. Go and study 20 examples of each trade in your playbook. Just by those 20 examples, you'll understand the difference between A+, A, B and C. Then start adjusting your risk, in a subtle way.</p>
+  </div>
+  <div class="drs-steps" data-drs-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Collect 20 examples</h3>
+          <ul>
+            <li>Pick one trade in your playbook: a premarket high break, a second chance, a big dog consolidation.</li>
+            <li>Find 20 examples of it, in your own trades, in replay or in charts after the close.</li>
+            <li>Screenshot each one and save the context: catalyst, level, volume, time of day.</li>
+          </ul>
+          <p class="why">Twenty examples of one trade beat a few examples of twenty.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Grade every one</h3>
+          <ul>
+            <li>Sort them into A+, A, B and C by how clean they were.</li>
+            <li>Most will be B's. The A+ ones are rare; that's why they're the favorite.</li>
+            <li>Be honest about the C's: the chop you took anyway.</li>
+          </ul>
+          <p class="why">You'll see the difference just from the 20 examples.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Write down what separates them</h3>
+          <ul>
+            <li>What did the A's have that the C's didn't? Catalyst, a higher-time-frame level, volume, a clear trigger, a tight base, the time of day.</li>
+            <li>What did the C's share? Wide ranges, chop, a failed first try, a midday breakout.</li>
+            <li>That list is your grading checklist.</li>
+          </ul>
+          <p class="why">These variables are why you size up, or down.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Give each grade a risk</h3>
+          <ul>
+            <li>B is your baseline: your normal risk.</li>
+            <li>A gets a little more, A+ the most, C really small.</li>
+            <li>Start subtle: if your baseline is $200, think $300 on an A, not $2,000.</li>
+          </ul>
+          <p class="why">Small at first. The shifts get magnified over time, not overnight.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Grade it before the entry</h3>
+          <ul>
+            <li>In premarket planning, write down what the A version of today's trade would look like.</li>
+            <li>When it sets up, grade it before you enter and size it to the grade.</li>
+            <li>If it improves in front of you, like trade 3 did, re-grade it. Then review whether your grades held up.</li>
+          </ul>
+          <p class="why">That's how you become the trader you want to be: same edge, sized to the grade.</p>
+        </div>
+      </section>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/uoI00PCobl4" title="Static vs dynamic risk sizing (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Mike Bellafiore, co-founder of SMB Capital, on the sizing mistake newer traders make every day.</p>
+      <ol>
+        <li><b>0:00</b>The mistake that drains your P&amp;L</li>
+        <li><b>0:56</b>Same trades, wildly different outcomes</li>
+        <li><b>1:30</b>Static sizing vs dynamic sizing</li>
+        <li><b>2:29</b>Sam and Jack</li>
+        <li><b>3:13</b>Trade 1: the premarket high break</li>
+        <li><b>6:30</b>Trade 2: the second chance scalp</li>
+        <li><b>9:04</b>Trade 3: a range break, then a big dog consolidation</li>
+        <li><b>12:21</b>Subtle shifts, magnified</li>
+        <li><b>13:00</b>The risk tiering model</li>
+        <li><b>13:31</b>Study 20 examples of each trade</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=uoI00PCobl4" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Press the gas when the edge is real. Coast when it isn't.</h2>
+      <p>Same tickers, same setups, same entries, stops and exits. The trader who sizes each trade to its grade walks away with more,
+      not by risking ten times more, but by moving a little risk from the weak trades to the strong ones, every day.</p>
+    </div>
+    <div>
+      <ul>
+        <li>B is your baseline. A gets more, A+ the most, C really small.</li>
+        <li>Grade the trade before the entry, from variables you wrote down.</li>
+        <li>Re-grade when a setup improves or gets worse in front of you.</li>
+        <li>Start with subtle shifts: 25 to 50% more, not ten times.</li>
+        <li>Study 20 examples of each trade to learn what an A looks like.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from a trading-education video by SMB Capital's Mike Bellafiore on static vs dynamic risk sizing: two traders, three trades, and the A+, A, B, C risk tiering model. The traders' names were changed in the video. It's shared for education; it's not advice and not a promise of profit. The entries, stops, exits, share counts and P&amp;L for the three trades come from the table shown in the video; the price bars drawn around them, the 60-trade comparison and the tier dollar amounts are made up for illustration. <a href="https://www.youtube.com/watch?v=uoI00PCobl4" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

@@ -1,0 +1,556 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support &amp; Resistance Mistakes — the five that cost the most | The Trade Method</title>
+<meta name="description" content="The five support and resistance mistakes that cost traders the most, and how to correct each one. The level is just an input; the mistakes are the cost.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/mistakes.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Support &amp; Resistance Mistakes — the five that cost the most">
+<meta property="og:description" content="The five support and resistance mistakes that cost traders the most, and how to correct each one. The level is just an input; the mistakes are the cost.">
+<meta property="og:url" content="https://thetrademethod.com/mistakes.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Support &amp; Resistance Mistakes — the five that cost the most">
+<meta name="twitter:description" content="The five support and resistance mistakes that cost traders the most, and how to correct each one. The level is just an input; the mistakes are the cost.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Support & Resistance Mistakes — the five that cost the most",
+ "name": "Support & Resistance Mistakes",
+ "description": "The five support and resistance mistakes that cost traders the most, and how to correct each one. The level is just an input; the mistakes are the cost.",
+ "url": "https://thetrademethod.com/mistakes.html",
+ "mainEntityOfPage": "https://thetrademethod.com/mistakes.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as self-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/anim-kit.js?v=2" defer></script>
+<script src="/js/mis-anim.js?v=1" defer></script>
+<script src="/js/mislook-anim.js?v=1" defer></script>
+<style>
+  /* video (same as relative-volume.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=2" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="mistakes">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; not a setup, the five mistakes that cost the most around support and resistance</p>
+      <h1>Support &amp; Resistance <span>Mistakes</span></h1>
+    </div>
+    <div>
+      <p class="thesis">A support or resistance level is just an input. <em>What actually costs traders
+      money is five repeatable, correctable mistakes made trading around it</em> &mdash; not the level itself.</p>
+      <div class="counts">
+        <div><b>5</b><small>mistakes</small></div>
+        <div><b>5</b><small>real trade examples</small></div>
+        <div><b>1</b><small>rule &mdash; don't repeat the same one twice</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">no bigger picture</div><div class="n">Market context</div></div>
+    <div><div class="t">same price, different trade</div><div class="n">Every level isn't equal</div></div>
+    <div><div class="t">look left first</div><div class="n">The level below the level</div></div>
+    <div><div class="t">read the tape</div><div class="n">Volume at the level</div></div>
+    <div><div class="t">before you're in</div><div class="n">Plan the playbook trade</div></div>
+  </nav>
+
+  <section class="anim" data-tm-anim="mis" aria-label="The same 50.00 support on two days: with the index chopping, price wicks to 49.88 on 0.9x volume, closes back at 50.18 and bounces to 51.00; with the index trending lower, price closes through it at 49.62 on 2.4x volume and runs to 48.70.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Watch one level, two markets</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="The same 50.00 support on two days: with the index chopping, price wicks to 49.88 on 0.9x volume, closes back at 50.18 and bounces to 51.00; with the index trending lower, price closes through it at 49.62 on 2.4x volume and runs to 48.70."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Trading the level without the bigger picture</h3>
+          <ul>
+            <li>A support level that's bounced before is still just an input variable &mdash; check what the broader market is doing before you trust it to bounce again.</li>
+            <li>On a day when the index is trending hard in one direction and everything is being sold, a support level either needs an almost surgical entry, or &mdash; more often &mdash; sets up a much better trade in the other direction: the break, not the bounce.</li>
+          </ul>
+          <p class="why">A level that held once is still just one data point. The market context around it is what tells you whether that data point is likely to repeat today.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Treating every level the same</h3>
+          <ul>
+            <li>The exact same price can mark two completely different levels depending on how price action responds to it. A level that gets tested and quickly rejected is not the same level as one that holds, closes above it, and does so on real volume.</li>
+            <li>Sizing every break of "the same" level identically ignores the quality of the setup each time, and turns your results into random chance instead of a read on your own skill.</li>
+          </ul>
+          <p class="why">The price being identical doesn't make the trade identical. What price action does around that price is the actual variable that matters.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Not looking left on the chart</h3>
+          <ul>
+            <li>A level that looks like "the low" on an intraday chart can sit right on top of a much more important level a little further away that never even got tested that session.</li>
+            <li>Shorting a breakdown without checking the daily or weekly chart for what's actually just below it can put you offside right into the real support &mdash; not through it.</li>
+          </ul>
+          <p class="why">The chart in front of you is only part of the story. The important levels from prior sessions are still there whether you look for them or not.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Ignoring volume at the level</h3>
+          <ul>
+            <li>A break of resistance on light or average volume is a much weaker signal than the same break with real participation behind it &mdash; no catalyst and no volume means no real reason to expect follow-through.</li>
+            <li>If you're buying a breakout, look for real volume pushing price through the level. If you're shorting a breakdown, look for the same on the way down. Without it, the fade is usually the better trade.</li>
+          </ul>
+          <p class="why">An important level should mean other participants are chomping at the bit to trade around it. If the volume isn't there, that's telling you the level isn't actually mattering to anyone yet.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Not planning what you'll do if the level actually works</h3>
+          <ul>
+            <li>Knowing you want to trade a level isn't the same as knowing what you'll do once it breaks, or once price reverts off it. Without that plan, you can be completely right about the level and still barely make any money.</li>
+            <li>Decide your plan before the trade: where the stop goes automatically, and whether you're staying with a break or taking a quick reversion &mdash; then actually follow it once you're in.</li>
+          </ul>
+          <p class="why">Being right about the level is only half the trade. What you do in the minutes after it works is usually where most of the actual money is made or left behind.</p>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h4>Same level, two different markets</h4>
+        <p class="lead">The exact same support line. What the broader market is doing around it decides whether the bounce or the break is the real trade.</p>
+        <svg viewBox="0 0 1180 480" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="A support level shown holding in a choppy market and breaking in a trending market">
+<defs><marker id="m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8fa6bd"/></marker><marker id="m2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#e0505a"/></marker></defs>
+<rect x="32" y="20" width="1062" height="300" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<rect x="32" y="332" width="1062" height="120" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<line x1="60" y1="200" x2="1046" y2="200" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="68" y="191" fill="#f4f7fb" font-size="13" font-weight="700">The same support level, tested twice</text>
+<line x1="90" y1="150" x2="90" y2="195" stroke="#1d6f47" stroke-width="1.8"/><rect x="76" y="160" width="28" height="28" fill="#1d6f47" rx="1"/>
+<line x1="150" y1="185" x2="150" y2="215" stroke="#54697f" stroke-width="1.8"/><rect x="136" y="192" width="28" height="16" fill="#54697f" rx="1"/>
+<line x1="210" y1="160" x2="210" y2="205" stroke="#1d6f47" stroke-width="1.8"/><rect x="196" y="168" width="28" height="26" fill="#1d6f47" rx="1"/>
+<line x1="270" y1="190" x2="270" y2="212" stroke="#54697f" stroke-width="1.8"/><rect x="256" y="196" width="28" height="12" fill="#54697f" rx="1"/>
+<line x1="330" y1="145" x2="330" y2="200" stroke="#1d6f47" stroke-width="2"/><rect x="316" y="150" width="28" height="40" fill="#1d6f47" rx="1"/>
+<line x1="390" y1="100" x2="390" y2="150" stroke="#1d6f47" stroke-width="2.2"/><rect x="376" y="108" width="28" height="38" fill="#1d6f47" rx="1"/>
+<rect x="80" y="60" width="260" height="46" rx="7" fill="#0d1a2b" stroke="#8fa6bd" stroke-width="1.7"/>
+<text x="94" y="83" fill="#c8d8e8" font-size="13" font-weight="600">Choppy market &mdash; the level holds,</text>
+<text x="94" y="101" fill="#c8d8e8" font-size="13" font-weight="600">the bounce works.</text>
+<line x1="200" y1="106" x2="200" y2="155" stroke="#8fa6bd" stroke-width="1.5" marker-end="url(#m1)"/>
+<line x1="700" y1="150" x2="700" y2="195" stroke="#7d343c" stroke-width="1.8"/><rect x="686" y="155" width="28" height="40" fill="#7d343c" rx="1"/>
+<line x1="760" y1="180" x2="760" y2="230" stroke="#7d343c" stroke-width="1.8"/><rect x="746" y="185" width="28" height="45" fill="#7d343c" rx="1"/>
+<line x1="820" y1="205" x2="820" y2="255" stroke="#7d343c" stroke-width="2.2"/><rect x="806" y="210" width="28" height="45" fill="#7d343c" rx="1"/>
+<line x1="880" y1="230" x2="880" y2="278" stroke="#7d343c" stroke-width="1.8"/><rect x="866" y="235" width="28" height="43" fill="#7d343c" rx="1"/>
+<line x1="940" y1="250" x2="940" y2="290" stroke="#7d343c" stroke-width="1.8"/><rect x="926" y="255" width="28" height="35" fill="#7d343c" rx="1"/>
+<line x1="1000" y1="260" x2="1000" y2="295" stroke="#7d343c" stroke-width="1.6"/><rect x="986" y="265" width="28" height="30" fill="#7d343c" rx="1"/>
+<rect x="740" y="60" width="290" height="46" rx="7" fill="#0d1a2b" stroke="#f2a9ae" stroke-width="1.7"/>
+<text x="754" y="83" fill="#f2a9ae" font-size="13" font-weight="600">Trending market &mdash; the same level</text>
+<text x="754" y="101" fill="#f2a9ae" font-size="13" font-weight="600">breaks, hard.</text>
+<line x1="820" y1="106" x2="820" y2="200" stroke="#e0505a" stroke-width="1.5" marker-end="url(#m2)"/>
+<text x="46" y="326" fill="#7d93ad" font-size="13">Volume</text>
+<rect x="76" y="418.0" width="28" height="18.0" fill="#54697f" opacity="0.5" rx="1"/>
+<rect x="136" y="424.0" width="28" height="12.0" fill="#54697f" opacity="0.4" rx="1"/>
+<rect x="196" y="414.0" width="28" height="22.0" fill="#54697f" opacity="0.5" rx="1"/>
+<rect x="256" y="422.0" width="28" height="14.0" fill="#54697f" opacity="0.4" rx="1"/>
+<rect x="316" y="412.0" width="28" height="24.0" fill="#54697f" opacity="0.5" rx="1"/>
+<rect x="376" y="410.0" width="28" height="26.0" fill="#54697f" opacity="0.5" rx="1"/>
+<rect x="686" y="404.0" width="28" height="32.0" fill="#7d343c" opacity="0.5" rx="1"/>
+<rect x="746" y="380.0" width="28" height="56.0" fill="#f4b942" opacity="0.9" rx="1"/>
+<rect x="806" y="368.0" width="28" height="68.0" fill="#f4b942" opacity="0.95" rx="1"/>
+<rect x="866" y="392.0" width="28" height="44.0" fill="#7d343c" opacity="0.55" rx="1"/>
+<rect x="926" y="404.0" width="28" height="32.0" fill="#7d343c" opacity="0.5" rx="1"/>
+<rect x="986" y="412.0" width="28" height="24.0" fill="#7d343c" opacity="0.45" rx="1"/>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>Which level you can actually trust</h4>
+        <p class="lead">Same setup on the surface. Context and volume are what separate the ones you take from the ones that trap you.</p>
+        <svg viewBox="0 0 1180 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Four scenarios comparing when a level break or bounce can be trusted">
+<rect x="10.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#22855a" stroke-width="2"/>
+<line x1="28" y1="130.4" x2="267" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="28" y="121.4" fill="#9fb3c8" font-size="11.5">resistance</text>
+<line x1="147.5" y1="72" x2="147.5" y2="140" stroke="#1d6f47" stroke-width="2.4"/>
+<rect x="131.5" y="82" width="32" height="52" fill="#1d6f47" rx="2"/>
+<rect x="131.5" y="215" width="32" height="45" fill="#f4b942" rx="2"/>
+<text x="28.0" y="42" fill="#2ecf7a" font-size="16" font-weight="800">Take it</text>
+<text x="28.0" y="180" fill="#9fb3c8" font-size="12.6">Break holds on real volume.</text>
+<text x="28.0" y="196" fill="#9fb3c8" font-size="12.6">First time at this level.</text>
+<rect x="305.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="323" y1="130.4" x2="562" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="323" y="121.4" fill="#9fb3c8" font-size="11.5">resistance</text>
+<line x1="442.5" y1="90" x2="442.5" y2="145" stroke="#1d6f47" stroke-width="2.4"/>
+<rect x="426.5" y="98" width="32" height="42" fill="#1d6f47" rx="2"/>
+<rect x="426.5" y="240" width="32" height="20" fill="#54697f" rx="1"/>
+<text x="323.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="323.0" y="196" fill="#9fb3c8" font-size="12.6">Same price already failed here</text>
+<text x="323.0" y="212" fill="#9fb3c8" font-size="12.6">once &mdash; different setup, same level.</text>
+<rect x="600.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="618" y1="130.4" x2="857" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="618" y="121.4" fill="#9fb3c8" font-size="11.5">resistance</text>
+<line x1="737.5" y1="105" x2="737.5" y2="150" stroke="#1d6f47" stroke-width="2.4"/>
+<rect x="721.5" y="112" width="32" height="35" fill="#1d6f47" rx="2"/>
+<rect x="721.5" y="248" width="32" height="12" fill="#54697f" rx="1"/>
+<text x="618.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="618.0" y="196" fill="#9fb3c8" font-size="12.6">Pushes through, but almost no</text>
+<text x="618.0" y="212" fill="#9fb3c8" font-size="12.6">volume behind the move.</text>
+<rect x="895.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="913" y1="130.4" x2="1152" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="913" y="121.4" fill="#9fb3c8" font-size="11.5">support</text>
+<line x1="1032.5" y1="130" x2="1032.5" y2="180" stroke="#7d343c" stroke-width="2.4"/>
+<rect x="1016.5" y="140" width="32" height="35" fill="#7d343c" rx="2"/>
+<rect x="1016.5" y="245" width="32" height="15" fill="#f4b942" rx="1"/>
+<text x="913.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="913.0" y="196" fill="#9fb3c8" font-size="12.6">Bounce attempt, but the index is</text>
+<text x="913.0" y="212" fill="#9fb3c8" font-size="12.6">trending hard against you.</text>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>Three checks before you trust a level</h4>
+        <p class="lead">Quick, repeatable, and faster than the mistake they prevent.</p>
+        <div class="timing">
+          <div><b>Check the bigger picture first</b><p>What's the index doing right now? A level means something different in a trending tape than a choppy one.</p></div>
+          <div><b>Look left before you look at the level</b><p>Is there a more important level a little further away that hasn't been tested yet this session?</p></div>
+          <div><b>Confirm with volume on the break</b><p>Real participation pushing through the level, or just price drifting through a line with nothing behind it?</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head xanim">
+    <h2>Look left, then plan the win</h2>
+    <p>The level on your screen is not always the level that matters, and being right about it only pays if you planned for it working.</p>
+  </div>
+  <section class="anim" data-tm-anim="mislook" aria-label="Today&#x27;s low at 50.60 looks like the level, but zooming out shows 50.00 held for two sessions; price holds at 50.04, and a planned long from 50.20 with a 49.95 stop takes half at 50.70 for +2R and trails the rest out at 51.20 for +4R, about +3R, versus +0.6R for covering at 50.35 with no plan.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Watch the real level, then the plan</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Today&#x27;s low at 50.60 looks like the level, but zooming out shows 50.00 held for two sessions; price holds at 50.04, and a planned long from 50.20 with a 49.95 stop takes half at 50.70 for +2R and trails the rest out at 51.20 for +4R, about +3R, versus +0.6R for covering at 50.35 with no plan."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="section-head">
+    <h2>The five-second gut check</h2>
+    <p>The thought that's about to talk you into the mistake, and what it actually costs you.</p>
+  </div>
+  <div class="filters">
+    <div class="filter">
+      <h3>1 &nbsp;"This level held before"</h3>
+      <p>With no check on what the broader market is doing today before trusting it to hold again.</p>
+      <p class="kill">Kills: bouncing a level into a trending tape.</p>
+    </div>
+    <div class="filter">
+      <h3>2 &nbsp;"Same price as last time"</h3>
+      <p>Ignoring how differently price is actually behaving around the level this time.</p>
+      <p class="kill">Kills: sizing two different setups identically.</p>
+    </div>
+    <div class="filter">
+      <h3>3 &nbsp;"This is the low"</h3>
+      <p>Without checking the daily or weekly chart for what's actually just below it.</p>
+      <p class="kill">Kills: getting offside right into the real level.</p>
+    </div>
+    <div class="filter">
+      <h3>4 &nbsp;"It broke, so it's real"</h3>
+      <p>With no volume behind the move at all &mdash; no catalyst, no participation.</p>
+      <p class="kill">Kills: chasing a breakout no one actually showed up for.</p>
+    </div>
+    <div class="filter">
+      <h3>5 &nbsp;"It worked!"</h3>
+      <p>Followed immediately by covering the whole position with no plan for what comes next.</p>
+      <p class="kill">Kills: being right and still not getting paid for it.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Five mistakes, five real trades</h2>
+    <p>Tickers, price levels, and what happened in each are drawn from a trader-development video's own review of these trades and are not independently verified.</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Mistake</th>
+        <th>Ticker</th>
+        <th>What happened</th>
+        <th>The fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th class="txt">No market context</th>
+        <td><span class="tick">AMD<small>earnings breakdown</small></span></td>
+        <td class="txt">Bought a bounce off a support level near 115 that had worked before, with no check on the broader market &mdash; the index was trending hard down all day.</td>
+        <td class="txt">Check the index context first. A trending tape favors the break, not the bounce, even at a level you like.</td></tr>
+      <tr><th class="txt">Every level treated the same</th>
+        <td><span class="tick">NVDA<small>430 level, twice</small></span></td>
+        <td class="txt">Sized a second break of the same price exactly like the first attempt, which had already failed and reversed the day before.</td>
+        <td class="txt">Weight size by how price is actually behaving at the level, not by the price itself. A held breakout on volume isn't the same trade as a level that was already rejected.</td></tr>
+      <tr><th class="txt">Not looking left</th>
+        <td><span class="tick">BTC<small>intraday low vs. daily level</small></span></td>
+        <td class="txt">Bought a bounce off what looked like the low on an intraday chart, then shorted the "breakdown" without checking the daily chart for what was just below.</td>
+        <td class="txt">Check the daily chart for the next level down before trusting an intraday low as the level.</td></tr>
+      <tr><th class="txt">Ignoring volume</th>
+        <td><span class="tick">RIVN<small>~26 resistance</small></span></td>
+        <td class="txt">Price pushed through a resistance level on the 15-minute chart with almost no volume behind it, then failed hard.</td>
+        <td class="txt">No real volume through the level is a fade, not a breakout to chase.</td></tr>
+      <tr><th class="txt">No plan for the trade that works</th>
+        <td><span class="tick">LCID<small>earnings decline</small></span></td>
+        <td class="txt">Caught a clean, low-risk break of a multi-day consolidation, then covered the entire position within the first few minutes out of excitement that it worked.</td>
+        <td class="txt">Decide before the trade whether you're staying with the break or taking a quick reversion, and follow that plan once it starts working.</td></tr>
+    </tbody>
+  </table>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/QjMeWsHgN3Y" title="Support &amp; Resistance Mistakes (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>The five support and resistance mistakes, walked through on real trades.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=QjMeWsHgN3Y" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>The level was never the problem.</h2>
+      <p>Support and resistance work when you read the level correctly. Almost everything that actually goes wrong is one of these five correctable mistakes made trading around it &mdash; not the level itself.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Check the bigger picture before you trust a level to hold. The same level means something different in a trending market than a choppy one.</li>
+        <li>The price being identical doesn't make two trades identical. Read how price is actually behaving around the level.</li>
+        <li>Being right about the level is only half the trade &mdash; know your plan for what happens once it works, before you're in it.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Framework as taught in a trader-development video reviewing five real trades (AMD, NVDA, BTC, RIVN, and a fifth name transcribed as "Elsid," presented here as LCID under its clearest reading) around support and resistance mistakes. Tickers, levels, and outcomes are drawn from that video's own account and are not independently verified. Not a specific setup &mdash; a self-check that applies to every support or resistance trade on this site. <a href="https://youtu.be/QjMeWsHgN3Y" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

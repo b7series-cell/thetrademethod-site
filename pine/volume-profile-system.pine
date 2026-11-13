@@ -1,0 +1,579 @@
+//@version=6
+// ═══════════════════════════════════════════════════════════════════════════════
+//  Volume Profile System — PC Bounce · Value Area Reversal · Value Area Breakout
+//  Run on an intraday chart (1m–1H; 5–15m recommended). Set chart time to exchange time.
+//
+//  Profile
+//   Built from the PREVIOUS session (first bar → last bar), never the current one —
+//   the current session's profile is still forming and its levels keep moving.
+//   Row size 60 · value area 70% · PC = highest-volume row. Each bar's volume is spread
+//   evenly across the rows its high–low range touches (a finer chart = a finer profile).
+//
+//  Setups — one system; the prior session's close decides which is in play
+//   1 PC bounce     prior session closed OUTSIDE the VA → price returns to the PC
+//                   → reversal candle confirms (engulfing · rejection wick · run of candles)
+//                   → stop just beyond the PC · target 2R
+//   2 VA reversal   prior session closed INSIDE the VA → price crosses outside VAH / VAL
+//                   → a candle CLOSES back inside (a wick doesn't count)
+//                   → stop beyond the swing extreme made outside · target 2R
+//   3 VA breakout   either prior close → price breaks significantly outside the VA
+//                   → pulls back and holds near the level (not too deep inside)
+//                   → break of structure beyond the post-breakout swing
+//                   → stop beyond the pullback swing · target 2R
+//
+//  Panel: the prior-session levels, which setup is in play, and the open trade.
+// ═══════════════════════════════════════════════════════════════════════════════
+indicator("Volume Profile System — PC · VA Reversal · VA Breakout", shorttitle = "VP System", overlay = true, max_lines_count = 500, max_labels_count = 500, max_boxes_count = 500)
+
+// ───────────────────────────── Inputs ─────────────────────────────
+const string G_PR = "① Profile"
+string sessMode = input.string("Exchange day", "Session", options = ["Exchange day", "Custom session"], group = G_PR, tooltip = "Exchange day: first to last bar of each exchange trading day (includes extended-hours bars if they're on the chart).\nCustom session: only bars inside the window below build the profile and take trades — e.g. 0930-1600 for US stocks, regular hours only.")
+string custSess = input.session("0930-1600", "Custom session (exchange time)", group = G_PR)
+int    rows     = input.int(60, "Row size", minval = 10, maxval = 200, group = G_PR)
+float  vaPct    = input.float(70.0, "Value area volume (%)", minval = 10, maxval = 95, step = 1, group = G_PR) / 100.0
+
+const string G_S1 = "② Setup 1 — PC bounce"
+bool   useS1      = input.bool(true, "Enable PC bounce", group = G_S1)
+bool   s1NeedOut  = input.bool(true, "Require prior close OUTSIDE the value area", group = G_S1)
+int    touchTk    = input.int(2, "PC touch tolerance (ticks)", minval = 0, group = G_S1)
+int    confWin    = input.int(3, "Bars allowed for confirmation (incl. touch bar)", minval = 1, maxval = 10, group = G_S1)
+bool   cEngulf    = input.bool(true, "Confirm: engulfing candle", group = G_S1)
+bool   cWick      = input.bool(true, "Confirm: rejection wick through the PC", group = G_S1)
+float  wickMin    = input.float(0.5, "Rejection wick ≥ share of bar range", minval = 0.1, maxval = 0.9, step = 0.05, group = G_S1)
+bool   cRun       = input.bool(true, "Confirm: run of candles away from the PC", group = G_S1)
+int    runLen     = input.int(2, "Run length (candles)", minval = 2, maxval = 5, group = G_S1)
+string s1StopMode = input.string("PC + buffer", "Stop", options = ["PC + buffer", "Wick extreme + buffer"], group = G_S1)
+
+const string G_S2 = "③ Setup 2 — VA reversal"
+bool   useS2    = input.bool(true, "Enable VA reversal", group = G_S2)
+bool   s2NeedIn = input.bool(true, "Require prior close INSIDE the value area", group = G_S2)
+string outMode  = input.string("Close", "Counts as crossing outside", options = ["Close", "Wick"], group = G_S2, tooltip = "The move back INSIDE always needs a full candle close — this only sets what counts as getting outside first.")
+
+const string G_S3 = "④ Setup 3 — VA breakout"
+bool   useS3      = input.bool(true, "Enable VA breakout", group = G_S3)
+float  brkPct     = input.float(0.25, "Significant break ≥ × VA width beyond the level", minval = 0.0, step = 0.05, group = G_S3)
+float  nearPct    = input.float(0.15, "Pullback must come within × VA width of the level", minval = 0.0, step = 0.05, group = G_S3)
+float  deepPct    = input.float(0.25, "Invalid if a close goes > × VA width back inside", minval = 0.0, step = 0.05, group = G_S3)
+string s3StopMode = input.string("Pullback swing", "Stop", options = ["Pullback swing", "Broken structure level"], group = G_S3)
+
+const string G_RK = "⑤ Risk"
+float rr        = input.float(2.0, "Target (R)", minval = 0.5, step = 0.1, group = G_RK)
+int   bufTk     = input.int(2, "Stop buffer (ticks)", minval = 0, group = G_RK)
+int   minRiskTk = input.int(4, "Min risk (ticks)", minval = 1, group = G_RK, tooltip = "Skips setups whose stop is so tight a single tick could take it out.")
+int   maxTrades = input.int(3, "Max trades per session", minval = 1, maxval = 10, group = G_RK)
+bool  flatEnd   = input.bool(true, "Flatten open trade at session end", group = G_RK)
+float riskUsd   = input.float(500.0, "Risk per trade ($) — for size", minval = 0, group = G_RK, tooltip = "Size = risk $ ÷ (stop distance × point value). Shares on stocks, contracts on futures. 0 = off.")
+
+const string G_VI = "⑥ Visuals"
+bool  showHist  = input.bool(true, "Draw previous-session profile", group = G_VI)
+int   histW     = input.int(40, "Profile width (bars)", minval = 5, maxval = 300, group = G_VI)
+color vaRowCol  = input.color(color.new(#5AA9FF, 60), "VA rows", inline = "h", group = G_VI)
+color outRowCol = input.color(color.new(#787B86, 70), "Outside rows", inline = "h", group = G_VI)
+color pcRowCol  = input.color(color.new(#E0505A, 20), "PC row", inline = "h", group = G_VI)
+bool  showFill  = input.bool(true, "Shade value area", group = G_VI)
+bool  showLbl   = input.bool(true, "Trade labels", group = G_VI)
+bool  showDash  = input.bool(true, "Show dashboard", group = G_VI)
+color longCol   = input.color(#2ECF7A, "Long", inline = "c1", group = G_VI)
+color shortCol  = input.color(#E0505A, "Short", inline = "c1", group = G_VI)
+color tpCol     = input.color(#00E676, "TP", inline = "c2", group = G_VI)
+color slCol     = input.color(#FF1744, "SL", inline = "c2", group = G_VI)
+
+const string G_AL = "⑦ alert() webhooks (JSON)"
+bool alLvl  = input.bool(true,  "New session levels",                 group = G_AL)
+bool alArm  = input.bool(false, "Setup armed (PC touch / BO pullback)", group = G_AL)
+bool alEnt  = input.bool(true,  "Entry",                              group = G_AL)
+bool alExit = input.bool(true,  "TP / SL / flat",                     group = G_AL)
+
+// ───────────────────────────── Types ─────────────────────────────
+type Trade
+    string setup
+    int    dir          // 1 long · -1 short
+    float  entry
+    float  sl
+    float  tp
+    int    bar
+    float  qty
+    line   enLn
+    line   tpLn
+    line   slLn
+
+// ───────────────────────────── Session ─────────────────────────────
+bool tfOk      = timeframe.isintraday
+bool useCust   = sessMode == "Custom session"
+bool inCust    = not na(time(timeframe.period, custSess, syminfo.timezone))
+bool dayChg    = timeframe.change("D")
+bool inSess    = useCust ? inCust : true
+bool newSess   = useCust ? (inCust and not inCust[1]) : dayChg
+bool sessEnd   = useCust and not inCust and inCust[1]
+bool closeSess = useCust ? sessEnd : dayChg
+
+// ───────────────────────────── State ─────────────────────────────
+var array<float> aH = array.new<float>()
+var array<float> aL = array.new<float>()
+var array<float> aV = array.new<float>()
+var int   curStart  = na
+var float lastClose = na
+
+var float pc         = na
+var float vah        = na
+var float val        = na
+var bool  haveLevels = false
+var int   priorRead  = 0      // 1 closed above VA · -1 closed below VA · 0 closed inside
+
+var array<box> histBoxes = array.new<box>()
+
+var int   pcSide  = 0         // side of the PC price is on before a touch
+var int   s1Dir   = 0         // PC bounce armed: 1 long · -1 short
+var int   s1Bar   = na
+var float s1Ext   = na
+var int   s2Out   = 0         // VA reversal: 1 outside above · -1 outside below
+var float s2Ext   = na
+var int   bState  = 0         // bull breakout: 0 idle · 1 broke out · 2 pulling back
+var float bPeak   = na
+var float bPb     = na
+var int   sState  = 0         // bear breakout: 0 idle · 1 broke out · 2 pulling back
+var float sTrough = na
+var float sPb     = na
+
+var Trade active      = na
+var int   tradesToday = 0
+
+// ───────────────────────────── Candle reads ─────────────────────────────
+bool  green   = close > open
+bool  red     = close < open
+float rng     = high - low
+bool  engBull = green and close[1] < open[1] and close >= open[1] and open <= close[1]
+bool  engBear = red and close[1] > open[1] and close <= open[1] and open >= close[1]
+float lowWick = math.min(open, close) - low
+float upWick  = high - math.max(open, close)
+bool  runBull = math.sum(green ? 1 : 0, runLen) == runLen
+bool  runBear = math.sum(red ? 1 : 0, runLen) == runLen
+
+// ───────────────────────────── Helpers ─────────────────────────────
+// Fixed-range profile of the bars passed in → [PC, VAH, VAL, row volumes, range bottom, row height]
+buildProfile(array<float> hs, array<float> ls, array<float> vs, int nRows, float vaShare) =>
+    int   n    = hs.size()
+    float top  = na
+    float bot  = na
+    float rowH = na
+    float pcP  = na
+    float vahP = na
+    float valP = na
+    array<float> rv = array.new<float>(nRows, 0.0)
+    if n > 0
+        top := hs.max()
+        bot := ls.min()
+    if n > 0 and top > bot
+        rowH := (top - bot) / nRows
+        bool noVol = vs.sum() <= 0
+        for i = 0 to n - 1
+            float h  = hs.get(i)
+            float l  = ls.get(i)
+            float v  = noVol ? 1.0 : vs.get(i)
+            int   r0 = math.min(nRows - 1, math.max(0, int(math.floor((l - bot) / rowH))))
+            int   r1 = math.min(nRows - 1, math.max(0, int(math.floor((h - bot) / rowH))))
+            float sh = v / (r1 - r0 + 1)
+            for r = r0 to r1
+                rv.set(r, rv.get(r) + sh)
+        float total = rv.sum()
+        int   poc   = rv.indexof(rv.max())
+        float acc   = rv.get(poc)
+        int   up    = poc
+        int   dn    = poc
+        while acc < total * vaShare and (up < nRows - 1 or dn > 0)
+            float vUp = -1.0
+            float vDn = -1.0
+            if up < nRows - 1
+                vUp := rv.get(up + 1)
+            if dn > 0
+                vDn := rv.get(dn - 1)
+            if vUp >= vDn
+                up  += 1
+                acc += vUp
+            else
+                dn  -= 1
+                acc += vDn
+        pcP  := bot + rowH * (poc + 0.5)
+        vahP := bot + rowH * (up + 1)
+        valP := bot + rowH * dn
+    [pcP, vahP, valP, rv, bot, rowH]
+
+setupKey(string s) =>
+    switch s
+        "pc_bounce"   => 0
+        "va_reversal" => 1
+        => 2
+
+setupTitle(string s) =>
+    switch s
+        "pc_bounce"   => "PC bounce"
+        "va_reversal" => "VA reversal"
+        => "VA breakout"
+
+priorText() =>
+    switch priorRead
+        1  => "above"
+        -1 => "below"
+        => "inside"
+
+num(float x) =>
+    na(x) ? "null" : str.tostring(x)
+
+jsonEvt(string ev, string setupName, int dir, float px, float e, float sl, float tp, float q) =>
+    string side = dir == 1 ? "long" : dir == -1 ? "short" : "none"
+    '{"event":"' + ev + '","setup":"' + setupName + '","side":"' + side + '","ticker":"' + syminfo.ticker + '","price":' + num(px) + ',"entry":' + num(e) + ',"sl":' + num(sl) + ',"tp":' + num(tp) + ',"qty":' + num(q) + ',"rr":' + num(rr) + ',"pc":' + num(pc) + ',"vah":' + num(vah) + ',"val":' + num(val) + ',"prior_close":"' + priorText() + '","time":' + str.tostring(time_close) + '}'
+
+enterTrade(string setupName, int dir, float stopPx) =>
+    Trade t    = na
+    float e    = close
+    float risk = math.abs(e - stopPx)
+    bool  side = (dir == 1 and stopPx < e) or (dir == -1 and stopPx > e)
+    if not na(stopPx) and side and risk >= minRiskTk * syminfo.mintick
+        float q = na
+        if riskUsd > 0
+            q := math.floor(riskUsd / (risk * syminfo.pointvalue))
+        t := Trade.new(setupName, dir, e, stopPx, e + dir * rr * risk, bar_index, q)
+    t
+
+recordExit(Trade t, float px, int xBar, string why) =>
+    float risk  = math.abs(t.entry - t.sl)
+    float rMult = risk > 0 ? (px - t.entry) * t.dir / risk : 0.0
+    t.enLn.set_x2(xBar)
+    t.tpLn.set_x2(xBar)
+    t.slLn.set_x2(xBar)
+    color c = why == "TP" ? tpCol : why == "SL" ? slCol : #787B86
+    label.new(xBar, px, why + " " + (rMult >= 0 ? "+" : "") + str.tostring(rMult, "#.##") + "R", style = label.style_label_left, color = c, textcolor = #000000, size = size.small)
+    rMult
+
+// ───────────────────────────── Engine (confirmed bars only) ─────────────────────────────
+bool s1L    = false
+bool s1S    = false
+bool s2L    = false
+bool s2S    = false
+bool s3L    = false
+bool s3S    = false
+bool tpSig  = false
+bool slSig  = false
+bool lvlSig = false
+
+if barstate.isconfirmed and tfOk
+    // 1 · session over → flatten the open trade at the session's last close
+    if closeSess and flatEnd and not na(active)
+        recordExit(active, lastClose, bar_index - 1, "FLAT")
+        if alExit
+            alert(jsonEvt("flat", active.setup, active.dir, lastClose, active.entry, active.sl, active.tp, active.qty), alert.freq_once_per_bar_close)
+        active := na
+
+    // 2 · new session → build the completed previous session's profile
+    if newSess
+        if not na(curStart) and aH.size() > 0
+            [p, hi, lo, rv, bot, rowH] = buildProfile(aH, aL, aV, rows, vaPct)
+            haveLevels := not na(p) and hi > lo
+            pc  := p
+            vah := hi
+            val := lo
+            if haveLevels
+                priorRead := lastClose > vah ? 1 : lastClose < val ? -1 : 0
+                pcSide    := lastClose > pc ? 1 : lastClose < pc ? -1 : 0
+                lvlSig    := true
+                if alLvl
+                    string inPlay = priorRead == 0 ? "va_reversal" : "pc_bounce"
+                    alert('{"event":"levels","ticker":"' + syminfo.ticker + '","pc":' + num(pc) + ',"vah":' + num(vah) + ',"val":' + num(val) + ',"prior_close":"' + priorText() + '","setup_in_play":"' + inPlay + '","time":' + str.tostring(time_close) + '}', alert.freq_once_per_bar_close)
+                if showHist
+                    for b in histBoxes
+                        b.delete()
+                    histBoxes.clear()
+                    float mx   = rv.max()
+                    int   left = curStart
+                    int   wMax = math.min(histW, math.max(1, bar_index - 1 - left))
+                    for r = 0 to rows - 1
+                        float vv = rv.get(r)
+                        if vv > 0 and mx > 0
+                            float rb = bot + rowH * r
+                            float rt = rb + rowH
+                            int   w  = math.max(1, int(math.round(wMax * vv / mx)))
+                            color c  = outRowCol
+                            if pc >= rb and pc < rt
+                                c := pcRowCol
+                            else if rb >= val - rowH * 0.01 and rt <= vah + rowH * 0.01
+                                c := vaRowCol
+                            histBoxes.push(box.new(left, rt, left + w, rb, border_color = color(na), bgcolor = c))
+        aH.clear()
+        aL.clear()
+        aV.clear()
+        curStart    := bar_index
+        tradesToday := 0
+        s1Dir       := 0
+        s2Out       := 0
+        bState      := 0
+        sState      := 0
+
+    // 3 · add this bar to the running session (it only becomes "previous" tomorrow)
+    if inSess
+        aH.push(high)
+        aL.push(low)
+        aV.push(nz(volume))
+        lastClose := close
+
+    // 4 · manage the open trade — hold to TP or SL (same bar: SL assumed first)
+    if not na(active)
+        if bar_index > active.bar
+            bool hitSL = active.dir == 1 ? low <= active.sl : high >= active.sl
+            bool hitTP = active.dir == 1 ? high >= active.tp : low <= active.tp
+            if hitSL or hitTP
+                string why = hitSL ? "SL" : "TP"
+                float  px  = hitSL ? active.sl : active.tp
+                recordExit(active, px, bar_index, why)
+                tpSig := not hitSL
+                slSig := hitSL
+                if alExit
+                    alert(jsonEvt(hitSL ? "sl" : "tp", active.setup, active.dir, px, active.entry, active.sl, active.tp, active.qty), alert.freq_once_per_bar_close)
+                active := na
+            else
+                active.enLn.set_x2(bar_index)
+                active.tpLn.set_x2(bar_index)
+                active.slLn.set_x2(bar_index)
+
+    // 5 · setups
+    if haveLevels and inSess
+        float  tol   = touchTk * syminfo.mintick
+        float  buf   = bufTk * syminfo.mintick
+        float  vaW   = vah - val
+        string sig   = ""
+        int    sDir  = 0
+        float  sStop = na
+
+        // ── Setup 1 · PC bounce
+        if useS1 and (not s1NeedOut or priorRead != 0)
+            bool touched = low <= pc + tol and high >= pc - tol
+            if s1Dir == 0 and touched and pcSide != 0
+                s1Dir := pcSide          // came down from above → long · came up from below → short
+                s1Bar := bar_index
+                s1Ext := pcSide == 1 ? low : high
+                if alArm
+                    alert(jsonEvt("pc_touch", "pc_bounce", s1Dir, close, na, na, na, na), alert.freq_once_per_bar_close)
+            else if s1Dir != 0
+                s1Ext := s1Dir == 1 ? math.min(s1Ext, low) : math.max(s1Ext, high)
+            if s1Dir == 1
+                bool conf = close > pc and ((cEngulf and engBull) or (cWick and rng > 0 and low <= pc + tol and lowWick >= wickMin * rng) or (cRun and runBull))
+                if conf
+                    if sDir == 0
+                        sig   := "pc_bounce"
+                        sDir  := 1
+                        sStop := s1StopMode == "PC + buffer" ? pc - buf : s1Ext - buf
+                    s1Dir := 0
+                else if close < pc - tol or bar_index - s1Bar >= confWin - 1
+                    s1Dir := 0
+            else if s1Dir == -1
+                bool conf = close < pc and ((cEngulf and engBear) or (cWick and rng > 0 and high >= pc - tol and upWick >= wickMin * rng) or (cRun and runBear))
+                if conf
+                    if sDir == 0
+                        sig   := "pc_bounce"
+                        sDir  := -1
+                        sStop := s1StopMode == "PC + buffer" ? pc + buf : s1Ext + buf
+                    s1Dir := 0
+                else if close > pc + tol or bar_index - s1Bar >= confWin - 1
+                    s1Dir := 0
+        if close > pc + tol
+            pcSide := 1
+        else if close < pc - tol
+            pcSide := -1
+
+        // ── Setup 2 · VA reversal
+        if useS2 and (not s2NeedIn or priorRead == 0)
+            bool outUp = outMode == "Close" ? close > vah : high > vah
+            bool outDn = outMode == "Close" ? close < val : low < val
+            if s2Out == 0
+                if outDn
+                    s2Out := -1
+                    s2Ext := low
+                else if outUp
+                    s2Out := 1
+                    s2Ext := high
+            else if s2Out == -1
+                s2Ext := math.min(s2Ext, low)
+                if close > val and close < vah
+                    if sDir == 0
+                        sig   := "va_reversal"
+                        sDir  := 1
+                        sStop := s2Ext - buf
+                    s2Out := 0
+                else if close > vah
+                    s2Out := 1
+                    s2Ext := high
+            else
+                s2Ext := math.max(s2Ext, high)
+                if close < vah and close > val
+                    if sDir == 0
+                        sig   := "va_reversal"
+                        sDir  := -1
+                        sStop := s2Ext + buf
+                    s2Out := 0
+                else if close < val
+                    s2Out := -1
+                    s2Ext := low
+
+        // ── Setup 3 · VA breakout (bull above VAH · bear below VAL)
+        if useS3 and vaW > 0
+            float brkD  = brkPct * vaW
+            float nearD = nearPct * vaW
+            float deepD = deepPct * vaW
+            if bState == 0
+                if close > vah and high >= vah + brkD
+                    bState := 1
+                    bPeak  := high
+            else if bState == 1
+                bPeak := math.max(bPeak, high)
+                if close < vah - deepD
+                    bState := 0
+                else if low <= vah + nearD
+                    bState := 2
+                    bPb    := low
+                    if alArm
+                        alert(jsonEvt("breakout_pullback", "va_breakout", 1, close, na, na, na, na), alert.freq_once_per_bar_close)
+            else
+                if close < vah - deepD
+                    bState := 0
+                else if close > bPeak
+                    if sDir == 0
+                        sig   := "va_breakout"
+                        sDir  := 1
+                        sStop := s3StopMode == "Pullback swing" ? math.min(bPb, low) - buf : bPeak - buf
+                    bState := 0
+                else
+                    bPb := math.min(bPb, low)
+
+            if sState == 0
+                if close < val and low <= val - brkD
+                    sState  := 1
+                    sTrough := low
+            else if sState == 1
+                sTrough := math.min(sTrough, low)
+                if close > val + deepD
+                    sState := 0
+                else if high >= val - nearD
+                    sState := 2
+                    sPb    := high
+                    if alArm
+                        alert(jsonEvt("breakout_pullback", "va_breakout", -1, close, na, na, na, na), alert.freq_once_per_bar_close)
+            else
+                if close > val + deepD
+                    sState := 0
+                else if close < sTrough
+                    if sDir == 0
+                        sig   := "va_breakout"
+                        sDir  := -1
+                        sStop := s3StopMode == "Pullback swing" ? math.max(sPb, high) + buf : sTrough + buf
+                    sState := 0
+                else
+                    sPb := math.max(sPb, high)
+
+        // ── Entry (one trade at a time, capped per session)
+        if sDir != 0 and na(active) and tradesToday < maxTrades
+            Trade t = enterTrade(sig, sDir, sStop)
+            if not na(t)
+                t.enLn := line.new(bar_index, t.entry, bar_index, t.entry, color = #787B86, style = line.style_dotted)
+                t.tpLn := line.new(bar_index, t.tp, bar_index, t.tp, color = tpCol, width = 2)
+                t.slLn := line.new(bar_index, t.sl, bar_index, t.sl, color = slCol, width = 2)
+                active      := t
+                tradesToday += 1
+                if sig == "pc_bounce"
+                    s1L := sDir == 1
+                    s1S := sDir == -1
+                else if sig == "va_reversal"
+                    s2L := sDir == 1
+                    s2S := sDir == -1
+                else
+                    s3L := sDir == 1
+                    s3S := sDir == -1
+                if showLbl
+                    string txt = (sDir == 1 ? "LONG · " : "SHORT · ") + setupTitle(sig) + "\nE " + str.tostring(t.entry, format.mintick) + "   SL " + str.tostring(t.sl, format.mintick) + "   TP " + str.tostring(t.tp, format.mintick) + (na(t.qty) ? "" : "\nSize " + str.tostring(t.qty, "#"))
+                    if sDir == 1
+                        label.new(bar_index, na, txt, yloc = yloc.belowbar, style = label.style_label_up, color = longCol, textcolor = #FFFFFF, size = size.small)
+                    else
+                        label.new(bar_index, na, txt, yloc = yloc.abovebar, style = label.style_label_down, color = shortCol, textcolor = #FFFFFF, size = size.small)
+                if alEnt
+                    alert(jsonEvt(sDir == 1 ? "entry_long" : "entry_short", sig, sDir, close, t.entry, t.sl, t.tp, t.qty), alert.freq_once_per_bar_close)
+
+// ───────────────────────────── Plots ─────────────────────────────
+bool showLv = haveLevels and inSess and not newSess
+plot(showLv ? pc : na, "Point of control", color = #E0505A, linewidth = 2, style = plot.style_linebr)
+pV1 = plot(showLv ? vah : na, "Value area high", color = #5AA9FF, linewidth = 1, style = plot.style_linebr)
+pV2 = plot(showLv ? val : na, "Value area low",  color = #5AA9FF, linewidth = 1, style = plot.style_linebr)
+fill(pV1, pV2, color = showFill ? color.new(#5AA9FF, 92) : na, title = "Value area fill")
+
+plotshape(s1L, "PC bounce long",    shape.triangleup,   location.belowbar, color = #2ECF7A, size = size.tiny, text = "PC")
+plotshape(s1S, "PC bounce short",   shape.triangledown, location.abovebar, color = #E0505A, size = size.tiny, text = "PC")
+plotshape(s2L, "VA reversal long",  shape.triangleup,   location.belowbar, color = #2ECF7A, size = size.tiny, text = "REV")
+plotshape(s2S, "VA reversal short", shape.triangledown, location.abovebar, color = #E0505A, size = size.tiny, text = "REV")
+plotshape(s3L, "VA breakout long",  shape.triangleup,   location.belowbar, color = #2ECF7A, size = size.tiny, text = "BRK")
+plotshape(s3S, "VA breakout short", shape.triangledown, location.abovebar, color = #E0505A, size = size.tiny, text = "BRK")
+
+var label lbPc  = na
+var label lbVah = na
+var label lbVal = na
+if barstate.islast
+    label.delete(lbPc)
+    label.delete(lbVah)
+    label.delete(lbVal)
+    if haveLevels and inSess
+        lbPc  := label.new(bar_index + 2, pc,  "PC "  + str.tostring(pc,  format.mintick), style = label.style_label_left, color = color(na), textcolor = #E0505A, size = size.small)
+        lbVah := label.new(bar_index + 2, vah, "VAH " + str.tostring(vah, format.mintick), style = label.style_label_left, color = color(na), textcolor = #5AA9FF, size = size.small)
+        lbVal := label.new(bar_index + 2, val, "VAL " + str.tostring(val, format.mintick), style = label.style_label_left, color = color(na), textcolor = #5AA9FF, size = size.small)
+
+// ───────────────────────────── Dashboard ─────────────────────────────
+var table dash = table.new(position.top_right, 2, 9, bgcolor = #131722, border_color = #363A45, border_width = 1, frame_color = #363A45, frame_width = 1)
+
+dashRow(int r, string k, string v, color vc) =>
+    table.cell(dash, 0, r, k, text_color = #B2B5BE, text_size = size.small, text_halign = text.align_left)
+    table.cell(dash, 1, r, v, text_color = vc, text_size = size.small, text_halign = text.align_left)
+
+if showDash and barstate.islast
+    string prior = switch
+        not haveLevels  => "— building first profile"
+        priorRead == 1  => "Closed ABOVE VA → PC bounce"
+        priorRead == -1 => "Closed BELOW VA → PC bounce"
+        => "Closed INSIDE VA → VA reversal"
+    string pcT = switch
+        s1Dir == 1  => "touched from above — wait bull confirm"
+        s1Dir == -1 => "touched from below — wait bear confirm"
+        => "—"
+    string revT = switch
+        s2Out == -1 => "outside ▼ — wait close back inside"
+        s2Out == 1  => "outside ▲ — wait close back inside"
+        => "—"
+    string brkT = switch
+        bState == 2 => "▲ pullback holding — BOS > " + str.tostring(bPeak, format.mintick)
+        bState == 1 => "▲ broke out — wait pullback"
+        sState == 2 => "▼ pullback holding — BOS < " + str.tostring(sTrough, format.mintick)
+        sState == 1 => "▼ broke out — wait pullback"
+        => "—"
+    string actT = "—"
+    color  actC = #B2B5BE
+    if not na(active)
+        actT := (active.dir == 1 ? "LONG " : "SHORT ") + setupTitle(active.setup) + " @ " + str.tostring(active.entry, format.mintick)
+        actC := active.dir == 1 ? longCol : shortCol
+    table.cell(dash, 0, 0, "VP System", text_color = #FFFFFF, text_size = size.normal, text_halign = text.align_left)
+    table.cell(dash, 1, 0, useCust ? custSess : "exchange day", text_color = #B2B5BE, text_size = size.small, text_halign = text.align_left)
+    dashRow(1,  "Prior close", prior, haveLevels ? #FFFFFF : #787B86)
+    dashRow(2,  "PC",          haveLevels ? str.tostring(pc, format.mintick) : "—", #E0505A)
+    dashRow(3,  "VAH / VAL",   haveLevels ? str.tostring(vah, format.mintick) + " / " + str.tostring(val, format.mintick) : "—", #5AA9FF)
+    dashRow(4,  "PC bounce",   pcT,  s1Dir != 0 ? #FFB74D : #B2B5BE)
+    dashRow(5,  "Reversal",    revT, s2Out != 0 ? #FFB74D : #B2B5BE)
+    dashRow(6,  "Breakout",    brkT, bState != 0 or sState != 0 ? #FFB74D : #B2B5BE)
+    dashRow(7,  "Trade",       actT, actC)
+    dashRow(8,  "Session",     str.tostring(tradesToday) + " / " + str.tostring(maxTrades) + " trades", tradesToday >= maxTrades ? #787B86 : #FFFFFF)
+
+// ───────────────────────────── alertcondition() ─────────────────────────────
+alertcondition(lvlSig,               "VP new session levels", "VP levels set on {{ticker}} — previous-session PC / VAH / VAL ready")
+alertcondition(s1L or s2L or s3L,    "VP long entry (any setup)",  "VP LONG entry on {{ticker}} @ {{close}}")
+alertcondition(s1S or s2S or s3S,    "VP short entry (any setup)", "VP SHORT entry on {{ticker}} @ {{close}}")
+alertcondition(s1L,                  "PC bounce long",    "PC bounce LONG on {{ticker}} @ {{close}}")
+alertcondition(s1S,                  "PC bounce short",   "PC bounce SHORT on {{ticker}} @ {{close}}")
+alertcondition(s2L,                  "VA reversal long",  "VA reversal LONG on {{ticker}} @ {{close}}")
+alertcondition(s2S,                  "VA reversal short", "VA reversal SHORT on {{ticker}} @ {{close}}")
+alertcondition(s3L,                  "VA breakout long",  "VA breakout LONG on {{ticker}} @ {{close}}")
+alertcondition(s3S,                  "VA breakout short", "VA breakout SHORT on {{ticker}} @ {{close}}")
+alertcondition(tpSig,                "VP take profit",    "VP TP hit on {{ticker}} @ {{close}}")
+alertcondition(slSig,                "VP stop loss",      "VP SL hit on {{ticker}} @ {{close}}")
+alertcondition(barstate.isconfirmed, "Test — Fires Every Bar", "🟢 TEST — plumbing works on {{ticker}} @ {{close}}")

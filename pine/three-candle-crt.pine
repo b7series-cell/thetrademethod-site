@@ -1,0 +1,509 @@
+//@version=6
+// ═══════════════════════════════════════════════════════════════════════════════
+//  CRT 3-Candle Range Theory — NY Session
+//  Run on a 1m chart (1–5m works). CRT candles are built from 15m / 30m / 1H.
+//
+//  Model
+//   C1  mark extreme high / low (wick to wick)
+//   C2  sweeps C1 low (long) / high (short) and CLOSES back inside C1's range
+//   C3  entry when price breaks C2's high (long) / low (short) — before C3 closes
+//       · Direct Break  – stop order at the C2 extreme, fills on first break
+//       · Rebreak       – first break → 1m close back inside → second break = entry
+//       · Auto          – Rebreak when the tape is choppy (color flips / wicks), else Direct
+//   TP  = C1 opposite extreme (fixed, no partials)
+//   SL  = placed so the trade is a fixed 1.5 R (not a structure level)
+//   Bias = 1H extreme swing sweep: swept a key low and reclaimed → longs only,
+//          swept a key high and rejected → shorts only; N closes beyond = level broken.
+//   First CRT (any of 15/30/1H) that triggers in 09:30–12:00 ET; max 1–3 per session.
+// ═══════════════════════════════════════════════════════════════════════════════
+indicator("CRT 3-Candle Model — NY Session", shorttitle = "CRT NY", overlay = true, max_lines_count = 500, max_labels_count = 500, max_boxes_count = 300)
+
+const string TZ = "America/New_York"
+
+// ───────────────────────────── Inputs ─────────────────────────────
+const string G_SES = "① Session"
+string sessNY    = input.session("0930-1200", "NY trade window (ET)", group = G_SES, tooltip = "Entries only inside this window. Mike: 9:30 open until ~12:00, then done for the day.")
+string c1Rule    = input.string("C1 opens in window", "Candle-1 anchor", options = ["C1 opens in window", "C2 opens in window", "Only C3 in window"], group = G_SES, tooltip = "Which CRT candles must belong to today's window.\n• C1 opens in window – strict 'first candle after 9:30' read (best for stocks; 1H bars are 9:30-aligned).\n• C2 opens in window – use on futures 1H (bars are hour-aligned, so the 9:00 bar is C1).\n• Only C3 in window – any C1/C2, as long as the entry candle starts inside the window.")
+int    maxTrades = input.int(1, "Max trades per session", minval = 1, maxval = 3, group = G_SES, tooltip = "Mike takes the first one (two at most).")
+bool   skipMon   = input.bool(false, "Skip Mondays", group = G_SES)
+bool   flatEnd   = input.bool(false, "Force-close open trade at window end", group = G_SES, tooltip = "Off matches the video: once in, you hold to TP or SL no matter how long it takes.")
+
+const string G_TF = "② CRT timeframes"
+bool use15 = input.bool(true, "15m", inline = "tf", group = G_TF)
+bool use30 = input.bool(true, "30m", inline = "tf", group = G_TF)
+bool use60 = input.bool(true, "1H",  inline = "tf", group = G_TF)
+
+const string G_EN = "③ Entry & risk"
+string entryMode  = input.string("Rebreak", "Entry method", options = ["Direct Break", "Rebreak", "Auto (chop-adaptive)"], group = G_EN)
+float  rr         = input.float(1.5, "Fixed reward : risk", minval = 0.5, step = 0.1, group = G_EN, tooltip = "Stop is dragged until the trade is exactly this R. Mike uses 1.5 (1.3 on very tight ranges).")
+int    pbTicks    = input.int(0, "Rebreak — pullback close beyond level (ticks)", minval = 0, group = G_EN, tooltip = "After the first break, a 1m bar must CLOSE back inside the level by at least this many ticks before the rebreak counts.")
+int    minTgtTk   = input.int(8, "Min room entry → target (ticks)", minval = 1, group = G_EN, tooltip = "Filters micro-ranges where one tick can stop you out.")
+bool   cancelThru = input.bool(true, "Cancel if stop level trades before entry", group = G_EN)
+float  riskUsd    = input.float(500.0, "Risk per trade ($) — for size", minval = 0, group = G_EN, tooltip = "Size = risk $ ÷ (stop distance × point value). Contracts on futures, shares on stocks. 0 = off.")
+
+const string G_CH = "④ Auto mode — chop read (1m tape)"
+int   chopLen = input.int(20, "Lookback (chart bars)", minval = 5, group = G_CH)
+float flipThr = input.float(0.55, "Color-flip rate ≥ → Rebreak", minval = 0, maxval = 1, step = 0.05, group = G_CH, tooltip = "Share of bars that flip green↔red. Mike: 'massive green, massive red, massive green' = wait for the rebreak.")
+float wickThr = input.float(0.55, "Avg wick share ≥ → Rebreak", minval = 0, maxval = 1, step = 0.05, group = G_CH, tooltip = "1 − body/range averaged. Big wicks both ways = chop.")
+
+const string G_BI = "⑤ HTF bias — key level sweeps"
+bool   biasOn      = input.bool(true, "Filter CRT direction by HTF bias", group = G_BI)
+string biasTF      = input.timeframe("60", "Bias timeframe", group = G_BI)
+int    pivLen      = input.int(3, "Swing strength (bars each side)", minval = 1, maxval = 10, group = G_BI)
+int    levelLook   = input.int(48, "Key-level lookback (bias TF bars)", minval = 10, group = G_BI, tooltip = "The most extreme swing high / low inside this lookback is the key level.")
+int    acceptN     = input.int(2, "Closes beyond level = level broken", minval = 1, maxval = 5, group = G_BI, tooltip = "Swept then closed back inside before this many closes beyond → reversal bias. Otherwise the level is broken → continuation bias. Mike: 'holds one or two full-bodied candles above, level's gone.'")
+string neutralMode = input.string("Allow both", "Before first sweep", options = ["Allow both", "Skip"], group = G_BI)
+bool   showLevels  = input.bool(true, "Plot HTF key levels", group = G_BI)
+
+const string G_VIS = "⑥ Visuals"
+color bullCol  = input.color(#26A69A, "Bull", inline = "c1", group = G_VIS)
+color bearCol  = input.color(#EF5350, "Bear", inline = "c1", group = G_VIS)
+color fadeCol  = input.color(#787B86, "Expired", inline = "c1", group = G_VIS)
+color tpCol    = input.color(#00E676, "TP", inline = "c2", group = G_VIS)
+color slCol    = input.color(#FF1744, "SL", inline = "c2", group = G_VIS)
+color sessCol  = input.color(#2962FF, "Window", inline = "c2", group = G_VIS)
+bool  showSess = input.bool(true, "Shade NY window", group = G_VIS)
+bool  showDash = input.bool(true, "Show dashboard", group = G_VIS)
+
+const string G_AL = "⑦ alert() webhooks (JSON)"
+bool alArm  = input.bool(true,  "Setup armed",                   group = G_AL)
+bool alBrk  = input.bool(true,  "First break (rebreak pending)", group = G_AL)
+bool alEnt  = input.bool(true,  "Entry",                         group = G_AL)
+bool alExit = input.bool(true,  "TP / SL / flat",                group = G_AL)
+bool alBias = input.bool(false, "HTF bias flip",                 group = G_AL)
+
+// ───────────────────────────── Types ─────────────────────────────
+type Setup
+    string tf
+    int    dir               // 1 long · -1 short
+    int    state = 0         // 0 armed · 1 broke (wait pullback) · 2 pulled back (wait rebreak) · 3 in trade · 4 dead · 5 closed
+    string method
+    float  c1h
+    float  c1l
+    float  level             // C2 extreme = entry trigger
+    float  tp
+    float  entry
+    float  sl
+    int    born
+    int    entryBar
+    float  qty
+    color  col
+    box    bx
+    line   lvlLn
+    line   tpLn
+    line   slLn
+    label  tag
+
+// ───────────────────────────── Session / chop state ─────────────────────────────
+int  sessStartMin = int(str.tonumber(str.substring(sessNY, 0, 2))) * 60 + int(str.tonumber(str.substring(sessNY, 2, 4)))
+bool inSess       = not na(time(timeframe.period, sessNY, TZ))
+bool sessStart    = inSess and not inSess[1]
+bool sessEnd      = not inSess and inSess[1]
+bool dayBlocked   = skipMon and dayofweek(time, TZ) == dayofweek.monday
+
+float flip      = (close > open) != (close[1] > open[1]) ? 1.0 : 0.0
+float rng       = high - low
+float wickShare = rng > 0 ? 1.0 - math.abs(close - open) / rng : 0.0
+float flipRate  = ta.sma(flip, chopLen)
+float wickAvg   = ta.sma(wickShare, chopLen)
+bool  choppy    = flipRate >= flipThr or wickAvg >= wickThr
+
+var int   tradesToday = 0
+var int   wins        = 0
+var int   losses      = 0
+var float netR        = 0.0
+var Setup s15    = na
+var Setup s30    = na
+var Setup s60    = na
+var Setup active = na
+
+// ───────────────────────────── HTF bias (runs on bias TF) ─────────────────────────────
+calcBias() =>
+    var array<float> pH  = array.new<float>()
+    var array<int>   pHb = array.new<int>()
+    var array<float> pL  = array.new<float>()
+    var array<int>   pLb = array.new<int>()
+    var int   bias = 0
+    var bool  swL  = false
+    var bool  swH  = false
+    var int   cntL = 0
+    var int   cntH = 0
+    var float lvlL = na
+    var float lvlH = na
+    float ph = ta.pivothigh(high, pivLen, pivLen)
+    float pl = ta.pivotlow(low, pivLen, pivLen)
+    if not na(ph)
+        pH.push(ph)
+        pHb.push(bar_index - pivLen)
+    if not na(pl)
+        pL.push(pl)
+        pLb.push(bar_index - pivLen)
+    while pH.size() > 0 and bar_index - pHb.get(0) > levelLook
+        pH.shift()
+        pHb.shift()
+    while pL.size() > 0 and bar_index - pLb.get(0) > levelLook
+        pL.shift()
+        pLb.shift()
+    float keyH = pH.size() > 0 ? pH.max() : na
+    float keyL = pL.size() > 0 ? pL.min() : na
+    // ── low side: sweep → reclaim (bull) or acceptance below (bear)
+    if not swL and not na(keyL) and low < keyL
+        swL  := true
+        lvlL := keyL
+        cntL := 0
+        pL.clear()
+        pLb.clear()
+    if swL
+        if close > lvlL
+            bias := 1
+            swL  := false
+        else
+            cntL += 1
+            if cntL >= acceptN
+                bias := -1
+                swL  := false
+    // ── high side: sweep → reject (bear) or acceptance above (bull)
+    if not swH and not na(keyH) and high > keyH
+        swH  := true
+        lvlH := keyH
+        cntH := 0
+        pH.clear()
+        pHb.clear()
+    if swH
+        if close < lvlH
+            bias := -1
+            swH  := false
+        else
+            cntH += 1
+            if cntH >= acceptN
+                bias := 1
+                swH  := false
+    [bias, keyH, keyL]
+
+biasHTF() =>
+    [b, kh, kl] = calcBias()
+    [b[1], kh[1], kl[1]]          // confirmed HTF bar only (non-repainting with lookahead_on)
+
+[htfBiasRaw, keyHi, keyLo] = request.security(syminfo.tickerid, biasTF, biasHTF(), lookahead = barmerge.lookahead_on)
+int htfBias = na(htfBiasRaw) ? 0 : htfBiasRaw
+
+// ───────────────────────────── CRT candle data ─────────────────────────────
+// [C1 high, C1 low, C1 time, C2 high, C2 low, C2 close, C2 time] of the last two CLOSED HTF bars
+[h1_15, l1_15, t1_15, h2_15, l2_15, c2_15, t2_15] = request.security(syminfo.tickerid, "15", [high[2], low[2], time[2], high[1], low[1], close[1], time[1]], lookahead = barmerge.lookahead_on)
+[h1_30, l1_30, t1_30, h2_30, l2_30, c2_30, t2_30] = request.security(syminfo.tickerid, "30", [high[2], low[2], time[2], high[1], low[1], close[1], time[1]], lookahead = barmerge.lookahead_on)
+[h1_60, l1_60, t1_60, h2_60, l2_60, c2_60, t2_60] = request.security(syminfo.tickerid, "60", [high[2], low[2], time[2], high[1], low[1], close[1], time[1]], lookahead = barmerge.lookahead_on)
+
+bool nb15 = ta.change(time("15")) != 0
+bool nb30 = ta.change(time("30")) != 0
+bool nb60 = ta.change(time("60")) != 0
+
+int  chartSec = timeframe.in_seconds()
+bool ok15 = use15 and chartSec < timeframe.in_seconds("15")
+bool ok30 = use30 and chartSec < timeframe.in_seconds("30")
+bool ok60 = use60 and chartSec < timeframe.in_seconds("60")
+
+// chart bar_index where each HTF candle started → [C2 start, C1 start] at the moment C3 opens
+barTracker(bool isNew) =>
+    var int a = na
+    var int b = na
+    var int c = na
+    if isNew
+        c := b
+        b := a
+        a := bar_index
+    [b, c]
+
+[c2b15, c1b15] = barTracker(nb15)
+[c2b30, c1b30] = barTracker(nb30)
+[c2b60, c1b60] = barTracker(nb60)
+
+// ───────────────────────────── Helpers ─────────────────────────────
+crtDir(float h1, float l1, float h2, float l2, float c2) =>
+    bool bull = l2 < l1 and c2 > l1 and c2 < h1 and h2 < h1     // swept low, closed back inside, target untouched
+    bool bear = h2 > h1 and c2 < h1 and c2 > l1 and l2 > l1     // swept high, closed back inside, target untouched
+    int d = 0
+    if bull
+        d := 1
+    else if bear
+        d := -1
+    d
+
+inWindowToday(int t) =>
+    int m = hour(t, TZ) * 60 + minute(t, TZ)
+    m >= sessStartMin and dayofmonth(t, TZ) == dayofmonth(time, TZ)
+
+anchorOk(int t1, int t2) =>
+    bool ok = true
+    if c1Rule == "C1 opens in window"
+        ok := inWindowToday(t1)
+    else if c1Rule == "C2 opens in window"
+        ok := inWindowToday(t2)
+    ok
+
+dirAllowed(int d, int b) =>
+    bool ok = true
+    if biasOn
+        if b == 0
+            ok := neutralMode == "Allow both"
+        else
+            ok := b == d
+    ok
+
+num(float x) =>
+    na(x) ? "null" : str.tostring(x)
+
+jsonMsg(string ev, Setup s, float px) =>
+    '{"event":"' + ev + '","ticker":"' + syminfo.ticker + '","crt_tf":"' + s.tf + '","side":"' + (s.dir == 1 ? "long" : "short") + '","method":"' + s.method + '","price":' + num(px) + ',"level":' + num(s.level) + ',"entry":' + num(s.entry) + ',"tp":' + num(s.tp) + ',"sl":' + num(s.sl) + ',"qty":' + num(s.qty) + ',"rr":' + num(rr) + ',"time":' + str.tostring(time_close) + '}'
+
+method fade(Setup s, string why) =>
+    s.state := 4
+    s.bx.set_bgcolor(color.new(fadeCol, 94))
+    s.bx.set_border_color(color.new(fadeCol, 60))
+    s.lvlLn.set_color(color.new(fadeCol, 40))
+    s.tag.set_textcolor(fadeCol)
+    s.tag.set_text(s.tf + " CRT · " + why)
+
+method extend(Setup s) =>
+    if not na(s)
+        if s.state <= 3
+            s.bx.set_right(bar_index)
+            s.lvlLn.set_x2(bar_index)
+            s.tag.set_x(bar_index)
+            if s.state == 3
+                s.tpLn.set_x2(bar_index)
+                s.slLn.set_x2(bar_index)
+
+// On a new HTF bar: expire the old armed setup for that TF, then look for a fresh C1/C2 pair.
+arm(Setup cur, bool isNew, bool tfOk, string tfLbl, float h1, float l1, int t1, float h2, float l2, float c2, int t2, int c2Bar, int c1Bar, int bias) =>
+    Setup out = cur
+    if isNew
+        if not na(cur)
+            if cur.state < 3
+                cur.fade("expired — C3 closed")
+            out := na
+        if tfOk and inSess and not dayBlocked and tradesToday < maxTrades
+            int d = crtDir(h1, l1, h2, l2, c2)
+            if d != 0 and anchorOk(t1, t2) and dirAllowed(d, bias)
+                float lvl = d == 1 ? h2 : l2
+                float tp  = d == 1 ? h1 : l1
+                if math.abs(tp - lvl) >= minTgtTk * syminfo.mintick
+                    string m = switch entryMode
+                        "Direct Break" => "Direct"
+                        "Rebreak"      => "Rebreak"
+                        => choppy ? "Rebreak" : "Direct"
+                    color col = d == 1 ? bullCol : bearCol
+                    int   x1  = na(c1Bar) ? bar_index : c1Bar
+                    int   x2  = na(c2Bar) ? bar_index : c2Bar
+                    box   bx  = box.new(x1, h1, bar_index, l1, border_color = color.new(col, 40), bgcolor = color.new(col, 92), border_style = line.style_dotted)
+                    line  ln  = line.new(x2, lvl, bar_index, lvl, color = col, style = line.style_dashed, width = 2)
+                    label tg  = label.new(bar_index, lvl, tfLbl + " CRT " + (d == 1 ? "▲" : "▼") + " · " + m, style = label.style_label_left, color = color(na), textcolor = col, size = size.small)
+                    out := Setup.new(tfLbl, d, 0, m, h1, l1, lvl, tp, na, na, bar_index, na, na, col, bx, ln, na, na, tg)
+    out
+
+// Trigger state machine. Returns 0 none · 1 first break · 2 entered · 3 cancelled/skipped · 4 missed (ran to TP)
+method step(Setup s, bool canEnter) =>
+    int ev = 0
+    if not na(s)
+        if s.state < 3
+            float lvl    = s.level
+            float provSL = lvl - (s.tp - lvl) / rr
+            float pb     = pbTicks * syminfo.mintick
+            bool  broke  = s.dir == 1 ? high > lvl : low < lvl
+            bool  pulled = s.dir == 1 ? close < lvl - pb : close > lvl + pb
+            bool  thruSL = s.dir == 1 ? low <= provSL : high >= provSL
+            bool  ranTP  = s.dir == 1 ? high >= s.tp : low <= s.tp
+            bool  trig   = false
+            if cancelThru and thruSL
+                s.fade("stop traded before entry")
+                ev := 3
+            else if s.state == 0
+                if broke
+                    if s.method == "Direct"
+                        trig := true
+                    else
+                        s.state := pulled ? 2 : 1
+                        ev := 1
+            else if s.state == 1
+                if pulled
+                    s.state := 2
+                else if ranTP
+                    s.fade("ran to TP — no rebreak")
+                    ev := 4
+            else if s.state == 2
+                if broke
+                    trig := true
+            if trig
+                if not canEnter
+                    s.fade("skipped")
+                    ev := 3
+                else
+                    float e = s.dir == 1 ? math.max(lvl, open) : math.min(lvl, open)
+                    if (s.dir == 1 and e >= s.tp) or (s.dir == -1 and e <= s.tp)
+                        s.fade("no room")
+                        ev := 3
+                    else
+                        s.entry    := e
+                        s.sl       := e - (s.tp - e) / rr
+                        s.entryBar := bar_index
+                        s.state    := 3
+                        float riskPts = math.abs(e - s.sl)
+                        s.qty := riskUsd > 0 and riskPts > 0 ? math.floor(riskUsd / (riskPts * syminfo.pointvalue)) : na
+                        ev := 2
+    ev
+
+// Exit check. Returns 0 open · 1 TP · -1 SL. Same bar as entry: TP only if SL not touched.
+method manage(Setup s) =>
+    int res = 0
+    if not na(s)
+        if s.state == 3
+            bool hitSL = s.dir == 1 ? low <= s.sl : high >= s.sl
+            bool hitTP = s.dir == 1 ? high >= s.tp : low <= s.tp
+            if bar_index == s.entryBar
+                if hitTP and not hitSL
+                    res := 1
+            else if hitSL
+                res := -1
+            else if hitTP
+                res := 1
+            if res != 0
+                s.state := 5
+    res
+
+// ───────────────────────────── Engine ─────────────────────────────
+bool longSig  = false
+bool shortSig = false
+bool tpSig    = false
+bool slSig    = false
+bool armSig   = false
+bool brkSig   = false
+bool biasFlip = htfBias != htfBias[1] and htfBias != 0
+
+if barstate.isconfirmed
+    if sessStart
+        tradesToday := 0
+
+    // 1 · new HTF candles → expire / arm
+    s15 := arm(s15, nb15, ok15, "15m", h1_15, l1_15, t1_15, h2_15, l2_15, c2_15, t2_15, c2b15, c1b15, htfBias)
+    s30 := arm(s30, nb30, ok30, "30m", h1_30, l1_30, t1_30, h2_30, l2_30, c2_30, t2_30, c2b30, c1b30, htfBias)
+    s60 := arm(s60, nb60, ok60, "1H",  h1_60, l1_60, t1_60, h2_60, l2_60, c2_60, t2_60, c2b60, c1b60, htfBias)
+
+    array<Setup> live = array.from(s15, s30, s60)
+
+    for s in live
+        if not na(s)
+            if s.state == 0 and s.born == bar_index
+                armSig := true
+                if alArm
+                    alert(jsonMsg("armed", s, close), alert.freq_once_per_bar_close)
+
+    // 2 · triggers (15m → 30m → 1H; first to fire wins)
+    for s in live
+        if not na(s)
+            bool canEnter = inSess and na(active) and tradesToday < maxTrades and not dayBlocked
+            int ev = s.step(canEnter)
+            if ev == 1
+                brkSig := true
+                s.tag.set_text(s.tf + " CRT " + (s.dir == 1 ? "▲" : "▼") + " · first break — waiting rebreak")
+                if alBrk
+                    alert(jsonMsg("first_break", s, close), alert.freq_once_per_bar_close)
+            else if ev == 2
+                tradesToday += 1
+                active := s
+                s.lvlLn.set_style(line.style_solid)
+                s.tpLn := line.new(bar_index, s.tp, bar_index, s.tp, color = tpCol, width = 2)
+                s.slLn := line.new(bar_index, s.sl, bar_index, s.sl, color = slCol, width = 2)
+                s.tag.set_text(s.tf + " CRT " + (s.dir == 1 ? "▲" : "▼") + " · IN TRADE")
+                string txt = (s.dir == 1 ? "LONG " : "SHORT ") + s.tf + " CRT · " + s.method + "\nE " + str.tostring(s.entry, format.mintick) + "   TP " + str.tostring(s.tp, format.mintick) + "   SL " + str.tostring(s.sl, format.mintick) + (na(s.qty) ? "" : "\nSize " + str.tostring(s.qty, "#"))
+                if s.dir == 1
+                    longSig := true
+                    label.new(bar_index, na, txt, yloc = yloc.belowbar, style = label.style_label_up, color = s.col, textcolor = #FFFFFF, size = size.small)
+                else
+                    shortSig := true
+                    label.new(bar_index, na, txt, yloc = yloc.abovebar, style = label.style_label_down, color = s.col, textcolor = #FFFFFF, size = size.small)
+                if alEnt
+                    alert(jsonMsg(s.dir == 1 ? "entry_long" : "entry_short", s, s.entry), alert.freq_once_per_bar_close)
+
+    // 3 · manage open trade (hold to TP or SL)
+    if not na(active)
+        int r = active.manage()
+        if r == 0 and flatEnd and sessEnd
+            r := 2
+            active.state := 5
+        if r != 0
+            float rMult = switch r
+                1  => rr
+                -1 => -1.0
+                => (close - active.entry) * active.dir / math.abs(active.entry - active.sl)
+            netR += rMult
+            if rMult > 0
+                wins += 1
+            else
+                losses += 1
+            tpSig := r == 1
+            slSig := r == -1
+            float  px  = r == 1 ? active.tp : r == -1 ? active.sl : close
+            string res = r == 1 ? "TP " : r == -1 ? "SL " : "FLAT "
+            color  rc  = r == 1 ? tpCol : r == -1 ? slCol : fadeCol
+            label.new(bar_index, px, res + (rMult >= 0 ? "+" : "") + str.tostring(rMult, "#.##") + "R", style = label.style_label_left, color = rc, textcolor = #000000, size = size.small)
+            active.tag.set_text(active.tf + " CRT · " + res + (rMult >= 0 ? "+" : "") + str.tostring(rMult, "#.##") + "R")
+            if alExit
+                string evn = r == 1 ? "tp" : r == -1 ? "sl" : "flat"
+                alert(jsonMsg(evn, active, px), alert.freq_once_per_bar_close)
+            active := na
+
+    // 4 · keep drawings running
+    for s in live
+        s.extend()
+    if not na(active)
+        active.extend()
+
+    if biasFlip and alBias
+        alert('{"event":"bias_flip","ticker":"' + syminfo.ticker + '","bias":"' + (htfBias == 1 ? "bull" : "bear") + '","time":' + str.tostring(time_close) + '}', alert.freq_once_per_bar_close)
+
+// ───────────────────────────── Plots ─────────────────────────────
+bgcolor(showSess and inSess ? color.new(sessCol, 94) : na, title = "NY window")
+plot(showLevels ? keyHi : na, "HTF key high", color = color.new(bearCol, 25), style = plot.style_steplinebr, linewidth = 1)
+plot(showLevels ? keyLo : na, "HTF key low",  color = color.new(bullCol, 25), style = plot.style_steplinebr, linewidth = 1)
+plotshape(longSig,  "Long entry",  shape.triangleup,   location.belowbar, bullCol, size = size.small)
+plotshape(shortSig, "Short entry", shape.triangledown, location.abovebar, bearCol, size = size.small)
+plotshape(biasFlip and htfBias == 1,  "Bias → bull", shape.diamond, location.belowbar, bullCol, size = size.tiny, text = "HTF▲")
+plotshape(biasFlip and htfBias == -1, "Bias → bear", shape.diamond, location.abovebar, bearCol, size = size.tiny, text = "HTF▼")
+
+// ───────────────────────────── Dashboard ─────────────────────────────
+var table dash = table.new(position.top_right, 2, 9, bgcolor = #131722, border_color = #363A45, border_width = 1, frame_color = #363A45, frame_width = 1)
+
+dashRow(int r, string k, string v, color vc) =>
+    table.cell(dash, 0, r, k, text_color = #B2B5BE, text_size = size.small, text_halign = text.align_left)
+    table.cell(dash, 1, r, v, text_color = vc, text_size = size.small, text_halign = text.align_left)
+
+if showDash and barstate.islast
+    string armed = ""
+    for s in array.from(s15, s30, s60)
+        if not na(s)
+            if s.state < 3
+                string st = s.state == 0 ? "armed" : s.state == 1 ? "broke" : "rebreak?"
+                armed += (armed == "" ? "" : " · ") + s.tf + (s.dir == 1 ? "▲ " : "▼ ") + st
+    string biasTxt = htfBias == 1 ? "▲ Bullish — longs only" : htfBias == -1 ? "▼ Bearish — shorts only" : "— none yet"
+    color  biasC   = htfBias == 1 ? bullCol : htfBias == -1 ? bearCol : fadeCol
+    string actTxt  = na(active) ? (armed == "" ? "—" : armed) : (active.dir == 1 ? "LONG " : "SHORT ") + active.tf + " @ " + str.tostring(active.entry, format.mintick)
+    int    tot     = wins + losses
+    table.cell(dash, 0, 0, "CRT · NY", text_color = #FFFFFF, text_size = size.normal, text_halign = text.align_left)
+    table.cell(dash, 1, 0, sessNY + " ET", text_color = #B2B5BE, text_size = size.small, text_halign = text.align_left)
+    dashRow(1, "Window",   inSess ? (dayBlocked ? "OPEN · Monday skip" : "OPEN") : "closed", inSess ? tpCol : fadeCol)
+    dashRow(2, "HTF bias", biasOn ? biasTxt : "filter off", biasOn ? biasC : fadeCol)
+    dashRow(3, "Tape",     "flip " + str.tostring(flipRate * 100, "#") + "% · wick " + str.tostring(wickAvg * 100, "#") + "% → " + (choppy ? "Rebreak" : "Direct"), choppy ? #FFB74D : #B2B5BE)
+    dashRow(4, "Entry",    entryMode + " · " + str.tostring(rr, "#.#") + "R", #B2B5BE)
+    dashRow(5, "Trades",   str.tostring(tradesToday) + " / " + str.tostring(maxTrades), tradesToday >= maxTrades ? fadeCol : #FFFFFF)
+    dashRow(6, "Setup",    actTxt, na(active) ? #B2B5BE : active.col)
+    dashRow(7, "Record",   "W " + str.tostring(wins) + " · L " + str.tostring(losses) + (tot > 0 ? " · " + str.tostring(100.0 * wins / tot, "#") + "%" : "") + " · " + (netR >= 0 ? "+" : "") + str.tostring(netR, "#.#") + "R", netR >= 0 ? tpCol : slCol)
+    dashRow(8, "Chart TF", chartSec <= 300 ? timeframe.period + " ✓" : timeframe.period + " — use 1–5m", chartSec <= 300 ? #B2B5BE : #FFB74D)
+
+// ───────────────────────────── alertcondition() ─────────────────────────────
+alertcondition(armSig,   "CRT armed",                 "CRT setup armed on {{ticker}} @ {{close}}")
+alertcondition(brkSig,   "CRT first break",           "CRT first break on {{ticker}} — waiting for rebreak @ {{close}}")
+alertcondition(longSig,  "CRT long entry",            "CRT LONG entry on {{ticker}} @ {{close}}")
+alertcondition(shortSig, "CRT short entry",           "CRT SHORT entry on {{ticker}} @ {{close}}")
+alertcondition(tpSig,    "CRT take profit",           "CRT TP hit on {{ticker}} @ {{close}}")
+alertcondition(slSig,    "CRT stop loss",             "CRT SL hit on {{ticker}} @ {{close}}")
+alertcondition(biasFlip, "HTF bias flip",             "HTF bias flipped on {{ticker}} @ {{close}}")
+alertcondition(barstate.isconfirmed, "Test — Fires Every Bar", "🟢 TEST — plumbing works on {{ticker}} @ {{close}}")

@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>9 EMA Continuation — read the reclaim, not the touch | The Trade Method</title>
+<meta name="description" content="Don&#x27;t chase the breakout — wait for the pullback into the 9 EMA, read whether buyers actually step back up, and enter on the reclaim, not the tap.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/nine-ema-continuation.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="9 EMA Continuation — read the reclaim, not the touch">
+<meta property="og:description" content="Don&#x27;t chase the breakout — wait for the pullback into the 9 EMA, read whether buyers actually step back up, and enter on the reclaim, not the tap.">
+<meta property="og:url" content="https://thetrademethod.com/setups/nine-ema-continuation.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="9 EMA Continuation — read the reclaim, not the touch">
+<meta name="twitter:description" content="Don&#x27;t chase the breakout — wait for the pullback into the 9 EMA, read whether buyers actually step back up, and enter on the reclaim, not the tap.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "9 EMA Continuation — read the reclaim, not the touch",
+ "name": "9 EMA Continuation",
+ "description": "Don't chase the breakout — wait for the pullback into the 9 EMA, read whether buyers actually step back up, and enter on the reclaim, not the tap.",
+ "url": "https://thetrademethod.com/setups/nine-ema-continuation.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/nine-ema-continuation.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/anim-kit.js?v=2" defer></script>
+<script src="/js/ema9-anim.js?v=1" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
+<script src="/js/live-kit.js?v=3" defer></script>
+<script src="/js/examples/ema9.js?v=1" defer></script><script src="/js/example-kit.js?v=1" defer></script><script src="/js/ema9-live.js?v=1" defer></script>
+<style>
+  /* video (same as relative-volume.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=2" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="nine-ema-continuation">
+    <div>
+      <p class="kicker">9 EMA continuation &middot; off a breakout on volume &middot; long-biased</p>
+      <h1>9 EMA <span>Continuation</span></h1>
+    </div>
+    <div>
+      <p class="thesis">A stock breaks out on real volume. <em>You don't chase it &mdash; you wait for the
+      pullback into the 9 EMA and read whether buyers actually step back up,</em> then enter on the
+      reclaim, not the tap.</p>
+      <div class="counts">
+        <div><b>9</b><small>period EMA, the only line that matters</small></div>
+        <div><b>4</b><small>filters</small></div>
+        <div><b>~2/10</b><small>times it never gives you the touch</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">after the move</div><div class="n">Wait for the pullback</div></div>
+    <div><div class="t">at the line</div><div class="n">Read the tape, not the touch</div></div>
+    <div><div class="t">the trigger</div><div class="n">Enter on the reclaim</div></div>
+    <div><div class="t">defined risk</div><div class="n">Stop below the pullback low</div></div>
+    <div><div class="t">into strength</div><div class="n">Three-exit management</div></div>
+    <div><div class="t">context first</div><div class="n">Catalyst &amp; the miss rate</div></div>
+  </nav>
+
+  <section class="anim" data-tm-anim="ema9" aria-label="Animated 9 EMA continuation: a breakout above 64.05 on 2.6x volume, a pullback and failed test under the 9 EMA, a reclaim entry at 64.50 with a 64.20 stop, half off at 65.80 and the rest out on a close below the 9 EMA at 65.16.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Watch one 9 EMA continuation</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Animated 9 EMA continuation: a breakout above 64.05 on 2.6x volume, a pullback and failed test under the 9 EMA, a reclaim entry at 64.50 with a 64.20 stop, half off at 65.80 and the rest out on a close below the 9 EMA at 65.16."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Wait for the pullback &mdash; don't chase the move</h3>
+          <ul>
+            <li>When a stock breaks out of a range on real volume, chasing it puts you in a defensive posture before you've even gotten in.</li>
+            <li>Instead, wait for the opportunity to be aggressive: let price come back and test the 9 EMA rather than buying the initial spike.</li>
+          </ul>
+          <p class="why">Buying the breakout itself means you have no idea where you're wrong. Waiting for the pullback gives you an actual level to define your risk against.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Read the tape at the line, not just the touch</h3>
+          <ul>
+            <li>Don't blindly buy the first touch of the 9 EMA. Watch the interplay between price action and the bid as price comes into the line &mdash; are buyers stepping up, or are sellers hitting every lift?</li>
+            <li>A dip below the 9 EMA with no clean buying response is not a reason to give up on the trade. It's a reason to focus even harder on the bid for the moment buyers actually show up.</li>
+          </ul>
+          <p class="why">The line itself doesn't trigger the trade. What the tape is doing around the line is the actual signal &mdash; the 9 EMA is just where you're watching it happen.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Enter on the reclaim, not the tap</h3>
+          <ul>
+            <li>The trigger is buyers visibly stepping back in and price reclaiming the 9 EMA with strength &mdash; not simply price touching the line.</li>
+            <li>A more mechanical version of the same trade: buy the first candle that closes back above the 9 EMA after the first touch, without needing a clean break-and-reclaim first. Both versions work; they just trade off win rate against risk/reward.</li>
+          </ul>
+          <p class="why">Two traders can take the exact same setup differently and both be right. What matters is that you know which version you're taking and you're consistent about it.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Stop below the pullback low</h3>
+          <ul>
+            <li>Risk is defined at the low of the candle, or the low of the pullback attempt, that tested the 9 EMA &mdash; not an arbitrary distance from your entry.</li>
+            <li>This is usually a small, well-defined risk relative to the size of the move you're positioning for, which is what makes the trade worth taking in the first place.</li>
+          </ul>
+          <p class="why">A small, defined stop against a level the price action itself gave you is what lets you size the trade intelligently instead of guessing.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Manage it with a three-exit plan</h3>
+          <ul>
+            <li>Worst case: price stuffs and takes out the low of your entry candle. You're stopped out, small loss, move on.</li>
+            <li>Take roughly half off on an acceleration after an acceleration &mdash; a clear parabolic push or blow-off move away from the 9 EMA.</li>
+            <li>Trail the remainder with a close below the 9 EMA as a full trailing stop &mdash; often reading your entry on a faster chart (2-minute) and managing the trail one step slower (5-minute).</li>
+          </ul>
+          <p class="why">Selling everything into the first sign of strength gives back the best part of the trade. A defined three-step plan lets you actually capture what the setup is offering instead of guessing in real time.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Give it a real catalyst, and expect the miss rate</h3>
+          <ul>
+            <li>This works best with a real reason behind the move &mdash; a catalyst like earnings, breaking pre-market or prior-day highs, a 5-day range breakout, or ideally a 52-week breakout.</li>
+            <li>Roughly two times out of ten, the stock simply never comes back to give you the touch at all. That's a normal, acceptable miss rate &mdash; not a reason to chase the ones that run without you.</li>
+          </ul>
+          <p class="why">The amount of energy traders spend worrying about the setups that just run away is disproportionate to how often it actually happens. Let those go and wait for the next one.</p>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h4>The whole trade on one chart</h4>
+        <p class="lead">The breakout, the pullback, a failed early test, the reclaim with buyers stepping in, the acceleration, and the trail to the exit.</p>
+        <svg viewBox="0 0 1180 620" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Annotated chart showing a breakout, a pullback into the 9 EMA, a failed early test, a reclaim, acceleration, and a trailing exit">
+<defs><marker id="e1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8fa6bd"/></marker><marker id="e2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2ecf7a"/></marker><marker id="e4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5aa9ff"/></marker><marker id="e5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#f4b942"/></marker></defs>
+<rect x="32" y="20" width="1062" height="420" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<rect x="32" y="452" width="1062" height="150" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<line x1="60" y1="230" x2="1046" y2="230" stroke="#f4b942" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.85"/>
+<text x="68" y="221" fill="#f4b942" font-size="13" font-weight="700">9 EMA</text>
+<line x1="90" y1="330" x2="90" y2="380" stroke="#1d6f47" stroke-width="1.8"/><rect x="76" y="338" width="28" height="35" fill="#1d6f47" rx="1"/>
+<line x1="150" y1="280" x2="150" y2="335" stroke="#1d6f47" stroke-width="2.2"/><rect x="136" y="288" width="28" height="42" fill="#1d6f47" rx="1"/>
+<line x1="210" y1="200" x2="210" y2="285" stroke="#1d6f47" stroke-width="2.4"/><rect x="196" y="208" width="28" height="70" fill="#1d6f47" rx="1"/>
+<text x="150" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">breakout</text>
+<line x1="270" y1="220" x2="270" y2="260" stroke="#54697f" stroke-width="1.8"/><rect x="256" y="228" width="28" height="26" fill="#54697f" rx="1"/>
+<line x1="330" y1="235" x2="330" y2="270" stroke="#7d343c" stroke-width="1.8"/><rect x="316" y="240" width="28" height="26" fill="#7d343c" rx="1"/>
+<text x="330" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">pullback</text>
+<line x1="390" y1="240" x2="390" y2="285" stroke="#7d343c" stroke-width="2.2"/><rect x="376" y="246" width="28" height="35" fill="#7d343c" rx="1"/>
+<text x="390" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">failed test</text>
+<line x1="450" y1="215" x2="450" y2="255" stroke="#1d6f47" stroke-width="2.4"/><rect x="436" y="220" width="28" height="30" fill="#1d6f47" rx="1"/>
+<text x="450" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">reclaim</text>
+<line x1="510" y1="175" x2="510" y2="220" stroke="#1d6f47" stroke-width="1.8"/><rect x="496" y="180" width="28" height="35" fill="#1d6f47" rx="1"/>
+<line x1="570" y1="140" x2="570" y2="180" stroke="#1d6f47" stroke-width="1.8"/><rect x="556" y="145" width="28" height="30" fill="#1d6f47" rx="1"/>
+<line x1="630" y1="100" x2="630" y2="145" stroke="#1d6f47" stroke-width="2.2"/><rect x="616" y="105" width="28" height="35" fill="#1d6f47" rx="1"/>
+<text x="630" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">acceleration</text>
+<line x1="690" y1="70" x2="690" y2="105" stroke="#1d6f47" stroke-width="1.8"/><rect x="676" y="75" width="28" height="26" fill="#1d6f47" rx="1"/>
+<line x1="750" y1="80" x2="750" y2="115" stroke="#54697f" stroke-width="1.6"/><rect x="736" y="86" width="28" height="24" fill="#54697f" rx="1"/>
+<line x1="810" y1="95" x2="810" y2="130" stroke="#54697f" stroke-width="1.6"/><rect x="796" y="100" width="28" height="24" fill="#54697f" rx="1"/>
+<line x1="870" y1="110" x2="870" y2="150" stroke="#7d343c" stroke-width="1.8"/><rect x="856" y="116" width="28" height="28" fill="#7d343c" rx="1"/>
+<line x1="930" y1="150" x2="930" y2="200" stroke="#7d343c" stroke-width="2.2"/><rect x="916" y="158" width="28" height="36" fill="#7d343c" rx="1"/>
+<text x="930" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">trail exit</text>
+<line x1="990" y1="195" x2="990" y2="230" stroke="#54697f" stroke-width="1.6"/><rect x="976" y="200" width="28" height="24" fill="#54697f" rx="1"/>
+<polyline points="90,355 150,320 210,255 270,242 330,255 390,262 450,238 510,200 570,160 630,120 690,88 750,98 810,112 870,132 930,175 990,215" fill="none" stroke="#f4b942" stroke-width="2.1" opacity="0.95"/>
+<rect x="90" y="60" width="270" height="46" rx="7" fill="#0d1a2b" stroke="#8fa6bd" stroke-width="1.7"/>
+<text x="104" y="83" fill="#c8d8e8" font-size="13" font-weight="600">Strong move on volume. Don't chase</text>
+<text x="104" y="101" fill="#c8d8e8" font-size="13" font-weight="600">it &mdash; wait for the pullback.</text>
+<line x1="200" y1="106" x2="200" y2="270" stroke="#8fa6bd" stroke-width="1.5" marker-end="url(#e1)"/>
+<rect x="330" y="330" width="270" height="46" rx="7" fill="#0d1a2b" stroke="#f2a9ae" stroke-width="1.7"/>
+<text x="344" y="353" fill="#f2a9ae" font-size="13" font-weight="600">Sellers hit the first lift. No clean</text>
+<text x="344" y="371" fill="#f2a9ae" font-size="13" font-weight="600">reclaim yet &mdash; keep watching the bid.</text>
+<line x1="420" y1="330" x2="395" y2="285" stroke="#e0505a" stroke-width="1.3" stroke-dasharray="3 4"/>
+<rect x="500" y="330" width="290" height="46" rx="7" fill="#0d1a2b" stroke="#2ecf7a" stroke-width="1.7"/>
+<text x="514" y="353" fill="#9ff0c4" font-size="13" font-weight="600">Buyers step back in and reclaim the</text>
+<text x="514" y="371" fill="#9ff0c4" font-size="13" font-weight="600">9 EMA with strength &mdash; the entry.</text>
+<line x1="600" y1="330" x2="455" y2="250" stroke="#2ecf7a" stroke-width="1.5" marker-end="url(#e2)"/>
+<rect x="700" y="60" width="330" height="60" rx="7" fill="#0d1a2b" stroke="#5aa9ff" stroke-width="1.7"/>
+<text x="714" y="85" fill="#b3d6ff" font-size="13" font-weight="600">Take roughly half off on an</text>
+<text x="714" y="103" fill="#b3d6ff" font-size="13" font-weight="600">acceleration after an acceleration.</text>
+<line x1="750" y1="120" x2="695" y2="90" stroke="#5aa9ff" stroke-width="1.5" marker-end="url(#e4)"/>
+<rect x="820" y="180" width="340" height="46" rx="7" fill="#0d1a2b" stroke="#f4b942" stroke-width="1.7"/>
+<text x="834" y="203" fill="#f4b942" font-size="13" font-weight="600">Trail the rest &mdash; a close below the</text>
+<text x="834" y="221" fill="#f4b942" font-size="13" font-weight="600">9 EMA is the full exit signal.</text>
+<line x1="900" y1="226" x2="945" y2="175" stroke="#f4b942" stroke-width="1.5" marker-end="url(#e5)"/>
+<text x="46" y="446" fill="#7d93ad" font-size="13">Volume</text>
+<rect x="76" y="560.0" width="28" height="30.0" fill="#54697f" opacity="0.5" rx="1"/>
+<rect x="136" y="540.0" width="28" height="50.0" fill="#1d6f47" opacity="0.6" rx="1"/>
+<rect x="196" y="500.0" width="28" height="90.0" fill="#f4b942" opacity="0.95" rx="1"/>
+<rect x="256" y="562.0" width="28" height="28.0" fill="#54697f" opacity="0.4" rx="1"/>
+<rect x="316" y="566.0" width="28" height="24.0" fill="#7d343c" opacity="0.45" rx="1"/>
+<rect x="376" y="558.0" width="28" height="32.0" fill="#7d343c" opacity="0.5" rx="1"/>
+<rect x="436" y="530.0" width="28" height="60.0" fill="#f4b942" opacity="0.85" rx="1"/>
+<rect x="496" y="546.0" width="28" height="44.0" fill="#1d6f47" opacity="0.55" rx="1"/>
+<rect x="556" y="536.0" width="28" height="54.0" fill="#1d6f47" opacity="0.6" rx="1"/>
+<rect x="616" y="510.0" width="28" height="80.0" fill="#f4b942" opacity="0.9" rx="1"/>
+<rect x="676" y="548.0" width="28" height="42.0" fill="#1d6f47" opacity="0.5" rx="1"/>
+<rect x="736" y="558.0" width="28" height="32.0" fill="#54697f" opacity="0.4" rx="1"/>
+<rect x="796" y="562.0" width="28" height="28.0" fill="#54697f" opacity="0.4" rx="1"/>
+<rect x="856" y="556.0" width="28" height="34.0" fill="#7d343c" opacity="0.5" rx="1"/>
+<rect x="916" y="542.0" width="28" height="48.0" fill="#7d343c" opacity="0.55" rx="1"/>
+<rect x="976" y="564.0" width="28" height="26.0" fill="#54697f" opacity="0.4" rx="1"/>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>Which touch you can trust</h4>
+        <p class="lead">The line looks identical every time. What happens around it is what separates a real reclaim from a trap, or no trade at all.</p>
+        <svg viewBox="0 0 1180 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Four scenarios comparing a clean 9 EMA reclaim against three that should be skipped">
+<rect x="10.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#22855a" stroke-width="2"/>
+<line x1="28" y1="130.4" x2="267" y2="130.4" stroke="#f4b942" stroke-width="1.8" stroke-dasharray="3 4"/>
+<text x="28" y="121.4" fill="#9fb3c8" font-size="11.5">9 EMA</text>
+<rect x="45" y="145" width="18" height="10" fill="#7d343c" rx="1"/>
+<rect x="70" y="140" width="18" height="26" fill="#1d6f47" rx="1"/>
+<rect x="95" y="120" width="18" height="20" fill="#1d6f47" rx="1"/>
+<text x="28.0" y="42" fill="#2ecf7a" font-size="16" font-weight="800">Take it</text>
+<text x="28.0" y="196" fill="#9fb3c8" font-size="12.6">Sellers test the line, buyers step in,</text>
+<text x="28.0" y="212" fill="#9fb3c8" font-size="12.6">price reclaims with strength.</text>
+<rect x="305.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="323" y1="130.4" x2="562" y2="130.4" stroke="#f4b942" stroke-width="1.8" stroke-dasharray="3 4"/>
+<text x="323" y="121.4" fill="#9fb3c8" font-size="11.5">9 EMA</text>
+<rect x="340" y="140" width="18" height="14" fill="#7d343c" rx="1"/>
+<rect x="365" y="150" width="18" height="16" fill="#7d343c" rx="1"/>
+<rect x="390" y="158" width="18" height="18" fill="#7d343c" rx="1"/>
+<text x="323.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="323.0" y="196" fill="#9fb3c8" font-size="12.6">Sellers keep hitting every lift.</text>
+<text x="323.0" y="212" fill="#9fb3c8" font-size="12.6">No reclaim yet &mdash; not your trade.</text>
+<rect x="600.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="618" y1="180" x2="857" y2="180" stroke="#f4b942" stroke-width="1.8" stroke-dasharray="3 4"/>
+<text x="618" y="171" fill="#9fb3c8" font-size="11.5">9 EMA, never tested</text>
+<rect x="635" y="60" width="18" height="30" fill="#1d6f47" rx="1"/>
+<rect x="660" y="45" width="18" height="30" fill="#1d6f47" rx="1"/>
+<rect x="685" y="30" width="18" height="30" fill="#1d6f47" rx="1"/>
+<text x="618.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="618.0" y="212" fill="#9fb3c8" font-size="12.6">Runs without ever coming back.</text>
+<text x="618.0" y="228" fill="#9fb3c8" font-size="12.6">The ~2-in-10 miss. Let it go.</text>
+<rect x="895.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="913" y1="130.4" x2="1152" y2="130.4" stroke="#f4b942" stroke-width="1.8" stroke-dasharray="3 4"/>
+<text x="913" y="121.4" fill="#9fb3c8" font-size="11.5">9 EMA</text>
+<rect x="930" y="145" width="18" height="10" fill="#54697f" rx="1"/>
+<rect x="955" y="148" width="18" height="10" fill="#54697f" rx="1"/>
+<rect x="980" y="146" width="18" height="10" fill="#54697f" rx="1"/>
+<text x="913.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="913.0" y="196" fill="#9fb3c8" font-size="12.6">Reclaims the line, but there's no</text>
+<text x="913.0" y="212" fill="#9fb3c8" font-size="12.6">real catalyst or volume behind it.</text>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>Two ways to time the same trade</h4>
+        <p class="lead">Different traders, different time frames, same underlying read.</p>
+        <div class="timing">
+          <div><b>Read the tape around the reclaim</b><p>More discretionary: watch the buyer/seller interplay around the line itself rather than trading the mechanical touch.</p></div>
+          <div><b>Trade the mechanical touch-and-confirm</b><p>Buy the first candle that closes back above the 9 EMA after the first touch, on a 2 or 5-minute chart, with a tight, defined stop.</p></div>
+          <div><b>Trail one time frame slower</b><p>If you read your entry on a faster chart, manage the trailing stop one step slower &mdash; a 2-minute entry, trailed on the 5-minute.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The four filters</h2>
+    <p>These don't find the trade &mdash; the pullback and the reclaim do that. They keep you off the versions that only look like it.</p>
+  </div>
+  <div class="filters">
+    <div class="filter">
+      <h3>1 &nbsp;No real catalyst behind the move</h3>
+      <p>Earnings, a gap, breaking pre-market or prior-day highs, ideally a 52-week breakout &mdash; something has to be driving it.</p>
+      <p class="kill">Kills: trading the touch on a stock with nothing behind it.</p>
+    </div>
+    <div class="filter">
+      <h3>2 &nbsp;Sellers keep hitting the bid</h3>
+      <p>If every lift off the 9 EMA gets sold into, that's not a reclaim yet &mdash; it's still information, not a trigger.</p>
+      <p class="kill">Kills: buying a reclaim that hasn't actually happened.</p>
+    </div>
+    <div class="filter">
+      <h3>3 &nbsp;Chasing the initial breakout</h3>
+      <p>Buying the spike instead of waiting for the pullback puts you in a defensive posture from the first tick.</p>
+      <p class="kill">Kills: entering with no real level to define your risk against.</p>
+    </div>
+    <div class="filter">
+      <h3>4 &nbsp;No exit plan before you're in</h3>
+      <p>Deciding when to take profit and when to trail has to happen before the trade starts working, not during it.</p>
+      <p class="kill">Kills: giving back the move because there was no plan for it.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Size off the pullback low, not a guess</h2>
+    <p>The pullback tells you where you're wrong. Numbers below are illustrative.</p>
+  </div>
+  <div class="risk">
+    <div class="panel">
+      <div class="calc">
+        <div class="row"><span>Risk budget for the trade</span><b>$500.00</b></div>
+        <div class="row"><span>Entry &mdash; reclaim of the 9 EMA</span><b>64.50</b></div>
+        <div class="row"><span>Stop &mdash; below the pullback low</span><b>64.20</b></div>
+        <div class="row"><span>Risk per share</span><b>$0.30</b></div>
+        <div class="row tot"><span>Position size</span><b>1,666 shares</b></div>
+      </div>
+    </div>
+    <div class="warn">
+      <h4>The mistake this prevents</h4>
+      <p>Buy the very first touch of the 9 EMA on impulse &mdash; say, right at 64.50, before any reclaim has actually happened &mdash; with no confirmation and often no stop decided yet.</p>
+      <p class="big">If sellers keep hitting the bid after that, you're now in a trade the tape never actually confirmed, guessing at a stop after the fact.</p>
+      <p>The touch tells you where to watch. The reclaim, with buyers actually stepping in, is what tells you to act.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Two tickers, the same read</h2>
+    <p>Catalysts and context below are drawn from a trading-education video's own account of these trades and are not independently verified; specific intraday price levels mentioned in the source audio were not precise or consistent enough to reproduce reliably, so they're omitted here in favor of the setup mechanics that were clear.</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><span class="tick">GM<small>day-one earnings gap</small></span></th>
+        <th><span class="tick">RGTI<small>range breakout, shorts piling in</small></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>Catalyst</th>
+        <td class="txt">Day-one earnings beat, gapped up more than 3% on the news.</td>
+        <td class="txt">Breaking out of a multi-day range; shorts were positioning for a rollover that never came.</td></tr>
+      <tr><th>Setup</th>
+        <td class="txt">Gapped and went, broke through pre-market highs on volume, came into the 9 EMA and never looked back.</td>
+        <td class="txt">Buy program stayed consistent through the session; the reclaim held on repeated tests.</td></tr>
+      <tr><th>Management</th>
+        <td class="txt">Held without forcing exits &mdash; ran roughly 10 points higher from the day-one entry area.</td>
+        <td class="txt">Size added on breaks of the high of day with increasing volume, each add treated as its own confirmed decision.</td></tr>
+      <tr><th>Takeaway</th>
+        <td class="txt">A real catalyst plus a clean 9 EMA reclaim can run for hours, not minutes &mdash; the plan has to allow for that.</td>
+        <td class="txt">Shorts covering into a stock that refuses to roll over is exactly the kind of pressure that keeps a 9 EMA continuation going.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="panel" style="margin-top:20px;">
+    <h4>Why the 9 EMA specifically</h4>
+    <p class="lead">Not every moving average behaves the same way, and the difference is the whole reason this one gets used here.</p>
+    <p style="color:var(--dim); font-size:14px; margin:0;">A simple moving average weights every day in its lookback equally &mdash; a 200-day SMA treats a print from 20 weeks ago exactly the same as yesterday's, which makes it slow by design: useful for anchoring a long-term view, but it's already well behind by the time it turns. An exponential moving average weights recent price much more heavily and lets older data fade out geometrically, which gives it something closer to a memory span than a flat lookback window &mdash; a 200-period EMA behaves like it's really tracking the last couple of months, not the full 200 days equally. Compress that same idea down to a 9-period EMA on an intraday chart, and what you get is a line that tracks the order flow of traders who have to react right now &mdash; not a lagging read on what already happened, but a live pulse of whether the buyers pushing this move are still actually there.</p>
+  </div>
+
+  <div class="section-head">
+    <h2>The 9 EMA continuation on an example chart</h2>
+    <p>An example session run through the indicator&#x27;s own rules: a close over the morning&#x27;s 64.05 high on about 2.4× average volume (the breakout, no entry), a pullback whose low touches the 9 EMA, one failed test that closes under it, then the green candle that closes back over it (the buy at 64.50, stop 64.20 under the pullback low). Half comes off at +2R and the rest goes on the first close under the 9 EMA. The bars are made up to show the setup clearly. They aren&#x27;t a real ticker.</p>
+  </div>
+  <section class="live" data-ema9-live data-example data-symbol="TSLA" aria-label="Example 9 EMA continuation chart">
+    <div class="live-main">
+      <form class="live-symbol"><label for="ema9-sym">Symbol</label><input id="ema9-sym" name="sym" autocomplete="off" spellcheck="false" maxlength="6"><button class="pill pill-buy" type="submit">Load</button></form>
+      <div class="live-chart"><div class="live-gate"><b>Loading chart&hellip;</b></div></div>
+      <p class="live-status">TSLA · 5-minute · loading…</p>
+    </div>
+    <aside class="live-side" aria-live="polite"></aside>
+  </section>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/LDavMu7hxcM" title="9 EMA Continuation (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Two takes on the 9 EMA continuation trade across different time frames.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=LDavMu7hxcM" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Read the reclaim. Not the touch.</h2>
+      <p>The 9 EMA isn't a magic line &mdash; it's just where you watch the tug-of-war between buyers and sellers play out. The reclaim is the signal. The line is only where you're standing to see it.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Don't chase the breakout. Wait for the pullback and let the 9 EMA give you a level to actually define risk against.</li>
+        <li>Sellers hitting the bid on the first test isn't a reason to abandon the idea &mdash; it's a reason to watch even closer for the real reclaim.</li>
+        <li>About two times out of ten, it never comes back at all. That's a normal cost of the setup, not a signal to chase the ones that run without you.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Model built around the 9 EMA continuation trade, as taught in a trading-education video featuring two traders' takes on the same setup across different time frames. Catalysts and trade context for GM and RGTI are drawn from that video's own account and are not independently verified. <a href="https://youtu.be/LDavMu7hxcM" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gap Give and Go — let it give, buy the go | The Trade Method</title>
+<meta name="description" content="The Gap Give and Go, from SMB Capital's playbook: a stock gaps on a real catalyst, gives back fast on light volume into a key level, holds in a neutral range, then goes. Buy the turn on the tape with the stop under the low of day, and target the open, the premarket high and half the RVOL times the ATR.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/gap-give-and-go.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Gap Give and Go — let it give, buy the go">
+<meta property="og:description" content="The Gap Give and Go, from SMB Capital's playbook: a stock gaps on a real catalyst, gives back fast on light volume into a key level, holds in a neutral range, then goes. Buy the turn on the tape with the stop under the low of day, and target the open, the premarket high and half the RVOL times the ATR.">
+<meta property="og:url" content="https://thetrademethod.com/setups/gap-give-and-go.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gap Give and Go — let it give, buy the go">
+<meta name="twitter:description" content="The Gap Give and Go, from SMB Capital's playbook: a stock gaps on a real catalyst, gives back fast on light volume into a key level, holds in a neutral range, then goes. Buy the turn on the tape with the stop under the low of day, and target the open, the premarket high and half the RVOL times the ATR.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Gap Give and Go — let it give, buy the go",
+ "name": "Gap Give and Go",
+ "description": "The Gap Give and Go, from SMB Capital's playbook: a stock gaps on a real catalyst, gives back fast on light volume into a key level, holds in a neutral range, then goes. Buy the turn on the tape with the stop under the low of day, and target the open, the premarket high and half the RVOL times the ATR.",
+ "url": "https://thetrademethod.com/setups/gap-give-and-go.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/gap-give-and-go.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-18",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/gg-anim.js?v=2" defer></script>
+<style>
+  /* steps across the page, the two panels side by side under them */
+  .gg-main { grid-template-columns:1fr; gap:22px; }
+  .gg-stages { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .sheet .gg-stages .stage, .sheet .gg-stages .stage:first-child { padding:26px 24px; background:var(--charcoal); align-content:start; }
+  .gg-side { display:grid; grid-template-columns:1fr 1.4fr; gap:16px; align-items:stretch; }
+  .gg-side .panel + .panel { margin-top:0; }
+  .gg-side .timing { grid-template-columns:1fr; }
+  @media (max-width:1100px) { .gg-stages { grid-template-columns:1fr 1fr; } .gg-side { grid-template-columns:1fr; } }
+  @media (max-width:680px) { .gg-stages { grid-template-columns:1fr; } }
+  /* the stepper (js/gg-anim.js builds it from the six steps) */
+  .gg-stages.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#30d158; }
+  .gs-bar { display:grid; grid-template-columns:repeat(6,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:8.33%; right:8.33%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .gg-stages.is-stepper .stage, .sheet .gg-stages.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .gg-stages.is-stepper .stage .num { display:none; }
+  .sheet .gg-stages.is-stepper .stage[hidden] { display:none; }
+  .sheet .gg-stages.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .gg-stages.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+  }
+  /* video (same as pmh-break.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+  .watch { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:var(--ink); text-decoration:none;
+           background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); border-radius:9999px; padding:7px 14px 7px 10px; }
+  .watch:hover { background:rgba(255,255,255,0.14); }
+  .watch i { width:0; height:0; border-left:9px solid #ff453a; border-top:6px solid transparent; border-bottom:6px solid transparent; margin-left:4px; }
+
+  /* the tape */
+  .tape { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .tape div { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .tape div.s { border-top:3px solid var(--down); } .tape div.n { border-top:3px solid var(--faint); } .tape div.b { border-top:3px solid var(--up); }
+  .tape .sc { font-family:var(--mono); font-size:22px; font-weight:800; letter-spacing:-0.02em; display:block; margin-bottom:2px; }
+  .tape .s .sc { color:var(--down); } .tape .n .sc { color:var(--dim); } .tape .b .sc { color:var(--up); }
+  .tape h3 { margin:0 0 8px; font-size:17px; }
+  .tape ul { margin:0; padding-left:17px; font-size:14px; }
+  .tape li { margin-bottom:4px; }
+  .fight { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:16px; }
+  .fight div { background:var(--panel2); border:1px solid var(--line); border-radius:10px; padding:13px 15px; }
+  .fight b { display:block; font-size:15px; margin-bottom:4px; }
+  .fight p { margin:0; color:var(--dim); font-size:13.6px; }
+
+  /* gap size */
+  .scale { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .scale div { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 18px 16px; }
+  .scale b { display:block; font-size:clamp(30px,3.4vw,42px); font-weight:800; letter-spacing:-0.03em; line-height:1; margin-bottom:8px; }
+  .scale b.pos { color:var(--up); } .scale b.mid { color:var(--gold); } .scale b.neg { color:var(--down); }
+  .scale p { margin:0; font-size:14px; color:var(--dim); }
+
+  /* targets */
+  .calc-in { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in label { font-size:12px; color:var(--faint); display:block; }
+  .calc-in input { width:100%; margin-top:4px; background:var(--panel2); color:var(--ink); border:1px solid var(--line); border-radius:8px;
+                   padding:8px 10px; font-family:var(--mono); font-size:15px; }
+  .calc-in input:focus { outline:2px solid var(--blue); outline-offset:1px; }
+  .kills { grid-template-columns:repeat(2,1fr); margin-top:14px; }
+  .kills .filter { background:var(--panel2); }
+  .rv { margin:14px 0 0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+  .rv li { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:10px 12px; font-size:13.4px; color:var(--dim); }
+  .rv li b { display:block; font-family:var(--mono); color:var(--ink); font-size:15px; }
+
+  /* give or go */
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .two svg { border-radius:12px; }
+  .two-note { margin:14px 0 0; color:var(--dim); font-size:14px; max-width:86ch; }
+
+  /* the case */
+  .case { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .case div { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 17px; }
+  .case b { display:block; font-size:clamp(24px,2.6vw,32px); font-weight:800; letter-spacing:-0.03em; line-height:1.05; margin-bottom:6px; }
+  .case p { margin:0; font-size:13.6px; color:var(--dim); }
+  .grades { margin:16px 0 0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(5,1fr); gap:10px; }
+  .grades li { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:10px 12px; font-size:13.4px; color:var(--dim); }
+  .grades li b { display:block; font-family:var(--mono); color:var(--ink); font-size:16px; }
+
+  /* the animation redraws for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .ribbon + .anim { margin-top:8px; }
+  @media (max-width:1100px) {
+    .tape, .fight, .scale { grid-template-columns:1fr; }
+    .case { grid-template-columns:repeat(2,1fr); }
+    .grades { grid-template-columns:repeat(3,1fr); }
+    .calc-in, .rv { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:760px) { .two { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    /* breathing room around the walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .counts { flex-wrap:wrap; gap:16px 22px; }
+    .case, .grades { grid-template-columns:1fr 1fr; }
+    .kills { grid-template-columns:1fr; }
+    .section-head { margin-top:52px; }
+  }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=7" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="gap-give-and-go">
+    <div>
+      <p class="kicker">Opening gap play &middot; read the tape &middot; 1-minute</p>
+      <h1>Gap Give <span>and Go</span></h1>
+    </div>
+    <div>
+      <p class="thesis">A stock gaps up on real news. The first move is down, fast and on light volume, into a key level. That's the give.
+      Don't buy it. Wait for a quiet range where sellers can't push it any lower, then <em>buy the go when the tape turns,</em> with
+      the stop under the low of the day.</p>
+      <div class="counts">
+        <div><b>3</b><small>checks before it's a trade</small></div>
+        <div><b>&minus;8 &rarr; 0 &rarr; +8</b><small>the tape, give to go</small></div>
+        <div><b>1</b><small>hard stop: the low of day</small></div>
+      </div>
+      <a class="watch" href="#video"><i></i>Watch the video</a>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">the gap</div><div class="n">Real catalyst, in play</div></div>
+    <div><div class="t">the give</div><div class="n">Fast, light flush down</div></div>
+    <div><div class="t">the range</div><div class="n">Neutral, can't stick it</div></div>
+    <div><div class="t">the go</div><div class="n">Tape flips, volume in</div></div>
+    <div><div class="t">the stop</div><div class="n">Under the low of day</div></div>
+    <div><div class="t">the targets</div><div class="n">Open, PMH, RVOL &times; ATR</div></div>
+  </nav>
+
+  <section class="anim" data-gg-anim aria-label="Animated walkthrough of a Gap Give and Go long">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">6 / 6</p>
+        <h2 class="anim-title">Watch one long, start to finish</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 600" role="img" aria-label="Illustrative 1-minute chart: a stock gaps up 16% and opens at 23.70 under a 24.10 premarket high; in three minutes it flushes to 23.04 near the 23.00 key level on lighter volume; for six minutes it holds a neutral range from 23.07 to 23.36; at 9:40 a bar clears the range on 560 thousand shares and the entry is 23.38 with the stop at 23.03; the dip to 23.40 at VWAP is bought, price trades back through the open, reaches the premarket high at 24.10 for about 2R, and the RVOL times ATR target at 24.51 for about 3.2R"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main gg-main">
+    <div class="gg-stages" data-gg-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>A gap on a real catalyst</h3>
+          <ul>
+            <li>A stock in play: a strong, fresh news catalyst (earnings, guidance, an upgrade), gapping on elevated relative volume.
+            The best ones are top of the scanner.</li>
+            <li>Before the bell, mark the premarket high, the open and the key level below: a daily breakout or a big round number.</li>
+            <li>Check that the gap fits the news. Too big a gap for the catalyst and nobody knows what to do with their position.</li>
+          </ul>
+          <p class="why">Bigger-picture buyers want to own a stock with news like this. The trade is giving them a place to step in.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>The give</h3>
+          <ul>
+            <li>The first move is down. It's fast, it's aggressive and it won't lift: a &minus;8 tape.</li>
+            <li>It's on light volume compared with the open. A fast move on insignificant volume isn't sustainable.</li>
+            <li>It runs into the key level. Profit taking can be the reason, but it doesn't have to be.</li>
+          </ul>
+          <p class="why">Don't buy the give. A give can keep on giving, and you don't know where it ends until it has.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>The neutral range</h3>
+          <ul>
+            <li>The selling stops getting anywhere. Price chops in a tight range, 10 to 20 cents, on quiet volume.</li>
+            <li>Bids hold the bottom. Sellers can walk it down a few cents but can't stick it any lower.</li>
+            <li>The tape is neutral: buyers aren't in control, but sellers aren't either. There's nothing to do yet.</li>
+          </ul>
+          <p class="why">What you're watching for is a distinct change. If you can't see one, you're still on the give.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>The go: buy the turn</h3>
+          <ul>
+            <li>The tape flips to +8: price clears the top of the range, the bid steps up above it, and big prints hit at or above the offer.</li>
+            <li>Volume has to show up on the break. No volume, no trade.</li>
+            <li>Buy the go. The stop is under the low of the day. A hard stop, no exceptions.</li>
+          </ul>
+          <p class="why">This is the right side of the V. You give up the low to buy a turn that's already happened.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Fight for price and press it</h3>
+          <ul>
+            <li>Once the turn is in, use every dip to fight for price. The first pullback that gets bought right back is the moment to be at full size.</li>
+            <li>Add above VWAP once buyers win the battle there, and only on really high volume. Without it, don't force the size.</li>
+            <li>The next step is back through the open price.</li>
+          </ul>
+          <p class="why">The best risk to reward is right after the turn. Every cent higher, the reward shrinks and there's no new edge.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Targets, then ride the trend</h3>
+          <ul>
+            <li>Targets: back through the open, the premarket high, then a measured move of half the RVOL times the ATR.</li>
+            <li>Sell into extensions, like a big candle into the high of day, not into pullbacks.</li>
+            <li>Hold the rest until the trend ends. A high-volume candle back through the open is a reason to get out.</li>
+          </ul>
+          <p class="why">It's a move-to-move trade. The targets are guides; the trend ending is the real exit.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="gg-side">
+      <div class="panel">
+        <h4>The three checks</h4>
+        <p class="lead">Before it's a trade, it needs all three. The DKNG trade had all three.</p>
+        <div class="timing">
+          <div><b>A stock in play</b><p>A very strong (or very weak) fresh news catalyst. Graded 8 out of 10 or better.</p></div>
+          <div><b>A key level</b><p>Something real to trade off: a daily breakout, a big round number, a level buyers already defended.</p></div>
+          <div><b>Elevated volume</b><p>Relative volume well above normal. It doesn't have to be crazy, but it has to be there.</p></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>What kills it</h4>
+        <p class="lead">Any one of these and there's no trade, or a smaller one.</p>
+        <div class="filters kills">
+    <div class="filter"><h3>A weak catalyst</h3><p>Without a real reason for bigger buyers to step in, there's nobody to buy the give from you.</p><p class="kill">Under 8/10: skip it.</p></div>
+    <div class="filter"><h3>A gap too big for the news</h3><p>When the gap outruns the catalyst, holders don't know what to do and few people want to chase it.</p><p class="kill">Past about 20% without a 9.5&ndash;10 catalyst: be careful.</p></div>
+    <div class="filter"><h3>No distinct turn</h3><p>The give never stops, or the range never resolves. Neutral tape isn't a reason to buy.</p><p class="kill">No change on the tape: no trade.</p></div>
+    <div class="filter"><h3>No volume on the go</h3><p>A break of the range on thin volume isn't the buyers stepping in. The same goes for adding above VWAP.</p><p class="kill">No volume: no entry, or no add.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-head">
+    <h2>Reading the tape: &minus;8, neutral, +8</h2>
+    <p>This is mostly a tape and price action trade. The levels tell you where to look; the tape tells you when the give is over.</p>
+  </div>
+  <div class="tape">
+    <div class="s"><span class="sc">&minus;8</span><h3>The give</h3><ul><li>Sellers won't let it lift at all.</li><li>Price walks down fast, but on light volume.</li><li>Feels like it's going lower. You don't fight it.</li></ul></div>
+    <div class="n"><span class="sc">0</span><h3>The range</h3><ul><li>Bids hold at the same price over and over.</li><li>Sellers press it a few cents lower and it pops right back.</li><li>A 10 to 20 cent range. Nothing to do.</li></ul></div>
+    <div class="b"><span class="sc">+8</span><h3>The go</h3><ul><li>The bid steps up above the range and stays there.</li><li>Size on the bid, big prints at or above the offer.</li><li>Volume picks up on the break. Now you're long.</li></ul></div>
+  </div>
+  <div class="fight">
+    <div><b>A hold on the bid</b><p>The same bid gets hit again and again and doesn't move. Someone is absorbing everything sellers have.</p></div>
+    <div><b>A finishing print</b><p>A big offer steps down at the end of the flush and gets taken. Often an execution desk finishing a sell order, so the selling may be done.</p></div>
+    <div><b>Can't stick it</b><p>A last hard press looks like it will break the level, and it doesn't. In the DKNG trade price never traded back under 23.</p></div>
+  </div>
+
+  <div class="section-head">
+    <h2>Give or go? Two days, the same gap</h2>
+    <p>Both days start with the same gap and the same flush. Only one of them ever turns. Buy the give and you own both days. Wait for the go
+    and you only own the one that works.</p>
+  </div>
+  <div class="panel" data-gg-two role="group" aria-label="Two illustrative charts: on the left the give keeps going through the key level with no range and no turn, so there is no trade; on the right the give holds in a neutral range, then the go triggers the entry">
+    <div class="two">
+      <svg viewBox="0 0 560 340" role="img" aria-label="The give keeps going: no range, no turn, no trade"></svg>
+      <svg viewBox="0 0 560 340" role="img" aria-label="The give holds in a range, then goes: the entry"></svg>
+    </div>
+    <p class="two-note">You'll sometimes buy the go and still get stuffed. That's what the hard stop under the low of day is for: take it off and leave
+    it alone. A failed go can even set up a good short. These two charts are illustrative.</p>
+  </div>
+
+  <div class="section-head">
+    <h2>How big a gap? A sliding scale</h2>
+    <p>The size of the gap has to match the quality of the news. Super large gaps are harder to trade: nobody knows what to do with their position,
+    and fewer people are willing to chase. These are rough guides from the video, worth tracking with your own data.</p>
+  </div>
+  <div class="scale">
+    <div><b class="pos">~10%</b><p>A significant gap for an 8 out of 10 catalyst. Plenty of room for the give and the go.</p></div>
+    <div><b class="mid">~20%</b><p>A reasonable general ceiling. DKNG gapped about 16% on an 8 out of 10, which fits.</p></div>
+    <div><b class="neg">30%+</b><p>Too much for an 8 out of 10. Only a 9.5 or 10 catalyst, news that changes the company, can carry it.</p></div>
+  </div>
+
+  <div class="section-head">
+    <h2>Targets: half the RVOL times the ATR</h2>
+    <p>The rough rule from the video: a stock trading at a given relative volume tends to move about half that many ATRs. It's more art than science,
+    and the bigger the RVOL the more it probably slides down from there.</p>
+  </div>
+  <div class="risk">
+    <div class="panel" data-gg-calc>
+      <div class="calc-in">
+        <label>ATR (daily)<input name="atr" type="number" inputmode="decimal" step="0.01" min="0" value="1.13"></label>
+        <label>RVOL<input name="rvol" type="number" inputmode="decimal" step="0.1" min="0" value="2.6"></label>
+        <label>Low of day<input name="low" type="number" inputmode="decimal" step="0.01" min="0" value="23.04"></label>
+        <label>Entry<input name="entry" type="number" inputmode="decimal" step="0.01" min="0" value="23.38"></label>
+      </div>
+      <div class="calc gg-out" aria-live="polite"></div>
+      <ul class="rv">
+        <li><b>2 RVOL</b>about 1 ATR</li>
+        <li><b>5 RVOL</b>maybe 2.5 ATRs</li>
+        <li><b>20 RVOL</b>maybe 10, likely less</li>
+        <li><b>Stop</b>a cent under the low</li>
+      </ul>
+    </div>
+    <div class="warn">
+      <h4>Be biggest on the first entry</h4>
+      <p>The coach's main note on the DKNG trade: the whole trade is the first entry. When the bid steps up, clears 23.40, tries to drop back
+      under it and the bid steps right back in, that's the moment. You're risking about 35 cents to make 60 or 70, plus maybe another dollar.</p>
+      <p class="big">Don't over-manage it: too many entries, too many exits, getting bigger late.</p>
+      <p>As price climbs with no new information, the chance it keeps going stays about the same but the reward for the risk gets worse and
+      worse. The default numbers in the calculator are the walkthrough's, not DKNG's fills.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The trade in the video: DKNG, May 5, 2023</h2>
+    <p>A trader's playbook review at SMB Capital. The market didn't matter much that day (SPY ranging); this was all about the stock's own news.</p>
+  </div>
+  <div class="case">
+    <div><b>+16%</b><p>Gap up on earnings, elevated RVOL, top name on the scanner. An $11.5B company.</p></div>
+    <div><b>$770M</b><p>Revenue, up 84%. Guidance raised. Lost $0.51 a share against $0.84 expected: still not profitable, so an 8, not higher.</p></div>
+    <div><b>2.6 &middot; 1.13</b><p>RVOL and ATR. Short float near 7%, low enough not to matter.</p></div>
+    <div><b>23.00</b><p>The key level: the daily breakout near 22.74 lined up with 23, where after-hours buying showed up. Above 52-week highs.</p></div>
+  </div>
+  <ul class="grades" aria-label="The coach's grades">
+    <li><b>9&ndash;10</b>Stock selection</li>
+    <li><b>10</b>Trade strategy</li>
+    <li><b>9</b>Reading the tape</li>
+    <li><b>8</b>Trade management</li>
+    <li><b>93 / 100</b>Overall</li>
+  </ul>
+  <p class="two-note">The bigger picture lined up too: a year of consolidation on the weekly, a clean breakout on the daily, the best performer
+  in its group year to date, and a wave of analyst upgrades after the call. The trader sold 20% into the high-of-day extension and the rest on a
+  high-volume candle back through the open. Next time: the same size, but bigger on the first entry, and an add on a clear higher low with the risk under it.</p>
+
+  <div class="section-head">
+    <h2>Long and short, side by side</h2>
+    <p>The video trades the long. A gap down on clearly bad news works the same way, mirrored.</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><span class="tick">Long<small>after a gap up on good news</small></span></th>
+        <th><span class="tick">Short<small>after a gap down on bad news</small></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>Catalyst</th><td class="txt">Very strong, fresh, 8/10 or better</td><td class="txt">Very weak, fresh, 8/10 or better</td></tr>
+      <tr><th>Levels</th><td class="txt">Premarket high, the open, key support below</td><td class="txt">Premarket low, the open, key resistance above</td></tr>
+      <tr><th>The give</th><td class="txt neg">A fast drop on light volume into support</td><td class="txt pos">A fast pop on light volume into resistance</td></tr>
+      <tr><th>The range</th><td class="txt" colspan="2">Neutral tape, a tight range on quiet volume, the push against the level can't stick</td></tr>
+      <tr><th>The go</th><td class="txt">Clears the range high on volume, bid steps up</td><td class="txt">Breaks the range low on volume, offer steps down</td></tr>
+      <tr><th>Stop</th><td>under the low of day</td><td>over the high of day</td></tr>
+      <tr><th>Add</th><td class="txt">Above VWAP on high volume; a higher low</td><td class="txt">Below VWAP on high volume; a lower high</td></tr>
+      <tr><th>Targets</th><td class="txt">The open, the premarket high, low + &frac12; RVOL &times; ATR</td><td class="txt">The open, the premarket low, high &minus; &frac12; RVOL &times; ATR</td></tr>
+      <tr><th>Exit</th><td class="txt" colspan="2">Sell into extensions; the rest when the trend ends or a high-volume candle goes back through the open</td></tr>
+    </tbody>
+  </table>
+
+  <section class="video" id="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/xYUto1XlJwA" title="Gap Give and Go (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>An SMB Capital playbook review: a trader walks through this setup on DraftKings (DKNG), May 5, 2023, and gets graded on it.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=xYUto1XlJwA" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Let it give. Buy the go.</h2>
+      <p>You can be late to this trade and still make a really good trade. Fighting for the low puts you on the wrong side of the V. Waiting for the
+      turn puts you on the right side, with a clear stop under the low of day.</p>
+    </div>
+    <div>
+      <ul>
+        <li>All three checks: a stock in play, a key level, elevated volume.</li>
+        <li>No turn on the tape, no trade. No volume on the break, no trade.</li>
+        <li>Be biggest at the first entry, then manage less, not more.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">From an SMB Capital playbook review video (DKNG, May 5, 2023). The DKNG figures are as reported in the video. The walkthrough,
+  the two charts and the calculator's default numbers are illustrative, not a real ticker.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

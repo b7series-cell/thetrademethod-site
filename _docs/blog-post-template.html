@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- =====================================================================
+  BLOG POST TEMPLATE: the "citable article" format (set up 2026-10-31)
+  Copy to blog/<slug>.html, replace every {{...}}, delete these comments.
+
+  The six parts, in order:
+    1. TITLE (H1)     The exact question the reader types or asks an AI.
+    2. HOOK (H2)      "The short answer": a direct answer, first sentence
+                      first, 40 to 80 words, plain language, with numbers.
+    3. AI SUMMARY     "In this article": 3 to 5 sentences. What the post is
+                      about, why it matters, what the reader will learn.
+                      Same text goes in the JSON-LD "abstract".
+    4. BODY           Data-backed lists and tables, neutral third-person
+                      voice (no "I"), answer first, then the nuance. One
+                      idea per <section>; each H2 is a question or a plain
+                      label; each section makes sense on its own (name the
+                      subject, don't write "this" or "it" across sections).
+    5. QUOTE          1 or 2 authoritative citations (research papers,
+                      regulators, exchanges). Quote only words you have
+                      checked against the source; paraphrase outside the
+                      quote marks. Add each to JSON-LD "citation".
+    6. FORMAT         A visible "Data / Published / last updated" line
+                      under the answer (update dateModified too),
+                      <section aria-labelledby> chunks, key terms as <dl>,
+                      tables with <caption>, descriptive image alt text,
+                      FAQ h3/p pairs mirrored in the FAQPage JSON-LD.
+
+  After writing: add the post to POSTS in js/site.js, a card to
+  blog/index.html (and its JSON-LD blogPost list), EXTRA_PAGES in
+  _docs/build-sitemap.js, PAGES in _docs/build-search-index.js, a line
+  under "## Blog" in llms.txt; run both build scripts; bump
+  SEARCH_INDEX_URL and site.js ?v= on every page. og image: 1200x630
+  at blog/img/<slug>-og.jpg.
+  ===================================================================== -->
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{QUESTION}} | The Trade Method</title>
+<meta name="description" content="{{DESCRIPTION: the short answer in one sentence, under 160 characters}}">
+<meta name="author" content="Bryant">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/blog/{{SLUG}}.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="{{QUESTION}}">
+<meta property="og:description" content="{{DESCRIPTION}}">
+<meta property="og:url" content="https://thetrademethod.com/blog/{{SLUG}}.html">
+<meta property="og:image" content="https://thetrademethod.com/blog/img/{{SLUG}}-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{QUESTION}}">
+<meta name="twitter:description" content="{{DESCRIPTION}}">
+<meta name="twitter:image" content="https://thetrademethod.com/blog/img/{{SLUG}}-og.jpg">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "@id": "https://thetrademethod.com/blog/{{SLUG}}.html#post",
+   "headline": "{{QUESTION}}",
+   "alternativeHeadline": "{{SHORT NAME, e.g. Introducing Backtest Board}}",
+   "abstract": "{{AI SUMMARY: the same 3-5 sentences as the In this article box}}",
+   "description": "{{DESCRIPTION}}",
+   "url": "https://thetrademethod.com/blog/{{SLUG}}.html",
+   "mainEntityOfPage": "https://thetrademethod.com/blog/{{SLUG}}.html",
+   "image": ["https://thetrademethod.com/blog/img/{{SLUG}}-og.jpg"],
+   "datePublished": "{{YYYY-MM-DD}}",
+   "dateModified": "{{YYYY-MM-DD}}",
+   "inLanguage": "en",
+   "articleSection": "{{TOPIC}}",
+   "keywords": "{{comma, separated, keywords}}",
+   "citation": [
+    {"@type": "ScholarlyArticle", "name": "{{CITED TITLE}}", "author": ["{{AUTHOR}}"], "datePublished": "{{YEAR}}", "isPartOf": {"@type": "Periodical", "name": "{{JOURNAL}}"}, "url": "{{URL}}"}
+   ],
+   "author": {"@type": "Person", "name": "Bryant", "worksFor": {"@type": "Organization", "name": "The Trade Method", "url": "https://thetrademethod.com/"}},
+   "publisher": {"@type": "Organization", "name": "The Trade Method", "logo": {"@type": "ImageObject", "url": "https://thetrademethod.com/assets/apple-touch-icon.png"}},
+   "isPartOf": {"@type": "WebSite", "name": "The Trade Method", "url": "https://thetrademethod.com/"}
+  },
+  {
+   "@type": "FAQPage",
+   "url": "https://thetrademethod.com/blog/{{SLUG}}.html",
+   "mainEntity": [
+    {"@type": "Question", "name": "{{FAQ QUESTION 1, same text as the h3}}", "acceptedAnswer": {"@type": "Answer", "text": "{{FAQ ANSWER 1, same text as the p}}"}}
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://thetrademethod.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://thetrademethod.com/blog/"},
+    {"@type": "ListItem", "position": 3, "name": "{{QUESTION}}", "item": "https://thetrademethod.com/blog/{{SLUG}}.html"}
+   ]
+  }
+ ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<link rel="stylesheet" href="/css/blog.css?v=3">
+
+<script src="/js/nav.js?v=18" defer></script>
+<script src="/js/site.js?v=24" defer></script>
+</head>
+
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="Blog"></div>
+
+<main id="top">
+  <header class="post-hero">
+    <div class="wrap">
+      <a class="post-back" href="/blog/">&lsaquo; Blog</a>
+      <p class="eyebrow">{{SHORT NAME}} &middot; By <span class="post-author">Bryant</span> &middot; <time datetime="{{YYYY-MM-DD}}">{{Month D, YYYY}}</time> &middot; {{TOPIC}}</p>
+      <!-- 1. TITLE: the exact question -->
+      <h1>{{QUESTION}}</h1>
+      <p class="lead">{{One line of scope.}} <b>{{One line of payoff.}}</b></p>
+      <div class="hub-stats">
+        <div><b class="tnum">{{NUMBER}}</b><small>{{label}}</small></div>
+        <div><b class="tnum">{{NUMBER}}</b><small>{{label}}</small></div>
+        <div><b class="tnum">{{NUMBER}}</b><small>{{label}}</small></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="band white post-band">
+    <div class="post">
+
+
+      <article class="post-body">
+
+        <!-- 2. HOOK: 40-80 words, answer in the first sentence -->
+        <section aria-labelledby="short-answer">
+          <h2 id="short-answer">The short answer</h2>
+          <p class="post-answer">{{Yes/No/the answer. Then the 1-2 numbers that prove it, with the source and date.}}</p>
+          <p class="post-asof">Data: {{source and date of the data}}. Published <time datetime="{{YYYY-MM-DD}}">{{Month D, YYYY}}</time>; last updated <time datetime="{{YYYY-MM-DD}}">{{Month D, YYYY}}</time>.</p>
+          <!-- 3. AI SUMMARY: 3-5 sentences, what / why / what you'll learn -->
+          <aside class="post-summary" aria-label="Article summary">
+            <p class="post-summary-h">In this article</p>
+            <p>{{What this article covers.}} {{Why it matters.}} {{What the reader will learn.}}</p>
+          </aside>
+        </section>
+
+        <!-- contents list: after the short answer in the code, shown in the left column on desktop -->
+        <div class="post-toc-wrap">
+          <nav class="post-toc" aria-label="On this page">
+            <p class="post-toc-h">On this page</p>
+            <ol>
+              <li><a href="#short-answer">The short answer</a></li>
+              <li><a href="#key-results">Key results</a></li>
+              <li><a href="#key-terms">Key terms</a></li>
+              <li><a href="#{{section-id}}">{{Section heading}}</a></li>
+              <li><a href="#research">What the research says</a></li>
+              <li><a href="#faq">Frequently asked questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+
+        <!-- 4. BODY: data first, neutral voice, answer then nuance -->
+        <section aria-labelledby="key-results">
+          <h2 id="key-results">Key results</h2>
+          <ul>
+            <li><b>{{Label}}:</b> {{fact with a number}}</li>
+            <li><b>{{Label}}:</b> {{fact with a number}}</li>
+          </ul>
+          <div class="post-table">
+            <table>
+              <caption>{{What the table shows, and the date of the data}}</caption>
+              <thead><tr><th scope="col">{{Column}}</th><th scope="col">{{Column}}</th></tr></thead>
+              <tbody class="tnum">
+                <tr><td>{{value}}</td><td>{{value}}</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section aria-labelledby="key-terms">
+          <h2 id="key-terms">Key terms</h2>
+          <dl class="post-terms">
+            <div><dt>{{Term}}</dt><dd>{{One-sentence definition.}}</dd></div>
+          </dl>
+        </section>
+
+        <section aria-labelledby="{{section-id}}">
+          <h2 id="{{section-id}}">{{Section heading, ideally a question}}</h2>
+          <p>{{Answer first. Then the nuance.}}</p>
+          <figure class="post-fig">
+            <img src="/blog/img/{{image}}.webp" width="1600" height="{{h}}" loading="lazy" decoding="async" alt="{{Describe what the image shows, including its key numbers.}}">
+            <figcaption>{{What to notice.}}</figcaption>
+          </figure>
+        </section>
+
+        <!-- 5. QUOTE: 1-2 checked, authoritative citations -->
+        <section aria-labelledby="research">
+          <h2 id="research">What the research says</h2>
+          <blockquote class="post-quote">
+            <p>&ldquo;{{Exact words, checked against the source}}&rdquo;</p>
+            <footer>{{Authors}}, <cite><a href="{{URL}}" target="_blank" rel="noopener">&ldquo;{{Title}}&rdquo;</a></cite>, {{Journal}} {{volume(issue)}}, {{year}}.</footer>
+          </blockquote>
+          <p>{{How the finding connects to this article's data.}}</p>
+        </section>
+
+        <!-- 6. FORMAT: FAQ h3/p pairs, mirrored in the FAQPage JSON-LD -->
+        <section aria-labelledby="faq">
+          <h2 id="faq">Frequently asked questions</h2>
+          <div class="post-faq">
+            <h3 id="faq-1">{{Question a reader would ask?}}</h3>
+            <p>{{Self-contained answer that names the subject.}}</p>
+          </div>
+        </section>
+
+        <section aria-labelledby="disclaimer">
+          <h2 id="disclaimer">Disclaimer</h2>
+          <p class="post-disclaim"><b>Not financial advice.</b> {{Disclaimer text.}}</p>
+        </section>
+
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

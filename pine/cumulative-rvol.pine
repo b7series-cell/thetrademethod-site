@@ -1,0 +1,160 @@
+//@version=6
+// =====================================================================
+// Cumulative RVOL by Time of Day — thetrademethod.com
+//
+// Is this stock doing abnormal volume compared to ITSELF, at this point
+// in the day?
+//
+//   At every bar, today's volume so far (from the session's first bar up
+//   to this bar) is divided by what the stock has normally traded by the
+//   same time of day, averaged over the last 20 sessions and the last
+//   5 sessions.
+//
+//     1.0  = normal for this time of day
+//     2.0  = twice the usual participation by now
+//     0.7  = 30% less than usual: nobody is showing up
+//
+//   If it is 10:15, today's volume up to 10:15 is compared with the
+//   average volume up to 10:15. Not one number for the day: you can see
+//   whether participation is increasing into a move, holding after it,
+//   fading, or never showing up at all.
+//
+//   Columns: today vs the 20-day average. Orange step line: today vs the
+//   5-day average. Bright columns are rising, faded columns are falling.
+//   Set "Show" to one average and add the indicator twice for the
+//   two-panel layout from the video (20-day on top, 5-day below).
+//
+//   Intraday charts (1 minute and up). The averages need that many
+//   earlier sessions loaded on the chart; the panel shows how many are
+//   in use. On a daily chart it falls back to plain RVOL: today's volume
+//   against the average daily volume of the previous N days.
+//   Draws and alerts only; it places no orders.
+// =====================================================================
+indicator("Cumulative RVOL by Time of Day", shorttitle = "Cum RVOL", overlay = false, format = format.price, precision = 2)
+
+// ---------------- inputs ----------------
+show      = input.string("Both", "Show", options = ["Both", "20-day only", "5-day only"], group = "Averages",
+     tooltip = "Both: columns for the long average, orange line for the short one.")
+lenLong   = input.int(20, "Long average (sessions)", minval = 1, maxval = 60, group = "Averages")
+lenShort  = input.int(5, "Short average (sessions)", minval = 1, maxval = 60, group = "Averages")
+hot       = input.float(2.0, "Strong participation at", minval = 1.0, step = 0.1, group = "Levels")
+trendBars = input.int(5, "Increasing / fading: compare with N bars ago", minval = 1, group = "Levels")
+trendPct  = input.float(5.0, "…and a change of more than this %", minval = 0.0, step = 0.5, group = "Levels")
+showPanel = input.bool(true, "Show status panel", group = "Display")
+
+// ---------------- colours ----------------
+cStrong = #30d158
+cAbove  = #2997ff
+cBelow  = #8e8e93
+cShort  = #ff9f0a
+
+// ---------------- time-of-day slots ----------------
+bool intra  = timeframe.isintraday
+int  tfSec  = timeframe.in_seconds()
+int  keep   = math.max(lenLong, lenShort)
+var int cols = intra ? int(math.ceil(86400.0 / tfSec)) : 1
+
+if barstate.isfirst and intra and cols * keep > 100000
+    runtime.error("Chart timeframe too small for " + str.tostring(keep) + " sessions of history. Use a 1-minute chart or higher.")
+
+int secOfDay = hour(time, syminfo.timezone) * 3600 + minute(time, syminfo.timezone) * 60 + second(time, syminfo.timezone)
+int slot     = intra ? math.min(int(secOfDay / tfSec), cols - 1) : 0
+
+// one row per finished session: cumulative volume at every slot of that day
+var matrix<float> hist  = matrix.new<float>(0, cols, na)
+var array<float>  today = array.new<float>(cols, na)
+var float cum      = 0.0
+var int   lastSlot = -1
+var int   barsIn   = 0
+
+fillSlots(array<float> a, int fromIdx, int toIdx, float v) =>
+    if toIdx >= fromIdx
+        for i = fromIdx to toIdx
+            a.set(i, v)
+
+// average cumulative volume at slot c over the most recent n sessions
+avgAt(matrix<float> m, int c, int n) =>
+    int rows = m.rows()
+    int k    = math.min(n, rows)
+    float sum = 0.0
+    if k > 0
+        for r = rows - k to rows - 1
+            float x = m.get(r, c)
+            sum += na(x) ? 0.0 : x   // no bar yet by this time that day = no volume yet
+    k > 0 ? sum / k : na
+
+float rvLong  = na
+float rvShort = na
+float dL = ta.sma(volume, lenLong)[1]     // daily fallback averages (computed on every bar)
+float dS = ta.sma(volume, lenShort)[1]
+
+if intra
+    if session.isfirstbar and lastSlot >= 0
+        // close out the finished session: carry its final total to the end of the day, store it
+        fillSlots(today, lastSlot + 1, cols - 1, cum)
+        hist.add_row(hist.rows(), today.copy())
+        if hist.rows() > keep
+            hist.remove_row(0)
+        today.fill(na)
+        cum      := 0.0
+        lastSlot := -1
+        barsIn   := 0
+
+    float prevCum = cum
+    cum    += nz(volume)
+    barsIn += 1
+    if lastSlot >= 0
+        fillSlots(today, lastSlot + 1, slot - 1, prevCum)   // gaps (no prints) keep the running total
+    today.set(slot, cum)
+    lastSlot := math.max(lastSlot, slot)
+
+    float aL = avgAt(hist, slot, lenLong)
+    float aS = avgAt(hist, slot, lenShort)
+    rvLong  := aL > 0 ? cum / aL : na
+    rvShort := aS > 0 ? cum / aS : na
+else
+    // daily and higher: today's volume against the average of the previous N bars
+    rvLong  := dL > 0 ? volume / dL : na
+    rvShort := dS > 0 ? volume / dS : na
+
+// ---------------- which series is the histogram ----------------
+bool  onlyShort = show == "5-day only"
+float rv      = onlyShort ? rvShort : rvLong
+float line5     = show == "Both" ? rvShort : na
+
+// increasing / holding / fading, within today only
+bool  canTrend = not intra or barsIn > trendBars
+float ref      = canTrend ? rv[trendBars] : na
+float chg      = na(ref) or ref <= 0 or na(rv) ? na : (rv / ref - 1) * 100
+string state   = na(rv) ? "Building history" : rv < 1 ? "Below normal" : na(chg) ? "Above normal" : chg > trendPct ? "Increasing" : chg < -trendPct ? "Fading" : "Holding"
+
+bool  rising = na(rv[1]) or rv >= rv[1]
+color base   = na(rv) ? na : rv >= hot ? cStrong : rv >= 1 ? cAbove : cBelow
+color colCol = na(base) ? na : color.new(base, rising ? 0 : 50)
+
+// ---------------- plots ----------------
+plot(rv, "RVOL (histogram)", color = colCol, style = plot.style_columns)
+plot(line5, "RVOL vs short average", color = cShort, linewidth = 2, style = plot.style_stepline)
+hline(1.0, "Normal (1.0)", color = color.new(#a1a1a6, 0), linestyle = hline.style_dashed)
+hline(hot, "Strong", color = color.new(cStrong, 50), linestyle = hline.style_dotted)
+
+// ---------------- status panel ----------------
+var table tb = table.new(position.top_right, 2, 4, bgcolor = color.new(#1d1d1f, 10), border_width = 0)
+fmt(float v) => na(v) ? "—" : str.tostring(v, "#.00") + "x"
+if showPanel and barstate.islast
+    string lblL = intra ? "vs " + str.tostring(lenLong) + "-day, same time" : "vs " + str.tostring(lenLong) + "-day average"
+    string lblS = intra ? "vs " + str.tostring(lenShort) + "-day, same time" : "vs " + str.tostring(lenShort) + "-day average"
+    table.cell(tb, 0, 0, lblL, text_color = #a1a1a6, text_size = size.small)
+    table.cell(tb, 1, 0, fmt(rvLong), text_color = na(rvLong) ? color.white : rvLong >= hot ? cStrong : rvLong >= 1 ? cAbove : cBelow, text_size = size.small)
+    table.cell(tb, 0, 1, lblS, text_color = #a1a1a6, text_size = size.small)
+    table.cell(tb, 1, 1, fmt(rvShort), text_color = cShort, text_size = size.small)
+    table.cell(tb, 0, 2, "Participation", text_color = #a1a1a6, text_size = size.small)
+    table.cell(tb, 1, 2, state, text_color = state == "Increasing" ? cStrong : state == "Fading" or state == "Below normal" ? #ff453a : color.white, text_size = size.small)
+    table.cell(tb, 0, 3, intra ? "Sessions loaded" : "Timeframe", text_color = #a1a1a6, text_size = size.small)
+    table.cell(tb, 1, 3, intra ? str.tostring(hist.rows()) + " of " + str.tostring(keep) : "daily fallback", text_color = intra and hist.rows() < keep ? #ff9f0a : color.white, text_size = size.small)
+
+// ---------------- alerts ----------------
+alertcondition(ta.crossover(rv, 1.0) and barstate.isconfirmed, "RVOL above normal", "{{ticker}} cumulative RVOL crossed above 1.0 — more volume than normal for this time of day")
+alertcondition(ta.crossover(rv, hot) and barstate.isconfirmed, "RVOL strong", "{{ticker}} cumulative RVOL crossed above the strong level")
+alertcondition(ta.crossunder(rv, 1.0) and barstate.isconfirmed, "RVOL back below normal", "{{ticker}} cumulative RVOL fell back below 1.0 — participation fading")
+alertcondition(barstate.isconfirmed, "Test — Fires Every Bar", "🟢 TEST — plumbing works on {{ticker}} @ {{close}}")

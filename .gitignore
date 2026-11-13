@@ -1,0 +1,15 @@
+# Lives only on the server: holds the Massive API key. Never commit it.
+api/config.php
+
+# Server-side runtime data (chart cache, backtests, contact log, notes).
+api/cache/*
+!api/cache/.htaccess
+
+# Not part of the site
+Claude outputs/
+hero-concepts/
+.well-known/
+desktop.ini
+.DS_Store
+Thumbs.db
+*.tmp

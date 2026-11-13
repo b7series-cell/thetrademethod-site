@@ -1,0 +1,313 @@
+//@version=6
+// =====================================================================
+// Technical Catalyst Breakout — thetrademethod.com
+//
+// SMB Capital's eight-step breakout blueprint for when there is no
+// headline: the level IS the catalyst.
+//
+//   1. The level   The highest high (or lowest low) of the last N
+//                  completed daily bars, tested several times and held
+//                  for weeks. The panel shows the tests and the days.
+//                  Whether it's a 9 out of 10 is still your call.
+//   2. RVOL        Today's volume so far against what the stock has
+//                  normally traded by this time of day (20 sessions).
+//   3. The bar     The breakout bar's volume against the recent average.
+//   4. The tape    Pine can't read the tape. Watch it yourself; the
+//                  scratch rule below is the stand-in for "no velocity".
+//   5. The market  A related symbol (SPY by default) above its VWAP for a
+//                  long, below it for a short: A size. Otherwise B size.
+//   6. The stop    Under the breakout candle (or the base before it), and
+//                  a penny past any round number (multiples of 5 cents).
+//   7. The add     A tight pause after the entry gets a buy stop a tick
+//                  over its high; the stop trails to a tick under its low.
+//   8. The exit    The trailing stop, a close back through the level, a
+//                  break of the prior bars' low once the trade is paying,
+//                  or a scratch when price hasn't moved after N bars.
+//
+// Use an intraday chart (1-minute in the video). Marks and alerts only;
+// it places no orders.
+// =====================================================================
+indicator("Technical Catalyst Breakout", shorttitle = "Tech Catalyst BO", overlay = true, max_labels_count = 200, max_lines_count = 200)
+
+// ---------------- inputs ----------------
+side      = input.string("Long only", "Trade", options = ["Long only", "Short only", "Both"], group = "Setup",
+     tooltip = "The video trades the long: a break above a multi-week ceiling. Short is the mirror: a break below a multi-week floor.")
+lenD      = input.int(25, "Level lookback (daily bars)", minval = 5, maxval = 250, group = "1 · The level",
+     tooltip = "25 trading days is about five weeks. The level is the highest high (or lowest low) of these completed days.")
+tolPct    = input.float(0.3, "A test is within this % of the level", minval = 0.0, step = 0.05, group = "1 · The level")
+minTests  = input.int(3, "Minimum tests", minval = 1, group = "1 · The level")
+minDays   = input.int(15, "Minimum days the level has held", minval = 1, group = "1 · The level",
+     tooltip = "Days since the oldest test inside the lookback. Weeks of failures is what makes the breach a catalyst.")
+
+useRvol   = input.bool(true, "Require elevated RVOL", group = "2 · RVOL")
+minRvol   = input.float(2.0, "Minimum RVOL", minval = 0.1, step = 0.1, group = "2 · RVOL")
+lenRvol   = input.int(20, "RVOL average (sessions)", minval = 1, maxval = 60, group = "2 · RVOL")
+
+useBarVol = input.bool(true, "Require a volume spike on the breakout bar", group = "3 · The breakout bar")
+barVolX   = input.float(3.0, "Breakout bar volume ≥ this × average", minval = 1.0, step = 0.5, group = "3 · The breakout bar")
+barVolLen = input.int(20, "…average of the previous N bars", minval = 2, group = "3 · The breakout bar")
+
+useMkt    = input.bool(true, "Size by the market", group = "5 · The market",
+     tooltip = "With the market (above its VWAP for a long, below for a short): A size. Against it or flat: B size.")
+mktSym    = input.symbol("AMEX:SPY", "Market or related symbol", group = "5 · The market",
+     tooltip = "SPY, the sector ETF, or the related product (for ETHA, Ethereum itself).")
+
+stopMode  = input.string("Breakout candle", "Stop under", options = ["Breakout candle", "Base before the break"], group = "6 · The stop")
+baseLen   = input.int(5, "Base: last N bars before the break", minval = 1, group = "6 · The stop")
+usePenny  = input.bool(true, "A penny past round numbers", group = "6 · The stop")
+roundStep = input.float(0.05, "Round number step", minval = 0.0, step = 0.01, group = "6 · The stop",
+     tooltip = "A stop on a multiple of this (.05, .10, .25…) gets one more tick: .04 instead of .05.")
+
+useAdds   = input.bool(true, "Mark adds over the pauses", group = "7 · The add")
+maxAdds   = input.int(2, "Maximum adds", minval = 0, maxval = 5, group = "7 · The add")
+pauseLen  = input.int(3, "A pause is N bars…", minval = 2, group = "7 · The add")
+pauseAtr  = input.float(1.2, "…with a range of at most this × ATR(14)", minval = 0.1, step = 0.1, group = "7 · The add")
+
+scratchN  = input.int(5, "Scratch: after N bars…", minval = 1, group = "8 · The exit")
+scratchR  = input.float(0.5, "…if it never went this many R in your favor", minval = 0.0, step = 0.1, group = "8 · The exit")
+useBarEx  = input.bool(true, "Exit on a break of the prior bars' low/high", group = "8 · The exit")
+barExN    = input.int(2, "Prior bars", minval = 1, group = "8 · The exit", tooltip = "2 one-minute bars ≈ the prior 2-minute bar.")
+barExR    = input.float(2.0, "…once the trade is at least this many R", minval = 0.0, step = 0.5, group = "8 · The exit")
+
+showPanel = input.bool(true, "Show status panel", group = "Display")
+
+// ---------------- colours ----------------
+cLevel = #f4b942
+cUp    = #30d158
+cDn    = #ff453a
+cAdd   = #22d3ee
+cExit  = #ff9f0a
+cDim   = #8e8e93
+cBlue  = #2997ff
+
+// ---------------- 1 · the level, from completed daily bars ----------------
+dayLevels(float h, float l, int len, float tol) =>
+    float hi = ta.highest(h, len)
+    float lo = ta.lowest(l, len)
+    int tu = 0
+    int td = 0
+    int au = 0
+    int ad = 0
+    for i = 0 to len - 1
+        if h[i] >= hi * (1 - tol / 100)
+            tu += 1
+            au := i + 1
+        if l[i] <= lo * (1 + tol / 100)
+            td += 1
+            ad := i + 1
+    [hi, tu, au, lo, td, ad]
+
+// high[1]/low[1] with lookahead on = the previous completed days only (no repainting)
+[lvHi, testsHi, daysHi, lvLo, testsLo, daysLo] = request.security(syminfo.tickerid, "D", dayLevels(high[1], low[1], lenD, tolPct), lookahead = barmerge.lookahead_on)
+bool qualHi = testsHi >= minTests and daysHi >= minDays
+bool qualLo = testsLo >= minTests and daysLo >= minDays
+
+// ---------------- 2 · cumulative RVOL by time of day ----------------
+bool intra = timeframe.isintraday
+int  tfSec = timeframe.in_seconds()
+var int cols = intra ? int(math.ceil(86400.0 / tfSec)) : 1
+int secOfDay = hour(time, syminfo.timezone) * 3600 + minute(time, syminfo.timezone) * 60 + second(time, syminfo.timezone)
+int slot     = intra ? math.min(int(secOfDay / tfSec), cols - 1) : 0
+
+var matrix<float> hist  = matrix.new<float>(0, cols, na)
+var array<float>  today = array.new<float>(cols, na)
+var float cum      = 0.0
+var int   lastSlot = -1
+
+fillSlots(array<float> a, int fromIdx, int toIdx, float v) =>
+    if toIdx >= fromIdx
+        for i = fromIdx to toIdx
+            a.set(i, v)
+
+avgAt(matrix<float> m, int c, int n) =>
+    int rows = m.rows()
+    int k    = math.min(n, rows)
+    float sum = 0.0
+    if k > 0
+        for r = rows - k to rows - 1
+            float x = m.get(r, c)
+            sum += na(x) ? 0.0 : x
+    k > 0 ? sum / k : na
+
+float rvol = na
+if intra
+    if session.isfirstbar and lastSlot >= 0
+        fillSlots(today, lastSlot + 1, cols - 1, cum)
+        hist.add_row(hist.rows(), today.copy())
+        if hist.rows() > lenRvol
+            hist.remove_row(0)
+        today.fill(na)
+        cum      := 0.0
+        lastSlot := -1
+    float prevCum = cum
+    cum += nz(volume)
+    if lastSlot >= 0
+        fillSlots(today, lastSlot + 1, slot - 1, prevCum)
+    today.set(slot, cum)
+    lastSlot := math.max(lastSlot, slot)
+    float a = avgAt(hist, slot, lenRvol)
+    rvol := a > 0 ? cum / a : na
+
+// ---------------- 3 · breakout bar volume ----------------
+float avgVol = ta.sma(volume, barVolLen)[1]
+float volX   = avgVol > 0 ? volume / avgVol : na
+
+// ---------------- 5 · the market ----------------
+float mktClose = request.security(mktSym, timeframe.period, close)
+float mktVwap  = request.security(mktSym, timeframe.period, ta.vwap(hlc3))
+
+// ---------------- helpers ----------------
+float tick = syminfo.mintick
+// a stop for side d (1 long, -1 short) moved one more tick away when it lands on a round number
+pennyPast(float p, int d) =>
+    float q = math.round(p / syminfo.mintick) * syminfo.mintick
+    bool isRound = roundStep > 0 and math.abs(q / roundStep - math.round(q / roundStep)) < 1e-6
+    usePenny and isRound ? q - d * syminfo.mintick : q
+
+float atr     = ta.atr(14)
+float pHi     = ta.highest(high, pauseLen)[1]
+float pLo     = ta.lowest(low, pauseLen)[1]
+float baseLo  = ta.lowest(low, baseLen)[1]
+float baseHi  = ta.highest(high, baseLen)[1]
+float exLo    = ta.lowest(low, barExN)[1]
+float exHi    = ta.highest(high, barExN)[1]
+
+// ---------------- the trade ----------------
+var int   pos      = 0        // 1 long, -1 short, 0 flat
+var float lvl      = na
+var float entry    = na
+var float stop     = na
+var float risk     = na
+var int   entryBar = na
+var int   lastAdd  = na
+var int   adds     = 0
+var float best     = na
+var bool  usedHi   = false
+var bool  usedLo   = false
+var string lastMsg = "Waiting for a qualified level to break"
+
+bool newDay = timeframe.change("D")
+if newDay
+    usedHi := false
+    usedLo := false
+
+bool allowLong  = side != "Short only"
+bool allowShort = side != "Long only"
+bool rvolOK = not useRvol or (not na(rvol) and rvol >= minRvol)
+bool barOK  = not useBarVol or (not na(volX) and volX >= barVolX)
+
+bool sigLong  = false
+bool sigShort = false
+bool sigAdd   = false
+bool sigExit  = false
+float exitPx  = na
+string exitWhy = ""
+
+// manage an open trade (from the bar after the entry)
+if pos != 0 and bar_index > entryBar
+    best := pos == 1 ? math.max(best, high) : math.min(best, low)
+    float gainR = (best - entry) * pos / risk
+    float nowR  = (close - entry) * pos / risk
+    if (pos == 1 and low <= stop) or (pos == -1 and high >= stop)
+        sigExit := true
+        exitPx := stop
+        exitWhy := adds > 0 ? "Trailing stop" : "Stop"
+    else if (pos == 1 and close < lvl) or (pos == -1 and close > lvl)
+        sigExit := true
+        exitPx := close
+        exitWhy := "Back through the level: dead"
+    else if bar_index - entryBar == scratchN and gainR < scratchR
+        sigExit := true
+        exitPx := close
+        exitWhy := "Scratch: no velocity"
+    else if useBarEx and nowR >= barExR and ((pos == 1 and low < exLo) or (pos == -1 and high > exHi))
+        sigExit := true
+        exitPx := pos == 1 ? exLo - tick : exHi + tick
+        exitWhy := "Prior bars broken"
+    else if useAdds and adds < maxAdds and bar_index - pauseLen > entryBar and (na(lastAdd) or bar_index - pauseLen > lastAdd) and (pHi - pLo) <= pauseAtr * atr[1]
+        bool trig = pos == 1 ? (high > pHi and pHi > entry) : (low < pLo and pLo < entry)
+        if trig
+            sigAdd  := true
+            adds    += 1
+            lastAdd := bar_index
+            float trail = pos == 1 ? pennyPast(pLo - tick, 1) : pennyPast(pHi + tick, -1)
+            stop := pos == 1 ? math.max(stop, trail) : math.min(stop, trail)
+    if sigExit
+        float r = (exitPx - entry) * pos / risk
+        lastMsg := exitWhy + " · first unit " + (r >= 0 ? "+" : "") + str.tostring(r, "#.0") + "R"
+        label.new(bar_index, pos == 1 ? high : low, exitWhy + "\n" + str.tostring(exitPx, format.mintick) + " · " + (r >= 0 ? "+" : "") + str.tostring(r, "#.0") + "R",
+             style = pos == 1 ? label.style_label_down : label.style_label_up, color = cExit, textcolor = color.black, size = size.small)
+        pos := 0
+
+// a new breakout (flat, intraday, once per side per day)
+if pos == 0 and intra and not sigExit
+    bool upBreak = allowLong and not usedHi and qualHi and close > lvHi and open <= lvHi + atr
+    bool dnBreak = allowShort and not usedLo and qualLo and close < lvLo and open >= lvLo - atr
+    if upBreak or dnBreak
+        int d = upBreak ? 1 : -1
+        if d == 1
+            usedHi := true
+        else
+            usedLo := true
+        if rvolOK and barOK
+            lvl   := d == 1 ? lvHi : lvLo
+            entry := d == 1 ? (open > lvl ? open : lvl + tick) : (open < lvl ? open : lvl - tick)
+            float raw = stopMode == "Breakout candle" ? (d == 1 ? low - tick : high + tick) : (d == 1 ? math.min(baseLo, low) - tick : math.max(baseHi, high) + tick)
+            stop  := pennyPast(raw, d)
+            risk  := (entry - stop) * d
+            if risk > 0
+                pos      := d
+                entryBar := bar_index
+                lastAdd  := na
+                adds     := 0
+                best     := d == 1 ? high : low
+                bool withMkt = not useMkt or (d == 1 ? mktClose > mktVwap : mktClose < mktVwap)
+                string sz = withMkt ? "A size" : "B size"
+                sigLong  := d == 1
+                sigShort := d == -1
+                lastMsg  := (d == 1 ? "Long " : "Short ") + str.tostring(entry, format.mintick) + " · stop " + str.tostring(stop, format.mintick) + " · " + sz
+                label.new(bar_index, d == 1 ? low : high,
+                     (d == 1 ? "BREAKOUT · " : "BREAKDOWN · ") + sz + "\nEntry " + str.tostring(entry, format.mintick) + "  Stop " + str.tostring(stop, format.mintick) +
+                     "\nRVOL " + (na(rvol) ? "—" : str.tostring(rvol, "#.0") + "x") + " · bar " + (na(volX) ? "—" : str.tostring(volX, "#.0") + "x"),
+                     style = d == 1 ? label.style_label_up : label.style_label_down, color = d == 1 ? cUp : cDn, textcolor = color.black, size = size.small)
+        else
+            lastMsg := "Level broke without " + (not rvolOK ? "elevated RVOL" : "a volume spike") + ": no trade"
+            label.new(bar_index, d == 1 ? high : low, "No trade: " + (not rvolOK ? "RVOL" : "bar volume"),
+                 style = d == 1 ? label.style_label_down : label.style_label_up, color = color.new(cDim, 30), textcolor = color.white, size = size.tiny)
+
+if sigAdd
+    float addPx = pos == 1 ? pHi + tick : pLo - tick
+    lastMsg := "Add " + str.tostring(addPx, format.mintick) + " · stop to " + str.tostring(stop, format.mintick)
+    label.new(bar_index, pos == 1 ? low : high, "ADD " + str.tostring(addPx, format.mintick), style = pos == 1 ? label.style_label_up : label.style_label_down,
+         color = cAdd, textcolor = color.black, size = size.tiny)
+
+// ---------------- plots ----------------
+plot(intra and allowLong ? lvHi : na, "Level (ceiling)", color = qualHi ? cLevel : color.new(cDim, 40), linewidth = 2, style = plot.style_stepline)
+plot(intra and allowShort ? lvLo : na, "Level (floor)", color = qualLo ? cLevel : color.new(cDim, 40), linewidth = 2, style = plot.style_stepline)
+plot(pos != 0 ? entry : na, "Entry", color = color.white, style = plot.style_linebr)
+plot(pos != 0 ? stop : na, "Stop", color = cDn, linewidth = 2, style = plot.style_linebr)
+
+// ---------------- status panel ----------------
+var table tb = table.new(position.top_right, 2, 7, bgcolor = color.new(#1d1d1f, 10), border_width = 0)
+cell(int r, string k, string v, color c) =>
+    table.cell(tb, 0, r, k, text_color = #a1a1a6, text_size = size.small, text_halign = text.align_left)
+    table.cell(tb, 1, r, v, text_color = c, text_size = size.small, text_halign = text.align_left)
+if showPanel and barstate.islast
+    bool showHi = allowLong
+    float lv = showHi ? lvHi : lvLo
+    int   ts = showHi ? testsHi : testsLo
+    int   ds = showHi ? daysHi : daysLo
+    bool  q  = showHi ? qualHi : qualLo
+    cell(0, showHi ? "Ceiling" : "Floor", str.tostring(lv, format.mintick), cLevel)
+    cell(1, "Tests · days held", str.tostring(ts) + " · " + str.tostring(ds), q ? cUp : cDim)
+    cell(2, "RVOL (time of day)", na(rvol) ? (intra ? "building history" : "intraday only") : str.tostring(rvol, "#.00") + "x", rvolOK ? cUp : cDim)
+    cell(3, "This bar's volume", na(volX) ? "—" : str.tostring(volX, "#.0") + "x avg", barOK ? cUp : cDim)
+    cell(4, "Market", useMkt ? (mktClose > mktVwap ? "above VWAP" : "below VWAP") : "off", cBlue)
+    cell(5, "Trade", pos == 1 ? "Long" : pos == -1 ? "Short" : "Flat", pos == 0 ? color.white : pos == 1 ? cUp : cDn)
+    cell(6, "Last", lastMsg, color.white)
+
+// ---------------- alerts ----------------
+alertcondition(sigLong and barstate.isconfirmed, "Breakout long", "{{ticker}} cleared its multi-week level on elevated RVOL and a volume spike — technical catalyst breakout")
+alertcondition(sigShort and barstate.isconfirmed, "Breakdown short", "{{ticker}} broke its multi-week floor on elevated RVOL and a volume spike — technical catalyst breakdown")
+alertcondition(sigAdd and barstate.isconfirmed, "Add over the pause", "{{ticker}} cleared a pause — add, and trail the stop to the pause")
+alertcondition(sigExit and barstate.isconfirmed, "Exit", "{{ticker}} technical catalyst trade: exit signal (stop, back through the level, scratch, or prior bars broken)")

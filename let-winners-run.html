@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Let Winners Run — exits that grow your average winner | The Trade Method</title>
+<meta name="description" content="Three exit rules that let a winning trade keep paying. Same entries, same stops: let the move, not a fixed target, decide when you get out.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/let-winners-run.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Let Winners Run — exits that grow your average winner">
+<meta property="og:description" content="Three exit rules that let a winning trade keep paying. Same entries, same stops: let the move, not a fixed target, decide when you get out.">
+<meta property="og:url" content="https://thetrademethod.com/let-winners-run.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Let Winners Run — exits that grow your average winner">
+<meta name="twitter:description" content="Three exit rules that let a winning trade keep paying. Same entries, same stops: let the move, not a fixed target, decide when you get out.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Let Winners Run — exits that grow your average winner",
+ "name": "Let Winners Run",
+ "description": "Three exit rules that let a winning trade keep paying. Same entries, same stops: let the move, not a fixed target, decide when you get out.",
+ "url": "https://thetrademethod.com/let-winners-run.html",
+ "mainEntityOfPage": "https://thetrademethod.com/let-winners-run.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/lwr-anim.js?v=2" defer></script>
+<script src="/js/anim-kit.js?v=2" defer></script>
+<script src="/js/lwrside-anim.js?v=1" defer></script>
+<style>
+  /* video (same as relative-volume.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=2" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="let-winners-run">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; not a setup, three exit rules that let a winning trade keep paying</p>
+      <h1>Let Winners <span>Run</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Most traders already cut their losers fine. <em>They lose money by cutting their winners short,</em> selling at
+      a fixed target while the stock keeps going. Same entries, same stops: the only difference is whether a target or the move
+      itself decides when you get out.</p>
+      <div class="counts">
+        <div><b>3</b><small>exit rules</small></div>
+        <div><b>0</b><small>green candles sold</small></div>
+        <div><b>1,000</b><small>trades: the horizon that counts</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">the math</div><div class="n">Expected value</div></div>
+    <div><div class="t">rule 1</div><div class="n">One Below</div></div>
+    <div><div class="t">rule 2</div><div class="n">ATR trail</div></div>
+    <div><div class="t">rule 3</div><div class="n">Key levels</div></div>
+    <div><div class="t">the mindset</div><div class="n">Trade like a surfer</div></div>
+  </nav>
+
+  <section class="anim" data-lwr-anim="ev" aria-label="Illustrative chart: two traders buy the same breakout at 100.00 with the same stop at 98.00. One sells at a fixed target of 102.00 for +1R; the other holds until the first close below the previous candle's low at 106.00 for +3R. Over ten trades the first wins 6 of 10 for +2R and the second wins 4 of 10 for +6R; expected value per trade is +0.2R versus +0.6R">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Same entries, different exits</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart: two traders buy the same breakout at 100.00 with the same stop at 98.00. One sells at a fixed target of 102.00 for +1R; the other holds until the first close below the previous candle's low at 106.00 for +3R. Over ten trades the first wins 6 of 10 for +2R and the second wins 4 of 10 for +6R; expected value per trade is +0.2R versus +0.6R"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Your losers aren't the problem</h3>
+          <ul>
+            <li>Put yourself next to a profitable trader on the same setup. You'd both buy at the same price, and if it goes against you, you'd both be stopped out at the same price.</li>
+            <li>The gap opens on the winners. You have a static profit target and you take it. They let the momentum, strength and direction of the stock decide where they get out.</li>
+            <li>So on every trade that works, they make more than you do, and nothing else needs to change.</li>
+          </ul>
+          <p class="why">Profitability is a two-part equation: the size of your average winner against the size of your average loser. If your losers are already in check, the only lever left is the winners.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Expected value, not win rate</h3>
+          <ul>
+            <li>Expected value per trade = win rate &times; average win &minus; loss rate &times; average loss. That's what decides your result over your next 1,000 trades, not what this one trade does.</li>
+            <li>Letting winners run will lower your win rate. You'll hold through more trades that come back and stop you out. That's expected, and it's fine.</li>
+            <li>A 60% win rate making 1R per winner earns +0.2R a trade. Drop to 40% while tripling the average winner to 3R, and it's +0.6R a trade: three times the money.</li>
+          </ul>
+          <p class="why">Better exit rules are easier to learn than better pattern recognition. Stop worrying about how often you're right, and start caring how much you make when you are.</p>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h4>The same 1,000 trades, two exit styles</h4>
+        <p class="lead">Same entries, same 1R stops. Only the exit on winning trades changes. Illustrative numbers.</p>
+        <div class="calc">
+          <div class="row"><span>Fixed target &middot; win rate</span><b>60%</b></div>
+          <div class="row"><span>Fixed target &middot; average win / loss</span><b>1R / 1R</b></div>
+          <div class="row"><span>0.6 &times; 1R &minus; 0.4 &times; 1R</span><b>+0.20R a trade</b></div>
+          <div class="row"><span>Let it run &middot; win rate</span><b>40%</b></div>
+          <div class="row"><span>Let it run &middot; average win / loss</span><b>3R / 1R</b></div>
+          <div class="row"><span>0.4 &times; 3R &minus; 0.6 &times; 1R</span><b>+0.60R a trade</b></div>
+          <div class="row tot"><span>Over 1,000 trades</span><b>+200R vs +600R</b></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>What changes when you stop selling winners</h4>
+        <p class="lead">Two numbers move in opposite directions. Only one of them pays you.</p>
+        <div class="timing">
+          <div><b>Win rate goes down</b><p>You'll hold through pullbacks that sometimes turn into stops. More trades end red. Expect it.</p></div>
+          <div><b>Average winner goes up</b><p>The trades that work aren't capped at your target any more. One runner can pay for several small losses.</p></div>
+          <div><b>Expected value goes up</b><p>Win rate &times; a much bigger winner beats a higher win rate &times; a small one. That's the number to watch.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Rule 1 &middot; One Below</h2>
+    <p>The simplest of the three, and it works as both your stop and your profit exit from the moment you're in.</p>
+  </div>
+  <section class="anim" data-lwr-anim="one" aria-label="Illustrative chart: a breakout bought at 265.50 runs higher; two candles wick below the previous candle's low but close above it and the trade stays open; a candle closes at 324.00, below the previous low of 325.00, and the trade exits for about +22%">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Out on the first close below the previous low</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart: a breakout bought at 265.50 runs higher; two candles wick below the previous candle's low but close above it and the trade stays open; a candle closes at 324.00, below the previous low of 325.00, and the trade exits for about +22%"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Exit on the first close below the previous candle's low</h3>
+          <ul>
+            <li>Every candle sets the line for the next one: its low. If the next candle closes below that low, you're out on that close.</li>
+            <li>It has to close there. A candle that trades below the previous low and closes back above it is just a wick, and you stay in.</li>
+            <li>It's your stop too. If the trade goes against you right away, the first close below the previous low takes you out with a small loss.</li>
+            <li>It's simple on purpose. A rule you can spot and act on in real time beats a clever one you can't execute live.</li>
+          </ul>
+          <p class="why">The close-only condition is what keeps you in strong moves: bottoming wicks shake out traders who exit on a touch, but they don't trigger this rule.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Worked example</h4>
+        <p class="lead">The levels stated in the reference video for its example trade, not independently verified fills.</p>
+        <div class="calc">
+          <div class="row"><span>Entry on the breakout</span><b>265.50</b></div>
+          <div class="row"><span>Up 5% on the first candle</span><b>hold</b></div>
+          <div class="row"><span>Wicks below the prior low, close above</span><b>hold</b></div>
+          <div class="row"><span>Previous candle's low</span><b>325.00</b></div>
+          <div class="row"><span>This candle closes at</span><b>324.00</b></div>
+          <div class="row tot"><span>Exit &middot; result</span><b>324.00 &middot; +22%</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Rule 2 &middot; ATR trail</h2>
+    <p>An exit that gives a volatile stock more room and a quiet one less, measured in the stock's own dollars.</p>
+  </div>
+  <section class="anim" data-lwr-anim="atr" aria-label="Illustrative chart with an ATR panel: a trade bought at 284.00 rises to a high of 341 while a cyan trail line, the highest high of the previous 10 candles minus ATR(14), follows each new high upward; two candles trade below the line and close above it; a candle closes at 326.40, below 341 minus 14 equals 327, and the trade exits keeping about +15% of a +20% run">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Highest high of the last 10 candles, minus ATR</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart with an ATR panel: a trade bought at 284.00 rises to a high of 341 while a cyan trail line, the highest high of the previous 10 candles minus ATR(14), follows each new high upward; two candles trade below the line and close above it; a candle closes at 326.40, below 341 minus 14 equals 327, and the trade exits keeping about +15% of a +20% run"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Trail = highest high of the previous 10 candles &minus; ATR(14)</h3>
+          <ul>
+            <li>ATR, average true range, measures how far each candle has typically moved over the last 14, in dollars. It's a live read on how volatile the stock is right now.</li>
+            <li>A volatile stock needs room to breathe, because a sharp dip can be noise before the next leg. A calm one doesn't, so the stop can sit closer.</li>
+            <li>Take the highest high of the previous 10 candles and subtract the ATR. That's your line. Every new high lifts it.</li>
+            <li>Exit on a candle that closes below the line. Candles that trade below it and close back above don't count.</li>
+          </ul>
+          <p class="why">Anchoring to the recent high keeps the exit following the move up, and sizing the gap with ATR keeps it from being too tight on a wild stock or too loose on a quiet one.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Worked example</h4>
+        <p class="lead">The values stated in the reference video for its example trade, not independently verified.</p>
+        <div class="calc">
+          <div class="row"><span>Highest high, previous 10 candles</span><b>341.00</b></div>
+          <div class="row"><span>ATR(14) at that candle</span><b>14.00</b></div>
+          <div class="row"><span>Trail line</span><b>341 &minus; 14 = 327.00</b></div>
+          <div class="row"><span>Two candles trade below, close above</span><b>hold</b></div>
+          <div class="row tot"><span>A candle closes below 327</span><b>exit</b></div>
+        </div>
+      </div>
+      <div class="warn">
+        <h4>You will give some back</h4>
+        <p>At its best that trade was up about 21%. The exit kept about 15%. That gap is the cost of waiting for weakness instead of guessing the top.</p>
+        <p class="big">+15% held &gt; +5% sold on the first candle.</p>
+        <p>A fixed target would have sold the first pop and never seen the rest of the move.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Rule 3 &middot; Key levels</h2>
+    <p>The discretionary version, and the most common way traders let winners run: you choose the levels, the closes decide the exit.</p>
+  </div>
+  <section class="anim" data-lwr-anim="levels" aria-label="Illustrative chart: a breakout bought at 50.00 runs to 54, pauses and chops above 52.80 which becomes the exit level; it runs again to 58 and pauses above 56.60, which becomes the new exit level; a candle wicks under 56.60 and closes above it; a later candle closes at 56.30 under 56.60 and the trade exits for about +12.6%">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Raise the exit to each new pause</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart: a breakout bought at 50.00 runs to 54, pauses and chops above 52.80 which becomes the exit level; it runs again to 58 and pauses above 56.60, which becomes the new exit level; a candle wicks under 56.60 and closes above it; a later candle closes at 56.30 under 56.60 and the trade exits for about +12.6%"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Exit on a close below the latest pause</h3>
+          <ul>
+            <li>After the entry, never sell into strength. Let the stock run.</li>
+            <li>When it pauses, pulls back or chops sideways, mark the bottom of that pause as your level.</li>
+            <li>When it breaks out again and forms a new pause, move your level up to the new one.</li>
+            <li>Exit on a candle that closes below the current level.</li>
+          </ul>
+          <p class="why">This one isn't a coded rule. You decide where the levels are as the chart develops, which suits discretionary traders and frustrates systematic ones.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Systematic or discretionary?</h4>
+        <p class="lead">Two ways to run any of these exits. Neither is wrong, as long as you never sell a green candle out of nerves.</p>
+        <div class="timing">
+          <div><b>Systematic</b><p>Exact, predefined reasons to enter and exit: One Below and the ATR trail. Same input, same exit, every time.</p></div>
+          <div><b>Discretionary</b><p>Live chart reading on momentum, strength and direction. Key levels: you draw them, so two traders can exit in different places.</p></div>
+          <div><b>Either way</b><p>The exit waits for the move to weaken. It never fires because you're up a round number.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Trade like a surfer</h2>
+    <p>The metaphor that ties all three rules together.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Catch the wave early, ride it until it fades</h3>
+          <ul>
+            <li>A surfer doesn't paddle out to open water and hope a wave shows up. They wait for one to start, then get on it right away. Don't buy stocks drifting sideways and hope; wait for the move to begin and get in on its first candle.</li>
+            <li>Nobody calls it a good ride if the surfer jumps off halfway. Don't sell at +4%, +7% or +10% just because those are nice numbers.</li>
+            <li>Ride until the wave starts to dissipate, and let a systematic rule define that moment, as early as it can honestly be seen.</li>
+          </ul>
+          <p class="why">There's always some giveback at the end of a ride. It's still the best way to grow the average winner, and the average winner drives expected value.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The ride, in three moments</h4>
+        <p class="lead">Every exit rule on this page fits the same shape.</p>
+        <div class="timing">
+          <div><b>Paddle in as it starts</b><p>Enter on the first candle of the move, not before it and not three candles late.</p></div>
+          <div><b>Stay on through the curl</b><p>No green candle gets sold. Wicks and small dips are part of the wave.</p></div>
+          <div><b>Step off as it dissipates</b><p>A close below the previous low, the ATR line or your key level. Then, and only then, you're out.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Four habits that cap your winners</h2>
+    <p>Each one feels like discipline. Each one quietly lowers your average winner.</p>
+  </div>
+  <div class="filters">
+    <div class="filter">
+      <h3>1 &nbsp;"I'm up 5%, take it"</h3>
+      <p>A fixed target sells the trade at exactly the moment it's proving itself, and the runner goes on without you.</p>
+      <p class="kill">Kills: the trades that would have paid for ten losers.</p>
+    </div>
+    <div class="filter">
+      <h3>2 &nbsp;Selling a green candle</h3>
+      <p>If the candle in front of you is closing green, nothing has weakened yet. Every rule here waits for weakness first.</p>
+      <p class="kill">Kills: momentum you already paid the risk to own.</p>
+    </div>
+    <div class="filter">
+      <h3>3 &nbsp;Exiting on a touch</h3>
+      <p>Getting out the instant price pokes through a level. All three rules act on the close, so wicks don't shake you out.</p>
+      <p class="kill">Kills: strong trends with deep intrabar wicks.</p>
+    </div>
+    <div class="filter">
+      <h3>4 &nbsp;Chasing a higher win rate</h3>
+      <p>Judging yourself by how often you're right. A higher hit rate with tiny winners can earn less than a lower one with big winners.</p>
+      <p class="kill">Kills: your expected value over the next 1,000 trades.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Three exits, side by side</h2>
+    <p>Pick the one that fits how you trade, then follow it every time.</p>
+  </div>
+  <section class="anim" data-tm-anim="lwrside" aria-label="Illustrative chart: one breakout bought at 100.00 with all three exit rules applied to the same candles. One Below exits first on a close of 108.70 under the previous low of 109.00, +8.7% after 9 candles. The ATR trail, highest high 122.40 minus ATR 2.61 = 119.79, exits on a close of 117.60, +17.6% after 23 candles. Key levels raise the exit from the base low 97.00 to the pause lows 107.70 and 116.10 and exit on a close of 115.70, +15.7% after 25 candles. The move peaked at 122.40, +22.4%.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">One trade, all three exits</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart: one breakout bought at 100.00 with all three exit rules applied to the same candles. One Below exits first on a close of 108.70 under the previous low of 109.00, +8.7% after 9 candles. The ATR trail, highest high 122.40 minus ATR 2.61 = 119.79, exits on a close of 117.60, +17.6% after 23 candles. Key levels raise the exit from the base low 97.00 to the pause lows 107.70 and 116.10 and exit on a close of 115.70, +15.7% after 25 candles. The move peaked at 122.40, +22.4%."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <table>
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><span class="tick">One Below<small>rule 1</small></span></th>
+        <th><span class="tick">ATR trail<small>rule 2</small></span></th>
+        <th><span class="tick">Key levels<small>rule 3</small></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>Exit on</th><td class="txt">A close below the previous candle's low</td><td class="txt">A close below (highest high of the previous 10 &minus; ATR 14)</td><td class="txt">A close below the latest pause you marked</td></tr>
+      <tr><th>Room it gives</th><td class="txt">Tightest: one candle</td><td class="txt">Scales with the stock's current volatility</td><td class="txt">As wide as the chart's own structure</td></tr>
+      <tr><th>Also your stop?</th><td class="txt pos">Yes, from the first candle</td><td class="txt">Yes, once the line is set</td><td class="txt">You set a separate initial stop</td></tr>
+      <tr><th>Style</th><td class="txt">Systematic</td><td class="txt">Systematic</td><td class="txt">Discretionary</td></tr>
+      <tr><th>Best for</th><td class="txt">Fast momentum moves</td><td class="txt">Volatile stocks that swing hard on the way up</td><td class="txt">Traders who read the chart live</td></tr>
+    </tbody>
+  </table>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/hZZUEBCb5eE" title="Let Winners Run (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>The three exits on the real charts: the One Below rule, the ATR trail and key levels, plus the math behind them.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=hZZUEBCb5eE" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <h2 class="ind-heading">Indicator for these exits</h2>
+    <p class="ind-note">Add it to a TradingView chart. It draws the exit line for the rule you pick, follows a trade from the entry
+    bar you set, marks the exit and the result, and alerts on the close through the line. It does not place trades.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">Let Winners Run Exits</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">Both systematic rules in one indicator, chosen in the settings. One Below (the default) draws the previous
+      candle's low as a gold step line and exits on the first close below it. ATR trail draws the cyan line, the highest high of the
+      previous 10 candles minus ATR(14), and exits on the first close below that. Long or short, an optional tracked trade with IN and
+      OUT labels and the % result, a status panel, alerts for the exit and for any close through the line, and a test alert that
+      fires every bar.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/let-winners-run-exits.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+  </ul>
+
+  <div class="rule">
+    <div>
+      <h2>Stop counting how often you're right. Count how much you make when you are.</h2>
+      <p>You can't control which trades work. You can control whether the ones that do are allowed to become big winners. That's the part of expected value you own.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Never sell a green candle. Every exit here waits for the move to show weakness first.</li>
+        <li>Act on closes, not touches. Wicks below a level are noise until a candle closes there.</li>
+        <li>Expect a lower win rate and some giveback at the end. Judge the rule over 1,000 trades, not one.</li>
+        <li>More exit styles, including EMA and parabolic SAR trails, are on <a href="/trailing-stops.html" style="color:#2997ff;">Trailing Stop Exits</a>.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Framework built around three exits for maximizing winning trades &mdash; the One Below rule, an ATR trailing stop and discretionary key levels &mdash; plus the expected-value math behind them, as taught in a trading-education video. Charts above are illustrations of the mechanics, not real tickers; the worked numbers are the presenter's own stated levels, not independently verified fills. <a href="https://www.youtube.com/watch?v=hZZUEBCb5eE" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

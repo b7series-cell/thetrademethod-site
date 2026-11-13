@@ -1,0 +1,56 @@
+# ---------------------------------------------------------------
+# thetrademethod.com
+# SiteGround handles HTTPS (Security > HTTPS Enforce) and caching
+# (Speed > Caching), so this file only covers what those don't.
+# ---------------------------------------------------------------
+
+ErrorDocument 404 /404.html
+
+# One address per page for search engines: send www.thetrademethod.com
+# to thetrademethod.com with a permanent redirect, so Google never sees
+# the same page under two hostnames.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.thetrademethod\.com$ [NC]
+  RewriteRule ^(.*)$ https://thetrademethod.com/$1 [R=301,L]
+
+  # The expected move previews were folded into expected-move.html (2026-10-18)
+  RewriteRule ^expected-move-v[23]\.html$ https://thetrademethod.com/expected-move.html [R=301,L]
+</IfModule>
+
+# Serve .pine files as plain text instead of prompting a save dialog
+# when opened directly. The download links still download, because
+# they use the HTML download attribute.
+<IfModule mod_mime.c>
+  AddType text/plain .pine
+  AddType application/manifest+json .webmanifest
+</IfModule>
+
+# Don't let anyone browse a folder that has no index page.
+Options -Indexes
+
+# ---------------------------------------------------------------
+# Caching: HTML pages should never be served stale from a browser
+# or edge cache -- always revalidate. JS/CSS get a short cache
+# window; bump the ?v= query string on those files when they
+# change so any layer that ignores this still serves the new copy.
+# ---------------------------------------------------------------
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(js|css)$">
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+
+  # Installable app (2026-10-29). The service worker must never be
+  # cached, or visitors keep running an old copy. Comes after the
+  # js/css rule above so it wins for sw.js. The manifest and offline
+  # page revalidate like HTML.
+  <Files "sw.js">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </Files>
+  <FilesMatch "^(manifest\.webmanifest|offline\.html)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+</IfModule>

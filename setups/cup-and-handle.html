@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cup and Handle — plan the trade, trade the plan | The Trade Method</title>
+<meta name="description" content="Five questions qualify the pattern — uptrend, a volume-confirmed cup, a tightening handle, clean air above, and sector/market alignment — then enter only on the break, sized off a 1.5× ATR stop with…">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/cup-and-handle.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Cup and Handle — plan the trade, trade the plan">
+<meta property="og:description" content="Five questions qualify the pattern — uptrend, a volume-confirmed cup, a tightening handle, clean air above, and sector/market alignment — then enter only on the break, sized off a 1.5× ATR stop with…">
+<meta property="og:url" content="https://thetrademethod.com/setups/cup-and-handle.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cup and Handle — plan the trade, trade the plan">
+<meta name="twitter:description" content="Five questions qualify the pattern — uptrend, a volume-confirmed cup, a tightening handle, clean air above, and sector/market alignment — then enter only on the break, sized off a 1.5× ATR stop with…">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Cup and Handle — plan the trade, trade the plan",
+ "name": "Cup and Handle",
+ "description": "Five questions qualify the pattern — uptrend, a volume-confirmed cup, a tightening handle, clean air above, and sector/market alignment — then enter only on the break, sized off a 1.5× ATR stop with…",
+ "url": "https://thetrademethod.com/setups/cup-and-handle.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/cup-and-handle.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/cup-anim.js?v=1" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
+<script src="/js/live-kit.js?v=2" defer></script>
+<script src="/js/examples/cup.js?v=1" defer></script><script src="/js/example-kit.js?v=1" defer></script>
+<script src="/js/cup-live.js?v=1" defer></script>
+<style>
+  /* video (same as relative-volume.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=2" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="cup-and-handle">
+    <div>
+      <p class="kicker">Cup and handle &middot; swing continuation, multi-day hold &middot; long only</p>
+      <h1>Cup and <span>Handle</span></h1>
+    </div>
+    <div>
+      <p class="thesis">A great-looking chart is worthless without a plan behind it. <em>Plan the trade,
+      then trade the plan</em> &mdash; five questions to qualify the setup, five components to define
+      the trade before the market ever opens.</p>
+      <div class="counts">
+        <div><b>5</b><small>qualifying questions</small></div>
+        <div><b>4</b><small>filters</small></div>
+        <div><b>2</b><small>scaled profit targets</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">question 1</div><div class="n">Confirm the uptrend</div></div>
+    <div><div class="t">questions 2 &amp; 3</div><div class="n">Read the cup and handle by volume</div></div>
+    <div><div class="t">questions 4 &amp; 5</div><div class="n">Clean air and sector alignment</div></div>
+    <div><div class="t">the trigger</div><div class="n">Break confirms, prediction doesn't</div></div>
+    <div><div class="t">the stop</div><div class="n">Baby bear: 1.5&times; ATR</div></div>
+    <div><div class="t">the exit</div><div class="n">Two scaled profit targets</div></div>
+  </nav>
+
+  <section class="anim" data-cup-anim aria-label="Animated walkthrough of the cup and handle trade plan">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">6 / 6</p>
+        <h2 class="anim-title">Watch the whole trade plan play out</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart: an uptrend above rising moving averages, a rounded cup from 340 down to about 280 with heavy volume early and dry volume in the base, a tight handle under 340 on light volume, a buy stop at 340.25 filled on a high-volume break, a 1.5 ATR stop at 328.25, half sold at 360 and the rest at 380"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Confirm the uptrend before anything else</h3>
+          <ul>
+            <li>Price should be trading above its 20, 50, and 200-period simple moving averages, with the 50-period average sloping upward &mdash; a well-established uptrend, not a guess at one.</li>
+            <li>That rising 50-period average is very often exactly where the base of the cup forms, so this isn't a separate check from the pattern &mdash; it's the foundation the pattern needs to be trading in.</li>
+          </ul>
+          <p class="why">A cup and handle that forms outside of a real uptrend is just a random rounding shape. The trend is what gives the pattern a directional reason to resolve higher.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Read the cup through its volume, not just its shape</h3>
+          <ul>
+            <li>A healthy cup has a smooth, rounded bottom. Volume tells you whether it's real: heavy selling volume early as resistance kicks in and profit-taking starts, then volume tapering off as price settles into the base.</li>
+            <li>As the bottom forms and price starts to recover, volume should tick back up above its own moving average &mdash; a sign that buying interest, not just an absence of sellers, is what's turning the stock higher.</li>
+          </ul>
+          <p class="why">The shape of a cup can be drawn on almost any chart in hindsight. The volume pattern underneath it is what tells you whether the move is actually driven by changing participation.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Confirm the handle is tightening, not falling apart</h3>
+          <ul>
+            <li>As the handle forms just below the old resistance, volume should taper further &mdash; back down below its average &mdash; showing that selling pressure is becoming less aggressive, not more.</li>
+            <li>When the breakout actually comes, look for a real expansion of volume on the move through resistance, not a quiet drift above the line.</li>
+          </ul>
+          <p class="why">A handle with rising volume is often still under real selling pressure. A handle with fading volume is a stock quietly running out of sellers right before it needs to.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Check for clean air, then check the sector</h3>
+          <ul>
+            <li>Look left on the chart for old support or resistance zones above the breakout level. In the ideal case, it's clean air &mdash; plenty of room for price to run once it clears the cup's resistance.</li>
+            <li>Then check sector alignment: is the broader sector also showing strength, with the majority of its stocks participating in the same move? It's even better when the broader market is confirming on top of that &mdash; stock bullish, sector bullish, market bullish, all three together.</li>
+          </ul>
+          <p class="why">This single filter &mdash; sector alignment &mdash; may save more bad trades than anything else on the checklist. A great chart fighting an unconfirmed sector and market is still fighting the tide.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Trigger only on the break &mdash; never the prediction</h3>
+          <ul>
+            <li>Enter with a stop order above the cup's resistance and the handle's high, not by anticipating the breakout before it happens. Predicting the break isn't the same as the market actually confirming it.</li>
+            <li>The market doesn't pay you for being first into a trade. It pays you for being right &mdash; and price confirmation is what proves the theory of the trade instead of just hoping for it.</li>
+          </ul>
+          <p class="why">A stop order above the trigger level means you only ever enter with the market already agreeing with you, at the cost of never catching the exact low of the move.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Size the stop off the ATR, then scale out in two targets</h3>
+          <ul>
+            <li>The "baby bear" stop: take the Average True Range and multiply by 1.5 &mdash; tighter than a 2.0&times; position-trading stop, looser than a 1.2&times; scalp trail. Not too tight, not too loose.</li>
+            <li>Set two profit targets: a conservative one where you scale out half the position and move the rest of the trade risk-free, and a second, still-conservative target well short of the textbook full measured-move objective.</li>
+          </ul>
+          <p class="why">The stop distance and the position size are decided together, off a fixed dollar risk you're fully comfortable with &mdash; before the market opens, not while the trade is moving against you.</p>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h4>The whole trade on one chart</h4>
+        <p class="lead">The rounded cup, the tight handle, the breakout trigger, and both profit targets &mdash; with volume tapering through the base and expanding on the break.</p>
+        <svg viewBox="0 0 1180 620" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Annotated chart showing a rounded cup formation, a tight handle below resistance, a breakout trigger on expanding volume, and two scaled profit targets above">
+<defs><marker id="c1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8fa6bd"/></marker><marker id="c2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2ecf7a"/></marker><marker id="c3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#f4b942"/></marker></defs>
+<rect x="32" y="20" width="1062" height="420" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<rect x="32" y="452" width="1062" height="150" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<line x1="60" y1="150" x2="470" y2="150" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="68" y="141" fill="#f4f7fb" font-size="13" font-weight="700">cup resistance / handle high (340)</text>
+<line x1="850" y1="90" x2="1046" y2="90" stroke="#2ecf7a" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.85"/>
+<text x="858" y="81" fill="#2ecf7a" font-size="13" font-weight="700">target 1 (360)</text>
+<line x1="960" y1="55" x2="1046" y2="55" stroke="#2ecf7a" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.85"/>
+<text x="968" y="46" fill="#2ecf7a" font-size="13" font-weight="700">target 2 (380)</text>
+<path d="M 90,220 C 160,340 300,340 380,220" fill="none" stroke="#c8d8e8" stroke-width="2" opacity="0.6"/>
+<text x="220" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">the cup (base near 280)</text>
+<line x1="410" y1="165" x2="410" y2="195" stroke="#54697f" stroke-width="1.8"/><rect x="396" y="170" width="28" height="22" fill="#54697f" rx="1"/>
+<line x1="440" y1="155" x2="440" y2="185" stroke="#54697f" stroke-width="1.8"/><rect x="426" y="160" width="28" height="22" fill="#54697f" rx="1"/>
+<text x="440" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">the handle, tightening</text>
+<line x1="500" y1="130" x2="500" y2="170" stroke="#1d6f47" stroke-width="2.4"/><rect x="486" y="138" width="28" height="30" fill="#1d6f47" rx="1"/>
+<text x="500" y="608" fill="#1d6f47" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">breakout trigger 340.25</text>
+<line x1="560" y1="105" x2="560" y2="145" stroke="#1d6f47" stroke-width="2"/><rect x="546" y="112" width="28" height="30" fill="#1d6f47" rx="1"/>
+<line x1="620" y1="95" x2="620" y2="130" stroke="#1d6f47" stroke-width="1.8"/><rect x="606" y="100" width="28" height="27" fill="#1d6f47" rx="1"/>
+<line x1="700" y1="90" x2="700" y2="125" stroke="#1d6f47" stroke-width="1.8"/><rect x="686" y="95" width="28" height="27" fill="#1d6f47" rx="1"/>
+<line x1="850" y1="70" x2="850" y2="105" stroke="#1d6f47" stroke-width="2"/><rect x="836" y="75" width="28" height="27" fill="#1d6f47" rx="1"/>
+<line x1="960" y1="45" x2="960" y2="80" stroke="#1d6f47" stroke-width="2"/><rect x="946" y="50" width="28" height="27" fill="#1d6f47" rx="1"/>
+<rect x="90" y="60" width="290" height="46" rx="7" fill="#0d1a2b" stroke="#8fa6bd" stroke-width="1.7"/>
+<text x="104" y="83" fill="#c8d8e8" font-size="13" font-weight="600">Heavy selling volume early, then</text>
+<text x="104" y="101" fill="#c8d8e8" font-size="13" font-weight="600">tapering off as the base forms.</text>
+<line x1="235" y1="106" x2="230" y2="290" stroke="#8fa6bd" stroke-width="1.5" marker-end="url(#c1)"/>
+<rect x="420" y="330" width="290" height="46" rx="7" fill="#0d1a2b" stroke="#2ecf7a" stroke-width="1.7"/>
+<text x="434" y="353" fill="#9ff0c4" font-size="13" font-weight="600">Enter only on the break &mdash; a buy</text>
+<text x="434" y="371" fill="#9ff0c4" font-size="13" font-weight="600">stop above 340, not a prediction.</text>
+<line x1="500" y1="330" x2="500" y2="175" stroke="#2ecf7a" stroke-width="1.5" marker-end="url(#c2)"/>
+<rect x="740" y="180" width="330" height="46" rx="7" fill="#0d1a2b" stroke="#f4b942" stroke-width="1.7"/>
+<text x="754" y="203" fill="#f4b942" font-size="13" font-weight="600">Scale out half at target 1, hold the</text>
+<text x="754" y="221" fill="#f4b942" font-size="13" font-weight="600">rest for target 2 &mdash; risk-free by then.</text>
+<line x1="850" y1="226" x2="850" y2="115" stroke="#f4b942" stroke-width="1.5" marker-end="url(#c3)"/>
+<text x="46" y="446" fill="#7d93ad" font-size="13">Volume</text>
+<rect x="76" y="490.0" width="28" height="90.0" fill="#f4b942" opacity="0.9" rx="1"/>
+<rect x="136" y="530.0" width="28" height="50.0" fill="#54697f" opacity="0.5" rx="1"/>
+<rect x="196" y="555.0" width="28" height="25.0" fill="#54697f" opacity="0.4" rx="1"/>
+<rect x="256" y="565.0" width="28" height="15.0" fill="#54697f" opacity="0.35" rx="1"/>
+<rect x="316" y="545.0" width="28" height="35.0" fill="#1d6f47" opacity="0.6" rx="1"/>
+<rect x="396" y="560.0" width="28" height="20.0" fill="#54697f" opacity="0.35" rx="1"/>
+<rect x="426" y="565.0" width="28" height="15.0" fill="#54697f" opacity="0.3" rx="1"/>
+<rect x="486" y="480.0" width="28" height="100.0" fill="#1d6f47" opacity="0.95" rx="1"/>
+<rect x="546" y="520.0" width="28" height="60.0" fill="#1d6f47" opacity="0.7" rx="1"/>
+<rect x="606" y="535.0" width="28" height="45.0" fill="#1d6f47" opacity="0.6" rx="1"/>
+<rect x="686" y="540.0" width="28" height="40.0" fill="#1d6f47" opacity="0.55" rx="1"/>
+<rect x="836" y="555.0" width="28" height="25.0" fill="#54697f" opacity="0.4" rx="1"/>
+<rect x="946" y="560.0" width="28" height="20.0" fill="#54697f" opacity="0.4" rx="1"/>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>Which breakout you can trust</h4>
+        <p class="lead">The same rounded shape can be a real cup and handle or a trap. What surrounds it decides which.</p>
+        <svg viewBox="0 0 1180 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Four scenarios comparing a valid cup and handle breakout against three that should be skipped">
+<rect x="10.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#22855a" stroke-width="2"/>
+<line x1="28" y1="130.4" x2="267" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="28" y="121.4" fill="#9fb3c8" font-size="11.5">resistance</text>
+<path d="M 40,150 C 80,200 170,200 210,150" fill="none" stroke="#c8d8e8" stroke-width="1.8" opacity="0.6"/>
+<rect x="220" y="120" width="18" height="20" fill="#1d6f47" rx="1"/>
+<text x="28.0" y="42" fill="#2ecf7a" font-size="16" font-weight="800">Take it</text>
+<text x="28.0" y="196" fill="#9fb3c8" font-size="12.6">Volume tapered through the handle,</text>
+<text x="28.0" y="212" fill="#9fb3c8" font-size="12.6">clean air above, sector confirming.</text>
+<rect x="305.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="323" y1="130.4" x2="562" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="323" y="121.4" fill="#9fb3c8" font-size="11.5">resistance</text>
+<path d="M 335,150 C 375,200 465,200 505,150" fill="none" stroke="#c8d8e8" stroke-width="1.8" opacity="0.6"/>
+<rect x="480" y="140" width="18" height="14" fill="#7d343c" rx="1"/>
+<rect x="500" y="145" width="18" height="14" fill="#7d343c" rx="1"/>
+<text x="323.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="323.0" y="196" fill="#9fb3c8" font-size="12.6">Volume is rising into the handle,</text>
+<text x="323.0" y="212" fill="#9fb3c8" font-size="12.6">not fading &mdash; real selling remains.</text>
+<rect x="600.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="618" y1="130.4" x2="857" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<line x1="618" y1="80" x2="857" y2="80" stroke="#e0505a" stroke-width="1.6" stroke-dasharray="3 4"/>
+<text x="618" y="121.4" fill="#9fb3c8" font-size="11.5">resistance</text>
+<text x="618" y="71" fill="#e0505a" font-size="11.5">old level overhead</text>
+<path d="M 630,150 C 670,200 760,200 800,150" fill="none" stroke="#c8d8e8" stroke-width="1.8" opacity="0.6"/>
+<rect x="775" y="120" width="18" height="20" fill="#1d6f47" rx="1"/>
+<text x="618.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="618.0" y="196" fill="#9fb3c8" font-size="12.6">An old level sits right above the</text>
+<text x="618.0" y="212" fill="#9fb3c8" font-size="12.6">trigger &mdash; no clean air to run into.</text>
+<rect x="895.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="913" y1="130.4" x2="1152" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="913" y="121.4" fill="#9fb3c8" font-size="11.5">resistance, not yet broken</text>
+<path d="M 925,150 C 965,200 1055,200 1095,155" fill="none" stroke="#c8d8e8" stroke-width="1.8" opacity="0.6"/>
+<rect x="1090" y="145" width="18" height="10" fill="#f4b942" rx="1"/>
+<text x="913.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="913.0" y="196" fill="#9fb3c8" font-size="12.6">Entering on the anticipated break,</text>
+<text x="913.0" y="212" fill="#9fb3c8" font-size="12.6">before price actually confirms it.</text>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>The trifecta &mdash; stacking real odds</h4>
+        <p class="lead">One bullish chart is a candidate. Three bullish charts confirming together is an edge.</p>
+        <div class="timing">
+          <div><b>Stock bullish</b><p>Price above its 20, 50, and 200-period moving averages, with the 50 sloping upward through the cup's base.</p></div>
+          <div><b>Sector bullish</b><p>The sector (or its tracking ETF) also pressing toward new highs, with the majority of its stocks participating &mdash; a sign of real institutional rotation.</p></div>
+          <div><b>Market bullish</b><p>The broader index confirming on top of both. A rising tide lifts all boats &mdash; three-for-three is what stacks the odds.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The four filters</h2>
+    <p>These don't build the cup &mdash; the uptrend and the volume pattern do that. They keep you off the versions that only look like it.</p>
+  </div>
+  <div class="filters">
+    <div class="filter">
+      <h3>1 &nbsp;Trading the prediction, not the break</h3>
+      <p>Entering because the pattern looks ready, before price has actually confirmed the breakout with a real trigger.</p>
+      <p class="kill">Kills: being in the trade before the market has agreed with you.</p>
+    </div>
+    <div class="filter">
+      <h3>2 &nbsp;Volume that doesn't taper</h3>
+      <p>A "cup" where volume rises instead of fades through the base and handle &mdash; real selling pressure that never actually let up.</p>
+      <p class="kill">Kills: trading a base that's still under active distribution.</p>
+    </div>
+    <div class="filter">
+      <h3>3 &nbsp;No room to run</h3>
+      <p>An old support or resistance zone sitting close above the breakout level, capping the move before it can develop.</p>
+      <p class="kill">Kills: a clean breakout that stalls right into overhead supply.</p>
+    </div>
+    <div class="filter">
+      <h3>4 &nbsp;Ignoring the sector and market</h3>
+      <p>A great-looking individual chart taken while its sector and the broader market are weak, flat, or unconfirmed.</p>
+      <p class="kill">Kills: fighting the tide instead of stacking probability in your favor.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Size the stop off the ATR, not a guess</h2>
+    <p>The "baby bear" technique: not too tight (1.2&times; ATR, built for a fast scalp trail), not too loose (2.0&times; ATR, built for position trading) &mdash; 1.5&times; splits the difference for a swing hold.</p>
+  </div>
+  <div class="risk">
+    <div class="panel">
+      <div class="calc">
+        <div class="row"><span>ATR on the daily chart</span><b>8.00</b></div>
+        <div class="row"><span>Stop distance &mdash; 1.5&times; ATR (baby bear)</span><b>12.00</b></div>
+        <div class="row"><span>Position size &mdash; kept under a $500 risk cap</span><b>30 shares</b></div>
+        <div class="row tot"><span>Total risk on the trade</span><b>$360.00</b></div>
+      </div>
+    </div>
+    <div class="warn">
+      <h4>The mistake this prevents</h4>
+      <p>Set the stop tighter than the ATR justifies &mdash; say, less than the 8-point average candle range &mdash; and ordinary intraday movement alone has a high probability of hitting it before the trade ever gets a chance to work.</p>
+      <p class="big">Go the other way and use a full 2.0&times; ATR position-trading stop on a swing trade, and it's simply too loose &mdash; giving back more than the trade type calls for.</p>
+      <p>1.5&times; ATR gives the trade room to breathe without being so wide that a real reversal signal gets ignored.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>One setup, the full trade plan</h2>
+    <p>Levels, the ATR reading, and the trade plan below are drawn from a trading-education video's own worked example and are not independently verified.</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><span class="tick">JPM<small>cup and handle, financial sector</small></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>The pattern</th>
+        <td class="txt">A multi-month rounded base between roughly 280 (cup low) and 340 (cup resistance) &mdash; a 60-point cup depth &mdash; with recent price action tightening into a handle just below the 340 level.</td></tr>
+      <tr><th>Confirmation</th>
+        <td class="txt">Entered only on a buy-stop-limit order at 340.25, a quarter-point above the 340 trigger, after confirming the stock, the financial sector, and the S&amp;P 500 were all pressing toward new highs together.</td></tr>
+      <tr><th>Risk</th>
+        <td class="txt">An 8-point ATR reading set a 12-point stop (1.5&times; ATR), sized at 30 shares to cap total dollar risk near $360 &mdash; comfortably under a self-imposed $500 ceiling.</td></tr>
+      <tr><th>Targets</th>
+        <td class="txt">Half the position off at 360 (a conservative 20-point target, locking in gains and moving the rest of the trade risk-free), the remainder held for 380 &mdash; a deliberately conservative markdown of the textbook 400 measured-move objective (340 plus the 60-point cup depth).</td></tr>
+      <tr><th>Reward : risk</th>
+        <td class="txt">If both targets fill as planned: roughly $300 from target one plus $600 from target two, a $900 total reward against the $360 risked &mdash; about a 2.5:1 reward-to-risk ratio.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-head">
+    <h2>Example: a cup and handle on daily bars</h2>
+    <p>An example stretch of daily bars run through the indicator's own rules: an uptrend tops out at the left rim, a rounded 18%
+    base on drying volume, a right rim near the old high, a quiet handle, then the break of resistance on heavy volume. Half comes
+    off at target 1, the stop moves to breakeven, and the rest reaches target 2. The bars are made up to show the setup clearly.
+    They aren't a real ticker.</p>
+  </div>
+  <section class="live" data-cup-live data-example data-symbol="NVDA" aria-label="Example daily chart with the cup and handle rules">
+    <div class="live-main">
+      <div class="live-chart"><div class="live-gate"><b>Loading chart&hellip;</b></div></div>
+      <p class="live-status">Daily</p>
+    </div>
+    <aside class="live-side" aria-live="polite"></aside>
+  </section>
+
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/mExyCQrddTU" title="Cup and Handle (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>The full trade plan on a real chart: entry, stop, two targets and position size.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=mExyCQrddTU" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <h2 class="ind-heading">Indicator for this setup</h2>
+    <p class="ind-note">Add this to a daily TradingView chart to find the bases this page describes, with the same rules as the live chart
+    above. It draws and alerts on the setup &mdash; it does not place trades.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">Cup and Handle &mdash; Trade Plan R1.0</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">Finds the cup and the handle, runs the page's checks (uptrend, volume drying up in the base and the handle,
+      clean air, the market above its 50 and 200-day), and at the close arms a buy stop a hair over resistance for the next bar. Once it fills,
+      it draws the 1.5&times; ATR stop and both targets, moves the stop to breakeven after the first, and marks the exit. A status panel shows
+      what's armed or running; alerts for armed, entry, target 1 and exit, with JSON webhook versions. Every rule can be adjusted or switched off.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/cup-and-handle.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+  </ul>
+
+  <div class="rule">
+    <div>
+      <h2>Plan the trade. Trade the plan.</h2>
+      <p>A great chart on its own is worthless without every one of these decisions made before the market opens: the entry trigger, the stop, both targets, and the position size that fits your risk.</p>
+    </div>
+    <div>
+      <ul>
+        <li>You don't need fifty setups. One or two you understand completely, checked the same five ways every time, is enough.</li>
+        <li>Enter on the break, never the prediction. The market pays for being right, not for being first.</li>
+        <li>Decide the stop, both targets, and the position size together, off a fixed dollar risk &mdash; before you're in the trade, not while it's moving.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Model built around a cup-and-handle swing setup and its full trade plan &mdash; entry, stop, two profit targets, and position sizing &mdash; as taught in a trading-education video, using a real worked example on JPM. Levels, the ATR reading, and the reward-to-risk math are drawn from that video's own account and are not independently verified. <a href="https://youtu.be/mExyCQrddTU" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

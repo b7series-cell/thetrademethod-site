@@ -1,0 +1,625 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Three-Candle CRT — sweep, confirm, break | The Trade Method</title>
+<meta name="description" content="Candle Range Theory in three candles — mark the extreme, wait for the sweep-and-close-back-in, then trade only the break — sized to an exact 1.5 reward-to-risk ratio every time, never a fixed stop…">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/three-candle-crt.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Three-Candle CRT — sweep, confirm, break">
+<meta property="og:description" content="Candle Range Theory in three candles — mark the extreme, wait for the sweep-and-close-back-in, then trade only the break — sized to an exact 1.5 reward-to-risk ratio every time, never a fixed stop…">
+<meta property="og:url" content="https://thetrademethod.com/setups/three-candle-crt.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Three-Candle CRT — sweep, confirm, break">
+<meta name="twitter:description" content="Candle Range Theory in three candles — mark the extreme, wait for the sweep-and-close-back-in, then trade only the break — sized to an exact 1.5 reward-to-risk ratio every time, never a fixed stop…">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Three-Candle CRT — sweep, confirm, break",
+ "name": "Three-Candle CRT",
+ "description": "Candle Range Theory in three candles — mark the extreme, wait for the sweep-and-close-back-in, then trade only the break — sized to an exact 1.5 reward-to-risk ratio every time, never a fixed stop…",
+ "url": "https://thetrademethod.com/setups/three-candle-crt.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/three-candle-crt.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing div.primary { border-color:#22855a; background:#0b1c17; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing div.primary b { color:var(--up); }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
+<script src="/js/live-kit.js?v=2" defer></script>
+<script src="/js/examples/crt.js?v=1" defer></script><script src="/js/example-kit.js?v=1" defer></script>
+<script src="/js/crt-live.js?v=5" defer></script>
+<script src="/js/crt-anim.js?v=1" defer></script>
+<style>
+  /* video (same as relative-volume.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=2" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="three-candle-crt">
+    <div>
+      <p class="kicker">Candle Range Theory &middot; three-candle trigger &middot; New York AM &middot; long or short</p>
+      <h1>Three-Candle <span>CRT</span></h1>
+    </div>
+    <div>
+      <p class="thesis">One candle marks the extreme. The next has to <em>sweep it and close back inside</em>.
+      The third only matters if it breaks that sweep candle &mdash; and when it does, the target goes on
+      first, with the stop dragged to force exactly 1.5R, every single trade.</p>
+      <div class="counts">
+        <div><b>3</b><small>candles to the trigger</small></div>
+        <div><b>4</b><small>filters</small></div>
+        <div><b>1.5R</b><small>fixed reward:risk, every trade</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">candle 1</div><div class="n">Mark the extreme, don't act</div></div>
+    <div><div class="t">candle 2</div><div class="n">The sweep &mdash; wick through, close back in</div></div>
+    <div><div class="t">candle 3</div><div class="n">The trigger &mdash; break confirms the entry</div></div>
+    <div><div class="t">entry style</div><div class="n">Direct break vs. rebreak</div></div>
+    <div><div class="t">the stop</div><div class="n">Dragged to force exactly 1.5R</div></div>
+    <div><div class="t">the session</div><div class="n">New York AM only &middot; 9:30&ndash;12:00 ET</div></div>
+  </nav>
+
+  <section class="anim" data-crt-anim aria-label="Illustrative chart">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">6 / 6</p>
+        <h2 class="anim-title">Watch one CRT long, start to finish</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 500" role="img" aria-label="Illustrative chart: on the 1-hour chart the key low is swept and reclaimed, making the bias bullish; then a 9:30 fifteen-minute candle marks the range, the 9:45 candle sweeps its low and closes back inside, inside the 10:00 candle price breaks candle 2&#39;s high, closes back below, breaks it again for the entry, the target goes on candle 1&#39;s high, the stop is dragged to exactly 1.5R, and price runs to the target"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Set the bias on a higher timeframe first</h3>
+          <ul>
+            <li>Before looking for a single CRT trigger, mark the most extreme recent swing high or low on a higher timeframe and wait for price to sweep that level and reverse away from it.</li>
+            <li>Only once that higher-timeframe sweep-and-reversal has actually confirmed does a direction become tradeable &mdash; CRTs are taken with that bias, never against it.</li>
+          </ul>
+          <p class="why">A three-candle trigger without a confirmed higher-timeframe direction is just a pattern &mdash; the bias is what turns it into a trade.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Candle 1 marks the extreme &mdash; and nothing else</h3>
+          <ul>
+            <li>On the 1-hour, 30-minute, or 15-minute chart only, let one candle close and mark its high and low. That range is a reference level, not a signal to act on by itself.</li>
+            <li>The 1-minute chart never builds this candle &mdash; it has no role in forming the setup, only in timing an entry once the setup already exists.</li>
+          </ul>
+          <p class="why">Skip this step and there's no fixed range for candle 2 to sweep &mdash; the whole sequence loses its reference point.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Candle 2 is the sweep, not a breakout</h3>
+          <ul>
+            <li>The next candle has to wick beyond one side of candle 1's range &mdash; below the low for a long setup, above the high for a short &mdash; and then close back inside that range.</li>
+            <li>If it closes beyond the range instead of snapping back inside it, the setup is void. That's a breakout in the wrong structure, not a sweep.</li>
+          </ul>
+          <p class="why">The wick-and-close-back-in is what shows liquidity being taken and rejected. A candle that just closes through the level is trend continuation, not a CRT.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Candle 3 is the trigger &mdash; and it has a clock on it</h3>
+          <ul>
+            <li>Enter only when price breaks candle 2's high (long) or candle 2's low (short). Nothing before that break is a valid entry, no matter how convincing the sweep looked.</li>
+            <li>If candle 3 closes without breaking that level, the setup is dead. A fourth or later candle breaking the same level afterward is considered too low-quality to take.</li>
+          </ul>
+          <p class="why">Without the clock, "wait for the break" quietly turns into "wait indefinitely" &mdash; and a stale level breaking three or four candles later isn't the same trade anymore.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Choose the entry style before candle 3 forms</h3>
+          <ul>
+            <li><b>Direct break:</b> enter the instant candle 3 crosses candle 2's level. More trades trigger, at a lower win rate.</li>
+            <li><b>Rebreak:</b> wait for the initial break, a pullback, and a second break before entering &mdash; timed on the 1-minute chart. Fewer trades trigger, at a higher win rate.</li>
+          </ul>
+          <p class="why">Both are the same setup with a different entry filter layered on top &mdash; the choice is a trade-frequency decision, not a separate strategy.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Target first, then drag the stop to exactly 1.5R</h3>
+          <ul>
+            <li>The take-profit goes on first, at the opposing extreme &mdash; the higher-timeframe swing level the bias in step one was measured against.</li>
+            <li>The stop-loss is not a fixed point distance. It's dragged to whatever distance makes the trade exactly 1.5 times reward-to-risk, recalculated on every single trade.</li>
+          </ul>
+          <p class="why">Fix the stop first instead, and reward-to-risk becomes whatever the market happens to give you &mdash; the entire point of this setup is that it never is.</p>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h4>The three candles, on one chart</h4>
+        <p class="lead">Candle 1 marks the extreme, candle 2 sweeps it and closes back inside, candle 3 breaks candle 2's high to trigger the long &mdash; target at the opposing extreme, stop dragged to exactly 1.5R.</p>
+        <svg viewBox="0 0 1180 620" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Annotated chart showing candle 1 marking a swing-low extreme, candle 2 sweeping below it and closing back inside, candle 3 breaking candle 2's high to trigger a long entry, a target at the opposing higher-timeframe extreme, and a stop dragged to an exact 1.5 reward-to-risk ratio">
+<defs><marker id="c1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8fa6bd"/></marker><marker id="c2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2ecf7a"/></marker><marker id="c3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#e0505a"/></marker></defs>
+<rect x="32" y="20" width="1062" height="580" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<line x1="60" y1="110" x2="1046" y2="110" stroke="#2ecf7a" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.85"/>
+<text x="68" y="101" fill="#2ecf7a" font-size="13" font-weight="700">target &mdash; opposing higher-timeframe extreme</text>
+<line x1="360" y1="400" x2="1046" y2="400" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="368" y="416" fill="#f4f7fb" font-size="13" font-weight="700">candle 1 low &mdash; the extreme (reference only)</text>
+<line x1="410" y1="345" x2="1046" y2="345" stroke="#f4b942" stroke-width="1.6" stroke-dasharray="3 4"/>
+<text x="905" y="337" fill="#f4b942" font-size="13" font-weight="700">candle 2 high &mdash; the trigger level</text>
+<path d="M 70,180 L 130,220 L 190,255 L 250,300 L 310,345" fill="none" stroke="#8fa6bd" stroke-width="1.8" opacity="0.55"/>
+<line x1="90" y1="165" x2="90" y2="205" stroke="#54697f" stroke-width="1.8"/><rect x="76" y="172" width="28" height="24" fill="#54697f" rx="1"/>
+<line x1="150" y1="200" x2="150" y2="240" stroke="#54697f" stroke-width="1.8"/><rect x="136" y="208" width="28" height="24" fill="#54697f" rx="1"/>
+<line x1="210" y1="235" x2="210" y2="275" stroke="#54697f" stroke-width="1.8"/><rect x="196" y="243" width="28" height="24" fill="#54697f" rx="1"/>
+<line x1="270" y1="270" x2="270" y2="320" stroke="#54697f" stroke-width="1.8"/><rect x="256" y="280" width="28" height="26" fill="#54697f" rx="1"/>
+<line x1="330" y1="300" x2="330" y2="400" stroke="#8fa6bd" stroke-width="2.2"/><rect x="316" y="330" width="28" height="60" fill="#0d1a2b" stroke="#8fa6bd" stroke-width="1.8" rx="1"/>
+<text x="330" y="454" fill="#8fa6bd" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">candle 1</text>
+<circle cx="405" cy="400" r="46" fill="none" stroke="#e0505a" stroke-width="2.4"/>
+<line x1="405" y1="345" x2="405" y2="440" stroke="#e0505a" stroke-width="2.4"/><rect x="391" y="358" width="28" height="34" fill="#0d1a2b" stroke="#e0505a" stroke-width="1.8" rx="1"/>
+<text x="405" y="470" fill="#e0505a" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">candle 2 &mdash; sweeps, closes back in</text>
+<line x1="480" y1="300" x2="480" y2="360" stroke="#1d6f47" stroke-width="2.4"/><rect x="466" y="308" width="28" height="42" fill="#1d6f47" rx="1"/>
+<text x="480" y="470" fill="#1d6f47" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">candle 3 &mdash; the break</text>
+<line x1="540" y1="255" x2="540" y2="300" stroke="#1d6f47" stroke-width="2"/><rect x="526" y="262" width="28" height="35" fill="#1d6f47" rx="1"/>
+<line x1="600" y1="210" x2="600" y2="255" stroke="#1d6f47" stroke-width="2"/><rect x="586" y="217" width="28" height="35" fill="#1d6f47" rx="1"/>
+<line x1="660" y1="175" x2="660" y2="215" stroke="#1d6f47" stroke-width="1.8"/><rect x="646" y="180" width="28" height="32" fill="#1d6f47" rx="1"/>
+<line x1="740" y1="150" x2="740" y2="185" stroke="#1d6f47" stroke-width="1.8"/><rect x="726" y="155" width="28" height="28" fill="#1d6f47" rx="1"/>
+<line x1="820" y1="128" x2="820" y2="160" stroke="#1d6f47" stroke-width="1.8"/><rect x="806" y="133" width="28" height="24" fill="#1d6f47" rx="1"/>
+<line x1="900" y1="112" x2="900" y2="140" stroke="#1d6f47" stroke-width="1.8"/><rect x="886" y="115" width="28" height="22" fill="#1d6f47" rx="1"/>
+<rect x="82" y="470" width="330" height="46" rx="7" fill="#0d1a2b" stroke="#8fa6bd" stroke-width="1.7"/>
+<text x="96" y="493" fill="#c8d8e8" font-size="13" font-weight="600">Higher-timeframe bias already confirmed</text>
+<text x="96" y="511" fill="#c8d8e8" font-size="13" font-weight="600">bullish &mdash; this sweep is only tradeable long.</text>
+<rect x="420" y="470" width="330" height="60" rx="7" fill="#0d1a2b" stroke="#e0505a" stroke-width="1.7"/>
+<text x="434" y="493" fill="#f2b3b7" font-size="13" font-weight="600">Enter on the break of candle 2's high &mdash;</text>
+<text x="434" y="511" fill="#f2b3b7" font-size="13" font-weight="600">stop dragged below entry to force exactly</text>
+<text x="434" y="527" fill="#f2b3b7" font-size="13" font-weight="600">1.5R against the target above.</text>
+<line x1="480" y1="470" x2="480" y2="360" stroke="#e0505a" stroke-width="1.5" marker-end="url(#c3)"/>
+<rect x="770" y="470" width="290" height="46" rx="7" fill="#0d1a2b" stroke="#2ecf7a" stroke-width="1.7"/>
+<text x="784" y="493" fill="#9ff0c4" font-size="13" font-weight="600">Target sits at the opposing extreme &mdash;</text>
+<text x="784" y="511" fill="#9ff0c4" font-size="13" font-weight="600">set first, before the stop is even measured.</text>
+<line x1="900" y1="470" x2="900" y2="140" stroke="#2ecf7a" stroke-width="1.5" marker-end="url(#c2)"/>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>Direct break vs. rebreak</h4>
+        <p class="lead">Same trigger level, two different entries &mdash; take the break the instant it happens, or wait for it to fail once and come back for a second, higher-conviction break.</p>
+        <svg viewBox="0 0 1180 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Two panels comparing a direct-break entry taken the instant candle 3 crosses the trigger level against a rebreak entry that waits for an initial break, a pullback, and a second break">
+<rect x="10" y="14" width="565" height="272" rx="10" fill="#0c1626" stroke="#22855a" stroke-width="2"/>
+<text x="28" y="42" fill="#2ecf7a" font-size="16" font-weight="800">Direct break</text>
+<line x1="28" y1="170" x2="547" y2="170" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="28" y="161" fill="#9fb3c8" font-size="11.5">candle 2 trigger level</text>
+<line x1="90" y1="190" x2="90" y2="215" stroke="#54697f" stroke-width="1.8"/><rect x="78" y="195" width="24" height="18" fill="#54697f" rx="1"/>
+<line x1="150" y1="175" x2="150" y2="200" stroke="#54697f" stroke-width="1.8"/><rect x="138" y="180" width="24" height="18" fill="#54697f" rx="1"/>
+<line x1="220" y1="120" x2="220" y2="180" stroke="#1d6f47" stroke-width="2.4"/><rect x="208" y="128" width="24" height="45" fill="#1d6f47" rx="1"/>
+<circle cx="220" cy="150" r="26" fill="none" stroke="#2ecf7a" stroke-width="2.2"/>
+<text x="256" y="146" fill="#2ecf7a" font-size="12" font-weight="700">entry &mdash; break confirms</text>
+<line x1="290" y1="95" x2="290" y2="125" stroke="#1d6f47" stroke-width="1.8"/><rect x="278" y="100" width="24" height="22" fill="#1d6f47" rx="1"/>
+<line x1="360" y1="75" x2="360" y2="105" stroke="#1d6f47" stroke-width="1.8"/><rect x="348" y="80" width="24" height="22" fill="#1d6f47" rx="1"/>
+<line x1="430" y1="60" x2="430" y2="90" stroke="#1d6f47" stroke-width="1.8"/><rect x="418" y="65" width="24" height="22" fill="#1d6f47" rx="1"/>
+<text x="28" y="248" fill="#9fb3c8" font-size="12.6">Enters the instant candle 3 crosses the</text>
+<text x="28" y="264" fill="#9fb3c8" font-size="12.6">level. More trades trigger, lower win rate.</text>
+<rect x="605" y="14" width="565" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<text x="623" y="42" fill="#f4b942" font-size="16" font-weight="800">Rebreak</text>
+<line x1="623" y1="170" x2="1142" y2="170" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="623" y="161" fill="#9fb3c8" font-size="11.5">candle 2 trigger level</text>
+<line x1="680" y1="190" x2="680" y2="215" stroke="#54697f" stroke-width="1.8"/><rect x="668" y="195" width="24" height="18" fill="#54697f" rx="1"/>
+<line x1="740" y1="120" x2="740" y2="180" stroke="#1d6f47" stroke-width="2" opacity="0.7"/><rect x="728" y="128" width="24" height="45" fill="#1d6f47" opacity="0.7" rx="1"/>
+<text x="740" y="106" fill="#7d93ad" font-size="11" text-anchor="middle">initial break</text>
+<line x1="800" y1="150" x2="800" y2="185" stroke="#e0505a" stroke-width="1.8"/><rect x="788" y="158" width="24" height="22" fill="#e0505a" opacity="0.75" rx="1"/>
+<text x="800" y="212" fill="#f2b3b7" font-size="11" text-anchor="middle">pullback</text>
+<line x1="870" y1="115" x2="870" y2="175" stroke="#1d6f47" stroke-width="2.4"/><rect x="858" y="123" width="24" height="45" fill="#1d6f47" rx="1"/>
+<circle cx="870" cy="145" r="26" fill="none" stroke="#2ecf7a" stroke-width="2.2"/>
+<text x="906" y="141" fill="#2ecf7a" font-size="12" font-weight="700">entry &mdash; second break</text>
+<line x1="940" y1="90" x2="940" y2="120" stroke="#1d6f47" stroke-width="1.8"/><rect x="928" y="95" width="24" height="22" fill="#1d6f47" rx="1"/>
+<line x1="1010" y1="65" x2="1010" y2="95" stroke="#1d6f47" stroke-width="1.8"/><rect x="998" y="70" width="24" height="22" fill="#1d6f47" rx="1"/>
+<text x="623" y="248" fill="#9fb3c8" font-size="12.6">Waits for the break, the pullback, and a</text>
+<text x="623" y="264" fill="#9fb3c8" font-size="12.6">second break &mdash; timed on the 1-minute.</text>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>New York AM is the focus of this page</h4>
+        <p class="lead">The three-candle trigger was described across three sessions in the source material &mdash; this page is built around the one it works best in.</p>
+        <div class="timing">
+          <div class="primary"><b>New York AM &middot; 9:30&ndash;12:00 ET</b><p>The session this page is built around. The highest-quality window for the trigger &mdash; real volume, real participants, real follow-through once candle 3 breaks.</p></div>
+          <div><b>Asian session &middot; 8&ndash;10pm ET</b><p>Traded as a secondary window with the same three-candle mechanic in the source material &mdash; not the focus of this page.</p></div>
+          <div><b>London session</b><p>Described as the lowest-quality of the three sessions for this specific setup. Skip it for live trading; it's not covered further here.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The four filters</h2>
+    <p>The three candles don't change &mdash; these are what keep you from forcing the trigger onto a chart, a day, or a timeframe it was never built for.</p>
+  </div>
+  <div class="filters">
+    <div class="filter">
+      <h3>1 &nbsp;Building the setup on a 1-minute chart</h3>
+      <p>The three candles only form on the 1-hour, 30-minute, or 15-minute chart. The 1-minute has exactly two jobs: timing a rebreak entry, and reading whether the tape is too choppy to trade.</p>
+      <p class="kill">Kills: a "setup" that was never actually built on a timeframe this trigger works on.</p>
+    </div>
+    <div class="filter">
+      <h3>2 &nbsp;No higher-timeframe bias confirmed</h3>
+      <p>Taking a CRT trigger before the higher-timeframe extreme has actually been swept and reversed &mdash; trading the pattern without the direction it depends on.</p>
+      <p class="kill">Kills: a mechanically correct trigger fighting the wrong side of the higher-timeframe move.</p>
+    </div>
+    <div class="filter">
+      <h3>3 &nbsp;Low-volume, no-catalyst days</h3>
+      <p>Especially Mondays &mdash; thin participation makes a sweep-and-reject mean far less, since there's no real liquidity being taken in the first place.</p>
+      <p class="kill">Kills: a technically valid sweep that has no real order flow behind it.</p>
+    </div>
+    <div class="filter">
+      <h3>4 &nbsp;Choppy price action</h3>
+      <p>Alternating massive-body and massive-wick candles with no follow-through between them &mdash; the market not settling into a real directional read.</p>
+      <p class="kill">Kills: a break that has nowhere to go because the tape has no follow-through left in it.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Target first, stop dragged to fit &mdash; not the other way around</h2>
+    <p>The figures below are clean, illustrative numbers on MNQ (Micro E-mini Nasdaq-100 futures) to show the sequence, not a specific trade called out in the source material.</p>
+  </div>
+  <div class="risk">
+    <div class="panel">
+      <div class="calc">
+        <div class="row"><span>Target &mdash; opposing extreme, set first</span><b>45.00 pts</b></div>
+        <div class="row"><span>Stop &mdash; dragged to force exactly 1.5R (45 &divide; 1.5)</span><b>30.00 pts</b></div>
+        <div class="row"><span>Position size &mdash; kept under a $500 risk cap</span><b>8 MNQ</b></div>
+        <div class="row tot"><span>Total risk on the trade</span><b>$480.00</b></div>
+      </div>
+    </div>
+    <div class="warn">
+      <h4>The mistake this prevents</h4>
+      <p>Setting the stop first &mdash; off a fixed number of points, or wherever feels comfortable &mdash; and only then seeing what reward-to-risk that happens to produce.</p>
+      <p class="big">On a setup built around exactly 1.5R, a stop-first process turns disciplined math into a guess that drifts trade to trade.</p>
+      <p>Set the target at the opposing extreme first. Let the ratio &mdash; not a feeling &mdash; decide exactly where the stop sits.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Which futures actually fit this setup</h2>
+    <p>Instrument fit as described in the source material &mdash; not a specific numeric worked trade, since none was given for a real ticker on a real date.</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><span class="tick">NQ / MNQ<small>Nasdaq-100 futures</small></span></th>
+        <th><span class="tick">ES / MES<small>S&amp;P 500 futures</small></span></th>
+        <th><span class="tick">MGC<small>Gold futures</small></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>Role in the source material</th>
+        <td class="txt">The primary instrument &mdash; most of the setup's chart examples were built on it.</td>
+        <td class="txt">Traded alongside NQ as a second index-futures option.</td>
+        <td class="txt">Kept in rotation, but singled out as the weakest fit for this specific setup.</td></tr>
+      <tr><th>Timeframes</th>
+        <td class="txt" colspan="3">Same rule across all three: 1-hour, 30-minute, or 15-minute to build the three candles; the 1-minute only for a rebreak entry or reading chop.</td></tr>
+      <tr><th>Described performance</th>
+        <td class="txt">Called out as producing the best results of the three.</td>
+        <td class="txt">Not singled out individually &mdash; grouped with NQ as an index-futures instrument.</td>
+        <td class="txt">Called out as producing comparatively poor results.</td></tr>
+      <tr><th>Takeaway</th>
+        <td class="txt">Default choice for this setup.</td>
+        <td class="txt">A reasonable index-futures alternative to NQ.</td>
+        <td class="txt">Keep it on watch, but don't expect NQ-level performance from it.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-head">
+    <h2>Example: one CRT long, 1-minute bars</h2>
+    <p>An example session run through the indicator's own rules. Yesterday swept the 1-hour swing low and closed back above it,
+    so the 1-hour bias is bullish. Candle 1 is the 9:30 15-minute candle (100.05&ndash;100.55). Candle 2, from 9:45, wicks under its low to 99.92
+    and closes back inside. Candle 3 breaks candle 2's high of 100.36 at 10:01, closes back under it, and breaks it again at 10:04 for the rebreak
+    entry at 100.36. The target is candle 1's high at 100.55, the stop is dragged to 100.23 for exactly 1.5R, and the target is hit at 10:16.
+    The bars are made up to show the setup clearly. They aren't a real ticker.</p>
+  </div>
+  <section class="live" data-crt-live data-example data-symbol="QQQ" aria-label="Example chart with the three-candle CRT model">
+    <div class="live-main">
+      <div class="live-chart"><div class="live-gate"><b>Loading chart&hellip;</b></div></div>
+      <p class="live-status">1-minute</p>
+    </div>
+    <aside class="live-side" aria-live="polite"></aside>
+  </section>
+
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/z1Z72VJGt08" title="Three-Candle CRT (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Mark the extreme, wait for the sweep, then trade the break at 1.5R.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=z1Z72VJGt08" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <h2 class="ind-heading">Indicator for this setup</h2>
+    <p class="ind-note">Add this to a TradingView chart to build the three CRT candles and mark the New York
+    window this page describes. It draws and alerts on the setup &mdash; it does not place trades.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">CRT NY &mdash; 3-Candle Model</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">Builds the three CRT candles from the 15-minute, 30-minute, and 1-hour charts, reads the
+      higher-timeframe bias off a key-level sweep, and fires direct-break or rebreak entries inside the New York
+      window &mdash; with a live dashboard, TP/SL lines dragged to an exact 1.5R, and webhook-ready alerts at every
+      stage (armed, first break, entry, exit, bias flip).</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/three-candle-crt.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+  </ul>
+
+  <div class="rule">
+    <div>
+      <h2>Mechanical trigger. Mechanical risk.</h2>
+      <p>The setup is the same three candles every time, and the risk is the same exact ratio every time &mdash;
+      there's no discretion left to second-guess once the trigger actually prints.</p>
+    </div>
+    <div>
+      <ul>
+        <li>New York AM only, built on the 1-hour, 30-minute, or 15-minute chart &mdash; never build the three candles on a 1-minute chart.</li>
+        <li>Bias, then sweep, then break, in that order &mdash; skip the days with no real participation and the tape that won't settle.</li>
+        <li>Target first, stop dragged to force exactly 1.5R &mdash; never the other way around.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Model built around a three-candle Candle Range Theory (CRT) setup &mdash; mark the extreme, wait for the sweep-and-close-back-in, then trade only the break, sized to an exact 1.5 reward-to-risk ratio &mdash; as taught in a trading-education video, focused on the New York AM session. The risk figures above are clean, illustrative numbers on MNQ and are not from a specific trade named in that video. <a href="https://www.youtube.com/watch?v=z1Z72VJGt08" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

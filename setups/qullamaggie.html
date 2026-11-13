@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Qullamaggie Breakout — buy the leaders, trail the 10-day | The Trade Method</title>
+<meta name="description" content="Kristjan Kullamägi's (Qullamaggie) swing trading setup: find the top 1–2% momentum stocks, wait for a tight base on the 10 and 20-day averages, buy the opening range high on breakout day with the stop at the low of the day, sell a third after 3 to 5 days and trail the rest on the 10 or 20-day. Plus episodic pivots and parabolic shorts.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/qullamaggie.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Qullamaggie Breakout — buy the leaders, trail the 10-day">
+<meta property="og:description" content="Kristjan Kullamägi's (Qullamaggie) swing trading setup: find the top 1–2% momentum stocks, wait for a tight base on the 10 and 20-day averages, buy the opening range high on breakout day with the stop at the low of the day, sell a third after 3 to 5 days and trail the rest on the 10 or 20-day. Plus episodic pivots and parabolic shorts.">
+<meta property="og:url" content="https://thetrademethod.com/setups/qullamaggie.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Qullamaggie Breakout — buy the leaders, trail the 10-day">
+<meta name="twitter:description" content="Kristjan Kullamägi's (Qullamaggie) swing trading setup: find the top 1–2% momentum stocks, wait for a tight base on the 10 and 20-day averages, buy the opening range high on breakout day with the stop at the low of the day, sell a third after 3 to 5 days and trail the rest on the 10 or 20-day. Plus episodic pivots and parabolic shorts.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Qullamaggie Breakout — buy the leaders, trail the 10-day",
+ "name": "Qullamaggie Breakout",
+ "description": "Kristjan Kullamägi's (Qullamaggie) swing trading setup: find the top 1–2% momentum stocks, wait for a tight base on the 10 and 20-day averages, buy the opening range high on breakout day with the stop at the low of the day, sell a third after 3 to 5 days and trail the rest on the 10 or 20-day. Plus episodic pivots and parabolic shorts.",
+ "url": "https://thetrademethod.com/setups/qullamaggie.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/qullamaggie.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-20",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/qm-anim.js?v=1" defer></script>
+<style>
+  /* steps across the page, the two panels side by side under them */
+  .qm-main { grid-template-columns:1fr; gap:22px; }
+  .qm-stages { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .sheet .qm-stages .stage, .sheet .qm-stages .stage:first-child { padding:26px 24px; background:var(--charcoal); align-content:start; }
+  .qm-side { display:grid; grid-template-columns:1fr 1.4fr; gap:16px; align-items:stretch; }
+  .qm-side .panel + .panel { margin-top:0; }
+  .qm-side .timing { grid-template-columns:1fr; }
+  @media (max-width:1100px) { .qm-stages { grid-template-columns:1fr 1fr; } .qm-side { grid-template-columns:1fr; } }
+  @media (max-width:680px) { .qm-stages { grid-template-columns:1fr; } }
+  /* the stepper (js/qm-anim.js builds it from the six steps; same as gap-give-and-go.html) */
+  .qm-stages.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#30d158; }
+  .gs-bar { display:grid; grid-template-columns:repeat(6,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:8.33%; right:8.33%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .qm-stages.is-stepper .stage, .sheet .qm-stages.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .qm-stages.is-stepper .stage .num { display:none; }
+  .sheet .qm-stages.is-stepper .stage[hidden] { display:none; }
+  .sheet .qm-stages.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .qm-stages.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+  }
+
+  /* the market filter */
+  .mkt { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .mkt div { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .mkt div.g { border-top:3px solid var(--up); } .mkt div.a { border-top:3px solid var(--gold); } .mkt div.r { border-top:3px solid var(--down); }
+  .mkt h3 { margin:0 0 8px; font-size:17px; }
+  .mkt p { margin:0; font-size:14px; color:var(--dim); }
+  .mkt b.lab { display:block; font-family:var(--mono); font-size:12px; letter-spacing:0.04em; text-transform:uppercase; margin-bottom:6px; }
+  .mkt .g b.lab { color:var(--up); } .mkt .a b.lab { color:var(--gold); } .mkt .r b.lab { color:var(--down); }
+
+  /* sizing */
+  .calc-in { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in label { font-size:12px; color:var(--faint); display:block; }
+  .calc-in input { width:100%; margin-top:4px; background:var(--panel2); color:var(--ink); border:1px solid var(--line); border-radius:8px;
+                   padding:8px 10px; font-family:var(--mono); font-size:15px; }
+  .calc-in input:focus { outline:2px solid var(--blue); outline-offset:1px; }
+  .calc b.pos { color:var(--up); } .calc b.neg { color:var(--down); }
+  .kills { grid-template-columns:repeat(2,1fr); margin-top:14px; }
+  .kills .filter { background:var(--panel2); }
+
+  /* ten trades, the other two setups */
+  .ten svg { border-radius:12px; }
+  .ten-note { margin:14px 0 0; color:var(--dim); font-size:14px; max-width:86ch; }
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .two svg { border-radius:12px; }
+  .two-note { margin:14px 0 0; color:var(--dim); font-size:14px; max-width:86ch; }
+  .stat { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:16px; }
+  .stat div { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 17px; }
+  .stat b { display:block; font-size:clamp(24px,2.6vw,32px); font-weight:800; letter-spacing:-0.03em; line-height:1.05; margin-bottom:6px; }
+  .stat p { margin:0; font-size:13.6px; color:var(--dim); }
+
+  /* the animation redraws for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .ribbon + .anim { margin-top:8px; }
+  @media (max-width:1100px) {
+    .mkt { grid-template-columns:1fr; }
+    .stat { grid-template-columns:repeat(2,1fr); }
+    .calc-in { grid-template-columns:repeat(3,1fr); }
+  }
+  @media (max-width:760px) { .two { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    /* breathing room around the walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .counts { flex-wrap:wrap; gap:16px 22px; }
+    .calc-in { grid-template-columns:1fr 1fr; }
+    .kills { grid-template-columns:1fr; }
+    .section-head { margin-top:52px; }
+  }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=8" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="qullamaggie">
+    <div>
+      <p class="kicker">Momentum swing trade &middot; daily chart, 5-minute entry &middot; Kristjan Kullam&auml;gi</p>
+      <h1>Qulla<span>maggie</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Find the stocks that have already moved the most. Wait for one to rest in a tight, orderly base on top of its 10 and 20-day
+      averages. On the day it breaks out, <em>buy the opening range high with the stop at the low of the day,</em> sell a third after three to five
+      days, and ride the rest until it closes under the 10-day.</p>
+      <div class="counts">
+        <div><b>3</b><small>setups: breakout, EP, parabolic short</small></div>
+        <div><b>0.5%</b><small>risk per trade, 1% at most</small></div>
+        <div><b>25&ndash;30%</b><small>win rate he reports</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">the leader</div><div class="n">Top 1&ndash;2% movers</div></div>
+    <div><div class="t">the base</div><div class="n">Tight, higher lows</div></div>
+    <div><div class="t">the entry</div><div class="n">Opening range high</div></div>
+    <div><div class="t">the stop</div><div class="n">Low of day, under ADR</div></div>
+    <div><div class="t">day 3&ndash;5</div><div class="n">Sell &#8531; to &frac12;</div></div>
+    <div><div class="t">the rest</div><div class="n">Trail the 10 or 20-day</div></div>
+  </nav>
+
+  <section class="anim" data-qm-anim aria-label="Animated walkthrough of a Qullamaggie breakout">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">6 / 6</p>
+        <h2 class="anim-title">Watch one breakout, start to finish</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 600" role="img" aria-label="Illustrative daily chart: a stock runs 87% in 18 days from about 20 to 37, then bases for 18 days under 37.60 with higher lows and drying volume while the 10 and 20-day averages catch up. On breakout day the first 5-minute bar sets an opening range of 36.95 to 37.78; the entry is 37.80 on the break of the opening range high, with the stop at the low of the day, 36.95, a risk of 0.85, less than the 4.7% average daily range. On day four a third is sold at 44.00 for 7.3R and the stop moves to breakeven. The rest rides the 10-day average until the first close below it at 48.38, 12.4R, about 10.7R on the whole trade."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main qm-main">
+    <div class="qm-stages" data-qm-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Find the leaders</h3>
+          <ul>
+            <li>Scan for the top 1 to 2% of all stocks by gain over the past one, three and six months. Breakouts come from stocks that have already moved.</li>
+            <li>Look for a big prior move: 30% to 100% or more in a few weeks to a few months, on rising volume.</li>
+            <li>It has to move enough to be worth it: a big average daily range (ADR), and enough dollar volume to get in and out.</li>
+          </ul>
+          <p class="why">Momentum stocks keep moving. The strongest names in the strongest groups are where the biggest swings come from.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Let it build a base</h3>
+          <ul>
+            <li>After the move, it pulls back and goes sideways, usually for two weeks to two months.</li>
+            <li>An orderly base: higher lows, ranges getting tighter, volume drying up.</li>
+            <li>The 10 and 20-day averages catch up and price "surfs" on top of them. A base that slices through them is sloppy.</li>
+          </ul>
+          <p class="why">The tighter the base, the closer the stop can sit, and the bigger the next move is compared with the risk.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Buy the opening range high</h3>
+          <ul>
+            <li>On the day it breaks out of the base, mark the opening range: the first 1, 5 or 60-minute bar.</li>
+            <li>Buy as price takes out the opening range high. A longer range (60 minutes) is slower but more confirmed.</li>
+            <li>Breakout day volume should be big. A breakout on light volume is a warning.</li>
+          </ul>
+          <p class="why">He always buys strength, not dips. The opening range high is the first proof that the breakout is real today.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Stop at the low of the day</h3>
+          <ul>
+            <li>The stop goes at the low of the day. No widening it, no tightening it.</li>
+            <li>If the low of the day is further from the entry than the stock's average daily range, skip the trade.</li>
+            <li>Size it so the stop costs about 0.5% of the account, and never more than 1%.</li>
+          </ul>
+          <p class="why">Most breakouts fail. A small, fixed loss on each one is what lets you keep taking them until one runs.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Sell a third after 3 to 5 days</h3>
+          <ul>
+            <li>If it works, it usually works fast. After three to five days, sell a third to a half of the position into strength.</li>
+            <li>Move the stop on the rest up to breakeven.</li>
+            <li>If it goes nowhere for a few days, that's information too.</li>
+          </ul>
+          <p class="why">Banking a piece early pays for the losers and turns the rest into a free trade.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Trail the rest on the 10 or 20-day</h3>
+          <ul>
+            <li>Hold the rest until the first daily close below the moving average. A close, not an intraday dip.</li>
+            <li>Faster, more extended stocks get the 10-day. Slower ones get the 20-day and more room.</li>
+            <li>No price targets. The trend decides when you're out.</li>
+          </ul>
+          <p class="why">This is where the money is made. A few trades that run for weeks pay for all the small losses.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="qm-side">
+      <div class="panel">
+        <h4>The three things he scans for</h4>
+        <p class="lead">Before a chart goes on the watchlist, it needs all three.</p>
+        <div class="timing">
+          <div><b>Relative strength</b><p>Top 1 to 2% of stocks over one, three and six months. The leaders, not the laggards catching up.</p></div>
+          <div><b>An orderly base</b><p>Higher lows, tighter ranges, quiet volume, price riding the 10 and 20-day averages.</p></div>
+          <div><b>Range and liquidity</b><p>A big ADR so a breakout can travel, and enough volume to trade the size you need.</p></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>What kills it</h4>
+        <p class="lead">Any one of these and there's no trade, or a smaller one.</p>
+        <div class="filters kills">
+    <div class="filter"><h3>A bad market</h3><p>Breakouts and episodic pivots need a rising market. When the index loses its 10 and 20-day, most breakouts fail.</p><p class="kill">Index 10-day under the 20-day: cut back or sit out.</p></div>
+    <div class="filter"><h3>The stop is too far</h3><p>When the low of the day is more than an ADR from your entry, the risk is too big for the setup.</p><p class="kill">Low of day past one ADR: skip it.</p></div>
+    <div class="filter"><h3>A sloppy base</h3><p>Wide swings, lower lows, closes all over the averages. There's no tight spot to put a stop.</p><p class="kill">No higher lows: not ready.</p></div>
+    <div class="filter"><h3>Chasing</h3><p>Already up more than its ADR on the day by the time you see it. The risk to the low of the day is too big.</p><p class="kill">Missed the ORH: wait for the next setup.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The market comes first</h2>
+    <p>He reads the index (the Nasdaq) with the same two averages he uses on stocks. Two of his three setups only work when the market is going up.
+    By his own estimate, the filter keeps him out of most bad markets and in most good ones.</p>
+  </div>
+  <div class="mkt">
+    <div class="g"><b class="lab">Green</b><h3>10-day over the 20-day, both rising</h3><p>Breakouts and episodic pivots work. Trade full size, and add exposure as the trades work.</p></div>
+    <div class="a"><b class="lab">Caution</b><h3>The 10-day crosses under the 20-day</h3><p>Breakouts start failing. Take fewer, smaller trades and tighten up on what you hold.</p></div>
+    <div class="r"><b class="lab">Red</b><h3>Under both, and they're falling</h3><p>Mostly cash. The parabolic short is the only setup that doesn't care which way the market is going.</p></div>
+  </div>
+
+  <div class="section-head">
+    <h2>Size it: the stop decides the shares</h2>
+    <p>The risk is fixed in dollars, so the share count comes from the distance to the low of the day. The tighter the base, the bigger the
+    position. The default numbers are the walkthrough's.</p>
+  </div>
+  <div class="risk">
+    <div class="panel" data-qm-calc>
+      <div class="calc-in">
+        <label>Account ($)<input name="acct" type="number" inputmode="decimal" step="1000" min="0" value="100000"></label>
+        <label>Risk (%)<input name="risk" type="number" inputmode="decimal" step="0.05" min="0" value="0.5"></label>
+        <label>Entry (ORH)<input name="entry" type="number" inputmode="decimal" step="0.01" min="0" value="37.80"></label>
+        <label>Low of day<input name="low" type="number" inputmode="decimal" step="0.01" min="0" value="36.95"></label>
+        <label>ADR (%)<input name="adr" type="number" inputmode="decimal" step="0.1" min="0" value="4.7"></label>
+      </div>
+      <div class="calc qm-out" aria-live="polite"></div>
+    </div>
+    <div class="warn">
+      <h4>Most of these trades lose</h4>
+      <p>He puts his own win rate at about 25 to 30%. That only works because the losses are small and fixed (the low of the day, half a
+      percent of the account) and the winners are allowed to run for weeks.</p>
+      <p class="big">Sell the winners early and the math stops working.</p>
+      <p>The position can be a big slice of the account (22% in the example) because the stop is close. That's fine as long as the stop is
+      a real stop. Moving it lower to "give it room" turns a 0.5% loss into a much bigger one.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Ten trades at a 30% win rate</h2>
+    <p>Seven losers, three winners. Some losers are cut for less than a full R, because the stop moved to breakeven after a sale or the
+    trade went nowhere. One big winner carries the whole run.</p>
+  </div>
+  <div class="panel ten" data-qm-ten role="img" aria-label="Ten illustrative trades: minus 1, minus 1, plus 2.5, minus 1, minus 0.6, minus 1, plus 11, minus 1, minus 0.4 and plus 4 R, a running total of plus 11.5 R with three winners">
+    <svg viewBox="0 0 1180 320" aria-hidden="true"></svg>
+    <p class="ten-note">The order is made up, and real runs can be much worse: ten, fifteen losers in a row happen in a choppy market. That's
+    what the 0.5% risk is for.</p>
+  </div>
+
+  <div class="section-head">
+    <h2>The other two setups</h2>
+    <p>The breakout is the bread and butter. He also trades two more, with the same entry and stop logic: buy the opening range high with the
+    stop at the low of the day, or the mirror image for the short.</p>
+  </div>
+  <div class="panel" data-qm-two role="group" aria-label="Two illustrative daily charts: on the left an episodic pivot, a stock that went sideways for months gaps up 16% on news with about eleven times its normal volume and is bought over the opening range high with the stop at the low of the day; on the right a parabolic short, a stock up 152% in four days is shorted on day five under the opening range low with the stop at the high of the day">
+    <div class="two">
+      <svg viewBox="0 0 560 340" role="img" aria-label="Episodic pivot: a neglected stock gaps up on news and huge volume; buy the opening range high"></svg>
+      <svg viewBox="0 0 560 340" role="img" aria-label="Parabolic short: four huge up days, then short the opening range low"></svg>
+    </div>
+    <p class="two-note">Both charts are illustrative. He now calls the episodic pivot his main strategy.</p>
+  </div>
+  <div class="stat">
+    <div><b>10%+</b><p>EP: the minimum gap, on news big enough to change how people see the stock (earnings, guidance, a new product).</p></div>
+    <div><b>Huge volume</b><p>EP: ideally a stock nobody cared about, sideways for months or years, now trading many times its normal volume.</p></div>
+    <div><b>3&ndash;5 days up</b><p>Parabolic short: several big green days in a row. Small caps up 300% or more; large caps far less.</p></div>
+    <div><b>Never day one</b><p>Parabolic short: rarely day two either. Usually day three or four, on the break of the opening range low.</p></div>
+  </div>
+
+  <div class="section-head">
+    <h2>The three setups, side by side</h2>
+    <p>Same toolkit for all three: a reason the stock should move, an opening range trigger, a stop at the day's extreme, and a moving average to get out.</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><span class="tick">Breakout<small>long, the bread and butter</small></span></th>
+        <th><span class="tick">Episodic pivot<small>long, news and a gap</small></span></th>
+        <th><span class="tick">Parabolic short<small>short, the blow-off</small></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>Before</th><td class="txt">A big move (30&ndash;100%+), then a 2-week to 2-month tight base</td><td class="txt">Neglected: sideways for months or years</td><td class="txt">Several huge up days in a row, extended far above the averages</td></tr>
+      <tr><th>The trigger</th><td class="txt">Breaks out of the base</td><td class="txt">Gaps up 10%+ on big news and huge volume</td><td class="txt">Day 3 or 4 of the run starts to crack</td></tr>
+      <tr><th>Entry</th><td class="txt pos">Over the opening range high (1, 5 or 60-minute)</td><td class="txt pos">Over the opening range high (5 or 60-minute)</td><td class="txt neg">Under the opening range low</td></tr>
+      <tr><th>Stop</th><td>low of day</td><td>low of day</td><td>high of day</td></tr>
+      <tr><th>Stop check</th><td class="txt" colspan="3">No further than one average daily range from the entry, or skip the trade</td></tr>
+      <tr><th>First sale</th><td class="txt" colspan="2">A third to a half after 3 to 5 days, stop to breakeven</td><td class="txt">Cover into the drop</td></tr>
+      <tr><th>The rest</th><td class="txt" colspan="2">First close under the 10 or 20-day average</td><td class="txt">Cover at the 10 or 20-day average</td></tr>
+      <tr><th>Market</th><td class="txt" colspan="2">Only in a rising market (index 10-day over the 20-day)</td><td class="txt">Any market</td></tr>
+    </tbody>
+  </table>
+
+  <div class="rule">
+    <div>
+      <h2>Buy strength. Cut losers fast. Let one run.</h2>
+      <p>The setup is simple; the hard part is the discipline. Most trades get stopped out at the low of the day. The edge is a small loss on
+      every one of them and the patience to hold the rare winner on the 10-day for weeks.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Only the leaders, only from a tight base, only in a rising market.</li>
+        <li>Opening range high in, low of the day out, 0.5% at risk.</li>
+        <li>Sell a third in 3 to 5 days, trail the rest, no targets.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Based on Kristjan Kullam&auml;gi's (Qullamaggie) publicly described approach, as summarized in the
+  <a href="https://completetradersedge.com/wp-content/uploads/2026/09/CTE-Research-Sheet-Kristjan-Kullamagi-market-wizards-next-generation.pdf" target="_blank" rel="noopener">Complete Trader's Edge research sheet</a>
+  and <a href="https://www.financialwisdomtv.com/post/qullamaggie-breakout-setup-case-study-what-the-top-100-winning-stocks-reveal" target="_blank" rel="noopener">FinancialWisdom's breakout case study</a>.
+  The walkthrough, the stepper chart, the two setup charts, the ten trades and the calculator's default numbers are illustrative, not a real ticker.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

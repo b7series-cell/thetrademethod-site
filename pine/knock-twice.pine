@@ -1,0 +1,554 @@
+// This Pine Script® code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/ MPL-2.0
+//@version=6
+indicator("Valid BOS Pullback v2", "BOS Pullback v2", overlay = true, max_lines_count = 500, max_labels_count = 500)
+
+// ============================================================================
+// Inputs
+// ============================================================================
+leftBarsInput = input.int(3, "Swing left bars", minval = 1, group = "Structure", tooltip = "Number of preceding bars a structural swing must exceed.")
+rightBarsInput = input.int(3, "Swing right bars", minval = 1, group = "Structure", tooltip = "Bars required to confirm a swing; the new high or low must be confirmed before a pullback can count.")
+swingLookbackInput = input.int(48, "Structure lookback (bars)", minval = 6, maxval = 500, group = "Structure", tooltip = "Choose the highest confirmed previous high and lowest confirmed previous low within this window. 48 bars is 4 hours on a 5-minute chart.")
+minUntouchedBarsInput = input.int(5, "Minimum bars without a retest", minval = 0, maxval = 100, group = "Structure", tooltip = "After the initial break, require this many consecutive completed bars whose wicks do not touch the old level. An early touch resets the count.")
+maxWaitInput = input.int(120, "Maximum setup age (bars)", minval = 5, maxval = 1000, group = "Structure", tooltip = "Discard unfinished setups after this many bars; confirmed historical setups remain visible.")
+catchMissedBreaksInput = input.bool(true, "Catch breaks inside the swing confirmation window", group = "Structure", tooltip = "A swing is only known after 'Swing right bars' more bars. If price already closed through it during that window, open the setup anyway from the crossing bar instead of skipping the level.")
+
+toleranceModeInput = input.string("Ticks", "Tolerance units", options = ["Ticks", "Percent of price", "ATR fraction"], group = "Tolerance", tooltip = "How the close-invalidation tolerance and the minimum initial break are measured. Ticks do not scale across tickers; percent or ATR do.")
+touchTicksInput = input.int(4, "Close invalidation tolerance (ticks)", minval = 0, group = "Tolerance", tooltip = "Used in Ticks mode. A close more than this far back through the old structure level invalidates the setup.")
+minExtensionTicksInput = input.int(1, "Minimum initial break (ticks)", minval = 1, group = "Tolerance", tooltip = "Used in Ticks mode. Minimum closing distance beyond the old swing level to begin a setup.")
+tolerancePctInput = input.float(0.03, "Close invalidation tolerance (% of price)", minval = 0, step = 0.01, group = "Tolerance", tooltip = "Used in Percent mode. 0.03 = $0.27 on a $900 stock, $0.03 on a $100 stock.")
+minExtensionPctInput = input.float(0.01, "Minimum initial break (% of price)", minval = 0, step = 0.01, group = "Tolerance", tooltip = "Used in Percent mode.")
+toleranceAtrInput = input.float(0.10, "Close invalidation tolerance (x ATR)", minval = 0, step = 0.05, group = "Tolerance", tooltip = "Used in ATR mode.")
+minExtensionAtrInput = input.float(0.02, "Minimum initial break (x ATR)", minval = 0, step = 0.01, group = "Tolerance", tooltip = "Used in ATR mode.")
+
+atrLengthInput = input.int(14, "ATR length", minval = 1, group = "Filters", tooltip = "ATR used by the leg-size filter, the ATR tolerance mode, and the leg readout on the pullback label.")
+minLegAtrInput = input.float(0.6, "Minimum leg (x ATR)", minval = 0, step = 0.1, group = "Filters", tooltip = "The leg is the distance from the old swing to the new extreme. A touch does not count as a valid pullback while the leg is below this. 0 disables.")
+maxLegAtrInput = input.float(3.0, "Maximum leg (x ATR)", minval = 0, step = 0.1, group = "Filters", tooltip = "A touch does not count as a valid pullback while the leg is above this. 0 disables.")
+requireCloseBackInput = input.bool(true, "Require close back inside on touch or next bar", group = "Filters", tooltip = "The touch candle, or the one after it, must close on the trade side of the old level before the pullback is valid. Off = a wick touch is enough.")
+maxRetestBarsInput = input.int(24, "Retest expiry (bars after valid pullback)", minval = 0, maxval = 500, group = "Filters", tooltip = "Invalidate a setup if the new extreme has not been broken on a close within this many bars of the valid pullback. 0 disables.")
+
+useSessionInput = input.bool(true, "Only open new setups inside session", group = "Filters", tooltip = "When on, an initial break outside the session window below does not start a setup. Setups that are already running keep advancing, retesting and confirming outside the window.")
+sessionInput = input.session("0935-1530", "Session (exchange time)", group = "Filters", tooltip = "Window for new initial breaks, in the exchange's time zone (New York for US equities). Default skips the first 5 minutes and the last 30.")
+
+enableAlertFuncInput = input.bool(true, "Send alert() JSON payloads", group = "Alerts", tooltip = "Fires alert() with a JSON message on each enabled event. To use it, create one alert on this indicator with condition 'Any alert() function call'. The message carries ticker, event, price, reference, target, T2, plan stop, touch count and leg size, ready for a webhook. The classic alertcondition() entries still exist for simple alerts.")
+alertOnPullbackInput = input.bool(true, "alert() on valid pullback", group = "Alerts", tooltip = "Event name: bull_pullback / bear_pullback. This is the Model A (retest entry) trigger.")
+alertOnBosInput = input.bool(true, "alert() on confirmed BOS", group = "Alerts", tooltip = "Event name: bull_bos / bear_bos. This is the Model B (confirmation entry) trigger.")
+alertOnInvalidInput = input.bool(true, "alert() on invalidation after pullback", group = "Alerts", tooltip = "Event name: bull_invalidated / bear_invalidated. Fires only for setups that had already printed a valid pullback: a close through the old level beyond tolerance, retest expiry, max age, or an opposite-direction break.")
+alertOnOpenInput = input.bool(false, "alert() on setup opened", group = "Alerts", tooltip = "Event name: bull_setup / bear_setup. Fires on the initial break, before any retest. Off by default because it is noisy; useful for a watchlist feed.")
+alertTagInput = input.string("", "Alert tag", group = "Alerts", tooltip = "Optional free text added to every alert() payload as the \"tag\" field, for routing in n8n or TradersPost (for example an account name or strategy id).")
+
+showDevelopingInput = input.bool(true, "Show developing levels", group = "Style", tooltip = "Show old swing and new extreme levels while waiting for a valid retest and final break. When off, lines are drawn only once a setup confirms.")
+showPullbackTextInput = input.bool(true, "Show valid-pullback text", group = "Style", tooltip = "Print the 'Valid Pullback' label at the old level as soon as a qualifying retest is confirmed. The label also shows the touch count and the leg size in ATRs.")
+showTouchCircleInput = input.bool(true, "Mark the qualifying retest touch", group = "Style", tooltip = "Draw a large circle on the old level at the candle whose touch made the pullback valid.")
+showAllTouchesInput = input.bool(true, "Mark every touch of the old level", group = "Style", tooltip = "Small dim markers on every candle whose range crosses the old level, qualifying or not. A level hit many times is being tested, not respected.")
+showTargetsInput = input.bool(true, "Draw T2 and plan stop on confirmation", group = "Style", tooltip = "T2 = new extreme plus one leg (measured move). Plan stop = one tick beyond the retest candle's extreme or the tolerance line, whichever is further from entry.")
+targetExtendInput = input.int(20, "Target / stop line length (bars)", minval = 1, maxval = 200, group = "Style", tooltip = "How far to the right the T2 and plan-stop lines extend from the confirmation bar.")
+showStatsInput = input.bool(true, "Show stats table", group = "Style", tooltip = "Top-right table: setups opened, valid pullbacks, confirmed BOS (with rate), failed after pullback, and median bars from retest to confirmation. Counts cover the loaded chart history.")
+referenceColorInput = input.color(#EAEAEA, "Previous high / low", group = "Style", tooltip = "Color of the old structural swing that must be retested. Turns to the signal color and dashes once the retest is valid.")
+bullColorInput = input.color(#7CFC00, "Bullish BOS / check", group = "Style", tooltip = "Color of bullish levels, touch markers, labels and T2.")
+bearColorInput = input.color(#f23645, "Bearish BOS / check", group = "Style", tooltip = "Color of bearish levels, touch markers, labels and T2.")
+stopColorInput = input.color(#ff9800, "Plan stop", group = "Style", tooltip = "Color of the plan-stop line drawn on confirmation.")
+
+// ============================================================================
+// Setup data: each initial break runs independently
+// ============================================================================
+type BosSetup
+    int direction
+    int stage
+    int startBar
+    int referenceTime
+    int extremeTime
+    int retestTime
+    float reference
+    float target
+    bool extremeConfirmed
+    line referenceLine
+    line targetLine
+    label pullbackLabel = na
+    label touchCircleLabel = na
+    int cleanBars = 0
+    int extremeBar = na
+    int retestBar = na
+    int pendingTouchBar = na
+    float touchExtreme = na
+    int touchCount = 0
+
+var array<BosSetup> activeSetupsArray = array.new<BosSetup>()
+var array<float> highValuesArray = array.new<float>()
+var array<int> highBarsArray = array.new<int>()
+var array<int> highTimesArray = array.new<int>()
+var array<float> lowValuesArray = array.new<float>()
+var array<int> lowBarsArray = array.new<int>()
+var array<int> lowTimesArray = array.new<int>()
+// Confirmed BOS extremes are retired: the same swing can never become a new pullback reference.
+var array<int> retiredHighTimesArray = array.new<int>()
+var array<int> retiredLowTimesArray = array.new<int>()
+var array<float> retiredHighLevelsArray = array.new<float>()
+var array<float> retiredLowLevelsArray = array.new<float>()
+var array<int> retiredHighBarsArray = array.new<int>()
+var array<int> retiredLowBarsArray = array.new<int>()
+
+// Stats
+var int statOpened = 0
+var int statPullbacks = 0
+var int statConfirmed = 0
+var int statFailedAfterPullback = 0
+var array<int> retestToConfirmArray = array.new<int>()
+
+// ============================================================================
+// Helpers
+// ============================================================================
+// Tick-tolerant membership test, safer than exact float equality on prices.
+levelListed(array<float> levels, float level) =>
+    bool found = false
+    int count = array.size(levels)
+    if count > 0
+        for index = 0 to count - 1
+            if math.abs(array.get(levels, index) - level) <= syminfo.mintick / 2
+                found := true
+    found
+
+markTouch(int direction, float level, bool qualifying) =>
+    color baseColor = direction == 1 ? bullColorInput : bearColorInput
+    label.new(time, level, qualifying ? "○" : "·", xloc = xloc.bar_time, yloc = yloc.price, style = label.style_circle, color = color.new(baseColor, qualifying ? 65 : 85), textcolor = color.new(baseColor, qualifying ? 0 : 40), size = qualifying ? size.large : size.tiny)
+
+// ============================================================================
+// Per-bar values
+// ============================================================================
+float highPivot = ta.pivothigh(high, leftBarsInput, rightBarsInput)
+float lowPivot = ta.pivotlow(low, leftBarsInput, rightBarsInput)
+float atrValue = nz(ta.atr(atrLengthInput), high - low)
+float touchAllowance = toleranceModeInput == "Ticks" ? touchTicksInput * syminfo.mintick : toleranceModeInput == "Percent of price" ? close * tolerancePctInput / 100 : atrValue * toleranceAtrInput
+float minExtension = toleranceModeInput == "Ticks" ? minExtensionTicksInput * syminfo.mintick : toleranceModeInput == "Percent of price" ? close * minExtensionPctInput / 100 : atrValue * minExtensionAtrInput
+bool inSession = not useSessionInput or not na(time(timeframe.period, sessionInput))
+
+// Plan stop: one tick beyond the retest candle's extreme or the tolerance line, whichever is further from entry.
+planStopLevel(int direction, float reference, float touchExtreme) =>
+    float toleranceLine = direction == 1 ? reference - touchAllowance : reference + touchAllowance
+    direction == 1 ? math.min(nz(touchExtreme, reference), toleranceLine) - syminfo.mintick : math.max(nz(touchExtreme, reference), toleranceLine) + syminfo.mintick
+
+// JSON payload for alert(); every number is formatted to the symbol's tick size.
+alertPayload(string event, int direction, float reference, float target, float touchExtreme, int touches) =>
+    float legSize = math.abs(target - reference)
+    float t2Level = direction == 1 ? target + legSize : target - legSize
+    float stopLevel = planStopLevel(direction, reference, touchExtreme)
+    string json = '{"ticker":"' + syminfo.ticker + '","exchange":"' + syminfo.prefix + '","setup":"valid_bos_pullback","event":"' + event + '"'
+    json += ',"direction":"' + (direction == 1 ? "long" : "short") + '"'
+    json += ',"price":' + str.tostring(close, format.mintick)
+    json += ',"reference":' + str.tostring(reference, format.mintick)
+    json += ',"target":' + str.tostring(target, format.mintick)
+    json += ',"t2":' + str.tostring(t2Level, format.mintick)
+    json += ',"stop":' + str.tostring(stopLevel, format.mintick)
+    json += ',"leg":' + str.tostring(legSize, format.mintick)
+    json += ',"leg_atr":' + str.tostring(atrValue > 0 ? legSize / atrValue : 0, "#.00")
+    json += ',"touches":' + str.tostring(touches)
+    json += ',"interval":"' + timeframe.period + '"'
+    json += ',"time":"' + str.format_time(time, "yyyy-MM-dd HH:mm", syminfo.timezone) + '"'
+    json += ',"tag":"' + alertTagInput + '"}'
+    json
+
+sendAlert(bool enabled, string event, int direction, float reference, float target, float touchExtreme, int touches) =>
+    if enableAlertFuncInput and enabled
+        alert(alertPayload(event, direction, reference, target, touchExtreme, touches), alert.freq_once_per_bar_close)
+
+bool bullBos = false
+bool bearBos = false
+bool bullPullback = false
+bool bearPullback = false
+bool bullInvalidated = false
+bool bearInvalidated = false
+
+if barstate.isconfirmed
+    if not na(highPivot)
+        array.push(highValuesArray, highPivot)
+        array.push(highBarsArray, bar_index - rightBarsInput)
+        array.push(highTimesArray, time[rightBarsInput])
+    if not na(lowPivot)
+        array.push(lowValuesArray, lowPivot)
+        array.push(lowBarsArray, bar_index - rightBarsInput)
+        array.push(lowTimesArray, time[rightBarsInput])
+    while array.size(highBarsArray) > 0 and bar_index - array.get(highBarsArray, 0) > swingLookbackInput
+        array.shift(highValuesArray)
+        array.shift(highBarsArray)
+        array.shift(highTimesArray)
+    while array.size(lowBarsArray) > 0 and bar_index - array.get(lowBarsArray, 0) > swingLookbackInput
+        array.shift(lowValuesArray)
+        array.shift(lowBarsArray)
+        array.shift(lowTimesArray)
+    while array.size(retiredHighBarsArray) > 0 and bar_index - array.get(retiredHighBarsArray, 0) > swingLookbackInput + rightBarsInput
+        array.shift(retiredHighBarsArray)
+        array.shift(retiredHighTimesArray)
+        array.shift(retiredHighLevelsArray)
+    while array.size(retiredLowBarsArray) > 0 and bar_index - array.get(retiredLowBarsArray, 0) > swingLookbackInput + rightBarsInput
+        array.shift(retiredLowBarsArray)
+        array.shift(retiredLowTimesArray)
+        array.shift(retiredLowLevelsArray)
+
+    // ------------------------------------------------------------------------
+    // Advance EVERY candidate
+    // ------------------------------------------------------------------------
+    int activeCount = array.size(activeSetupsArray)
+    if activeCount > 0
+        for step = 0 to activeCount - 1
+            int index = activeCount - 1 - step
+            BosSetup setup = array.get(activeSetupsArray, index)
+            bool invalid = bar_index - setup.startBar > maxWaitInput
+            bool completed = false
+            float legSize = math.abs(setup.target - setup.reference)
+            bool legOk = (minLegAtrInput == 0 or legSize >= minLegAtrInput * atrValue) and (maxLegAtrInput == 0 or legSize <= maxLegAtrInput * atrValue)
+            bool touchedOldLevel = low <= setup.reference and high >= setup.reference
+            if setup.stage == 2 and maxRetestBarsInput > 0 and bar_index - setup.retestBar > maxRetestBarsInput
+                invalid := true
+            if setup.direction == 1
+                invalid := invalid or close < setup.reference - touchAllowance
+                if not invalid
+                    if setup.stage == 1
+                        if na(setup.extremeBar)
+                            setup.extremeBar := setup.startBar
+                        if high > setup.target
+                            setup.target := high
+                            setup.extremeTime := time
+                            setup.extremeBar := bar_index
+                            setup.extremeConfirmed := false
+                            if showDevelopingInput
+                                line.set_x1(setup.targetLine, time)
+                                line.set_y1(setup.targetLine, high)
+                                line.set_y2(setup.targetLine, high)
+                        if bar_index - setup.extremeBar >= rightBarsInput
+                            setup.extremeConfirmed := true
+                        bool qualifies = touchedOldLevel and setup.extremeConfirmed and setup.cleanBars >= minUntouchedBarsInput and legOk
+                        bool pendingNow = not na(setup.pendingTouchBar) and bar_index == setup.pendingTouchBar + 1
+                        if touchedOldLevel
+                            setup.touchCount += 1
+                            if showAllTouchesInput and not qualifies
+                                markTouch(1, setup.reference, false)
+                        if qualifies or pendingNow
+                            bool closeOk = not requireCloseBackInput or close > setup.reference
+                            if closeOk
+                                bool fromPending = not qualifies
+                                setup.stage := 2
+                                setup.retestBar := fromPending ? setup.pendingTouchBar : bar_index
+                                setup.retestTime := fromPending ? time[1] : time
+                                setup.touchExtreme := fromPending ? math.min(low, low[1]) : low
+                                setup.pendingTouchBar := na
+                                bullPullback := true
+                                statPullbacks += 1
+                                sendAlert(alertOnPullbackInput, "bull_pullback", 1, setup.reference, setup.target, setup.touchExtreme, setup.touchCount)
+                                string legText = str.tostring(legSize / atrValue, "#.0")
+                                if showPullbackTextInput
+                                    setup.pullbackLabel := label.new(setup.referenceTime, setup.reference, "Valid Pullback · touch " + str.tostring(setup.touchCount) + " · leg " + legText + " ATR", xloc = xloc.bar_time, yloc = yloc.price, style = label.style_label_right, color = #00000000, textcolor = bullColorInput, size = size.small)
+                                if showTouchCircleInput
+                                    setup.touchCircleLabel := label.new(setup.retestTime, setup.reference, "○", xloc = xloc.bar_time, yloc = yloc.price, style = label.style_circle, color = color.new(bullColorInput, 65), textcolor = bullColorInput, size = size.large)
+                                if showDevelopingInput
+                                    line.set_x2(setup.referenceLine, time)
+                                    line.set_color(setup.referenceLine, bullColorInput)
+                                    line.set_style(setup.referenceLine, line.style_dashed)
+                            else if qualifies
+                                setup.pendingTouchBar := bar_index
+                            else
+                                setup.pendingTouchBar := na
+                        setup.cleanBars := touchedOldLevel ? 0 : setup.cleanBars + 1
+                    else
+                        if touchedOldLevel
+                            setup.touchCount += 1
+                            if showAllTouchesInput
+                                markTouch(1, setup.reference, false)
+                        if close > setup.target
+                            completed := true
+                            bullBos := true
+            else
+                invalid := invalid or close > setup.reference + touchAllowance
+                if not invalid
+                    if setup.stage == 1
+                        if na(setup.extremeBar)
+                            setup.extremeBar := setup.startBar
+                        if low < setup.target
+                            setup.target := low
+                            setup.extremeTime := time
+                            setup.extremeBar := bar_index
+                            setup.extremeConfirmed := false
+                            if showDevelopingInput
+                                line.set_x1(setup.targetLine, time)
+                                line.set_y1(setup.targetLine, low)
+                                line.set_y2(setup.targetLine, low)
+                        if bar_index - setup.extremeBar >= rightBarsInput
+                            setup.extremeConfirmed := true
+                        bool qualifies = touchedOldLevel and setup.extremeConfirmed and setup.cleanBars >= minUntouchedBarsInput and legOk
+                        bool pendingNow = not na(setup.pendingTouchBar) and bar_index == setup.pendingTouchBar + 1
+                        if touchedOldLevel
+                            setup.touchCount += 1
+                            if showAllTouchesInput and not qualifies
+                                markTouch(-1, setup.reference, false)
+                        if qualifies or pendingNow
+                            bool closeOk = not requireCloseBackInput or close < setup.reference
+                            if closeOk
+                                bool fromPending = not qualifies
+                                setup.stage := 2
+                                setup.retestBar := fromPending ? setup.pendingTouchBar : bar_index
+                                setup.retestTime := fromPending ? time[1] : time
+                                setup.touchExtreme := fromPending ? math.max(high, high[1]) : high
+                                setup.pendingTouchBar := na
+                                bearPullback := true
+                                statPullbacks += 1
+                                sendAlert(alertOnPullbackInput, "bear_pullback", -1, setup.reference, setup.target, setup.touchExtreme, setup.touchCount)
+                                string legText = str.tostring(legSize / atrValue, "#.0")
+                                if showPullbackTextInput
+                                    setup.pullbackLabel := label.new(setup.referenceTime, setup.reference, "Valid Pullback · touch " + str.tostring(setup.touchCount) + " · leg " + legText + " ATR", xloc = xloc.bar_time, yloc = yloc.price, style = label.style_label_right, color = #00000000, textcolor = bearColorInput, size = size.small)
+                                if showTouchCircleInput
+                                    setup.touchCircleLabel := label.new(setup.retestTime, setup.reference, "○", xloc = xloc.bar_time, yloc = yloc.price, style = label.style_circle, color = color.new(bearColorInput, 65), textcolor = bearColorInput, size = size.large)
+                                if showDevelopingInput
+                                    line.set_x2(setup.referenceLine, time)
+                                    line.set_color(setup.referenceLine, bearColorInput)
+                                    line.set_style(setup.referenceLine, line.style_dashed)
+                            else if qualifies
+                                setup.pendingTouchBar := bar_index
+                            else
+                                setup.pendingTouchBar := na
+                        setup.cleanBars := touchedOldLevel ? 0 : setup.cleanBars + 1
+                    else
+                        if touchedOldLevel
+                            setup.touchCount += 1
+                            if showAllTouchesInput
+                                markTouch(-1, setup.reference, false)
+                        if close < setup.target
+                            completed := true
+                            bearBos := true
+            if invalid
+                if setup.stage == 2
+                    statFailedAfterPullback += 1
+                    if setup.direction == 1
+                        bullInvalidated := true
+                    else
+                        bearInvalidated := true
+                    sendAlert(alertOnInvalidInput, setup.direction == 1 ? "bull_invalidated" : "bear_invalidated", setup.direction, setup.reference, setup.target, setup.touchExtreme, setup.touchCount)
+                if not na(setup.pullbackLabel)
+                    label.delete(setup.pullbackLabel)
+                if not na(setup.touchCircleLabel)
+                    label.delete(setup.touchCircleLabel)
+                if showDevelopingInput
+                    line.delete(setup.referenceLine)
+                    line.delete(setup.targetLine)
+                array.remove(activeSetupsArray, index)
+            else if completed
+                color signalColor = setup.direction == 1 ? bullColorInput : bearColorInput
+                statConfirmed += 1
+                array.push(retestToConfirmArray, bar_index - setup.retestBar)
+                sendAlert(alertOnBosInput, setup.direction == 1 ? "bull_bos" : "bear_bos", setup.direction, setup.reference, setup.target, setup.touchExtreme, setup.touchCount)
+                if setup.direction == 1
+                    array.push(retiredHighTimesArray, setup.extremeTime)
+                    array.push(retiredHighLevelsArray, setup.target)
+                    array.push(retiredHighBarsArray, bar_index)
+                else
+                    array.push(retiredLowTimesArray, setup.extremeTime)
+                    array.push(retiredLowLevelsArray, setup.target)
+                    array.push(retiredLowBarsArray, bar_index)
+                if not showDevelopingInput
+                    setup.referenceLine := line.new(setup.referenceTime, setup.reference, setup.retestTime, setup.reference, xloc = xloc.bar_time, color = signalColor, style = line.style_dashed, width = 2)
+                    setup.targetLine := line.new(setup.extremeTime, setup.target, time, setup.target, xloc = xloc.bar_time, color = signalColor, width = 2)
+                else
+                    line.set_x2(setup.targetLine, time)
+                    line.set_style(setup.targetLine, line.style_solid)
+                label.new(setup.extremeTime, setup.target, "✓", xloc = xloc.bar_time, yloc = yloc.price, style = setup.direction == 1 ? label.style_label_down : label.style_label_up, color = signalColor, textcolor = chart.bg_color, size = size.small)
+                if showTargetsInput
+                    float t2Level = setup.direction == 1 ? setup.target + legSize : setup.target - legSize
+                    float planStop = planStopLevel(setup.direction, setup.reference, setup.touchExtreme)
+                    line.new(bar_index, t2Level, bar_index + targetExtendInput, t2Level, xloc = xloc.bar_index, color = signalColor, style = line.style_dotted, width = 1)
+                    label.new(bar_index + targetExtendInput, t2Level, "T2 " + str.tostring(t2Level, format.mintick), xloc = xloc.bar_index, yloc = yloc.price, style = label.style_label_left, color = #00000000, textcolor = signalColor, size = size.small)
+                    line.new(bar_index, planStop, bar_index + targetExtendInput, planStop, xloc = xloc.bar_index, color = stopColorInput, style = line.style_dotted, width = 1)
+                    label.new(bar_index + targetExtendInput, planStop, "Stop " + str.tostring(planStop, format.mintick), xloc = xloc.bar_index, yloc = yloc.price, style = label.style_label_left, color = #00000000, textcolor = stopColorInput, size = size.small)
+                array.remove(activeSetupsArray, index)
+            else
+                if showDevelopingInput
+                    if setup.stage == 1
+                        line.set_x2(setup.referenceLine, time)
+                    line.set_x2(setup.targetLine, time)
+                array.set(activeSetupsArray, index, setup)
+
+    // A level just confirmed as a BOS cannot remain the white reference of another live setup.
+    int remainingCount = array.size(activeSetupsArray)
+    if remainingCount > 0
+        for step = 0 to remainingCount - 1
+            int index = remainingCount - 1 - step
+            BosSetup pending = array.get(activeSetupsArray, index)
+            bool retiredReference = pending.direction == 1 ? levelListed(retiredHighLevelsArray, pending.reference) : levelListed(retiredLowLevelsArray, pending.reference)
+            if retiredReference
+                if pending.stage == 2
+                    statFailedAfterPullback += 1
+                    if pending.direction == 1
+                        bullInvalidated := true
+                    else
+                        bearInvalidated := true
+                    sendAlert(alertOnInvalidInput, pending.direction == 1 ? "bull_invalidated" : "bear_invalidated", pending.direction, pending.reference, pending.target, pending.touchExtreme, pending.touchCount)
+                if not na(pending.pullbackLabel)
+                    label.delete(pending.pullbackLabel)
+                if not na(pending.touchCircleLabel)
+                    label.delete(pending.touchCircleLabel)
+                if showDevelopingInput
+                    line.delete(pending.referenceLine)
+                    line.delete(pending.targetLine)
+                array.remove(activeSetupsArray, index)
+
+    // ------------------------------------------------------------------------
+    // Choose dominant confirmed swings for fresh initial breaks
+    // ------------------------------------------------------------------------
+    float previousHigh = na
+    float previousLow = na
+    int previousHighTime = na
+    int previousLowTime = na
+    if array.size(highValuesArray) > 0
+        for index = 0 to array.size(highValuesArray) - 1
+            float candidate = array.get(highValuesArray, index)
+            int candidateTime = array.get(highTimesArray, index)
+            if not array.includes(retiredHighTimesArray, candidateTime) and not levelListed(retiredHighLevelsArray, candidate) and (na(previousHigh) or candidate > previousHigh)
+                previousHigh := candidate
+                previousHighTime := candidateTime
+    if array.size(lowValuesArray) > 0
+        for index = 0 to array.size(lowValuesArray) - 1
+            float candidate = array.get(lowValuesArray, index)
+            int candidateTime = array.get(lowTimesArray, index)
+            if not array.includes(retiredLowTimesArray, candidateTime) and not levelListed(retiredLowLevelsArray, candidate) and (na(previousLow) or candidate < previousLow)
+                previousLow := candidate
+                previousLowTime := candidateTime
+
+    bool newBullSetup = inSession and not bullBos and not na(previousHigh) and time > previousHighTime and close > previousHigh + minExtension and close[1] <= previousHigh
+    bool newBearSetup = inSession and not bearBos and not na(previousLow) and time > previousLowTime and close < previousLow - minExtension and close[1] >= previousLow
+
+    // Missed-break catch: the dominant swing was confirmed on this bar, and price already closed through it
+    // during the confirmation window. Open the setup from the crossing bar instead of skipping the level.
+    int bullCrossOffset = na
+    int bearCrossOffset = na
+    if catchMissedBreaksInput and rightBarsInput > 1 and inSession
+        if not newBullSetup and not bullBos and not na(highPivot) and not na(previousHigh) and previousHighTime == time[rightBarsInput]
+            for offset = rightBarsInput - 1 to 1
+                if na(bullCrossOffset) and close[offset] > previousHigh + minExtension and close[offset + 1] <= previousHigh
+                    bullCrossOffset := offset
+            if not na(bullCrossOffset) and close >= previousHigh - touchAllowance
+                newBullSetup := true
+        if not newBearSetup and not bearBos and not na(lowPivot) and not na(previousLow) and previousLowTime == time[rightBarsInput]
+            for offset = rightBarsInput - 1 to 1
+                if na(bearCrossOffset) and close[offset] < previousLow - minExtension and close[offset + 1] >= previousLow
+                    bearCrossOffset := offset
+            if not na(bearCrossOffset) and close <= previousLow + touchAllowance
+                newBearSetup := true
+
+    // A prior setup's breakout level must not also become a new white reference line.
+    if array.size(activeSetupsArray) > 0
+        for index = 0 to array.size(activeSetupsArray) - 1
+            BosSetup pending = array.get(activeSetupsArray, index)
+            if pending.stage == 2 and pending.direction == 1 and not na(previousHigh) and math.abs(previousHigh - pending.target) <= syminfo.mintick
+                newBullSetup := false
+            if pending.stage == 2 and pending.direction == -1 and not na(previousLow) and math.abs(previousLow - pending.target) <= syminfo.mintick
+                newBearSetup := false
+
+    // A fresh structural break in the opposite direction cancels ALL unfinished setups from the prior trend.
+    int pendingCount = array.size(activeSetupsArray)
+    if (newBullSetup or newBearSetup) and pendingCount > 0
+        for step = 0 to pendingCount - 1
+            int index = pendingCount - 1 - step
+            BosSetup pending = array.get(activeSetupsArray, index)
+            if (newBullSetup and pending.direction == -1) or (newBearSetup and pending.direction == 1)
+                if pending.stage == 2
+                    statFailedAfterPullback += 1
+                    if pending.direction == 1
+                        bullInvalidated := true
+                    else
+                        bearInvalidated := true
+                    sendAlert(alertOnInvalidInput, pending.direction == 1 ? "bull_invalidated" : "bear_invalidated", pending.direction, pending.reference, pending.target, pending.touchExtreme, pending.touchCount)
+                if not na(pending.pullbackLabel)
+                    label.delete(pending.pullbackLabel)
+                if not na(pending.touchCircleLabel)
+                    label.delete(pending.touchCircleLabel)
+                if showDevelopingInput
+                    line.delete(pending.referenceLine)
+                    line.delete(pending.targetLine)
+                array.remove(activeSetupsArray, index)
+
+    if newBullSetup
+        // Extreme so far: the highest high since the crossing bar (just this bar when the cross is on this bar).
+        int startOffset = na(bullCrossOffset) ? 0 : bullCrossOffset
+        float extremeValue = high
+        int extremeOffset = 0
+        if startOffset > 0
+            for offset = 1 to startOffset
+                if high[offset] > extremeValue
+                    extremeValue := high[offset]
+                    extremeOffset := offset
+        line refLine = showDevelopingInput ? line.new(previousHighTime, previousHigh, time, previousHigh, xloc = xloc.bar_time, color = referenceColorInput, width = 2) : na
+        line highLine = showDevelopingInput ? line.new(time[extremeOffset], extremeValue, time, extremeValue, xloc = xloc.bar_time, color = bullColorInput, width = 2) : na
+        BosSetup fresh = BosSetup.new(1, 1, bar_index - startOffset, previousHighTime, time[extremeOffset], na, previousHigh, extremeValue, false, refLine, highLine)
+        fresh.extremeBar := bar_index - extremeOffset
+        // Bars already elapsed since the crossing count toward the clean-bar requirement when none of them touched.
+        if startOffset > 0
+            int clean = 0
+            for offset = startOffset - 1 to 0
+                bool touched = low[offset] <= previousHigh and high[offset] >= previousHigh
+                clean := touched ? 0 : clean + 1
+            fresh.cleanBars := clean
+        array.push(activeSetupsArray, fresh)
+        statOpened += 1
+        sendAlert(alertOnOpenInput, "bull_setup", 1, previousHigh, extremeValue, float(na), 0)
+    if newBearSetup
+        int startOffset = na(bearCrossOffset) ? 0 : bearCrossOffset
+        float extremeValue = low
+        int extremeOffset = 0
+        if startOffset > 0
+            for offset = 1 to startOffset
+                if low[offset] < extremeValue
+                    extremeValue := low[offset]
+                    extremeOffset := offset
+        line refLine = showDevelopingInput ? line.new(previousLowTime, previousLow, time, previousLow, xloc = xloc.bar_time, color = referenceColorInput, width = 2) : na
+        line lowLine = showDevelopingInput ? line.new(time[extremeOffset], extremeValue, time, extremeValue, xloc = xloc.bar_time, color = bearColorInput, width = 2) : na
+        BosSetup fresh = BosSetup.new(-1, 1, bar_index - startOffset, previousLowTime, time[extremeOffset], na, previousLow, extremeValue, false, refLine, lowLine)
+        fresh.extremeBar := bar_index - extremeOffset
+        if startOffset > 0
+            int clean = 0
+            for offset = startOffset - 1 to 0
+                bool touched = low[offset] <= previousLow and high[offset] >= previousLow
+                clean := touched ? 0 : clean + 1
+            fresh.cleanBars := clean
+        array.push(activeSetupsArray, fresh)
+        statOpened += 1
+        sendAlert(alertOnOpenInput, "bear_setup", -1, previousLow, extremeValue, float(na), 0)
+
+// ============================================================================
+// Stats table
+// ============================================================================
+var table statsTable = showStatsInput ? table.new(position.top_right, 2, 6, bgcolor = color.new(chart.bg_color, 15), border_color = color.new(chart.fg_color, 80), border_width = 1) : na
+if showStatsInput and barstate.islast
+    int medianBars = array.size(retestToConfirmArray) > 0 ? int(array.median(retestToConfirmArray)) : na
+    float confirmRate = statPullbacks > 0 ? 100.0 * statConfirmed / statPullbacks : na
+    color textColor = chart.fg_color
+    table.cell(statsTable, 0, 0, "BOS Pullback v2", text_color = textColor, text_size = size.small, text_halign = text.align_left)
+    table.cell(statsTable, 1, 0, "", text_color = textColor, text_size = size.small)
+    table.cell(statsTable, 0, 1, "Setups opened", text_color = textColor, text_size = size.small, text_halign = text.align_left)
+    table.cell(statsTable, 1, 1, str.tostring(statOpened), text_color = textColor, text_size = size.small, text_halign = text.align_right)
+    table.cell(statsTable, 0, 2, "Valid pullbacks", text_color = textColor, text_size = size.small, text_halign = text.align_left)
+    table.cell(statsTable, 1, 2, str.tostring(statPullbacks), text_color = textColor, text_size = size.small, text_halign = text.align_right)
+    table.cell(statsTable, 0, 3, "Confirmed BOS", text_color = textColor, text_size = size.small, text_halign = text.align_left)
+    table.cell(statsTable, 1, 3, str.tostring(statConfirmed) + (na(confirmRate) ? "" : " (" + str.tostring(confirmRate, "#") + "%)"), text_color = textColor, text_size = size.small, text_halign = text.align_right)
+    table.cell(statsTable, 0, 4, "Failed after pullback", text_color = textColor, text_size = size.small, text_halign = text.align_left)
+    table.cell(statsTable, 1, 4, str.tostring(statFailedAfterPullback), text_color = textColor, text_size = size.small, text_halign = text.align_right)
+    table.cell(statsTable, 0, 5, "Median bars retest → BOS", text_color = textColor, text_size = size.small, text_halign = text.align_left)
+    table.cell(statsTable, 1, 5, na(medianBars) ? "-" : str.tostring(medianBars), text_color = textColor, text_size = size.small, text_halign = text.align_right)
+
+// ============================================================================
+// Hidden series: selectable as a source by other indicators, screeners and strategies
+// ============================================================================
+plot(bullBos ? 1 : 0, "Bull BOS confirmed", display = display.none)
+plot(bearBos ? 1 : 0, "Bear BOS confirmed", display = display.none)
+plot(bullPullback ? 1 : 0, "Bull valid pullback", display = display.none)
+plot(bearPullback ? 1 : 0, "Bear valid pullback", display = display.none)
+plot(bullInvalidated ? 1 : 0, "Bull setup invalidated after pullback", display = display.none)
+plot(bearInvalidated ? 1 : 0, "Bear setup invalidated after pullback", display = display.none)
+
+// ============================================================================
+// Classic alertcondition() entries: all fire on a confirmed close, never retroactively.
+// The alert() JSON payloads (Alerts group) are sent from the event sites above and are
+// picked up by one alert set to "Any alert() function call".
+// ============================================================================
+alertcondition(bullBos, "Bullish retest-confirmed BOS", "Bullish BOS on {{ticker}} @ {{close}}: old high retested, new high broken on a confirmed close.")
+alertcondition(bearBos, "Bearish retest-confirmed BOS", "Bearish BOS on {{ticker}} @ {{close}}: old low retested, new low broken on a confirmed close.")
+alertcondition(bullPullback, "Bullish valid pullback", "Bullish pullback on {{ticker}} @ {{close}}: old high retested. Watch for a close above the new high.")
+alertcondition(bearPullback, "Bearish valid pullback", "Bearish pullback on {{ticker}} @ {{close}}: old low retested. Watch for a close below the new low.")
+alertcondition(bullInvalidated, "Bullish setup invalidated after pullback", "Bullish setup on {{ticker}} invalidated @ {{close}}: closed through the old high, expired, or structure flipped.")
+alertcondition(bearInvalidated, "Bearish setup invalidated after pullback", "Bearish setup on {{ticker}} invalidated @ {{close}}: closed through the old low, expired, or structure flipped.")
+alertcondition(barstate.isconfirmed, "Test — Fires Every Bar", "🟢 TEST — plumbing works on {{ticker}} @ {{close}}")

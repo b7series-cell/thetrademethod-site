@@ -1,0 +1,889 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Linda Raschke's Trading Rules — get the main idea right | The Trade Method</title>
+<meta name="description" content="Linda Raschke's trading rules, from a long interview: read price instead of order flow, the volume spike test, get the main idea of the day right, pick exits in ATR (a trailing stop wins only about 15% of the time), all in all out, one even bet size, and when to cut size in a drawdown.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/linda-raschke.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Linda Raschke's Trading Rules — get the main idea right">
+<meta property="og:description" content="Linda Raschke's trading rules, from a long interview: read price instead of order flow, the volume spike test, get the main idea of the day right, pick exits in ATR (a trailing stop wins only about 15% of the time), all in all out, one even bet size, and when to cut size in a drawdown.">
+<meta property="og:url" content="https://thetrademethod.com/linda-raschke.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Linda Raschke's Trading Rules — get the main idea right">
+<meta name="twitter:description" content="Linda Raschke's trading rules, from a long interview: read price instead of order flow, the volume spike test, get the main idea of the day right, pick exits in ATR (a trailing stop wins only about 15% of the time), all in all out, one even bet size, and when to cut size in a drawdown.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Linda Raschke's Trading Rules — get the main idea right",
+ "name": "Linda Raschke's Trading Rules",
+ "description": "Linda Raschke's trading rules, from a long interview: read price instead of order flow, the volume spike test, get the main idea of the day right, pick exits in ATR (a trailing stop wins only about 15% of the time), all in all out, one even bet size, and when to cut size in a drawdown.",
+ "url": "https://thetrademethod.com/linda-raschke.html",
+ "mainEntityOfPage": "https://thetrademethod.com/linda-raschke.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-11",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* the six-losers table */
+  .dd td.neg { color:#ff6961; }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the four profit centers: four cards, or a stepper once js/raschke-anim.js runs */
+  .rr-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .sheet .rr-steps .stage, .sheet .rr-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .rr-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(4,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:12.5%; right:12.5%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .rr-steps.is-stepper .stage, .sheet .rr-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .rr-steps.is-stepper .stage .num { display:none; }
+  .sheet .rr-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .rr-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .rr-steps + .four { margin-top:28px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .rr-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .rr-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .rr-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .rr-steps { margin-top:24px; }
+  }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/raschke-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=19" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="linda-raschke">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; eight rules from Market Wizard Linda Raschke</p>
+      <h1>Get the Main Idea <span>Right</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Linda Raschke has day traded the S&amp;P since the day it listed and ran a $300 million fund. Her rules are plain: read price, not the tape. Know what kind of day it is. Bet the same every time, and pick your exits like an actuary.
+      <em>Get the main idea right, and that's 90% of the game.</em></p>
+      <div class="counts">
+        <div><b>80%</b><small>of volume spikes land on a prior swing point</small></div>
+        <div><b>15%</b><small>of the time a trailing stop is the best exit</small></div>
+        <div><b>1 unit</b><small>the same bet in every market</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">rules 1&ndash;2</div><div class="n">Read price, not the tape</div></div>
+    <div><div class="t">rule 3</div><div class="n">The main idea of the day</div></div>
+    <div><div class="t">rules 4&ndash;5</div><div class="n">Exits in ATR, all in, all out</div></div>
+    <div><div class="t">rules 6&ndash;7</div><div class="n">Even bets, drawdown rules</div></div>
+    <div><div class="t">rule 8</div><div class="n">Play the game for years</div></div>
+  </nav>
+
+  <div class="section-head" id="price">
+    <h2>1 &middot; Read price, not the tape</h2>
+    <p>Raschke's case against reading order flow is simple. If buyers are really stepping in, you'll see price lift on a plain bar chart. The biggest players hide what they're doing, and the tape is full of noise from algorithms.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>One watch</h3>
+          <ul>
+            <li>Her friend Richard Arms, who invented the Arms index, used to say: with one watch you always know what time it is. With two, you never do, because they never agree.</li>
+            <li>Moving averages and oscillators are built from the first and second derivatives of price. Price is always one step ahead of them.</li>
+            <li>Cut down to the few tools that actually help your pattern recognition.</li>
+          </ul>
+          <p class="why">For a model with a real statistical edge she says you'll do much better with ATR or percentage functions than with oscillators.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>You can't see the big players</h3>
+          <ul>
+            <li>Big funds disguise their moves. They go through multiple accounts and multiple firms, and keep tweaking and adjusting. "If you think you can read that, you're crazy."</li>
+            <li>A boring mutual fund can take two weeks just to cut a large position in half.</li>
+            <li>That's your edge, not theirs: you can get in and out without slippage, and they can't.</li>
+          </ul>
+          <p class="why">Don't play a guessing game about who's doing what. Too many players, on too many time frames.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Three up bars say the same thing</h4>
+        <p class="lead">"Wouldn't you just see the same thing on a bar chart?"</p>
+        <div class="pair">
+          <div class="care"><span class="k">the footprint</span><b>Aggressive buyers at the ask</b><p>Lots of numbers to process while you also manage risk.</p></div>
+          <div class="yes"><span class="k">the bar chart</span><b>Three bars up in a row</b><p>Even on a 5-minute chart, three consecutive up bars tell you there's an imbalance.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Volume depends on the clock</h4>
+        <p class="lead">Order flow is a fancy way of splitting up volume, and volume swings with the time of day, the day of the week and the season.</p>
+        <div class="calc">
+          <div class="row"><span>Session open, Asia open, Europe open</span><b>surge</b></div>
+          <div class="row"><span>Waiting on an economic report</span><b>dries up</b></div>
+          <div class="row"><span>Into the close</span><b>surge</b></div>
+          <div class="row"><span>Monday vs Tuesday and Wednesday</span><b>lighter</b></div>
+          <div class="row tot"><span>Start and end of a quarter</span><b>heavier</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="spike">
+    <h2>2 &middot; The volume spike test</h2>
+    <p>Her experiment for anyone who thinks they need the tape to see the big players. Take any intraday volume spike, drop down to the 1-minute chart, and see exactly where it came in.</p>
+  </div>
+  <section class="anim" data-rr-anim="spike" aria-label="Illustrative made-up 5-minute index future bars with volume: a swing high at 4,812.25, a volume spike three times normal, then the same spike on 1-minute bars landing on the bar that takes out the prior swing high, a short algorithmic push that stalls, and a tally of eight out of ten spikes on prior swing points.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Where did the volume come in?</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up bars showing a volume spike landing on a prior swing high."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>How to run it</h3>
+          <ul>
+            <li>Find an intraday volume spike on a 5-minute chart. Gold, crude oil, bonds, currencies, index futures and copper all show them.</li>
+            <li>Drop to a 1-minute chart and find the exact bar where the volume came in.</li>
+            <li>Look left. Is that bar taking out a previous intraday swing high or swing low?</li>
+          </ul>
+          <p class="why">Her estimate: about 80% of the time, it is.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>What it tells you</h3>
+          <ul>
+            <li>Lots of algorithms trigger off a channel high or a channel low getting penetrated. "It's so blatant and obvious."</li>
+            <li>The algo starts, price goes tick, tick, tick, and if it doesn't keep going by a set amount the algo goes flat so it doesn't get caught in a noise spike.</li>
+            <li>Off news reports the same thing happens even faster. That's a very dangerous time to get reactive.</li>
+          </ul>
+          <p class="why">The footprints show up at structural points you can mark in advance, on any chart.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Be grateful for the algos</h4>
+        <p class="lead">They provide the liquidity and volume you need. And they open up what she calls opportunistic trading.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">opportunistic</span><b>Wait in cash</b><p>Let one side get pulled offside, then step in and take advantage of it.</p></div>
+          <div class="care"><span class="k">misguided</span><b>Read every ping</b><p>Algorithms running strategies that last 5 seconds to 5 hours. You can't out-read that from your chair.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Not too tight a time frame</h4>
+        <p class="lead">"Look at a one minute stock chart. Tell me you can make sense of that." On too tight a time frame you're mostly in the noise. Use the 1-minute to check where a spike landed, not to hunt for trades.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="main-idea">
+    <h2>3 &middot; Get the main idea right</h2>
+    <p>Most traders obsess over entries. Raschke starts with the day: is it going to be a low-to-high day or a high-to-low day? Get that right, she says, and that's 90% of the game.</p>
+  </div>
+  <section class="anim" data-rr-anim="day" aria-label="Illustrative made-up daily and 10-minute bars: two high-to-low days, then today's first hour range from 4,752 to 4,766, a break above it, a trend day with two swings of 70 and 90 minutes, and a low-to-high daily bar.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Low-to-high day or high-to-low day?</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative made-up bars showing the two-day rhythm, the first hour range and a trend day."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Start with the day</h3>
+          <ul>
+            <li>Is there a trend for the day? Are we trading outside the first hour's range? "Trend for the day. That's your friend."</li>
+            <li>After two high-to-low days, the sellers have exhausted themselves: look for a low-to-high day. That's the rhythm from the Taylor trading technique she uses.</li>
+            <li>Then mind your initial trade location. Where you get in sets your risk.</li>
+          </ul>
+          <p class="why">The main idea first, the entry second.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Time-of-day habits</h3>
+          <ul>
+            <li>Breakout and range-expansion trades work best right off a session opening.</li>
+            <li>Crowds pay up too much off the open. In stocks you still see that opening bulge where everyone chases, and the move is over after the first 25 minutes.</li>
+            <li>On the floor, a counter-trend move came just before noon while traders went to lunch, and the afternoon could start the party again.</li>
+          </ul>
+          <p class="why">These tendencies come from human behavior, so they keep repeating.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Her day trading, in numbers</h4>
+        <p class="lead">Scalping to her means making a day trade, not going in and out all day.</p>
+        <div class="calc">
+          <div class="row"><span>S&amp;P swings on a typical day</span><b>2 to 3</b></div>
+          <div class="row"><span>How long each one lasts</span><b>60 to 90 min</b></div>
+          <div class="row"><span>Swings to catch</span><b>1 or 2</b></div>
+          <div class="row tot"><span>Trades a day</span><b>1 to 3</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Where the real money is</h4>
+        <p class="lead">Aberrations: huge gaps, insane volume, huge bars, or a relationship moving beyond its historical norm, like 30-year yields dropping below 5%. They're rare and hard to model, and that's where the gold is buried. In the meantime: play the game, don't lose money, and when the opening comes, stay with it.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="exits">
+    <h2>4 &middot; Pick the exit like an actuary</h2>
+    <p>Same entry, different exits, measured in average true range. Log which one would have been best on every trade and you're building an actuarial table, the way an insurance company works out life expectancy.</p>
+  </div>
+  <section class="anim" data-rr-anim="exits" aria-label="Illustrative made-up bars: a long at 4,900 with an ATR of 10 points, a small target of plus 5 hit in two bars, a large target of plus 30, a volatility trailing stop 2.5 ATR under the highest high that exits at 4,914 for plus 14, and a 12-bar time stop at plus 16, then a grid of 20 made-up trades where the trailing stop was best in 3, or 15%.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">One entry, four ways out</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative made-up trade with four exits measured in ATR."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Four exits, one ruler</h3>
+          <ul>
+            <li><b>Small target:</b> half an ATR, on whatever time frame you trade, even a daily chart.</li>
+            <li><b>Large target:</b> three ATRs, or a standard-deviation move.</li>
+            <li><b>Trail a stop:</b> for example a volatility stop 2.5 ATRs from the extreme.</li>
+            <li><b>Time stop:</b> hold for a set number of bars or days.</li>
+          </ul>
+          <p class="why">Most of the time, especially intraday, play for a small target, or a big one if the move is just starting.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Why the trail wins only about 15%</h3>
+          <ul>
+            <li>Everybody would like to trail a stop and catch the big move every time. On pure technical trading, she says, a trail is the best exit maybe 15% of the time.</li>
+            <li>Her team spent about two years modeling every trailing stop they could think of: parabolic, a moving average of the lows, Keltner and Bollinger bands, the chandelier stop, Wilder's volatility stop. One was best one quarter, another the next.</li>
+            <li>Her researcher's conclusion: on the best trades it doesn't matter which one you use. They all keep you in.</li>
+          </ul>
+          <p class="why">Easiest spots to trail: springs and traps, the false break that flushes everyone out and leaves a vacuum on the other side.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Breakout or fakeout?</h4>
+        <p class="lead">You can't know for certain. Manage it instead: know before you enter how much room you'll give it, and what failure looks like.</p>
+        <ul class="plain">
+          <li>Print the day's charts and circle where you got in and out.</li>
+          <li>Check each one: lunchtime with nobody around? A news event? A catalyst?</li>
+          <li>Measure how far the good trades went against you before they worked.</li>
+          <li>Turn that into a rule: a good trade shouldn't go beyond this point.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4>Not every breakout is a new high</h4>
+        <p class="lead">One of her favorites is a three-bar coil: three overlapping daily bars where everybody agrees on price. When price pulls out of it, one side is on the wrong side. A breakout can also be the impulse out of a little pattern at the end of an ABC move.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="all-in">
+    <h2>5 &middot; All in, all out</h2>
+    <p>Raschke rarely scales out. If there's a reason to take part of the position off, she says, there's a reason to take the whole thing off.</p>
+  </div>
+  <section class="anim" data-rr-anim="allout" aria-label="Illustrative made-up trades in R: a winner scaled out in five pieces at plus 0.5, 0.75, 1, 1.5 and 2R averages plus 1.15R while the all-out exit gets plus 2R; a loser stops all five pieces at minus 1R; over six trades scaling totals plus 0.45R and all in, all out totals plus 3R.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Scaled winners, full-size losers</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative made-up trades comparing scaling out with all in, all out."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Why she rarely scales</h3>
+          <ul>
+            <li>Traders scale out on the winners, but when they get hit with a stop they're clipped on the whole thing. "That does not make sense to me."</li>
+            <li>She puts a position on and holds it until she's all out. Then it's on to the next shuffle.</li>
+            <li>If you do scale, Perry Kaufman's math says to take the first three of five pieces close together, because the odds of the move lasting drop off fast. Then the fourth, then a runner.</li>
+          </ul>
+          <p class="why">Her rule is the same either way: a reason to exit part is a reason to exit all.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Dollars per time unit</h4>
+        <p class="lead">A phrase from a friend who traded volatility breakouts: the name of the game is making the most dollars in the least amount of time. Get in at structural points you can quantify, then let a target, a trail or a time stop decide when it's over.</p>
+      </div>
+      <div class="panel">
+        <h4>On this site</h4>
+        <div class="pair">
+          <div><span class="k">fundamentals</span><b><a class="more" href="/trailing-stops.html">Trailing Stop Exits</a></b><p>Four ways to trail, for the minority of trades where trailing wins.</p></div>
+          <div><span class="k">fundamentals</span><b><a class="more" href="/let-winners-run.html">Let Winners Run</a></b><p>The case for holding longer, with an ATR trail and key levels.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="bet-size">
+    <h2>6 &middot; Bet the same every time</h2>
+    <p>Raschke doesn't believe in varying her bet size. She doesn't know where the winners or the losers will be, and "the minute I start monkeying around with that, it's going to be Murphy's law."</p>
+  </div>
+  <section class="anim" data-rr-anim="unit" aria-label="Illustrative unit sizing: average daily dollar range per contract of 5,000 dollars for S&amp;P futures, 2,500 for gold, 1,250 for crude oil and 500 for corn, so one unit is 1, 2, 4 and 10 contracts; a 300,000 dollar account trades 3 units; next quarter corn's range rises to 625 dollars and crude's falls to 1,000, so the unit becomes 8 corn and 5 crude.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">10 corn contracts = 1 S&amp;P</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 500" role="img" aria-label="Illustrative unit sizing from the average daily dollar range of four markets."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Never vary the bet</h3>
+          <ul>
+            <li>"High conviction" implies a cognitive bias. She'd rather not lean on it.</li>
+            <li>Every market gets the same bet, worked out from its average daily range in dollars.</li>
+            <li>She recalculates the unit at the start of every quarter, and the unit grows when the account does.</li>
+          </ul>
+          <p class="why">During the day she never thinks about dollars: "This is the spot on the game board. Put on a unit. This is the spot to take it off."</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Know your weak spots</h3>
+          <ul>
+            <li>By her own account she's the worst at executing: she has bought the Swiss franc when it was supposed to be the S&amp;P.</li>
+            <li>So for years an assistant pushed the buttons. She just said: buy one unit of silver.</li>
+          </ul>
+          <p class="why">Build your process around what you're bad at instead of pretending you'll fix it mid-trade.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The unit, worked out</h4>
+        <p class="lead">Her example numbers. Redo it every quarter.</p>
+        <div class="calc">
+          <div class="row"><span>Corn: average daily range per contract</span><b>$500</b></div>
+          <div class="row"><span>S&amp;P: average daily range per contract</span><b>$5,000</b></div>
+          <div class="row"><span>Corn contracts per S&amp;P contract</span><b>10</b></div>
+          <div class="row tot"><span>Units when she managed money</span><b>about 1 per $100,000</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>The other view</h4>
+        <p class="lead">SMB's <a class="more" href="/dynamic-risk-sizing.html">Dynamic Risk Sizing</a> argues the opposite: press your A+ setups and coast your C trades. Raschke trades even units because she can't tell in advance which trades will win. Read both and pick the one you'll actually follow.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="drawdown">
+    <h2>7 &middot; In a drawdown, cut size, unless it's a system</h2>
+    <p>Two opposite schools, and both have sound math behind them. Which one applies depends on whether you're trading your judgment or a tested system.</p>
+  </div>
+  <section class="anim" data-rr-anim="drawdown" aria-label="Illustrative made-up equity curves in R: a discretionary trader hits four losses in a row, trades half size until the cause is found, then returns to full size; a mechanical system keeps the same size through six losses in a row and then makes plus 6R on the next trade.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Same streak, opposite rules</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 500" role="img" aria-label="Illustrative made-up equity curves for a discretionary trader and a system in a drawdown."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Discretionary: cut back</h3>
+          <ul>
+            <li>If you're a discretionary trader in a prolonged drawdown, something is wrong.</li>
+            <li>Maybe you're not getting enough sleep. Maybe there's been a regime change you haven't recognized. Maybe you're making unforced errors and getting sloppy. Maybe you should stop trading that market.</li>
+            <li>Cut back your size until you can regroup and figure out why the drawdown happened.</li>
+          </ul>
+          <p class="why">Find the cause, then go back to full size.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>System: hold your size</h3>
+          <ul>
+            <li>A tested system's drawdowns are part of the plan.</li>
+            <li>Cutting size in a drawdown is the last thing you want to do, because that's when it's about ready to spring and have a big win again.</li>
+          </ul>
+          <p class="why">The mistake is mixing the two: cutting a system mid-drawdown, or pressing on through a discretionary slump.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Size for six losers in a row</h4>
+        <p class="lead">"Everybody's going to have six losers in a row. That's a given." Here's what six straight losses cost at different risk levels, compounded.</p>
+        <table class="dd">
+          <thead><tr><th>Risk per trade</th><th>After six losers</th></tr></thead>
+          <tbody>
+            <tr><td>0.5%</td><td class="neg">&minus;3.0%</td></tr>
+            <tr><td>1%</td><td class="neg">&minus;5.9%</td></tr>
+            <tr><td>2%</td><td class="neg">&minus;11.4%</td></tr>
+            <tr><td>5%</td><td class="neg">&minus;26.5%</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel">
+        <h4>When it starts to bother you</h4>
+        <p class="lead">It shouldn't be that stressful. Under stress you start doing dumb things without noticing, so take a day or two off. And a 20% drawdown means very different things to someone whose account is a sliver of their net worth and someone with a mortgage and little cash.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="play">
+    <h2>8 &middot; Play the game</h2>
+    <p>Her fund ran four profit centers. In any given quarter a different one led, which gave her diversification she couldn't have planned. Click through them.</p>
+  </div>
+  <div class="rr-steps" data-rr-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>S&amp;P day trading</h3>
+          <ul>
+            <li>Her base. She traded the S&amp;P futures from the first day they listed.</li>
+            <li>One to three trades a day, trying to catch one or two of the 60-to-90-minute swings.</li>
+            <li>The edge came from knowing time-of-day behavior from her years as a floor trader.</li>
+          </ul>
+          <p class="why">"I know I can always go in and make a living S&amp;P day trading."</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>In one day, out the next</h3>
+          <ul>
+            <li>Volatility breakouts and the two-day rhythm: after two high-to-low days, look for a low-to-high day.</li>
+            <li>Is there a trend for the day? Are we outside the first hour's range?</li>
+            <li>Profitable trades get held another day or two. Losers become day trades.</li>
+          </ul>
+          <p class="why">The main idea of the day, turned into an overnight trade.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Daily and weekly setups</h3>
+          <ul>
+            <li>The weekly chart corrects back down, and the daily shows a buy divergence at the end of that swing.</li>
+            <li>Look for the correction on the higher time frame and a little loss of momentum on the lower one. It works on any pair of time frames.</li>
+          </ul>
+          <p class="why">Not 100% of the time, but "best risk-reward in the book."</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Seasonal trades</h3>
+          <ul>
+            <li>Some markets lean the same way at the same time of year. Her example: oats.</li>
+            <li>Grains have their own calendar of rollovers, crop reports and harvest seasonality.</li>
+          </ul>
+          <p class="why">Her book <i>Trading Sardines</i> is full of these stories.</p>
+        </div>
+      </section>
+  </div>
+  <div class="four six">
+    <div style="--tc:#2997ff"><span class="k">routine</span><h3>Homework the night before</h3><p>Write out the game plan: half an hour. In the morning, look at the overnight action and the gaps, add a few notes, and let the day roll.</p><small>Phone in the kitchen, door closed.</small></div>
+    <div style="--tc:#f4b942"><span class="k">signals</span><h3>No trades off intuition</h3><p>She's never made a trade off intuition. Every trade comes from a signal: a pattern or a condition.</p><small>What feels like a sixth sense is pattern recognition you've seen so many times you don't verbalize it.</small></div>
+    <div style="--tc:#64d2ff"><span class="k">flow</span><h3>Single-minded, not anxious</h3><p>Her best trading happens without thinking: up, test, reject, no volume up there, that was the top. You can't be in flow while you're anxious.</p><small>Flow is playing the game, whether you just won or just lost.</small></div>
+    <div style="--tc:#30d158"><span class="k">drill</span><h3>The paper drill</h3><p>Pick a simple volatility breakout system with a clear entry, exit and stop. Paper trade it in five markets, about two trades a week each, and write every result down.</p><small>Win, loss, win, loss: like flipping cards. It desensitizes you to both.</small></div>
+    <div style="--tc:#ff9f0a"><span class="k">tools</span><h3>AI for the grunt work</h3><p>AI is a huge time saver for research, modeling, statistics and coding to your broker's API.</p><small>For finding patterns, she says a chatbot alone won't do it: that takes models trained on clean data.</small></div>
+    <div style="--tc:#bf5af2"><span class="k">longevity</span><h3>Stay healthy, have fun</h3><p>Exercise, sleep and energy are what keep you in the best game for the next 50 years.</p><small>"Energy is the most precious resource there is."</small></div>
+  </div>
+
+  <div class="section-head" id="other-side">
+    <h2>Read the other side</h2>
+    <p>Raschke says it herself: there's no right or wrong way, only what gives you a profitable bottom line at the end of the year. These pages argue the opposite of some of her rules.</p>
+  </div>
+  <div class="four">
+    <a href="/order-flow.html" style="--tc:#ff9f0a"><span class="k">vs rules 1&ndash;2</span><h3>Order Flow for Beginners</h3><p>Trader Dale's case for reading the footprint, but only at a level you already marked.</p><small>Read &rsaquo;</small></a>
+    <a href="/dynamic-risk-sizing.html" style="--tc:#f4b942"><span class="k">vs rule 6</span><h3>Dynamic Risk Sizing</h3><p>Press the A+ trades, coast the C trades, instead of one even unit.</p><small>Read &rsaquo;</small></a>
+    <a href="/trailing-stops.html" style="--tc:#30d158"><span class="k">with rule 4</span><h3>Trailing Stop Exits</h3><p>Four trailing styles, for the trades where a trail is the right exit.</p><small>Read &rsaquo;</small></a>
+    <a href="/get-better-faster.html" style="--tc:#64d2ff"><span class="k">with rule 8</span><h3>Get Better Faster</h3><p>Compressed reps and film-style review: her paper drill, taken further.</p><small>Read &rsaquo;</small></a>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/caLSbXnkaj4" title="Linda Raschke interview (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the interview</h2>
+      <p>Linda Raschke on the Titans of Tomorrow channel: order flow, exits, bet size, drawdowns and how to last decades in the markets.</p>
+      <ol>
+        <li><b>3:27</b>Why the best funds hold trades under 24 hours</li>
+        <li><b>8:21</b>Can you see what big money is doing?</li>
+        <li><b>14:30</b>Order flow, and the test to try instead</li>
+        <li><b>20:35</b>Can retail traders beat the algos?</li>
+        <li><b>29:49</b>Why trailing stops work only 15% of the time</li>
+        <li><b>34:06</b>Take profits or trail? All in, all out</li>
+        <li><b>38:10</b>The four profit centers</li>
+        <li><b>44:03</b>Why she never changes her bet size</li>
+        <li><b>50:26</b>Stress, and not knowing her net worth</li>
+        <li><b>55:44</b>Never a trade off intuition</li>
+        <li><b>1:00:28</b>Trading in a flow state</li>
+        <li><b>1:07:44</b>Breakout or fakeout?</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=caLSbXnkaj4" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Get the main idea right. Then play the game.</h2>
+      <p>Raschke's edge isn't a secret indicator. It's reading the day, betting the same every time, picking the exit that fits the trade, and staying in the game long enough for the rare big opportunities.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Price first. Three up bars say what the footprint says.</li>
+        <li>Volume spikes land on prior swing points about 80% of the time.</li>
+        <li>Low-to-high or high-to-low day? Outside the first hour's range?</li>
+        <li>Exits in ATR. A trail is the best exit only about 15% of the time.</li>
+        <li>All in, all out. One even unit in every market, reset each quarter.</li>
+        <li>Discretionary drawdown: cut size. System drawdown: hold it.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from Linda Raschke's interview on the Titans of Tomorrow YouTube channel: her views on order flow, the volume spike test, the main idea of the day, exits, scaling, bet size, drawdowns, her four profit centers and her routine. Sponsor segments are left out. Every bar, trade and account figure in the walkthroughs is made up for illustration. The numbers she gives are hers: about 80% of spikes on a swing point, half-ATR and three-ATR targets, a 2.5-ATR volatility stop, a trail being best about 15% of the time, $500 corn and $5,000 S&amp;P daily ranges, about one unit per $100,000, and 60-to-90-minute swings. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+/* candle-bg.css — the 3D candle fly-through (js/candle-bg.js), full width behind a setup page title.
+   Turned on by data-candle-bg="Level name" on the page's header.top. */
+body { overflow-x:clip; }
+.sheet .top[data-candle-bg] { position:relative; isolation:isolate; }
+.sheet .top[data-candle-bg] > :not(.cbg) { position:relative; z-index:1; }
+.cbg { position:absolute; z-index:0; pointer-events:none; left:calc(50% - 50vw); width:100vw; top:-120px; bottom:0;
+       -webkit-mask-image:linear-gradient(180deg, transparent 0, #000 90px, #000 calc(100% - 70px), transparent);
+               mask-image:linear-gradient(180deg, transparent 0, #000 90px, #000 calc(100% - 70px), transparent); }
+.cbg canvas { position:absolute; inset:0; width:100%; height:100%; display:block; }
+.cbg-scrim { position:absolute; inset:0; background:linear-gradient(90deg, #000 0%, rgba(0,0,0,.82) 30%, rgba(0,0,0,.25) 55%, transparent 72%); }
+.cbg-tag { position:absolute; left:0; top:0; display:flex; align-items:center; gap:8px; font-size:13px; color:#a1a1a6; white-space:nowrap;
+           padding:6px 12px 6px 10px; background:rgba(29,29,31,.72); border:1px solid rgba(41,151,255,.35); border-radius:980px;
+           opacity:0; transition:opacity .4s, border-color .4s, color .4s; will-change:transform; }
+.cbg-tag .dot { width:7px; height:7px; border-radius:50%; background:#2997ff; box-shadow:0 0 10px #2997ff; }
+.cbg-tag.broke { color:#fff; border-color:rgba(48,209,88,.6); }
+.cbg-tag.broke .dot { background:#30d158; box-shadow:0 0 12px #30d158; }
+.cbg-flash { position:absolute; inset:0; opacity:0; background:radial-gradient(ellipse at 72% 45%, rgba(48,209,88,.3), transparent 60%); }
+.cbg-flash.go { animation:cbgflash 1.4s ease-out; }
+@keyframes cbgflash { 0%{opacity:0} 12%{opacity:1} 100%{opacity:0} }
+@media (max-width:680px) {
+  .cbg-scrim { background:linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,.7) 45%, rgba(0,0,0,.9) 75%); }
+  .cbg-tag { display:none; }
+}
+@media print { .cbg { display:none; } }

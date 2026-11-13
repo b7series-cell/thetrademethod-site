@@ -1,0 +1,504 @@
+//@version=6
+indicator("GEX Levels — Paste-In", shorttitle = "GEX Levels", overlay = true, max_lines_count = 100, max_labels_count = 200)
+
+// ════════════════════════════════════════════════════════════════════════════
+// HOW TO USE
+// 1) Run gex_levels.py (or ask Claude) each morning → get a paste string.
+// 2) Paste into "Paste levels". One line per symbol, prefixed with the ticker:
+//        SPX:CW=7700;PW=7650;GF=7684;CW0=7700;PW0=7650
+//        MU:CW=1100;CW2=1150;PW=1000;PW2=980;GF=977
+//    Keys: CW, CW2, PW, PW2, GF, CW0 (0DTE call wall), PW0 (0DTE put wall)
+//    Optional: CONF=HIGH|GOOD|MED|LOW  (confidence, shown on every label)
+//              CWM, CW2M, PWM, PW2M, CW0M, PW0M = wall strength in $M per 1% move
+//    A line with no "TICKER:" prefix is used for any chart without its own line.
+// 3) The script picks the line matching the chart. ES/MES/SPY/XSP use the SPX
+//    line, NQ/MNQ/QQQ use the NDX line, and SPX strikes are converted to chart
+//    prices automatically (live ES–SPX basis for futures, SPY/SPX ratio for ETFs).
+// ════════════════════════════════════════════════════════════════════════════
+
+// ── Inputs: levels ──────────────────────────────────────────────────────────
+string G_LV = "Levels"
+string levelsTxt = input.text_area("SPX:CW=7700;PW=7650;GF=7684;CW0=7700;CONF=HIGH\nMU:CW=1100;CW2=1150;PW=1000;PW2=1050;GF=989.87;CONF=GOOD;CWM=105;PWM=49", "Paste levels", tooltip = "One line per symbol: TICKER:CW=..;PW=..;GF=..;CW0=..;PW0=..;CW2=..;PW2=..;CONF=HIGH;CWM=..;PWM=..  Use ; between keys. No thousands separators.", group = G_LV)
+string blockOverride = input.string("", "Force line (blank = auto)", tooltip = "Type a ticker prefix (e.g. SPX) to force which pasted line this chart uses.", group = G_LV)
+
+// ── Inputs: conversion ──────────────────────────────────────────────────────
+string G_CV = "Conversion (levels from another symbol)"
+string convMode = input.string("Auto", "Mode", options = ["Auto", "None", "Spread (futures)", "Ratio (ETF)"], tooltip = "Auto: futures → add live basis, ETFs → multiply by live ratio, same symbol → none.", group = G_CV)
+string srcSym = input.symbol("SP:SPX", "Levels underlying", tooltip = "Index the pasted strikes belong to. Use NASDAQ:NDX for NQ/QQQ.", group = G_CV)
+float manualAdj = input.float(0.0, "Manual basis / ratio (0 = live)", tooltip = "Spread mode: points to add (e.g. 62.56). Ratio mode: multiplier (e.g. 0.0998). 0 uses the live calculation.", group = G_CV)
+
+// ── Inputs: display ─────────────────────────────────────────────────────────
+string G_DS = "Display"
+bool showCW  = input.bool(true, "Call Wall",   inline = "a", group = G_DS)
+color cCW    = input.color(#FF5252, "",        inline = "a", group = G_DS)
+bool showPW  = input.bool(true, "Put Wall",    inline = "b", group = G_DS)
+color cPW    = input.color(#00E676, "",        inline = "b", group = G_DS)
+bool showGF  = input.bool(true, "Gamma Flip",  inline = "c", group = G_DS)
+color cGF    = input.color(#FFD600, "",        inline = "c", group = G_DS)
+bool show0   = input.bool(true, "0DTE walls",  inline = "d", group = G_DS)
+color c0CW   = input.color(#FF8A80, "",        inline = "d", group = G_DS)
+color c0PW   = input.color(#69F0AE, "",        inline = "d", group = G_DS)
+bool show2   = input.bool(true, "2nd walls",   inline = "e", group = G_DS)
+color c2CW   = input.color(#EF9A9A, "",        inline = "e", group = G_DS)
+color c2PW   = input.color(#A5D6A7, "",        inline = "e", group = G_DS)
+int lineW    = input.int(2, "Line width", minval = 1, maxval = 4, group = G_DS)
+string extOpt = input.string("Both", "Extend lines", options = ["Right", "Both"], group = G_DS)
+int lblOff   = input.int(8, "Label offset (bars)", minval = 0, maxval = 100, group = G_DS)
+bool showConv = input.bool(true, "Show converted price in labels", group = G_DS)
+bool showConf = input.bool(true, "Show confidence in labels", group = G_DS)
+bool showStr  = input.bool(true, "Show wall strength ($M) in labels", group = G_DS)
+bool fadeLow  = input.bool(true, "Fade LOW-confidence levels", group = G_DS)
+bool showBg  = input.bool(true, "Regime background (above / below flip)", group = G_DS)
+bool showTbl = input.bool(true, "Dashboard", group = G_DS)
+string tblPos = input.string("Top Right", "Dashboard position", options = ["Top Right", "Bottom Right", "Top Left", "Bottom Left"], group = G_DS)
+
+// ── Inputs: signals ─────────────────────────────────────────────────────────
+string G_SG = "Signals"
+string zoneMode = input.string("ATR", "Touch zone", options = ["ATR", "Points"], group = G_SG)
+float zoneMult  = input.float(0.25, "ATR multiple", step = 0.05, group = G_SG)
+float zonePts   = input.float(2.0, "Points", step = 0.25, group = G_SG)
+int coolBars    = input.int(6, "Cooldown (bars) per signal", minval = 0, group = G_SG)
+bool todayOnly  = input.bool(true, "Signals on today's session only", tooltip = "Levels are for today. Turn off to see how today's levels would have behaved on earlier bars (not a real backtest).", group = G_SG)
+bool useWin     = input.bool(true, "Limit to window", inline = "w", group = G_SG)
+string sessWin  = input.session("0930-1600", "", inline = "w", group = G_SG)
+bool sCWR = input.bool(true, "Call Wall rejection (short)", group = G_SG)
+bool sPWH = input.bool(true, "Put Wall hold (long)", group = G_SG)
+bool sGFL = input.bool(true, "Gamma Flip loss (short)", group = G_SG)
+bool sGFR = input.bool(true, "Gamma Flip reclaim (long)", group = G_SG)
+bool sRTF = input.bool(true, "Flip retest FAIL from below (short)", group = G_SG)
+bool sRTH = input.bool(true, "Flip retest HOLD from above (long)", group = G_SG)
+bool sCWB = input.bool(true, "Call Wall breakout (long)", group = G_SG)
+bool sPWB = input.bool(true, "Put Wall breakdown (short)", group = G_SG)
+
+// ── Inputs: volume-confirmed level signals (optional) ───────────────────────
+string G_VS = "Volume-confirmed level signals (optional)"
+bool useVS      = input.bool(false, "Enable volume reversal / break signals", tooltip = "REVERSAL: volume dries up into the level, then a higher-volume candle turns away from it.\nBREAK: a candle closes through the level on above-average volume.", group = G_VS)
+string vsSet    = input.string("Main (CW / PW / Flip)", "Levels to watch", options = ["Main (CW / PW / Flip)", "All (incl. 2nd + 0DTE)"], group = G_VS)
+bool vsRev      = input.bool(true, "Reversal signals", inline = "vt", group = G_VS)
+bool vsBrk      = input.bool(true, "Break signals", inline = "vt", group = G_VS)
+int volLen      = input.int(20, "Volume average length", minval = 2, group = G_VS)
+int touchBars   = input.int(5, "Approach window (bars)", minval = 2, maxval = 30, tooltip = "Bars in which price must have tested the level (within the touch zone).", group = G_VS)
+int dryBars     = input.int(3, "Dry-up bars", minval = 1, maxval = 10, tooltip = "Average volume of these bars (before the trigger bar) must be below the dry-up threshold.", group = G_VS)
+float dryMult   = input.float(0.8, "Dry-up threshold (× avg vol)", step = 0.05, group = G_VS)
+float revMult   = input.float(1.3, "Reversal bar volume (× avg vol)", step = 0.05, tooltip = "Turn bar must exceed this AND the previous bar's volume.", group = G_VS)
+float brkMult   = input.float(1.5, "Break bar volume (× avg vol)", step = 0.05, group = G_VS)
+float brkBody   = input.float(0.5, "Break bar min body (% of range)", minval = 0, maxval = 1, step = 0.05, tooltip = "0.5 = body must be at least half the candle's range (filters wicky fake breaks).", group = G_VS)
+
+// ── Inputs: alerts ──────────────────────────────────────────────────────────
+string G_AL = "Alerts (JSON webhook via alert())"
+bool useJson = input.bool(true, "Send JSON alert() for enabled signals", tooltip = "Create one alert with condition 'Any alert() function call'.", group = G_AL)
+
+// ════════════════════════════════════════════════════════════════════════════
+// PARSE THE PASTED TEXT (once)
+// ════════════════════════════════════════════════════════════════════════════
+f_family(string r) =>
+    switch r
+        "ES"  => "SPX"
+        "MES" => "SPX"
+        "SPY" => "SPX"
+        "XSP" => "SPX"
+        "NQ"  => "NDX"
+        "MNQ" => "NDX"
+        "QQQ" => "NDX"
+        => r
+
+f_confName(string s) =>
+    switch s
+        "H"      => "HIGH"
+        "HIGH"   => "HIGH"
+        "G"      => "GOOD"
+        "GOOD"   => "GOOD"
+        "M"      => "MED"
+        "MED"    => "MED"
+        "MEDIUM" => "MED"
+        "L"      => "LOW"
+        "LOW"    => "LOW"
+        => s
+
+f_confColor(string s) =>
+    switch s
+        "HIGH" => #00E676
+        "GOOD" => #4FC3F7
+        "MED"  => #FFD600
+        "LOW"  => #FF5252
+        => #787B86
+
+var float cwRaw  = na
+var float cw2Raw = na
+var float pwRaw  = na
+var float pw2Raw = na
+var float gfRaw  = na
+var float cw0Raw = na
+var float pw0Raw = na
+var float cwM  = na
+var float cw2M = na
+var float pwM  = na
+var float pw2M = na
+var float cw0M = na
+var float pw0M = na
+var string confTxt = ""
+var string lineName = ""
+var string mode = "None"
+
+if barstate.isfirst
+    string txt = str.replace_all(levelsTxt, "\n", "|")
+    txt := str.replace_all(txt, " ", "")
+    txt := str.replace_all(txt, ",", ";")
+    string tick = str.upper(syminfo.ticker)
+    string root = str.upper(syminfo.root)
+    string fam  = f_family(root)
+    string want = str.upper(str.replace_all(blockOverride, " ", ""))
+    string exact = ""
+    string exactName = ""
+    string famBody = ""
+    string forced = ""
+    string generic = ""
+    for b in str.split(txt, "|")
+        if str.length(b) == 0
+            continue
+        int colon = str.pos(b, ":")
+        int eq = str.pos(b, "=")
+        bool hasName = not na(colon) and (na(eq) or colon < eq)
+        if hasName
+            string nm = str.upper(str.substring(b, 0, colon))
+            string body = str.substring(b, colon + 1)
+            if want != "" and nm == want
+                forced := body
+            if nm == tick or nm == root
+                exact := body
+                exactName := nm
+            else if nm == fam and famBody == ""
+                famBody := body
+        else if generic == ""
+            generic := b
+    string use = ""
+    if forced != ""
+        use := forced
+        lineName := want
+    else if exact != ""
+        use := exact
+        lineName := exactName
+    else if famBody != ""
+        use := famBody
+        lineName := fam
+    else if generic != ""
+        use := generic
+        lineName := "(generic)"
+    for kv in str.split(use, ";")
+        array<string> p = str.split(kv, "=")
+        if array.size(p) == 2
+            string k = str.upper(array.get(p, 0))
+            string sv = array.get(p, 1)
+            if k == "CONF"
+                confTxt := f_confName(str.upper(sv))
+            else
+                float v = str.tonumber(sv)
+                switch k
+                    "CW"   => cwRaw  := v
+                    "CW2"  => cw2Raw := v
+                    "PW"   => pwRaw  := v
+                    "PW2"  => pw2Raw := v
+                    "GF"   => gfRaw  := v
+                    "CW0"  => cw0Raw := v
+                    "PW0"  => pw0Raw := v
+                    "CWM"  => cwM  := v
+                    "CW2M" => cw2M := v
+                    "PWM"  => pwM  := v
+                    "PW2M" => pw2M := v
+                    "CW0M" => cw0M := v
+                    "PW0M" => pw0M := v
+    // resolve conversion mode
+    bool foreign = lineName != "" and lineName != "(generic)" and lineName != tick and lineName != root
+    mode := switch convMode
+        "None"             => "None"
+        "Spread (futures)" => "Spread"
+        "Ratio (ETF)"      => "Ratio"
+        => foreign ? (syminfo.type == "futures" ? "Spread" : "Ratio") : "None"
+
+// ════════════════════════════════════════════════════════════════════════════
+// LIVE BASIS / RATIO
+// gaps_on → value only when the index prints a bar, so overnight futures bars
+// keep the last regular-session basis instead of using a stale index close.
+// ════════════════════════════════════════════════════════════════════════════
+float srcClose = request.security(srcSym, timeframe.period, close, gaps = barmerge.gaps_on, lookahead = barmerge.lookahead_off)
+var float basis = na
+var float ratio = na
+if not na(srcClose) and srcClose != 0
+    basis := close - srcClose
+    ratio := close / srcClose
+
+f_adj(float lvl) =>
+    float b = manualAdj != 0 ? manualAdj : basis
+    float r = manualAdj != 0 ? manualAdj : ratio
+    switch mode
+        "Spread" => lvl + b
+        "Ratio"  => lvl * r
+        => lvl
+
+float cw  = f_adj(cwRaw)
+float cw2 = f_adj(cw2Raw)
+float pw  = f_adj(pwRaw)
+float pw2 = f_adj(pw2Raw)
+float gf  = f_adj(gfRaw)
+float cw0 = f_adj(cw0Raw)
+float pw0 = f_adj(pw0Raw)
+
+// ════════════════════════════════════════════════════════════════════════════
+// DRAW LEVELS (rebuilt on the last bar so they follow the live basis)
+// ════════════════════════════════════════════════════════════════════════════
+var array<line>  lns = array.new<line>()
+var array<label> lbs = array.new<label>()
+
+f_draw(bool show, float raw, float y, string name, color c, string sty, float strengthM) =>
+    if show and not na(raw) and not na(y)
+        string ext = extOpt == "Both" ? extend.both : extend.right
+        color lc = fadeLow and confTxt == "LOW" ? color.new(c, 60) : c
+        array.push(lns, line.new(bar_index - 1, y, bar_index, y, color = lc, style = sty, width = lineW, extend = ext))
+        string conv = showConv and mode != "None" ? " → " + str.tostring(y, format.mintick) : ""
+        string cf   = showConf and confTxt != "" ? " · " + confTxt : ""
+        string st   = showStr and not na(strengthM) ? " · $" + str.tostring(math.abs(strengthM), "#,###") + "M" : ""
+        array.push(lbs, label.new(bar_index + lblOff, y, name + " " + str.tostring(raw) + conv + cf + st, color = lc, textcolor = #000000, style = label.style_label_left, size = size.small))
+
+if barstate.islast
+    for l in lns
+        line.delete(l)
+    for lb in lbs
+        label.delete(lb)
+    array.clear(lns)
+    array.clear(lbs)
+    f_draw(showCW, cwRaw,  cw,  "CALL WALL",   cCW,  line.style_solid,  cwM)
+    f_draw(show2,  cw2Raw, cw2, "CALL WALL 2", c2CW, line.style_dotted, cw2M)
+    f_draw(showGF, gfRaw,  gf,  "GAMMA FLIP",  cGF,  line.style_dashed, na)
+    f_draw(showPW, pwRaw,  pw,  "PUT WALL",    cPW,  line.style_solid,  pwM)
+    f_draw(show2,  pw2Raw, pw2, "PUT WALL 2",  c2PW, line.style_dotted, pw2M)
+    f_draw(show0,  cw0Raw, cw0, "0DTE CW",     c0CW, line.style_dashed, cw0M)
+    f_draw(show0,  pw0Raw, pw0, "0DTE PW",     c0PW, line.style_dashed, pw0M)
+
+// ════════════════════════════════════════════════════════════════════════════
+// REGIME + SIGNAL FILTERS
+// ════════════════════════════════════════════════════════════════════════════
+bool isToday = year(time_tradingday, "UTC") == year(timenow, syminfo.timezone) and month(time_tradingday, "UTC") == month(timenow, syminfo.timezone) and dayofmonth(time_tradingday, "UTC") == dayofmonth(timenow, syminfo.timezone)
+bool inWin   = not na(time(timeframe.period, sessWin, "America/New_York"))
+bool active  = barstate.isconfirmed and (not todayOnly or isToday) and (not useWin or inWin)
+
+bool bgOn = showBg and not na(gf) and (not todayOnly or isToday)
+bgcolor(bgOn ? (close > gf ? color.new(#00E676, 90) : color.new(#FF5252, 88)) : na, title = "Regime background")
+
+float atr  = ta.atr(14)
+float zone = zoneMode == "ATR" ? atr * zoneMult : zonePts
+
+// crosses computed every bar (v6 evaluates and/or lazily)
+bool xUpCW = ta.crossover(close, cw)
+bool xDnPW = ta.crossunder(close, pw)
+bool xDnGF = ta.crossunder(close, gf)
+bool xUpGF = ta.crossover(close, gf)
+
+// side of the flip on the previous confirmed bar (for retests)
+var int gfSide = 0
+int prevSide = gfSide
+if barstate.isconfirmed and not na(gf)
+    gfSide := close > gf ? 1 : -1
+
+bool rawCWR = active and not na(cw) and high >= cw - zone and close < cw and close < open
+bool rawPWH = active and not na(pw) and low <= pw + zone and close > pw and close > open
+bool rawGFL = active and not na(gf) and xDnGF
+bool rawGFR = active and not na(gf) and xUpGF
+bool rawRTF = active and not na(gf) and prevSide == -1 and high >= gf - zone and close < gf and close < open
+bool rawRTH = active and not na(gf) and prevSide == 1 and low <= gf + zone and close > gf and close > open
+bool rawCWB = active and not na(cw) and xUpCW
+bool rawPWB = active and not na(pw) and xDnPW
+
+f_cd(bool c) =>
+    int since = ta.barssince(c)[1]
+    c and (na(since) or since >= coolBars)
+
+bool cdCWR = f_cd(rawCWR)
+bool cdPWH = f_cd(rawPWH)
+bool cdGFL = f_cd(rawGFL)
+bool cdGFR = f_cd(rawGFR)
+bool cdRTF = f_cd(rawRTF)
+bool cdRTH = f_cd(rawRTH)
+bool cdCWB = f_cd(rawCWB)
+bool cdPWB = f_cd(rawPWB)
+
+bool sigCWR = sCWR and cdCWR
+bool sigPWH = sPWH and cdPWH
+bool sigGFL = sGFL and cdGFL
+bool sigGFR = sGFR and cdGFR
+bool sigRTF = sRTF and cdRTF
+bool sigRTH = sRTH and cdRTH
+bool sigCWB = sCWB and cdCWB
+bool sigPWB = sPWB and cdPWB
+
+plotshape(sigCWR, "Call Wall rejection", shape.triangledown, location.abovebar, #FF5252, text = "CW", textcolor = #FF5252, size = size.small)
+plotshape(sigPWH, "Put Wall hold",       shape.triangleup,   location.belowbar, #00E676, text = "PW", textcolor = #00E676, size = size.small)
+plotshape(sigGFL, "Flip loss",           shape.xcross,       location.abovebar, #FF9800, text = "GF↓", textcolor = #FF9800, size = size.tiny)
+plotshape(sigGFR, "Flip reclaim",        shape.xcross,       location.belowbar, #00BCD4, text = "GF↑", textcolor = #00BCD4, size = size.tiny)
+plotshape(sigRTF, "Flip retest fail",    shape.arrowdown,    location.abovebar, #FFD600, text = "RT↓", textcolor = #FFD600, size = size.normal)
+plotshape(sigRTH, "Flip retest hold",    shape.arrowup,      location.belowbar, #FFD600, text = "RT↑", textcolor = #FFD600, size = size.normal)
+plotshape(sigCWB, "Call Wall breakout",  shape.diamond,      location.belowbar, #E040FB, text = "CW⇧", textcolor = #E040FB, size = size.tiny)
+plotshape(sigPWB, "Put Wall breakdown",  shape.diamond,      location.abovebar, #E040FB, text = "PW⇩", textcolor = #E040FB, size = size.tiny)
+
+// ════════════════════════════════════════════════════════════════════════════
+// VOLUME-CONFIRMED LEVEL SIGNALS
+// REVERSAL ↓ : price tests the level from below while volume dries up, then a
+//              bearish candle closes back below it on expanding volume.
+// REVERSAL ↑ : mirror image from above.
+// BREAK ↑/↓  : candle closes through the level on above-average volume with a
+//              solid body.
+// ════════════════════════════════════════════════════════════════════════════
+float vAvg   = ta.sma(volume, volLen)
+float vShort = ta.sma(volume, dryBars)
+bool volOk   = not na(vAvg) and vAvg > 0
+bool dryUp   = volOk and vShort[1] < vAvg[1] * dryMult
+bool expand  = volOk and volume > vAvg * revMult and volume > volume[1]
+float rng    = high - low
+bool solid   = rng > 0 and math.abs(close - open) / rng >= brkBody
+
+f_vs(float lvl) =>
+    float hh  = ta.highest(high, touchBars)
+    float ll  = ta.lowest(low, touchBars)
+    float hc  = ta.highest(close, touchBars)
+    float lc  = ta.lowest(close, touchBars)
+    bool ok   = not na(lvl) and volOk
+    bool bUp  = ok and close > lvl and close[1] <= lvl[1] and close > open and solid and volume >= vAvg * brkMult
+    bool bDn  = ok and close < lvl and close[1] >= lvl[1] and close < open and solid and volume >= vAvg * brkMult
+    bool rDn  = ok and hh >= lvl - zone and hc <= lvl + zone and close < lvl and close < open and dryUp and expand and not bDn
+    bool rUp  = ok and ll <= lvl + zone and lc >= lvl - zone and close > lvl and close > open and dryUp and expand and not bUp
+    [rUp, rDn, bUp, bDn]
+
+[ruCW, rdCW, buCW, bdCW] = f_vs(cw)
+[ruPW, rdPW, buPW, bdPW] = f_vs(pw)
+[ruGF, rdGF, buGF, bdGF] = f_vs(gf)
+[ruC2, rdC2, buC2, bdC2] = f_vs(cw2)
+[ruP2, rdP2, buP2, bdP2] = f_vs(pw2)
+[ruC0, rdC0, buC0, bdC0] = f_vs(cw0)
+[ruP0, rdP0, buP0, bdP0] = f_vs(pw0)
+
+bool vsAll = vsSet == "All (incl. 2nd + 0DTE)"
+
+// first matching level name (priority: walls, flip, then 2nd / 0DTE)
+f_pick(bool a, bool b, bool c, bool d, bool e, bool f, bool g) =>
+    a ? "CALL WALL" : b ? "PUT WALL" : c ? "GAMMA FLIP" : not vsAll ? "" : d ? "CALL WALL 2" : e ? "PUT WALL 2" : f ? "0DTE CW" : g ? "0DTE PW" : ""
+
+string nmRU = f_pick(ruCW, ruPW, ruGF, ruC2, ruP2, ruC0, ruP0)
+string nmRD = f_pick(rdCW, rdPW, rdGF, rdC2, rdP2, rdC0, rdP0)
+string nmBU = f_pick(buCW, buPW, buGF, buC2, buP2, buC0, buP0)
+string nmBD = f_pick(bdCW, bdPW, bdGF, bdC2, bdP2, bdC0, bdP0)
+
+f_lvlOf(string nm) =>
+    switch nm
+        "CALL WALL"   => cw
+        "PUT WALL"    => pw
+        "GAMMA FLIP"  => gf
+        "CALL WALL 2" => cw2
+        "PUT WALL 2"  => pw2
+        "0DTE CW"     => cw0
+        "0DTE PW"     => pw0
+        => na
+
+bool rawVRU = useVS and vsRev and active and nmRU != ""
+bool rawVRD = useVS and vsRev and active and nmRD != ""
+bool rawVBU = useVS and vsBrk and active and nmBU != ""
+bool rawVBD = useVS and vsBrk and active and nmBD != ""
+
+bool sigVRU = f_cd(rawVRU)
+bool sigVRD = f_cd(rawVRD)
+bool sigVBU = f_cd(rawVBU)
+bool sigVBD = f_cd(rawVBD)
+
+plotshape(sigVRU, "Volume reversal up",   shape.labelup,   location.belowbar, #00E676, text = "VR↑", textcolor = #000000, size = size.small)
+plotshape(sigVRD, "Volume reversal down", shape.labeldown, location.abovebar, #FF5252, text = "VR↓", textcolor = #FFFFFF, size = size.small)
+plotshape(sigVBU, "Volume break up",      shape.labelup,   location.belowbar, #2962FF, text = "VB↑", textcolor = #FFFFFF, size = size.small)
+plotshape(sigVBD, "Volume break down",    shape.labeldown, location.abovebar, #FF9800, text = "VB↓", textcolor = #000000, size = size.small)
+
+// ════════════════════════════════════════════════════════════════════════════
+// DASHBOARD
+// ════════════════════════════════════════════════════════════════════════════
+string tPos = switch tblPos
+    "Top Right"    => position.top_right
+    "Bottom Right" => position.bottom_right
+    "Top Left"     => position.top_left
+    => position.bottom_left
+var table tb = table.new(tPos, 3, 10, bgcolor = #0B0F19, border_width = 1, border_color = #2A2E39)
+
+f_row(int r, string name, float raw, float y, color c) =>
+    string lvl = na(raw) ? "—" : str.tostring(raw) + (mode != "None" and not na(y) ? "  (" + str.tostring(y, format.mintick) + ")" : "")
+    string dist = na(y) ? "—" : str.tostring(y - close, format.mintick) + "  (" + str.tostring((y - close) / close * 100, "#.##") + "%)"
+    table.cell(tb, 0, r, name, text_color = c, text_size = size.small, text_halign = text.align_left)
+    table.cell(tb, 1, r, lvl, text_color = #D1D4DC, text_size = size.small)
+    table.cell(tb, 2, r, dist, text_color = #D1D4DC, text_size = size.small)
+
+if barstate.islast and showTbl
+    string hdr = lineName == "" ? "No levels for " + syminfo.ticker : "GEX · " + lineName + (mode == "None" ? "" : " · " + mode)
+    table.cell(tb, 0, 0, hdr, text_color = #FFFFFF, text_size = size.small, text_halign = text.align_left)
+    table.cell(tb, 1, 0, confTxt == "" ? "" : "Confidence", text_color = #787B86, text_size = size.small)
+    table.cell(tb, 2, 0, confTxt, text_color = f_confColor(confTxt), text_size = size.small)
+    string reg = na(gf) ? "No flip set" : close > gf ? "ABOVE FLIP · +γ (fade walls)" : "BELOW FLIP · −γ (trend / expand)"
+    table.cell(tb, 0, 1, reg, text_color = na(gf) ? #787B86 : close > gf ? #00E676 : #FF5252, text_size = size.small, text_halign = text.align_left)
+    f_row(2, "Call Wall",  cwRaw,  cw,  cCW)
+    f_row(3, "Call Wall 2", cw2Raw, cw2, c2CW)
+    f_row(4, "Gamma Flip", gfRaw,  gf,  cGF)
+    f_row(5, "Put Wall",   pwRaw,  pw,  cPW)
+    f_row(6, "Put Wall 2", pw2Raw, pw2, c2PW)
+    f_row(7, "0DTE CW",    cw0Raw, cw0, c0CW)
+    f_row(8, "0DTE PW",    pw0Raw, pw0, c0PW)
+    string adjTxt = switch mode
+        "Spread" => "Basis " + str.tostring(manualAdj != 0 ? manualAdj : basis, "#.##") + (manualAdj != 0 ? " (manual)" : " (live)")
+        "Ratio"  => "Ratio " + str.tostring(manualAdj != 0 ? manualAdj : ratio, "#.#####") + (manualAdj != 0 ? " (manual)" : " (live)")
+        => "No conversion"
+    table.cell(tb, 0, 9, adjTxt, text_color = #787B86, text_size = size.tiny, text_halign = text.align_left)
+
+// ════════════════════════════════════════════════════════════════════════════
+// ALERTS
+// ════════════════════════════════════════════════════════════════════════════
+alertcondition(sigCWR, "Call Wall rejection", "🔴 {{ticker}} rejected the Call Wall @ {{close}}")
+alertcondition(sigPWH, "Put Wall hold",       "🟢 {{ticker}} held the Put Wall @ {{close}}")
+alertcondition(sigGFL, "Gamma Flip loss",     "🟠 {{ticker}} lost the Gamma Flip @ {{close}} — negative gamma")
+alertcondition(sigGFR, "Gamma Flip reclaim",  "🔵 {{ticker}} reclaimed the Gamma Flip @ {{close}} — positive gamma")
+alertcondition(sigRTF, "Flip retest fail",    "🟡 {{ticker}} failed a Gamma Flip retest from below @ {{close}}")
+alertcondition(sigRTH, "Flip retest hold",    "🟡 {{ticker}} held a Gamma Flip retest from above @ {{close}}")
+alertcondition(sigCWB, "Call Wall breakout",  "🟣 {{ticker}} broke above the Call Wall @ {{close}}")
+alertcondition(sigPWB, "Put Wall breakdown",  "🟣 {{ticker}} broke below the Put Wall @ {{close}}")
+alertcondition(sigVRU, "Volume reversal UP",   "🟢 {{ticker}} volume-confirmed REVERSAL UP at a GEX level @ {{close}}")
+alertcondition(sigVRD, "Volume reversal DOWN", "🔴 {{ticker}} volume-confirmed REVERSAL DOWN at a GEX level @ {{close}}")
+alertcondition(sigVBU, "Volume break UP",      "🔵 {{ticker}} volume-confirmed BREAK UP through a GEX level @ {{close}}")
+alertcondition(sigVBD, "Volume break DOWN",    "🟠 {{ticker}} volume-confirmed BREAK DOWN through a GEX level @ {{close}}")
+alertcondition(barstate.isconfirmed, "Test — Fires Every Bar", "🟢 TEST — plumbing works on {{ticker}} @ {{close}}")
+
+f_json(string sig, string side, float lvl) =>
+    string reg = na(gf) ? "unknown" : close > gf ? "positive" : "negative"
+    '{"indicator":"GEX Levels","signal":"' + sig + '","side":"' + side + '","ticker":"' + syminfo.ticker + '","price":' + str.tostring(close) + ',"level":' + str.tostring(lvl, format.mintick) + ',"regime":"' + reg + '","confidence":"' + confTxt + '","time":' + str.tostring(time_close) + '}'
+
+if useJson
+    if sigCWR
+        alert(f_json("CALL_WALL_REJECT", "sell", cw), alert.freq_once_per_bar_close)
+    if sigPWH
+        alert(f_json("PUT_WALL_HOLD", "buy", pw), alert.freq_once_per_bar_close)
+    if sigGFL
+        alert(f_json("FLIP_LOSS", "sell", gf), alert.freq_once_per_bar_close)
+    if sigGFR
+        alert(f_json("FLIP_RECLAIM", "buy", gf), alert.freq_once_per_bar_close)
+    if sigRTF
+        alert(f_json("FLIP_RETEST_FAIL", "sell", gf), alert.freq_once_per_bar_close)
+    if sigRTH
+        alert(f_json("FLIP_RETEST_HOLD", "buy", gf), alert.freq_once_per_bar_close)
+    if sigCWB
+        alert(f_json("CALL_WALL_BREAK", "buy", cw), alert.freq_once_per_bar_close)
+    if sigPWB
+        alert(f_json("PUT_WALL_BREAK", "sell", pw), alert.freq_once_per_bar_close)
+
+f_vjson(string sig, string side, string nm) =>
+    string reg = na(gf) ? "unknown" : close > gf ? "positive" : "negative"
+    float vr = volOk ? volume / vAvg : na
+    '{"indicator":"GEX Levels","signal":"' + sig + '","side":"' + side + '","level_name":"' + nm + '","ticker":"' + syminfo.ticker + '","price":' + str.tostring(close) + ',"level":' + str.tostring(f_lvlOf(nm), format.mintick) + ',"vol_ratio":' + str.tostring(vr, "#.##") + ',"regime":"' + reg + '","confidence":"' + confTxt + '","time":' + str.tostring(time_close) + '}'
+
+if useJson
+    if sigVRU
+        alert(f_vjson("VOL_REVERSAL_UP", "buy", nmRU), alert.freq_once_per_bar_close)
+    if sigVRD
+        alert(f_vjson("VOL_REVERSAL_DOWN", "sell", nmRD), alert.freq_once_per_bar_close)
+    if sigVBU
+        alert(f_vjson("VOL_BREAK_UP", "buy", nmBU), alert.freq_once_per_bar_close)
+    if sigVBD
+        alert(f_vjson("VOL_BREAK_DOWN", "sell", nmBD), alert.freq_once_per_bar_close)

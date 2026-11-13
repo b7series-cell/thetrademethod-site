@@ -1,0 +1,1085 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expected Move — calculate the range the options market prices | The Trade Method</title>
+<meta name="description" content="Calculate the options expected move: a free calculator, the three chain methods (ATM straddle, straddle plus ITM strangle ÷ 2, 16 delta strikes), the IV formula and Rule of 16, event volatility, and a printable cheat sheet.">
+<!-- v2 preview: kept out of search until it replaces expected-move.html -->
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://thetrademethod.com/expected-move.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Expected Move — calculate the range the options market prices">
+<meta property="og:description" content="A free expected move calculator, the three chain methods, the IV formula and Rule of 16, and a printable cheat sheet.">
+<meta property="og:url" content="https://thetrademethod.com/expected-move.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Expected Move — calculate the range the options market prices">
+<meta name="twitter:description" content="A free expected move calculator, the three chain methods, the IV formula and Rule of 16, and a printable cheat sheet.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "TechArticle",
+   "@id": "https://thetrademethod.com/expected-move.html#article",
+   "headline": "Expected Move — calculate the range the options market prices",
+   "name": "Expected Move",
+   "description": "Calculate the options expected move: a free calculator, the three chain methods (ATM straddle, straddle plus ITM strangle ÷ 2, 16 delta strikes), the IV formula and Rule of 16, event volatility, and a printable cheat sheet.",
+   "url": "https://thetrademethod.com/expected-move.html",
+   "mainEntityOfPage": "https://thetrademethod.com/expected-move.html",
+   "image": "https://thetrademethod.com/assets/og-image.png",
+   "dateModified": "2026-10-17",
+   "inLanguage": "en",
+   "proficiencyLevel": "Beginner",
+   "about": ["Options expected move", "Implied volatility", "Options delta"],
+   "author": { "@type": "Organization", "name": "The Trade Method", "url": "https://thetrademethod.com/" },
+   "publisher": { "@type": "Organization", "name": "The Trade Method", "logo": { "@type": "ImageObject", "url": "https://thetrademethod.com/assets/apple-touch-icon.png" } },
+   "isPartOf": { "@type": "WebSite", "name": "The Trade Method", "url": "https://thetrademethod.com/" },
+   "video": { "@id": "https://thetrademethod.com/expected-move.html#video" }
+  },
+  {
+   "@type": "HowTo",
+   "name": "How to calculate a stock's expected move from the options chain",
+   "description": "Three ways to read the one-standard-deviation expected move (about 68% odds) off an options chain, plus the implied volatility formula.",
+   "supply": [{ "@type": "HowToSupply", "name": "An options chain for the expiration you want" }],
+   "step": [
+    { "@type": "HowToStep", "position": 1, "name": "Find the last price and the at-the-money strike", "text": "Take the last traded price (for a weekly read, Friday's close) and the strike closest to it." },
+    { "@type": "HowToStep", "position": 2, "name": "Method 1: price the ATM straddle", "text": "Add the at-the-money call and put prices. That total is a quick estimate of the expected move, in dollars." },
+    { "@type": "HowToStep", "position": 3, "name": "Method 2: add the first in-the-money strangle and divide by 2", "text": "Add the first in-the-money call and put to the straddle, then divide the total by 2 for a closer read." },
+    { "@type": "HowToStep", "position": 4, "name": "Method 3: find the 16 delta strikes", "text": "The call strike and the put strike where delta is about 16 mark the top and bottom of the range, including put skew." },
+    { "@type": "HowToStep", "position": 5, "name": "Cross-check with implied volatility", "text": "Expected move ≈ price × implied volatility × the square root of (days to expiration ÷ 365)." },
+    { "@type": "HowToStep", "position": 6, "name": "Draw the range on your chart", "text": "Mark the top and bottom as two horizontal levels and treat new entries outside them as a chase." }
+   ]
+  },
+  {
+   "@type": "VideoObject",
+   "@id": "https://thetrademethod.com/expected-move.html#video",
+   "name": "What the expected move is and how to calculate it",
+   "description": "The expected move, what it is and three ways to calculate it, worked on the SPY, QQQ and AAPL options chains.",
+   "thumbnailUrl": "https://i.ytimg.com/vi/Lhv3wiPv6Ok/hqdefault.jpg",
+   "embedUrl": "https://www.youtube-nocookie.com/embed/Lhv3wiPv6Ok",
+   "url": "https://www.youtube.com/watch?v=Lhv3wiPv6Ok",
+   "hasPart": [
+    { "@type": "Clip", "name": "What is the expected move?", "startOffset": 27, "endOffset": 109, "url": "https://www.youtube.com/watch?v=Lhv3wiPv6Ok&t=27" },
+    { "@type": "Clip", "name": "The platform's expected move", "startOffset": 109, "endOffset": 148, "url": "https://www.youtube.com/watch?v=Lhv3wiPv6Ok&t=109" },
+    { "@type": "Clip", "name": "Pricing the at-the-money straddle", "startOffset": 148, "endOffset": 260, "url": "https://www.youtube.com/watch?v=Lhv3wiPv6Ok&t=148" },
+    { "@type": "Clip", "name": "Adding the in-the-money strangle", "startOffset": 260, "endOffset": 397, "url": "https://www.youtube.com/watch?v=Lhv3wiPv6Ok&t=260" },
+    { "@type": "Clip", "name": "16 delta options and skew", "startOffset": 397, "endOffset": 633, "url": "https://www.youtube.com/watch?v=Lhv3wiPv6Ok&t=397" },
+    { "@type": "Clip", "name": "QQQ example", "startOffset": 633, "endOffset": 860, "url": "https://www.youtube.com/watch?v=Lhv3wiPv6Ok&t=633" },
+    { "@type": "Clip", "name": "AAPL example", "startOffset": 860, "endOffset": 1087, "url": "https://www.youtube.com/watch?v=Lhv3wiPv6Ok&t=860" },
+    { "@type": "Clip", "name": "What to use it for", "startOffset": 1087, "url": "https://www.youtube.com/watch?v=Lhv3wiPv6Ok&t=1087" }
+   ]
+  }
+ ]
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=20">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* collecting vs building */
+  .loop { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:14px; }
+  .loop div { background:var(--charcoal); border-radius:18px; padding:16px 16px 17px; }
+  .loop .k { font-family:var(--mono-font); font-size:12px; color:#ff6961; }
+  .loop b { display:block; font-size:18px; margin:8px 0 6px; }
+  .loop p { margin:0; color:var(--mute); font-size:14px; }
+
+  /* decision vs result */
+  .dr { display:grid; grid-template-columns:auto 1fr 1fr; gap:8px; font-size:14px; }
+  .dr > span { color:var(--ash); font-family:var(--mono-font); font-size:12px; align-self:end; padding:0 4px 4px; }
+  .dr > b { color:var(--ash); font-family:var(--mono-font); font-size:12px; font-weight:500; align-self:center; writing-mode:horizontal-tb; padding-right:6px; }
+  .dr div { background:var(--raised); border-radius:14px; padding:12px 14px; }
+  .dr div strong { display:block; font-size:15px; margin-bottom:3px; }
+  .dr div p { margin:0; color:var(--mute); font-size:13.5px; }
+  .dr .g strong { color:var(--up); } .dr .w strong { color:var(--orange); } .dr .r strong { color:#ff6961; }
+
+  /* two-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* the four at a glance */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four a { display:block; background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; color:inherit; text-decoration:none; }
+  .four a:hover { background:var(--raised); }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--up); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* the three methods at a glance */
+  .four.three { grid-template-columns:repeat(3,1fr); }
+  .em-table { background:var(--charcoal); border-radius:22px; padding:8px 18px 4px; overflow-x:auto; }
+  .em-table table { min-width:620px; }
+  .em-table td.hl { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .loop, .four, .four.three { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim, .sheet .loop + .anim, .sheet .em-table + .anim { margin-top:56px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .loop, .four, .four.three, .pair { grid-template-columns:1fr; }
+    .em-table { padding:6px 12px 2px; border-radius:18px; }
+    .dr { grid-template-columns:1fr 1fr; font-size:13px; }
+    .dr > span:first-child { display:none; }
+    .dr > b { grid-column:1 / -1; padding:6px 4px 0; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+  }
+
+  /* ---------- v2 additions ---------- */
+  /* numbers line up across rows and strikes */
+  .calc, .em-table, .cheat, .dvp, .rule16, .calc-out, .calc-in input, .calc-bell { font-variant-numeric:tabular-nums; }
+
+  /* calculator */
+  .tool { background:var(--charcoal); border-radius:28px; padding:24px; margin:8px 0 56px; }
+  .tool-head { display:flex; justify-content:space-between; align-items:flex-end; gap:16px 24px; flex-wrap:wrap; margin-bottom:18px; }
+  .tool-head h2 { margin:0 0 4px; font-size:28px; font-weight:600; letter-spacing:-0.01em; }
+  .tool-head p { margin:0; color:var(--mute); font-size:15px; max-width:64ch; }
+  .seg { display:inline-flex; background:var(--black); border-radius:9999px; padding:3px; gap:2px; }
+  .seg button { font:inherit; font-size:14px; color:var(--mute); background:none; border:0; border-radius:9999px; padding:7px 14px; cursor:pointer; }
+  .seg button[aria-pressed="true"] { background:var(--raised); color:var(--silk); }
+  .seg button:focus-visible, .calc-in input:focus-visible, .mtabs [role="tab"]:focus-visible { outline:2px solid var(--link); outline-offset:2px; }
+  .tool-grid { display:grid; grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr); gap:24px; align-items:start; }
+  .calc-in { background:var(--raised); border-radius:20px; padding:16px 18px 18px; }
+  .calc-in .bar { display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
+  .calc-in .bar .presets { display:flex; gap:6px; flex-wrap:wrap; }
+  .calc-in .bar .presets button { font:inherit; font-size:13px; color:var(--link); background:none; border:1px solid var(--graphite); border-radius:9999px; padding:5px 11px; cursor:pointer; }
+  .calc-in label { display:block; font-size:13px; color:var(--mute); }
+  .calc-in input { width:100%; font:inherit; font-family:var(--mono-font); font-size:16px; color:var(--silk); background:var(--black);
+                   border:1px solid var(--graphite); border-radius:10px; padding:9px 11px; margin-top:4px; -moz-appearance:textfield; }
+  .calc-in input::-webkit-outer-spin-button, .calc-in input::-webkit-inner-spin-button { -webkit-appearance:none; margin:0; }
+  .legs { display:grid; grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,1fr); gap:8px 10px; align-items:end; margin-top:14px; }
+  .legs .h { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .legs .nm { font-size:14px; color:var(--silk); padding-bottom:10px; }
+  .legs .nm small { display:block; color:var(--ash); font-size:12px; }
+  .legs .sep { grid-column:1 / -1; border-top:1px solid var(--smoke); margin:4px 0 0; }
+  .ivgrid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-top:4px; }
+  .calc-in .fine { margin:12px 0 0; color:var(--ash); font-size:12.5px; }
+  .calc-out .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:8px 0; font-size:15px; border-bottom:1px solid var(--smoke); }
+  .calc-out .row span { color:var(--mute); }
+  .calc-out .row b { font-family:var(--mono-font); font-weight:600; text-align:right; white-space:nowrap; }
+  .calc-out .row.tot b { color:var(--up); }
+  .calc-note, .calc-msg { margin:12px 0 0; color:var(--mute); font-size:14px; }
+  .calc-note b { color:var(--silk); font-family:var(--mono-font); font-weight:500; }
+  .calc-note .warn { color:var(--orange); }
+  .calc-bell { margin-top:16px; border-radius:16px; overflow:hidden; }
+
+  /* formula + rule of 16 */
+  .formula { background:var(--raised); border-radius:18px; padding:18px 20px; margin:0; font-size:clamp(18px,2.6vw,26px); font-weight:600; letter-spacing:-0.01em; text-align:center; }
+  .formula var { font-style:normal; color:var(--up); }
+  .formula .sq { display:inline-block; border-top:2px solid var(--silk); padding:0 4px; margin-left:2px; }
+  .formula small { display:block; font-size:13px; color:var(--ash); font-weight:400; margin-top:8px; letter-spacing:0; }
+  .rule16, .dvp { width:100%; border-collapse:collapse; font-size:14px; margin-top:10px; }
+  .rule16 th, .rule16 td, .dvp th, .dvp td { padding:8px 10px; text-align:right; border-bottom:1px solid var(--smoke); font-family:var(--mono-font); font-size:13.5px; }
+  .rule16 th:first-child, .rule16 td:first-child, .dvp th:first-child, .dvp td:first-child { text-align:left; }
+  .rule16 thead th, .dvp thead th { color:var(--ash); font-family:var(--font); font-weight:500; font-size:12.5px; }
+  .dvp td.lo { color:var(--orange); } .dvp td.hi { color:#ff6961; }
+
+  /* events */
+  .cards3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .cards3 > div { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; }
+  .cards3 .k { font-family:var(--mono-font); font-size:12px; color:var(--orange); }
+  .cards3 h3 { margin:6px 0 8px; font-size:19px; }
+  .cards3 p { margin:0; color:var(--mute); font-size:14.5px; }
+  .cards3 p + p { margin-top:8px; }
+
+  /* methods step switcher */
+  .mtabs { background:var(--charcoal); border-radius:28px; padding:20px 22px 22px; }
+  .mtabs [role="tablist"] { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:16px; }
+  .mtabs [role="tab"] { font:inherit; font-size:14px; color:var(--mute); background:var(--black); border:0; border-radius:9999px; padding:8px 14px; cursor:pointer; }
+  .mtabs [role="tab"][aria-selected="true"] { background:var(--up); color:#04120a; font-weight:600; }
+  .mpane { display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:22px; }
+  .mpane h3 { margin:0 0 8px; font-size:22px; }
+  .mpane ol { margin:0; padding-left:20px; color:var(--silk); }
+  .mpane ol li { margin-bottom:6px; }
+  .mpane .side { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .mpane .side .k { font-family:var(--mono-font); font-size:12px; color:var(--ash); }
+  .mpane .side p { margin:6px 0 0; color:var(--mute); font-size:14px; }
+  .mpane .side .calc .row { padding:6px 0; font-size:14px; }
+  .mpane[hidden], .calc-in [hidden] { display:none; }
+  .next-cta .pill:not(.pill-buy) { border:1px solid var(--graphite); color:var(--silk); text-decoration:none; }
+  .mnav { display:flex; justify-content:space-between; margin-top:16px; }
+  .mnav button { font:inherit; font-size:14px; color:var(--link); background:none; border:0; cursor:pointer; padding:4px 0; }
+
+  /* video facade */
+  .yt-play { position:absolute; inset:0; width:100%; height:100%; border:0; padding:0; cursor:pointer; background:#000; }
+  .yt-play img { width:100%; height:100%; object-fit:cover; display:block; opacity:0.85; }
+  .yt-play .tri { position:absolute; left:50%; top:50%; width:72px; height:50px; margin:-25px 0 0 -36px; border-radius:14px; background:rgba(255,0,0,0.9); }
+  .yt-play .tri::after { content:""; position:absolute; left:29px; top:15px; border-style:solid; border-width:10px 0 10px 17px; border-color:transparent transparent transparent #fff; }
+  .yt-play:hover img { opacity:1; }
+  .video ol button { font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer; text-align:left; }
+  .video ol button:hover { color:var(--silk); }
+
+  /* cheat sheet */
+  .cheat { background:var(--charcoal); border-radius:28px; padding:22px 24px 24px; }
+  .cheat-head { display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:14px; }
+  .cheat-head h2 { margin:0; font-size:24px; font-weight:600; }
+  .cheat-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .cheat-grid > div { background:var(--raised); border-radius:16px; padding:14px 16px; }
+  .cheat-grid b { display:block; font-size:15px; margin-bottom:6px; }
+  .cheat-grid p, .cheat-grid li { margin:0; color:var(--mute); font-size:13.5px; }
+  .cheat-grid ul { margin:0; padding-left:18px; }
+  .cheat-grid code { font-family:var(--mono-font); color:var(--silk); font-size:13px; }
+
+  /* where next */
+  .next { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .next a { display:block; background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; color:inherit; text-decoration:none; }
+  .next a:hover { background:var(--raised); }
+  .next .k { font-family:var(--mono-font); font-size:12px; color:var(--link); }
+  .next h3 { margin:6px 0 8px; font-size:19px; }
+  .next p { margin:0; color:var(--mute); font-size:14.5px; }
+  .next-cta { display:flex; gap:12px; flex-wrap:wrap; margin-top:18px; }
+
+  @media (max-width:1100px) {
+    .tool-grid, .mpane { grid-template-columns:1fr; }
+    .cards3, .cheat-grid { grid-template-columns:1fr 1fr; }
+    .next { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:680px) {
+    .tool { padding:18px 14px 18px; border-radius:22px; margin:24px 0 60px; }
+    .tool-head h2 { font-size:23px; }
+    .calc-in { padding:14px 12px 14px; }
+    .legs { grid-template-columns:minmax(0,1.15fr) minmax(0,1fr) minmax(0,1fr); gap:6px 8px; }
+    .calc-in input { font-size:16px; padding:8px 9px; }
+    .ivgrid { grid-template-columns:1fr 1fr; }
+    .calc-out .row { flex-direction:column; gap:2px; }
+    .calc-out .row b { text-align:left; white-space:normal; }
+    .calc-bell { margin-top:20px; }
+    .cards3, .cheat-grid, .next { grid-template-columns:1fr; }
+    .mtabs, .cheat { padding:16px 14px 18px; border-radius:22px; }
+    .mtabs [role="tablist"] { flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; padding-bottom:2px; }
+    .mtabs [role="tablist"]::-webkit-scrollbar { display:none; }
+    .mtabs [role="tab"] { flex:0 0 auto; }
+    .rule16, .dvp { font-size:13px; }
+    .rule16 th, .rule16 td, .dvp th, .dvp td { padding:7px 6px; font-size:12.5px; }
+    .sheet .section-head + .tool, .sheet .section-head + .cards3, .sheet .section-head + .mtabs { margin-top:20px; }
+  }
+
+  /* print: the whole page, or only the cheat sheet */
+  @media print {
+    html.print-cheat .gnav, html.print-cheat .lnav, html.print-cheat .gfoot,
+    html.print-cheat .sheet > *:not(#cheat) { display:none !important; }
+    html.print-cheat body, html.print-cheat .cheat, html.print-cheat .cheat-grid > div { background:#fff !important; color:#000 !important; }
+    html.print-cheat .cheat-grid p, html.print-cheat .cheat-grid li, html.print-cheat .cheat-grid code { color:#222 !important; }
+    html.print-cheat .cheat-grid > div { border:1px solid #bbb; }
+    html.print-cheat .cheat-head button, html.print-cheat .cheat-head a { display:none; }
+    html.print-cheat .candle-bg, html.print-cheat canvas { display:none !important; }
+    html.print-cheat .cheat-grid { grid-template-columns:repeat(3,1fr); }
+  }
+  .ribbon .t a { color:inherit; text-decoration:none; } .ribbon .t a:hover { text-decoration:underline; }
+</style>
+<script src="/js/nav.js?v=11" defer></script>
+<script src="/js/site.js?v=18" defer></script>
+<script src="/js/em-anim.js?v=1" defer></script>
+<script src="/js/em-calc.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=6" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="expected-move">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; options-market context for any setup, with a free calculator</p>
+      <h1>Expected <span>Move</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Every week the options market quietly prices a range for every liquid stock. <em>About 68% of the time, price stays inside it.</em>
+      Calculate it below from a few prices on the chain, see where the number comes from, and use it to know when a move is ordinary and when you'd be chasing.</p>
+      <div class="counts">
+        <div><b>68%</b><small>odds inside the range</small></div>
+        <div><b>3+1</b><small>chain methods + the IV formula</small></div>
+        <div><b>16</b><small>the rule for a daily move</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon" aria-label="On this page">
+    <div><div class="t"><a href="#calc">calculator</a></div><div class="n">Your numbers, live</div></div>
+    <div><div class="t"><a href="#straddle">methods 1&ndash;2</a></div><div class="n">Straddle, then strangle</div></div>
+    <div><div class="t"><a href="#delta">method 3</a></div><div class="n">16 delta strikes</div></div>
+    <div><div class="t"><a href="#formula">the math</a></div><div class="n">IV formula, Rule of 16</div></div>
+    <div><div class="t"><a href="#events">watch out</a></div><div class="n">Events, IV crush, spreads</div></div>
+  </nav>
+
+  <!-- ===================== calculator ===================== -->
+  <section class="tool" id="calc" data-em-calc aria-label="Expected move calculator">
+    <div class="tool-head">
+      <div>
+        <h2>Expected move calculator</h2>
+        <p>Type the prices from your own chain. Everything is worked out in your browser; nothing you enter is sent anywhere.</p>
+      </div>
+      <div class="seg" data-seg="mode" role="group" aria-label="Calculate from">
+        <button type="button" data-v="chain" aria-pressed="true">Chain prices</button>
+        <button type="button" data-v="iv" aria-pressed="false">IV &amp; days</button>
+      </div>
+    </div>
+    <div class="tool-grid">
+      <div class="calc-in">
+        <div data-mode="chain">
+          <div class="bar">
+            <div class="seg" data-seg="price" role="group" aria-label="Price each leg on">
+              <button type="button" data-v="ask" aria-pressed="true">Ask</button>
+              <button type="button" data-v="mid" aria-pressed="false">Mid</button>
+            </div>
+            <div class="presets">
+              <button type="button" data-preset="spy">SPY example</button>
+              <button type="button" data-preset="wide">Wide chain</button>
+              <button type="button" data-clear>Clear</button>
+            </div>
+          </div>
+          <label>Underlying price (last close)<input name="price" inputmode="decimal" autocomplete="off" placeholder="410.54"></label>
+          <div class="legs">
+            <span class="h">leg</span><span class="h">bid</span><span class="h">ask</span>
+            <span class="nm">ATM call<small>strike nearest price</small></span>
+            <input name="ac_bid" inputmode="decimal" autocomplete="off" aria-label="At-the-money call bid">
+            <input name="ac_ask" inputmode="decimal" autocomplete="off" aria-label="At-the-money call ask">
+            <span class="nm">ATM put<small>same strike</small></span>
+            <input name="ap_bid" inputmode="decimal" autocomplete="off" aria-label="At-the-money put bid">
+            <input name="ap_ask" inputmode="decimal" autocomplete="off" aria-label="At-the-money put ask">
+            <span class="sep"></span>
+            <span class="nm">1st ITM call<small>one strike below price</small></span>
+            <input name="ic_bid" inputmode="decimal" autocomplete="off" aria-label="First in-the-money call bid">
+            <input name="ic_ask" inputmode="decimal" autocomplete="off" aria-label="First in-the-money call ask">
+            <span class="nm">1st ITM put<small>one strike above price</small></span>
+            <input name="ip_bid" inputmode="decimal" autocomplete="off" aria-label="First in-the-money put bid">
+            <input name="ip_ask" inputmode="decimal" autocomplete="off" aria-label="First in-the-money put ask">
+          </div>
+          <p class="fine">The ITM legs are optional; leave them blank for method 1 only. When the ATM strike sits above the price (SPY's 411 over $410.54), it's already the first ITM put, so enter it twice, as the video does. The SPY example uses the page's illustrative split of the video's totals with made-up bids; the wide chain is made up.</p>
+        </div>
+        <div data-mode="iv" hidden>
+          <div class="ivgrid">
+            <label>Underlying price<input name="iv_price" inputmode="decimal" autocomplete="off" value="410.54"></label>
+            <label>Implied vol, %<input name="iv" inputmode="decimal" autocomplete="off" value="20"></label>
+            <label>Days to expiry<input name="dte" inputmode="decimal" autocomplete="off" value="6"></label>
+          </div>
+          <p class="fine">Use the at-the-money implied volatility for the expiration you're reading, and calendar days to it. 20% is an example, not SPY's IV on the video's date.</p>
+        </div>
+      </div>
+      <div>
+        <div class="calc-out calc" aria-live="polite"></div>
+        <div class="calc-bell"><svg viewBox="0 0 700 290" role="img" aria-label="Bell curve of the expected move: about 68% of outcomes inside plus or minus one standard deviation, about 95% inside two"></svg></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== what it is ===================== -->
+  <div class="section-head" id="what">
+    <h2>What the expected move is</h2>
+    <p>The range where you'd expect price to be contained, with about 68% odds, over a given time period. The options market sets it. You just read it off the chain.</p>
+  </div>
+
+  <section class="anim" data-em-anim="bell" aria-label="Illustrative bell curve: about 34% of outcomes fall between the middle and one standard deviation on each side, 68% in total, leaving about 16% in each tail; on SPY's weekly numbers, a $410.54 close and a ±$10.19 expected move give a range of $400.35 to $420.73">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Why 68%</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 500" role="img" aria-label="Illustrative bell curve: about 34% of outcomes fall between the middle and one standard deviation on each side, 68% in total, leaving about 16% in each tail; on SPY's weekly numbers, a $410.54 close and a ±$10.19 expected move give a range of $400.35 to $420.73"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>A range with about 68% odds</h3>
+          <ul>
+            <li>On a normal bell curve, about 34% of outcomes sit within one standard deviation above the middle and 34% within one below.</li>
+            <li>Together that's about 68%. The expected move is that one-standard-deviation band, in dollars.</li>
+            <li>Under normal market conditions, roughly two weeks out of three should finish inside it.</li>
+          </ul>
+          <p class="why">Which also means about one week in three finishes outside it. Real returns have fatter tails than the bell curve, so big misses happen more often than the textbook says.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Any expiration you like</h3>
+          <ul>
+            <li>As long as there's an options expiration, you can read the expected move to it.</li>
+            <li>The weekly move uses the expiration this coming Friday. A common monthly read uses the expiration about 31 days out.</li>
+            <li>It works best on assets with a very efficient, liquid options market: SPY, QQQ, big names like AAPL. Not an obscure penny stock where nobody trades the options.</li>
+          </ul>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Take the reading while the market is closed</h3>
+          <ul>
+            <li>For the weekly move, read it after Friday's close and before Monday's open.</li>
+            <li>The chain is calm and the prices are settled. Not while it's going off the wall during the session.</li>
+          </ul>
+          <p class="why">Do it once, draw it on the chart, and leave it there for the week.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>SPY, one weekly reading</h4>
+        <p class="lead">The numbers used throughout this page, read off the chain on a Saturday with six days to Friday's expiration.</p>
+        <div class="calc">
+          <div class="row"><span>Friday close</span><b>$410.54</b></div>
+          <div class="row"><span>Expected move the platform shows</span><b>&plusmn;$10.19</b></div>
+          <div class="row"><span>Top of the range</span><b>$420.73</b></div>
+          <div class="row"><span>Bottom of the range</span><b>$400.35</b></div>
+          <div class="row tot"><span>Odds price finishes the week inside</span><b>about 68%</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>You don't need a special platform</h4>
+        <p class="lead">Thinkorswim and tastytrade print an expected move in the corner of the chain, and each platform calculates it its own way. Anywhere else, all you need is the chain and one of the methods below, or the <a href="#calc">calculator</a>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== methods 1 & 2 ===================== -->
+  <div class="section-head" id="straddle">
+    <h2>Methods 1 and 2 &middot; price the straddle, then the strangle</h2>
+    <p>A straddle is just the call and the put at the same strike. A strangle is a call and a put at two different strikes.</p>
+  </div>
+
+  <section class="anim" data-em-anim="chain" aria-label="Illustrative SPY options chain with a $410.54 last price: the 411 call at $4.73 plus the 411 put at $5.18 makes a $9.91 straddle; the 410 call at $5.29 plus the 411 put at $5.18 makes a $10.47 strangle; $9.91 plus $10.47 is $20.38, divided by two is $10.19, matching the platform">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Reading it off the chain</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative SPY options chain with a $410.54 last price: the 411 call at $4.73 plus the 411 put at $5.18 makes a $9.91 straddle; the 410 call at $5.29 plus the 411 put at $5.18 makes a $10.47 strangle; $9.91 plus $10.47 is $20.38, divided by two is $10.19, matching the platform"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Method 1 &middot; the at-the-money straddle</h3>
+          <ul>
+            <li>Find the last traded price, Friday's close. SPY: $410.54.</li>
+            <li>Find the strike closest to it. $410.54 is above $410.50, so round up to 411.</li>
+            <li>Add the price of the 411 call and the 411 put, both on the ask: $9.91.</li>
+          </ul>
+          <p class="why">A very quick estimate. In all three examples it landed roughly 30 cents short of the platform's number.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Method 2 &middot; add the first in-the-money strangle, divide by 2</h3>
+          <ul>
+            <li>Keep the straddle. Now go one strike in the money on each side so you're strangling the last price: the 410 call and the 411 put, again on the ask.</li>
+            <li>Straddle plus strangle: $20.38. That's way more than $10.19, but you just added two prices together.</li>
+            <li>Average them: $20.38 &divide; 2 = $10.19. The same number the platform showed.</li>
+          </ul>
+          <p class="why">One extra step for a much closer read. On QQQ it came out one penny off.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The arithmetic, SPY</h4>
+        <p class="lead">Six days to expiration, every leg priced on the ask.</p>
+        <div class="calc">
+          <div class="row"><span>411 call + 411 put (straddle)</span><b>$9.91</b></div>
+          <div class="row"><span>410 call + 411 put (first ITM strangle)</span><b>$10.47</b></div>
+          <div class="row"><span>Straddle + strangle</span><b>$20.38</b></div>
+          <div class="row tot"><span>&divide; 2 = the expected move</span><b>&plusmn;$10.19</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Ask or mid?</h4>
+        <p class="lead">The video prices every leg on the ask, which is the conservative, slightly wide read. Most fills on a liquid chain happen near the mid (halfway between bid and ask). On SPY the spread is a penny or two, so it barely matters; on a wide chain the ask can overstate the move by several percent. The calculator shows both.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== method 3 ===================== -->
+  <div class="section-head" id="delta">
+    <h2>Method 3 &middot; the 16 delta strikes</h2>
+    <p>The most interesting of the three, because it brings implied volatility skew into play. Markets tend to fall faster than they rise, so the put side of the chain prices more movement than the call side.</p>
+  </div>
+
+  <section class="anim" data-em-anim="delta" aria-label="Illustrative SPY chain delta columns: 16 delta falls between the 422 and 422.50 calls, about $422.25, and between the 397 and 398 puts, about $397.50; compared with the platform's ±$10.19 range of $400.35 to $420.73, the 16 delta range allows $13.04 down and $11.71 up">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Find 16 on both sides</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative SPY chain delta columns: 16 delta falls between the 422 and 422.50 calls, about $422.25, and between the 397 and 398 puts, about $397.50; compared with the platform's ±$10.19 range of $400.35 to $420.73, the 16 delta range allows $13.04 down and $11.71 up"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Find the strike where delta is 16</h3>
+          <ul>
+            <li>Bring up the delta column on both sides of the chain.</li>
+            <li>Call side: SPY's 16 delta sits between the 422 and 422.50 strikes. Call it $422.25, the upper limit.</li>
+            <li>Put side: ignore the minus sign. 16 delta sits between 397 and 398. Call it $397.50, the lower limit.</li>
+          </ul>
+          <p class="why">Overall a slightly wider range than the other two methods, and a lopsided one.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">7</div>
+        <div>
+          <h3>Why 16 lines up with the bell curve</h3>
+          <ul>
+            <li>16% is the tail beyond one standard deviation on a bell curve: 13.5% + 2.35% + the sliver past three.</li>
+            <li>Traders use delta as a shortcut for the odds of finishing in the money, so a 16 delta strike sits near the edge of the 1σ range.</li>
+            <li>The probability of touching the strike before expiration runs roughly twice that, about 31 to 35% on the chain, close to the 34% between the middle and the edge of the range.</li>
+          </ul>
+          <p class="why">The shortcut is close for short-dated, low-volatility chains like SPY's weekly. It drifts the longer and wilder the option gets; the table on the right shows how far.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Skew, SPY</h4>
+        <p class="lead">Distance from the $410.54 close.</p>
+        <div class="calc">
+          <div class="row"><span>Platform, each way</span><b>&plusmn;$10.19</b></div>
+          <div class="row"><span>16 delta call, $422.25</span><b>+$11.71</b></div>
+          <div class="row"><span>16 delta put, $397.50</span><b>&minus;$13.04</b></div>
+          <div class="row tot"><span>More room priced to the downside</span><b>+$1.33</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Delta isn't exactly the odds</h4>
+        <p class="lead">In Black-Scholes a call's delta is N(d<sub>1</sub>), but its odds of finishing in the money are N(d<sub>2</sub>), and d<sub>2</sub> = d<sub>1</sub> &minus; &sigma;&radic;T. So a call's delta overstates its odds and a put's delta understates them, and the gap grows with volatility and time.</p>
+        <table class="dvp">
+          <thead><tr><th>A 16 delta option at</th><th>call ITM odds</th><th>put ITM odds</th></tr></thead>
+          <tbody>
+            <tr><td>20% IV, 7 days</td><td>15.3%</td><td>16.7%</td></tr>
+            <tr><td>20% IV, 45 days</td><td>14.4%</td><td>17.8%</td></tr>
+            <tr><td>50% IV, 30 days</td><td class="lo">12.8%</td><td class="lo">19.7%</td></tr>
+            <tr><td>80% IV, 60 days</td><td class="hi">9.4%</td><td class="hi">25.1%</td></tr>
+          </tbody>
+        </table>
+        <p class="lead" style="margin:10px 0 0;font-size:12.5px;">Model odds with no interest rate or dividends. They're risk-neutral, priced by the market, not a forecast of what will happen.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== the math ===================== -->
+  <div class="section-head" id="formula">
+    <h2>The math underneath &middot; the IV formula and the Rule of 16</h2>
+    <p>The chain methods read the expected move straight off option prices. Experienced traders also carry the textbook version in their head, built from implied volatility.</p>
+  </div>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">8</div>
+        <div>
+          <h3>One standard deviation from implied volatility</h3>
+          <p class="formula">Expected move &asymp; <var>S</var> &times; <var>IV</var> &times; &radic;<span class="sq"><var>DTE</var> &divide; 365</span>
+            <small>S = price &middot; IV = annual implied volatility as a decimal &middot; DTE = calendar days to expiration</small></p>
+          <ul style="margin-top:14px">
+            <li>Implied volatility is quoted per year. The square root scales it down to the days you care about.</li>
+            <li>Example: $410.54 &times; 0.20 &times; &radic;(6 &divide; 365) = about &plusmn;$10.53 for six days at 20% IV.</li>
+            <li>Some traders use trading days over 252 instead. Either works if you're consistent.</li>
+          </ul>
+          <p class="why">An at-the-money straddle is worth about 0.8 of this number in theory (&radic;(2/&pi;) &asymp; 0.80), because a straddle pays the average move, not the one-standard-deviation move. That's one reason platforms, the straddle and the formula never agree to the penny.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">9</div>
+        <div>
+          <h3>The Rule of 16</h3>
+          <ul>
+            <li>There are about 252 trading days a year, and &radic;252 &asymp; 15.9. Round it to 16.</li>
+            <li>So implied volatility &divide; 16 is roughly the one-day expected move, in percent.</li>
+            <li>VIX at 16 means the market is pricing about 1% daily moves in the S&amp;P 500. VIX at 32, about 2%.</li>
+          </ul>
+          <p class="why">A quick sanity check: if a stock's IV is 48%, a 3% day is an ordinary day for it, not news.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Implied vol to expected move</h4>
+        <p class="lead">One standard deviation, as a percent of price.</p>
+        <table class="rule16">
+          <thead><tr><th>IV</th><th>1 day (&divide;16)</th><th>1 week</th><th>30 days</th></tr></thead>
+          <tbody>
+            <tr><td>12%</td><td>0.75%</td><td>1.66%</td><td>3.44%</td></tr>
+            <tr><td>16%</td><td>1.00%</td><td>2.22%</td><td>4.59%</td></tr>
+            <tr><td>20%</td><td>1.25%</td><td>2.77%</td><td>5.73%</td></tr>
+            <tr><td>32%</td><td>2.00%</td><td>4.43%</td><td>9.17%</td></tr>
+            <tr><td>50%</td><td>3.13%</td><td>6.92%</td><td>14.33%</td></tr>
+          </tbody>
+        </table>
+        <p class="lead" style="margin:10px 0 0;font-size:12.5px;">Week = 7 calendar days, month = 30, both over 365.</p>
+      </div>
+      <div class="panel">
+        <h4>Try it with your numbers</h4>
+        <p class="lead">Switch the <a href="#calc">calculator</a> to <b>IV &amp; days</b> for the formula, the Rule of 16, the approximate 16 delta strikes and their real model odds.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== examples ===================== -->
+  <div class="section-head" id="examples">
+    <h2>SPY, QQQ and AAPL</h2>
+    <p>The same three methods on three liquid chains, each six days from Friday's expiration. Every number here was read off the chain in the video.</p>
+  </div>
+
+  <div class="em-table">
+    <table>
+      <thead><tr><th></th><th>SPY</th><th>QQQ</th><th>AAPL</th></tr></thead>
+      <tbody>
+        <tr><th>Friday close</th><td>$410.54</td><td>$306.20</td><td>$145.38</td></tr>
+        <tr><th>At-the-money strike</th><td>411</td><td>306</td><td>145</td></tr>
+        <tr><th>Platform expected move</th><td>&plusmn;$10.19</td><td>&plusmn;$10.47</td><td>&plusmn;$6.06</td></tr>
+        <tr><th>Platform range</th><td>$400.35 &ndash; $420.73</td><td>$295.73 &ndash; $316.67</td><td>$139.32 &ndash; $151.44</td></tr>
+        <tr><th>1 &middot; ATM straddle</th><td>$9.91</td><td>about 30&cent; under</td><td>$5.70</td></tr>
+        <tr><th>2 &middot; + ITM strangle &divide; 2</th><td class="hl">$20.38 &divide; 2 = $10.19</td><td class="hl">$20.93 &divide; 2 = $10.46</td><td class="hl">$11.97 &divide; 2 &asymp; $5.98</td></tr>
+        <tr><th>3 &middot; 16 delta range</th><td>$397.50 &ndash; $422.25</td><td>$293 &ndash; $318</td><td>about $137.50 &ndash; $153</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <section class="anim" data-em-anim="examples" aria-label="SPY, QQQ and AAPL weekly expected moves drawn as a share of price: SPY ±$10.19 with a 16 delta range of $397.50 to $422.25; QQQ ±$10.47 with $293 to $318; AAPL ±$6.06 with about $137.50 to $153; SPY and QQQ lean to the downside, AAPL is closer to even">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Three chains, side by side</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="SPY, QQQ and AAPL weekly expected moves drawn as a share of price: SPY ±$10.19 with a 16 delta range of $397.50 to $422.25; QQQ ±$10.47 with $293 to $318; AAPL ±$6.06 with about $137.50 to $153; SPY and QQQ lean to the downside, AAPL is closer to even"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <!-- ===================== events ===================== -->
+  <div class="section-head" id="events">
+    <h2>When the number gets distorted</h2>
+    <p>The expected move is only as good as the option prices behind it. Three things bend it.</p>
+  </div>
+
+  <div class="cards3">
+    <div>
+      <span class="k">before the event</span>
+      <h3>Events inflate it</h3>
+      <p>Earnings, CPI, FOMC and Fed rate decisions are binary events. Option sellers charge more for the expiration that contains one, so implied volatility and the expected move jump for that week.</p>
+      <p>If earnings land inside your week, the weekly move includes the earnings move. Compare it with an expiration before the event to see how much of it is the event.</p>
+    </div>
+    <div>
+      <span class="k">after the event</span>
+      <h3>Then IV gets crushed</h3>
+      <p>Once the number is out, the uncertainty is gone and implied volatility usually collapses the same day. The next expected move you read can be much narrower.</p>
+      <p>Stocks often settle into a tighter range after the announcement, but not always. A real surprise can keep running well past the old range.</p>
+    </div>
+    <div>
+      <span class="k">pricing</span>
+      <h3>Ask overstates, mid is fairer</h3>
+      <p>Pricing on the ask adds half the bid-ask spread to every leg. On SPY that's pennies. On a thin chain with 20 or 30 cent spreads it can add several percent to the move.</p>
+      <p>If the spread is wide, use the mid, or skip that chain: a wide spread usually means the expected move isn't reliable there anyway.</p>
+    </div>
+  </div>
+
+  <!-- ===================== using it ===================== -->
+  <div class="section-head" id="using">
+    <h2>What to use it for</h2>
+    <p>Not a to-the-penny calculation. A piece of context for your trading week that helps you make better decisions.</p>
+  </div>
+
+  <section class="anim" data-em-anim="context" aria-label="Illustrative chart on made-up bars: a $100 Friday close and a ±$4 weekly expected move give a $96 to $104 range; price trades inside it Monday and Tuesday, breaks above $104 on Wednesday where a new long would be chasing, and slips back inside the range by Thursday">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Outside the move, you're chasing</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 470" role="img" aria-label="Illustrative chart on made-up bars: a $100 Friday close and a ±$4 weekly expected move give a $96 to $104 range; price trades inside it Monday and Tuesday, breaks above $104 on Wednesday where a new long would be chasing, and slips back inside the range by Thursday"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">10</div>
+        <div>
+          <h3>Draw it, then leave it</h3>
+          <ul>
+            <li>Draw two horizontal lines at the top and bottom of the expected move. No indicator does this for you; it's two manual price levels.</li>
+            <li>Shade a rectangle between them if you like. That box is where price should spend about 68% of its weeks.</li>
+            <li>Color them the same every week so the box reads at a glance.</li>
+          </ul>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">11</div>
+        <div>
+          <h3>Cracking outside the range</h3>
+          <ul>
+            <li>Looking for new-money longs once price cracks outside the expected move to the upside? You're starting to chase.</li>
+            <li>Instead, think about the opposite side: is there reason to believe there's a retracement back lower, and a pullback you can participate in?</li>
+            <li>The same logic flips for new shorts below the bottom of the range.</li>
+          </ul>
+          <p class="why">Prices can and do move outside the range. It's not a perfect container for the week, just the added context that says chasing out here might not be wise.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Inside or outside?</h4>
+        <p class="lead">One quick check before a new entry.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">inside the range</span><b>An ordinary move</b><p>Trade your levels and setups as usual. Nothing unusual has been priced in yet.</p></div>
+          <div class="care"><span class="k">outside the range</span><b>Don't chase</b><p>The week's priced move is already done. Look for the pullback, or wait.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== methods at a glance (step switcher) ===================== -->
+  <div class="section-head" id="glance">
+    <h2>The methods at a glance</h2>
+    <p>Each one gets you close to the platform's number. Pick the one your chain makes easiest.</p>
+  </div>
+
+  <div class="mtabs" data-em-tabs>
+    <div role="tablist" aria-label="Expected move methods">
+      <button type="button" role="tab" id="mt-1" aria-controls="mp-1">1 &middot; ATM straddle</button>
+      <button type="button" role="tab" id="mt-2" aria-controls="mp-2">2 &middot; + ITM strangle &divide; 2</button>
+      <button type="button" role="tab" id="mt-3" aria-controls="mp-3">3 &middot; 16 delta</button>
+      <button type="button" role="tab" id="mt-4" aria-controls="mp-4">+ IV formula</button>
+    </div>
+    <div class="mpane" role="tabpanel" id="mp-1" aria-labelledby="mt-1">
+      <div>
+        <h3>The at-the-money straddle</h3>
+        <ol><li>Take the last price.</li><li>Find the strike nearest it.</li><li>Add that strike's call and put.</li></ol>
+      </div>
+      <div class="side"><span class="k">SPY</span><div class="calc"><div class="row"><span>411 call + 411 put</span><b>$9.91</b></div></div><p>Fastest. Usually about 30 cents light of the platform.</p></div>
+    </div>
+    <div class="mpane" role="tabpanel" id="mp-2" aria-labelledby="mt-2" hidden>
+      <div>
+        <h3>Straddle + first ITM strangle, &divide; 2</h3>
+        <ol><li>Price the straddle as in method 1.</li><li>Add the first in-the-money call and put.</li><li>Divide the total by 2.</li></ol>
+      </div>
+      <div class="side"><span class="k">SPY</span><div class="calc"><div class="row"><span>$9.91 + $10.47</span><b>$20.38</b></div><div class="row tot"><span>&divide; 2</span><b>&plusmn;$10.19</b></div></div><p>Matched the platform within a penny or two in all three examples.</p></div>
+    </div>
+    <div class="mpane" role="tabpanel" id="mp-3" aria-labelledby="mt-3" hidden>
+      <div>
+        <h3>The 16 delta strikes</h3>
+        <ol><li>Show the delta column on both sides.</li><li>Find the call strike at about 16 delta: the top.</li><li>Find the put strike at about &minus;16 delta: the bottom.</li></ol>
+      </div>
+      <div class="side"><span class="k">SPY</span><div class="calc"><div class="row"><span>Range</span><b>$397.50 &ndash; $422.25</b></div></div><p>A little wider, and the only method that shows put skew.</p></div>
+    </div>
+    <div class="mpane" role="tabpanel" id="mp-4" aria-labelledby="mt-4" hidden>
+      <div>
+        <h3>The implied volatility formula</h3>
+        <ol><li>Read the at-the-money IV for the expiration.</li><li>Multiply price &times; IV &times; &radic;(days &divide; 365).</li><li>For one day, IV &divide; 16 gives the percent move.</li></ol>
+      </div>
+      <div class="side"><span class="k">example</span><div class="calc"><div class="row"><span>$410.54 &times; 0.20 &times; &radic;(6/365)</span><b>&plusmn;$10.53</b></div></div><p>The textbook cross-check. Needs IV, which most chains show.</p></div>
+    </div>
+    <div class="mnav"><button type="button" data-step="-1">&lsaquo; Previous</button><button type="button" data-step="1">Next &rsaquo;</button></div>
+  </div>
+
+  <!-- ===================== video (facade) ===================== -->
+  <section class="video" aria-label="Video" data-yt="Lhv3wiPv6Ok" data-yt-title="What the expected move is and how to calculate it (video)">
+    <div class="video-frame">
+      <button type="button" class="yt-play" aria-label="Play the video: what the expected move is and how to calculate it">
+        <img src="https://i.ytimg.com/vi/Lhv3wiPv6Ok/hqdefault.jpg" alt="" loading="lazy" width="480" height="360">
+        <span class="tri" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>The expected move, what it is and three ways to calculate it, worked live on the SPY, QQQ and AAPL options chains. Tap a chapter to start there.</p>
+      <ol>
+        <li><button type="button" data-start="0"><b>0:00</b>Intro: you only need the options chain</button></li>
+        <li><button type="button" data-start="27"><b>0:27</b>What is the expected move?</button></li>
+        <li><button type="button" data-start="109"><b>1:49</b>The platform's expected move</button></li>
+        <li><button type="button" data-start="148"><b>2:28</b>Pricing the at-the-money straddle</button></li>
+        <li><button type="button" data-start="260"><b>4:20</b>Adding the in-the-money strangle</button></li>
+        <li><button type="button" data-start="397"><b>6:37</b>16 delta options and skew</button></li>
+        <li><button type="button" data-start="633"><b>10:33</b>QQQ example</button></li>
+        <li><button type="button" data-start="860"><b>14:20</b>AAPL example</button></li>
+        <li><button type="button" data-start="1087"><b>18:07</b>What to use it for</button></li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=Lhv3wiPv6Ok" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <!-- ===================== cheat sheet ===================== -->
+  <div class="section-head" id="cheat-head">
+    <h2>Cheat sheet</h2>
+    <p>Everything on this page on one sheet. Print it or save it as a PDF and keep it next to your chain.</p>
+  </div>
+
+  <section class="cheat" id="cheat" aria-label="Expected move cheat sheet">
+    <div class="cheat-head">
+      <h2>Expected move &middot; quick reference</h2>
+      <button type="button" class="pill pill-buy" data-print-cheat>Print or save as PDF</button>
+    </div>
+    <div class="cheat-grid">
+      <div><b>What it is</b><p>One standard deviation of price to an expiration. About 68% odds price finishes inside; about 95% inside two.</p></div>
+      <div><b>When to read it</b><p>Weekly: after Friday's close, before Monday's open, on the coming Friday's expiration. Liquid chains only.</p></div>
+      <div><b>1 &middot; ATM straddle</b><p><code>ATM call + ATM put</code><br>Fast, usually a little light.</p></div>
+      <div><b>2 &middot; Straddle + ITM strangle</b><p><code>(straddle + 1st ITM call + 1st ITM put) &divide; 2</code><br>Closest to the platform's number.</p></div>
+      <div><b>3 &middot; 16 delta strikes</b><p><code>+16&Delta; call strike / &minus;16&Delta; put strike</code><br>Shows put skew; a little wider.</p></div>
+      <div><b>IV formula</b><p><code>S &times; IV &times; &radic;(DTE &divide; 365)</code><br>Straddle &asymp; 0.8 &times; this, in theory.</p></div>
+      <div><b>Rule of 16</b><p><code>IV &divide; 16 = one-day move %</code><br>VIX 16 &asymp; 1% a day. VIX 32 &asymp; 2%.</p></div>
+      <div><b>Watch out</b><ul><li>Events inflate it; IV crush shrinks it after.</li><li>Ask pricing overstates on wide chains; use the mid.</li><li>Delta &ne; exact odds on long, high-IV options.</li></ul></div>
+      <div><b>Using it</b><ul><li>Draw the top and bottom; leave them all week.</li><li>Inside: ordinary move, trade as usual.</li><li>Outside: don't chase, look for the pullback.</li></ul></div>
+    </div>
+  </section>
+
+  <!-- ===================== where next ===================== -->
+  <div class="section-head" id="next">
+    <h2>Where to next</h2>
+    <p>Other ways the options market shows up on a chart, and what to do with the range once it's drawn.</p>
+  </div>
+
+  <div class="next">
+    <a href="/setups/gex-levels.html"><span class="k">options levels</span><h3>GEX Levels</h3><p>Call wall, put wall and the gamma flip: where dealer hedging tends to slow or speed price.</p></a>
+    <a href="/covered-calls.html"><span class="k">selling premium</span><h3>Covered Calls</h3><p>Own the stock, sell a call against it. The expected move is a quick check on how far away a strike really is.</p></a>
+    <a href="/four-pillars.html"><span class="k">context</span><h3>Four Pillars</h3><p>Levels, context, sizing and discipline. The expected move is one more piece of context.</p></a>
+    <a href="/six-momentum-trades.html"><span class="k">entries</span><h3>Six Momentum Trades</h3><p>The pullback continuation, for when you'd rather not chase the break.</p></a>
+  </div>
+  <div class="next-cta">
+    <a class="pill pill-buy" href="#calc">Calculate this week's move</a>
+    <a class="pill" href="/#fundamentals">All fundamentals</a>
+  </div>
+
+  <div class="rule">
+    <div>
+      <h2>It's not a target. It's how far the market thinks the week can go.</h2>
+      <p>The options market prices a range every week, and about two weeks in three price stays inside it.
+      Read it once after Friday's close, draw it, and let it tell you when a move is ordinary and when a new entry would be a chase.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Expected move = one standard deviation, about 68% odds.</li>
+        <li>Quick read: the at-the-money straddle.</li>
+        <li>Closer read: straddle plus first ITM strangle, divided by 2.</li>
+        <li>Skew read: the 16 delta call and put strikes.</li>
+        <li>Cross-check: price &times; IV &times; &radic;(days &divide; 365).</li>
+        <li>Outside the range, think pullback, not chase.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from a trading-education video on calculating the expected move from an options chain. It's how one trader reads the options market, shared for education; it's not advice and not a promise of profit. The SPY, QQQ and AAPL figures are the ones read off the chains in the video on that date, not current prices; individual leg prices, bids and the other chain rows are an illustrative split of those totals, and the week chart is made-up bars. Delta and probability figures come from the Black-Scholes model with no interest rate or dividends. <a href="https://www.youtube.com/watch?v=Lhv3wiPv6Ok" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

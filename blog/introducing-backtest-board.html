@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do TradingView indicators beat random entries? | The Trade Method</title>
+<meta name="description" content="No. Backtest Board tested 45 TradingView indicators on 28 markets and 10 timeframes. After costs, only 10 of 717 strategies beat random entries on the holdout, about what luck would produce.">
+<meta name="author" content="Bryant">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/blog/introducing-backtest-board.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Do TradingView indicators beat random entries?">
+<meta property="og:description" content="No. Backtest Board tested 45 TradingView indicators on 28 markets and 10 timeframes. After costs, only 10 of 717 strategies beat random entries on the holdout, about what luck would produce.">
+<meta property="og:url" content="https://thetrademethod.com/blog/introducing-backtest-board.html">
+<meta property="og:image" content="https://thetrademethod.com/blog/img/bb-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Do TradingView indicators beat random entries?">
+<meta name="twitter:description" content="No. Backtest Board tested 45 TradingView indicators on 28 markets and 10 timeframes. After costs, only 10 of 717 strategies beat random entries on the holdout, about what luck would produce.">
+<meta name="twitter:image" content="https://thetrademethod.com/blog/img/bb-og.jpg">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "@id": "https://thetrademethod.com/blog/introducing-backtest-board.html#post",
+   "headline": "Do TradingView indicators beat random entries?",
+   "alternativeHeadline": "Introducing Backtest Board",
+   "abstract": "This article reports the results of Backtest Board (backtestboard.com), a public scoreboard that rebuilt 45 TradingView indicators in Python and backtested them on stocks, crypto and futures from the 1-minute to the daily chart. It matters because a profitable backtest in a rising market can come from the market rather than the signal: over the holdout, simply buying and holding the symbols returned +73% on average. You will learn the test rules, why random entries are the fairer benchmark, which 10 strategies made the shortlist, and why even those are a list to paper trade, not proof of an edge.",
+   "citation": [
+    {
+     "@type": "ScholarlyArticle",
+     "name": "Pseudo-Mathematics and Financial Charlatanism: The Effects of Backtest Overfitting on Out-of-Sample Performance",
+     "author": [
+      "David H. Bailey",
+      "Jonathan Borwein",
+      "Marcos López de Prado",
+      "Qiji Jim Zhu"
+     ],
+     "datePublished": "2014",
+     "isPartOf": {
+      "@type": "Periodical",
+      "name": "Notices of the American Mathematical Society"
+     },
+     "url": "https://scholarworks.wmich.edu/math_pubs/40/"
+    },
+    {
+     "@type": "ScholarlyArticle",
+     "name": "... and the Cross-Section of Expected Returns",
+     "author": [
+      "Campbell R. Harvey",
+      "Yan Liu",
+      "Heqing Zhu"
+     ],
+     "datePublished": "2016",
+     "isPartOf": {
+      "@type": "Periodical",
+      "name": "The Review of Financial Studies"
+     },
+     "url": "https://www.nber.org/papers/w20592",
+     "sameAs": "https://doi.org/10.1093/rfs/hhv059"
+    }
+   ],
+   "description": "No. Backtest Board tested 45 TradingView indicators on 28 markets and 10 timeframes. After costs, only 10 of 717 strategies beat random entries on the holdout, about what luck would produce.",
+   "url": "https://thetrademethod.com/blog/introducing-backtest-board.html",
+   "mainEntityOfPage": "https://thetrademethod.com/blog/introducing-backtest-board.html",
+   "image": [
+    "https://thetrademethod.com/blog/img/bb-og.jpg",
+    "https://thetrademethod.com/blog/img/bb-front-page.webp"
+   ],
+   "datePublished": "2026-10-31",
+   "dateModified": "2026-10-31",
+   "inLanguage": "en",
+   "articleSection": "Backtesting",
+   "keywords": "TradingView indicators, backtesting, random entry benchmark, out-of-sample holdout, walk-forward, trading costs, R multiple, Backtest Board",
+   "about": [
+    {
+     "@type": "Thing",
+     "name": "Backtesting"
+    },
+    {
+     "@type": "Thing",
+     "name": "TradingView indicators"
+    }
+   ],
+   "mentions": [
+    {
+     "@type": "WebSite",
+     "name": "Backtest Board",
+     "url": "https://backtestboard.com/"
+    }
+   ],
+   "author": {
+    "@type": "Person",
+    "name": "Bryant",
+    "worksFor": {
+     "@type": "Organization",
+     "name": "The Trade Method",
+     "url": "https://thetrademethod.com/"
+    }
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "The Trade Method",
+    "logo": {
+     "@type": "ImageObject",
+     "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+    }
+   },
+   "isPartOf": {
+    "@type": "WebSite",
+    "name": "The Trade Method",
+    "url": "https://thetrademethod.com/"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "@id": "https://thetrademethod.com/blog/introducing-backtest-board.html#faq",
+   "url": "https://thetrademethod.com/blog/introducing-backtest-board.html",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Do TradingView indicators work?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "In Backtest Board's tests, no indicator clearly beat random entries. Of 717 strategies built from 45 TradingView indicators, 10 were positive on validation and beat random entries on the holdout, which is about what luck would produce from that many tests."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is the best timeframe for TradingView indicators?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The 1-hour chart had the best median result, at +9.2% net per symbol with default settings. On 1 to 5 minute charts only 22 of 180 indicator and timeframe combinations made money, because trading costs on thousands of trades outweigh small edges."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why compare indicators with random entries instead of buy and hold?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Random entries with the same exit and filter isolate the signal. In a rising market almost any long trade makes money, so a profit alone doesn't show that the indicator's timing adds anything."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does machine learning improve indicator signals?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Mostly not. On Backtest Board, a LightGBM model combining every indicator scored up to +0.97R per trade on training data but only -0.02R to +0.18R on the holdout. Some shortlisted strategies use a LightGBM or kNN filter, a machine-learning model that skips signals it predicts will lose."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why are the results measured in R instead of dollars or percent?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "R is the amount each trade risks, 2% of the account on Backtest Board. Measuring in R puts a 1-minute Bitcoin strategy and a daily S&P 500 futures strategy on the same scale: +0.1R per trade means each trade made, on average, a tenth of what it risked, after costs."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How often is Backtest Board updated?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "New market data is added regularly, and the full test suite is rerun when indicators are added. The results in this post are from the full run of October 28, 2026."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is Backtest Board financial advice?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. Backtest Board is for education and research, and every result is a hypothetical backtest."
+     }
+    }
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://thetrademethod.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Blog",
+     "item": "https://thetrademethod.com/blog/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Do TradingView indicators beat random entries?",
+     "item": "https://thetrademethod.com/blog/introducing-backtest-board.html"
+    }
+   ]
+  }
+ ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<link rel="stylesheet" href="/css/blog.css?v=3">
+
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+</head>
+
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="Blog"></div>
+
+<main id="top">
+  <header class="post-hero">
+    <div class="wrap">
+      <a class="post-back" href="/blog/">&lsaquo; Blog</a>
+      <p class="eyebrow">Introducing Backtest Board &middot; By <span class="post-author">Bryant</span> &middot; <time datetime="2026-10-31">October 31, 2026</time> &middot; Backtesting</p>
+      <h1>Do TradingView indicators beat random entries?</h1>
+      <p class="lead">45 popular indicators, 28 markets, 10 timeframes and 23,608 backtests, all after trading costs. <b>Here is what held up.</b></p>
+      <div class="hub-stats">
+        <div><b class="tnum">45</b><small>indicators tested</small></div>
+        <div><b class="tnum">23,608</b><small>backtests</small></div>
+        <div><b class="tnum">10 of 717</b><small>strategies beat random entries</small></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="band white post-band">
+    <div class="post">
+
+
+      <article class="post-body">
+
+        <section aria-labelledby="short-answer">
+          <h2 id="short-answer">The short answer</h2>
+          <p class="post-answer">No. In Backtest Board's test of 45 popular TradingView indicators on 28 markets and 10 timeframes, no indicator clearly beat random entries after trading costs. Of 717 full strategies, only 10 were positive on validation and also beat random entries with the same exit and filter on untouched holdout data, which is about what luck alone would produce from that many tests.</p>
+          <p class="post-asof">Data: Backtest Board full run of <time datetime="2026-10-28">October 28, 2026</time>. Published <time datetime="2026-10-31">October 31, 2026</time>; last updated <time datetime="2026-10-31">October 31, 2026</time>.</p>
+          <aside class="post-summary" aria-label="Article summary">
+            <p class="post-summary-h">In this article</p>
+            <p>This article reports the results of Backtest Board (<a href="https://backtestboard.com/" target="_blank" rel="noopener">backtestboard.com</a>), a public scoreboard that rebuilt 45 TradingView indicators in Python and backtested them on stocks, crypto and futures from the 1-minute to the daily chart. It matters because a profitable backtest in a rising market can come from the market rather than the signal: over the holdout, simply buying and holding the symbols returned +73% on average. You will learn the test rules, why random entries are the fairer benchmark, which 10 strategies made the shortlist, and why even those are a list to paper trade, not proof of an edge.</p>
+          </aside>
+        </section>
+
+        <div class="post-toc-wrap">
+          <nav class="post-toc" aria-label="On this page">
+            <p class="post-toc-h">On this page</p>
+            <ol>
+              <li><a href="#short-answer">The short answer</a></li>
+              <li><a href="#key-results">Key results</a></li>
+              <li><a href="#key-terms">Key terms</a></li>
+              <li><a href="#what-is-backtest-board">What is Backtest Board</a></li>
+              <li><a href="#how-it-tests">How Backtest Board tests TradingView indicators</a></li>
+              <li><a href="#what-was-tested">What was tested: the 45 indicators and 28 symbols</a></li>
+              <li><a href="#random-benchmark">Why random entries are the benchmark</a></li>
+              <li><a href="#results">Results: what beat random entries</a></li>
+              <li><a href="#research">What the research says about backtests</a></li>
+              <li><a href="#how-to-use">How to use Backtest Board</a></li>
+              <li><a href="#faq">Frequently asked questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+
+        <section aria-labelledby="key-results">
+          <h2 id="key-results">Key results</h2>
+          <p>From Backtest Board's full run of October 28, 2026:</p>
+          <ul>
+            <li><b>Scope:</b> 45 indicators, 28 symbols (24 US stocks and ETFs, Bitcoin, XRP, Nasdaq-100 and S&amp;P 500 futures), 10 timeframes from 1 minute to 1 day, 23,608 backtests.</li>
+            <li><b>Baseline:</b> 148 of 427 indicator and timeframe combinations made money after costs with default settings. On 1 to 5 minute charts, only 22 of 180 did.</li>
+            <li><b>Holdout test:</b> 269 of 686 full strategies were positive on the holdout (July 2025 to October 2026 for stocks), meaning they averaged more than +0.03R per trade with a net profit. The 686 are the strategies with at least 50 trades in the validation period; the other 31 of the 717 had too few to judge.</li>
+            <li><b>Versus random entries:</b> only 10 of 717 strategies were positive on validation and also beat random entries with the same exit and filter on the holdout. That's roughly what luck alone would produce from this many tests.</li>
+            <li><b>Market context:</b> the holdout was a bull market. Buying and holding the symbols returned +73% on average, and none of the 10 shortlisted strategies beat that.</li>
+          </ul>
+          <div class="post-table">
+            <table>
+              <caption>Backtest Board test setup at a glance (full run of October 28, 2026)</caption>
+              <tbody>
+                <tr><th scope="row">Indicators</th><td>45 TradingView indicators, each rebuilt in Python from its Pine Script source</td></tr>
+                <tr><th scope="row">Markets</th><td>28 symbols: 24 US stocks and ETFs, 2 cryptocurrencies (Bitcoin, XRP), 2 futures (Nasdaq-100 NQ, S&amp;P 500 ES)</td></tr>
+                <tr><th scope="row">Timeframes</th><td>10, from 1 minute to 1 day</td></tr>
+                <tr><th scope="row">Data</th><td>Stocks: 1-minute bars, October 2021 to October 2026. Crypto and futures: October 2024 to October 2026</td></tr>
+                <tr><th scope="row">Backtests</th><td>23,608 runs; 717 full strategies (entry, exit and filter) tested end to end</td></tr>
+                <tr><th scope="row">Costs</th><td>0.5 to 5 basis points per side (stocks, crypto); $2.25 plus one tick per side (futures)</td></tr>
+                <tr><th scope="row">Risk per trade</th><td>2% of the account (1R), position size capped at 4x equity</td></tr>
+                <tr><th scope="row">Benchmark</th><td>Random entries with the same exit and filter, averaged over 10 random seeds</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section aria-labelledby="key-terms">
+          <h2 id="key-terms">Key terms</h2>
+          <dl class="post-terms">
+            <div><dt>R</dt><dd>The amount a trade risks, set at 2% of the account. A +2R trade made twice its risk; a -1R trade hit its stop.</dd></div>
+            <div><dt>Training, validation and holdout</dt><dd>The three time periods. Settings are chosen on training data (to July 1, 2024), checked on validation data (July 1, 2024 to July 1, 2025), and scored once on the holdout (July 1, 2025 to October 2026 for stocks). Crypto and futures have shorter histories and their own periods.</dd></div>
+            <div><dt>Random-entry benchmark</dt><dd>Trades entered at random times, at the same frequency as a typical indicator, with the same exit and filter, averaged over 10 random seeds.</dd></div>
+            <div><dt>+10R cap</dt><dd>Each trade's gain is capped at +10R when scoring, so one or two huge trades can't make a strategy look good.</dd></div>
+            <div><dt>Positive on the holdout</dt><dd>On Backtest Board, a strategy counts as positive on the holdout when it averages more than +0.03R per trade and its net return is above zero.</dd></div>
+            <div><dt>Basis point</dt><dd>One hundredth of a percent (0.01%). A cost of 5 basis points per side on a $10,000 position is $5 to enter and $5 to exit.</dd></div>
+            <div><dt>ATR stop and target exits</dt><dd>Exits written like SL1.5ATR/TP1R mean a stop 1.5 times the Average True Range (ATR) from entry and a profit target of 1R. SL3ATR/trailHH20-2ATR means a 3 ATR stop, then a trailing stop 2 ATR below the 20-bar highest high.</dd></div>
+            <div><dt>Indicator exits</dt><dd>When the exit is another indicator's name, such as S/R Breaks MTF, Zero Lag Trend or Wyckoff, the trade closes on that indicator's own exit signal instead of a fixed target.</dd></div>
+            <div><dt>Stop-and-reverse</dt><dd>An exit that closes the trade when the opposite signal fires and immediately opens a trade in the new direction, so the strategy is always either long or short.</dd></div>
+            <div><dt>LightGBM and kNN filters</dt><dd>Machine-learning filters. LightGBM (gradient-boosted decision trees) and kNN (k-nearest neighbors with k=50, which compares a setup with the 50 most similar past setups) each predict whether a signal will lose from 17 market-context features at the signal bar (trend against the 50 and 200 EMA, ADX, volatility, RSI, momentum, distance from recent highs and lows, volume and time of day). The models train only on training-period trades, the cut-off is set on validation, and the strategy skips the signals they flag on the holdout.</dd></div>
+            <div><dt>200 EMA filter</dt><dd>Longs are taken only above the 200-period exponential moving average, and shorts only below it.</dd></div>
+          </dl>
+        </section>
+
+        <section aria-labelledby="what-is-backtest-board">
+          <h2 id="what-is-backtest-board">What is Backtest Board</h2>
+          <p>Backtest Board is a public scoreboard of indicator backtests at <a href="https://backtestboard.com/" target="_blank" rel="noopener">backtestboard.com</a>. It publishes every result from the test of 45 popular TradingView indicators on 28 markets and 10 timeframes, the good and the bad.</p>
+          <p>It was built by a US stock day trader to answer one question that a screenshot or TradingView's strategy tester can't: does a signal do better than chance once real trading costs are paid, on data it has never seen?</p>
+          <p>Behind the board is a backtesting lab that runs the tests; Backtest Board is that lab's public scoreboard.</p>
+          <figure class="post-fig">
+            <img src="/blog/img/bb-front-page.webp" width="1600" height="869" loading="lazy" decoding="async" alt="The Backtest Board front page, headlined 'I backtested popular TradingView indicators. Here's what held up.', with the counts 45 indicators, 28 symbols, 1m to 1d timeframes, 23,608 backtests and stock history from Oct 2021 to Oct 2026.">
+            <figcaption>The front page at backtestboard.com.</figcaption>
+          </figure>
+        </section>
+
+        <section aria-labelledby="how-it-tests">
+          <h2 id="how-it-tests">How Backtest Board tests TradingView indicators</h2>
+          <p>Every indicator is rebuilt in Python from its Pine source and run under the same strict rules, so results are comparable and hard to flatter.</p>
+          <ul>
+            <li><b>What's tested:</b> 45 indicators on 28 markets (24 US stocks and ETFs, Bitcoin, XRP, and Nasdaq and S&amp;P futures) across 10 timeframes from 1 minute to 1 day. That's 23,608 backtest runs on five years of 1-minute stock data (Oct 2021 to Oct 2026) and two years of crypto and futures data (Oct 2024 to Oct 2026).</li>
+            <li><b>No peeking:</b> a signal acts only after its bar closes, and the trade fills at the next bar's open. Each port is checked so it never reads future bars.</li>
+            <li><b>Stops inside the bar:</b> stops are checked against each bar's high and low, and when a stop and a target could both have hit in the same bar, the stop wins.</li>
+            <li><b>Real costs:</b> every trade pays 0.5 to 5 basis points per side for stocks and crypto, and $2.25 plus one tick for futures. Each trade risks 2% of the account, with size capped at 4x equity.</li>
+            <li><b>Three time periods:</b> settings are chosen on data up to July 1, 2024, checked on the next year (to July 1, 2025), then scored on the holdout after that. Nothing about a strategy was chosen using holdout data.</li>
+          </ul>
+          <p>Results on Backtest Board are measured in R, the risk unit. 1R is the amount a trade risks (2% of the account), so a +2R trade made twice what it risked and a -1R trade hit its stop.</p>
+          <figure class="post-fig">
+            <img src="/blog/img/bb-board-top.webp" width="1600" height="594" loading="lazy" decoding="async" alt="The top of the Backtest Board dashboard, showing what was tested, the date of the last run and the headline result counts.">
+            <figcaption>The top of the board: what was tested, when it last ran, and the headline numbers.</figcaption>
+          </figure>
+        </section>
+
+        <section aria-labelledby="what-was-tested">
+          <h2 id="what-was-tested">What was tested: the 45 indicators and 28 symbols</h2>
+          <p><b>The 45 TradingView indicators:</b> AI Trend Navigator, Average Force, BBands Breakout Osc, Bears Bulls Impulse, Buyers &amp; Sellers S/R, Claude Trading Indicator, CRT 3-Candle NY, Doda Stochastic, DSL Oscillator, EMA/VWAP Reversal Cross, Golden Cross, Ichimoku Oscillator, iFVG Model, Jurik Kase Perm. Stoch, KusKus Starlight, Lorentzian Classification, Machine Learning RSI, Market Memory Avg PB, ML Adaptive SuperTrend, ML kNN Strategy, ML Moving Average, POC Daily Bias, Premium GOLD Signal, Price Momentum Osc, Purple Cloud, Purple Cloud 2.1, Radius Trend, Reaction Level Matrix, Rolling Candle Profile, S/R Breaks MTF, Silver Bullet, Smart Money Liq Structure, SuperTrend AI (Lux), Supertrend EA Cloud, Trend Speed Analyzer, Trend Target Ribbon, UT Bot, Valid BOS Pullback, Volume Profile System, Volume SuperTrend AI, V-Shape IFVG Scalper, VWAP Approach P+C, VWMA kNN MFI/ADX, Wyckoff and Zero Lag Trend.</p>
+          <p><b>The 28 symbols:</b> 24 US stocks and ETFs (AAPL, AMD, AMZN, AVGO, COIN, GOOG, HOOD, IBIT, LLY, META, MRVL, MSFT, MU, NOW, NVDA, QQQ, SKHY, SNDK, SPCX, SPY, STX, TSLA, WMT, XOM), 2 cryptocurrencies (BTCUSD, XRPUSD) and 2 futures (NQ1! Nasdaq-100 and ES1! S&amp;P 500, continuous front-month contracts).</p>
+          <p><b>The 10 timeframes:</b> 1m, 2m, 3m, 5m, 10m, 15m, 30m, 1h, 4h and 1d. The 1-minute chart is in the default-settings baseline only; the full strategies were tested on the other nine.</p>
+          <p><b>Periods by market:</b> stocks train on October 2021 to June 2024, validate on July 2024 to June 2025, and hold out July 2025 to October 2026. Crypto and futures train on October 2024 to June 2025, validate on July to December 2025, and hold out January to October 2026.</p>
+          <p><b>Costs by market:</b> 0.5 basis points per side for SPY, QQQ and IBIT, 1 basis point for single stocks, 5 basis points for Bitcoin and XRP, and $2.25 commission plus one tick per side for futures.</p>
+          <p>Some indicators only draw a line, so the lab adds a standard entry rule: Average Force, BBands Breakout Osc, Doda Stochastic, KusKus Starlight and Price Momentum Osc enter on a zero-line or signal-line cross. Buyers &amp; Sellers S/R only marks levels, so it is traded two ways, on a break of a level or a bounce off it.</p>
+        </section>
+
+        <section aria-labelledby="random-benchmark">
+          <h2 id="random-benchmark">Why random entries are the benchmark</h2>
+          <p>A strategy only counts if it beats random entries that use the same exit and the same filter. Making money isn't enough, because in a rising market almost anything that buys makes money.</p>
+          <p>The random-entry benchmark changed the results. Over the holdout, simply holding the symbols returned about +73% on average, and random entries with a 200 EMA filter were profitable on the 1-hour and 4-hour charts. Without the random comparison, plenty of indicators would look like winners when they were really just riding the market.</p>
+          <figure class="post-fig">
+            <img src="/blog/img/bb-random-benchmark.webp" width="1600" height="594" loading="lazy" decoding="async" alt="Backtest Board's random-entry benchmark table: average R per trade for random entries on each timeframe and exit, on the holdout. Most values sit close to 0R.">
+            <figcaption>The random-entry benchmark on the board. On the holdout, random entries average close to 0R per trade on most timeframes and exits, so that's the bar a real signal has to clear.</figcaption>
+          </figure>
+          <p>Buying and holding the 28 symbols returned, on average, +74.3% in the training period, +34.7% in validation and +73.3% in the holdout. Here is the full random-entry benchmark with the 200 EMA filter, for every timeframe and exit:</p>
+          <div class="post-table">
+            <table>
+              <caption>Random-entry benchmark, 200 EMA filter, average R per trade after costs (10 random seeds)</caption>
+              <thead><tr><th scope="col">Timeframe</th><th scope="col">Exit</th><th scope="col">Training</th><th scope="col">Validation</th><th scope="col">Holdout</th></tr></thead>
+              <tbody class="tnum">
+                <tr><td>2m</td><td>SL1.5ATR/TP1R</td><td>+0.006R</td><td>-0.002R</td><td>-0.008R</td></tr>
+                <tr><td>2m</td><td>SL1ATR/TP3R</td><td>+0.019R</td><td>-0.006R</td><td>-0.032R</td></tr>
+                <tr><td>2m</td><td>SL2ATR/TP2R</td><td>+0.020R</td><td>+0.013R</td><td>-0.010R</td></tr>
+                <tr><td>2m</td><td>SL3ATR/trailHH20-2ATR</td><td>+0.004R</td><td>-0.004R</td><td>-0.010R</td></tr>
+                <tr><td>3m</td><td>SL1.5ATR/TP1R</td><td>+0.008R</td><td>+0.005R</td><td>-0.007R</td></tr>
+                <tr><td>3m</td><td>SL1ATR/TP3R</td><td>+0.019R</td><td>-0.008R</td><td>-0.037R</td></tr>
+                <tr><td>3m</td><td>SL2ATR/TP2R</td><td>+0.018R</td><td>+0.028R</td><td>+0.001R</td></tr>
+                <tr><td>3m</td><td>SL3ATR/trailHH20-2ATR</td><td>+0.006R</td><td>+0.002R</td><td>-0.002R</td></tr>
+                <tr><td>5m</td><td>SL1.5ATR/TP1R</td><td>+0.002R</td><td>+0.001R</td><td>-0.003R</td></tr>
+                <tr><td>5m</td><td>SL1ATR/TP3R</td><td>+0.013R</td><td>-0.003R</td><td>-0.021R</td></tr>
+                <tr><td>5m</td><td>SL2ATR/TP2R</td><td>+0.031R</td><td>+0.026R</td><td>+0.011R</td></tr>
+                <tr><td>5m</td><td>SL3ATR/trailHH20-2ATR</td><td>+0.010R</td><td>+0.006R</td><td>+0.002R</td></tr>
+                <tr><td>10m</td><td>SL1.5ATR/TP1R</td><td>-0.003R</td><td>+0.004R</td><td>-0.005R</td></tr>
+                <tr><td>10m</td><td>SL1ATR/TP3R</td><td>+0.012R</td><td>+0.009R</td><td>-0.024R</td></tr>
+                <tr><td>10m</td><td>SL2ATR/TP2R</td><td>+0.021R</td><td>+0.010R</td><td>+0.008R</td></tr>
+                <tr><td>10m</td><td>SL3ATR/trailHH20-2ATR</td><td>+0.016R</td><td>+0.016R</td><td>-0.001R</td></tr>
+                <tr><td>15m</td><td>SL1.5ATR/TP1R</td><td>-0.007R</td><td>+0.013R</td><td>-0.009R</td></tr>
+                <tr><td>15m</td><td>SL1ATR/TP3R</td><td>-0.002R</td><td>+0.026R</td><td>-0.001R</td></tr>
+                <tr><td>15m</td><td>SL2ATR/TP2R</td><td>+0.012R</td><td>+0.034R</td><td>+0.001R</td></tr>
+                <tr><td>15m</td><td>SL3ATR/trailHH20-2ATR</td><td>+0.002R</td><td>+0.008R</td><td>+0.005R</td></tr>
+                <tr><td>30m</td><td>SL1.5ATR/TP1R</td><td>+0.014R</td><td>-0.004R</td><td>-0.019R</td></tr>
+                <tr><td>30m</td><td>SL1ATR/TP3R</td><td>+0.052R</td><td>-0.009R</td><td>+0.002R</td></tr>
+                <tr><td>30m</td><td>SL2ATR/TP2R</td><td>+0.036R</td><td>+0.042R</td><td>-0.014R</td></tr>
+                <tr><td>30m</td><td>SL3ATR/trailHH20-2ATR</td><td>+0.017R</td><td>+0.012R</td><td>+0.017R</td></tr>
+                <tr><td>1h</td><td>SL1.5ATR/TP1R</td><td>+0.027R</td><td>-0.007R</td><td>+0.008R</td></tr>
+                <tr><td>1h</td><td>SL1ATR/TP3R</td><td>+0.073R</td><td>+0.013R</td><td>+0.019R</td></tr>
+                <tr><td>1h</td><td>SL2ATR/TP2R</td><td>+0.037R</td><td>+0.032R</td><td>-0.006R</td></tr>
+                <tr><td>1h</td><td>SL3ATR/trailHH20-2ATR</td><td>+0.015R</td><td>+0.031R</td><td>+0.018R</td></tr>
+                <tr><td>4h</td><td>SL1.5ATR/TP1R</td><td>+0.023R</td><td>-0.116R</td><td>+0.002R</td></tr>
+                <tr><td>4h</td><td>SL1ATR/TP3R</td><td>+0.092R</td><td>-0.199R</td><td>+0.057R</td></tr>
+                <tr><td>4h</td><td>SL2ATR/TP2R</td><td>+0.120R</td><td>-0.141R</td><td>+0.091R</td></tr>
+                <tr><td>4h</td><td>SL3ATR/trailHH20-2ATR</td><td>+0.034R</td><td>-0.019R</td><td>+0.088R</td></tr>
+                <tr><td>1d</td><td>SL1.5ATR/TP1R</td><td>+0.039R</td><td>-0.058R</td><td>+0.032R</td></tr>
+                <tr><td>1d</td><td>SL1ATR/TP3R</td><td>+0.101R</td><td>-0.002R</td><td>+0.014R</td></tr>
+                <tr><td>1d</td><td>SL2ATR/TP2R</td><td>+0.087R</td><td>+0.027R</td><td>-0.008R</td></tr>
+                <tr><td>1d</td><td>SL3ATR/trailHH20-2ATR</td><td>+0.049R</td><td>+0.026R</td><td>+0.002R</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>On the holdout, Backtest Board's random-entry benchmark averaged between -0.037R and +0.019R per trade on every timeframe from 2 minutes to 1 hour. On the 4-hour and daily charts, the rising market lifted random entries to as much as +0.091R per trade. An indicator has to beat those numbers, with the same exit and filter, before it shows any edge.</p>
+          <p>Backtest Board's second robustness check is a cap of +10R per trade. A few strategies looked strong only because one or two trades ran for months and paid 20R or more. When each trade is capped at +10R and a strategy turns into a loser, the edge was a handful of lucky outliers, not a repeatable pattern. The board's shortlist is scored with the cap and also requires a profit across most symbols, not just one.</p>
+          <figure class="post-fig">
+            <img src="/blog/img/bb-holdout-equity.webp" width="1600" height="535" loading="lazy" decoding="async" alt="Holdout equity curves, July 2025 to October 2026, for four paper-trading candidates: Volume SuperTrend AI 5m (two versions, about +48%), Volume SuperTrend AI 2m (about +47%) and S/R Breaks MTF 1d (about +3%). Most of each gain arrives in a few sudden jumps.">
+            <figcaption>Holdout equity for four candidates. Most of each curve's gain comes from a few sudden jumps, which are single big trades. That's the pattern the +10R cap is there to catch. The legend shows each curve's last plotted point, which falls a few days before the holdout ends, so two of its figures differ slightly from the final holdout net in the shortlist table below (S/R Breaks MTF 1d: +2.8% on the chart, +3.0% final; Volume SuperTrend AI 2m: +47.1% on the chart, +48.6% final).</figcaption>
+          </figure>
+        </section>
+
+        <section aria-labelledby="results">
+          <h2 id="results">Results: what beat random entries</h2>
+          <p>No indicator clearly beats random entries. The few that look good are roughly what luck alone would produce from this many tests.</p>
+          <div class="post-table">
+            <table>
+              <caption>Backtest Board results funnel, full run of October 28, 2026</caption>
+              <thead><tr><th scope="col">Check</th><th scope="col">Result</th></tr></thead>
+              <tbody>
+                <tr><td>Indicator x timeframe cells profitable after costs (default settings)</td><td class="tnum">148 of 427</td></tr>
+                <tr><td>Indicator x timeframe cells profitable after costs, 1m to 5m charts only</td><td class="tnum">22 of 180</td></tr>
+                <tr><td>Full strategies (entry x exit x filter) tested end to end</td><td class="tnum">717</td></tr>
+                <tr><td>Positive on the holdout (more than +0.03R per trade and net above zero), out of the 686 strategies with at least 50 validation trades</td><td class="tnum">269 of 686</td></tr>
+                <tr><td>Positive on validation and beat matched random entries on the holdout</td><td class="tnum">10</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <figure class="post-fig">
+            <img src="/blog/img/bb-candidates.webp" width="1600" height="699" loading="lazy" decoding="async" alt="Backtest Board's table of candidates for paper trading: each strategy's entry, timeframe, exit, filter, holdout trades, holdout average R, holdout net return and symbols profitable.">
+            <figcaption>The board's shortlist of paper-trading candidates. It was picked using holdout results, so it's a list to test forward, not proof.</figcaption>
+          </figure>
+          <p>The 10 strategies on the Backtest Board shortlist were positive on validation, made more than +0.03R per trade on the holdout over 50+ trades, were profitable on at least half the symbols, and beat random entries with the same exit and filter by more than 0.03R:</p>
+          <div class="post-table">
+            <table class="wide">
+              <caption>The 10 shortlisted strategies, holdout results</caption>
+              <thead><tr><th scope="col">Strategy (entry)</th><th scope="col">Timeframe</th><th scope="col">Exit</th><th scope="col">Filter</th><th scope="col">Holdout trades</th><th scope="col">Holdout avg R</th><th scope="col">Holdout net</th><th scope="col">Symbols profitable</th></tr></thead>
+              <tbody class="tnum">
+                <tr><td>Volume SuperTrend AI</td><td>5m</td><td>S/R Breaks MTF</td><td>200 EMA</td><td>385</td><td>+2.077R</td><td>+48.4%</td><td>14 of 28</td></tr>
+                <tr><td>Volume SuperTrend AI</td><td>5m</td><td>S/R Breaks MTF</td><td>None</td><td>421</td><td>+1.886R</td><td>+47.4%</td><td>14 of 28</td></tr>
+                <tr><td>S/R Breaks MTF</td><td>1d</td><td>Zero Lag Trend</td><td>None</td><td>142</td><td>+0.287R</td><td>+3.0%</td><td>14 of 26</td></tr>
+                <tr><td>Volume SuperTrend AI</td><td>2m</td><td>Wyckoff</td><td>200 EMA</td><td>1,133</td><td>+0.789R</td><td>+48.6%</td><td>14 of 28</td></tr>
+                <tr><td>Doda Stochastic</td><td>4h</td><td>Lorentzian Classification</td><td>LightGBM</td><td>147</td><td>+0.544R</td><td>+6.2%</td><td>15 of 26</td></tr>
+                <tr><td>Golden Cross</td><td>1h</td><td>S/R Breaks MTF</td><td>200 EMA</td><td>247</td><td>+0.659R</td><td>+10.0%</td><td>15 of 28</td></tr>
+                <tr><td>Rolling Candle Profile</td><td>4h</td><td>Purple Cloud 2.1</td><td>200 EMA</td><td>314</td><td>+0.305R</td><td>+7.2%</td><td>14 of 26</td></tr>
+                <tr><td>SuperTrend AI (Lux)</td><td>1d</td><td>Price Momentum Osc</td><td>LightGBM</td><td>56</td><td>+0.253R</td><td>+1.1%</td><td>13 of 26</td></tr>
+                <tr><td>Jurik Kase Perm. Stoch</td><td>4h</td><td>VWMA kNN MFI/ADX</td><td>LightGBM</td><td>145</td><td>+0.309R</td><td>+3.5%</td><td>13 of 26</td></tr>
+                <tr><td>Trend Speed Analyzer</td><td>1d</td><td>Price Momentum Osc</td><td>kNN</td><td>194</td><td>+0.313R</td><td>+4.9%</td><td>14 of 26</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>A few lessons stood out:</p>
+          <ul>
+            <li><b>Fast charts lose to costs.</b> On 1 to 5 minute charts, win rates sit near 50% and spread costs on thousands of trades drain the account. The 1-hour chart had the best median result.</li>
+            <li><b>Tuning per symbol mostly fits noise.</b> The best settings for a symbol in one year were no more likely than chance to stay near the top the next year.</li>
+            <li><b>Exits mattered more than entries.</b> Wider targets, trailing stops and stop-and-reverse beat a simple 1:1 target on the holdout.</li>
+            <li><b>Machine learning mostly memorized.</b> An ensemble model of all the indicators scored up to +0.97R per trade on training data but only -0.02 to +0.18R on the holdout.</li>
+            <li><b>The holdout was a bull market.</b> Even the 10 shortlisted strategies didn't beat simply holding the stocks, partly because at 2% risk per trade they're only in the market part of the time.</li>
+          </ul>
+          <p>The most consistent single strategy across years was Radius Trend on the daily chart, using stop-and-reverse with a 200 EMA filter. Consistent is not the same as proven, though.</p>
+
+          <h3 id="golden-cross-example">Example: Golden Cross 1h on QQQ, positive but mostly luck</h3>
+          <p>Click any strategy on the board to open its detail page. Here's Golden Cross (20/200) on QQQ's 1-hour chart with a 200 EMA filter. It was positive in all three periods, which looks great until you look at the trades.</p>
+          <figure class="post-fig">
+            <img src="/blog/img/bb-golden-cross-qqq.webp" width="1600" height="1091" loading="lazy" decoding="async" alt="Backtest Board detail page for Golden Cross (20/200) on QQQ, 1-hour chart, 200 EMA filter: results for the training, validation and holdout periods, and a price chart with every entry and exit marked.">
+            <figcaption>The top of the detail page shows results for training, validation and holdout, and a price chart with every entry and exit marked.</figcaption>
+          </figure>
+          <figure class="post-fig">
+            <img src="/blog/img/bb-golden-cross-trades.webp" width="1600" height="794" loading="lazy" decoding="async" alt="Cumulative R over time and the full trade list for Golden Cross 1h on QQQ. On the holdout, two winners of +8.4R and +6.6R carry the result while most other trades lose -1R.">
+            <figcaption>Lower down are the running total in R and every trade.</figcaption>
+          </figure>
+          <p>The holdout has only 11 trades with an 18% win rate. Two winners of +8.4R and +6.6R carry the whole result, and almost every other trade was stopped out at -1R. One fewer big winner and the holdout turns negative. That's why the board shows the trade list and caps each trade at +10R: a strategy can be green in every period and still be mostly luck.</p>
+        </section>
+
+        <section aria-labelledby="research">
+          <h2 id="research">What the research says about backtests</h2>
+          <p>The pattern in these results, where many strategies look good in testing and few hold up on new data, is well documented in finance research. Two studies explain why the board scores everything on untouched holdout data and against random entries.</p>
+          <blockquote class="post-quote">
+            <p>&ldquo;We prove that high simulated performance is easily achievable after backtesting&rdquo; a relatively small number of strategy configurations.</p>
+            <footer>David H. Bailey, Jonathan Borwein, Marcos L&oacute;pez de Prado and Qiji Jim Zhu, <cite><a href="https://scholarworks.wmich.edu/math_pubs/40/" target="_blank" rel="noopener">&ldquo;Pseudo-Mathematics and Financial Charlatanism: The Effects of Backtest Overfitting on Out-of-Sample Performance&rdquo;</a></cite>, Notices of the American Mathematical Society 61(5), 2014.</footer>
+          </blockquote>
+          <p>The same paper shows that overfitting can push results on new data below zero, not just to zero. That is consistent with what Backtest Board saw with machine learning: up to +0.97R per trade on training data, but only -0.02R to +0.18R on the holdout.</p>
+          <blockquote class="post-quote">
+            <p>&ldquo;Given this extensive data mining, it does not make any economic or statistical sense to use the usual significance criteria&rdquo; for a newly discovered return factor.</p>
+            <footer>Campbell R. Harvey, Yan Liu and Heqing Zhu, <cite><a href="https://www.nber.org/papers/w20592" target="_blank" rel="noopener">&ldquo;&hellip; and the Cross-Section of Expected Returns&rdquo;</a></cite>, The Review of Financial Studies 29(1), 2016.</footer>
+          </blockquote>
+          <p>Harvey, Liu and Zhu argue that after hundreds of tests, a new finding should clear a t-ratio of 3.0 instead of the usual 2.0. Backtest Board ran 23,608 backtests, so a handful of strong-looking strategies is expected by chance alone. That is why its shortlist requires a positive validation result, a win over random entries on the holdout, and profits on at least half the symbols.</p>
+        </section>
+
+        <section aria-labelledby="how-to-use">
+          <h2 id="how-to-use">How to use Backtest Board</h2>
+          <p>Open <a href="https://backtestboard.com/dashboard.html" target="_blank" rel="noopener">the board</a> and start with the Overview tab: it shows the shortlist, each strategy next to its random-entry comparison, and a chart of every trade. The <a href="https://backtestboard.com/guide.html" target="_blank" rel="noopener">guide</a> explains each tab and column. New market data is added regularly and the full test suite is rerun as new indicators are ported, so the numbers change; the date at the top shows the last refresh.</p>
+          <p>If an indicator you use looks bad on the board, that isn't a verdict on its author. It means that, under these rules and costs, its signals didn't do better than chance. Requests to test other indicators are welcome.</p>
+        </section>
+
+        <section aria-labelledby="faq">
+          <h2 id="faq">Frequently asked questions</h2>
+          <div class="post-faq">
+            <h3 id="faq-do-indicators-work">Do TradingView indicators work?</h3>
+            <p>In Backtest Board's tests, no indicator clearly beat random entries. Of 717 strategies built from 45 TradingView indicators, 10 were positive on validation and beat random entries on the holdout, which is about what luck would produce from that many tests.</p>
+            <h3 id="faq-best-timeframe">What is the best timeframe for TradingView indicators?</h3>
+            <p>The 1-hour chart had the best median result, at +9.2% net per symbol with default settings. On 1 to 5 minute charts only 22 of 180 indicator and timeframe combinations made money, because trading costs on thousands of trades outweigh small edges.</p>
+            <h3 id="faq-why-random">Why compare indicators with random entries instead of buy and hold?</h3>
+            <p>Random entries with the same exit and filter isolate the signal. In a rising market almost any long trade makes money, so a profit alone doesn't show that the indicator's timing adds anything.</p>
+            <h3 id="faq-machine-learning">Does machine learning improve indicator signals?</h3>
+            <p>Mostly not. On Backtest Board, a LightGBM model combining every indicator scored up to +0.97R per trade on training data but only -0.02R to +0.18R on the holdout. Some shortlisted strategies use a LightGBM or kNN filter, a machine-learning model that skips signals it predicts will lose.</p>
+            <h3 id="faq-why-r">Why are the results measured in R instead of dollars or percent?</h3>
+            <p>R is the amount each trade risks, 2% of the account on Backtest Board. Measuring in R puts a 1-minute Bitcoin strategy and a daily S&amp;P 500 futures strategy on the same scale: +0.1R per trade means each trade made, on average, a tenth of what it risked, after costs.</p>
+            <h3 id="faq-updates">How often is Backtest Board updated?</h3>
+            <p>New market data is added regularly, and the full test suite is rerun when indicators are added. The results in this post are from the full run of October 28, 2026.</p>
+            <h3 id="faq-advice">Is Backtest Board financial advice?</h3>
+            <p>No. Backtest Board is for education and research, and every result is a hypothetical backtest.</p>
+          </div>
+        </section>
+
+        <section aria-labelledby="disclaimer">
+          <h2 id="disclaimer">Disclaimer</h2>
+          <p class="post-disclaim"><b>Not financial advice.</b> Backtest Board is for education and research only. Everything here is a hypothetical backtest on historical data, which assumes modeled fills and leaves out real-world factors like slippage, liquidity and emotion. Past performance, real or simulated, does not predict future results, and trading involves substantial risk of loss. The author may trade the instruments shown here. Read the <a href="https://backtestboard.com/disclaimer.html" target="_blank" rel="noopener">full disclaimer</a>.</p>
+        </section>
+
+      </article>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap">
+      <div class="hub-other">
+        <div><h2>See every result for yourself.</h2><p>The shortlist, the random-entry comparison and every trade, on Backtest Board.</p></div>
+        <a class="pill pill-buy" href="https://backtestboard.com/dashboard.html" target="_blank" rel="noopener">Open the board</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

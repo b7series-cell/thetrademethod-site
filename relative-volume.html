@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Relative Volume — is anyone actually showing up? | The Trade Method</title>
+<meta name="description" content="Relative volume (RVOL) and the cumulative RVOL histogram: is a stock doing abnormal volume compared to itself, and is that participation increasing, holding, fading or absent?">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/relative-volume.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Relative Volume — is anyone actually showing up?">
+<meta property="og:description" content="Relative volume (RVOL) and the cumulative RVOL histogram: is a stock doing abnormal volume compared to itself, and is that participation increasing, holding, fading or absent?">
+<meta property="og:url" content="https://thetrademethod.com/relative-volume.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Relative Volume — is anyone actually showing up?">
+<meta name="twitter:description" content="Relative volume (RVOL) and the cumulative RVOL histogram: is a stock doing abnormal volume compared to itself, and is that participation increasing, holding, fading or absent?">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Relative Volume — is anyone actually showing up?",
+ "name": "Relative Volume",
+ "description": "Relative volume (RVOL) and the cumulative RVOL histogram: is a stock doing abnormal volume compared to itself, and is that participation increasing, holding, fading or absent?",
+ "url": "https://thetrademethod.com/relative-volume.html",
+ "mainEntityOfPage": "https://thetrademethod.com/relative-volume.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; white-space:nowrap; }
+  .calc .row.tot b { color:var(--up); }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* the four readings */
+  .reads { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:14px; }
+  .reads div { background:var(--raised); border-radius:18px; padding:14px 15px 15px; }
+  .reads b { display:block; font-size:16px; margin:8px 0 4px; }
+  .reads p { margin:0; color:var(--mute); font-size:14px; }
+  .reads .spark svg { width:100%; height:auto; display:block; }
+  .reads .good b { color:var(--up); } .reads .warnr b { color:#ff6961; }
+
+  /* decision grid */
+  .decide { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .decide div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .decide .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .decide b { display:block; margin:6px 0 4px; font-size:16px; }
+  .decide p { margin:0; color:var(--mute); font-size:14px; }
+  .decide .yes { background:rgba(48,209,88,0.12); } .decide .yes b { color:var(--up); }
+  .decide .no  { background:rgba(255,69,58,0.12); }  .decide .no b { color:#ff6961; }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  @media (min-width:1101px) { .filters { grid-template-columns:repeat(4,1fr); } }
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .reads { grid-template-columns:repeat(2,1fr); }
+    .decide { grid-template-columns:1fr; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .sheet .main + .anim, .sheet .filters + .anim { margin-top:56px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .reads { grid-template-columns:1fr; }
+  }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/rvol-anim.js?v=2" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=2" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="relative-volume">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; not a setup, the participation check behind every breakout</p>
+      <h1>Relative <span>Volume</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Price tells you what happened. <em>RVOL tells you how much participation is behind it.</em> The question
+      isn't whether a stock has volume. It's whether it's doing abnormal volume compared to itself, and whether that participation is
+      increasing, holding, fading or never showing up.</p>
+      <div class="counts">
+        <div><b>1.0x</b><small>a normal day, by this time</small></div>
+        <div><b>2</b><small>baselines: 20-day and 5-day</small></div>
+        <div><b>4</b><small>examples, one level twice</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">step 1</div><div class="n">What RVOL tells you</div></div>
+    <div><div class="t">step 2</div><div class="n">Cleaner breakouts</div></div>
+    <div><div class="t">the tool</div><div class="n">Cumulative histogram</div></div>
+    <div><div class="t">examples</div><div class="n">Confirm or warn</div></div>
+    <div><div class="t">the process</div><div class="n">Attention, then a setup</div></div>
+  </nav>
+
+  <div class="section-head">
+    <h2>What RVOL actually tells you</h2>
+    <p>Current volume compared to normal volume. That's all it is, and it's why total volume on its own can mislead you.</p>
+  </div>
+  <section class="anim" data-rvol-anim="self" aria-label="Illustrative chart: three stocks at 10:15. Stock 1 has traded 5 million shares against a normal 1 million, 5x. Stock 2 has traded 10 million against a normal 50 million, 0.2x. Stock 3 has traded 2 million against a normal 200,000, 10x. Ranked by total volume Stock 2 looks most active; ranked by relative volume it is the quietest">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Abnormal compared to itself</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart: three stocks at 10:15. Stock 1 has traded 5 million shares against a normal 1 million, 5x. Stock 2 has traded 10 million against a normal 50 million, 0.2x. Stock 3 has traded 2 million against a normal 200,000, 10x"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>RVOL = volume now &divide; normal volume by now</h3>
+          <ul>
+            <li>If a stock usually trades 1 million shares by this point in the day and today it has traded 5 million, it's doing five times normal volume.</li>
+            <li>10 million shares sounds active. If the stock normally trades 50 million, it isn't special.</li>
+            <li>2 million sounds quiet. If the stock normally trades 200,000, that's a massive change.</li>
+          </ul>
+          <p class="why">You don't just want to know if a stock has volume. You want to know if it has unusual volume, because unusual volume usually means something changed.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>No RVOL, no trust</h3>
+          <ul>
+            <li>You don't need to know every detail right away. You need to know the stock is not trading like a normal day.</li>
+            <li>That's the first filter. If a stock is moving with no relative volume, be suspicious already.</li>
+            <li>If nobody is really participating, why should you trust the move?</li>
+          </ul>
+          <p class="why">Price can break a level on weak participation and mean nothing. The same break with RVOL expanding has attention, liquidity and other traders watching it.</p>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h4>The three numbers, worked</h4>
+        <p class="lead">Each stock measured against its own normal volume by the same time of day.</p>
+        <div class="calc">
+          <div class="row"><span>Stock 1 &middot; 5M today &divide; 1M normal</span><b>5.0x</b></div>
+          <div class="row"><span>Stock 2 &middot; 10M today &divide; 50M normal</span><b>0.2x</b></div>
+          <div class="row"><span>Stock 3 &middot; 2M today &divide; 200K normal</span><b>10.0x</b></div>
+          <div class="row tot"><span>Most shares traded &ne; most unusual</span><b>Stock 3, not 2</b></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>What unusual volume usually means</h4>
+        <p class="lead">You don't need the reason yet. RVOL tells you there is one.</p>
+        <div class="timing">
+          <div><b>A catalyst</b><p>News, or an earnings reaction the market actually cares about.</p></div>
+          <div><b>A theme</b><p>A sector in play, pulling every name in it into focus.</p></div>
+          <div><b>A crowd</b><p>A technical breakout getting attention, institutions involved, day traders piling in.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Why RVOL makes breakouts cleaner</h2>
+    <p>RVOL isn't just for finding active stocks. It changes how well technical analysis works on the stock you're watching.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Levels only matter if people are watching them</h3>
+          <ul>
+            <li>If nobody is watching a stock, a beautiful breakout line, a clean VWAP reclaim or a prior day high can mean nothing. No attention, no liquidity, no crowd reacting to the level.</li>
+            <li>When RVOL is high, the stock becomes a focused name. A lot of traders draw the same premarket high, prior day high, VWAP, opening range and breakout level.</li>
+            <li>So when price gets there, the reaction is more predictable, because more people are involved.</li>
+          </ul>
+          <p class="why">It doesn't mean every breakout works. It means the setup has a much better chance of behaving like a setup.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Stocks in play</h3>
+          <ul>
+            <li>A stock in play isn't just a stock that moved. It has attention, range, volume and a reason people are involved. RVOL helps confirm that.</li>
+            <li>Opening drive, VWAP continuation, day three breakout, fashionably late: each needs enough participation for the trade to matter.</li>
+          </ul>
+          <p class="why">Without it, you're probably just trading noise.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The levels a crowd draws</h4>
+        <p class="lead">On a high-RVOL name, many traders are watching these same prices at the same time.</p>
+        <div class="calc">
+          <div class="row"><span>Premarket high</span><b>watched</b></div>
+          <div class="row"><span>Prior day high</span><b>watched</b></div>
+          <div class="row"><span>VWAP</span><b>watched</b></div>
+          <div class="row"><span>Opening range</span><b>watched</b></div>
+          <div class="row tot"><span>The breakout level</span><b>a real reaction</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Setups that lean on it</h4>
+        <p class="lead">Read these with RVOL open beside the chart.</p>
+        <div class="timing">
+          <div><b><a class="more" href="/setups/pmh-break.html">Opening drive</a></b><p>Through the premarket high, with the open's volume behind it.</p></div>
+          <div><b><a class="more" href="/setups/day-three-breakout.html">Day three breakout</a></b><p>A multi-day name still drawing abnormal participation.</p></div>
+          <div><b><a class="more" href="/setups/fashionably-late.html">Fashionably late</a></b><p>A later-session trend that needs volume to keep going.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The cumulative RVOL histogram</h2>
+    <p>Not one number for the day. At every bar, today's volume so far against what's normal by that same time of day.</p>
+  </div>
+  <section class="anim" data-rvol-anim="cum" aria-label="Illustrative chart: a stock's average cumulative volume by time of day over 20 sessions reaches 1.2 million shares by 10:15; today it has traded 3.0 million by 10:15, so cumulative RVOL is 2.5x against the 20-day average and 2.0x against the 5-day average. The histogram rises into the move and then holds near 2.5x through noon">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">How the histogram is built</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative chart: today's cumulative volume against the 20-day average by time of day; 3.0 million against 1.2 million by 10:15 is 2.5x. The histogram rises into the move and holds near 2.5x"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Same time of day, every bar</h3>
+          <ul>
+            <li>If it's 10:15, compare today's volume up to 10:15 with what's normal for that stock up to 10:15.</li>
+            <li>That's what makes it cumulative: a running total against a running average, bar by bar, so the open's heavy volume never flatters the rest of the day.</li>
+            <li>The top histogram compares today to the 20-day average. The bottom compares today to the 5-day average.</li>
+          </ul>
+          <p class="why">It isn't used to predict the future. It's used to ask a better question: is this move being supported by abnormal participation?</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>The tool doesn't matter, the question does</h3>
+          <ul>
+            <li>This histogram was built for thinkorswim; the TradingView version is at the bottom of this page.</li>
+            <li>DAS has relative volume you can add to the montage. Finviz shows relative volume. Most scanners and charting platforms have some version.</li>
+          </ul>
+          <p class="why">Is the stock doing abnormal volume compared to itself, and is that participation increasing, holding, fading or non-existent?</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Four readings</h4>
+        <p class="lead">The histogram answers one question at a glance. Dashed line = 1.0, normal for the time of day.</p>
+        <div class="reads">
+          <div class="good"><span class="spark" data-rvol-spark="increasing"></span><b>Increasing</b><p>Participation building into the move. What you want on a breakout.</p></div>
+          <div class="good"><span class="spark" data-rvol-spark="holding"></span><b>Holding</b><p>Steady above 1 after the break, still there on the pullback.</p></div>
+          <div class="warnr"><span class="spark" data-rvol-spark="fading"></span><b>Fading</b><p>Price moving while participation drains away. Trust it less.</p></div>
+          <div class="warnr"><span class="spark" data-rvol-spark="absent"></span><b>Never shows up</b><p>Under 1 all along. A move in an empty room.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Reading the colors</h4>
+        <p class="lead">The same colors as the indicator below.</p>
+        <div class="timing">
+          <div><b style="color:#8e8e93">Grey &middot; under 1.0</b><p>Less volume than normal for this time of day.</p></div>
+          <div><b style="color:var(--link)">Blue &middot; 1.0 to 2.0</b><p>Above normal. Something is drawing attention.</p></div>
+          <div class="primary"><b>Green &middot; 2.0 and up</b><p>Strong participation. Faded columns mean it's falling.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Four examples</h2>
+    <p>The obvious one, a clean confirmation, and the same resistance level twice: once without RVOL, once with it.</p>
+  </div>
+  <section class="anim" data-rvol-anim="break" aria-label="Illustrative chart: two breakouts through the same 155 resistance. In the first, cumulative RVOL stays under 1.0 against both the 20-day and 5-day averages, and price falls back under 155. In the second, RVOL jumps a little over 2 on the break, settles between 1.7 and 1.8 and holds, the pullback holds above 155, and the stock trends higher">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Same level, different participation</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative chart: a breakout through 155 with RVOL under 1 fails; a breakout through 155 with RVOL a little over 2 that settles at 1.7 to 1.8 holds and trends"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <table>
+    <caption>The four examples from the video, as described there. Not independently verified.</caption>
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><span class="tick">MRNA<small>monster RVOL</small></span></th>
+        <th><span class="tick">ETHA<small>RVOL increasing</small></span></th>
+        <th><span class="tick">SpaceX at 155<small>no RVOL</small></span></th>
+        <th><span class="tick">SpaceX at 155<small>RVOL confirms</small></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>Daily chart</th><td class="txt">Huge catalyst, massive gap up, a volume bar nowhere near normal</td><td class="txt">Basing under $44 resistance, then breaks it on a huge green candle and clear volume expansion</td><td class="txt">Pushing into a prior area around $155 where a breakout would look interesting</td><td class="txt">Tightening under the same $155 level again</td></tr>
+      <tr><th>Cumulative RVOL</th><td class="txt">20-day and 5-day both extremely elevated</td><td class="txt">Increasing with the move on the 2-minute chart</td><td class="txt neg">Both under 1: less volume than normal for the time of day</td><td class="txt pos">A little over 2 on the break, then 1.7 to 1.8 and holding</td></tr>
+      <tr><th>What happened</th><td class="txt">Not a normal day: serious attention, range, liquidity and opportunity</td><td class="txt">Price breaking out while participation built</td><td class="txt">Broke 155 for a few minutes, then failed</td><td class="txt">Breakout held; moved toward 175 over the next couple of days</td></tr>
+      <tr><th>The lesson</th><td class="txt">RVOL tells you what to look at. The setup tells you where to trade.</td><td class="txt">Participation confirming the move is much stronger than price alone</td><td class="txt">A breakout needs buyers. RVOL helps you avoid bad trades</td><td class="txt">Confirmation can be subtle. It doesn't need to be monster RVOL</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-head">
+    <h2>How to use it in your process</h2>
+    <p>RVOL doesn't replace price action. It confirms or questions it.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">7</div>
+        <div>
+          <h3>Before you take a breakout, ask</h3>
+          <ul>
+            <li>Is this stock in play? Is today's volume abnormal?</li>
+            <li>Is participation increasing into the move?</li>
+            <li>Is RVOL holding after the move? Is the stock still trading actively on the pullback?</li>
+            <li>Or is price moving while participation fades?</li>
+          </ul>
+          <p class="why">Those questions decide how much you trust the setup.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">8</div>
+        <div>
+          <h3>High RVOL is not a buy signal</h3>
+          <ul>
+            <li>It means pay attention: the stock has range, liquidity and attention. You still need your actual trade.</li>
+            <li>That might be an opening drive through the premarket high, a VWAP continuation, a fashionably late or an opening range break.</li>
+          </ul>
+          <p class="why">RVOL tells you whether the stock deserves your attention in the first place. The setup tells you where to trade it.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Price and RVOL together</h4>
+        <p class="lead">Three combinations, three different levels of trust.</p>
+        <div class="decide">
+          <div class="yes"><span class="k">price good &middot; RVOL confirms</span><b>Stronger trade</b><p>The chart says breakout and the RVOL says people are actually showing up for it.</p></div>
+          <div class="no"><span class="k">price good &middot; no RVOL</span><b>Be much more careful</b><p>Who is actually behind this move? Real demand, or a low-volume push about to fail?</p></div>
+          <div><span class="k">RVOL huge &middot; price messy</span><b>Still need a setup</b><p>Attention isn't an entry. Wait for the opening drive, VWAP continuation or ORB.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Four ways to misread volume</h2>
+    <p>Each one looks like reading volume. Each one gets you into the wrong trades.</p>
+  </div>
+  <div class="filters">
+    <div class="filter">
+      <h3>1 &nbsp;Trusting total volume</h3>
+      <p>10 million shares on a stock that normally does 50 million is a quiet day. Measure the stock against itself.</p>
+      <p class="kill">Kills: your sense of which names are actually in play.</p>
+    </div>
+    <div class="filter">
+      <h3>2 &nbsp;Buying because RVOL is high</h3>
+      <p>Monster RVOL says pay attention, not buy here. Without a setup it's just a busy chart.</p>
+      <p class="kill">Kills: entries with no level and no stop.</p>
+    </div>
+    <div class="filter">
+      <h3>3 &nbsp;Chasing a break under 1.0</h3>
+      <p>Price clears the level while RVOL sits below normal. Nobody showed up, and the breakout fails.</p>
+      <p class="kill">Kills: the fake breakout you didn't need to take.</p>
+    </div>
+    <div class="filter">
+      <h3>4 &nbsp;Reading one number</h3>
+      <p>2x at the open that's draining to 1.1x isn't the same as 1.8x holding. Read the shape: increasing, holding, fading.</p>
+      <p class="kill">Kills: moves you trusted after the crowd left.</p>
+    </div>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/CvRwUoDZiog" title="Relative volume and the cumulative RVOL histogram (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>The whole idea in 15 minutes, with the four chart examples on the real charts.</p>
+      <ol>
+        <li><b>0:00</b>Why volume matters</li>
+        <li><b>2:09</b>What RVOL actually tells you</li>
+        <li><b>3:39</b>Why RVOL makes breakouts cleaner</li>
+        <li><b>5:18</b>The cumulative RVOL histogram</li>
+        <li><b>7:22</b>Four examples</li>
+        <li><b>12:39</b>How I use it, and why high RVOL isn't a buy signal</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=CvRwUoDZiog" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <h2 class="ind-heading">Indicator for this page</h2>
+    <p class="ind-note">Add it to a TradingView chart. It draws cumulative RVOL by time of day against the 20-day and 5-day averages,
+    colors it by level, shows whether participation is increasing, holding or fading, and alerts on the crosses. It does not place trades.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">Cumulative RVOL by Time of Day</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">Today's volume so far divided by the stock's average volume up to the same time of day. Columns compare with
+      the 20-day average (grey under 1.0, blue above, green at 2.0 and up; faded when falling) and an orange step line with the 5-day.
+      Set it to one average and add it twice for the two-panel layout in the video. A status panel shows both readings, increasing /
+      holding / fading, and how many sessions are loaded. Alerts for crossing above 1.0, crossing the strong level, falling back under
+      1.0, and a test alert that fires every bar. Intraday charts; a daily chart falls back to plain RVOL.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/cumulative-rvol.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+  </ul>
+
+  <div class="rule">
+    <div>
+      <h2>Price tells you direction. RVOL tells you participation.</h2>
+      <p>Participation is what makes a move trustworthy. The best setups don't happen in dead stocks: they happen when volume, range,
+      catalyst and attention all come together. That's where to be looking.</p>
+    </div>
+    <div>
+      <ul>
+        <li>A breakout with increasing RVOL is very different from a breakout with no volume behind it.</li>
+        <li>A pullback with RVOL holding is very different from one where participation disappears.</li>
+        <li>A catalyst with monster RVOL is very different from a headline nobody cares about.</li>
+        <li>It won't make every trade work. It will keep you on better stocks and out of weak breakouts.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from a trading-education video on relative volume and a cumulative RVOL histogram (20-day and 5-day, by time of day). Charts above are illustrations of the mechanics, not real tickers or data; the example readings in the table are the presenter's own descriptions, not independently verified. <a href="https://www.youtube.com/watch?v=CvRwUoDZiog" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

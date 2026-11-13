@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trailing Stop Exits — four styles, one system | The Trade Method</title>
+<meta name="description" content="Four trailing stop styles for exiting a trade you already have edge on, protecting it from selling too early and from overstaying too long.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/trailing-stops.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Trailing Stop Exits — four styles, one system">
+<meta property="og:description" content="Four trailing stop styles for exiting a trade you already have edge on, protecting it from selling too early and from overstaying too long.">
+<meta property="og:url" content="https://thetrademethod.com/trailing-stops.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Trailing Stop Exits — four styles, one system">
+<meta name="twitter:description" content="Four trailing stop styles for exiting a trade you already have edge on, protecting it from selling too early and from overstaying too long.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Trailing Stop Exits — four styles, one system",
+ "name": "Trailing Stop Exits",
+ "description": "Four trailing stop styles for exiting a trade you already have edge on, protecting it from selling too early and from overstaying too long.",
+ "url": "https://thetrademethod.com/trailing-stops.html",
+ "mainEntityOfPage": "https://thetrademethod.com/trailing-stops.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/anim-kit.js?v=2" defer></script>
+<script src="/js/ts-anim.js?v=1" defer></script>
+<script src="/js/tstrap-anim.js?v=1" defer></script>
+<script src="/js/tscombo-anim.js?v=1" defer></script>
+<style>
+  /* video (same as relative-volume.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=2" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="trailing-stops">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; not a setup, four trailing-stop styles for exiting a trade you already have edge on</p>
+      <h1>Trailing Stop <span>Exits</span></h1>
+    </div>
+    <div>
+      <p class="thesis">A trailing stop doesn't give a trade its edge. <em>It protects the edge you already have
+      from the two things that quietly destroy it</em> &mdash; selling too early, and overstaying too long.</p>
+      <div class="counts">
+        <div><b>4</b><small>trail styles</small></div>
+        <div><b>4</b><small>real trade examples</small></div>
+        <div><b>1</b><small>rule &mdash; match the trail to the trade</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">the two problems</div><div class="n">Why use a trail at all</div></div>
+    <div><div class="t">tightest</div><div class="n">Bar trail: pure momentum</div></div>
+    <div><div class="t">most passive</div><div class="n">ATR trail: stay in the trend</div></div>
+    <div><div class="t">middle ground</div><div class="n">EMA &amp; parabolic SAR</div></div>
+    <div><div class="t">combine them</div><div class="n">Trail each portion differently</div></div>
+  </nav>
+
+  <section class="anim" data-tm-anim="ts" aria-label="Animated walkthrough on illustrative 5-minute bars: a long bought at 50.40 runs to 55.10 and, with no trail, closes at 50.20 for a loss; the same bars exited with a bar trail at 51.85 (+1.45), a 9 EMA trail at 52.40 (+2.00), a parabolic SAR at 52.35 (+1.95) and an ATR trail of highest high minus 3 times ATR(3) at 53.10 (+2.70), showing how tight trails exit early and loose trails stay longer but give back more from the high.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Watch four trails exit the same trade</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Animated walkthrough on illustrative 5-minute bars: a long bought at 50.40 runs to 55.10 and, with no trail, closes at 50.20 for a loss; the same bars exited with a bar trail at 51.85 (+1.45), a 9 EMA trail at 52.40 (+2.00), a parabolic SAR at 52.35 (+1.95) and an ATR trail of highest high minus 3 times ATR(3) at 53.10 (+2.70), showing how tight trails exit early and loose trails stay longer but give back more from the high."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Why use a trailing stop at all</h3>
+          <ul>
+            <li>A trailing stop is not a strategy by itself &mdash; the trade still needs real edge. What it does is solve two specific, recurring problems once you're already in a good one.</li>
+            <li>Problem one: selling too early. Getting overly zoomed in at the first sign of slowing momentum and watching a trade you nailed trend on for days without you.</li>
+            <li>Problem two: overstaying. Freezing when a great trade starts to reverse, and rationalizing your way out of following the exit &mdash; "if it pulls back here, I'd want to buy more anyway."</li>
+          </ul>
+          <p class="why">A systematic trailing process removes the negotiation in both directions. It isn't about being right about the move &mdash; it's about consistently capturing more of the ones that were already right.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Bar trail &mdash; the tightest, for pure momentum</h3>
+          <ul>
+            <li>Reserved for a significant price pattern with real volume behind it, when you're expecting a powerful initial move and want to capture that momentum specifically. Mechanically: the stop rises to just below the prior bar's low on a long, or above the prior bar's high on a short.</li>
+            <li>Timeframe is the main lever: a 2-minute bar trail is the tightest and fastest, best for pure intraday momentum. A 5-minute trail is more robust and holds through a longer opening-drive move. A 15-minute trail can keep you in a full intraday trend &mdash; at the cost of giving back more if it reverses.</li>
+          </ul>
+          <p class="why">Because it's so tight, a bar trail is also the noisiest. If the trade doesn't actually deliver sheer momentum, this style will whipsaw you out of it &mdash; reserve it for genuinely explosive volume breakouts.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>ATR trail &mdash; the most passive, for staying in a trend</h3>
+          <ul>
+            <li>Sits at the opposite end of the spectrum from the bar trail. It dynamically adjusts using a multiple of Average True Range, and it flatlines as price consolidates &mdash; which is exactly why it's good at holding through a real trend instead of getting shaken out by it.</li>
+            <li>Two parameters: the ATR period (how many bars back it measures) and the ATR factor (the multiple that sets how far the stop sits from price). There's no magic number &mdash; a common starting point is 3 and 3, but it's worth testing against your own setups.</li>
+          </ul>
+          <p class="why">The tradeoff for staying in longer is that an ATR trail will never get you out anywhere near the highs. You wait for a full bar close below it, not an intrabar touch &mdash; patience is the entire point of this style.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>EMA and parabolic SAR &mdash; the middle ground</h3>
+          <ul>
+            <li>An exponential moving average trail (commonly a 9 EMA, exiting on a close below it) sits between the two extremes: more forgiving than a bar trail with less risk of getting wicked out on a single bad print, but more responsive than an ATR trail.</li>
+            <li>A parabolic SAR trail starts wide and tightens progressively as time passes, controlled by two parameters &mdash; an acceleration factor that sets how fast it tightens, and an acceleration limit that caps how tight it can ultimately get.</li>
+          </ul>
+          <p class="why">Neither of these is the tightest or the most passive option available &mdash; they're for when you want a systematic exit that still gives a trade some room to breathe early on.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Combine them &mdash; trail each portion of the trade differently</h3>
+          <ul>
+            <li>A single setup can contain two different trades at once: a fast opening-drive momentum move, and a longer swing opportunity behind it. Rather than picking one trail for the whole position, split the size.</li>
+            <li>Trail the momentum portion tight (a 5-minute bar trail, for example) to lock in the initial pop, and hold the rest with a looser trail (a 15-minute ATR trail) to stay with the bigger move if it keeps going.</li>
+          </ul>
+          <p class="why">This is how you capture the fast part of a move without capping your upside on the trade that turns into something much bigger over the following days.</p>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h4>What no trail looks like</h4>
+        <p class="lead">A real breakout, a real run higher, and then a full round-trip into a loss &mdash; because every level on the way down came with a reason not to sell.</p>
+        <svg viewBox="0 0 1180 480" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="A chart showing a breakout running higher, then reversing through several rationalized levels, then gapping down sharply, with the point a systematic trailing stop would have exited marked">
+<defs><marker id="t1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8fa6bd"/></marker><marker id="t2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#f4b942"/></marker><marker id="t3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#e0505a"/></marker></defs>
+<rect x="32" y="20" width="1062" height="300" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<rect x="32" y="332" width="1062" height="120" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<line x1="60" y1="160" x2="1046" y2="160" stroke="#f4b942" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.85"/>
+<text x="68" y="151" fill="#f4b942" font-size="13" font-weight="700">10-day trail &mdash; where the plan said get out</text>
+<line x1="90" y1="230" x2="90" y2="270" stroke="#1d6f47" stroke-width="1.8"/><rect x="76" y="238" width="28" height="26" fill="#1d6f47" rx="1"/>
+<line x1="150" y1="190" x2="150" y2="235" stroke="#1d6f47" stroke-width="2"/><rect x="136" y="196" width="28" height="34" fill="#1d6f47" rx="1"/>
+<line x1="210" y1="140" x2="210" y2="195" stroke="#1d6f47" stroke-width="2.2"/><rect x="196" y="148" width="28" height="42" fill="#1d6f47" rx="1"/>
+<text x="150" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">230 &rarr; breakout</text>
+<line x1="270" y1="100" x2="270" y2="150" stroke="#1d6f47" stroke-width="2.2"/><rect x="256" y="108" width="28" height="38" fill="#1d6f47" rx="1"/>
+<text x="270" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">244, big open profit</text>
+<line x1="330" y1="120" x2="330" y2="165" stroke="#54697f" stroke-width="1.8"/><rect x="316" y="126" width="28" height="34" fill="#54697f" rx="1"/>
+<line x1="390" y1="140" x2="390" y2="185" stroke="#54697f" stroke-width="1.8"/><rect x="376" y="146" width="28" height="34" fill="#54697f" rx="1"/>
+<text x="390" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">"healthy pullback"</text>
+<line x1="450" y1="155" x2="450" y2="195" stroke="#7d343c" stroke-width="1.8"/><rect x="436" y="160" width="28" height="30" fill="#7d343c" rx="1"/>
+<text x="450" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">closes below the trail</text>
+<line x1="510" y1="165" x2="510" y2="210" stroke="#7d343c" stroke-width="1.8"/><rect x="496" y="170" width="28" height="30" fill="#7d343c" rx="1"/>
+<text x="510" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">"just retesting"</text>
+<line x1="570" y1="175" x2="570" y2="215" stroke="#7d343c" stroke-width="1.8"/><rect x="556" y="180" width="28" height="30" fill="#7d343c" rx="1"/>
+<text x="570" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">"should hold here"</text>
+<line x1="630" y1="185" x2="630" y2="290" stroke="#e0505a" stroke-width="2.6"/><rect x="616" y="200" width="28" height="70" fill="#e0505a" rx="1"/>
+<text x="630" y="608" fill="#e0505a" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">gap down, loss</text>
+<rect x="90" y="60" width="270" height="46" rx="7" fill="#0d1a2b" stroke="#8fa6bd" stroke-width="1.7"/>
+<text x="104" y="83" fill="#c8d8e8" font-size="13" font-weight="600">Big open profit, bigger targets</text>
+<text x="104" y="101" fill="#c8d8e8" font-size="13" font-weight="600">imagined &mdash; 260, even 300.</text>
+<line x1="225" y1="106" x2="270" y2="130" stroke="#8fa6bd" stroke-width="1.5" marker-end="url(#t1)"/>
+<rect x="330" y="330" width="300" height="46" rx="7" fill="#0d1a2b" stroke="#f2e0a0" stroke-width="1.7"/>
+<text x="344" y="353" fill="#f4b942" font-size="13" font-weight="600">Closes below the trail &mdash; this is</text>
+<text x="344" y="371" fill="#f4b942" font-size="13" font-weight="600">exactly where the plan says exit.</text>
+<line x1="420" y1="330" x2="450" y2="200" stroke="#f4b942" stroke-width="1.5" marker-end="url(#t2)"/>
+<rect x="700" y="60" width="320" height="46" rx="7" fill="#0d1a2b" stroke="#f2a9ae" stroke-width="1.7"/>
+<text x="714" y="83" fill="#f2a9ae" font-size="13" font-weight="600">Instead: three more weeks of reasons</text>
+<text x="714" y="101" fill="#f2a9ae" font-size="13" font-weight="600">not to sell, then a 2.5% gap down.</text>
+<line x1="750" y1="106" x2="630" y2="220" stroke="#e0505a" stroke-width="1.5" marker-end="url(#t3)"/>
+<text x="46" y="326" fill="#7d93ad" font-size="13">Volume</text>
+<rect x="76" y="410.0" width="28" height="26.0" fill="#54697f" opacity="0.5" rx="1"/>
+<rect x="136" y="400.0" width="28" height="36.0" fill="#f4b942" opacity="0.85" rx="1"/>
+<rect x="196" y="390.0" width="28" height="46.0" fill="#f4b942" opacity="0.9" rx="1"/>
+<rect x="256" y="404.0" width="28" height="32.0" fill="#54697f" opacity="0.5" rx="1"/>
+<rect x="316" y="412.0" width="28" height="24.0" fill="#54697f" opacity="0.4" rx="1"/>
+<rect x="376" y="414.0" width="28" height="22.0" fill="#54697f" opacity="0.4" rx="1"/>
+<rect x="436" y="416.0" width="28" height="20.0" fill="#54697f" opacity="0.4" rx="1"/>
+<rect x="496" y="416.0" width="28" height="20.0" fill="#54697f" opacity="0.4" rx="1"/>
+<rect x="556" y="416.0" width="28" height="20.0" fill="#54697f" opacity="0.4" rx="1"/>
+<rect x="616" y="368.0" width="28" height="68.0" fill="#7d343c" opacity="0.85" rx="1"/>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>Which trail fits your trade</h4>
+        <p class="lead">Same job &mdash; protect an already-good trade &mdash; four very different personalities.</p>
+        <svg viewBox="0 0 1180 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Four trailing stop styles compared from tightest to most passive: bar trail, EMA trail, parabolic SAR, and ATR trail">
+<rect x="10.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="28" y1="130.4" x2="267" y2="130.4" stroke="#5aa9ff" stroke-width="1.8" stroke-dasharray="3 4"/>
+<text x="28" y="121.4" fill="#9fb3c8" font-size="11.5">tightest</text>
+<line x1="90" y1="150" x2="90" y2="180" stroke="#7d343c" stroke-width="2.2"/><rect x="76" y="155" width="28" height="18" fill="#7d343c" rx="1"/>
+<line x1="130" y1="140" x2="130" y2="170" stroke="#54697f" stroke-width="1.8"/><rect x="116" y="145" width="28" height="16" fill="#54697f" rx="1"/>
+<text x="28.0" y="42" fill="#f4b942" font-size="16" font-weight="800">Bar trail</text>
+<text x="28.0" y="196" fill="#9fb3c8" font-size="12.6">Prior-bar high/low. Fastest out,</text>
+<text x="28.0" y="212" fill="#9fb3c8" font-size="12.6">noisiest &mdash; for pure momentum only.</text>
+<rect x="305.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="323" y1="140" x2="562" y2="118" stroke="#5aa9ff" stroke-width="1.8" stroke-dasharray="3 4"/>
+<text x="323" y="131" fill="#9fb3c8" font-size="11.5">middle ground</text>
+<polyline points="340,190 380,175 420,160 460,150 500,140" fill="none" stroke="#c8d8e8" stroke-width="1.6" opacity="0.7"/>
+<text x="323.0" y="42" fill="#f4b942" font-size="16" font-weight="800">EMA trail</text>
+<text x="323.0" y="196" fill="#9fb3c8" font-size="12.6">Close below a 9 EMA. Less noisy</text>
+<text x="323.0" y="212" fill="#9fb3c8" font-size="12.6">than a bar trail, still responsive.</text>
+<rect x="600.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="618" y1="200" x2="857" y2="110" stroke="#5aa9ff" stroke-width="1.8" stroke-dasharray="3 4"/>
+<polyline points="635,220 675,190 715,160 755,140 795,125" fill="none" stroke="#c8d8e8" stroke-width="1.6" opacity="0.7"/>
+<text x="618.0" y="42" fill="#f4b942" font-size="16" font-weight="800">Parabolic SAR</text>
+<text x="618.0" y="196" fill="#9fb3c8" font-size="12.6">Starts wide, tightens over time.</text>
+<text x="618.0" y="212" fill="#9fb3c8" font-size="12.6">Room early, less patient later.</text>
+<rect x="895.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="913" y1="230" x2="985" y2="228" stroke="#5aa9ff" stroke-width="1.8" stroke-dasharray="3 4"/>
+<line x1="985" y1="228" x2="1055" y2="150" stroke="#5aa9ff" stroke-width="1.8" stroke-dasharray="3 4"/>
+<line x1="1055" y1="150" x2="1152" y2="148" stroke="#5aa9ff" stroke-width="1.8" stroke-dasharray="3 4"/>
+<text x="913" y="221" fill="#9fb3c8" font-size="11.5">most passive</text>
+<polyline points="930,205 970,195 1010,140 1050,120 1090,120 1130,120" fill="none" stroke="#c8d8e8" stroke-width="1.6" opacity="0.7"/>
+<text x="913.0" y="42" fill="#f4b942" font-size="16" font-weight="800">ATR trail</text>
+<text x="913.0" y="196" fill="#9fb3c8" font-size="12.6">Flatlines in consolidation. Best</text>
+<text x="913.0" y="212" fill="#9fb3c8" font-size="12.6">for staying in a real trend.</text>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>The parameters, in plain numbers</h4>
+        <p class="lead">Each style has one or two real levers. None of these are magic numbers &mdash; they're starting points to test against your own setups.</p>
+        <div class="timing">
+          <div><b>Bar trail &mdash; the timeframe</b><p>2-minute is tightest and fastest. 5-minute is more robust for an opening drive. 15-minute can hold a full intraday trend, at the cost of more giveback.</p></div>
+          <div><b>ATR trail &mdash; period &amp; factor</b><p>How many bars back it measures, and the multiple that sets the stop's distance from price. A common starting point is 3 and 3.</p></div>
+          <div><b>Parabolic SAR &mdash; acceleration factor &amp; limit</b><p>The factor sets how fast the stop tightens over time; the limit caps how tight it can ultimately get.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head xanim">
+    <h2>The rationalization trap</h2>
+    <p>The same no-trail chart, played out: where the 10-day trail exits, and how each level on the way down gets talked past.</p>
+  </div>
+  <section class="anim" data-tm-anim="tstrap" aria-label="Animated daily chart, illustrative: a breakout bought at 230.00 runs to a 244.00 close (+14.00 open); a 10-day trail exits on a close at 237.40 (+7.40); without the plan the trader holds through three more weeks of reasons, just retesting, should hold here, I&#x27;d buy more anyway, until a 2.5% gap down closes at 221.80 (-8.20).">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Watch a plan&#x27;s exit get talked past</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Animated daily chart, illustrative: a breakout bought at 230.00 runs to a 244.00 close (+14.00 open); a 10-day trail exits on a close at 237.40 (+7.40); without the plan the trader holds through three more weeks of reasons, just retesting, should hold here, I&#x27;d buy more anyway, until a 2.5% gap down closes at 221.80 (-8.20)."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="section-head xanim">
+    <h2>Combine them: trail each portion differently</h2>
+    <p>One run, two halves of the same position: the pop on a tight trail, the trend on a loose one.</p>
+  </div>
+  <section class="anim" data-tm-anim="tscombo" aria-label="Animated 5-minute chart, illustrative: a break of 40.00 bought at 40.05 with a 39.35 stop is split in half; Half A on a 5-minute bar trail exits at 41.78 (+1.73), Half B on a 15-minute ATR trail of highest high minus 3 times ATR(3) exits on a 15-minute close at 43.80 under 43.98 (+3.75), for a blended +2.74 a share, about 3.9R.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Watch one position split across two trails</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Animated 5-minute chart, illustrative: a break of 40.00 bought at 40.05 with a 39.35 stop is split in half; Half A on a 5-minute bar trail exits at 41.78 (+1.73), Half B on a 15-minute ATR trail of highest high minus 3 times ATR(3) exits on a 15-minute close at 43.80 under 43.98 (+3.75), for a blended +2.74 a share, about 3.9R."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="section-head">
+    <h2>The five-second gut check</h2>
+    <p>The thought that's about to talk you into the mistake, and what it actually costs you.</p>
+  </div>
+  <div class="filters">
+    <div class="filter">
+      <h3>1 &nbsp;"This trail is my strategy"</h3>
+      <p>Treating the trailing stop itself as the source of edge, instead of a tool for managing a trade that already has it.</p>
+      <p class="kill">Kills: trailing a setup that never had a real edge to protect.</p>
+    </div>
+    <div class="filter">
+      <h3>2 &nbsp;"If it pulls back, I'd buy more anyway"</h3>
+      <p>Using your own bias to argue past the trail's exit signal once a trade actually starts reversing.</p>
+      <p class="kill">Kills: overstaying in a trade that's already telling you it's done.</p>
+    </div>
+    <div class="filter">
+      <h3>3 &nbsp;A tight bar trail on a slow grinder</h3>
+      <p>Using the momentum-only bar trail on a trade that was never showing real explosive volume in the first place.</p>
+      <p class="kill">Kills: getting whipsawed out of a trend that just needed room to breathe.</p>
+    </div>
+    <div class="filter">
+      <h3>4 &nbsp;A passive ATR trail on a pure scalp</h3>
+      <p>Using the most patient style on a trade you actually wanted to exit fast, then giving back the quick move waiting for it to catch up.</p>
+      <p class="kill">Kills: turning a clean scalp into a round-trip.</p>
+    </div>
+    <div class="filter">
+      <h3>5 &nbsp;"I didn't sell at the top, so I'll wait"</h3>
+      <p>Ignoring the trail's signal because it disagrees with where you personally think price should be.</p>
+      <p class="kill">Kills: turning a real open profit into a real loss.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Four trades, four different trails</h2>
+    <p>Tickers, levels, and outcomes below are drawn from a trading-education video's own account of these trades and are not independently verified.</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Trail</th>
+        <th>Ticker</th>
+        <th>What happened</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th class="txt">No trail at all</th>
+        <td><span class="tick">IWM<small>breakout, then round-trip</small></span></td>
+        <td class="txt">A tight-range breakout ran from 230 to 244 on strong volume with lofty measured-move targets in mind. Every pullback over the next three weeks came with a reason not to sell, including a retest of the 50-day moving average. The position gapped down 2.5% the Friday after Thanksgiving, turning a significant open profit into a loss.</td></tr>
+      <tr><th class="txt">Bar trail</th>
+        <td><span class="tick">SMCI<small>opening range break, short</small></span></td>
+        <td class="txt">Shorted a backside break of the opening range on real volume, sized for A+ momentum. Trailed with the prior 2-minute bar to keep the fast-moving portion of the trade tight in both directions.</td></tr>
+      <tr><th class="txt">ATR trail</th>
+        <td><span class="tick">QBT<small>2-minute ATR trail</small></span></td>
+        <td class="txt">Let the trade run for as long as price kept holding, flatlining through minor consolidation along the way, before finally closing below the trail and exiting &mdash; exactly the behavior the style is meant to produce.</td></tr>
+      <tr><th class="txt">EMA, parabolic SAR &amp; split trails</th>
+        <td><span class="tick">TSLA<small>295 breakout</small></span></td>
+        <td class="txt">Volume came in on a breakout at the open with both an opening-drive and a multi-day swing opportunity in play. A close below the 9 EMA nearly matched a 5-minute bar trail's exit with less whipsaw risk; a parabolic SAR exited in a similar place but allowed more room early. Splitting size &mdash; a 5-minute bar trail on the drive, a 15-minute ATR trail on the rest &mdash; stayed in a roughly 4-day move while keeping profits reasonably protected.</td></tr>
+    </tbody>
+  </table>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/P-8-JDnwyno" title="Trailing Stop Exits (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>The four trailing-stop styles side by side: bar trail, ATR trail, EMA trail and parabolic SAR.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=P-8-JDnwyno" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>A trailing stop doesn't create edge. It protects it.</h2>
+      <p>Every style here does the same basic job differently. Decide before the trade which kind of move you're actually trying to capture, then let the trail do the emotional work of getting you out.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Match the trail to the trade: bar trail for pure momentum, ATR trail for staying in a real trend, EMA or parabolic SAR for something in between.</li>
+        <li>You can split size and trail each portion differently &mdash; tight on the momentum piece, looser on the swing piece.</li>
+        <li>A trail only works if you actually follow it. Rationalizing past its signal is how a real profit becomes a real loss.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Framework built around four trailing-stop exit styles &mdash; bar trail, ATR trail, exponential moving average trail, and parabolic SAR &mdash; as taught in a trading-education video featuring two traders discussing trade management. Trade examples (IWM, SMCI, QBT, and TSLA) and reported details are drawn from that video's own account and are not independently verified. Not a specific setup &mdash; a trade-management framework that applies across many of the setups on this site. <a href="https://youtu.be/P-8-JDnwyno" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

@@ -1,0 +1,364 @@
+//@version=6
+// Cup and Handle — Trade Plan R1.0
+// Finds cup-and-handle bases with the same mechanical rules as the backtest on
+// thetrademethod.com/setups/cup-and-handle.html, arms a buy stop a hair over
+// resistance, and manages the trade: 1.5 × ATR stop, half off at resistance +
+// 1/3 of the cup depth (stop to breakeven), the rest at resistance + 2/3,
+// out after 60 bars if neither target fills. Built for the daily chart.
+//
+// The cup:    left rim tops the 10 bars before it and everything up to the right
+//             rim; right rim within 5% of it, 30–325 bars later; 12–35% deep;
+//             low in the middle 60% of the cup; 15%+ of its bars close in the
+//             bottom third (no V-bottoms).
+// The handle: 4–25 bars after the right rim, never above it, 2–15% pullback,
+//             holding the upper half of the cup.
+// Filters:    uptrend (close > SMA 20/50/200, SMA 50 rising over 10 bars),
+//             base volume (bottom third quieter than the decline into it),
+//             handle volume under its 50-bar average, clean air (no high in the
+//             year before the cup between the trigger and target 1),
+//             market (SPY above its 50 and 200 SMA). Each can be switched off.
+// Everything is decided on confirmed bars. "Armed" fires at the close with the
+// buy stop for the next bar; place the order then. Entry/exit alerts fire at
+// the close of the bar they happened on. Within a bar, a green bar is taken to
+// trade open → low → high → close and a red bar open → high → low → close.
+// The buy-stop offset (0.07%) matches the page's example: 340 → 340.25.
+indicator("Cup and Handle — Trade Plan R1.0", shorttitle="C&H R1.0", overlay=true, max_bars_back=1000, max_lines_count=400, max_labels_count=400)
+
+// ---------- inputs ----------
+gC = "Cup"
+cupMin    = input.int(30, "Cup length min (bars)", minval=10, maxval=300, group=gC)
+cupMax    = input.int(325, "Cup length max (bars)", minval=40, maxval=600, group=gC)
+rimTol    = input.float(5.0, "Rims within (%)", minval=0.5, maxval=15, step=0.5, group=gC)
+depthMin  = input.float(12.0, "Depth min (%)", minval=3, maxval=50, step=0.5, group=gC)
+depthMax  = input.float(35.0, "Depth max (%)", minval=5, maxval=70, step=0.5, group=gC)
+rimLead   = input.int(10, "Left rim tops the prior N bars", minval=1, maxval=50, group=gC)
+gH = "Handle"
+handleMin = input.int(4, "Handle length min (bars)", minval=1, maxval=30, group=gH)
+handleMax = input.int(25, "Handle length max (bars)", minval=3, maxval=60, group=gH)
+hDepthMin = input.float(2.0, "Handle pullback min (%)", minval=0, maxval=20, step=0.5, group=gH)
+hDepthMax = input.float(15.0, "Handle pullback max (%)", minval=1, maxval=40, step=0.5, group=gH)
+gF = "Filters (the page's checks)"
+useTrend  = input.bool(true, "Uptrend: close above SMA 20/50/200, SMA 50 rising", group=gF)
+useBase   = input.bool(true, "Volume tapers into the base", group=gF)
+useHandle = input.bool(true, "Handle volume under its 50-bar average", group=gF)
+useAir    = input.bool(true, "Clean air up to target 1", group=gF)
+useMkt    = input.bool(true, "Market above its 50 and 200 SMA", inline="m", group=gF)
+mktSym    = input.symbol("AMEX:SPY", "", inline="m", group=gF)
+gT = "Trade"
+trigPct   = input.float(0.07, "Buy stop above resistance (%)", minval=0, maxval=2, step=0.01, group=gT)
+stopAtr   = input.float(1.5, "Stop (× ATR 14)", minval=0.5, maxval=5, step=0.1, group=gT)
+maxHold   = input.int(60, "Time stop (bars)", minval=5, maxval=500, group=gT)
+gV = "Display"
+showCup   = input.bool(true, "Draw the current base", group=gV)
+showTrade = input.bool(true, "Draw trades (fill, stop, targets)", group=gV)
+showPanel = input.bool(true, "Status panel", group=gV)
+colRes    = input.color(#ff9f0a, "Resistance / cup", group=gV)
+colTrig   = input.color(#2997ff, "Buy stop / fill", group=gV)
+colStop   = input.color(#ff453a, "Stop", group=gV)
+colTgt    = input.color(#30d158, "Targets", group=gV)
+
+// ---------- series ----------
+sma20  = ta.sma(close, 20)
+sma50  = ta.sma(close, 50)
+sma200 = ta.sma(close, 200)
+avVol  = ta.sma(volume, 50)
+atr    = ta.atr(14)
+mktOk  = request.security(mktSym, timeframe.period, close > ta.sma(close, 50) and close > ta.sma(close, 200), lookahead=barmerge.lookahead_off)
+upTrend = not na(sma200) and close > sma20 and close > sma50 and close > sma200 and sma50 > sma50[10]
+
+// ---------- the pattern, on the bar that just closed ----------
+// Returns ok, the first failing check ("" when all pass), and the levels.
+detect() =>
+    bool   ok = false
+    string why = "no base"
+    float  res = na
+    float  cl = na
+    float  trig = na
+    float  t1 = na
+    float  t2 = na
+    int    lOff = na
+    int    bOff = na
+    int    rOff = na
+    // right rim: the highest high handleMin..handleMax bars back (oldest on a tie)
+    float rh = na
+    for k = handleMax to handleMin
+        if k < bar_index and (na(rh) or high[k] > rh)
+            rh := high[k]
+            rOff := k
+    bool handleOk = not na(rOff)
+    if handleOk
+        float after = high[0]
+        for k = 0 to rOff - 1
+            after := math.max(after, high[k])
+        handleOk := after < rh
+    // left rim: the closest qualifying high cupMin..cupMax bars before the right rim
+    if handleOk
+        float im = na
+        for d = 1 to cupMax
+            int L = rOff + d
+            if L > bar_index - rimLead
+                break
+            if d >= 2
+                im := na(im) ? high[L - 1] : math.max(im, high[L - 1])
+            if d < cupMin
+                continue
+            if not na(im) and high[L] < im
+                continue
+            if math.abs(high[L] / rh - 1) * 100 > rimTol
+                continue
+            float lead = high[L + 1]
+            for q = L + 1 to L + rimLead
+                lead := math.max(lead, high[q])
+            if high[L] < lead
+                continue
+            lOff := L
+            break
+    if not na(lOff)
+        res := math.max(high[lOff], rh)
+        cl := low[lOff - 1]
+        bOff := lOff - 1
+        for k = lOff - 1 to rOff + 1
+            if low[k] < cl
+                cl := low[k]
+                bOff := k
+        float depthAbs = res - cl
+        float depth = depthAbs / res * 100
+        int span = lOff - rOff
+        float bPos = lOff - bOff
+        int nBottom = 0
+        float botVol = 0.0
+        float third = cl + depthAbs / 3
+        for k = lOff - 1 to rOff + 1
+            if close[k] <= third
+                nBottom += 1
+                botVol += volume[k]
+        float hl = low[0]
+        float hVol = 0.0
+        for k = 0 to rOff - 1
+            hl := math.min(hl, low[k])
+            hVol += volume[k]
+        float hDepth = (rh - hl) / rh * 100
+        bool shape = depth >= depthMin and depth <= depthMax and bPos >= 0.2 * span and bPos <= 0.8 * span and nBottom >= math.max(5, 0.15 * span) and hDepth >= hDepthMin and hDepth <= hDepthMax and hl >= cl + 0.5 * depthAbs
+        if shape
+            trig := math.round(res + math.max(syminfo.mintick, res * trigPct / 100), 2)
+            t1 := res + depthAbs / 3
+            t2 := res + 2 * depthAbs / 3
+            // base volume: the decline (left rim to halfway to the low) vs the bottom third
+            int lIdx = bar_index - lOff
+            int bIdx = bar_index - bOff
+            int dEnd = math.max(lIdx + 1, int(math.floor((lIdx + bIdx) / 2)))
+            float decVol = 0.0
+            int nDec = 0
+            for idx = lIdx to dEnd
+                decVol += volume[bar_index - idx]
+                nDec += 1
+            bool baseOk = botVol / nBottom < decVol / nDec
+            bool handleVolOk = not na(avVol) and hVol / rOff < avVol
+            float prior = na
+            int far = math.min(lOff + 252, bar_index)
+            if far > lOff
+                for k = lOff + 1 to far
+                    prior := na(prior) ? high[k] : math.max(prior, high[k])
+            bool airOk = na(prior) or not (prior > trig and prior < t1)
+            why := useTrend and not upTrend ? "uptrend" : useBase and not baseOk ? "base volume" : useHandle and not handleVolOk ? "handle volume" : useAir and not airOk ? "no clean air" : useMkt and not mktOk ? "market" : ""
+            ok := why == ""
+        else
+            why := "shape"
+    [ok, why, res, cl, trig, t1, t2, lOff, bOff, rOff]
+
+// ---------- state ----------
+var bool  inTrade = false
+var bool  trimmed = false
+var float E = na
+var float S = na
+var float T1 = na
+var float T2 = na
+var float R = na
+var float trimPx = na
+var int   entryBar = na
+var float armTrig = na
+var float armT1 = na
+var float armT2 = na
+var float armAtr = na
+var int   armBar = na
+var line  lnFill = na
+var line  lnStop = na
+var line  lnT1 = na
+var line  lnT2 = na
+var line  cupRes = na
+var line  cupTrig = na
+var label lbL = na
+var label lbB = na
+var label lbR = na
+var string lastWhy = "—"
+var int   nTrades = 0
+var float sumR = 0.0
+
+bool entryNow = false
+bool exitNow = false
+bool trimNow = false
+string exitWhy = ""
+float  exitPx = na
+float  tradeR = na
+
+f_json(string ev, float px) =>
+    '{"event":"' + ev + '","ticker":"' + syminfo.ticker + '","tf":"' + timeframe.period + '","price":' + str.tostring(px, format.mintick) +
+     ',"fill":' + str.tostring(E, format.mintick) + ',"stop":' + str.tostring(S, format.mintick) + ',"t1":' + str.tostring(T1, format.mintick) + ',"t2":' + str.tostring(T2, format.mintick) + '}'
+
+// ---------- 1. fill: yesterday's armed buy stop ----------
+if barstate.isconfirmed and not inTrade and not na(armBar) and armBar == bar_index - 1 and high >= armTrig
+    float fill = math.max(open, armTrig)
+    if fill < armT1
+        inTrade := true
+        trimmed := false
+        E := fill
+        S := fill - stopAtr * armAtr
+        T1 := armT1
+        T2 := armT2
+        R := E - S
+        entryBar := bar_index
+        entryNow := true
+        if showTrade
+            lnFill := line.new(bar_index, E, bar_index, E, color=colTrig, width=2)
+            lnStop := line.new(bar_index, S, bar_index, S, color=colStop, style=line.style_dashed, width=2)
+            lnT1 := line.new(bar_index, T1, bar_index, T1, color=colTgt, width=2)
+            lnT2 := line.new(bar_index, T2, bar_index, T2, color=colTgt, width=2)
+
+// ---------- 2. manage: the same path rules as the backtest ----------
+if barstate.isconfirmed and inTrade
+    bool green = close >= open
+    bool fillDay = bar_index == entryBar
+    // points in order: 0 open, 1 first extreme, 2 second extreme
+    float p0 = open
+    float p1 = green ? low : high
+    float p2 = green ? high : low
+    int first = 0
+    if fillDay
+        first := open >= E ? 1 : (green ? 2 : 1)
+    for step = first to 2
+        float p = step == 0 ? p0 : step == 1 ? p1 : p2
+        bool isLow = (step == 1 and green) or (step == 2 and not green)
+        bool isHigh = (step == 1 and not green) or (step == 2 and green)
+        if step == 0
+            if not trimmed and p <= S
+                exitNow := true
+                exitWhy := "stop"
+                exitPx := p
+            else if trimmed and p <= E
+                exitNow := true
+                exitWhy := "breakeven"
+                exitPx := p
+            else
+                if not trimmed and p >= T1
+                    trimmed := true
+                    trimNow := true
+                    trimPx := p
+                if trimmed and p >= T2
+                    exitNow := true
+                    exitWhy := "target 2"
+                    exitPx := p
+        else if isLow
+            if not trimmed and p <= S
+                exitNow := true
+                exitWhy := "stop"
+                exitPx := S
+            else if trimmed and p <= E
+                exitNow := true
+                exitWhy := "breakeven"
+                exitPx := E
+        else if isHigh
+            if not trimmed and p >= T1
+                trimmed := true
+                trimNow := true
+                trimPx := T1
+            if trimmed and p >= T2
+                exitNow := true
+                exitWhy := "target 2"
+                exitPx := T2
+        if exitNow
+            break
+    if not exitNow and bar_index - entryBar >= maxHold
+        exitNow := true
+        exitWhy := "time stop"
+        exitPx := close
+    if showTrade
+        for ln in array.from(lnFill, lnStop, lnT1, lnT2)
+            line.set_x2(ln, bar_index)
+    if trimNow and showTrade
+        line.set_x2(lnStop, bar_index)
+        lnStop := line.new(bar_index, E, bar_index, E, color=colStop, style=line.style_dotted, width=2)
+    if exitNow
+        tradeR := trimmed ? (0.5 * (trimPx - E) + 0.5 * (exitPx - E)) / R : (exitPx - E) / R
+        nTrades += 1
+        sumR += tradeR
+        if showTrade
+            label.new(bar_index, exitPx, exitWhy + "\n" + (tradeR >= 0 ? "+" : "") + str.tostring(tradeR, "#.##") + "R", style=label.style_label_left,
+                 color=color.new(tradeR >= 0 ? colTgt : colStop, 20), textcolor=color.white, size=size.small)
+        inTrade := false
+
+// ---------- 3. look for the next base (not while in a trade) ----------
+bool armedNow = false
+if barstate.isconfirmed
+    armBar := na
+    if not inTrade and bar_index >= 200 and (not useTrend or upTrend)
+        [ok, why, res, cl, trig, t1, t2, lOff, bOff, rOff] = detect()
+        lastWhy := ok ? "armed" : why
+        if not na(trig) and showCup
+            line.delete(cupRes)
+            line.delete(cupTrig)
+            label.delete(lbL)
+            label.delete(lbB)
+            label.delete(lbR)
+            cupRes := line.new(bar_index - lOff, res, bar_index + 1, res, color=color.new(colRes, ok ? 0 : 60), width=1)
+            lbL := label.new(bar_index - lOff, high[lOff], "L", style=label.style_label_down, color=color.new(colRes, 30), textcolor=color.black, size=size.tiny)
+            lbB := label.new(bar_index - bOff, low[bOff], "cup low", style=label.style_label_up, color=color.new(colRes, 30), textcolor=color.black, size=size.tiny)
+            lbR := label.new(bar_index - rOff, high[rOff], "R", style=label.style_label_down, color=color.new(colRes, 30), textcolor=color.black, size=size.tiny)
+            if ok
+                cupTrig := line.new(bar_index, trig, bar_index + 1, trig, color=colTrig, style=line.style_dashed, width=2)
+        if ok
+            armTrig := trig
+            armT1 := t1
+            armT2 := t2
+            armAtr := atr
+            armBar := bar_index
+            armedNow := true
+    else if not inTrade
+        lastWhy := useTrend and not upTrend ? "uptrend" : "—"
+
+// ---------- markers ----------
+plotshape(entryNow, "Entry", shape.labelup, location.belowbar, colTrig, text="BUY", textcolor=color.white, size=size.small)
+plotshape(trimNow, "Target 1 (half)", shape.diamond, location.abovebar, colTgt, size=size.tiny)
+plotshape(armedNow, "Armed", shape.triangleup, location.belowbar, color.new(colTrig, 40), size=size.tiny)
+
+// ---------- panel ----------
+var table panel = table.new(position.top_right, 2, 6, bgcolor=color.new(#000000, 15), border_width=1, border_color=color.new(#808080, 60))
+if barstate.islast and showPanel
+    string state = inTrade ? (trimmed ? "In trade · half off, stop at breakeven" : "In trade") : not na(armBar) ? "Armed · buy stop " + str.tostring(armTrig, format.mintick) : lastWhy == "—" ? "Watching" : "Watching · last check failed: " + lastWhy
+    table.cell(panel, 0, 0, "C&H R1.0", text_color=#ff9f0a, text_size=size.small)
+    table.cell(panel, 1, 0, state, text_color=#f5f5f7, text_size=size.small)
+    table.cell(panel, 0, 1, "Uptrend", text_color=#a1a1a6, text_size=size.small)
+    table.cell(panel, 1, 1, upTrend ? "yes" : "no", text_color=upTrend ? #30d158 : #ff453a, text_size=size.small)
+    table.cell(panel, 0, 2, "Market", text_color=#a1a1a6, text_size=size.small)
+    table.cell(panel, 1, 2, mktOk ? "above 50 & 200" : "below", text_color=mktOk ? #30d158 : #ff453a, text_size=size.small)
+    table.cell(panel, 0, 3, "Levels", text_color=#a1a1a6, text_size=size.small)
+    table.cell(panel, 1, 3, inTrade ? "fill " + str.tostring(E, format.mintick) + " · stop " + str.tostring(trimmed ? E : S, format.mintick) + " · T1 " + str.tostring(T1, format.mintick) + " · T2 " + str.tostring(T2, format.mintick) : not na(armBar) ? "T1 " + str.tostring(armT1, format.mintick) + " · T2 " + str.tostring(armT2, format.mintick) : "—", text_color=#f5f5f7, text_size=size.small)
+    table.cell(panel, 0, 4, "Trades on chart", text_color=#a1a1a6, text_size=size.small)
+    table.cell(panel, 1, 4, str.tostring(nTrades) + (nTrades > 0 ? " · avg " + str.tostring(sumR / nTrades, "#.##") + "R" : ""), text_color=#f5f5f7, text_size=size.small)
+    table.cell(panel, 0, 5, "Timeframe", text_color=#a1a1a6, text_size=size.small)
+    table.cell(panel, 1, 5, timeframe.isdaily ? "daily" : timeframe.period + " (built for daily)", text_color=timeframe.isdaily ? #f5f5f7 : #ff9f0a, text_size=size.small)
+
+// ---------- alerts ----------
+alertcondition(armedNow, "Armed — place the buy stop", "C&H armed on {{ticker}}: buy stop for the next bar (see the chart for the level). Close={{close}}")
+alertcondition(entryNow, "Entry — buy stop filled", "C&H entry on {{ticker}} @ {{close}}")
+alertcondition(trimNow, "Target 1 — half off", "C&H target 1 hit on {{ticker}}: half off, stop to breakeven")
+alertcondition(exitNow, "Exit — trade closed", "C&H exit on {{ticker}} @ {{close}}")
+alertcondition(barstate.isconfirmed, "Test — Fires Every Bar", "🟢 TEST — plumbing works on {{ticker}} @ {{close}}")
+if armedNow
+    alert('{"event":"armed","ticker":"' + syminfo.ticker + '","tf":"' + timeframe.period + '","buy_stop":' + str.tostring(armTrig, format.mintick) +
+     ',"stop_est":' + str.tostring(armTrig - stopAtr * armAtr, format.mintick) + ',"t1":' + str.tostring(armT1, format.mintick) + ',"t2":' + str.tostring(armT2, format.mintick) + '}', alert.freq_once_per_bar_close)
+if entryNow
+    alert(f_json("entry", E), alert.freq_once_per_bar_close)
+if trimNow
+    alert(f_json("target1", trimPx), alert.freq_once_per_bar_close)
+if exitNow
+    alert(f_json(exitWhy == "target 2" ? "target2" : exitWhy == "breakeven" ? "breakeven" : exitWhy == "time stop" ? "time_stop" : "stop", exitPx), alert.freq_once_per_bar_close)

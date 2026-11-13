@@ -1,0 +1,542 @@
+/* =====================================================================
+   directory.css — styles for the JS-rendered sitenav and the homepage
+   directory grid. Additive: paste into strategy.css, or link it after
+   strategy.css and leave it as its own file.
+
+   Hex values are written literally so this drops in without knowing
+   your variable names. Swap them for your strategy.css vars whenever
+   you want. If strategy.css already styles .sitenav, delete the
+   SITENAV block below and keep only the directory rules.
+   ===================================================================== */
+
+/* ---------- sitenav ------------------------------------------------ */
+
+.sitenav {
+  display: flex;
+  align-items: baseline;
+  gap: 28px;
+  flex-wrap: wrap;
+  padding: 14px 28px;
+  background: #0c1626;
+  border-bottom: 1px solid #1b2a3e;
+}
+
+.sitenav-home {
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  color: #e7eff8;
+  text-decoration: none;
+}
+
+.sitenav-home.is-here { color: #6d84a0; }
+
+.sitenav-list {
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sitenav-link {
+  font-size: 14px;
+  color: #9fb3c8;
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 1px solid transparent;
+}
+
+.sitenav-link:hover { color: #e7eff8; }
+
+.sitenav-link.is-here {
+  color: #e7eff8;
+  border-bottom-color: #2ecf7a;
+}
+
+.sitenav a:focus-visible,
+.dir-card:focus-visible {
+  outline: 2px solid #5aa9ff;
+  outline-offset: 3px;
+}
+
+/* ---------- index header -------------------------------------------
+   Namespaced with dir- so it cannot collide with the header rules
+   already in strategy.css. If you would rather the homepage use the
+   exact header classes from your setup pages, swap the class names in
+   index.html and delete this block.
+   ------------------------------------------------------------------- */
+
+.dir-header {
+  padding: 52px 28px 40px;
+  border-bottom: 1px solid #1b2a3e;
+  margin-bottom: 32px;
+}
+
+.dir-kicker {
+  margin: 0 0 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  color: #f4b942;
+}
+
+.dir-h1 {
+  margin: 0 0 18px;
+  font-size: clamp(34px, 5vw, 54px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: #e7eff8;
+  max-width: 18ch;
+}
+
+.dir-h1 em {
+  font-style: normal;
+  color: #2ecf7a;
+}
+
+.dir-lede {
+  margin: 0 0 30px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #9fb3c8;
+  max-width: 64ch;
+}
+
+.dir-counts {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.dir-count-value {
+  display: block;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1;
+  color: #e7eff8;
+}
+
+.dir-count-label {
+  display: block;
+  margin-top: 7px;
+  font-size: 12px;
+  color: #6d84a0;
+}
+
+.dir-source {
+  padding: 0 28px 48px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: #6d84a0;
+  max-width: 70ch;
+}
+
+/* ---------- fundamentals (not-a-setup framework pages) -------------- */
+
+.fund-section {
+  padding: 30px 28px 34px;
+  border-bottom: 1px solid #1b2a3e;
+}
+
+.fund-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.fund-head-text .k {
+  margin: 0 0 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: #f4b942;
+}
+
+.fund-head-text h3 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  color: #e7eff8;
+}
+
+.fund-head-note {
+  font-size: 13px;
+  color: #6d84a0;
+  max-width: 34ch;
+  text-align: right;
+}
+
+.fund-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.fund-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 20px 16px;
+  background: #0c1626;
+  border: 1px solid #1b2a3e;
+  border-left-width: 3px;
+  border-left-color: #f4b942;
+  text-decoration: none;
+  color: inherit;
+}
+
+.fund-card:hover { background: #101d2f; }
+
+.fund-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.fund-type {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: #f4b942;
+  text-transform: uppercase;
+}
+
+.fund-card-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: #e7eff8;
+}
+
+.fund-card-desc {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: #9fb3c8;
+}
+
+.fund-card-meta {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid #1b2a3e;
+  font-size: 12px;
+  color: #6d84a0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.fund-card-meta b {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: #e7eff8;
+  font-weight: 600;
+}
+
+.fund-card-meta .go { color: #6d84a0; }
+.fund-card:hover .fund-card-meta .go { color: #f4b942; }
+
+.fund-card:focus-visible {
+  outline: 2px solid #5aa9ff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .fund-grid { grid-template-columns: 1fr; }
+  .fund-head { flex-direction: column; align-items: flex-start; }
+  .fund-head-note { text-align: left; }
+}
+
+/* ---------- directory grid ----------------------------------------- */
+
+.dir-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+  padding: 0 28px 56px;
+}
+
+.dir-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px 22px 18px;
+  background: #0c1626;
+  border: 1px solid #1b2a3e;
+  border-left-width: 3px;
+  border-left-color: #1b2a3e;
+  text-decoration: none;
+  color: inherit;
+}
+
+.dir-card--long   { border-left-color: #2ecf7a; }
+.dir-card--short  { border-left-color: #e0505a; }
+.dir-card--both   { border-left-color: #5aa9ff; }
+
+.dir-card:hover { background: #101d2f; }
+
+.dir-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.dir-side {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #6d84a0;
+}
+
+.dir-side--long  { color: #2ecf7a; }
+.dir-side--short { color: #e0505a; }
+.dir-side--both  { color: #5aa9ff; }
+
+.dir-session {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: #f4b942;
+}
+
+.dir-title {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: #e7eff8;
+}
+
+.dir-thesis {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #9fb3c8;
+  max-width: 62ch;
+}
+
+.dir-meta {
+  display: flex;
+  gap: 18px;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid #1b2a3e;
+  font-size: 12px;
+  color: #6d84a0;
+}
+
+.dir-meta b {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-weight: 600;
+  color: #e7eff8;
+}
+
+.dir-empty {
+  grid-column: 1 / -1;
+  padding: 28px;
+  background: #0c1626;
+  border: 1px dashed #1b2a3e;
+  font-size: 14px;
+  color: #9fb3c8;
+}
+
+/* ---------- indicator block (setup pages) ---------------------------
+   Rendered by nav.js into <section class="ind" data-indicators></section>
+   ------------------------------------------------------------------- */
+
+.ind {
+  padding: 8px 28px 48px;
+}
+
+.ind[hidden] { display: none; }
+
+.ind-heading {
+  margin: 0 0 10px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: #e7eff8;
+}
+
+.ind-note {
+  margin: 0 0 20px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #9fb3c8;
+  max-width: 66ch;
+}
+
+.ind-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ind-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 18px 20px 16px;
+  background: #101d2f;
+  border: 1px solid #1b2a3e;
+  border-left: 3px solid #5aa9ff;
+}
+
+.ind-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ind-name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: #e7eff8;
+}
+
+.ind-alerts {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  color: #f4b942;
+  border: 1px solid #1b2a3e;
+  padding: 2px 7px;
+  white-space: nowrap;
+}
+
+.ind-blurb {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #9fb3c8;
+  max-width: 58ch;
+}
+
+.ind-links {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid #1b2a3e;
+}
+
+.ind-link {
+  font-size: 13px;
+  font-weight: 600;
+  color: #5aa9ff;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.ind-link:hover { border-bottom-color: #5aa9ff; }
+
+.ind-link--quiet {
+  font-weight: 400;
+  color: #9fb3c8;
+}
+
+.ind-link--quiet:hover { border-bottom-color: #9fb3c8; }
+
+.ind-link--pending {
+  font-weight: 400;
+  color: #6d84a0;
+  cursor: default;
+}
+
+.ind-link:focus-visible {
+  outline: 2px solid #5aa9ff;
+  outline-offset: 3px;
+}
+
+/* ---------- live screener (TradingView embed, homepage only) -------- */
+
+.dir-screener {
+  padding: 8px 28px 56px;
+  border-top: 1px solid #1b2a3e;
+  margin-top: 8px;
+}
+
+.dir-screener-kicker {
+  margin: 0 0 10px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  color: #f4b942;
+}
+
+.dir-screener-h2 {
+  margin: 0 0 8px;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #e7eff8;
+}
+
+.dir-screener-lede {
+  margin: 0 0 20px;
+  font-size: 14px;
+  color: #9fb3c8;
+  max-width: 70ch;
+}
+
+.dir-screener .tradingview-widget-container {
+  border: 1px solid #1b2a3e;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* ---------- print: A3 landscape, same as the setup pages ------------ */
+
+@page { size: A3 landscape; margin: 12mm; }
+
+@media print {
+  .sitenav { display: none; }
+  .dir-screener { display: none; }
+  .fund-section { display: none; }
+
+  .dir-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+
+  .dir-card {
+    background: none;
+    break-inside: avoid;
+  }
+
+  .ind-list { grid-template-columns: repeat(2, 1fr); }
+
+  .ind-card {
+    background: none;
+    break-inside: avoid;
+  }
+
+  .ind-link { color: inherit; }
+}
+
+/* ---------- 404 ----------------------------------------------------- */
+
+.nf-back {
+  margin: 4px 0 0;
+  font-size: 15px;
+}
+
+.nf-back a {
+  color: #5aa9ff;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.nf-back a:hover { border-bottom-color: #5aa9ff; }

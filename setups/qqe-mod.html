@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QQE Mod + EMA 50 — trade the color change with the trend | The Trade Method</title>
+<meta name="description" content="QQE Mod plus the EMA 50 on a 5-minute gold chart: above the EMA, buy when the histogram turns from red to blue on a strong candle; below it, sell the mirror image. Enter at the next open, stop beyond the last swing, and take a 2R target only if the next level leaves room. With the Pine Script code.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/qqe-mod.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="QQE Mod + EMA 50 — trade the color change with the trend">
+<meta property="og:description" content="QQE Mod plus the EMA 50 on a 5-minute gold chart: above the EMA, buy when the histogram turns from red to blue on a strong candle; below it, sell the mirror image. Enter at the next open, stop beyond the last swing, and take a 2R target only if the next level leaves room. With the Pine Script code.">
+<meta property="og:url" content="https://thetrademethod.com/setups/qqe-mod.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="QQE Mod + EMA 50 — trade the color change with the trend">
+<meta name="twitter:description" content="QQE Mod plus the EMA 50 on a 5-minute gold chart: above the EMA, buy when the histogram turns from red to blue on a strong candle; below it, sell the mirror image. Enter at the next open, stop beyond the last swing, and take a 2R target only if the next level leaves room. With the Pine Script code.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "QQE Mod + EMA 50 — trade the color change with the trend",
+ "name": "QQE Mod + EMA 50",
+ "description": "QQE Mod plus the EMA 50 on a 5-minute gold chart: above the EMA, buy when the histogram turns from red to blue on a strong candle; below it, sell the mirror image. Enter at the next open, stop beyond the last swing, and take a 2R target only if the next level leaves room. With the Pine Script code.",
+ "url": "https://thetrademethod.com/setups/qqe-mod.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/qqe-mod.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-21",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/qqe-anim.js?v=1" defer></script>
+<style>
+  /* the stepper (js/qqe-anim.js builds it from the six steps; same as qullamaggie.html) */
+  .qq-main { grid-template-columns:1fr; gap:22px; }
+  .qq-stages { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .sheet .qq-stages .stage, .sheet .qq-stages .stage:first-child { padding:26px 24px; background:var(--charcoal); align-content:start; }
+  .qq-side { display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:stretch; }
+  .qq-side .panel + .panel { margin-top:0; }
+  @media (max-width:1100px) { .qq-stages { grid-template-columns:1fr 1fr; } .qq-side { grid-template-columns:1fr; } }
+  @media (max-width:680px) { .qq-stages { grid-template-columns:1fr; } }
+  .qq-stages.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#ff9f0a; }
+  .gs-bar { display:grid; grid-template-columns:repeat(6,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:8.33%; right:8.33%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.2fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .qq-stages.is-stepper .stage, .sheet .qq-stages.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .qq-stages.is-stepper .stage .num { display:none; }
+  .sheet .qq-stages.is-stepper .stage[hidden] { display:none; }
+  .sheet .qq-stages.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .qq-stages.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+  }
+
+  /* the colors */
+  .swatches { display:grid; gap:10px; margin-top:4px; }
+  .swatches > div { display:grid; grid-template-columns:18px 1fr; gap:12px; align-items:start; background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:12px 14px; }
+  .swatches i { width:18px; height:26px; border-radius:3px; margin-top:2px; }
+  .swatches b { display:block; font-size:15px; margin-bottom:2px; }
+  .swatches p { margin:0; color:var(--dim); font-size:13.4px; }
+  .timing { grid-template-columns:1fr; }
+
+  /* sell side, stay out */
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .two svg, .out svg { border-radius:12px; }
+  .two-note { margin:14px 0 0; color:var(--dim); font-size:14px; max-width:86ch; }
+  .out { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .out .card { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--gold); border-radius:12px; padding:14px; }
+  .out h3 { margin:14px 4px 6px; font-size:17px; }
+  .out p { margin:0 4px 4px; font-size:14px; color:var(--dim); }
+  .out p.kill { color:var(--gold); font-weight:600; font-size:13.4px; margin-top:8px; }
+
+  /* the room check */
+  .calc-in { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in label { font-size:12px; color:var(--faint); display:block; }
+  .calc-in input, .calc-in select { width:100%; margin-top:4px; background:var(--panel2); color:var(--ink); border:1px solid var(--line); border-radius:8px;
+                   padding:8px 10px; font-family:var(--mono); font-size:15px; }
+  .calc-in input:focus, .calc-in select:focus { outline:2px solid var(--blue); outline-offset:1px; }
+  .calc b.pos { color:var(--up); } .calc b.neg { color:var(--down); }
+  .presets { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+  .presets button { font:inherit; font-size:13px; cursor:pointer; color:var(--mute); background:transparent; border:1px solid var(--graphite); border-radius:9999px; padding:6px 13px; }
+  .presets button[aria-pressed="true"] { background:var(--silk); color:#000; border-color:var(--silk); }
+  .qqe-bar { display:block; width:100%; height:auto; margin-top:16px; }
+
+  /* the code */
+  .code-wrap { background:var(--panel); border:1px solid var(--line); border-radius:12px; margin-top:16px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--faint); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#3a3a3c; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d1d6; tab-size:4; }
+  .setnote { margin-top:16px; }
+
+  /* the animation redraws for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .ribbon + .anim { margin-top:8px; }
+  @media (max-width:1100px) {
+    .out { grid-template-columns:1fr 1fr; }
+    .calc-in { grid-template-columns:repeat(3,1fr); }
+  }
+  @media (max-width:760px) { .two, .out { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    /* breathing room around every animation on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .counts { flex-wrap:wrap; gap:16px 22px; }
+    .calc-in { grid-template-columns:1fr 1fr; }
+    .section-head { margin-top:60px; }
+    .two, .out { gap:22px; }
+    .out .card { padding:12px; }
+    .qq-side { gap:22px; }
+    .qq-main { gap:28px; }
+    pre.pine { font-size:11.5px; max-height:420px; }
+  }
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:60px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=9" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="qqe-mod">
+    <div>
+      <p class="kicker">Indicator setup &middot; 5-minute gold &middot; QQE Mod + EMA 50</p>
+      <h1>QQE <span>Mod</span></h1>
+    </div>
+    <div>
+      <p class="thesis">RSI flips bullish while price keeps falling and bearish right before it rallies. QQE Mod smooths two RSI calculations and
+      only colors the histogram when they agree. Let the EMA 50 pick the side, <em>trade the color change on a strong candle that has closed,</em>
+      stop beyond the last swing, and take 2R only when there's room to get there.</p>
+      <div class="counts">
+        <div><b>8 / 5</b><small>RSI length / smoothing</small></div>
+        <div><b>EMA 50</b><small>picks the side</small></div>
+        <div><b>1 : 2</b><small>risk to reward</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">the filter</div><div class="n">Price vs the EMA 50</div></div>
+    <div><div class="t">the trigger</div><div class="n">Red to blue, blue to red</div></div>
+    <div><div class="t">the candle</div><div class="n">Long body, closes strong</div></div>
+    <div><div class="t">the entry</div><div class="n">Next candle's open</div></div>
+    <div><div class="t">the stop</div><div class="n">Beyond the last swing</div></div>
+    <div><div class="t">the target</div><div class="n">2R, if there's room</div></div>
+  </nav>
+
+  <section class="anim" data-qqe-anim aria-label="Animated walkthrough of a QQE Mod buy">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">6 / 6</p>
+        <h2 class="anim-title">Watch one buy, start to finish</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 640" role="img" aria-label="Illustrative 5-minute gold chart with the EMA 50 and QQE Mod below it. Price trends above the EMA 50 with a blue histogram, pulls back toward the EMA while staying above it, and the histogram turns red. A strong bullish candle that closes near its high turns the histogram blue. The buy is the next candle's open, 4,021.54, with the stop under the most recent swing low at 4,013.03, a risk of 8.51. The 2R target is 4,038.56; the next resistance, yesterday's high at 4,046.00, is 2.9R away, so there is room. Eleven candles later the target fills."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main qq-main">
+    <div class="qq-stages" data-qqe-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Let the EMA 50 pick the side</h3>
+          <ul>
+            <li>Price above the EMA 50: only look for buys.</li>
+            <li>Price below the EMA 50: only look for sells.</li>
+            <li>Price crossing back and forth, going sideways, or signals fighting each other: wait for something clearer.</li>
+          </ul>
+          <p class="why">QQE Mod on its own changes color too often. The EMA 50 shows the broader direction, so only the color changes that go with it count.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Wait for the color change</h3>
+          <ul>
+            <li>Above the EMA 50, wait for the histogram to go from red to blue.</li>
+            <li>Below the EMA 50, wait for it to go from blue to red.</li>
+            <li>Gray bars in between are normal. The signal is the bar where the color shows up.</li>
+          </ul>
+          <p class="why">Blue and red only appear when both of the indicator's RSI calculations agree. A pullback that turns it red, then a turn back to blue, is momentum shifting back with the trend.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Check the candle</h3>
+          <ul>
+            <li>For a buy: a strong bullish candle with a long body that closes near its high.</li>
+            <li>For a sell: a strong bearish candle with a long body that closes near its low.</li>
+            <li>A setup near a support area (a resistance area for a sell) adds context.</li>
+          </ul>
+          <p class="why">The color says momentum turned. The candle shows buyers (or sellers) actually pushing price. And it only counts once it has closed.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Enter at the next open</h3>
+          <ul>
+            <li>Wait for the signal candle to close.</li>
+            <li>Enter at the open of the next candle.</li>
+            <li>Never before the close: an open candle can still change, and so can the histogram.</li>
+          </ul>
+          <p class="why">Entering on a closed candle means the signal you saw is the signal that printed.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Stop beyond the last swing</h3>
+          <ul>
+            <li>Buy: below the most recent swing low.</li>
+            <li>Sell: above the most recent swing high.</li>
+            <li>If that distance is too big for your risk limit, skip the trade. Don't move the stop closer to make it fit.</li>
+          </ul>
+          <p class="why">The swing is where the setup is proven wrong, and it gives the trade room to move.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Target 2R, if there's room</h3>
+          <ul>
+            <li>The target is twice the stop distance: a 2-unit stop means a target 4 units away.</li>
+            <li>Before entering, find the next resistance (for a buy) or support (for a sell).</li>
+            <li>If it sits between the entry and the target, skip it, even when everything else agrees.</li>
+          </ul>
+          <p class="why">Price can stall or bounce at that level before it reaches the target. Then the reward doesn't justify the risk.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="qq-side">
+      <div class="panel">
+        <h4>The settings</h4>
+        <p class="lead">From the video. Test them on historical charts before risking real money; they aren't proven best for every market.</p>
+        <div class="timing">
+          <div><b>QQE Mod</b><p>The version by Mihkel00 on TradingView, or the combined script at the bottom of this page (it already has these settings). Primary RSI Length 8, RSI Smoothing 5. Leave everything else at its default.</p></div>
+          <div><b>EMA 50</b><p>Add an exponential moving average, set the length to 50 and pick a color you can see easily.</p></div>
+          <div><b>The chart</b><p>Gold on a 5-minute chart. It can be tested on other markets, but different markets behave differently.</p></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>What the colors mean</h4>
+        <p class="lead">The histogram is the smoothed RSI minus 50. Its color says whether the two calculations agree.</p>
+        <div class="swatches">
+          <div><i style="background:#00c3ff"></i><div><b>Blue</b><p>Both calculations agree: bullish momentum. Red to blue is a shift toward bullish.</p></div></div>
+          <div><i style="background:#ff0062"></i><div><b>Red</b><p>Both agree: bearish momentum. Blue to red is a shift toward bearish.</p></div></div>
+          <div><i style="background:#707070"></i><div><b>Gray, or nothing</b><p>They don't agree, or the RSI is near 50. No signal either way.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The sell side is the mirror</h2>
+    <p>Below the EMA 50, look for sells only: QQE Mod goes from blue to red on a strong bearish candle that closes near its low, enter at the next
+    open, stop above the most recent swing high, 2R below. And the same room check, upside down: is there support just under the entry?</p>
+  </div>
+  <div class="panel" data-qqe-two role="group" aria-label="Two illustrative 5-minute charts. Left: the walkthrough upside down. Below the EMA 50 the histogram turns from blue to red on a strong bearish candle, the sell fills at the next open and the 2R target fills. Right: the same sell with a support zone just below the entry, between the entry and the target. It is skipped, and price bounces off the support.">
+    <div class="two">
+      <svg viewBox="0 0 560 360" role="img" aria-label="Sell: below the EMA 50, blue to red on a strong bearish candle; the 2R target fills"></svg>
+      <svg viewBox="0 0 560 360" role="img" aria-label="Sell skipped: support sits between the entry and the 2R target, and price bounces off it"></svg>
+    </div>
+    <p class="two-note">Both charts are illustrative, and the histograms are computed from their bars with the indicator's own math. On the right the
+    indicators agree and the candle is strong, but there's a support zone just under the entry. Even in a downtrend, support can slow the drop,
+    stop it, or cause a bounce before the target.</p>
+  </div>
+
+  <div class="section-head">
+    <h2>Room to the target</h2>
+    <p>The last check before every entry. Put in the entry, the stop and the next level in the way, and see whether the 2R target comes first.
+    The presets are the walkthrough and the video's two skipped trades.</p>
+  </div>
+  <div class="risk">
+    <div class="panel" data-qqe-calc>
+      <div class="presets" role="group" aria-label="Examples">
+        <button type="button" data-preset="walk" aria-pressed="true">The walkthrough buy</button>
+        <button type="button" data-preset="res" aria-pressed="false">Buy, resistance too close</button>
+        <button type="button" data-preset="sup" aria-pressed="false">Sell, support too close</button>
+      </div>
+      <div class="calc-in">
+        <label>Side<select name="side"><option value="buy">Buy</option><option value="sell">Sell</option></select></label>
+        <label>Entry<input name="entry" type="number" inputmode="decimal" step="0.01" min="0" value="4021.54"></label>
+        <label>Stop<input name="stop" type="number" inputmode="decimal" step="0.01" min="0" value="4013.03"></label>
+        <label>Next level<input name="level" type="number" inputmode="decimal" step="0.01" min="0" value="4046.00"></label>
+        <label>Target (R)<input name="r" type="number" inputmode="decimal" step="0.5" min="0" value="2"></label>
+      </div>
+      <div class="calc qqe-out" aria-live="polite"></div>
+      <svg class="qqe-bar" viewBox="0 0 560 78" aria-hidden="true"></svg>
+    </div>
+    <div class="warn">
+      <h4>A color change isn't a trade</h4>
+      <p>Plenty of color changes fail. The histogram turns blue, the move doesn't last, and price can't continue higher. Trade every color
+      change and you take a lot of weak signals.</p>
+      <p class="big">The EMA 50, the candle and the room check are the filter.</p>
+      <p>No indicator gets rid of false signals. Test this on historical charts and in a demo account before risking real money.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Three times to stay out</h2>
+    <p>The mistake to avoid is taking every signal without looking at the market around it.</p>
+  </div>
+  <div class="out" data-qqe-out role="group" aria-label="Three illustrative loops: price crossing a flat EMA 50 again and again; the histogram flipping between blue and red with no trend, then one huge candle far from the EMA; and a candle that shows a blue histogram while it is still forming but closes with a long wick and a gray bar">
+    <div class="card">
+      <svg viewBox="0 0 360 250" aria-hidden="true"></svg>
+      <h3>Price keeps crossing the EMA 50</h3>
+      <p>Above it, below it, above it again. The market is moving sideways and the direction isn't clear.</p>
+      <p class="kill">Wait until price stays on one side.</p>
+    </div>
+    <div class="card">
+      <svg viewBox="0 0 360 250" aria-hidden="true"></svg>
+      <h3>QQE Mod keeps flipping</h3>
+      <p>Blue, red, blue. Trade every change and you get in again and again with no trend. And don't chase a very large candle that's already far from the EMA 50: you're late, with less room left.</p>
+      <p class="kill">Wait for a clean change with the trend.</p>
+    </div>
+    <div class="card">
+      <svg viewBox="0 0 360 250" aria-hidden="true"></svg>
+      <h3>The candle hasn't closed</h3>
+      <p>An open candle can still change, and the histogram can change with it. Blue halfway through the candle isn't a signal.</p>
+      <p class="kill">Decide after the close, enter on the next open.</p>
+    </div>
+  </div>
+
+  <div class="section-head" id="indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One script for the whole setup (Pine Script v6): QQE Mod in its own pane, the EMA 50 on the price chart, and BUY and SELL
+    labels when every rule on this page lines up. It marks and alerts. It does not place trades.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">QQE MOD + EMA 50</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">The QQE Mod histogram (already set to RSI 8, smoothing 5) and the EMA 50 together. BUY when price is above the EMA 50
+      and the histogram turns from red to blue on a strong candle that has closed; SELL is the mirror image. It draws the entry, a stop
+      beyond the last swing and the 2R target, marks a signal "no room" when an earlier swing sits before the target, and skips signals
+      while price keeps crossing the EMA or is too far from it. Every rule can be switched off or tuned in the settings.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/qqe-mod-ema50.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">QQE MOD (histogram only)</h3>
+      </div>
+      <p class="ind-blurb">The original QQE Mod on its own, for use with a separate EMA 50. It starts at RSI Length 6: for this setup set the
+      primary RSI Length to 8.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/qqe-mod.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+  </ul>
+  <div class="code-wrap">
+    <div class="code-top">
+      <span>qqe-mod-ema50.pine &middot; Pine Script v6</span>
+      <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/qqe-mod-ema50.pine" download>Download</a></div>
+    </div>
+    <pre class="pine" tabindex="0"><code>//@version=6
+// QQE MOD + EMA 50 — The Trade Method (thetrademethod.com/setups/qqe-mod.html)
+// One indicator for the whole setup:
+//   • QQE Mod in its own pane (same math as the QQE MOD script, primary RSI length 8)
+//   • the EMA 50 drawn on the price chart
+//   • BUY when price is above the EMA 50 and QQE Mod turns from red to blue on a strong
+//     candle that has closed; SELL is the mirror image below the EMA 50
+//   • stop beyond the last swing, 2R target, and a room check against the nearest swing
+//     high (buy) or swing low (sell) between the entry and the target
+//   • stay-out filters: EMA chop, chasing far from the EMA, unclosed candles
+// It marks and alerts. It does not place trades.
+
+indicator(&quot;QQE MOD + EMA 50&quot;, shorttitle=&quot;QQE + EMA 50&quot;, overlay=false, max_lines_count=300, max_labels_count=300)
+
+// === PRIMARY QQE SETTINGS ===
+group_primary = &quot;Primary QQE Settings&quot;
+rsiLengthPrimary = input.int(8, title=&quot;RSI Length&quot;, minval=1, group=group_primary)
+rsiSmoothingPrimary = input.int(5, title=&quot;RSI Smoothing&quot;, minval=1, group=group_primary)
+qqeFactorPrimary = input.float(3.0, title=&quot;QQE Factor&quot;, group=group_primary)
+sourcePrimary = input.source(close, title=&quot;RSI Source&quot;, group=group_primary)
+
+// === SECONDARY QQE SETTINGS ===
+group_secondary = &quot;Secondary QQE Settings&quot;
+rsiLengthSecondary = input.int(6, title=&quot;RSI Length&quot;, minval=1, group=group_secondary)
+rsiSmoothingSecondary = input.int(5, title=&quot;RSI Smoothing&quot;, minval=1, group=group_secondary)
+qqeFactorSecondary = input.float(1.61, title=&quot;QQE Factor&quot;, group=group_secondary)
+thresholdSecondary = input.float(3.0, title=&quot;Threshold&quot;, group=group_secondary)
+sourceSecondary = input.source(close, title=&quot;RSI Source&quot;, group=group_secondary)
+
+// === BOLLINGER BANDS SETTINGS ===
+group_bollinger = &quot;Bollinger Bands Settings&quot;
+bollingerLength = input.int(50, minval=1, title=&quot;Length&quot;, group=group_bollinger)
+bollingerMultiplier = input.float(0.35, step=0.1, minval=0.001, maxval=5, title=&quot;Multiplier&quot;, group=group_bollinger)
+
+// === EMA ===
+group_ema = &quot;EMA (on the price chart)&quot;
+emaLength = input.int(50, minval=1, title=&quot;EMA Length&quot;, group=group_ema)
+emaColor = input.color(color.new(#ff9f0a, 0), title=&quot;EMA Color&quot;, group=group_ema)
+
+// === SIGNAL RULES ===
+group_sig = &quot;Signal Rules&quot;
+colorWithin = input.int(10, minval=1, title=&quot;Opposite color within (bars)&quot;, group=group_sig, tooltip=&quot;Buy: the histogram must have been red within this many bars before it turns blue. Sell: blue before red.&quot;)
+useCandle = input.bool(true, title=&quot;Require a strong candle&quot;, group=group_sig)
+minBody = input.float(0.6, minval=0.0, maxval=1.0, step=0.05, title=&quot;Min body (% of range)&quot;, group=group_sig, tooltip=&quot;0.6 = the body is at least 60% of the candle&#x27;s high-to-low range.&quot;)
+closeNear = input.float(0.25, minval=0.0, maxval=1.0, step=0.05, title=&quot;Close within top/bottom (% of range)&quot;, group=group_sig, tooltip=&quot;Buy: close in the top 25% of the range. Sell: close in the bottom 25%.&quot;)
+
+// === STOP, TARGET, ROOM ===
+group_risk = &quot;Stop, Target, Room&quot;
+swingLeft = input.int(3, minval=1, title=&quot;Swing pivot: bars left&quot;, group=group_risk)
+swingRight = input.int(2, minval=1, title=&quot;Swing pivot: bars right&quot;, group=group_risk)
+stopBuffer = input.float(0.0, minval=0.0, title=&quot;Stop buffer (price)&quot;, group=group_risk, tooltip=&quot;Extra distance beyond the swing, in price. Gold example: 0.50.&quot;)
+rrTarget = input.float(2.0, minval=0.1, step=0.5, title=&quot;Target (R)&quot;, group=group_risk)
+maxRisk = input.float(0.0, minval=0.0, title=&quot;Max stop distance (price, 0 = off)&quot;, group=group_risk, tooltip=&quot;Skip the trade when the stop is further than this from the entry.&quot;)
+useRoom = input.bool(true, title=&quot;Skip when a level sits before the target&quot;, group=group_risk, tooltip=&quot;Buy: the nearest earlier swing high above the entry. Sell: the nearest earlier swing low below it.&quot;)
+levelMemory = input.int(30, minval=1, maxval=200, title=&quot;Swing levels to remember&quot;, group=group_risk)
+
+// === STAY-OUT FILTERS ===
+group_out = &quot;Stay-Out Filters&quot;
+useChop = input.bool(true, title=&quot;Skip when price keeps crossing the EMA&quot;, group=group_out)
+chopBars = input.int(20, minval=2, title=&quot;Chop: look back (bars)&quot;, group=group_out)
+chopMax = input.int(3, minval=0, title=&quot;Chop: max EMA crosses&quot;, group=group_out)
+useChase = input.bool(true, title=&quot;Skip when too far from the EMA (chasing)&quot;, group=group_out)
+chaseAtr = input.float(2.5, minval=0.1, step=0.1, title=&quot;Chase: max distance (ATRs)&quot;, group=group_out)
+
+// === DISPLAY ===
+group_disp = &quot;Display&quot;
+showLevels = input.bool(true, title=&quot;Draw entry, stop and target&quot;, group=group_disp)
+levelBars = input.int(20, minval=1, maxval=400, title=&quot;Level length (bars)&quot;, group=group_disp)
+showSkips = input.bool(true, title=&quot;Mark skipped signals (no room)&quot;, group=group_disp)
+
+// === FUNCTIONS ===
+calculateQQE(rsiLength, smoothingFactor, qqeFactor, source) =&gt;
+    wildersLength = rsiLength * 2 - 1
+    rsi = ta.rsi(source, rsiLength)
+    smoothedRsi = ta.ema(rsi, smoothingFactor)
+    atrRsi = math.abs(smoothedRsi[1] - smoothedRsi)
+    smoothedAtrRsi = ta.ema(atrRsi, wildersLength)
+    dynamicAtrRsi = smoothedAtrRsi * qqeFactor
+
+    longBand = 0.0
+    shortBand = 0.0
+    trendDirection = 0
+
+    newShortBand = smoothedRsi + dynamicAtrRsi
+    newLongBand = smoothedRsi - dynamicAtrRsi
+    longBand := smoothedRsi[1] &gt; longBand[1] and smoothedRsi &gt; longBand[1] ? math.max(longBand[1], newLongBand) : newLongBand
+    shortBand := smoothedRsi[1] &lt; shortBand[1] and smoothedRsi &lt; shortBand[1] ? math.min(shortBand[1], newShortBand) : newShortBand
+    longBandCross = ta.cross(longBand[1], smoothedRsi)
+
+    if ta.cross(smoothedRsi, shortBand[1])
+        trendDirection := 1
+    else if longBandCross
+        trendDirection := -1
+    else
+        trendDirection := trendDirection[1]
+
+    qqeTrendLine = trendDirection == 1 ? longBand : shortBand
+    [qqeTrendLine, smoothedRsi]
+
+// nearest remembered level above (dir = 1) or below (dir = -1) a price
+nearestLevel(array&lt;float&gt; levels, float price, int dir) =&gt;
+    float best = na
+    if array.size(levels) &gt; 0
+        for i = 0 to array.size(levels) - 1
+            lv = array.get(levels, i)
+            if dir == 1 and lv &gt; price and (na(best) or lv &lt; best)
+                best := lv
+            if dir == -1 and lv &lt; price and (na(best) or lv &gt; best)
+                best := lv
+    best
+
+// === QQE MOD ===
+[primaryQQETrendLine, primaryRSI] = calculateQQE(rsiLengthPrimary, rsiSmoothingPrimary, qqeFactorPrimary, sourcePrimary)
+[secondaryQQETrendLine, secondaryRSI] = calculateQQE(rsiLengthSecondary, rsiSmoothingSecondary, qqeFactorSecondary, sourceSecondary)
+
+bollingerBasis = ta.sma(primaryQQETrendLine - 50, bollingerLength)
+bollingerDeviation = bollingerMultiplier * ta.stdev(primaryQQETrendLine - 50, bollingerLength)
+bollingerUpper = bollingerBasis + bollingerDeviation
+bollingerLower = bollingerBasis - bollingerDeviation
+
+qqeBlue = secondaryRSI - 50 &gt; thresholdSecondary and primaryRSI - 50 &gt; bollingerUpper
+qqeRed = secondaryRSI - 50 &lt; -thresholdSecondary and primaryRSI - 50 &lt; bollingerLower
+
+rsiColorSecondary = math.abs(secondaryRSI - 50) &gt; thresholdSecondary ? color.new(#707070, 20) : na
+
+// === EMA 50 AND FILTERS ===
+ema50 = ta.ema(close, emaLength)
+atr14 = ta.atr(14)
+emaCrosses = math.sum(ta.cross(close, ema50) ? 1 : 0, chopBars)
+chopOk = not useChop or emaCrosses &lt;= chopMax
+chaseOk = not useChase or math.abs(close - ema50) &lt;= chaseAtr * atr14
+
+// === COLOR CHANGES ===
+barsSinceRed = ta.barssince(qqeRed)
+barsSinceBlue = ta.barssince(qqeBlue)
+turnBlue = qqeBlue and not qqeBlue[1] and barsSinceRed[1] &lt; colorWithin
+turnRed = qqeRed and not qqeRed[1] and barsSinceBlue[1] &lt; colorWithin
+
+// === THE CANDLE ===
+candleRange = high - low
+bodyPct = candleRange &gt; 0 ? math.abs(close - open) / candleRange : 0.0
+bullCandle = not useCandle or (close &gt; open and bodyPct &gt;= minBody and (high - close) / candleRange &lt;= closeNear)
+bearCandle = not useCandle or (close &lt; open and bodyPct &gt;= minBody and (close - low) / candleRange &lt;= closeNear)
+
+// === SWINGS: the stop, and the levels for the room check ===
+var float lastSwingLow = na
+var float lastSwingHigh = na
+var array&lt;float&gt; swingHighs = array.new&lt;float&gt;()
+var array&lt;float&gt; swingLows = array.new&lt;float&gt;()
+pl = ta.pivotlow(low, swingLeft, swingRight)
+ph = ta.pivothigh(high, swingLeft, swingRight)
+if not na(pl)
+    lastSwingLow := pl
+    array.push(swingLows, pl)
+    if array.size(swingLows) &gt; levelMemory
+        array.shift(swingLows)
+if not na(ph)
+    lastSwingHigh := ph
+    array.push(swingHighs, ph)
+    if array.size(swingHighs) &gt; levelMemory
+        array.shift(swingHighs)
+
+// the swing must sit beyond this candle, or it can&#x27;t hold a stop
+buyStop = math.min(nz(lastSwingLow, low), low) - stopBuffer
+sellStop = math.max(nz(lastSwingHigh, high), high) + stopBuffer
+buyRisk = close - buyStop
+sellRisk = sellStop - close
+buyTarget = close + rrTarget * buyRisk
+sellTarget = close - rrTarget * sellRisk
+buyLevel = nearestLevel(swingHighs, close, 1)
+sellLevel = nearestLevel(swingLows, close, -1)
+buyRoom = not useRoom or na(buyLevel) or buyLevel &gt;= buyTarget
+sellRoom = not useRoom or na(sellLevel) or sellLevel &lt;= sellTarget
+buyRiskOk = buyRisk &gt; 0 and (maxRisk == 0 or buyRisk &lt;= maxRisk)
+sellRiskOk = sellRisk &gt; 0 and (maxRisk == 0 or sellRisk &lt;= maxRisk)
+
+// === SIGNALS (only on a closed candle) ===
+buySetup = barstate.isconfirmed and close &gt; ema50 and turnBlue and bullCandle and chopOk and chaseOk and buyRiskOk
+sellSetup = barstate.isconfirmed and close &lt; ema50 and turnRed and bearCandle and chopOk and chaseOk and sellRiskOk
+buySignal = buySetup and buyRoom
+sellSignal = sellSetup and sellRoom
+buySkip = buySetup and not buyRoom
+sellSkip = sellSetup and not sellRoom
+
+// === PANE: QQE MOD ===
+plot(secondaryQQETrendLine - 50, title=&quot;Secondary QQE Trend Line&quot;, color=color.white, linewidth=2)
+plot(secondaryRSI - 50, color=rsiColorSecondary, title=&quot;Secondary RSI Histogram&quot;, style=plot.style_columns)
+plot(qqeBlue ? secondaryRSI - 50 : na, title=&quot;QQE Up Signal&quot;, style=plot.style_columns, color=#00c3ff)
+plot(qqeRed ? secondaryRSI - 50 : na, title=&quot;QQE Down Signal&quot;, style=plot.style_columns, color=#ff0062)
+hline(0, title=&quot;Zero Line&quot;, color=color.white, linestyle=hline.style_dotted)
+
+// === PRICE CHART: EMA 50 and the signals ===
+plot(ema50, title=&quot;EMA 50&quot;, color=emaColor, linewidth=2, force_overlay=true)
+plotshape(buySignal, title=&quot;Buy&quot;, style=shape.labelup, location=location.belowbar, color=color.new(#30d158, 0), textcolor=color.black, text=&quot;BUY&quot;, size=size.small, force_overlay=true)
+plotshape(sellSignal, title=&quot;Sell&quot;, style=shape.labeldown, location=location.abovebar, color=color.new(#ff453a, 0), textcolor=color.white, text=&quot;SELL&quot;, size=size.small, force_overlay=true)
+plotshape(showSkips and buySkip, title=&quot;Buy skipped (no room)&quot;, style=shape.xcross, location=location.belowbar, color=color.new(#8e8e93, 0), text=&quot;no room&quot;, textcolor=color.new(#8e8e93, 0), size=size.tiny, force_overlay=true)
+plotshape(showSkips and sellSkip, title=&quot;Sell skipped (no room)&quot;, style=shape.xcross, location=location.abovebar, color=color.new(#8e8e93, 0), text=&quot;no room&quot;, textcolor=color.new(#8e8e93, 0), size=size.tiny, force_overlay=true)
+
+// entry (next open, drawn at this close), stop and target
+if showLevels and (buySignal or sellSignal)
+    isBuy = buySignal
+    stopPx = isBuy ? buyStop : sellStop
+    tgtPx = isBuy ? buyTarget : sellTarget
+    x2 = bar_index + levelBars
+    line.new(bar_index, close, x2, close, color=color.new(color.white, 0), width=1, force_overlay=true)
+    line.new(bar_index, stopPx, x2, stopPx, color=color.new(#ff453a, 0), width=2, force_overlay=true)
+    line.new(bar_index, tgtPx, x2, tgtPx, color=color.new(#30d158, 0), width=2, force_overlay=true)
+    label.new(x2, stopPx, &quot;Stop &quot; + str.tostring(stopPx, format.mintick), style=label.style_label_left, color=color.new(#ff453a, 0), textcolor=color.black, size=size.tiny, force_overlay=true)
+    label.new(x2, tgtPx, str.tostring(rrTarget) + &quot;R &quot; + str.tostring(tgtPx, format.mintick), style=label.style_label_left, color=color.new(#30d158, 0), textcolor=color.black, size=size.tiny, force_overlay=true)
+
+// === ALERTS ===
+alertcondition(buySignal, title=&quot;QQE + EMA 50 Buy&quot;, message=&quot;QQE Mod turned blue above the EMA 50 on a strong closed candle: buy the next open.&quot;)
+alertcondition(sellSignal, title=&quot;QQE + EMA 50 Sell&quot;, message=&quot;QQE Mod turned red below the EMA 50 on a strong closed candle: sell the next open.&quot;)
+alertcondition(buySkip or sellSkip, title=&quot;QQE + EMA 50 Skipped (no room)&quot;, message=&quot;QQE + EMA 50 signal skipped: a level sits before the target.&quot;)
+if buySignal
+    alert(&quot;BUY &quot; + syminfo.ticker + &quot; · entry ~&quot; + str.tostring(close, format.mintick) + &quot; · stop &quot; + str.tostring(buyStop, format.mintick) + &quot; · target &quot; + str.tostring(buyTarget, format.mintick), alert.freq_once_per_bar_close)
+if sellSignal
+    alert(&quot;SELL &quot; + syminfo.ticker + &quot; · entry ~&quot; + str.tostring(close, format.mintick) + &quot; · stop &quot; + str.tostring(sellStop, format.mintick) + &quot; · target &quot; + str.tostring(sellTarget, format.mintick), alert.freq_once_per_bar_close)</code></pre>
+  </div>
+
+  <section class="video" id="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/KIzoAvjwTGY" title="QQE Mod and EMA 50 (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>The full walkthrough: setting up QQE Mod and the EMA 50 on a 5-minute gold chart, a buy, a sell, two trades skipped for lack of room, and the three times to stay out.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=KIzoAvjwTGY" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>The trend picks the side. The color picks the moment.</h2>
+      <p>QQE Mod alone gives too many signals. Taken only in the EMA 50's direction, on a strong candle that has closed, with the stop at the
+      last swing and room for 2R, most of the weak ones drop out.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Above the EMA 50, red to blue. Below it, blue to red. Crossing it, nothing.</li>
+        <li>Wait for the close, enter on the next open, stop beyond the swing.</li>
+        <li>No room before the next level, no trade.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Based on a video walkthrough of QQE Mod (Mihkel00's TradingView indicator) with an EMA 50 on 5-minute gold, and the Pine Script
+  code above. The walkthrough, the stepper chart, the sell charts and the stay-out loops are illustrative, not real prices; the histograms
+  on the walkthrough, stepper and sell charts are calculated from those made-up bars with the same math as the code.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+<script>
+  /* copy the Pine code */
+  (function () {
+    var b = document.querySelector("[data-copy]"), code = document.querySelector("pre.pine code");
+    if (!b || !code) return;
+    b.addEventListener("click", function () {
+      var t = code.textContent;
+      function done(ok) { b.textContent = ok ? "Copied" : "Select and copy"; setTimeout(function () { b.textContent = "Copy code"; }, 1800); }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { done(true); }, function () { done(false); });
+      else done(false);
+    });
+  })();
+</script>
+
+</body>
+</html>

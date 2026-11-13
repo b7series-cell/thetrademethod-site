@@ -1,0 +1,117 @@
+/* =====================================================================
+   blog.css — the /blog/ list and blog posts. Loaded after apple.css
+   (uses its tokens, .wrap, .band, .hub-hero, .hub-stats, .hub-other).
+   ===================================================================== */
+
+/* ---------- /blog/ list ---------- */
+.blog-list { display:grid; grid-template-columns:repeat(2,1fr); gap:24px; }
+.bcard { display:flex; flex-direction:column; background:var(--white); color:#1d1d1f; border-radius:28px; overflow:hidden;
+         transition:transform .25s ease, box-shadow .25s ease; }
+.bcard:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(0,0,0,0.08); }
+.bcard img { display:block; width:100%; height:auto; aspect-ratio:16/9; object-fit:cover; object-position:top left; border-bottom:1px solid #e8e8ed; }
+.bcard-txt { padding:26px 28px 28px; display:flex; flex-direction:column; flex:1; }
+.bcard .k { font-size:14px; color:#6e6e73; }
+.bcard h2 { margin:10px 0 10px; font-size:28px; font-weight:600; line-height:1.14; letter-spacing:0.004em; }
+.bcard p { margin:0; color:#6e6e73; }
+.bcard .more { margin-top:auto; padding-top:20px; color:var(--link-light); }
+
+/* ---------- post hero ---------- */
+.post-hero { padding:72px 0 48px; }
+.post-back { display:inline-block; font-size:14px; color:var(--ash); margin-bottom:22px; }
+.post-back:hover { color:var(--white); }
+.post-hero .eyebrow { font-size:17px; font-weight:600; color:var(--ash); margin:0 0 10px; letter-spacing:0.011em; }
+.post-hero h1 { margin:0; font-size:clamp(40px,6.4vw,72px); font-weight:600; line-height:1.05; letter-spacing:-0.015em; max-width:16ch; }
+.post-hero .lead { max-width:50ch; }
+
+/* ---------- post layout: contents on the left, article on the right ---------- */
+section.post-band { padding:64px 0 88px; }
+.post { max-width:1100px; margin:0 auto; padding:0 40px; display:grid; grid-template-columns:220px minmax(0,1fr); gap:56px; align-items:start; }
+.post { position:relative; }
+.post-body { grid-column:2; }
+/* the contents list sits after the short answer in the page code (readers and crawlers get the answer first) but shows in the left column on desktop */
+.post-toc-wrap { position:absolute; top:0; bottom:0; left:40px; width:220px; }
+.post-toc { position:sticky; top:120px; font-size:14px; }
+.post-toc-h { margin:0 0 10px; font-weight:600; color:#1d1d1f; }
+.post-toc ol { list-style:none; margin:0; padding:0; border-left:1px solid #d2d2d7; }
+.post-toc li a { display:block; padding:6px 0 6px 14px; color:#6e6e73; line-height:1.35; }
+.post-toc li a:hover { color:var(--link-light); }
+.post-body .post-toc li { margin:0; padding:0; }
+.post-body .post-toc a { color:#6e6e73; }
+.post-body .post-toc a:hover { color:var(--link-light); text-decoration:none; }
+.post-body .post-toc p { margin:0 0 10px; }
+
+/* ---------- article text ---------- */
+.post-body { color:#1d1d1f; font-size:18px; line-height:1.62; letter-spacing:-0.01em; max-width:720px; min-width:0; }
+.post-body h2 { font-size:32px; font-weight:600; line-height:1.15; letter-spacing:-0.005em; margin:56px 0 16px; scroll-margin-top:110px; }
+.post-body > section:first-child h2 { margin-top:0; }
+.post-body section { scroll-margin-top:110px; }
+
+/* citable-article blocks: direct answer, AI summary, research quotes */
+.post-answer { font-size:21px; line-height:1.5; font-weight:500; letter-spacing:-0.012em; color:#1d1d1f; margin:0 0 22px; }
+.post-body .post-asof { margin:-8px 0 20px; font-size:14px; color:#6e6e73; }
+.post-summary { background:#f5f5f7; border-left:3px solid var(--buy); border-radius:0 16px 16px 0; padding:18px 22px; margin:0 0 8px; }
+.post-body .post-summary .post-summary-h { margin:0 0 6px; font-size:13px; font-weight:600; text-transform:uppercase; letter-spacing:0.06em; color:#6e6e73; }
+.post-body .post-summary p { margin:0; font-size:16px; line-height:1.55; color:#424245; }
+.post-quote { margin:26px 0; padding:4px 0 4px 22px; border-left:3px solid #d2d2d7; }
+.post-body .post-quote p { margin:0 0 10px; font-size:20px; line-height:1.45; font-weight:500; color:#1d1d1f; }
+.post-quote footer { font-size:14px; line-height:1.45; color:#6e6e73; }
+.post-quote cite { font-style:normal; }
+.post-body h3 { font-size:22px; font-weight:600; line-height:1.25; margin:36px 0 10px; scroll-margin-top:110px; }
+.post-body p { margin:0 0 18px; }
+.post-body ul { margin:0 0 22px; padding-left:22px; }
+.post-body li { margin:0 0 10px; padding-left:4px; }
+.post-body a { color:var(--link-light); }
+.post-body a:hover { text-decoration:underline; }
+.post-body b { font-weight:600; }
+
+.post-terms { margin:0 0 8px; display:grid; gap:2px; background:#e8e8ed; border-radius:18px; overflow:hidden; }
+.post-terms > div { background:#f5f5f7; padding:16px 20px; }
+.post-terms dt { font-weight:600; margin:0 0 4px; }
+.post-terms dd { margin:0; color:#424245; font-size:16px; line-height:1.5; }
+
+.post-fig { margin:30px 0 32px; }
+.post-fig img { display:block; width:100%; height:auto; border-radius:16px; border:1px solid #e8e8ed; background:#f5f5f7; }
+.post-fig figcaption { margin-top:10px; font-size:14px; line-height:1.45; color:#6e6e73; }
+
+.post-table { margin:24px 0 30px; overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid #e8e8ed; border-radius:16px; }
+.post-table table { width:100%; border-collapse:collapse; font-size:15px; line-height:1.4; }
+.post-table table.wide { min-width:780px; }
+.post-table caption { caption-side:top; text-align:left; padding:14px 16px 10px; font-size:14px; font-weight:600; color:#1d1d1f; }
+.post-table th, .post-table td { padding:10px 16px; text-align:left; border-top:1px solid #e8e8ed; vertical-align:top; }
+.post-table th { background:#f5f5f7; font-weight:600; font-size:13px; color:#424245; white-space:nowrap; }
+.post-table td.tnum, .post-table tbody.tnum td:nth-child(n+5) { white-space:nowrap; }
+
+.post-faq h3 { margin-top:28px; }
+.post-disclaim { font-size:15px; color:#424245; background:#f5f5f7; border-radius:16px; padding:18px 20px; }
+
+/* ---------- responsive ---------- */
+@media (max-width:1000px) {
+  .post { grid-template-columns:1fr; gap:28px; max-width:760px; }
+  .post-body { grid-column:auto; }
+  .post-toc-wrap { position:static; width:auto; margin:28px 0 8px; }
+  .post-toc { position:static; background:#f5f5f7; border-radius:18px; padding:18px 20px; }
+  .post-toc ol { border-left:0; columns:1; }
+  .post-toc li a { padding:5px 0; }
+}
+@media (max-width:760px) {
+  .blog-list { grid-template-columns:1fr; }
+}
+@media (max-width:680px) {
+  .post { padding:0 16px; }
+  section.post-band { padding:40px 0 64px; }
+  .post-hero { padding:44px 0 32px; }
+  .post-body { font-size:17px; }
+  .post-body h2 { font-size:26px; margin-top:44px; }
+  .post-body h3 { font-size:20px; }
+  .post-answer { font-size:19px; }
+  .post-body .post-quote p { font-size:18px; }
+  .bcard { border-radius:22px; }
+  .bcard-txt { padding:22px 20px 24px; }
+  .bcard h2 { font-size:24px; }
+  .post-fig { margin:24px 0 26px; }
+  .post-fig img { border-radius:12px; }
+}
+@media print {
+  .post { display:block; }
+  .post-toc, .post-toc-wrap { display:none; }
+}

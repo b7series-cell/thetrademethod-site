@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Four Pillars — levels, context, sizing, discipline | The Trade Method</title>
+<meta name="description" content="A simple, repeatable trading framework in four pillars: the levels price keeps reacting to, the context around them, position sizing that keeps you in the game, and the discipline to follow your plan.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/four-pillars.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Four Pillars — levels, context, sizing, discipline">
+<meta property="og:description" content="A simple, repeatable trading framework in four pillars: the levels price keeps reacting to, the context around them, position sizing that keeps you in the game, and the discipline to follow your plan.">
+<meta property="og:url" content="https://thetrademethod.com/four-pillars.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Four Pillars — levels, context, sizing, discipline">
+<meta name="twitter:description" content="A simple, repeatable trading framework in four pillars: the levels price keeps reacting to, the context around them, position sizing that keeps you in the game, and the discipline to follow your plan.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Four Pillars — levels, context, sizing, discipline",
+ "name": "Four Pillars",
+ "description": "A simple, repeatable trading framework in four pillars: the levels price keeps reacting to, the context around them, position sizing that keeps you in the game, and the discipline to follow your plan.",
+ "url": "https://thetrademethod.com/four-pillars.html",
+ "mainEntityOfPage": "https://thetrademethod.com/four-pillars.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-17",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* collecting vs building */
+  .loop { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:14px; }
+  .loop div { background:var(--charcoal); border-radius:18px; padding:16px 16px 17px; }
+  .loop .k { font-family:var(--mono-font); font-size:12px; color:#ff6961; }
+  .loop b { display:block; font-size:18px; margin:8px 0 6px; }
+  .loop p { margin:0; color:var(--mute); font-size:14px; }
+
+  /* decision vs result */
+  .dr { display:grid; grid-template-columns:auto 1fr 1fr; gap:8px; font-size:14px; }
+  .dr > span { color:var(--ash); font-family:var(--mono-font); font-size:12px; align-self:end; padding:0 4px 4px; }
+  .dr > b { color:var(--ash); font-family:var(--mono-font); font-size:12px; font-weight:500; align-self:center; writing-mode:horizontal-tb; padding-right:6px; }
+  .dr div { background:var(--raised); border-radius:14px; padding:12px 14px; }
+  .dr div strong { display:block; font-size:15px; margin-bottom:3px; }
+  .dr div p { margin:0; color:var(--mute); font-size:13.5px; }
+  .dr .g strong { color:var(--up); } .dr .w strong { color:var(--orange); } .dr .r strong { color:#ff6961; }
+
+  /* two-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* the four at a glance */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four a { display:block; background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; color:inherit; text-decoration:none; }
+  .four a:hover { background:var(--raised); }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--up); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .loop, .four { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim, .sheet .loop + .anim { margin-top:56px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .loop, .four, .pair { grid-template-columns:1fr; }
+    .dr { grid-template-columns:1fr 1fr; font-size:13px; }
+    .dr > span:first-child { display:none; }
+    .dr > b { grid-column:1 / -1; padding:6px 4px 0; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+  }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/fp-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=4" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="four-pillars">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; not a setup, the simple framework underneath every setup</p>
+      <h1>Four <span>Pillars</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Traders who lose for years rarely know too little. <em>They're doing too much.</em>
+      Strip it down to four things you can repeat the same way every time: where price reacts, the context around it, how much you risk, and the discipline to follow the plan.</p>
+      <div class="counts">
+        <div><b>4</b><small>pillars</small></div>
+        <div><b>100</b><small>trades at the same risk</small></div>
+        <div><b>1</b><small>plan, written while calm</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">the problem</div><div class="n">Doing too much</div></div>
+    <div><div class="t">pillar 1</div><div class="n">Levels</div></div>
+    <div><div class="t">pillar 2</div><div class="n">Context</div></div>
+    <div><div class="t">pillar 3</div><div class="n">Position sizing</div></div>
+    <div><div class="t">pillar 4</div><div class="n">Discipline</div></div>
+  </nav>
+
+  <div class="section-head">
+    <h2>Collecting strategies isn't building a skill</h2>
+    <p>The screen is covered in indicators. Three say buy, two say sell. You take the trade anyway, it goes against you, and you go hunting for the indicator that would have caught it. That loop can run for years.</p>
+  </div>
+
+  <div class="loop">
+    <div><span class="k">step 1</span><b>Stack the chart</b><p>One more indicator, one more confirmation. Surely more inputs add up to more accuracy.</p></div>
+    <div><span class="k">step 2</span><b>Signals disagree</b><p>Past a certain point, more inputs just mean more conflict, and conflict means hesitation at the moment you need clarity.</p></div>
+    <div><span class="k">step 3</span><b>Take a loss</b><p>A losing week, and the system gets blamed instead of the process.</p></div>
+    <div><span class="k">step 4</span><b>Start over</b><p>A new tool or a whole new strategy. You never trade the same way twice, so nothing ever compounds.</p></div>
+  </div>
+
+  <section class="anim" data-fp-anim="clutter" aria-label="Illustrative chart on made-up bars: a chart covered in two moving averages, Bollinger Bands and five oscillator signals, three saying buy and two saying sell; the indicators are removed and what is left is a $41 level where buyers stepped in three times">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Strip it down</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart on made-up bars: a chart covered in two moving averages, Bollinger Bands and five oscillator signals, three saying buy and two saying sell; the indicators are removed and what is left is a $41 level where buyers stepped in three times"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Simple means repeatable</h3>
+          <ul>
+            <li>The traders who turn the corner don't add more to their screen. They strip it down.</li>
+            <li>They trade one simple framework the same way every single time, so every trade teaches them something about the next.</li>
+            <li>Simple does not mean safe. You can lose money with any framework, simple or not.</li>
+          </ul>
+          <p class="why">Repeatable is what actually gives you a chance. A guess dressed up as analysis never does.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Why complicated feels right</h3>
+          <ul>
+            <li>The market feels complicated, so it seems logical the solution should be complicated too.</li>
+            <li>But trading isn't a puzzle where more pieces get you closer to the picture.</li>
+            <li>Once the indicators were gone, everything got quieter, slower and more obvious.</li>
+          </ul>
+          <p class="why">Ask which of six stacked indicators to trust and the honest answer is none of them, not on their own.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>What actually earns trust</h4>
+        <p class="lead">Two things. Everything else is decoration.</p>
+        <div class="calc">
+          <div class="row"><span>A level the market has proven it respects</span><b>where</b></div>
+          <div class="row"><span>The bigger picture around that level</span><b>whether</b></div>
+          <div class="row"><span>A fifth oscillator</span><b>decoration</b></div>
+          <div class="row tot"><span>Both lined up, sized the same as always</span><b>a trade</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Two ways to spend a year</h4>
+        <p class="lead">Same hours, very different results.</p>
+        <div class="pair">
+          <div class="care"><span class="k">collecting</span><b>A new strategy every losing week</b><p>Every chart feels like a fresh guess, and nothing compounds.</p></div>
+          <div class="yes"><span class="k">building</span><b>One framework, run the same way</b><p>Every trade is a rep. The skill compounds.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="levels">
+    <h2>Pillar 1 &middot; Levels</h2>
+    <p>The only map you really need. Without it, a chart is random green and red bars and every little wiggle feels important.</p>
+  </div>
+
+  <section class="anim" data-fp-anim="levels" aria-label="Illustrative chart on made-up bars: a stock trades between support at $42 and resistance at $44, touching each three times; a line drawn at a single minor high touched once is dismissed, and the space between the two levels is shaded as noise">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Mark where price reacted</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart on made-up bars: a stock trades between support at $42 and resistance at $44, touching each three times; a line drawn at a single minor high touched once is dismissed, and the space between the two levels is shaded as noise"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Price reacts at the same places</h3>
+          <ul>
+            <li>Price isn't random. It tends to react at the same levels again and again.</li>
+            <li>Support is where buyers have tended to show up. Resistance is where sellers have.</li>
+            <li>You mark the few levels the market has actually respected, and those become your decision points.</li>
+          </ul>
+          <p class="why">You are not trying to predict every candle. Everything in between the levels is noise, and you can let it go.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Count reactions, not looks</h3>
+          <ul>
+            <li>A level gets attention by how many times price actually reacted there, not by how clean the line looks.</li>
+            <li>Respected many times, across different conditions: it earns attention.</li>
+            <li>Drawn once and touched once: it doesn't.</li>
+          </ul>
+          <p class="why">This one skill replaces a dozen indicators. Most of what they're clumsily trying to say is already on the chart at the level.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Grading a level</h4>
+        <p class="lead">What makes a price worth waiting for.</p>
+        <div class="calc">
+          <div class="row"><span>How many times price reacted there</span><b>the main test</b></div>
+          <div class="row"><span>Reactions across different conditions</span><b>stronger</b></div>
+          <div class="row"><span>Drawn once, touched once</span><b>ignore it</b></div>
+          <div class="row"><span>How clean or pretty the line looks</span><b>doesn't count</b></div>
+          <div class="row tot"><span>Proven level, then a reaction</span><b>a decision point</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Setups built on levels</h4>
+        <p class="lead">Each one is a proven level with its own rules.</p>
+        <div class="pair">
+          <div class=""><span class="k">yesterday's map</span><b><a class="more" href="/setups/market-memory.html">Market Memory</a></b><p>Yesterday's high and low, and the rejection candle when price returns to them.</p></div>
+          <div class=""><span class="k">volume-backed</span><b><a class="more" href="/setups/volume-sr-rejection.html">Volume S/R Rejection</a></b><p>Only the support and resistance the volume profile backs.</p></div>
+          <div class=""><span class="k">self-check</span><b><a class="more" href="/mistakes.html">S/R Mistakes</a></b><p>The five support and resistance mistakes that cost more than the level.</p></div>
+          <div class=""><span class="k">break &middot; knock</span><b><a class="more" href="/setups/knock-twice.html">Knock Twice</a></b><p>An old swing high, broken, then tested once and held.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="context">
+    <h2>Pillar 2 &middot; Context</h2>
+    <p>A level is only half the picture. The exact same level can hold, or get run over, depending on what's going on around it.</p>
+  </div>
+
+  <section class="anim" data-fp-anim="context" aria-label="Illustrative chart on made-up bars shown twice: a stock pulls back into a $50 level that held before; while the broader market grinds higher the level holds and price bounces, and on a day the broader market rolls over the same stock at the same level breaks down">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Same level, different world</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart on made-up bars shown twice: a stock pulls back into a $50 level that held before; while the broader market grinds higher the level holds and price bounces, and on a day the broader market rolls over the same stock at the same level breaks down"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Zoom out before you zoom in</h3>
+          <ul>
+            <li>Whether a level holds depends on the trend, the higher time frame, and where the broader market and the major indices are leaning that day.</li>
+            <li>Know the bigger structure and the direction first. Then let the level give you the spot.</li>
+            <li>Never let a clean-looking setup pull you in against the bigger picture.</li>
+          </ul>
+          <p class="why">Context isn't another indicator on your chart. It's looking up before you look down.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>The level didn't change</h3>
+          <ul>
+            <li>The broader market grinding higher and a stock pulling back into a level that's held: that level has the wind at its back.</li>
+            <li>The broader market rolling over and the same stock at the same level: the odds underneath it have completely changed.</li>
+            <li>Nothing on that one chart moved. The world around the level did.</li>
+          </ul>
+          <p class="why">Even with context on your side, no read is a sure thing. It stacks the odds; it never removes the risk.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Three questions, in order</h4>
+        <p class="lead">Before the level gets a vote.</p>
+        <div class="calc">
+          <div class="row"><span>What is the broader market doing?</span><b>the indices</b></div>
+          <div class="row"><span>What does the higher time frame structure look like?</span><b>trend or range</b></div>
+          <div class="row"><span>Does that line up with my level, or fight it?</span><b>with or against</b></div>
+          <div class="row tot"><span>Lined up</span><b>the level can do its job</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Where context lives on this site</h4>
+        <p class="lead">Setup first, trade second.</p>
+        <div class="pair">
+          <div class=""><span class="k">setup &rarr; trade</span><b><a class="more" href="/six-momentum-trades.html">Six Momentum Trades</a></b><p>Name the setup before the momentum trade; the same trade means different things in different setups.</p></div>
+          <div class=""><span class="k">catalyst &rarr; setup</span><b><a class="more" href="/edge.html">Inch Wide, Mile Deep</a></b><p>Scoping catalyst, setup and trade, and starting with your stop.</p></div>
+          <div class=""><span class="k">higher time frame</span><b><a class="more" href="/setups/opening-range-break.html">Opening Range Break</a></b><p>Trust the break only when volume and the higher time frame agree.</p></div>
+          <div class=""><span class="k">participation</span><b><a class="more" href="/relative-volume.html">Relative Volume</a></b><p>Is anyone actually showing up for this stock today?</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="sizing">
+    <h2>Pillar 3 &middot; Position sizing</h2>
+    <p>The pillar that decides whether you're still trading a year from now, and the one most people get exactly backwards.</p>
+  </div>
+
+  <section class="anim" data-fp-anim="sizing" aria-label="Illustrative chart of made-up trades: the same forty trades, half winners at 2R, taken by one trader risking 1% every time and another sizing by conviction from 0.5% to 8%; a six-loss streak and two oversized losing bets leave the conviction trader well behind the fixed-risk trader">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Boring outlasts brave</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart of made-up trades: the same forty trades, half winners at 2R, taken by one trader risking 1% every time and another sizing by conviction from 0.5% to 8%; a six-loss streak and two oversized losing bets leave the conviction trader well behind the fixed-risk trader"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">7</div>
+        <div>
+          <h3>The one thing you fully control</h3>
+          <ul>
+            <li>Sizing by conviction means huge when you're sure and small when you're not, until one of those certainties wipes out a month in an afternoon.</li>
+            <li>How much you risk is the one thing on the whole chart you control, so decide it in advance.</li>
+            <li>A small percentage of the account on every trade, the same whether you feel certain or not.</li>
+          </ul>
+          <p class="why">Pick a risk you could repeat a hundred times in a row without flinching. Then fit the position to that risk, never to how good the setup feels.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">8</div>
+        <div>
+          <h3>Survive long enough to see the edge</h3>
+          <ul>
+            <li>A simple edge only works if you're still there to see it play out across many, many trades.</li>
+            <li>Losing streaks aren't a maybe. Every trader who's made it has had one. Sizing is what keeps a normal streak from ending your account.</li>
+            <li>No position size protects you from loss. Only ever trade risk capital, never money you need to live on.</li>
+          </ul>
+          <p class="why">Checking the chart every five minutes out of fear is information. It says the size is wrong, not the trade.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Let the setup fit the size</h4>
+        <p class="lead">A made-up example. Change the stop and the share count changes; the dollar risk doesn't.</p>
+        <div class="calc">
+          <div class="row"><span>Account</span><b>$25,000</b></div>
+          <div class="row"><span>Risk per trade, decided in advance</span><b>1% = $250</b></div>
+          <div class="row"><span>Entry $50.00, stop under the level at $49.50</span><b>$250 &divide; $0.50 = 500 shares</b></div>
+          <div class="row"><span>Same entry, wider stop at $49.00</span><b>$250 &divide; $1.00 = 250 shares</b></div>
+          <div class="row tot"><span>A setup that feels great</span><b>still $250</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Related pages</h4>
+        <p class="lead">Where the stop and the exits are covered in detail.</p>
+        <div class="pair">
+          <div class=""><span class="k">stop first</span><b><a class="more" href="/price-action-rules.html">Three Price Action Rules</a></b><p>Define your stop before you enter, and add to winners the right way.</p></div>
+          <div class=""><span class="k">expected value</span><b><a class="more" href="/let-winners-run.html">Let Winners Run</a></b><p>Same entries, same stops: exits that grow the average winner.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="discipline">
+    <h2>Pillar 4 &middot; Discipline</h2>
+    <p>The thing that breaks more traders than any bad setup, and it isn't even on the chart.</p>
+  </div>
+
+  <section class="anim" data-fp-anim="discipline" aria-label="Illustrative chart on made-up bars: a stock runs away from a $30.60 level without you; a chased entry at the top with a widened stop turns a small loss into a big one; then price returns to the level and a planned trade with entry, a stop just under the level and a 2R target plays out">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The plan you wrote while calm</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart on made-up bars: a stock runs away from a $30.60 level without you; a chased entry at the top with a widened stop turns a small loss into a big one; then price returns to the level and a planned trade with entry, a stop just under the level and a 2R target plays out"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">9</div>
+        <div>
+          <h3>A discipline problem, not a strategy problem</h3>
+          <ul>
+            <li>You know the rules. Then real money is on the line, a candle runs without you, and fear, greed and FOMO grab the wheel.</li>
+            <li>You chase the entry you missed, widen your risk mid-trade, or jump back in bigger to win back a loss.</li>
+            <li>Most blown-up accounts aren't a strategy problem. They're a discipline problem.</li>
+          </ul>
+          <p class="why">The simplest framework in the world is useless if you can't sit on your hands and follow it under pressure.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">10</div>
+        <div>
+          <h3>Patience is a position</h3>
+          <ul>
+            <li>The market gives you setups every day, so you never have to force the one in front of you.</li>
+            <li>No level, no context, no trade. Full stop.</li>
+            <li>Rules get decided off the chart in a quiet moment, and executed on the chart however loud your emotions are.</li>
+          </ul>
+          <p class="why">This is why a simple framework fits people with real jobs and families: you wait for your levels to line up with context, size it the same way, and let everything else pass.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The decision and the result</h4>
+        <p class="lead">Two different things. Judge yourself on the first one.</p>
+        <div class="dr">
+          <span></span><span>good result</span><span>bad result</span>
+          <b>followed the plan</b>
+          <div class="g"><strong>Good trade</strong><p>Rules, risk and patience paid.</p></div>
+          <div class="g"><strong>Still a good trade</strong><p>Taken by your rules, inside your risk. That's just trading.</p></div>
+          <b>broke the plan</b>
+          <div class="w"><strong>Luck</strong><p>The most dangerous one: it teaches the wrong lesson.</p></div>
+          <div class="r"><strong>Bad trade</strong><p>The chase, the widened stop, the revenge trade.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>When it slips</h4>
+        <p class="lead">What resets it is going back to basics.</p>
+        <div class="calc">
+          <div class="row"><span>The level</span><b>where</b></div>
+          <div class="row"><span>The context</span><b>whether</b></div>
+          <div class="row"><span>The size</span><b>how much</b></div>
+          <div class="row"><span>And waiting</span><b>for all three</b></div>
+          <div class="row tot"><span>Boring, on purpose, every day</span><b>until it's automatic</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The four at a glance</h2>
+    <p>Say it in one breath. That&rsquo;s the entire framework.</p>
+  </div>
+
+  <div class="four">
+    <a href="#levels"><span class="k">pillar 1</span><h3>Levels</h3><p>Where does price react?</p><small>The few prices the market has proven it respects.</small></a>
+    <a href="#context"><span class="k">pillar 2</span><h3>Context</h3><p>Is the level likely to hold?</p><small>The trend, the higher time frame, the broader market.</small></a>
+    <a href="#sizing"><span class="k">pillar 3</span><h3>Position sizing</h3><p>How do you stay in the game?</p><small>The same small risk on every trade, decided in advance.</small></a>
+    <a href="#discipline"><span class="k">pillar 4</span><h3>Discipline</h3><p>Can you actually follow it?</p><small>The plan you wrote calm, run when you're not.</small></a>
+  </div>
+
+  <section class="anim" data-fp-anim="recap" aria-label="Illustrative chart on made-up bars: price breaks through $72 after sellers held it twice, runs, and pulls back into it inside an uptrend; the four pillars light up in turn: the level, the context, a stop just under the level at the usual 1% risk, and waiting for the trigger bar">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Four things, one chart</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart on made-up bars: price breaks through $72 after sellers held it twice, runs, and pulls back into it inside an uptrend; the four pillars light up in turn: the level, the context, a stop just under the level at the usual 1% risk, and waiting for the trigger bar"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/YGOLslescrk" title="A simple four-pillar trading framework (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>A trader of 16 years on why simple beats complicated, and the four pillars behind it.</p>
+      <ol>
+        <li><b>0:00</b>Losing for years by doing too much</li>
+        <li><b>1:02</b>The indicator loop</li>
+        <li><b>1:50</b>Simple means repeatable, not safe</li>
+        <li><b>3:13</b>Pillar 1: levels</li>
+        <li><b>4:23</b>Pillar 2: context</li>
+        <li><b>6:21</b>Pillar 3: position sizing</li>
+        <li><b>8:13</b>Pillar 4: discipline</li>
+        <li><b>10:33</b>The framework in one breath</li>
+        <li><b>10:52</b>Why simple is the advanced version</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=YGOLslescrk" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Simple isn't the beginner version. It's the only version you can repeat.</h2>
+      <p>People lose for years not because the simple stuff doesn't work, but because they keep abandoning it for something that looks smarter.
+      The goal was never to predict the market or to be right most often. It was a simple, repeatable process, capital protected while it plays out, and the discipline to keep running it.</p>
+    </div>
+    <div>
+      <ul>
+        <li>A level tells you where price reacts.</li>
+        <li>Context tells you whether that level is likely to hold.</li>
+        <li>Sizing keeps you in the game long enough for the edge to play out.</li>
+        <li>Discipline is what lets you follow all of it. Boring, on purpose.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from a trading-education video on a simple four-pillar framework: levels, context, position sizing and discipline. It's how one trader thinks about markets, shared for education; it's not advice and not a promise of profit. Charts above are illustrations on made-up bars and made-up trades, not real tickers or data. <a href="https://www.youtube.com/watch?v=YGOLslescrk" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

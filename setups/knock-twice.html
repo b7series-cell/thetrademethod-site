@@ -1,0 +1,569 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Knock Twice — break, knock, break again | The Trade Method</title>
+<meta name="description" content="Price closes through an old swing high, runs, stays away for five bars, then comes back and knocks on the old level once and holds. Buy the knock with the stop a tick under it. The break of the new high confirms it, and T2 is one more leg.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/knock-twice.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Knock Twice — break, knock, break again">
+<meta property="og:description" content="Price closes through an old swing high, runs, stays away for five bars, then comes back and knocks on the old level once and holds. Buy the knock with the stop a tick under it. The break of the new high confirms it, and T2 is one more leg.">
+<meta property="og:url" content="https://thetrademethod.com/setups/knock-twice.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Knock Twice — break, knock, break again">
+<meta name="twitter:description" content="Price closes through an old swing high, runs, stays away for five bars, then comes back and knocks on the old level once and holds. Buy the knock with the stop a tick under it. The break of the new high confirms it, and T2 is one more leg.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Knock Twice — break, knock, break again",
+ "name": "Knock Twice",
+ "description": "Price closes through an old swing high, runs, stays away for five bars, then comes back and knocks on the old level once and holds. Buy the knock with the stop a tick under it. The break of the new high confirms it, and T2 is one more leg.",
+ "url": "https://thetrademethod.com/setups/knock-twice.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/knock-twice.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-14",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/kt-anim.js?v=1" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
+<script src="/js/live-kit.js?v=3" defer></script>
+<script src="/js/kt-example.js?v=1" defer></script>
+<script src="/js/kt-live.js?v=2" defer></script>
+<style>
+  /* two ways in */
+  .ways { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:4px; }
+  .ways > div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:14px 15px; }
+  .ways > div.pick { border-color:#22855a; background:#0b1c17; }
+  .ways b { display:block; font-size:15px; margin-bottom:6px; }
+  .ways .tagline { font-family:var(--mono); font-size:11px; color:var(--gold); text-transform:uppercase; letter-spacing:0.04em; margin:0 0 6px; }
+  .ways dl { margin:8px 0 0; font-family:var(--mono); font-size:13.4px; display:grid; grid-template-columns:auto 1fr; gap:3px 12px; }
+  .ways dt { color:var(--dim); font-family:var(--sans); font-size:13.4px; }
+  .ways dd { margin:0; text-align:right; }
+  .ways p { margin:8px 0 0; color:var(--dim); font-size:13.4px; }
+
+  /* the animation redraws for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .ribbon + .anim { margin-top:8px; }
+  @media (max-width:1100px) { .ways { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    /* breathing room around the walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+  }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=3" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="knock-twice">
+    <div>
+      <p class="kicker">Break of structure &middot; retest of the old level &middot; 5-minute</p>
+      <h1>Knock <span>Twice</span></h1>
+    </div>
+    <div>
+      <p class="thesis">The first break of an old high is a question, not an answer. <em>The trade is the knock: price comes back,
+      touches the old high once and closes back above it,</em> with the stop a tick under that candle and the break of the new
+      high as the confirmation.</p>
+      <div class="counts">
+        <div><b>5</b><small>bars clear before the knock</small></div>
+        <div><b>0.6&ndash;3</b><small>ATR leg</small></div>
+        <div><b>24</b><small>bars for the new high to break</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">the level</div><div class="n">An old swing high</div></div>
+    <div><div class="t">the break</div><div class="n">A close through it</div></div>
+    <div><div class="t">the wait</div><div class="n">5 bars clear</div></div>
+    <div><div class="t">the entry</div><div class="n">The knock holds</div></div>
+    <div><div class="t">the stop</div><div class="n">A tick under it</div></div>
+    <div><div class="t">the target</div><div class="n">T2, one more leg</div></div>
+  </nav>
+
+  <section class="anim" data-kt-anim aria-label="Animated walkthrough of a Knock Twice long">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">6 / 6</p>
+        <h2 class="anim-title">Watch one long, start to finish</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative 5-minute chart: a swing high at 101.20; a candle closes above it at 101.45; price runs to a new high at 101.92 and stays clear of 101.20 for ten bars; a candle dips to 101.12, touching the old high, and closes back above at 101.34, the knock and the entry, with the stop at 101.11; a close at 102.04 breaks the new high and confirms; T2 at 102.64, the new high plus one leg, fills"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Mark the old high</h3>
+          <ul>
+            <li>A swing high is a bar with 3 lower highs on each side of it. It only counts once the third bar after it has closed.</li>
+            <li>Of the swing highs in the last 48 bars (4 hours on a 5-minute chart), watch the highest one that hasn't already been broken and used.</li>
+            <li>Shorts are the mirror: the lowest unbroken swing low.</li>
+          </ul>
+          <p class="why">The highest recent swing is where the last buyers gave up. If price can get through it and then hold it, the sellers who defended it are gone.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>The break opens the setup</h3>
+          <ul>
+            <li>A candle closes at least 1 tick above the old high, after the one before it closed at or below it.</li>
+            <li>Only breaks between 9:35 and 3:30 open a setup. The first five minutes and the last half hour are skipped.</li>
+            <li>This isn't an entry. A break that closes straight back under the level cancels the setup.</li>
+          </ul>
+          <p class="why">Plenty of first breaks close straight back under the level. Waiting to see the level hold from above is what separates a real break from a stop run.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Stay away</h3>
+          <ul>
+            <li>Price makes a new high. It's confirmed once 3 bars after it fail to go higher.</li>
+            <li>Then at least 5 bars in a row have to stay clear of the old high, wicks included. An early touch resets the count.</li>
+            <li>The leg, from the old high to the new one, has to be between 0.6 and 3 times the 14-bar ATR.</li>
+          </ul>
+          <p class="why">A touch right after the break is just the break still chopping. Going away first and then coming back is the second look the setup is named for.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>The knock: enter on the close back above</h3>
+          <ul>
+            <li>A candle's range touches the old high.</li>
+            <li>That candle, or the next one, closes back above the old high. That's the knock. Enter at that close.</li>
+            <li>Stop: 1 tick under the knock candle's low, or 1 tick under a line 4 ticks below the old high if that's lower.</li>
+          </ul>
+          <p class="why">The old ceiling just acted as a floor. The stop goes where that read is proven wrong, which is only a few cents away.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>The new high has to break</h3>
+          <ul>
+            <li>A close above the new high confirms the break of structure. The indicator marks it with a check.</li>
+            <li>It has to come within 24 bars of the knock. If it doesn't, the setup is off.</li>
+            <li>A close more than 4 ticks back under the old high also ends it.</li>
+          </ul>
+          <p class="why">A level that held on the knock should let price go straight back to the high and through it. If it can't, the buyers who held the level aren't there.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>T2 is one more leg, risk 1%</h3>
+          <ul>
+            <li>T2 = the new high plus the leg (new high minus old high). Minus for shorts.</li>
+            <li>Size every trade so the stop costs 1% of the account, then check the share count against your buying power.</li>
+          </ul>
+          <p class="why">A measured move: the leg that broke the old high, repeated from the new one. With the stop this close, T2 is usually several times the risk.</p>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h4>Two ways in, same trade</h4>
+        <p class="lead">The indicator alerts on both. Same example as the walkthrough: old high 101.20, new high 101.92, leg 0.72, T2 102.64.</p>
+        <div class="ways">
+          <div class="pick">
+            <p class="tagline">This setup</p>
+            <b>On the knock</b>
+            <dl>
+              <dt>Entry</dt><dd>101.34</dd>
+              <dt>Stop</dt><dd>101.11</dd>
+              <dt>Risk</dt><dd>0.23</dd>
+              <dt>To T2</dt><dd class="pos">+1.30 &middot; 5.7R</dd>
+            </dl>
+            <p>More of these fail, because the new high hasn't broken yet. When they work, one pays for several stops.</p>
+          </div>
+          <div>
+            <p class="tagline">Waiting for proof</p>
+            <b>On the break of the new high</b>
+            <dl>
+              <dt>Entry</dt><dd>102.04</dd>
+              <dt>Stop</dt><dd>101.11</dd>
+              <dt>Risk</dt><dd>0.93</dd>
+              <dt>To T2</dt><dd class="neg">+0.60 &middot; 0.6R</dd>
+            </dl>
+            <p>Confirmed, but the stop is still under the knock, so T2 is closer than the stop. It needs a high win rate to pay.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>What cancels it</h4>
+        <p class="lead">Every decision is made on a closed bar, never on a wick or a bar that's still forming.</p>
+        <div class="timing">
+          <div><b>A close back through the level</b><p>More than 4 ticks under the old high (over it, for shorts). Before the knock, the setup is gone. After it, get out on that close if the stop hasn't already filled.</p></div>
+          <div><b>The clock runs out</b><p>No close above the new high within 24 bars of the knock, or 120 bars since the break. The idea has gone stale.</p></div>
+          <div><b>A break the other way</b><p>A fresh break of a swing low cancels every long setup still open, and the reverse. The old high is also retired once a break above it confirms.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The four filters</h2>
+    <p>Each one removes a retest that looks like the setup but isn't.</p>
+  </div>
+  <div class="filters">
+    <div class="filter">
+      <h3>1 &nbsp;Five bars clear</h3>
+      <p>After the break, at least 5 bars in a row can't touch the old high. A touch before that resets the count.</p>
+      <p class="kill">Kills: a break that's still chopping around the level.</p>
+    </div>
+    <div class="filter">
+      <h3>2 &nbsp;Leg 0.6 to 3 ATR</h3>
+      <p>The move from the old high to the new one is measured in 14-bar ATRs. Under 0.6 is noise. Over 3 is a spike that rarely retests cleanly.</p>
+      <p class="kill">Kills: tiny pokes and blow-off spikes.</p>
+    </div>
+    <div class="filter">
+      <h3>3 &nbsp;Close back on the right side</h3>
+      <p>The knock candle, or the one after it, has to close back above the old high. A touch that closes below it isn't a knock.</p>
+      <p class="kill">Kills: retests that are really breakdowns.</p>
+    </div>
+    <div class="filter">
+      <h3>4 &nbsp;9:35 to 3:30</h3>
+      <p>New breaks only count inside the session. Setups already open keep running after 3:30.</p>
+      <p class="kill">Kills: the opening print and the closing rush.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Size off the knock, then check buying power</h2>
+    <p>The stop is close, so 1% risk buys a lot of shares. Cap the size at what the account can actually hold.</p>
+  </div>
+  <div class="risk">
+    <div class="panel">
+      <div class="calc">
+        <div class="row"><span>Account &times; 1%</span><b>$50,000 &times; 1% = $500.00</b></div>
+        <div class="row"><span>Entry &mdash; the knock's close</span><b>101.34</b></div>
+        <div class="row"><span>Stop &mdash; 1 tick under the knock</span><b>101.11</b></div>
+        <div class="row"><span>Risk per share</span><b>$0.23</b></div>
+        <div class="row"><span>$500 &divide; $0.23</span><b>2,173 shares &middot; $220,212</b></div>
+        <div class="row"><span>Buying power &mdash; 4&times; day trading</span><b>$200,000</b></div>
+        <div class="row tot"><span>Position size</span><b>1,973 shares</b></div>
+      </div>
+    </div>
+    <div class="warn">
+      <h4>The mistake this prevents</h4>
+      <p>Skip the knock, buy the break of the new high at 102.04 and keep the stop under the knock, and $500 &divide; $0.93 says 537 shares.</p>
+      <p class="big">T2 pays +$322. The stop costs &minus;$500.</p>
+      <p>Same trade, same stop, same target. Entering late turns a 5.7R idea into a 0.6R one.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Long and short, side by side</h2>
+    <p>The whole rule set on one table. Each row is one condition, and both sides need all of them.</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><span class="tick">Long<small>break of a swing high</small></span></th>
+        <th><span class="tick">Short<small>break of a swing low</small></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>Old level</th><td class="txt">Highest unbroken swing high, last 48 bars</td><td class="txt">Lowest unbroken swing low, last 48 bars</td></tr>
+      <tr><th>Break</th><td class="txt">A close 1 tick above it, 9:35&ndash;3:30</td><td class="txt">A close 1 tick below it, 9:35&ndash;3:30</td></tr>
+      <tr><th>Stay away</th><td class="txt">New high confirmed, 5 bars clear, leg 0.6&ndash;3 ATR</td><td class="txt">New low confirmed, 5 bars clear, leg 0.6&ndash;3 ATR</td></tr>
+      <tr><th>Knock</th><td class="txt pos">Touch, then a close back above the old high</td><td class="txt neg">Touch, then a close back below the old low</td></tr>
+      <tr><th>Entry</th><td class="txt">The knock's close</td><td class="txt">The knock's close</td></tr>
+      <tr><th>Stop</th><td class="txt">1 tick under the lower of the knock low and the level minus 4 ticks</td><td class="txt">1 tick over the higher of the knock high and the level plus 4 ticks</td></tr>
+      <tr><th>Confirmation</th><td class="txt">A close above the new high within 24 bars</td><td class="txt">A close below the new low within 24 bars</td></tr>
+      <tr><th>T2</th><td>new high + (new high &minus; old high)</td><td>new low &minus; (old low &minus; new low)</td></tr>
+      <tr><th>Cancelled by</th><td class="txt">A close 4+ ticks under the old high, 24 bars with no break, or a break of a swing low</td><td class="txt">A close 4+ ticks over the old low, 24 bars with no break, or a break of a swing high</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-head">
+    <h2>One Knock Twice, start to finish</h2>
+    <p>An example session drawn by the indicator's own rules: the old high, the break, the new high, the knock and its plan
+    stop, the break of the new high, and T2. The bars are made up to show the setup clearly. They aren't a real ticker.</p>
+  </div>
+  <section class="live" data-kt-live data-example data-symbol="QQQ" aria-label="Example chart: one Knock Twice long with the old high, the knock, the break of the new high, T2 and the plan stop">
+    <div class="live-main">
+      <form class="live-symbol"><label for="kt-sym">Symbol</label><input id="kt-sym" name="sym" autocomplete="off" spellcheck="false" maxlength="6"><button class="pill pill-buy" type="submit">Load</button></form>
+      <div class="live-chart"><div class="live-gate"><b>Loading chart&hellip;</b></div></div>
+      <p class="live-status">5-minute</p>
+    </div>
+    <aside class="live-side" aria-live="polite"></aside>
+  </section>
+
+  <div class="section-head">
+    <h2 class="ind-heading">Indicators for this setup</h2>
+    <p class="ind-note">Add this to a TradingView chart. It finds the old level, tracks every break, marks every touch and the knock
+    that counts, confirms the break with a check, draws T2 and the plan stop, and alerts. It does not place trades.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">Valid BOS Pullback v2</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">Swing-high and swing-low breaks with the old level and the new extreme drawn as they develop. It marks
+      every touch of the old level and circles the one that counts, then labels it with the touch count and the leg in ATRs. It
+      checks the break of the new high and draws T2 and the plan stop. A stats table counts setups, knocks, confirmations and
+      failures. Alerts for the knock, the confirmed break and invalidation, with JSON messages ready for a webhook.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/knock-twice.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+  </ul>
+
+  <div class="rule">
+    <div>
+      <h2>The first break asks. The knock answers.</h2>
+      <p>Buying the first break of an old high means guessing whether it holds. Waiting for price to leave, come back and hold
+      the level means buying where you're proven wrong a few cents lower, with a whole leg of room above.</p>
+    </div>
+    <div>
+      <ul>
+        <li>A touch in the first 5 bars after the break isn't the knock. Let the count reset and wait.</li>
+        <li>A close back through the level ends the idea. That's the exit, not a reason to add.</li>
+        <li>Knocks fail more often than confirmed breaks do. Risk 1% per trade and let the size of T2 do the work.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Rules as coded in the Valid BOS Pullback v2 indicator at its default settings. The walkthrough chart is
+  illustrative, not a real ticker.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

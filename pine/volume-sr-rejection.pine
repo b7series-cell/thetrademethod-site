@@ -1,0 +1,620 @@
+//@version=6
+// Volume Profile + S/R Rejection R1.0
+// Built 2026-10-04 America/New_York from the supplied video transcript and Pine files.
+// Profile/level engine adapted from Buyers & Sellers Profile + Dynamic S/R, © Zeiierman.
+// That work: CC BY-NC-SA 4.0 https://creativecommons.org/licenses/by-nc-sa/4.0/
+// Volume attribution formula adapted from Volume Delta, © hapharmonic.
+// This Pine Script™ code includes code subject to the terms of the Mozilla Public License 2.0
+// at https://mozilla.org/MPL/2.0/ (volume-attribution formula, © hapharmonic).
+// Retain source notices and applicable licenses on redistribution.
+// Changes: completed truncated profile renderer; combined pane/overlay; corrected net delta;
+// protected zero-range/missing-volume calculations; added configurable rejection signals.
+//
+// USAGE: Paste the entire file into a new TradingView indicator and Add to chart.
+// One script shows estimated volume in its pane and price levels/profile on the main chart.
+// BUY: pre-existing support touched within 0.15 ATR; close above level; bullish candle;
+// estimated buy share >=60%, up >=15 percentage points vs the prior 3-bar volume-weighted share.
+// SELL: mirror at resistance. All thresholds adjustable. RVOL and POC filters default OFF.
+// Video provides discretionary interpretation, not these exact numerical signal rules.
+// Signals/alerts only confirm at bar close. Current-bar table/profile can change intrabar.
+// Pivots confirm swingLen bars later; actionable lines/dots begin at confirmation, not pivot.
+// Optional raw-pivot markers are retrospective. Broken/merged/trimmed active drawings disappear;
+// historical signal shapes remain. Levels do not automatically flip sides after a break.
+// Estimated buy=volume*(close-low)/(high-low); sell=volume-buy; net=buy-sell.
+// These are OHLCV estimates, NOT true bid/ask order-flow delta. Zero-range bars split 50/50.
+// POC confluence uses the current rolling profile on the signal's closed bar.
+// Level score is a heuristic strength score, NOT a probability of success.
+// Pine visual layout documentation: https://www.tradingview.com/pine-script-docs/visuals/overview/
+// Defaults: rolling 600 bars / 72 rows / 5-bar left and right pivots. No session reset.
+// Alerts: choose individual BUY/SELL conditions OR Any alert() function call (not both).
+// Data Window includes the exact level and estimated volume values for each signal.
+indicator("Volume Profile + S/R Rejection R1.0", shorttitle="VP-SR R1.0", overlay=false, format=format.volume, max_lines_count=250, max_labels_count=500, max_boxes_count=300, max_bars_back=5000)
+
+// ~~ Tooltips {
+var string tt1="Number of historical bars used by the large rolling volume profile. The same lookback is reconstructed historically when a pivot is evaluated, so old pivots are judged only with information available at that time."
+var string tt2="Number of price rows used to discretize the rolling profile. More rows increase price resolution but also increase drawing and calculation load."
+var string tt3="Maximum horizontal width of the displayed profile in chart bars. The POC row reaches this width; other rows scale relative to it."
+var string tt4="Horizontal gap between the current bar and the left edge of the displayed rolling profile."
+var string tt5="Master switch for the large rolling profile shown at the right side of the chart."
+var string tt6="Highlight the highest-volume profile row and draw its short guide line and price label."
+var string tt7="Outline profile rows that currently contain an active profile-guided support or resistance level."
+var string tt8="Left/right pivot confirmation length. A value of 5 means a pivot is confirmed five bars after the actual swing bar."
+var string tt9="Maximum ATR distance around a raw pivot in which the profile engine may search for a stronger nearby volume node."
+var string tt10="Minimum candidate-node volume relative to the profile POC. Lower values admit weaker nearby profile structure."
+var string tt11="Minimum combined profile evidence needed before a raw price pivot can become an active level."
+var string tt12="Maximum fraction of the distance from the raw pivot toward the selected profile node. Actual pull is scaled by profile evidence."
+var string tt13="Minimum final 0-100 score required after profile evidence, absorption, relative pivot volume and wick rejection are combined."
+var string tt14="Maximum number of active profile-guided levels. When exceeded, the weakest active level is removed first."
+var string tt15="Same-side levels within this ATR distance are treated as duplicates. A stronger new candidate replaces the weaker nearby level."
+var string tt16="ATR buffer beyond an active level required for a confirmed close to invalidate that level."
+var string tt17="Color used for active support levels, support endpoint dots and support profile-row outlines."
+var string tt18="Color used for active resistance levels, resistance endpoint dots and resistance profile-row outlines."
+var string tt19="Accent color used for the inner profile-confirmed pivot core and the raw-pivot-to-final-level pull guide."
+var string tt20="Color of the faint raw price pivot marker before the profile engine relocates the final level."
+var string tt21="Estimated buying-volume color in the large profile. Buy/sell attribution comes from candle close location inside each bar range."
+var string tt22="Estimated selling-volume color in the large profile. Buy/sell attribution is approximate rather than true bid/ask volume."
+var string tt23="Color used for the displayed profile point of control."
+var string tt24="Shared line style used by active support and resistance levels."
+var string tt25="Show the strength marker at the level price on the confirmation bar; the level was not actionable on the earlier pivot bar."
+var string tt26="Show the retrospective raw swing marker and dotted guide to the later level confirmation. Raw markers were not known at their plotted pivot time."
+var string tt27="Show the heuristic 0-100 strength score at confirmation. This score is not a success probability."
+var string tt28="Show the current endpoint dot and one-number score label at the right edge of each active level."
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+
+// ~~ Groups {
+gPROF="Large Rolling Profile"
+gENG="Profile-Guided Pivot Engine"
+gSTY="Visual Style"
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+
+// ~~ Inputs {
+profLb=input.int(600,"Lookback",minval=100,maxval=1500,group=gPROF,inline="p1")
+profRows=input.int(72,"Rows",minval=24,maxval=100,group=gPROF,inline="p1",tooltip=tt1+"\n\n"+tt2)
+profW=input.int(58,"Width",minval=15,maxval=110,group=gPROF,inline="p2")
+profOff=input.int(8,"Offset",minval=2,maxval=50,group=gPROF,inline="p2",tooltip=tt3+"\n\n"+tt4)
+showProf=input.bool(true,"Show Profile",group=gPROF,inline="p3")
+showPoc=input.bool(true,"POC",group=gPROF,inline="p3",active=showProf)
+showLvlRows=input.bool(true,"Level Rows",group=gPROF,inline="p3",active=showProf,tooltip=tt5+"\n\n"+tt6+"\n\n"+tt7)
+swingLen=input.int(5,"Swing Length",minval=2,maxval=25,group=gENG,inline="e1")
+srchAtr=input.float(1.20,"Search ATR",minval=0.20,maxval=3.00,step=0.05,group=gENG,inline="e1",tooltip=tt8+"\n\n"+tt9)
+nodeMin=input.float(0.08,"Min Node",minval=0.0,maxval=1.0,step=0.01,group=gENG,inline="e2")
+evidMin=input.float(0.22,"Min Evidence",minval=0.0,maxval=1.0,step=0.01,group=gENG,inline="e2",tooltip=tt10+"\n\n"+tt11)
+pullMax=input.float(0.85,"Profile Pull",minval=0.0,maxval=1.0,step=0.05,group=gENG,inline="e3")
+scoreMin=input.float(30.0,"Min Score",minval=0,maxval=100,step=1,group=gENG,inline="e3",tooltip=tt12+"\n\n"+tt13)
+maxLvl=input.int(20,"Max Levels",minval=2,maxval=40,group=gENG,inline="e4")
+mergeAtr=input.float(0.16,"Merge ATR",minval=0.0,maxval=1.0,step=0.02,group=gENG,inline="e4")
+breakAtr=input.float(0.10,"Break ATR",minval=0.0,maxval=0.5,step=0.01,group=gENG,inline="e4",tooltip=tt14+"\n\n"+tt15+"\n\n"+tt16)
+supCol=input.color(color.rgb(31,199,116),"Support",group=gSTY,inline="c1")
+resCol=input.color(color.rgb(239,75,75),"Resistance",group=gSTY,inline="c1",tooltip=tt17+"\n\n"+tt18)
+coreCol=input.color(color.rgb(255,205,64),"Pivot Core",group=gSTY,inline="c2")
+rawCol=input.color(color.rgb(160,166,178),"Raw Pivot",group=gSTY,inline="c2",tooltip=tt19+"\n\n"+tt20)
+buyCol=input.color(color.rgb(43,158,143),"Profile Buy",group=gSTY,inline="c3")
+sellCol=input.color(color.rgb(74,88,182),"Profile Sell",group=gSTY,inline="c3")
+pocCol=input.color(color.rgb(255,145,32),"POC",group=gSTY,inline="c3",tooltip=tt21+"\n\n"+tt22+"\n\n"+tt23)
+lvlStyle=input.string("Solid","Line Style",options=["Solid","Dotted","Dashed"],group=gSTY,inline="s1",tooltip=tt24)
+showDots=input.bool(true,"Pivot Dots",group=gSTY,inline="s2")
+showRaw=input.bool(false,"Raw Pivot",group=gSTY,inline="s2",active=showDots)
+showDotScore=input.bool(true,"Dot Score",group=gSTY,inline="s2",active=showDots)
+showEdge=input.bool(true,"Right Score",group=gSTY,inline="s2",tooltip=tt25+"\n\n"+tt26+"\n\n"+tt27+"\n\n"+tt28)
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+
+// ~~ Constants {
+int VOL_LEN=40
+int ABS_RAD=math.min(3,swingLen)
+float PIV_VOL_X=2.2
+float ABS_BODY_MAX=0.40
+float ABS_VOL_X=1.5
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+
+// ~~ Types {
+type Lvl
+    float p
+    float sc
+    float raw
+    float node
+    float evid
+    float nStr
+    bool supp
+    int born
+    line ln
+    int confirmed
+    bool fired = false
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+
+// ~~ Helpers {
+clip(float x)=>math.max(0.0,math.min(1.0,x))
+lstyle(string s)=>s=="Dotted"?line.style_dotted:s=="Dashed"?line.style_dashed:line.style_solid
+lwidth(float s)=>s>=82?4:s>=62?3:2
+lalpha(float s)=>s>=82?8:s>=62?22:s>=45?38:52
+rings(float s)=>s>=82?4:s>=66?3:s>=50?2:1
+rsize(int r)=>r>=4?size.large:r==3?size.normal:r==2?size.small:size.tiny
+ralpha(int r)=>r>=4?68:r==3?52:r==2?30:4
+row_id(float p,float bot,float step,int rows)=>math.max(0,math.min(rows-1,int(math.floor((p-bot)/step))))
+lvl_col(bool supp)=>supp?supCol:resCol
+
+clear_boxes(array<box> a)=>
+    while a.size()>0
+        box.delete(a.pop())
+
+clear_lines(array<line> a)=>
+    while a.size()>0
+        line.delete(a.pop())
+
+clear_labels(array<label> a)=>
+    while a.size()>0
+        label.delete(a.pop())
+
+profile(int newest,int oldest,int rows)=>
+    float lo=low[newest]
+    float hi=high[newest]
+    for i=newest to oldest
+        lo:=math.min(lo,low[i])
+        hi:=math.max(hi,high[i])
+    float span=math.max(hi-lo,syminfo.mintick*rows)
+    float bot=lo-(span-(hi-lo))*0.5
+    float step=span/rows
+    array<float> tot=array.new_float(rows,0.0)
+    array<float> buy=array.new_float(rows,0.0)
+    for i=newest to oldest
+        float l=low[i]
+        float h=high[i]
+        float r=h-l
+        float v=math.max(nz(volume[i],0.0),0.0)
+        float bf=r>0?clip((close[i]-l)/r):0.5
+        int r0=row_id(l,bot,step,rows)
+        int r1=row_id(h,bot,step,rows)
+        for j=r0 to r1
+            float rl=bot+j*step
+            float ov=r>0?math.max(0.0,math.min(h,rl+step)-math.max(l,rl)):step
+            float frac=r>0?ov/r:1.0
+            if frac>0
+                float av=v*frac
+                tot.set(j,tot.get(j)+av)
+                buy.set(j,buy.get(j)+av*bf)
+    [bot,step,tot,buy]
+
+pivot_features(bool supp,float avgVol)=>
+    float vb=nz(avgVol[swingLen],volume[swingLen])
+    float vr=vb>0?nz(volume[swingLen],0.0)/vb:1.0
+    float vSc=clip((vr-0.8)/(PIV_VOL_X-0.8))
+    float pr=math.max(high[swingLen]-low[swingLen],syminfo.mintick)
+    float wick=supp?math.min(open[swingLen],close[swingLen])-low[swingLen]:high[swingLen]-math.max(open[swingLen],close[swingLen])
+    float wSc=clip((wick/pr)/0.50)
+    float absSc=0.0
+    for n=0 to ABS_RAD*2
+        int o=swingLen-ABS_RAD+n
+        float cr=math.max(high[o]-low[o],syminfo.mintick)
+        float v=math.max(nz(volume[o],0.0),0.0)
+        float base=nz(avgVol[o],v)
+        float vRat=base>0?v/base:1.0
+        float bRat=math.abs(close[o]-open[o])/cr
+        float small=clip((ABS_BODY_MAX-bRat)/ABS_BODY_MAX)
+        float av=clip((vRat-1.0)/(ABS_VOL_X-1.0))
+        absSc:=math.max(absSc,math.sqrt(small*av))
+    [vSc,wSc,absSc]
+
+profile_node(float raw,bool supp,float atrP,float bot,float step,array<float> tot,array<float> buy)=>
+    float mx=math.max(tot.max(),0.0000001)
+    float rad=math.max(atrP*srchAtr,step*2.0)
+    float bestP=raw
+    float bestE=-1.0
+    float bestS=0.0
+    float bestPk=0.0
+    float bestDir=0.5
+    int rows=tot.size()
+    for r=0 to rows-1
+        float p=bot+(r+0.5)*step
+        float d=math.abs(p-raw)
+        if d<=rad
+            float rv=tot.get(r)
+            float str=rv/mx
+            float lv=r>0?tot.get(r-1):rv
+            float rv2=r<rows-1?tot.get(r+1):rv
+            float nAvg=math.max((lv+rv2)*0.5,mx*0.01)
+            float pk=clip((rv/nAvg-0.85)/0.65)
+            float bSh=rv>0?clip(buy.get(r)/rv):0.5
+            float dir=supp?bSh:1.0-bSh
+            float prox=1.0-d/rad
+            float e=0.50*str+0.20*pk+0.20*dir+0.10*prox
+            if e>bestE
+                bestE:=e
+                bestP:=p
+                bestS:=str
+                bestPk:=pk
+                bestDir:=dir
+    [bestP,math.max(bestE,0.0),bestS,bestPk,bestDir]
+
+nearby(array<Lvl> a,float p,bool supp,float tol)=>
+    int id=-1
+    float best=1e20
+    if a.size()>0
+        for i=0 to a.size()-1
+            Lvl lv=a.get(i)
+            if lv.supp==supp
+                float d=math.abs(lv.p-p)
+                if d<=tol and d<best
+                    best:=d
+                    id:=i
+    id
+
+make_line(int born,float p,bool supp,float sc)=>line.new(time,p,time,p,xloc=xloc.bar_time,extend=extend.none,
+ color=color.new(lvl_col(supp),lalpha(sc)),width=lwidth(sc),style=lstyle(lvlStyle),force_overlay=true)
+
+store_lvl(array<Lvl> a,float p,float raw,float node,float evid,float nStr,bool supp,float sc,int born,float atrP)=>
+    bool changed=false
+    float tol=math.max(atrP*mergeAtr,syminfo.mintick)
+    int id=nearby(a,p,supp,tol)
+    if id>=0
+        Lvl lv=a.get(id)
+        if sc>lv.sc
+            lv.p:=p
+            lv.sc:=sc
+            lv.raw:=raw
+            lv.node:=node
+            lv.evid:=evid
+            lv.nStr:=nStr
+            lv.born:=born
+            lv.confirmed:=time
+            lv.fired:=false
+            line.set_xy1(lv.ln,time,p)
+            line.set_xy2(lv.ln,time,p)
+            line.set_color(lv.ln,color.new(lvl_col(supp),lalpha(sc)))
+            line.set_width(lv.ln,lwidth(sc))
+            a.set(id,lv)
+            changed:=true
+    else
+        a.push(Lvl.new(p,sc,raw,node,evid,nStr,supp,born,make_line(born,p,supp,sc),time))
+        changed:=true
+    changed
+
+remove_lvl(array<Lvl> a,int id)=>
+    Lvl lv=a.get(id)
+    line.delete(lv.ln)
+    a.remove(id)
+    0
+
+trim_lvls(array<Lvl> a)=>
+    while a.size()>maxLvl
+        int weak=0
+        float sc=a.get(0).sc
+        for i=1 to a.size()-1
+            if a.get(i).sc<sc
+                sc:=a.get(i).sc
+                weak:=i
+        remove_lvl(a,weak)
+    0
+
+update_lvls(array<Lvl> a)=>
+    if a.size()>0
+        for i=0 to a.size()-1
+            Lvl lv=a.get(i)
+            line.set_xy2(lv.ln,time,lv.p)
+            line.set_color(lv.ln,color.new(lvl_col(lv.supp),lalpha(lv.sc)))
+            line.set_width(lv.ln,lwidth(lv.sc))
+            line.set_style(lv.ln,lstyle(lvlStyle))
+    0
+
+level_row(array<Lvl> a,float lo,float hi)=>
+    int side=0
+    if a.size()>0
+        for i=0 to a.size()-1
+            Lvl lv=a.get(i)
+            if lv.p>=lo and lv.p<=hi
+                side:=lv.supp?1:-1
+                break
+    side
+
+score_tip(Lvl lv)=>"Raw pivot: "+str.tostring(lv.raw,format.mintick)+"\nProfile node: "+str.tostring(lv.node,format.mintick)
+ +"\nProfile evidence: "+str.tostring(lv.evid*100.0,"#")+"%\nNode strength vs POC: "+str.tostring(lv.nStr*100.0,"#")
+ +"%\nFinal level: "+str.tostring(lv.p,format.mintick)
+
+pivot_eval(array<Lvl> a,float raw,bool supp,float avgVol,float atr)=>
+    int avail=bar_index-swingLen+1
+    int bars=math.max(1,math.min(profLb,avail))
+    int newest=swingLen
+    int oldest=swingLen+bars-1
+    [bot,step,tot,buy]=profile(newest,oldest,profRows)
+    float atrP=math.max(nz(atr[swingLen],syminfo.mintick),syminfo.mintick)
+    [node,evid,nStr,pk,dir]=profile_node(raw,supp,atrP,bot,step,tot,buy)
+    [vSc,wSc,aSc]=pivot_features(supp,avgVol)
+    bool ok=nStr>=nodeMin and evid>=evidMin
+    float pull=ok?pullMax*clip(evid/0.65):0.0
+    float p=raw+(node-raw)*pull
+    float sc=100.0*(0.50*evid+0.20*aSc+0.15*vSc+0.15*wSc)
+    bool viable=supp?close>=p:close<=p
+    bool stored=ok and viable and sc>=scoreMin?store_lvl(a,p,raw,node,evid,nStr,supp,sc,time[swingLen],atrP):false
+    [stored,sc,p,node,evid,nStr,pk,dir]
+
+manage_breaks(array<Lvl> a,float atr)=>
+    bool sBreak=false
+    bool rBreak=false
+    if a.size()>0
+        for i=a.size()-1 to 0
+            Lvl lv=a.get(i)
+            float buf=math.max(nz(atr,0.0)*breakAtr,0.0)
+            bool broken=barstate.isconfirmed and (lv.supp?close<lv.p-buf:close>lv.p+buf)
+            if broken
+                sBreak:=sBreak or lv.supp
+                rBreak:=rBreak or not lv.supp
+                remove_lvl(a,i)
+    [sBreak,rBreak]
+
+draw_markers(array<Lvl> a,array<label> lbs,array<line> lns)=>
+    if showDots and a.size()>0
+        for i=0 to a.size()-1
+            Lvl lv=a.get(i)
+            color base=lvl_col(lv.supp)
+            if showRaw
+                lbs.push(label.new(x=lv.born,y=lv.raw,text="",xloc=xloc.bar_time,yloc=yloc.price,style=label.style_circle,
+                 color=color.new(rawCol,60),textcolor=rawCol,size=size.tiny,force_overlay=true))
+                lns.push(line.new(x1=lv.born,y1=lv.raw,x2=lv.confirmed,y2=lv.p,xloc=xloc.bar_time,color=color.new(coreCol,45),
+                 width=1,style=line.style_dotted,force_overlay=true))
+            int rc=rings(lv.sc)
+            for r=rc to 1
+                color fill=r==1?color.new(coreCol,lv.evid>=0.45?0:22):color.new(base,ralpha(r))
+                lbs.push(label.new(x=lv.confirmed,y=lv.p,text="",xloc=xloc.bar_time,yloc=yloc.price,style=label.style_circle,
+                 color=fill,textcolor=color.white,size=rsize(r),force_overlay=true))
+            if showDotScore
+                lbs.push(label.new(x=lv.confirmed,y=lv.p,text=str.tostring(lv.sc,"#"),xloc=xloc.bar_time,yloc=yloc.price,
+                 style=label.style_none,color=color.new(color.black,100),textcolor=color.white,size=size.tiny,
+                  tooltip=score_tip(lv),force_overlay=true))
+    0
+
+draw_edge(array<Lvl> a,array<label> lbs)=>
+    if showEdge and a.size()>0
+        for i=0 to a.size()-1
+            Lvl lv=a.get(i)
+            color c=lvl_col(lv.supp)
+            lbs.push(label.new(x=bar_index,y=lv.p,text="",xloc=xloc.bar_index,yloc=yloc.price,style=label.style_circle,
+             color=c,textcolor=c,size=size.tiny,force_overlay=true))
+            lbs.push(label.new(x=bar_index+1,y=lv.p,text=str.tostring(lv.sc,"#"),xloc=xloc.bar_index,yloc=yloc.price,
+             style=label.style_label_left,color=color.new(c,100),textcolor=c,size=size.small,force_overlay=true))
+    0
+
+// ---- Added signal controls (numerical interpretation of the video) ----
+gSIG = "Rejection Signals — Added Rules"
+showSignals = input.bool(true, "Show BUY / SELL", group=gSIG)
+allowBuy = input.bool(true, "Enable BUY", inline="dir", group=gSIG)
+allowSell = input.bool(true, "Enable SELL", inline="dir", group=gSIG)
+touchAtr = input.float(0.15, "Touch tolerance (ATR)", minval=0, maxval=2, step=0.05, group=gSIG)
+dominance = input.float(60, "Minimum dominant volume %", minval=50, maxval=100, step=1, group=gSIG)
+requireShift = input.bool(true, "Require volume-pressure shift", group=gSIG)
+shiftBars = input.int(3, "Prior bars for pressure baseline", minval=1, maxval=50, group=gSIG)
+shiftPoints = input.float(15, "Minimum shift (percentage points)", minval=0, maxval=100, step=1, group=gSIG)
+requireBody = input.bool(true, "Require candle direction to agree", group=gSIG)
+useRvol = input.bool(false, "Require relative volume", inline="rv", group=gSIG)
+minRvol = input.float(1.0, "Minimum RVOL", minval=0.1, step=0.1, inline="rv", group=gSIG)
+rvolLen = input.int(20, "RVOL baseline length", minval=2, maxval=200, group=gSIG)
+usePocFilter = input.bool(false, "Require POC near the rejected level", group=gSIG)
+pocAtr = input.float(0.30, "POC proximity (ATR)", minval=0.01, maxval=5, step=0.05, group=gSIG)
+cooldownBars = input.int(3, "Bars between same-direction signals", minval=0, maxval=100, group=gSIG)
+
+gVOL = "Estimated Volume Pane / Table"
+volMode = input.string("Stacked buy / sell", "Pane display", options=["Stacked buy / sell", "Net delta"], group=gVOL)
+volBuyColor = input.color(#12cef8, "Estimated buy", inline="vc", group=gVOL)
+volSellColor = input.color(#fe3f00, "Estimated sell", inline="vc", group=gVOL)
+showVolMA = input.bool(false, "Show total volume average", group=gVOL)
+colorBars = input.bool(false, "Color price candles by estimated pressure", group=gVOL)
+showTable = input.bool(true, "Show current candle table", group=gVOL)
+tablePos = input.string(position.top_right, "Table position", options=[position.top_right, position.top_left, position.bottom_right, position.bottom_left], group=gVOL)
+
+gEMA = "Optional Price EMAs (Off in Video)"
+showEma = input.bool(false, "Show price EMAs", group=gEMA)
+fastLen = input.int(12, "Fast EMA", minval=1, group=gEMA)
+slowLen = input.int(26, "Slow EMA", minval=1, group=gEMA)
+
+gAL = "Bar-Close Alerts"
+alertBuy = input.bool(true, "BUY alerts", group=gAL)
+alertSell = input.bool(true, "SELL alerts", group=gAL)
+alertBreaks = input.bool(false, "Level-break alerts", group=gAL)
+dynamicAlerts = input.bool(false, "Enable alert() with price / level / volume", group=gAL)
+
+// Completed renderer for the supplied, truncated bs.pine.
+draw_profile(array<Lvl> a, array<box> bx, array<line> ln, array<label> lb, float bot, float step, array<float> tot, array<float> buy) =>
+    float mx = tot.max()
+    if mx > 0
+        int poc = tot.indexof(mx)
+        int x = bar_index + profOff
+        for r = 0 to profRows - 1
+            float rv = tot.get(r)
+            if rv > 0
+                int width = math.max(1, int(math.round(profW * rv / mx)))
+                int buyWidth = int(math.round(width * clip(buy.get(r) / rv)))
+                float lower = bot + r * step
+                float upper = lower + step
+                int side = showLvlRows ? level_row(a, lower, upper) : 0
+                color borderCol = side == 1 ? supCol : side == -1 ? resCol : color.new(chart.fg_color, 100)
+                if buyWidth > 0
+                    bx.push(box.new(x, upper, x + buyWidth, lower, border_color=color.new(buyCol, 100), bgcolor=color.new(buyCol, 25), force_overlay=true))
+                if width > buyWidth
+                    bx.push(box.new(x + buyWidth, upper, x + width, lower, border_color=color.new(sellCol, 100), bgcolor=color.new(sellCol, 25), force_overlay=true))
+                if side != 0 or (showPoc and r == poc)
+                    color outline = showPoc and r == poc ? pocCol : borderCol
+                    bx.push(box.new(x, upper, x + width, lower, border_color=outline, border_width=1, bgcolor=color.new(outline, 90), force_overlay=true))
+        if showPoc
+            float pocPrice = bot + (poc + 0.5) * step
+            ln.push(line.new(bar_index, pocPrice, x + profW, pocPrice, color=pocCol, width=2, force_overlay=true))
+            lb.push(label.new(x + profW + 1, pocPrice, "POC " + str.tostring(pocPrice, format.mintick), style=label.style_label_left, color=color.new(pocCol, 85), textcolor=pocCol, size=size.small, force_overlay=true))
+    0
+
+// Same close-location attribution used by the referenced indicators, with safe flat bars.
+bool hasVol = not na(volume) and volume > 0
+float vol = math.max(nz(volume, 0.0), 0.0)
+float buyFraction = high > low ? clip((close - low) / (high - low)) : 0.5
+float buyVolume = vol * buyFraction
+float sellVolume = vol - buyVolume
+float netDelta = buyVolume - sellVolume
+float buyPct = hasVol ? buyFraction * 100 : na
+float sellPct = hasVol ? 100 - buyPct : na
+float priorBuy = math.sum(buyVolume[1], shiftBars)
+float priorTotal = math.sum(vol[1], shiftBars)
+float priorBuyPct = priorTotal > 0 ? 100 * priorBuy / priorTotal : na
+float priorSellPct = 100 - priorBuyPct
+float avgVol = ta.sma(vol, VOL_LEN)
+float volumeAvg = ta.sma(vol, rvolLen)
+float priorVolAvg = volumeAvg[1]
+float rvol = priorVolAvg > 0 ? vol / priorVolAvg : na
+float atr = ta.atr(14)
+float tolerance = math.max(nz(atr, syminfo.mintick) * touchAtr, syminfo.mintick)
+float pivotHigh = ta.pivothigh(high, swingLen, swingLen)
+float pivotLow = ta.pivotlow(low, swingLen, swingLen)
+bool fullProfile = bar_index >= profLb + swingLen - 1 and not na(atr[swingLen])
+bool volumeOK = hasVol and (not useRvol or (not na(rvol) and rvol >= minRvol))
+bool buyPressure = volumeOK and buyPct >= dominance and (not requireShift or (not na(priorBuyPct) and buyPct - priorBuyPct >= shiftPoints))
+bool sellPressure = volumeOK and sellPct >= dominance and (not requireShift or (not na(priorSellPct) and sellPct - priorSellPct >= shiftPoints))
+
+var array<Lvl> levels = array.new<Lvl>()
+var array<box> profileBoxes = array.new_box()
+var array<line> auxiliaryLines = array.new_line()
+var array<label> auxiliaryLabels = array.new_label()
+var int lastBuyBar = na
+var int lastSellBar = na
+
+// Invalidate existing levels BEFORE evaluating signals. No newly confirmed level may signal
+// on its confirmation bar. A level can fire once per contact episode; leaving its zone rearms it.
+[supportBroken, resistanceBroken] = manage_breaks(levels, atr)
+int buyIndex = -1
+int sellIndex = -1
+float bestBuyScore = -1.0
+float bestSellScore = -1.0
+bool buyCooldownOK = na(lastBuyBar) or bar_index - lastBuyBar > cooldownBars
+bool sellCooldownOK = na(lastSellBar) or bar_index - lastSellBar > cooldownBars
+
+// Only build a full current profile when rendering, or when the optional POC filter needs it.
+bool potentialSignal = barstate.isconfirmed and levels.size() > 0 and ((allowBuy and buyPressure and buyCooldownOK) or (allowSell and sellPressure and sellCooldownOK))
+bool needCurrentProfile = (barstate.islast and showProf) or (potentialSignal and usePocFilter)
+float currentPoc = na
+float currentBot = na
+float currentStep = na
+array<float> currentTotal = array.new_float(0)
+array<float> currentBuy = array.new_float(0)
+if needCurrentProfile
+    int bars = math.min(profLb, bar_index + 1)
+    [botNow, stepNow, totalNow, buyNow] = profile(0, bars - 1, profRows)
+    currentBot := botNow
+    currentStep := stepNow
+    currentTotal := totalNow
+    currentBuy := buyNow
+    float peak = totalNow.max()
+    currentPoc := peak > 0 ? botNow + (totalNow.indexof(peak) + 0.5) * stepNow : na
+
+if barstate.isconfirmed and levels.size() > 0
+    for i = 0 to levels.size() - 1
+        Lvl lv = levels.get(i)
+        bool touching = low <= lv.p + tolerance and high >= lv.p - tolerance
+        if not touching
+            lv.fired := false
+        bool pocOK = not usePocFilter or (not na(currentPoc) and math.abs(lv.p - currentPoc) <= atr * pocAtr)
+        bool eligible = touching and not lv.fired and time > lv.confirmed and pocOK
+        bool rejectSupport = lv.supp and close > lv.p and close[1] >= lv.p - tolerance and (not requireBody or close > open)
+        bool rejectResistance = not lv.supp and close < lv.p and close[1] <= lv.p + tolerance and (not requireBody or close < open)
+        if eligible and allowBuy and buyCooldownOK and buyPressure and rejectSupport and lv.sc > bestBuyScore
+            buyIndex := i
+            bestBuyScore := lv.sc
+        if eligible and allowSell and sellCooldownOK and sellPressure and rejectResistance and lv.sc > bestSellScore
+            sellIndex := i
+            bestSellScore := lv.sc
+
+// A bar satisfying opposing conditions (possible with relaxed settings) is ambiguous: skip it.
+bool buySignal = buyIndex >= 0 and sellIndex < 0
+bool sellSignal = sellIndex >= 0 and buyIndex < 0
+float buySignalLevel = na
+float sellSignalLevel = na
+if buySignal
+    Lvl lv = levels.get(buyIndex)
+    buySignalLevel := lv.p
+    lastBuyBar := bar_index
+if sellSignal
+    Lvl lv = levels.get(sellIndex)
+    sellSignalLevel := lv.p
+    lastSellBar := bar_index
+// Mark all contacted same-side levels so overlapping levels do not create duplicate entries.
+if buySignal or sellSignal
+    for i = 0 to levels.size() - 1
+        Lvl lv = levels.get(i)
+        if lv.supp == buySignal and low <= lv.p + tolerance and high >= lv.p - tolerance
+            lv.fired := true
+
+// Add confirmed candidates after signals. The scoring profile ends on the actual pivot bar;
+// absorption uses only surrounding bars already known by the pivot's confirmation time.
+if barstate.isconfirmed and fullProfile
+    if not na(pivotLow)
+        [storedS, scoreS, priceS, nodeS, evidenceS, strengthS, peakS, directionS] = pivot_eval(levels, pivotLow, true, avgVol, atr)
+    if not na(pivotHigh)
+        [storedR, scoreR, priceR, nodeR, evidenceR, strengthR, peakR, directionR] = pivot_eval(levels, pivotHigh, false, avgVol, atr)
+    trim_lvls(levels)
+update_lvls(levels)
+
+if barstate.islast
+    clear_boxes(profileBoxes)
+    clear_lines(auxiliaryLines)
+    clear_labels(auxiliaryLabels)
+    draw_markers(levels, auxiliaryLabels, auxiliaryLines)
+    draw_edge(levels, auxiliaryLabels)
+    if showProf and currentTotal.size() > 0
+        draw_profile(levels, profileBoxes, auxiliaryLines, auxiliaryLabels, currentBot, currentStep, currentTotal, currentBuy)
+
+// Stacked histogram: sell occupies [buyVolume, totalVolume], buy occupies [0, buyVolume].
+// Opaque foreground buy columns make the visible segment heights exactly buy and sell volume.
+bool stacked = volMode == "Stacked buy / sell"
+plot(stacked and hasVol ? vol : na, "Total volume (sell segment above buy)", color=volSellColor, style=plot.style_columns, display=display.pane)
+plot(stacked and hasVol ? buyVolume : na, "Estimated buy segment", color=volBuyColor, style=plot.style_columns, display=display.pane)
+plot(not stacked and hasVol ? netDelta : na, "Estimated net delta", color=netDelta >= 0 ? volBuyColor : volSellColor, style=plot.style_columns, display=display.pane)
+plot(showVolMA and stacked ? volumeAvg : na, "Total volume average", color=color.orange, linewidth=2, display=display.pane)
+hline(0, "Zero", color=color.new(color.gray, 65))
+barcolor(colorBars and hasVol ? (buyFraction >= 0.5 ? volBuyColor : volSellColor) : na)
+float fastEma = ta.ema(close, fastLen)
+float slowEma = ta.ema(close, slowLen)
+plot(showEma ? fastEma : na, "Fast price EMA", color=color.aqua, force_overlay=true, display=display.pane)
+plot(showEma ? slowEma : na, "Slow price EMA", color=color.orange, force_overlay=true, display=display.pane)
+plotshape(showSignals and buySignal, title="BUY rejection", style=shape.labelup, location=location.belowbar, color=supCol, text="BUY\nVP-SR", textcolor=color.white, size=size.small, force_overlay=true)
+plotshape(showSignals and sellSignal, title="SELL rejection", style=shape.labeldown, location=location.abovebar, color=resCol, text="SELL\nVP-SR", textcolor=color.white, size=size.small, force_overlay=true)
+plot(hasVol ? buyVolume : na, "Estimated buy volume", display=display.data_window)
+plot(hasVol ? sellVolume : na, "Estimated sell volume", display=display.data_window)
+plot(buyPct, "Estimated buy %", display=display.data_window)
+plot(sellPct, "Estimated sell %", display=display.data_window)
+plot(hasVol ? netDelta : na, "Net estimated buy minus sell", display=display.data_window)
+plot(rvol, "RVOL vs previous bars", display=display.data_window)
+plot(buySignalLevel, "BUY level", display=display.data_window, format=format.price)
+plot(sellSignalLevel, "SELL level", display=display.data_window, format=format.price)
+
+fmtVol(float v) => na(v) ? "n/a" : str.tostring(v, format.volume)
+fmtPct(float v) => na(v) ? "n/a" : str.tostring(v, "#.0") + "%"
+var table status = table.new(tablePos, 2, 9, bgcolor=color.new(color.black, 15), border_width=1, border_color=color.new(color.gray, 60))
+if barstate.islast
+    if showTable
+        string phase = barstate.isconfirmed ? "CLOSED" : "LIVE"
+        table.cell(status, 0, 0, "VP-SR R1.0", text_color=color.orange, text_size=size.small)
+        table.cell(status, 1, 0, "Estimated · " + phase, text_color=chart.fg_color, text_size=size.small)
+        table.cell(status, 0, 1, "Buy", text_color=volBuyColor, text_size=size.small)
+        table.cell(status, 1, 1, fmtVol(hasVol ? buyVolume : na) + " / " + fmtPct(buyPct), text_color=volBuyColor, text_size=size.small)
+        table.cell(status, 0, 2, "Sell", text_color=volSellColor, text_size=size.small)
+        table.cell(status, 1, 2, fmtVol(hasVol ? sellVolume : na) + " / " + fmtPct(sellPct), text_color=volSellColor, text_size=size.small)
+        table.cell(status, 0, 3, "Net buy − sell", text_color=chart.fg_color, text_size=size.small)
+        table.cell(status, 1, 3, fmtVol(hasVol ? netDelta : na), text_color=netDelta >= 0 ? volBuyColor : volSellColor, text_size=size.small)
+        table.cell(status, 0, 4, "RVOL / prior buy %", text_color=chart.fg_color, text_size=size.small)
+        table.cell(status, 1, 4, (na(rvol) ? "n/a" : str.tostring(rvol, "#.00") + "x") + " / " + fmtPct(priorBuyPct), text_color=chart.fg_color, text_size=size.small)
+        table.cell(status, 0, 5, "Profile / levels", text_color=chart.fg_color, text_size=size.small)
+        table.cell(status, 1, 5, str.tostring(profLb) + " bars / " + str.tostring(levels.size()), text_color=chart.fg_color, text_size=size.small)
+        table.cell(status, 0, 6, "Status", text_color=chart.fg_color, text_size=size.small)
+        string state = not hasVol ? "No positive volume" : not fullProfile ? "Warming up profile" : buySignal ? "BUY confirmed" : sellSignal ? "SELL confirmed" : "Watching levels"
+        table.cell(status, 1, 6, state, text_color=chart.fg_color, text_size=size.small)
+        table.cell(status, 0, 7, "Candle · New York", text_color=chart.fg_color, text_size=size.small)
+        table.cell(status, 1, 7, str.format_time(time, "MM-dd HH:mm", "America/New_York"), text_color=chart.fg_color, text_size=size.small)
+        table.cell(status, 0, 8, "Source", text_color=chart.fg_color, text_size=size.small)
+        table.cell(status, 1, 8, "OHLCV estimate", text_color=color.orange, text_size=size.small)
+    else
+        table.clear(status, 0, 0, 1, 8)
+
+alertcondition(alertBuy and buySignal, "BUY VP-SR Rejection", "BUY VP-SR: support rejection + estimated buying pressure. {{ticker}} {{interval}} close={{close}}")
+alertcondition(alertSell and sellSignal, "SELL VP-SR Rejection", "SELL VP-SR: resistance rejection + estimated selling pressure. {{ticker}} {{interval}} close={{close}}")
+alertcondition(alertBreaks and supportBroken, "Support Broken", "VP-SR support invalidated on close. {{ticker}} {{interval}} close={{close}}")
+alertcondition(alertBreaks and resistanceBroken, "Resistance Broken", "VP-SR resistance invalidated on close. {{ticker}} {{interval}} close={{close}}")
+alertcondition(barstate.isconfirmed, "Test — Fires Every Bar", "🟢 TEST — plumbing works on {{ticker}} @ {{close}}")
+if dynamicAlerts and barstate.isconfirmed
+    if alertBuy and buySignal
+        alert("BUY VP-SR | " + syminfo.tickerid + " | " + timeframe.period + " | Close " + str.tostring(close, format.mintick) + " | Support " + str.tostring(buySignalLevel, format.mintick) + " | Buy " + fmtPct(buyPct) + " | Net " + fmtVol(netDelta), alert.freq_once_per_bar_close)
+    else if alertSell and sellSignal
+        alert("SELL VP-SR | " + syminfo.tickerid + " | " + timeframe.period + " | Close " + str.tostring(close, format.mintick) + " | Resistance " + str.tostring(sellSignalLevel, format.mintick) + " | Sell " + fmtPct(sellPct) + " | Net " + fmtVol(netDelta), alert.freq_once_per_bar_close)
+    else if alertBreaks and (supportBroken or resistanceBroken)
+        alert("VP-SR level break | " + syminfo.tickerid + " | " + timeframe.period + " | " + (supportBroken and resistanceBroken ? "Support and resistance" : supportBroken ? "Support" : "Resistance") + " | Close " + str.tostring(close, format.mintick), alert.freq_once_per_bar_close)

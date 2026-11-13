@@ -1,0 +1,836 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Covered Calls — get paid now, cap the upside | The Trade Method</title>
+<meta name="description" content="Covered calls explained with real numbers: own 100 shares, sell a call against them and keep the premium. Four INTC outcomes, the break-even and the cap, the strike and duration trade-offs, and how to place the order.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/covered-calls.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Covered Calls — get paid now, cap the upside">
+<meta property="og:description" content="Covered calls explained with real numbers: own 100 shares, sell a call against them and keep the premium. Four INTC outcomes, the break-even and the cap, the strike and duration trade-offs, and how to place the order.">
+<meta property="og:url" content="https://thetrademethod.com/covered-calls.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Covered Calls — get paid now, cap the upside">
+<meta name="twitter:description" content="Covered calls explained with real numbers: own 100 shares, sell a call against them and keep the premium. Four INTC outcomes, the break-even and the cap, the strike and duration trade-offs, and how to place the order.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Covered Calls — get paid now, cap the upside",
+ "name": "Covered Calls",
+ "description": "Covered calls explained with real numbers: own 100 shares, sell a call against them and keep the premium. Four INTC outcomes, the break-even and the cap, the strike and duration trade-offs, and how to place the order.",
+ "url": "https://thetrademethod.com/covered-calls.html",
+ "mainEntityOfPage": "https://thetrademethod.com/covered-calls.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-17",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* collecting vs building */
+  .loop { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:14px; }
+  .loop div { background:var(--charcoal); border-radius:18px; padding:16px 16px 17px; }
+  .loop .k { font-family:var(--mono-font); font-size:12px; color:#ff6961; }
+  .loop b { display:block; font-size:18px; margin:8px 0 6px; }
+  .loop p { margin:0; color:var(--mute); font-size:14px; }
+
+  /* decision vs result */
+  .dr { display:grid; grid-template-columns:auto 1fr 1fr; gap:8px; font-size:14px; }
+  .dr > span { color:var(--ash); font-family:var(--mono-font); font-size:12px; align-self:end; padding:0 4px 4px; }
+  .dr > b { color:var(--ash); font-family:var(--mono-font); font-size:12px; font-weight:500; align-self:center; writing-mode:horizontal-tb; padding-right:6px; }
+  .dr div { background:var(--raised); border-radius:14px; padding:12px 14px; }
+  .dr div strong { display:block; font-size:15px; margin-bottom:3px; }
+  .dr div p { margin:0; color:var(--mute); font-size:13.5px; }
+  .dr .g strong { color:var(--up); } .dr .w strong { color:var(--orange); } .dr .r strong { color:#ff6961; }
+
+  /* two-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* the four at a glance */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four a { display:block; background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; color:inherit; text-decoration:none; }
+  .four a:hover { background:var(--raised); }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--up); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+
+  /* covered calls page */
+  .loop.three { grid-template-columns:repeat(3,1fr); }
+  .loop .yes { background:rgba(48,209,88,0.12); }
+  .loop .yes .k { color:var(--up); }
+  .pair.three-up { grid-template-columns:repeat(3,1fr); }
+  .table-panel { margin:0 0 40px; }
+  .tbl-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .tbl-wrap table { min-width:760px; }
+  .tbl-wrap td, .tbl-wrap th { white-space:nowrap; }
+  .foot-note { margin:12px 0 0; color:var(--ash); font-size:13px; }
+  .sheet .anim + .table-panel { margin-top:-20px; }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .loop, .four { grid-template-columns:repeat(2,1fr); }
+    .loop.three { grid-template-columns:1fr; }
+    .pair.three-up { grid-template-columns:1fr; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim, .sheet .loop + .anim { margin-top:56px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .loop, .loop.three, .four, .pair, .pair.three-up { grid-template-columns:1fr; }
+    .sheet .anim + .table-panel { margin-top:0; }
+    .table-panel { margin-bottom:48px; }
+    .sheet .table-panel + .main { margin-top:8px; }
+    .dr { grid-template-columns:1fr 1fr; font-size:13px; }
+    .dr > span:first-child { display:none; }
+    .dr > b { grid-column:1 / -1; padding:6px 4px 0; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+  }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/cc-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=6" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="covered-calls">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; options basics, the first options strategy most stock investors learn</p>
+      <h1>Covered <span>Calls</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Own 100 shares, sell someone the right to buy them from you at a higher price, and get paid for it today. <em>The premium is yours to keep, whatever happens next.</em>
+      The trade-off: your upside stops at that price, and the stock can still fall.</p>
+      <div class="counts">
+        <div><b>$1.50</b><small>premium per share</small></div>
+        <div><b>$34</b><small>strike, on a $32 stock</small></div>
+        <div><b>2</b><small>months to expiration</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">the trade</div><div class="n">Stock + a sold call</div></div>
+    <div><div class="t">outcomes</div><div class="n">Four INTC scenarios</div></div>
+    <div><div class="t">variable 1</div><div class="n">Duration</div></div>
+    <div><div class="t">variable 2</div><div class="n">Strike price</div></div>
+    <div><div class="t">doing it</div><div class="n">Placing the order</div></div>
+  </nav>
+
+  <div class="section-head" id="trade">
+    <h2>What a covered call is</h2>
+    <p>There are three ways to end up selling a call option. Only one of them is a covered call: you own the stock first, then sell the call against it. The shares are what "cover" the promise you just sold.</p>
+  </div>
+
+  <div class="loop three">
+    <div><span class="k">not this</span><b>Buy a call, then sell it</b><p>You bought a call earlier and you're closing it out. That's just exiting a long option.</p></div>
+    <div><span class="k">not this</span><b>Sell a call you don't cover</b><p>Selling a call without owning the shares is shorting it. If the stock rips, you have to buy shares at any price to deliver them.</p></div>
+    <div class="yes"><span class="k">this page</span><b>Own the stock, sell the call</b><p>You already hold 100 shares per contract. If the call gets used, you hand over shares you already own.</p></div>
+  </div>
+
+  <section class="anim" data-cc-anim="deal" aria-label="Illustrative chart on made-up bars: 100 shares of INTC are bought at $32, a $34 call expiring in about two months is sold for $1.50, $150 is credited right away, the $34 strike becomes a ceiling until expiration, and the break-even moves down to $30.50">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The deal</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 470" role="img" aria-label="Illustrative chart on made-up bars: 100 shares of INTC are bought at $32, a $34 call expiring in about two months is sold for $1.50, $150 is credited right away, the $34 strike becomes a ceiling until expiration, and the break-even moves down to $30.50"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>You're the seller this time</h3>
+          <ul>
+            <li>When you buy a call, you pay for the right to buy a stock at a set price (the strike) before a set date (the expiration).</li>
+            <li>With a covered call you're on the other side. Someone pays you for that right on shares you already own.</li>
+            <li>The example from the video: INTC at $32, the $34 call about two months out selling for $1.50 a share. One contract covers 100 shares, so that's $150.</li>
+          </ul>
+          <p class="why">These were INTC's prices when the video was recorded. Today's prices will be different; the mechanics won't.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>The good and the bad, in one line each</h3>
+          <ul>
+            <li>The good: you get paid. Weekly, monthly or a few months out, you choose the expiration, and the money is yours the moment the call sells.</li>
+            <li>The bad: you've capped your upside. If the stock runs far past the strike, the buyer gets that run, not you.</li>
+            <li>What the call does <b>not</b> do: protect your shares. If the stock falls more than the premium, you still lose money.</li>
+          </ul>
+          <p class="why">The video calls the premium guaranteed money. It's fair to say you can't lose on the sale of the call itself, but the position as a whole can lose, because you still own the stock.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The INTC covered call</h4>
+        <p class="lead">One contract, the video's numbers.</p>
+        <div class="calc">
+          <div class="row"><span>Buy 100 shares at $32</span><b>&minus;$3,200</b></div>
+          <div class="row"><span>Sell 1 &times; $34 call, about 2 months out, at $1.50</span><b>+$150 today</b></div>
+          <div class="row"><span>Most you can make (sold at $34, plus the premium)</span><b>+$350</b></div>
+          <div class="row"><span>Break-even ($32 &minus; $1.50)</span><b>$30.50</b></div>
+          <div class="row tot"><span>Premium, whatever the stock does</span><b>yours to keep</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Three words you'll see</h4>
+        <p class="lead">That's most of the vocabulary.</p>
+        <div class="pair">
+          <div><span class="k">premium</span><b>The price of the option</b><p>$1.50 a share here. As the seller, you collect it.</p></div>
+          <div><span class="k">strike</span><b>The agreed sale price</b><p>$34 here. If the stock ends above it, your shares go at $34.</p></div>
+          <div><span class="k">expiration</span><b>When the deal ends</b><p>About two months here. After that, the promise is gone.</p></div>
+          <div><span class="k">assigned</span><b>Your shares get called away</b><p>The buyer used the call, and your shares were sold at the strike.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="scenarios">
+    <h2>Four outcomes, worked out</h2>
+    <p>Same trade every time: 100 shares at $32, the $34 call sold for $1.50. Only the stock's price two months later changes.</p>
+  </div>
+
+  <section class="anim" data-cc-anim="scenarios" aria-label="Illustrative chart of made-up price paths: from $32, INTC falls to $30, stays at $32, rises to $33, or shoots to $40; the covered call makes −$0.50, +$1.50, +$2.50 and +$3.50 a share, against −$2.00, $0.00, +$1.00 and +$8.00 for the stock alone">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Four ways it can end</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart of made-up price paths: from $32, INTC falls to $30, stays at $32, rises to $33, or shoots to $40; the covered call makes −$0.50, +$1.50, +$2.50 and +$3.50 a share, against −$2.00, $0.00, +$1.00 and +$8.00 for the stock alone"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="panel table-panel">
+    <h4>The four scenarios, per share</h4>
+    <p class="lead">Two-month return is the total divided by the $32 paid. "If repeated" multiplies by six, the way the video annualizes it; it assumes you could do the same trade six times in a row, which nobody can promise.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>INTC at expiration</th><th>Call</th><th>Stock</th><th>Premium</th><th>Covered call</th><th>2-month return</th><th>If repeated</th><th>Stock alone</th></tr></thead>
+        <tbody>
+          <tr><th>Falls to $30</th><td class="txt">expires worthless</td><td class="neg">&minus;$2.00</td><td class="pos">+$1.50</td><td class="neg">&minus;$0.50</td><td class="neg">&minus;1.6%</td><td>&mdash;</td><td class="neg">&minus;$2.00</td></tr>
+          <tr><th>Stays at $32</th><td class="txt">expires worthless</td><td>$0.00</td><td class="pos">+$1.50</td><td class="pos">+$1.50</td><td class="pos">4.7%</td><td>about 28% a year</td><td>$0.00</td></tr>
+          <tr><th>Rises to $33</th><td class="txt">expires worthless</td><td class="pos">+$1.00</td><td class="pos">+$1.50</td><td class="pos">+$2.50</td><td class="pos">7.8%</td><td>about 47% a year</td><td class="pos">+$1.00</td></tr>
+          <tr><th>Shoots to $40</th><td class="txt">used: sold at $34</td><td class="pos">+$2.00</td><td class="pos">+$1.50</td><td class="pos">+$3.50</td><td class="pos">10.9%</td><td>about 66% a year</td><td class="pos">+$8.00</td></tr>
+          <tr><th>Drops to $25</th><td class="txt">expires worthless</td><td class="neg">&minus;$7.00</td><td class="pos">+$1.50</td><td class="neg">&minus;$5.50</td><td class="neg">&minus;17.2%</td><td>&mdash;</td><td class="neg">&minus;$7.00</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="foot-note">The last row isn't in the video. It's there because a bigger drop is the outcome the premium can't fix.</p>
+  </div>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Down, flat or a little up: the premium helps</h3>
+          <ul>
+            <li>Falls to $30: the call expires worthless. You're down $2 on the shares and up $1.50 from the call, so &minus;$0.50 instead of &minus;$2.</li>
+            <li>Stays at $32: the stock did nothing and you still made $1.50, about 4.7% in two months.</li>
+            <li>Rises to $33: still under the strike. $1 on the shares plus $1.50 is $2.50, about 7.8%.</li>
+          </ul>
+          <p class="why">In all three, the buyer won't pay $34 for shares they can buy cheaper on the open market, so you keep your stock and the premium.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Way up: the cap</h3>
+          <ul>
+            <li>INTC shoots to $40. The buyer uses the call, buys your shares at $34 and can sell them at $40.</li>
+            <li>You made $2 on the stock plus $1.50 on the call: $3.50, about 10.9% in two months.</li>
+            <li>Holding the stock alone would have made $8. That gap is the cost of the covered call.</li>
+          </ul>
+          <p class="why">The video's honest question: would you be upset? You made money, just less than you could have. Whether that stings depends on why you sold the call.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Where each dollar went at $40</h4>
+        <p class="lead">Per share, if INTC finishes at $40.</p>
+        <div class="calc">
+          <div class="row"><span>Bought at $32, sold to the buyer at $34</span><b>+$2.00</b></div>
+          <div class="row"><span>Premium collected up front</span><b>+$1.50</b></div>
+          <div class="row"><span>$34 to $40, the run you gave up</span><b>to the buyer</b></div>
+          <div class="row tot"><span>Your total</span><b>+$3.50 ($350 a contract)</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Related pages</h4>
+        <p class="lead">The cap, sizing, and options on the chart.</p>
+        <div class="pair">
+          <div><span class="k">the other side</span><b><a class="more" href="/let-winners-run.html">Let Winners Run</a></b><p>Why big winners matter, the very thing a covered call trades away.</p></div>
+          <div><span class="k">options on the chart</span><b><a class="more" href="/setups/gex-levels.html">GEX Levels</a></b><p>How options positioning shows up as levels in the stock.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="payoff">
+    <h2>The whole trade on one line</h2>
+    <p>Every possible price at expiration, and what the covered call makes or loses there. This is where the cap and the risk are easiest to see.</p>
+  </div>
+
+  <section class="anim" data-cc-anim="payoff" aria-label="Illustrative profit chart: owning INTC alone gains or loses a dollar for every dollar the stock moves from $32; the covered call line sits $1.50 higher until $34 and then goes flat at +$3.50; break-even is $30.50; at $25 the stock alone is down $7.00 and the covered call down $5.50">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Profit at expiration</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative profit chart: owning INTC alone gains or loses a dollar for every dollar the stock moves from $32; the covered call line sits $1.50 higher until $34 and then goes flat at +$3.50; break-even is $30.50; at $25 the stock alone is down $7.00 and the covered call down $5.50"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>A bent line</h3>
+          <ul>
+            <li>Below $34, the covered call moves dollar for dollar with the stock, always $1.50 ahead of owning the stock alone.</li>
+            <li>At $34 it bends flat. From there up, every price pays the same +$3.50.</li>
+            <li>That bend is the whole strategy: a known extra $1.50 below the strike, in exchange for nothing extra above it.</li>
+          </ul>
+          <p class="why">This is why covered calls fit a stock you expect to drift or rise slowly, and fit badly on one you expect to explode.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>What the premium can't do</h3>
+          <ul>
+            <li>It can't stop a falling stock. At $25 you're down $5.50 a share; at $20, $10.50.</li>
+            <li>The worst case is the same as owning the stock, less the premium: $3,050 on one contract if INTC went to zero.</li>
+            <li>So the real decision is still the stock. The call only changes the shape of the outcome.</li>
+          </ul>
+          <p class="why">Size the share position the way you'd size any stock you own; selling a call against it doesn't make it smaller risk.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The three numbers to know before you sell</h4>
+        <p class="lead">Per contract, the INTC example.</p>
+        <div class="calc">
+          <div class="row"><span>Max profit: ($34 &minus; $32 + $1.50) &times; 100</span><b>$350</b></div>
+          <div class="row"><span>Break-even: $32 &minus; $1.50</span><b>$30.50</b></div>
+          <div class="row"><span>Max loss: $30.50 &times; 100, if the stock went to zero</span><b>$3,050</b></div>
+          <div class="row tot"><span>Stock alone, same zero</span><b>$3,200</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Sizing the shares</h4>
+        <p class="lead">The stock is the risk, so size it like one.</p>
+        <div class="pair">
+          <div><span class="k">risk first</span><b><a class="more" href="/four-pillars.html#sizing">Four Pillars &middot; sizing</a></b><p>Decide what you can lose before the trade, the same way every time.</p></div>
+          <div><span class="k">stop first</span><b><a class="more" href="/price-action-rules.html">Three Price Action Rules</a></b><p>Where you'd be wrong on the stock, decided before you enter.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="duration">
+    <h2>Variable 1 &middot; Duration</h2>
+    <p>How far out the expiration is. More time on the contract means more premium, but not more per month.</p>
+  </div>
+
+  <section class="anim" data-cc-anim="duration" aria-label="Illustrative timeline over six months: one six-month $34 call sold for $2.61 against three two-month $34 calls; if INTC stays near $32 the three calls collect $1.50 each for $4.50, but if INTC drops to $28 the later calls fetch about $0.50 each for about $2.50">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">One long call or three short ones</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative timeline over six months: one six-month $34 call sold for $2.61 against three two-month $34 calls; if INTC stays near $32 the three calls collect $1.50 each for $4.50, but if INTC drops to $28 the later calls fetch about $0.50 each for about $2.50"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">7</div>
+        <div>
+          <h3>More time, more premium</h3>
+          <ul>
+            <li>The $34 call two months out sold for $1.50. Six months out, the same strike sold for $2.61.</li>
+            <li>Three two-month calls at $1.50 would add up to $4.50, so the short ones look better.</li>
+            <li>That only works if the $34 call is still worth about $1.50 each time you go to sell the next one.</li>
+          </ul>
+          <p class="why">Per month, the shorter call paid more: $0.75 against about $0.44. The longer call pays less per month for knowing the number today.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">8</div>
+        <div>
+          <h3>Option prices don't sit still</h3>
+          <ul>
+            <li>If INTC falls from $32 to $28, the video estimates the next two-month $34 call sells for around $0.50, maybe less.</li>
+            <li>Short calls: you may get a better price or a worse one each time. Long call: you know what you'll collect.</li>
+            <li>Either way, a stock that fell $4 cost you $4 on the shares. The premium question sits on top of that.</li>
+          </ul>
+          <p class="why">Neither choice is right in general. It's certainty now against flexibility later.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Same $34 strike, two clocks</h4>
+        <p class="lead">The video's INTC prices.</p>
+        <div class="calc">
+          <div class="row"><span>2 months out</span><b>$1.50 &middot; $0.75 a month</b></div>
+          <div class="row"><span>6 months out</span><b>$2.61 &middot; about $0.44 a month</b></div>
+          <div class="row"><span>Three 2-month calls, if prices hold</span><b>$4.50</b></div>
+          <div class="row"><span>Three 2-month calls, if INTC drops to $28</span><b>about $2.50</b></div>
+          <div class="row tot"><span>The 6-month call either way</span><b>$2.61, known today</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="strike">
+    <h2>Variable 2 &middot; Strike price</h2>
+    <p>Where your upside gets capped. A strike close to the price pays more; a strike further away leaves more room to run.</p>
+  </div>
+
+  <section class="anim" data-cc-anim="strike" aria-label="Illustrative profit chart: INTC bought at $32 with either the $34 call sold for $1.50, capped at +$3.50, or the $38 call sold for $0.50, capped at +$6.50; at $32 the $34 strike makes +$1.50 against +$0.50, at $38 the $38 strike makes +$6.50 against +$3.50, and the lines cross at $35">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">$34 or $38</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative profit chart: INTC bought at $32 with either the $34 call sold for $1.50, capped at +$3.50, or the $38 call sold for $0.50, capped at +$6.50; at $32 the $34 strike makes +$1.50 against +$0.50, at $38 the $38 strike makes +$6.50 against +$3.50, and the lines cross at $35"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">9</div>
+        <div>
+          <h3>Closer strike, more premium</h3>
+          <ul>
+            <li>The $34 call paid $1.50. The $38 call, same expiration, paid $0.50.</li>
+            <li>If INTC does nothing, the $34 strike wins: $1.50 kept against $0.50.</li>
+            <li>If INTC runs to $38, the $38 strike wins: +$6.50 against +$3.50, because you're forced to sell at $38 instead of $34.</li>
+          </ul>
+          <p class="why">The two lines cross at $35. Below it the closer strike is ahead; above it the further strike is.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">10</div>
+        <div>
+          <h3>What makes premium bigger</h3>
+          <ul>
+            <li>More time on the contract.</li>
+            <li>A strike closer to the current price.</li>
+            <li>A more volatile stock. If it can swing hard either way, the seller deserves more for locking in a price.</li>
+          </ul>
+          <p class="why">A fat premium usually means one of these is working against you: a long lock-up, an early cap, or a stock that moves a lot.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The dilemma, in numbers</h4>
+        <p class="lead">Per share, INTC bought at $32.</p>
+        <div class="calc">
+          <div class="row"><span>$34 strike: premium / most you can make</span><b>$1.50 / +$3.50</b></div>
+          <div class="row"><span>$38 strike: premium / most you can make</span><b>$0.50 / +$6.50</b></div>
+          <div class="row"><span>INTC flat at $32</span><b>$34 wins, +$1.50 vs +$0.50</b></div>
+          <div class="row tot"><span>INTC at $38</span><b>$38 wins, +$6.50 vs +$3.50</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Premium goes up with</h4>
+        <p class="lead">From the video's pricing tips.</p>
+        <div class="pair three-up">
+          <div class="yes"><span class="k">time</span><b>Further expiration</b><p>More time for the stock to get past the strike.</p></div>
+          <div class="yes"><span class="k">distance</span><b>Strike near the price</b><p>Easier for the stock to reach.</p></div>
+          <div class="care"><span class="k">volatility</span><b>A jumpier stock</b><p>More pay for locking yourself in.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="order">
+    <h2>How to place it</h2>
+    <p>Own the shares, then one order: sell to open. Brokers handle the rest automatically at expiration.</p>
+  </div>
+
+  <section class="anim" data-cc-anim="order" aria-label="Illustration: 500 shares of INTC as five blocks of 100; an order to sell to open 5 contracts of the $34 call at $1.50 credits $750; above $34 at expiration all 500 shares are sold at $34, below $34 the calls expire worthless and the shares stay">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Five contracts, $750</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustration: 500 shares of INTC as five blocks of 100; an order to sell to open 5 contracts of the $34 call at $1.50 credits $750; above $34 at expiration all 500 shares are sold at $34, below $34 the calls expire worthless and the shares stay"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">11</div>
+        <div>
+          <h3>Stock first, and a stock you'd keep</h3>
+          <ul>
+            <li>Options come in 100-share blocks: one contract per 100 shares you own.</li>
+            <li>Already own the shares? Place one order: sell to open, the number of contracts, the expiration, the strike and your price.</li>
+            <li>You don't have to cover everything. With 500 shares you can sell 1, 3 or 5 contracts.</li>
+            <li>Many brokers let you buy the shares and sell the call in a single order.</li>
+          </ul>
+          <p class="why">Don't buy a weak stock just to sell calls on it. Collecting $1.50 while the shares lose $5 is dropping quarters to pick up pennies.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">12</div>
+        <div>
+          <h3>After you sell</h3>
+          <ul>
+            <li>The premium shows up in your account as soon as the order fills.</li>
+            <li>Above the strike at expiration: your shares are sold at the strike automatically.</li>
+            <li>Below the strike: the call expires worthless and drops off. You keep the shares and can sell another one.</li>
+            <li>Calls on US stocks can be used before expiration too, most often just before a dividend. If you'd rather keep the shares, you can buy the call back before then.</li>
+          </ul>
+          <p class="why">Your broker will need to approve you for options before you can sell one. Covered calls are usually in the first approval level.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The 5-contract math</h4>
+        <p class="lead">500 shares of INTC, the $34 call at $1.50.</p>
+        <div class="calc">
+          <div class="row"><span>Premium per share</span><b>$1.50</b></div>
+          <div class="row"><span>&times; 100 shares per contract</span><b>$150 a contract</b></div>
+          <div class="row"><span>&times; 5 contracts</span><b>$750</b></div>
+          <div class="row tot"><span>Credited when the order fills</span><b>+$750</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Shop for the deal</h4>
+        <p class="lead">Some weeks there's nothing worth selling.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">worth it</span><b>A fair price for the cap</b><p>On a stock you'd hold anyway, at a strike you'd be fine selling at.</p></div>
+          <div class="care"><span class="k">skip it</span><b>The cap costs more than it pays</b><p>If the reward isn't worth giving up the upside, don't sell the call.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Before you sell one</h2>
+    <p>Four questions. If any answer is no, the premium isn't worth it.</p>
+  </div>
+
+  <div class="four">
+    <a href="#trade"><span class="k">question 1</span><h3>Would I own it anyway?</h3><p>Without the call, is this a stock I want?</p><small>The shares carry the real risk. The call doesn't change that.</small></a>
+    <a href="#scenarios"><span class="k">question 2</span><h3>Am I fine selling at the strike?</h3><p>If it's called away, am I OK?</p><small>Pick a strike you'd honestly be happy to sell at.</small></a>
+    <a href="#strike"><span class="k">question 3</span><h3>Is the premium worth the cap?</h3><p>Enough pay for the upside I'm giving up?</p><small>A close strike pays more and caps sooner.</small></a>
+    <a href="#order"><span class="k">question 4</span><h3>Do I have the shares?</h3><p>100 per contract, already in the account.</p><small>Without them it isn't covered.</small></a>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/D5Rjx_7XG2U" title="Covered calls for beginners (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>A beginner's walkthrough of covered calls using real INTC prices from the day it was recorded.</p>
+      <ol>
+        <li><b>0:00</b>Why investors like covered calls</li>
+        <li><b>0:56</b>The good and the bad</li>
+        <li><b>1:58</b>Three ways to sell a call</li>
+        <li><b>2:46</b>The INTC example: $32, $34 strike, $1.50</li>
+        <li><b>4:16</b>Scenario 1: the stock falls</li>
+        <li><b>5:09</b>Scenario 2: the stock does nothing</li>
+        <li><b>6:16</b>Scenario 3: up a little</li>
+        <li><b>7:13</b>Scenario 4: the stock shoots up</li>
+        <li><b>9:37</b>Changing the duration</li>
+        <li><b>12:08</b>Changing the strike</li>
+        <li><b>13:38</b>How to write a covered call</li>
+        <li><b>15:50</b>What happens after you sell</li>
+        <li><b>16:55</b>Premium, and what makes it bigger</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=D5Rjx_7XG2U" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>You keep the premium. You give up the big run. You still own the risk.</h2>
+      <p>A covered call turns some of a stock's possible upside into cash today. That can be a good trade on a stock you'd hold anyway, at a strike you'd be glad to sell at.
+      It is not protection: if the stock falls more than the premium, you lose money, just a little less than you would have.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Own 100 shares for every contract you sell.</li>
+        <li>Max profit = strike &minus; your price + premium.</li>
+        <li>Break-even = your price &minus; premium.</li>
+        <li>More time, a closer strike or a jumpier stock means more premium, and a bigger trade-off.</li>
+        <li>If the deal isn't worth it, don't sell the call.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from a beginner options video on covered calls. The INTC prices ($32 stock, $34 and $38 strikes, $1.50, $2.61 and $0.50 premiums) are the video's, from when it was recorded, not current quotes; price paths in the charts are made up. Returns ignore commissions, dividends and taxes. Options carry risk and need broker approval; this is education, not advice and not a promise of income. <a href="https://www.youtube.com/watch?v=D5Rjx_7XG2U" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

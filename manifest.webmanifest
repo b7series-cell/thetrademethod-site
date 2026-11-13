@@ -1,0 +1,26 @@
+{
+  "id": "/",
+  "name": "The Trade Method",
+  "short_name": "Trade Method",
+  "description": "Day trading setups written down before the open, each with its thesis, stages, filters and stop.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#000000",
+  "theme_color": "#000000",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "finance"],
+  "icons": [
+    { "src": "/assets/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/assets/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "All setups", "url": "/setups/", "icons": [{ "src": "/assets/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Fundamentals", "url": "/fundamentals/", "icons": [{ "src": "/assets/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Expected Move", "url": "/expected-move.html", "icons": [{ "src": "/assets/icon-192.png", "sizes": "192x192" }] }
+  ]
+}

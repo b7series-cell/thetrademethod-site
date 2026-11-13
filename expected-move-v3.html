@@ -1,0 +1,963 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Expected Move Calculator — the range the options market prices, on a live chart | The Trade Method</title>
+<meta name="description" content="A free expected move dashboard: enter a ticker, expiration and the options chain prices to get the upper and lower expected move, drawn on a delayed live chart, compared with how far the stock has actually moved. Plus what the 68% really means and three ways to read it off the chain.">
+<!-- v3 preview: kept out of search until Bryant picks a version -->
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://thetrademethod.com/expected-move.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Expected Move Calculator — the range the options market prices">
+<meta property="og:description" content="Enter a ticker, expiration and the chain prices: get the upper and lower expected move on a chart, and see whether options are pricing a bigger or smaller move than usual.">
+<meta property="og:url" content="https://thetrademethod.com/expected-move.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Expected Move Calculator — the range the options market prices">
+<meta name="twitter:description" content="Enter a ticker, expiration and the chain prices: get the upper and lower expected move on a chart, and see whether options are pricing a bigger or smaller move than usual.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "TechArticle",
+   "headline": "Expected Move Calculator — the range the options market prices",
+   "name": "Expected Move",
+   "description": "A free expected move dashboard: upper and lower expected move from the options chain, drawn on a delayed live chart and compared with the stock's actual historical moves, plus what the 68% means and three ways to read it off the chain.",
+   "url": "https://thetrademethod.com/expected-move.html",
+   "mainEntityOfPage": "https://thetrademethod.com/expected-move.html",
+   "image": "https://thetrademethod.com/assets/og-image.png",
+   "dateModified": "2026-10-17",
+   "inLanguage": "en",
+   "about": ["Options expected move", "Implied volatility", "Realized volatility"],
+   "author": { "@type": "Organization", "name": "The Trade Method", "url": "https://thetrademethod.com/" },
+   "publisher": { "@type": "Organization", "name": "The Trade Method", "logo": { "@type": "ImageObject", "url": "https://thetrademethod.com/assets/apple-touch-icon.png" } },
+   "isPartOf": { "@type": "WebSite", "name": "The Trade Method", "url": "https://thetrademethod.com/" }
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    { "@type": "Question", "name": "What is the expected move?", "acceptedAnswer": { "@type": "Answer", "text": "The range the options market is pricing for a stock between now and an expiration, usually quoted as one standard deviation either side of the current price. In a simplified normal model, price finishes inside a one-standard-deviation range about 68% of the time." } },
+    { "@type": "Question", "name": "Does 68% mean price stays inside the expected move all week?", "acceptedAnswer": { "@type": "Answer", "text": "No. The 68% is roughly the chance price finishes inside the range at expiration. The chance it never trades outside the range before then is much lower, about 37% in the same model, because price can poke out and come back." } },
+    { "@type": "Question", "name": "How do I calculate the expected move from the at-the-money straddle?", "acceptedAnswer": { "@type": "Answer", "text": "Add the at-the-money call and put prices. The straddle is worth about 0.8 of a one-standard-deviation move, so a common approximation is expected move ≈ straddle × 1.25. The straddle on its own covers roughly 58% odds." } },
+    { "@type": "Question", "name": "Is averaging the straddle and the first in-the-money strangle the official formula?", "acceptedAnswer": { "@type": "Answer", "text": "No. Straddle plus the first in-the-money strangle, divided by two, reproduced one platform's figure in the worked SPY example, but it is a rule of thumb, not a universal formula. Different platforms calculate their expected move differently." } },
+    { "@type": "Question", "name": "Is a break outside the expected move a reversal signal?", "acceptedAnswer": { "@type": "Answer", "text": "No. Outside the range a new entry in the direction of the move is a chase, but strong trends, earnings and macroeconomic news can carry price well beyond the implied range. Treat it as context and wait for your own setup." } },
+    { "@type": "Question", "name": "How do I know whether options are pricing a big or small move?", "acceptedAnswer": { "@type": "Answer", "text": "Compare the implied move with the stock's actual moves over windows of the same length. If the implied move is larger than about 68% of past moves, options are pricing more movement than usual; if it is smaller, they are pricing less." } }
+   ]
+  }
+ ]
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=20">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* collecting vs building */
+  .loop { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:14px; }
+  .loop div { background:var(--charcoal); border-radius:18px; padding:16px 16px 17px; }
+  .loop .k { font-family:var(--mono-font); font-size:12px; color:#ff6961; }
+  .loop b { display:block; font-size:18px; margin:8px 0 6px; }
+  .loop p { margin:0; color:var(--mute); font-size:14px; }
+
+  /* decision vs result */
+  .dr { display:grid; grid-template-columns:auto 1fr 1fr; gap:8px; font-size:14px; }
+  .dr > span { color:var(--ash); font-family:var(--mono-font); font-size:12px; align-self:end; padding:0 4px 4px; }
+  .dr > b { color:var(--ash); font-family:var(--mono-font); font-size:12px; font-weight:500; align-self:center; writing-mode:horizontal-tb; padding-right:6px; }
+  .dr div { background:var(--raised); border-radius:14px; padding:12px 14px; }
+  .dr div strong { display:block; font-size:15px; margin-bottom:3px; }
+  .dr div p { margin:0; color:var(--mute); font-size:13.5px; }
+  .dr .g strong { color:var(--up); } .dr .w strong { color:var(--orange); } .dr .r strong { color:#ff6961; }
+
+  /* two-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* the four at a glance */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four a { display:block; background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; color:inherit; text-decoration:none; }
+  .four a:hover { background:var(--raised); }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--up); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* the three methods at a glance */
+  .four.three { grid-template-columns:repeat(3,1fr); }
+  .em-table { background:var(--charcoal); border-radius:22px; padding:8px 18px 4px; overflow-x:auto; }
+  .em-table table { min-width:620px; }
+  .em-table td.hl { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .loop, .four, .four.three { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim, .sheet .loop + .anim, .sheet .em-table + .anim { margin-top:56px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .loop, .four, .four.three, .pair { grid-template-columns:1fr; }
+    .em-table { padding:6px 12px 2px; border-radius:18px; }
+    .dr { grid-template-columns:1fr 1fr; font-size:13px; }
+    .dr > span:first-child { display:none; }
+    .dr > b { grid-column:1 / -1; padding:6px 4px 0; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+  }
+</style>
+<style>
+  /* ---------- v3: dashboard first ---------- */
+  .sheet [hidden] { display:none !important; }
+  .sheet .top.compact { padding-bottom:28px; }
+  .sheet .top.compact .thesis { font-size:19px; }
+
+  /* sticky contents bar */
+  .toc { position:sticky; top:96px; z-index:30; display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; -webkit-overflow-scrolling:touch;
+         margin:22px -10px 0; padding:8px 10px; background:rgba(0,0,0,0.86); -webkit-backdrop-filter:saturate(180%) blur(16px); backdrop-filter:saturate(180%) blur(16px); }
+  .toc::-webkit-scrollbar { display:none; }
+  .toc a { flex:0 0 auto; font-size:14px; color:var(--mute); text-decoration:none; padding:7px 14px; border-radius:9999px; border:1px solid var(--graphite); white-space:nowrap; }
+  .toc a:hover { color:var(--silk); }
+  .toc a[aria-current="true"] { background:var(--silk); color:var(--black); border-color:var(--silk); }
+  [id] { scroll-margin-top:160px; }
+
+  /* the dashboard */
+  .dash { background:var(--charcoal); border-radius:28px; padding:26px 26px 22px; margin-top:22px; }
+  .dash-head { display:flex; justify-content:space-between; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom:18px; }
+  .dash-head h2 { margin:0; font-size:clamp(26px,3vw,34px); font-weight:800; letter-spacing:-0.03em; line-height:1.05; }
+  .dash-badge { font-size:13px; font-weight:600; padding:5px 12px; border-radius:9999px; background:var(--raised); color:var(--mute); white-space:nowrap; }
+  .dash-badge.is-live { background:rgba(48,209,88,0.16); color:var(--up); }
+  .dash-badge.is-live::before { content:""; display:inline-block; width:7px; height:7px; border-radius:50%; background:var(--up); margin-right:7px; vertical-align:1px; }
+  .dash-badge.is-stale { background:rgba(255,159,10,0.16); color:var(--orange); }
+  .dash-badge.is-example { background:rgba(255,159,10,0.16); color:var(--orange); }
+
+  .dash form { margin:0; }
+  .dash-controls { display:grid; grid-template-columns:1fr 1.15fr 1.15fr; gap:14px; margin-bottom:18px; }
+  .fld { background:var(--black); border-radius:18px; padding:12px 14px 13px; min-width:0; }
+  .fld > label, .fld > .lab { display:block; font-size:12px; color:var(--ash); margin-bottom:7px; font-family:var(--mono-font); }
+  .fld .line { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .dash input { font:inherit; font-size:17px; color:var(--silk); background:var(--charcoal); border:1px solid var(--graphite); border-radius:12px; padding:9px 12px; min-width:0; }
+  .dash input:focus { outline:2px solid var(--link); outline-offset:1px; border-color:transparent; }
+  .dash input[name="sym"] { width:7.5em; text-transform:uppercase; font-weight:700; }
+  .dash input[name="ref"] { width:8em; }
+  .dash input[name="exp"] { color-scheme:dark; }
+  .dash .go { font-size:14px; padding:9px 16px; border:0; cursor:pointer; font-family:inherit; }
+  .chips { display:flex; gap:6px; flex-wrap:wrap; margin-top:9px; }
+  .chips button { font:inherit; font-size:12.5px; color:var(--mute); background:transparent; border:1px solid var(--graphite); border-radius:9999px; padding:4px 10px; cursor:pointer; }
+  .chips button:hover { color:var(--silk); border-color:var(--ash); }
+  .bt-seg { flex-wrap:wrap; }
+
+  .dash-meta { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .dash-meta div, .dash-em div { border-radius:18px; padding:14px 16px 15px; min-width:0; }
+  .dash-meta div { background:var(--black); }
+  .dash-meta small, .dash-em small { display:block; font-size:13px; color:var(--ash); }
+  .dash-meta b { display:block; font-size:26px; font-weight:700; letter-spacing:-0.02em; margin:3px 0 1px; overflow-wrap:anywhere; }
+  .dash-meta span { display:block; font-size:12.5px; color:var(--mute); }
+  .dash-em { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+  .dash-em .up { background:rgba(48,209,88,0.11); } .dash-em .dn { background:rgba(255,69,58,0.11); }
+  .dash-em b { display:block; font-size:clamp(34px,4.6vw,50px); font-weight:800; letter-spacing:-0.035em; line-height:1.05; margin:6px 0 4px; }
+  .dash-em .up b { color:var(--up); } .dash-em .dn b { color:var(--down); }
+  .dash-em span { font-size:14px; color:var(--silk); font-family:var(--mono-font); }
+  .dash-basis { margin:14px 2px 0; color:var(--mute); font-size:14.5px; }
+  .dash-basis b { color:var(--silk); font-weight:600; }
+  .em-warn { color:var(--orange) !important; font-weight:600; }
+  .dash-status { margin-top:14px; padding:12px 16px; border-radius:14px; font-size:15px; background:var(--black); color:var(--silk); display:flex; gap:10px; align-items:flex-start; }
+  .dash-status::before { content:""; flex:0 0 9px; height:9px; border-radius:50%; margin-top:6px; background:var(--ash); }
+  .dash-status.z-in::before { background:var(--up); } .dash-status.z-near::before { background:var(--orange); } .dash-status.z-out::before { background:var(--down); }
+  .dash-status.z-near { background:rgba(255,159,10,0.12); } .dash-status.z-out { background:rgba(255,69,58,0.13); }
+  .dash-status.flash { animation:emflash 1.2s ease 2; }
+  @keyframes emflash { 50% { box-shadow:0 0 0 3px var(--orange); } }
+  .dash-tools { display:flex; gap:8px; flex-wrap:wrap; margin-top:12px; }
+  .dash-tools button { font:inherit; font-size:13.5px; color:var(--silk); background:var(--raised); border:0; border-radius:9999px; padding:8px 15px; cursor:pointer; }
+  .dash-tools button:hover { background:var(--graphite); }
+  .dash-tools button[aria-pressed="true"] { background:var(--orange); color:var(--black); font-weight:600; }
+  .dash-chart { position:relative; margin-top:16px; border-radius:18px; overflow:hidden; background:var(--charcoal); }
+  .dash-chart svg { display:block; width:100%; height:auto; touch-action:pan-y; }
+  .dash-tip { position:absolute; right:10px; top:8px; font-size:12px; font-family:var(--mono-font); color:var(--silk); background:rgba(0,0,0,0.75); padding:4px 8px; border-radius:8px; pointer-events:none; }
+  .dash-foot { margin:10px 2px 0; font-size:12.5px; color:var(--ash); }
+
+  .dash-calc { margin-top:24px; border-top:1px solid var(--raised); padding-top:20px; }
+  .dash-calc h3 { margin:0 0 4px; font-size:22px; font-weight:800; letter-spacing:-0.02em; }
+  .dash-calc > p { margin:0 0 14px; color:var(--mute); font-size:14.5px; }
+  .calc-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; margin-top:14px; }
+  .calc-grid .fld input { width:100%; }
+  .calc-grid .fld small { display:block; color:var(--ash); font-size:12px; margin-top:6px; }
+  .chain-note { margin:12px 2px 0; color:var(--mute); font-size:13.5px; }
+  .cmp { margin-top:16px; background:var(--black); border-radius:18px; padding:4px 14px; overflow-x:auto; }
+  .cmp table { min-width:560px; }
+  .cmp tr.on th, .cmp tr.on td { color:var(--up); }
+
+  /* implied vs actual */
+  .vs-cards { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .vs-cards div { background:var(--charcoal); border-radius:22px; padding:16px 18px 18px; min-width:0; }
+  .vs-cards .k { font-family:var(--mono-font); font-size:12px; color:var(--ash); }
+  .vs-cards b { display:block; font-size:clamp(28px,3vw,38px); font-weight:800; letter-spacing:-0.03em; margin:6px 0 4px; }
+  .vs-cards span { display:block; color:var(--mute); font-size:13.5px; }
+  .vs-cards .hot b { color:var(--gold); }
+  .vs-cards .vol b { font-size:clamp(22px,2.3vw,30px); }
+  .vs-hist { margin-top:14px; border-radius:22px; overflow:hidden; }
+  .vs-hist svg { display:block; width:100%; height:auto; }
+  .vs-sum { margin:14px 2px 0; font-size:16px; color:var(--silk); max-width:90ch; }
+  .vs-sum b { color:var(--up); font-weight:600; }
+
+  /* historical example label */
+  .hist-tag { display:inline-block; font-family:var(--mono-font); font-size:12px; color:var(--black); background:var(--gold); border-radius:6px; padding:3px 8px; margin-bottom:10px; font-weight:600; }
+
+  /* collapsible walkthroughs */
+  details.walk { margin:0 0 40px; }
+  details.walk > summary { list-style:none; cursor:pointer; display:flex; align-items:center; gap:12px; background:var(--charcoal); border-radius:22px; padding:16px 20px; font-size:18px; font-weight:700; }
+  details.walk > summary::-webkit-details-marker { display:none; }
+  details.walk > summary::before { content:"▶"; font-size:12px; color:var(--black); background:var(--up); width:30px; height:30px; flex:0 0 30px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+  details.walk[open] > summary::before { content:"■"; }
+  details.walk > summary small { margin-left:auto; color:var(--ash); font-weight:400; font-size:13px; }
+  details.walk[open] > summary { border-radius:22px 22px 0 0; }
+  details.walk .anim { border-radius:0 0 28px 28px; margin:0 !important; padding-top:8px; }
+
+  /* FAQ */
+  .faq details { background:var(--charcoal); border-radius:22px; padding:0; margin-bottom:10px; }
+  .faq summary { cursor:pointer; list-style:none; padding:18px 22px; font-size:19px; font-weight:700; letter-spacing:-0.01em; display:flex; justify-content:space-between; gap:16px; }
+  .faq summary::-webkit-details-marker { display:none; }
+  .faq summary::after { content:"+"; color:var(--up); font-size:24px; line-height:1; font-weight:400; }
+  .faq details[open] summary::after { content:"−"; }
+  .faq details p { margin:0; padding:0 22px 20px; color:var(--mute); font-size:16px; max-width:80ch; }
+
+  @media (max-width:1100px) {
+    .dash-controls { grid-template-columns:1fr 1fr; }
+    .dash-controls .fld-exp { grid-column:1 / -1; }
+    .calc-grid, .vs-cards { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  }
+  @media (max-width:680px) {
+    .has-lnav .lnav { position:relative; top:auto; }
+    .toc { top:44px; margin:18px -16px 0; padding:8px 16px; }
+    [id] { scroll-margin-top:110px; }
+    .dash { padding:16px 14px 16px; border-radius:22px; margin-top:16px; }
+    .dash-head { margin-bottom:14px; }
+    .dash-controls { grid-template-columns:1fr; gap:10px; }
+    .dash-meta { gap:8px; }
+    .dash-meta div { padding:10px 10px 11px; border-radius:14px; }
+    .dash-meta small { font-size:11.5px; }
+    .dash-meta b { font-size:18px; }
+    .dash-meta span { font-size:11px; }
+    .dash-em { gap:8px; }
+    .dash-em div { padding:12px 12px 13px; border-radius:14px; }
+    .dash-em b { font-size:28px; }
+    .dash-em span { font-size:12px; }
+    .dash-chart { margin-left:-6px; margin-right:-6px; border-radius:14px; }
+    .calc-grid { grid-template-columns:1fr 1fr; gap:8px; }
+    .vs-cards { grid-template-columns:1fr 1fr; gap:10px; }
+    .vs-cards div { padding:13px 14px 14px; border-radius:18px; }
+    .vs-cards b { font-size:24px; }
+    details.walk { margin:0 0 32px; }
+    details.walk > summary { font-size:16px; padding:14px 16px; }
+    details.walk > summary small { display:none; }
+    details.walk .anim { padding:14px 12px 18px; }
+    .faq summary { font-size:17px; padding:16px 18px; }
+    [data-em-track] table { display:table; min-width:0; }
+    [data-em-track] th:nth-child(2), [data-em-track] td:nth-child(2), [data-em-track] th:nth-child(5), [data-em-track] td:nth-child(5), [data-em-track] th:nth-child(6), [data-em-track] td:nth-child(6) { display:none; }
+    [data-em-track] th, [data-em-track] td { padding:10px 8px; }
+    .faq details p { padding:0 18px 18px; font-size:15px; }
+  }
+</style>
+<script src="/js/nav.js?v=11" defer></script>
+<script src="/js/site.js?v=18" defer></script>
+<script src="/js/em3-anim.js?v=1" defer></script>
+<script src="/js/em-dash.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=6" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top compact" data-candle-bg="expected-move">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; an interactive tool, then how it works</p>
+      <h1>Expected <span>Move</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Pick a ticker and an expiration, add the options prices, and get the range the options market is pricing, drawn on the chart. <em>About 68% odds it finishes inside by expiration.</em> Then see whether that range is bigger or smaller than the stock usually moves.</p>
+    </div>
+  </header>
+
+  <nav class="toc" data-em-toc aria-label="On this page">
+    <a href="#dashboard">Dashboard</a>
+    <a href="#implied-vs-actual">Implied vs actual</a>
+    <a href="#accuracy">Accuracy</a>
+    <a href="#what">What 68% means</a>
+    <a href="#methods">The methods</a>
+    <a href="#using">Using it</a>
+    <a href="#faq">FAQ</a>
+  </nav>
+
+  <!-- ================= the dashboard ================= -->
+  <section class="dash" id="dashboard" data-em-dash aria-label="Expected move dashboard">
+    <div class="dash-head">
+      <h2>Expected Move Dashboard</h2>
+      <span class="dash-badge" data-k="badge" aria-live="polite">Loading…</span>
+    </div>
+
+    <form data-k="form" autocomplete="off">
+      <div class="dash-controls">
+        <div class="fld">
+          <label for="em3-sym">Ticker</label>
+          <div class="line">
+            <input id="em3-sym" name="sym" maxlength="6" spellcheck="false" placeholder="SPY" aria-label="Ticker">
+            <button class="pill pill-buy go" type="submit">Load</button>
+          </div>
+          <div class="chips" data-k="quick" aria-label="Quick tickers"></div>
+        </div>
+        <div class="fld">
+          <span class="lab">Reference price</span>
+          <div class="line">
+            <div class="bt-seg" data-seg="ref" role="group" aria-label="Reference price">
+              <button type="button" data-v="friday">Friday close</button>
+              <button type="button" data-v="latest">Latest</button>
+              <button type="button" data-v="custom">Custom</button>
+            </div>
+            <input name="ref" inputmode="decimal" aria-label="Custom reference price">
+          </div>
+          <div class="chips"><small style="color:var(--ash);font-size:12.5px;">Weekly reads start from Friday's close. Pick Latest to start from now.</small></div>
+        </div>
+        <div class="fld fld-exp">
+          <label for="em3-exp">Expiration</label>
+          <div class="line"><input id="em3-exp" name="exp" type="date"></div>
+          <div class="chips" data-k="expchips">
+            <button type="button" data-e="w1">Next Friday</button>
+            <button type="button" data-e="w2">Friday after</button>
+            <button type="button" data-e="mo">Monthly</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-meta">
+        <div><small>Underlying</small><b data-k="sym">SPY</b><span>&nbsp;</span></div>
+        <div><small>Reference</small><b data-k="refv">—</b><span data-k="refl">&nbsp;</span></div>
+        <div><small>Expiration</small><b data-k="dte">—</b><span data-k="dtel">&nbsp;</span></div>
+      </div>
+      <div class="dash-em">
+        <div class="up"><small>Upper expected move</small><b data-k="hi">—</b><span data-k="hip">&nbsp;</span></div>
+        <div class="dn"><small>Lower expected move</small><b data-k="lo">—</b><span data-k="lop">&nbsp;</span></div>
+      </div>
+      <p class="dash-basis" data-k="basis"></p>
+      <div class="dash-status" data-k="status" aria-live="polite"></div>
+      <div class="dash-tools">
+        <button type="button" data-k="watch" aria-pressed="false">Alert me</button>
+        <button type="button" data-k="copy">Copy levels</button>
+      </div>
+      <div class="dash-chart" data-k="chart">
+        <svg role="img" aria-label="Daily chart with the expected move drawn to expiration"></svg>
+        <div class="dash-tip" data-k="tip" hidden></div>
+      </div>
+      <p class="dash-foot" data-k="foot"></p>
+
+      <div class="dash-calc">
+        <h3>Options inputs</h3>
+        <p>Read these off your broker's chain for the expiration above, ideally after the close when prices are settled. Pick the method that drives the cards; every method you fill in shows in the table.</p>
+        <div class="bt-seg" data-seg="method" role="group" aria-label="Method">
+          <button type="button" data-v="straddle">ATM straddle</button>
+          <button type="button" data-v="m2">Straddle + ITM strangle</button>
+          <button type="button" data-v="iv">Implied volatility</button>
+          <button type="button" data-v="d16">16 delta strikes</button>
+        </div>
+        <div class="calc-grid">
+          <div class="fld" data-for="straddle m2"><label for="em3-call">At-the-money call</label><input id="em3-call" name="call" inputmode="decimal" placeholder="4.73"><small>ask, strike nearest the price</small></div>
+          <div class="fld" data-for="straddle m2"><label for="em3-put">At-the-money put</label><input id="em3-put" name="put" inputmode="decimal" placeholder="5.18"><small>ask, same strike</small></div>
+          <div class="fld" data-for="m2"><label for="em3-ic">First ITM call</label><input id="em3-ic" name="itmCall" inputmode="decimal" placeholder="5.29"><small>strike just below the price</small></div>
+          <div class="fld" data-for="m2"><label for="em3-ip">First ITM put</label><input id="em3-ip" name="itmPut" inputmode="decimal" placeholder="5.18"><small>strike just above the price</small></div>
+          <div class="fld" data-for="iv"><label for="em3-iv">Implied volatility %</label><input id="em3-iv" name="iv" inputmode="decimal" placeholder="18.5"><small>at-the-money IV for this expiration</small></div>
+          <div class="fld" data-for="d16"><label for="em3-d16c">16 delta call strike</label><input id="em3-d16c" name="d16c" inputmode="decimal" placeholder="422.25"><small>top of the range</small></div>
+          <div class="fld" data-for="d16"><label for="em3-d16p">16 delta put strike</label><input id="em3-d16p" name="d16p" inputmode="decimal" placeholder="397.50"><small>bottom of the range</small></div>
+        </div>
+        <p class="chain-note"><span data-k="chain"></span> <button type="button" class="pill go" data-k="fill" hidden style="background:var(--raised);color:var(--silk);margin-left:6px;">Fill from live chain</button></p>
+        <div class="cmp">
+          <table>
+            <thead><tr><th>Method</th><th>Each way</th><th>Range</th><th>Odds at expiration</th></tr></thead>
+            <tbody data-k="rows"></tbody>
+          </table>
+        </div>
+      </div>
+    </form>
+  </section>
+
+  <!-- ================= implied vs actual ================= -->
+  <div class="section-head" id="implied-vs-actual">
+    <h2>Implied vs actual</h2>
+    <p>The 68% range isn't a wall. The useful question is whether the options market is pricing more or less movement than this stock usually delivers over the same number of days.</p>
+  </div>
+  <section data-em-vs aria-label="Implied move compared with actual historical moves">
+    <div class="vs-cards">
+      <div><span class="k">implied move</span><b data-k="em">—</b><span data-k="eml"></span></div>
+      <div><span class="k">typical actual move</span><b data-k="p68">—</b><span data-k="p68l"></span></div>
+      <div class="hot"><span class="k">implied ÷ actual</span><b data-k="ratio">—</b><span data-k="ratiol"></span></div>
+      <div class="vol"><span class="k">volatility</span><b data-k="vol">—</b><span data-k="voll"></span></div>
+    </div>
+    <div class="vs-hist"><svg role="img" aria-label="Histogram of the stock's past moves over windows the same length as this expiration, with the expected move range shaded"></svg></div>
+    <p class="vs-sum" data-k="sum" aria-live="polite"></p>
+  </section>
+
+  <!-- ================= accuracy tracker ================= -->
+  <div class="section-head" id="accuracy">
+    <h2>How often does price really finish inside?</h2>
+    <p>A two-year scorecard on the most-traded names: a one-standard-deviation weekly range set every Friday, then checked against where price finished the next Friday, and whether it ever left the range during the week.</p>
+  </div>
+  <div class="em-table" data-em-track>
+    <table>
+      <thead><tr><th>Symbol</th><th>Weeks</th><th>Finished inside</th><th>Stayed inside all week</th><th>Average range</th><th>Average actual move</th></tr></thead>
+      <tbody><tr><td colspan="6" class="txt">Scroll here to load the scorecard.</td></tr></tbody>
+      <tfoot><tr><th>Theory</th><td></td><td class="hl">about 68%</td><td>about 37%</td><td></td><td></td></tr></tfoot>
+    </table>
+  </div>
+  <p class="src" data-em-note style="margin-top:12px;"></p>
+
+  <!-- ================= education: what it is ================= -->
+  <div class="section-head" id="what">
+    <h2>What the expected move is, and what 68% really means</h2>
+    <p>The range the options market prices between now and an expiration, usually one standard deviation either side of the price. The options market sets it; you read it off the chain.</p>
+  </div>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>68% is where it finishes, not where it travels</h3>
+          <ul>
+            <li>In a simplified bell-curve model, about 68% of outcomes finish inside one standard deviation at expiration.</li>
+            <li>It says nothing about the path. Price can poke outside on Wednesday and still finish inside on Friday.</li>
+            <li>In the same model, the odds of never trading outside the range all week are only about 37%, and each edge gets touched roughly a third of the time.</li>
+          </ul>
+          <p class="why">So a touch of the top or bottom mid-week is normal. It isn't the range failing.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Any expiration you like</h3>
+          <ul>
+            <li>The weekly move uses the coming Friday's expiration. A common monthly read uses the standard monthly about a month out.</li>
+            <li>It works best where the options market is deep and liquid: SPY, QQQ, big names like AAPL. Not a thinly traded penny stock.</li>
+          </ul>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Take the reading while the market is closed</h3>
+          <ul>
+            <li>For the weekly move, read the chain after Friday's close and before Monday's open, when prices are settled.</li>
+            <li>The dashboard's Friday close setting does the same thing: the range is anchored to that close all week.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Finish inside vs stay inside</h4>
+        <p class="lead">Simplified normal model, one standard deviation each way.</p>
+        <div class="calc">
+          <div class="row"><span>Finishes inside at expiration</span><b>about 68%</b></div>
+          <div class="row"><span>Never trades outside before expiration</span><b>about 37%</b></div>
+          <div class="row"><span>Touches the top at some point</span><b>about 32%</b></div>
+          <div class="row"><span>Touches the bottom at some point</span><b>about 32%</b></div>
+          <div class="row tot"><span>Finishes past one edge</span><b>about 16% each</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <span class="hist-tag">Historical example &middot; Fri June 3, 2022</span>
+        <h4>The SPY numbers used below</h4>
+        <p class="lead">Read off the chain from the reference video, recorded the weekend of June 4, 2022, for the June 10, 2022 expiration. These are not current prices.</p>
+        <div class="calc">
+          <div class="row"><span>SPY close, Friday June 3, 2022</span><b>$410.54</b></div>
+          <div class="row"><span>ATM straddle (411 call + 411 put)</span><b>$9.91</b></div>
+          <div class="row"><span>1σ ≈ straddle × 1.25</span><b>&plusmn;$12.39</b></div>
+          <div class="row tot"><span>1σ range to June 10, 2022</span><b>$398.15 &ndash; $422.93</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <details class="walk">
+    <summary>Walkthrough: why 68%, and the SPY example <small>Animated · 5 steps</small></summary>
+    <section class="anim" data-em-anim="bell" aria-label="Illustrative bell curve: about 34% of outcomes fall between the middle and one standard deviation on each side, 68% finishing inside in total, about 16% in each tail; on SPY's June 3, 2022 close of $410.54, a $9.91 straddle times 1.25 gives a one standard deviation move of ±$12.39, $398.15 to $422.93">
+      <div class="anim-head">
+        <div>
+          <p class="anim-n"></p>
+          <h2 class="anim-title">Why 68%</h2>
+          <p class="anim-text" aria-live="polite"></p>
+        </div>
+        <div class="anim-ctrl">
+          <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+          <button type="button" class="pill anim-replay">Replay</button>
+        </div>
+      </div>
+      <div class="anim-scroll"><svg viewBox="0 0 1180 500" role="img" aria-label="Bell curve walkthrough"></svg></div>
+      <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+    </section>
+  </details>
+
+  <!-- ================= the methods ================= -->
+  <div class="section-head" id="methods">
+    <h2>Four ways to read it off the chain</h2>
+    <p>A straddle is the call and the put at the same strike. A strangle is a call and a put at two different strikes. Delta is roughly the market's odds an option finishes in the money.</p>
+  </div>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>The at-the-money straddle, × 1.25</h3>
+          <ul>
+            <li>Add the call and put at the strike nearest the price. SPY on June 3, 2022: the 411 call and 411 put, $9.91 on the ask.</li>
+            <li>The straddle isn't a full one-standard-deviation move. It's worth about 0.8 of one, because it prices the average size of the move, not its spread.</li>
+            <li>So a common approximation is expected move ≈ straddle × 1.25: $9.91 × 1.25 ≈ ±$12.39.</li>
+          </ul>
+          <p class="why">The straddle on its own covers roughly 58% odds. Handy, but narrower than the 68% range.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Straddle + first ITM strangle, ÷ 2</h3>
+          <ul>
+            <li>Add the first in-the-money call and put to the straddle, then halve the total. SPY: $9.91 + $10.47 = $20.38, ÷ 2 = $10.19.</li>
+            <li>In this example that matched the figure the platform showed. It's a rule of thumb that reproduces one platform's number, not a universal formula.</li>
+            <li>At $10.19 it sits closer to 0.8σ than a full 1σ, so its odds are nearer 59% than 68%.</li>
+          </ul>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>The 16 delta strikes</h3>
+          <ul>
+            <li>Find the call and the put where delta is about 16. SPY: about $422.25 on top and $397.50 below.</li>
+            <li>That's about ±$12.4 on average, almost exactly the straddle × 1.25. The two methods agree on the 1σ range.</li>
+            <li>It also shows skew: $13.04 of room down and $11.71 up, because puts carry more implied volatility.</li>
+          </ul>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">7</div>
+        <div>
+          <h3>Implied volatility</h3>
+          <ul>
+            <li>Expected move ≈ price × implied volatility × √(calendar days to expiration ÷ 365).</li>
+            <li>SPY at $410.54 with 6 days to go and a $12.39 move implies about 24% annualized volatility.</li>
+          </ul>
+          <p class="why">The dashboard converts whichever method you fill in into an implied volatility, so you can line it up against realized volatility.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <span class="hist-tag">Historical example &middot; Fri June 3, 2022</span>
+        <h4>Four reads, one SPY chain</h4>
+        <p class="lead">Six days to the June 10, 2022 expiration, every leg on the ask.</p>
+        <div class="calc">
+          <div class="row"><span>Straddle × 1.25 (1σ)</span><b>&plusmn;$12.39</b></div>
+          <div class="row"><span>16 delta strikes</span><b>$397.50 &ndash; $422.25</b></div>
+          <div class="row"><span>Straddle alone (≈0.8σ)</span><b>&plusmn;$9.91</b></div>
+          <div class="row"><span>Straddle + strangle ÷ 2 (the platform's figure)</span><b>&plusmn;$10.19</b></div>
+          <div class="row tot"><span>Odds at expiration: 1σ / platform figure</span><b>≈68% / ≈59%</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Why platforms disagree</h4>
+        <p class="lead">Brokers calculate their expected move differently: some show the straddle-based figure, some a blend like method 5, some a 1σ number from implied volatility. If yours looks small next to straddle × 1.25, it's probably showing a straddle-style number. Check how it's defined before you treat it as the 68% range.</p>
+      </div>
+    </div>
+  </div>
+
+  <details class="walk">
+    <summary>Walkthrough: the straddle and the strangle on the chain <small>Animated · 5 steps</small></summary>
+    <section class="anim" data-em-anim="chain" aria-label="Historical SPY options chain from June 3, 2022 with a $410.54 last price: the 411 call plus the 411 put makes a $9.91 straddle, about 0.8 of a one standard deviation move, times 1.25 is about ±$12.39; adding the 410 call and 411 put strangle of $10.47 and dividing by two gives $10.19, which matched the platform in this example">
+      <div class="anim-head">
+        <div>
+          <p class="anim-n"></p>
+          <h2 class="anim-title">Reading it off the chain</h2>
+          <p class="anim-text" aria-live="polite"></p>
+        </div>
+        <div class="anim-ctrl">
+          <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+          <button type="button" class="pill anim-replay">Replay</button>
+        </div>
+      </div>
+      <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Options chain walkthrough"></svg></div>
+      <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+    </section>
+  </details>
+
+  <details class="walk">
+    <summary>Walkthrough: the 16 delta strikes and skew <small>Animated · 5 steps</small></summary>
+    <section class="anim" data-em-anim="delta" aria-label="Historical SPY chain delta columns from June 3, 2022: 16 delta falls near $422.25 on the call side and $397.50 on the put side, about ±$12.4 on average, matching the straddle times 1.25, with more room priced to the downside">
+      <div class="anim-head">
+        <div>
+          <p class="anim-n"></p>
+          <h2 class="anim-title">Find 16 on both sides</h2>
+          <p class="anim-text" aria-live="polite"></p>
+        </div>
+        <div class="anim-ctrl">
+          <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+          <button type="button" class="pill anim-replay">Replay</button>
+        </div>
+      </div>
+      <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Delta walkthrough"></svg></div>
+      <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+    </section>
+  </details>
+
+  <div class="em-table">
+    <table>
+      <caption><span class="hist-tag">Historical example &middot; chains from Fri June 3, 2022, expiring June 10, 2022 &middot; not current prices</span></caption>
+      <thead><tr><th></th><th>SPY</th><th>QQQ</th><th>AAPL</th></tr></thead>
+      <tbody>
+        <tr><th>Close, June 3, 2022</th><td>$410.54</td><td>$306.20</td><td>$145.38</td></tr>
+        <tr><th>ATM straddle</th><td>$9.91</td><td>about $10.17</td><td>$5.70</td></tr>
+        <tr><th>Straddle × 1.25 (1σ)</th><td class="hl">&plusmn;$12.39</td><td class="hl">about &plusmn;$12.71</td><td class="hl">&plusmn;$7.13</td></tr>
+        <tr><th>1σ range</th><td>$398.15 &ndash; $422.93</td><td>about $293.49 &ndash; $318.91</td><td>$138.25 &ndash; $152.51</td></tr>
+        <tr><th>16 delta range</th><td>$397.50 &ndash; $422.25</td><td>$293 &ndash; $318</td><td>about $137.50 &ndash; $153</td></tr>
+        <tr><th>Platform figure (÷ 2 read)</th><td>&plusmn;$10.19</td><td>&plusmn;$10.47 ($10.46)</td><td>&plusmn;$6.06 ($5.98)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="src" style="margin:10px 0 40px;">QQQ's straddle was only given as about 30&cent; under the platform's figure, so its 1σ row is approximate. In all three, straddle × 1.25 lands right on the 16 delta range.</p>
+
+  <details class="walk">
+    <summary>Walkthrough: SPY, QQQ and AAPL side by side <small>Animated · 4 steps</small></summary>
+    <section class="anim" data-em-anim="examples" aria-label="Historical June 3, 2022 weekly reads for SPY, QQQ and AAPL as a share of price: the platform figure and the 16 delta range for each">
+      <div class="anim-head">
+        <div>
+          <p class="anim-n"></p>
+          <h2 class="anim-title">Three chains, side by side</h2>
+          <p class="anim-text" aria-live="polite"></p>
+        </div>
+        <div class="anim-ctrl">
+          <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+          <button type="button" class="pill anim-replay">Replay</button>
+        </div>
+      </div>
+      <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Three examples walkthrough"></svg></div>
+      <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+    </section>
+  </details>
+
+  <!-- ================= using it ================= -->
+  <div class="section-head" id="using">
+    <h2>What to use it for</h2>
+    <p>Context for the week, not a to-the-penny target, and not a signal on its own.</p>
+  </div>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">8</div>
+        <div>
+          <h3>Draw it, then leave it</h3>
+          <ul>
+            <li>Two horizontal lines at the top and bottom, from Friday's close to expiration. Copy levels on the dashboard gives you both numbers.</li>
+            <li>Inside the range, the move is ordinary. Trade your levels and setups as usual.</li>
+          </ul>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">9</div>
+        <div>
+          <h3>A break isn't a reversal signal</h3>
+          <ul>
+            <li>Outside the range, a brand-new entry in the direction of the move is a chase: price has already gone further than the week was priced for.</li>
+            <li>That doesn't make it a fade. Strong trends, earnings and macro news can carry price well past the implied range and keep it there.</li>
+            <li>Wait for your own setup, such as a pullback to a level, rather than shorting the top or buying the bottom because a line got crossed.</li>
+          </ul>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">10</div>
+        <div>
+          <h3>Check the price of the range</h3>
+          <ul>
+            <li>Implied vs actual, above, tells you whether this week's range is wide or narrow for this stock.</li>
+            <li>Rich (well above its usual moves): premium is expensive, often ahead of an event. Cheap: moves past the range are likelier than 68% suggests.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Inside or outside?</h4>
+        <p class="lead">One quick check before a new entry. The dashboard's alert does it for you while the page is open.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">inside the range</span><b>An ordinary move</b><p>Nothing unusual is priced in yet. Trade your plan.</p></div>
+          <div class="care"><span class="k">outside the range</span><b>Don't chase, don't fade blindly</b><p>The priced move is done. Wait for a pullback or your own signal.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <details class="walk">
+    <summary>Walkthrough: one week against its expected move <small>Animated · 5 steps</small></summary>
+    <section class="anim" data-em-anim="context" aria-label="Illustrative chart on made-up bars: a $100 Friday close and a ±$4 weekly expected move give a $96 to $104 range; price trades inside Monday and Tuesday, breaks above $104 on Wednesday where a new long would be chasing, and happens to slip back inside by Thursday">
+      <div class="anim-head">
+        <div>
+          <p class="anim-n"></p>
+          <h2 class="anim-title">Outside the move, you're chasing</h2>
+          <p class="anim-text" aria-live="polite"></p>
+        </div>
+        <div class="anim-ctrl">
+          <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+          <button type="button" class="pill anim-replay">Replay</button>
+        </div>
+      </div>
+      <div class="anim-scroll"><svg viewBox="0 0 1180 470" role="img" aria-label="Week walkthrough"></svg></div>
+      <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+    </section>
+  </details>
+
+  <!-- ================= FAQ ================= -->
+  <div class="section-head" id="faq">
+    <h2>Questions</h2>
+  </div>
+  <div class="faq">
+    <details><summary>What is the expected move?</summary><p>The range the options market is pricing for a stock between now and an expiration, usually quoted as one standard deviation either side of the current price. In a simplified normal model, price finishes inside a one-standard-deviation range about 68% of the time.</p></details>
+    <details><summary>Does 68% mean price stays inside the range all week?</summary><p>No. The 68% is roughly the chance price finishes inside the range at expiration. The chance it never trades outside the range before then is much lower, about 37% in the same model, because price can poke out and come back.</p></details>
+    <details><summary>How do I calculate it from the at-the-money straddle?</summary><p>Add the at-the-money call and put prices. The straddle is worth about 0.8 of a one-standard-deviation move, so a common approximation is expected move ≈ straddle × 1.25. The straddle on its own covers roughly 58% odds.</p></details>
+    <details><summary>Is averaging the straddle and the ITM strangle the official formula?</summary><p>No. Straddle plus the first in-the-money strangle, divided by two, reproduced one platform's figure in the SPY example, but it's a rule of thumb, not a universal formula. Different platforms calculate their expected move differently.</p></details>
+    <details><summary>Is a break outside the expected move a reversal signal?</summary><p>No. Outside the range a new entry in the direction of the move is a chase, but strong trends, earnings and macroeconomic news can carry price well beyond the implied range. Treat it as context and wait for your own setup.</p></details>
+    <details><summary>How do I know whether options are pricing a big or small move?</summary><p>Compare the implied move with the stock's actual moves over windows of the same length, which is what Implied vs actual does. If the implied move is bigger than about 68% of past moves, options are pricing more movement than usual; if it's smaller, less.</p></details>
+    <details><summary>Is the data on this page live?</summary><p>Prices come from a delayed market data feed, with the time and the delay shown under the chart. The options prices are the ones you type in, unless the site's data plan includes the options chain, in which case the dashboard fills them and says so. When live data isn't available the page switches to made-up example bars and labels them.</p></details>
+  </div>
+
+  <!-- ================= related tools ================= -->
+  <div class="section-head">
+    <h2>Related tools</h2>
+    <p>Other ways the options market shows up on a chart.</p>
+  </div>
+  <div class="four">
+    <a href="/setups/gex-levels.html"><span class="k">options levels</span><h3>GEX Levels</h3><p>Call wall, put wall and the gamma flip, on a chart.</p><small>Where dealer hedging tends to slow or speed price.</small></a>
+    <a href="/covered-calls.html"><span class="k">selling premium</span><h3>Covered Calls</h3><p>Own the stock, sell a call against it.</p><small>The expected move is a quick check on how far away a strike is.</small></a>
+    <a href="/four-pillars.html"><span class="k">context</span><h3>Four Pillars</h3><p>Levels, context, sizing and discipline.</p><small>The expected move is one more piece of context.</small></a>
+    <a href="/six-momentum-trades.html"><span class="k">entries</span><h3>Six Momentum Trades</h3><p>The pullback continuation.</p><small>For when you'd rather not chase the break.</small></a>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/Lhv3wiPv6Ok" title="What the expected move is and how to calculate it (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>The reference video, published June 4, 2022: the expected move and three ways to calculate it, worked on that weekend's SPY, QQQ and AAPL chains.</p>
+      <ol>
+        <li><b>0:27</b>What is the expected move?</li>
+        <li><b>2:28</b>Pricing the at-the-money straddle</li>
+        <li><b>4:20</b>Adding the in-the-money strangle</li>
+        <li><b>6:37</b>16 delta options and skew</li>
+        <li><b>10:33</b>QQQ example</li>
+        <li><b>14:20</b>AAPL example</li>
+        <li><b>18:07</b>What to use it for</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=Lhv3wiPv6Ok" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>It's not a target or a wall. It's how far the market is paying for price to go.</h2>
+      <p>Read it after Friday's close, draw it, and let it tell you when a move is ordinary, when a new entry would be a chase, and whether this week's range is wide or narrow for the stock.</p>
+    </div>
+    <div>
+      <ul>
+        <li>About 68% odds of finishing inside at expiration, about 37% of staying inside the whole way.</li>
+        <li>1σ ≈ ATM straddle × 1.25, which lines up with the 16 delta strikes.</li>
+        <li>Straddle + ITM strangle ÷ 2 is a platform-style rule of thumb.</li>
+        <li>Outside the range: don't chase, and don't fade it blindly.</li>
+        <li>Compare implied with actual before trusting the range.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">For education; not advice and not a promise of profit. Odds use a simplified normal model with no drift; real returns have fat tails. Live prices are delayed stock data from Massive; options inputs are typed in unless the dashboard says it filled them from a live chain. The SPY, QQQ and AAPL figures are from the reference video's chains on Friday June 3, 2022 (published June 4, 2022), not current prices; individual leg prices and other chain rows in the walkthroughs are an illustrative split of those totals, and the week chart is made-up bars. <a href="https://www.youtube.com/watch?v=Lhv3wiPv6Ok" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

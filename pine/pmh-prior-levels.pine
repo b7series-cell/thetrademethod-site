@@ -1,0 +1,579 @@
+//@version=6
+// ─────────────────────────────────────────────────────────────────────────────
+//  Pre-Market High / Low  +  Prior Day Levels
+//  • Marks the pre-market range each day and extends it into the session
+//  • Prior-day high / low / close drawn as anchored lines with end labels
+//  • Time-of-day relative volume "glow" on abnormal-volume bars
+//  • Break alerts for both sets of levels, optionally gated on a glowing candle
+//  Requires an intraday timeframe.
+// ─────────────────────────────────────────────────────────────────────────────
+indicator("Pre-Market High / Low + Prior Day", "PMH/PML+PD", overlay = true, max_lines_count = 500, max_labels_count = 500, max_boxes_count = 500)
+
+// ── Inputs ───────────────────────────────────────────────────────────────────
+gSess       = "Session"
+pmSess      = input.session("0400-0930", "Pre-Market Window", group = gSess, tooltip = "The window whose high and low get marked. Needs Extended Trading Hours enabled on the chart or there are no bars here to measure. Handles windows that cross midnight, so futures overnight ranges work too.")
+rthSess     = input.session("0930-1600", "Regular Session",   group = gSess, tooltip = "Defines the cash session. Used for the 'Until Session End' extend mode and to build the prior-day high/low/close, which are RTH-only by construction.")
+tzIn        = input.string("America/New_York", "Timezone", options = ["America/New_York", "America/Chicago", "America/Denver", "America/Los_Angeles", "Europe/London", "Asia/Tokyo", "UTC"], group = gSess, tooltip = "Timezone the session strings and the volume minute-of-day buckets are evaluated in. Leave on New York for US equities; DST is handled for you.")
+
+gDraw       = "Pre-Market Display"
+extendMode  = input.string("Until Session End", "Extend Levels", options = ["Pre-Market Only", "Until Session End", "Until Right Edge"], group = gDraw, tooltip = "How far the PM high/low lines run. Pre-Market Only stops them at 9:30, Until Session End carries them to 16:00, Until Right Edge keeps extending to the newest bar.")
+histDays    = input.int(3, "Days To Keep", minval = 1, maxval = 20, group = gDraw, tooltip = "How many past days of PM ranges and prior-day levels stay drawn. Older drawings are deleted to stay inside TradingView's 500-object limit.")
+showZone    = input.bool(true,  "Shade Pre-Market Range", group = gDraw, tooltip = "Fills the box between the PM high and low.")
+showMid     = input.bool(false, "Show Mid / EQ Line",     group = gDraw, tooltip = "Dotted line at the 50% of the pre-market range.")
+showLabels  = input.bool(true,  "Show Labels",            group = gDraw, tooltip = "Price tags riding the right end of the PM high and low lines.")
+showTable   = input.bool(true,  "Show Info Panel",        group = gDraw, tooltip = "Top-right readout: PM range, prior-day levels, relative volume, and the live setup checklist.")
+
+gPrior      = "Prior Day Levels"
+showPDH     = input.bool(true, "Prior Day High",  group = gPrior, tooltip = "Yesterday's regular-session high. Built from the chart's own RTH bars, so pre/post-market spikes never contaminate it.")
+showPDL     = input.bool(true, "Prior Day Low",   group = gPrior, tooltip = "Yesterday's regular-session low.")
+showPDC     = input.bool(true, "Prior Day Close", group = gPrior, tooltip = "Yesterday's last regular-session close. The reference for the 'vs PDC' gap reading in the panel.")
+pdLabels    = input.bool(true, "Label Prior Levels", group = gPrior, tooltip = "Price tags on the right end of the prior-day lines.")
+pdStyleIn   = input.string("Solid", "Prior Line Style", options = ["Solid", "Dashed", "Dotted"], group = gPrior, tooltip = "Dashed or dotted separates these visually from the solid pre-market lines.")
+
+gVol        = "Volume Glow"
+volOn       = input.bool(true, "Enable Volume Glow", group = gVol, tooltip = "Compares each bar's volume to the same minute of the day over the last N sessions, so 09:31 is judged against 09:31 rather than a flat all-day average. Required for the composite long setup alert.")
+volMode     = input.string("Relative Volume (x)", "Threshold Mode", options = ["Relative Volume (x)", "Std Dev (z-score)"], group = gVol, tooltip = "RVOL 3x and 3 sigma are NOT the same measurement. Intraday volume is right-skewed, so 3x the average is often only ~1.5-2 sigma, while a true 3 sigma event can be 6x or more. Pick the one you actually mean.")
+volThresh   = input.float(3.0, "Threshold", minval = 0.5, step = 0.1, group = gVol, tooltip = "The number a bar must reach to glow, read in whatever mode is selected above. Watch the Rel Vol row in the panel for a few sessions to calibrate this per symbol.")
+volSessions = input.int(5, "Lookback Sessions", minval = 2, maxval = 20, group = gVol, tooltip = "How many past sessions of history each minute-of-day bucket holds. Five is roughly a trading week.")
+volMinSamp  = input.int(3, "Min Sessions Required", minval = 1, maxval = 20, group = gVol, tooltip = "No glow until this many sessions exist for the current minute slot. Expect silence on the first days of a freshly loaded chart; the panel shows 'building 1/3' while it fills.")
+volMinRaw   = input.float(0, "Min Raw Volume", minval = 0, group = gVol, tooltip = "Absolute volume floor. A pre-market slot averaging 400 shares posts a 3x ratio on 1,200 shares, which is true but useless. Set a floor and those disappear.")
+volProject  = input.bool(false, "Project Live Bar Volume", group = gVol, tooltip = "Scales the forming bar's volume up by how much of the bar has elapsed so a live spike registers before the close. Jumpy in the first seconds of a bar. Does not affect the setup alert, which always waits for the close.")
+glowLayers  = input.int(2, "Glow Layers", minval = 0, maxval = 3, group = gVol, tooltip = "Stacked translucent halos behind the candle. Pine has no real blur, so this fakes it. Zero gives you just the recolored bar.")
+glowCol     = input.color(#FFEB3B, "Glow Color", group = gVol, tooltip = "Used for the bar, the halo, and the setup marker.")
+glowPad     = input.float(0.18, "Halo Spread", minval = 0.05, maxval = 1.0, step = 0.01, group = gVol, tooltip = "How far each halo layer extends past the wicks, as a fraction of the bar's range.")
+colorBar    = input.bool(true,  "Color The Candle", group = gVol, tooltip = "Off leaves the candle its normal color and shows only the halo.")
+volLabels   = input.bool(false, "Label Volume Value", group = gVol, tooltip = "Prints the reading under each glowing bar.")
+
+gStyle      = "Style"
+hiCol       = input.color(#26A69A, "PM High", inline = "c1", group = gStyle, tooltip = "Colors for the pre-market high, low, and mid lines.")
+loCol       = input.color(#EF5350, "PM Low",  inline = "c1", group = gStyle)
+midCol      = input.color(#9598A1, "PM Mid",  inline = "c1", group = gStyle)
+pdhCol      = input.color(#FF9800, "PDH", inline = "c2", group = gStyle, tooltip = "Colors for the prior-day high, low, and close lines.")
+pdlCol      = input.color(#29B6F6, "PDL", inline = "c2", group = gStyle)
+pdcCol      = input.color(#B2B5BE, "PDC", inline = "c2", group = gStyle)
+zoneCol     = input.color(color.new(#787B86, 92), "Zone Fill", inline = "c3", group = gStyle, tooltip = "Fill color for the pre-market range box, and the width of the PM lines.")
+lWidth      = input.int(2, "PM Width", minval = 1, maxval = 5, inline = "c3", group = gStyle)
+lStyleIn    = input.string("Solid", "PM Line Style", options = ["Solid", "Dashed", "Dotted"], group = gStyle, tooltip = "Line style for the pre-market high and low.")
+labSizeIn   = input.string("Small", "Label Size", options = ["Tiny", "Small", "Normal", "Large"], group = gStyle, tooltip = "Applies to every price tag on the chart.")
+labText     = input.color(#131722, "Label Text", group = gStyle, tooltip = "Text color inside the prior-day price tags. Dark reads better on the light orange and grey backgrounds.")
+
+gAlert      = "Alerts"
+alertScope  = input.string("Setup Only", "Which Events Send alert()", options = ["Setup Only", "All Events"], group = gAlert, tooltip = "Controls what a TradingView alert built on 'Any alert() function call' will fire on. Setup Only sends nothing but the composite long setup. All Events also sends the individual break events and the PM range-complete event, which fires every morning at the open on every symbol regardless of price.")
+rangeAlert  = input.bool(false, "PM Range Complete Event",     group = gAlert, tooltip = "A notification the moment the pre-market window closes. No price condition attached, so it fires daily on every symbol. Only relevant with All Events selected.")
+setupOn     = input.bool(true,  "Long Setup Alert (all conditions)", group = gAlert, tooltip = "The composite signal. Fires once per day on a confirmed bar only when ALL of these are true together: close above the prior-day high, a crossover that closes above the pre-market high, a volume-glow bar, and the bar opening inside the break window. Needs Volume Glow enabled.")
+setupMark   = input.bool(true,  "Plot Setup Marker",           group = gAlert, tooltip = "Drops a labeled marker under the bar that completes the setup.")
+alertsOn    = input.bool(true,  "Pre-Market Break Alerts",     group = gAlert, tooltip = "The individual PM high/low break events, separate from the composite setup above.")
+pdAlertsOn  = input.bool(false, "Prior Day Break Alerts",      group = gAlert, tooltip = "Individual prior-day high/low break events. Off by default because this level is live 24 hours and fires often.")
+firstOnly   = input.bool(true,  "First Break Only (per day)",  group = gAlert, tooltip = "One signal per level per day. With this off you get every re-cross, which on a chopping open can be several.")
+useWick     = input.bool(false, "Trigger On Wick (else close)", group = gAlert, tooltip = "Applies to the individual break events only. The composite long setup always requires a close through the level regardless of this setting.")
+showMarks   = input.bool(true,  "Plot Break Markers",          group = gAlert, tooltip = "Triangles for PM breaks, diamonds for prior-day breaks.")
+reqClear    = input.bool(true,  "PM Break Must Clear Prior Day", group = gAlert, tooltip = "Long side: the PM break only counts if the pre-market HIGH is already above yesterday's high, so taking it out puts price above both levels at once. Short side mirrors it.")
+useBreakWin = input.bool(true,  "PM Break Window Only",        group = gAlert, tooltip = "Restricts PM break events to the opening window below.")
+breakWin    = input.session("0930-0945", "Break Window",       group = gAlert, tooltip = "Bars whose OPEN falls inside this window. On a 5-minute chart 0930-0945 covers the 9:30, 9:35 and 9:40 bars; the 9:45 bar is outside. Widen to 0930-0950 if you want the 9:45 bar included.")
+reqGlow     = input.bool(true,  "Break Must Be A Glowing Candle", group = gAlert, tooltip = "Applies the volume requirement to the individual break events too. Skipped automatically if Volume Glow is switched off, so turning volume off never silently kills every alert.")
+volAlerts   = input.bool(false, "Standalone Volume Spike Alerts", group = gAlert, tooltip = "Fires on any glowing candle, break or not.")
+
+gShort      = "Short Setup"
+shortOn     = input.bool(false, "Short Setup Alert (all conditions)", group = gShort, tooltip = "The mirror image of the long. Fires once per day on a confirmed bar only when ALL of these land together: close BELOW the prior-day low, a crossunder that closes below the pre-market low, a volume-glow bar, and the bar opening inside the break window. Off by default.")
+shortMark   = input.bool(true,  "Plot Short Marker",           group = gShort, tooltip = "Drops a labeled marker above the bar that completes the short setup.")
+shortCol    = input.color(#FF5252, "Marker",                   group = gShort, tooltip = "Fill color of the SHORT label.")
+
+gStats      = "Setup History"
+statsOn     = input.bool(false, "Show Setup History Panel",    group = gStats, tooltip = "A second table counting how many entries the script generated over the last 30, 60 and 90 calendar days of loaded chart history. Counts only what this symbol and timeframe produced under your current settings, so the numbers move if you change the break window, the volume threshold or any other setup input.")
+statPos     = input.string("Bottom Right", "Panel Position",   options = ["Bottom Right", "Bottom Left", "Middle Right", "Top Left"], group = gStats, tooltip = "Keep it clear of the main info panel in the top right.")
+statSide    = input.string("Both", "Show Entries",             options = ["Both", "Long Only", "Short Only"], group = gStats, tooltip = "Which side the panel counts. The short column stays at zero unless the Short Setup group is switched on, since nothing generates short entries otherwise.")
+
+lStyle = switch lStyleIn
+    "Dashed" => line.style_dashed
+    "Dotted" => line.style_dotted
+    => line.style_solid
+
+pdStyle = switch pdStyleIn
+    "Dashed" => line.style_dashed
+    "Dotted" => line.style_dotted
+    => line.style_solid
+
+labSize = switch labSizeIn
+    "Tiny"   => size.tiny
+    "Normal" => size.normal
+    "Large"  => size.large
+    => size.small
+
+// ── Session state ────────────────────────────────────────────────────────────
+isIntra = timeframe.isintraday
+inPM    = isIntra and not na(time(timeframe.period, pmSess,  tzIn))
+inRTH   = isIntra and not na(time(timeframe.period, rthSess, tzIn))
+pmBegin = inPM and not inPM[1]
+pmEnd   = not inPM and inPM[1]
+rthOpen = inRTH and not inRTH[1]
+rthShut = not inRTH and inRTH[1]
+
+extendOK = switch extendMode
+    "Pre-Market Only"   => inPM
+    "Until Session End" => inPM or inRTH
+    => true
+
+// ── Time-of-day relative volume ──────────────────────────────────────────────
+// Each minute-of-day keeps its own rolling history of the last N sessions'
+// volume for that same slot. Pine won't nest a collection inside another
+// collection's type template, so the array is wrapped in a UDT field.
+type VolSlot
+    array<float> v = na
+
+var map<int, VolSlot> volMap = map.new<int, VolSlot>()
+var array<box>   glowBoxes  = array.new<box>()
+var array<label> glowLabels = array.new<label>()
+
+minOfDay = hour(time, tzIn) * 60 + minute(time, tzIn)
+
+array<float> slot = na
+if volOn and isIntra
+    if not map.contains(volMap, minOfDay)
+        map.put(volMap, minOfDay, VolSlot.new(array.new<float>()))
+    slot := map.get(volMap, minOfDay).v
+
+float volAvg = na
+float volSd  = na
+int   volN   = 0
+
+if not na(slot)
+    volN := array.size(slot)
+    if volN > 0
+        volAvg := array.avg(slot)
+    if volN > 1
+        volSd := array.stdev(slot)
+
+barMs     = timeframe.in_seconds(timeframe.period) * 1000
+elapsedMs = math.max(1, timenow - time)
+liveBar   = barstate.isrealtime and not barstate.isconfirmed
+volNow    = volProject and liveBar ? volume * barMs / math.min(elapsedMs, barMs) : volume
+
+rvol = na(volAvg) or volAvg == 0 ? na : volNow / volAvg
+zvol = na(volSd)  or volSd  == 0 ? na : (volNow - volAvg) / volSd
+volMetric = volMode == "Std Dev (z-score)" ? zvol : rvol
+
+volSpike = volOn and isIntra and volN >= volMinSamp and volNow >= volMinRaw and not na(volMetric) and volMetric >= volThresh
+volSig   = volSpike and barstate.isconfirmed
+
+// Record this bar into its slot AFTER measuring, so a bar never scores itself
+if volOn and isIntra and barstate.isconfirmed and volume > 0
+    array.push(slot, volume)
+    if array.size(slot) > volSessions
+        array.shift(slot)
+
+barcolor(colorBar and volSpike ? glowCol : na, title = "Volume Glow")
+
+if volSig and glowLayers > 0
+    pad = math.max((high - low) * glowPad, syminfo.mintick * 2)
+    for i = 1 to glowLayers
+        halo = box.new(bar_index - i, high + pad * i, bar_index + i, low - pad * i, xloc = xloc.bar_index, bgcolor = color.new(glowCol, 62 + i * 11), border_color = #00000000)
+        array.push(glowBoxes, halo)
+    while array.size(glowBoxes) > 240
+        box.delete(array.shift(glowBoxes))
+
+if volSig and volLabels
+    tag = volMode == "Std Dev (z-score)" ? str.tostring(volMetric, "#.#") + "s" : str.tostring(volMetric, "#.#") + "x"
+    lb = label.new(bar_index, low, tag, xloc = xloc.bar_index, yloc = yloc.belowbar, style = label.style_none, textcolor = glowCol, size = size.tiny)
+    array.push(glowLabels, lb)
+    while array.size(glowLabels) > 120
+        label.delete(array.shift(glowLabels))
+
+// ── Prior day levels ─────────────────────────────────────────────────────────
+// Values are accumulated from the chart's own regular-session bars, then frozen
+// at the session roll. Roll fires on the RTH close OR on a calendar-day change,
+// so it works whether or not Extended Hours is enabled on the chart.
+type PDLevels
+    line  hiLn = na
+    line  loLn = na
+    line  clLn = na
+    label hiLb = na
+    label loLb = na
+    label clLb = na
+
+var float curH = na
+var float curL = na
+var float curC = na
+var float pdH  = na
+var float pdL  = na
+var float pdC  = na
+var int   pdX1 = na
+
+var array<PDLevels> pdStore = array.new<PDLevels>()
+var PDLevels pdCur = na
+var bool pdhBroke = false
+var bool pdlBroke = false
+
+newDay  = ta.change(time("D")) != 0
+rollNow = (rthShut or newDay) and not na(curH)
+
+if rollNow
+    pdH  := curH
+    pdL  := curL
+    pdC  := curC
+    pdX1 := time
+    pdhBroke := false
+    pdlBroke := false
+
+    pdCur := PDLevels.new()
+    if showPDH
+        pdCur.hiLn := line.new(time, pdH, time, pdH, xloc = xloc.bar_time, color = pdhCol, width = 1, style = pdStyle)
+        if pdLabels
+            pdCur.hiLb := label.new(time, pdH, "", xloc = xloc.bar_time, style = label.style_label_left, color = pdhCol, textcolor = labText, size = labSize)
+    if showPDL
+        pdCur.loLn := line.new(time, pdL, time, pdL, xloc = xloc.bar_time, color = pdlCol, width = 1, style = pdStyle)
+        if pdLabels
+            pdCur.loLb := label.new(time, pdL, "", xloc = xloc.bar_time, style = label.style_label_left, color = pdlCol, textcolor = labText, size = labSize)
+    if showPDC
+        pdCur.clLn := line.new(time, pdC, time, pdC, xloc = xloc.bar_time, color = pdcCol, width = 1, style = pdStyle)
+        if pdLabels
+            pdCur.clLb := label.new(time, pdC, "", xloc = xloc.bar_time, style = label.style_label_left, color = pdcCol, textcolor = labText, size = labSize)
+
+    array.push(pdStore, pdCur)
+    if array.size(pdStore) > histDays
+        old = array.shift(pdStore)
+        line.delete(old.hiLn)
+        line.delete(old.loLn)
+        line.delete(old.clLn)
+        label.delete(old.hiLb)
+        label.delete(old.loLb)
+        label.delete(old.clLb)
+
+// Accumulate the current session (after the roll, so the roll uses yesterday's)
+if rthOpen
+    curH := high
+    curL := low
+else if inRTH
+    curH := math.max(curH, high)
+    curL := math.min(curL, low)
+if inRTH
+    curC := close
+
+// Stretch the current day's prior-level drawings to the latest bar
+if not na(pdCur)
+    if not na(pdCur.hiLn)
+        line.set_xy1(pdCur.hiLn, pdX1, pdH)
+        line.set_xy2(pdCur.hiLn, time, pdH)
+    if not na(pdCur.hiLb)
+        label.set_xy(pdCur.hiLb, time, pdH)
+        label.set_text(pdCur.hiLb, "PDH " + str.tostring(pdH, format.mintick))
+    if not na(pdCur.loLn)
+        line.set_xy1(pdCur.loLn, pdX1, pdL)
+        line.set_xy2(pdCur.loLn, time, pdL)
+    if not na(pdCur.loLb)
+        label.set_xy(pdCur.loLb, time, pdL)
+        label.set_text(pdCur.loLb, "PDL " + str.tostring(pdL, format.mintick))
+    if not na(pdCur.clLn)
+        line.set_xy1(pdCur.clLn, pdX1, pdC)
+        line.set_xy2(pdCur.clLn, time, pdC)
+    if not na(pdCur.clLb)
+        label.set_xy(pdCur.clLb, time, pdC)
+        label.set_text(pdCur.clLb, "PDC " + str.tostring(pdC, format.mintick))
+
+// ── Pre-market range storage ─────────────────────────────────────────────────
+type PMLevels
+    line  hiLn  = na
+    line  loLn  = na
+    line  midLn = na
+    box   zn    = na
+    label hiLb  = na
+    label loLb  = na
+
+var array<PMLevels> store = array.new<PMLevels>()
+var PMLevels cur      = na
+var float    pmH      = na
+var float    pmL      = na
+var int      pmX1     = na
+var bool     hiBroke  = false
+var bool     loBroke  = false
+var bool     setupFired = false
+var bool     setupShortFired = false
+
+if pmBegin
+    pmH      := high
+    pmL      := low
+    pmX1     := time
+    hiBroke  := false
+    loBroke  := false
+    setupFired := false
+    setupShortFired := false
+
+    cur := PMLevels.new()
+    cur.hiLn := line.new(time, high, time, high, xloc = xloc.bar_time, color = hiCol, width = lWidth, style = lStyle)
+    cur.loLn := line.new(time, low,  time, low,  xloc = xloc.bar_time, color = loCol, width = lWidth, style = lStyle)
+    if showMid
+        cur.midLn := line.new(time, math.avg(high, low), time, math.avg(high, low), xloc = xloc.bar_time, color = midCol, width = 1, style = line.style_dotted)
+    if showZone
+        cur.zn := box.new(time, high, time, low, xloc = xloc.bar_time, bgcolor = zoneCol, border_color = #00000000)
+    if showLabels
+        cur.hiLb := label.new(time, high, "", xloc = xloc.bar_time, style = label.style_label_left, color = hiCol, textcolor = #FFFFFF, size = labSize)
+        cur.loLb := label.new(time, low,  "", xloc = xloc.bar_time, style = label.style_label_left, color = loCol, textcolor = #FFFFFF, size = labSize)
+
+    array.push(store, cur)
+    if array.size(store) > histDays
+        old = array.shift(store)
+        line.delete(old.hiLn)
+        line.delete(old.loLn)
+        line.delete(old.midLn)
+        box.delete(old.zn)
+        label.delete(old.hiLb)
+        label.delete(old.loLb)
+else if inPM
+    pmH := math.max(pmH, high)
+    pmL := math.min(pmL, low)
+
+if not na(cur) and extendOK and not na(pmH)
+    pmMid = math.avg(pmH, pmL)
+    line.set_xy1(cur.hiLn, pmX1, pmH)
+    line.set_xy2(cur.hiLn, time, pmH)
+    line.set_xy1(cur.loLn, pmX1, pmL)
+    line.set_xy2(cur.loLn, time, pmL)
+    if not na(cur.midLn)
+        line.set_xy1(cur.midLn, pmX1, pmMid)
+        line.set_xy2(cur.midLn, time, pmMid)
+    if not na(cur.zn)
+        box.set_lefttop(cur.zn, pmX1, pmH)
+        box.set_rightbottom(cur.zn, time, pmL)
+    if not na(cur.hiLb)
+        label.set_xy(cur.hiLb, time, pmH)
+        label.set_text(cur.hiLb, "PMH " + str.tostring(pmH, format.mintick))
+        label.set_xy(cur.loLb, time, pmL)
+        label.set_text(cur.loLb, "PML " + str.tostring(pmL, format.mintick))
+
+// ── Break logic ──────────────────────────────────────────────────────────────
+srcHi  = useWick ? high : close
+srcLo  = useWick ? low  : close
+pmDone = not inPM and not na(pmH)
+
+// PM break qualifiers: the level must have cleared yesterday's extreme, and the
+// break must land inside the opening window.
+inBreakWin = not useBreakWin or not na(time(timeframe.period, breakWin, tzIn))
+pmhClears  = not reqClear or (not na(pdH) and not na(pmH) and pmH > pdH)
+pmlClears  = not reqClear or (not na(pdL) and not na(pmL) and pmL < pdL)
+// Glow gate. Skipped entirely when Volume Glow is off, so turning the volume
+// feature off never silently kills every break alert.
+glowOK     = not volOn or not reqGlow or volSpike
+
+rawUp   = ta.crossover(srcHi,  pmH)
+rawDn   = ta.crossunder(srcLo, pmL)
+rawPdUp = ta.crossover(srcHi,  pdH)
+rawPdDn = ta.crossunder(srcLo, pdL)
+
+breakUp   = pmDone and barstate.isconfirmed and rawUp and inBreakWin and pmhClears and glowOK and (not firstOnly or not hiBroke)
+breakDn   = pmDone and barstate.isconfirmed and rawDn and inBreakWin and pmlClears and glowOK and (not firstOnly or not loBroke)
+pdBreakUp = barstate.isconfirmed and rawPdUp and not na(pdH) and glowOK and (not firstOnly or not pdhBroke)
+pdBreakDn = barstate.isconfirmed and rawPdDn and not na(pdL) and glowOK and (not firstOnly or not pdlBroke)
+
+// ── Composite long setup ─────────────────────────────────────────────────────
+// Fires only when every condition lands on the SAME confirmed bar:
+//   1. close above the prior-day high
+//   2. a crossover that closes above the pre-market high
+//   3. that bar is a volume-glow bar
+//   4. the bar's open falls inside the break window
+closeUp   = ta.crossover(close, pmH)
+setupPdh  = not na(pdH) and close > pdH
+setupPmh  = closeUp and close > pmH
+setupBase = setupOn and barstate.isconfirmed and pmDone and inBreakWin and volSpike
+setupLong = setupBase and setupPdh and setupPmh and (not firstOnly or not setupFired)
+
+// ── Composite short setup ────────────────────────────────────────────────────
+// Same four conditions inverted: close under the prior-day low, a crossunder
+// that closes under the pre-market low, a glow bar, inside the break window.
+closeDn    = ta.crossunder(close, pmL)
+setupPdl   = not na(pdL) and close < pdL
+setupPml   = closeDn and close < pmL
+setupSBase = shortOn and barstate.isconfirmed and pmDone and inBreakWin and volSpike
+setupShort = setupSBase and setupPdl and setupPml and (not firstOnly or not setupShortFired)
+
+if setupLong
+    setupFired := true
+if setupShort
+    setupShortFired := true
+
+// ── Setup history ────────────────────────────────────────────────────────────
+// Just the timestamp of every entry the script generated, kept so the panel can
+// count them over a trailing window. No outcome tracking.
+var array<int> entL = array.new<int>()
+var array<int> entS = array.new<int>()
+var int firstBarT = na
+
+if na(firstBarT)
+    firstBarT := time
+
+if statsOn and setupLong
+    array.push(entL, time)
+if statsOn and setupShort
+    array.push(entS, time)
+
+if breakUp
+    hiBroke := true
+if breakDn
+    loBroke := true
+if pdBreakUp
+    pdhBroke := true
+if pdBreakDn
+    pdlBroke := true
+
+plotshape(setupMark  and setupLong,  "Long Setup",  shape.labelup,   location.belowbar, #FFEB3B,  text = "LONG",  textcolor = #131722, size = size.small)
+plotshape(shortMark and setupShort, "Short Setup", shape.labeldown, location.abovebar, shortCol, text = "SHORT", textcolor = #FFFFFF, size = size.small)
+plotshape(showMarks and breakUp,   "PMH Break", shape.triangleup,   location.belowbar, #26A69A, size = size.tiny)
+plotshape(showMarks and breakDn,   "PML Break", shape.triangledown, location.abovebar, #EF5350, size = size.tiny)
+plotshape(showMarks and pdBreakUp, "PDH Break", shape.diamond,      location.belowbar, #FF9800, size = size.tiny)
+plotshape(showMarks and pdBreakDn, "PDL Break", shape.diamond,      location.abovebar, #29B6F6, size = size.tiny)
+
+// ── Alerts ───────────────────────────────────────────────────────────────────
+payload(string kind, float lvl) =>
+    '{"indicator":"PMH_PML_PD","event":"' + kind + '","symbol":"' + syminfo.tickerid + '","timeframe":"' + timeframe.period +
+      '","price":' + str.tostring(close, format.mintick) +
+      ',"level":' + str.tostring(lvl, format.mintick) +
+      ',"pm_high":' + str.tostring(pmH, format.mintick) +
+      ',"pm_low":' + str.tostring(pmL, format.mintick) +
+      ',"pm_range":' + str.tostring(pmH - pmL, format.mintick) +
+      ',"pd_high":' + str.tostring(pdH, format.mintick) +
+      ',"pd_low":' + str.tostring(pdL, format.mintick) +
+      ',"pd_close":' + str.tostring(pdC, format.mintick) +
+      ',"volume":' + str.tostring(volume) +
+      ',"rvol":' + str.tostring(rvol, "#.##") +
+      ',"vol_z":' + str.tostring(zvol, "#.##") +
+      ',"glow":' + (volSpike ? "true" : "false") +
+      ',"time":"' + str.format_time(time, "yyyy-MM-dd HH:mm:ss", tzIn) + '"}'
+
+allEvents = alertScope == "All Events"
+
+if setupLong
+    alert(payload("LONG_SETUP", pmH), alert.freq_once_per_bar_close)
+if setupShort
+    alert(payload("SHORT_SETUP", pmL), alert.freq_once_per_bar_close)
+if allEvents and alertsOn and breakUp
+    alert(payload("PM_HIGH_BREAK", pmH), alert.freq_once_per_bar_close)
+if allEvents and alertsOn and breakDn
+    alert(payload("PM_LOW_BREAK", pmL), alert.freq_once_per_bar_close)
+if allEvents and rangeAlert and pmEnd and barstate.isconfirmed and not na(pmH)
+    alert(payload("PM_RANGE_SET", pmH), alert.freq_once_per_bar_close)
+if allEvents and pdAlertsOn and pdBreakUp
+    alert(payload("PD_HIGH_BREAK", pdH), alert.freq_once_per_bar_close)
+if allEvents and pdAlertsOn and pdBreakDn
+    alert(payload("PD_LOW_BREAK", pdL), alert.freq_once_per_bar_close)
+if allEvents and volAlerts and volSig
+    alert(payload("VOLUME_SPIKE", close), alert.freq_once_per_bar_close)
+
+alertcondition(setupLong,  "Long Setup (all conditions)",  "LONG SETUP on {{ticker}} @ {{close}} - PMH break above PDH on volume")
+alertcondition(setupShort, "Short Setup (all conditions)", "SHORT SETUP on {{ticker}} @ {{close}} - PML break below PDL on volume")
+alertcondition(breakUp,   "PM High Break",    "🔼 PMH break on {{ticker}} @ {{close}}")
+alertcondition(breakDn,   "PM Low Break",     "🔽 PML break on {{ticker}} @ {{close}}")
+alertcondition(pmEnd,     "PM Range Set",     "📐 Pre-market range complete on {{ticker}}")
+alertcondition(pdBreakUp, "Prior High Break", "🔶 PDH break on {{ticker}} @ {{close}}")
+alertcondition(pdBreakDn, "Prior Low Break",  "🔷 PDL break on {{ticker}} @ {{close}}")
+alertcondition(volSig,    "Volume Spike",     "⚡ Volume spike on {{ticker}} @ {{close}}")
+alertcondition(barstate.isconfirmed, "Test — Fires Every Bar", "🟢 TEST — plumbing works on {{ticker}} @ {{close}}")
+
+// ── Info panel ───────────────────────────────────────────────────────────────
+var table info = table.new(position.top_right, 2, 12, bgcolor = color.new(#131722, 15), border_color = color.new(#787B86, 50), border_width = 1, frame_color = color.new(#787B86, 50), frame_width = 1)
+
+statusTxt = switch
+    not isIntra => "Intraday TF required"
+    na(pmH)     => "Awaiting pre-market"
+    close > pmH => "Above PMH"
+    close < pmL => "Below PML"
+    => "Inside PM range"
+
+statusCol = switch
+    not isIntra => #EF5350
+    na(pmH)     => #9598A1
+    close > pmH => #26A69A
+    close < pmL => #EF5350
+    => #9598A1
+
+cell(int c, int r, string txt, color tc) =>
+    table.cell(info, c, r, txt, text_color = tc, text_size = size.small)
+
+if barstate.islast
+    table.clear(info, 0, 0, 1, 11)
+    if showTable
+        rngVal = pmH - pmL
+        rngPct = na(pmL) or pmL == 0 ? na : rngVal / pmL * 100
+        vsPdc  = na(pdC) or pdC == 0 ? na : (close - pdC) / pdC * 100
+        cell(0, 0, "PM Range", #D1D4DC)
+        cell(1, 0, statusTxt, statusCol)
+        cell(0, 1, "High",  #9598A1)
+        cell(1, 1, str.tostring(pmH, format.mintick), hiCol)
+        cell(0, 2, "Low",   #9598A1)
+        cell(1, 2, str.tostring(pmL, format.mintick), loCol)
+        cell(0, 3, "Range", #9598A1)
+        cell(1, 3, str.tostring(rngVal, format.mintick), #D1D4DC)
+        cell(0, 4, "Range %", #9598A1)
+        cell(1, 4, na(rngPct) ? "—" : str.tostring(rngPct, "#.##") + "%", #D1D4DC)
+        cell(0, 5, "PDH", #9598A1)
+        cell(1, 5, na(pdH) ? "—" : str.tostring(pdH, format.mintick), pdhCol)
+        cell(0, 6, "PDC", #9598A1)
+        cell(1, 6, na(pdC) ? "—" : str.tostring(pdC, format.mintick), pdcCol)
+        cell(0, 7, "PDL", #9598A1)
+        cell(1, 7, na(pdL) ? "—" : str.tostring(pdL, format.mintick), pdlCol)
+        cell(0, 8, "vs PDC", #9598A1)
+        cell(1, 8, na(vsPdc) ? "—" : str.tostring(vsPdc, "#.##") + "%", vsPdc >= 0 ? #26A69A : #EF5350)
+        volTxt = switch
+            not volOn         => "off"
+            not isIntra       => "—"
+            volN < volMinSamp => "building " + str.tostring(volN) + "/" + str.tostring(volMinSamp)
+            na(volMetric)     => "—"
+            => str.tostring(rvol, "#.##") + "× / " + str.tostring(zvol, "#.#") + "σ"
+        cell(0, 9, "Rel Vol", #9598A1)
+        cell(1, 9, volTxt, volSpike ? glowCol : #D1D4DC)
+        chkPdh = setupPdh   ? "PDH+" : "PDH-"
+        chkPmh = close > pmH ? "PMH+" : "PMH-"
+        chkWin = inBreakWin ? "WIN+" : "WIN-"
+        chkVol = volSpike   ? "VOL+" : "VOL-"
+        cell(0, 10, "Long", #9598A1)
+        cell(1, 10, chkPdh + " " + chkPmh + " " + chkWin + " " + chkVol, setupFired ? glowCol : #9598A1)
+        if shortOn
+            sPdl = setupPdl    ? "PDL+" : "PDL-"
+            sPml = close < pmL ? "PML+" : "PML-"
+            cell(0, 11, "Short", #9598A1)
+            cell(1, 11, sPdl + " " + sPml + " " + chkWin + " " + chkVol, setupShortFired ? shortCol : #9598A1)
+
+// ── Setup history panel ──────────────────────────────────────────────────────
+statPosition = switch statPos
+    "Bottom Left"  => position.bottom_left
+    "Middle Right" => position.middle_right
+    "Top Left"     => position.top_left
+    => position.bottom_right
+
+showL = statSide != "Short Only"
+showS = statSide != "Long Only"
+
+var table stats = table.new(statPosition, 3, 5, bgcolor = color.new(#131722, 15), border_color = color.new(#787B86, 50), border_width = 1, frame_color = color.new(#787B86, 50), frame_width = 1)
+
+scell(c, r, txt, tc) =>
+    table.cell(stats, c, r, txt, text_color = tc, text_size = size.small)
+
+// Entries are pushed in chronological order, so counting backwards and
+// stopping at the first one older than the cutoff is enough.
+countSince(array<int> lst, days) =>
+    cut = time - days * 86400000.0
+    int n = 0
+    sz = array.size(lst)
+    if sz > 0
+        for i = sz - 1 to 0
+            if array.get(lst, i) >= cut
+                n += 1
+            else
+                break
+    n
+
+statRow(r, days) =>
+    scell(0, r, str.tostring(days) + "D", #9598A1)
+    scell(1, r, showL ? str.tostring(countSince(entL, days)) : "—", showL ? #FFEB3B  : #5D606B)
+    scell(2, r, showS ? str.tostring(countSince(entS, days)) : "—", showS ? shortCol : #5D606B)
+
+if barstate.islast
+    table.clear(stats, 0, 0, 2, 4)
+    if statsOn
+        spanD = math.round((time - firstBarT) / 86400000.0)
+        scell(0, 0, "Entries", #D1D4DC)
+        scell(1, 0, "Long",    #D1D4DC)
+        scell(2, 0, "Short",   #D1D4DC)
+        statRow(1, 30)
+        statRow(2, 60)
+        statRow(3, 90)
+        scell(0, 4, "History", #9598A1)
+        scell(1, 4, str.tostring(spanD, "#") + "d", spanD >= 90 ? #26A69A : #FF9800)
+        scell(2, 4, "loaded", #9598A1)

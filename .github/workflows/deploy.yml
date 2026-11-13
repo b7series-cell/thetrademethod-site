@@ -1,0 +1,77 @@
+# Deploys the site to SiteGround (thetrademethod.com) on every push to main.
+#
+# Upload-only: files are added or overwritten, nothing on the server is
+# deleted. Server-only files (api/config.php, api/cache/, .well-known/) are
+# never touched. Remove a page from the server by hand if one is retired.
+#
+# Repo secrets it needs (Settings > Secrets and variables > Actions):
+#   SG_HOST            SSH hostname from SiteGround (Devs > SSH Keys Manager > Actions > SSH credentials)
+#   SG_USER            SSH username from the same screen (looks like u123-abc...)
+#   SG_SSH_KEY         the private key, whole text including the BEGIN/END lines
+#   SG_SSH_PASSPHRASE  the password you set when SiteGround made the key
+
+name: Deploy to SiteGround
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Only list what would upload, change nothing"
+        type: boolean
+        default: false
+
+concurrency:
+  group: deploy-siteground
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      SG_PORT: "18765"
+      SG_PATH: "www/thetrademethod.com/public_html/"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up SSH key
+        env:
+          SG_SSH_KEY: ${{ secrets.SG_SSH_KEY }}
+          SG_SSH_PASSPHRASE: ${{ secrets.SG_SSH_PASSPHRASE }}
+          SG_HOST: ${{ secrets.SG_HOST }}
+        run: |
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          printf '%s\n' "$SG_SSH_KEY" | tr -d '\r' > ~/.ssh/sg_key
+          chmod 600 ~/.ssh/sg_key
+          # SiteGround keys carry a password; strip it from the runner's copy only.
+          if [ -n "$SG_SSH_PASSPHRASE" ]; then
+            ssh-keygen -p -P "$SG_SSH_PASSPHRASE" -N "" -f ~/.ssh/sg_key >/dev/null
+          fi
+          ssh-keyscan -p "$SG_PORT" -H "$SG_HOST" >> ~/.ssh/known_hosts 2>/dev/null
+
+      - name: Upload changed files
+        env:
+          SG_HOST: ${{ secrets.SG_HOST }}
+          SG_USER: ${{ secrets.SG_USER }}
+          DRY: ${{ inputs.dry_run && '--dry-run' || '' }}
+        run: |
+          rsync -rlptvz --checksum --itemize-changes $DRY \
+            --chmod=D755,F644 \
+            --exclude='.git/' --exclude='.github/' --exclude='.gitignore' \
+            --exclude='_docs/' --exclude='DEPLOY.md' \
+            --exclude='api/config.php' --exclude='api/cache/' \
+            --exclude='.well-known/' \
+            -e "ssh -i ~/.ssh/sg_key -p $SG_PORT -o IdentitiesOnly=yes" \
+            ./ "$SG_USER@$SG_HOST:$SG_PATH"
+
+      - name: Flush SiteGround cache
+        if: ${{ !inputs.dry_run }}
+        env:
+          SG_HOST: ${{ secrets.SG_HOST }}
+          SG_USER: ${{ secrets.SG_USER }}
+        run: |
+          ssh -i ~/.ssh/sg_key -p "$SG_PORT" -o IdentitiesOnly=yes "$SG_USER@$SG_HOST" \
+            'site-tools-client domain update id=1 flush_cache=1 || site-tools-client domain-all update id=1 flush_cache=1' \
+            || echo "::warning::Cache flush did not run; clear it in Site Tools > Speed > Caching if a change doesn't show."

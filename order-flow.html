@@ -1,0 +1,940 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Order Flow for Beginners — read four things, at one level | The Trade Method</title>
+<meta name="description" content="Order flow for beginners: what a footprint chart shows, the data you need, the four things to read (large orders, volume clusters, delta, imbalances) and how to use it as confirmation at a volume profile point of control, with the absorption setup.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/order-flow.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Order Flow for Beginners — read four things, at one level">
+<meta property="og:description" content="Order flow for beginners: what a footprint chart shows, the data you need, the four things to read (large orders, volume clusters, delta, imbalances) and how to use it as confirmation at a volume profile point of control, with the absorption setup.">
+<meta property="og:url" content="https://thetrademethod.com/order-flow.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Order Flow for Beginners — read four things, at one level">
+<meta name="twitter:description" content="Order flow for beginners: what a footprint chart shows, the data you need, the four things to read (large orders, volume clusters, delta, imbalances) and how to use it as confirmation at a volume profile point of control, with the absorption setup.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Order Flow for Beginners — read four things, at one level",
+ "name": "Order Flow for Beginners",
+ "description": "Order flow for beginners: what a footprint chart shows, the data you need, the four things to read (large orders, volume clusters, delta, imbalances) and how to use it as confirmation at a volume profile point of control, with the absorption setup.",
+ "url": "https://thetrademethod.com/order-flow.html",
+ "mainEntityOfPage": "https://thetrademethod.com/order-flow.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-04",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k, .tri .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b, .tri b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p, .tri p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+  .pair .red { background:rgba(255,69,58,0.12); } .pair .red b { color:#ff6961; }
+  .tri { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:14px; }
+  .tri div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .tri .yes b { color:var(--up); } .tri .care b { color:var(--orange); } .tri .no b { color:#ff6961; } .tri .blu b { color:#64d2ff; }
+
+  /* bid / ask who-is-where grid */
+  .who { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:6px; }
+  .who div { border-radius:16px; padding:14px 16px; }
+  .who .bid { background:rgba(255,69,58,0.12); } .who .ask { background:rgba(48,209,88,0.12); }
+  .who h5 { margin:0 0 6px; font-size:13px; font-family:var(--mono-font); letter-spacing:0.04em; }
+  .who .bid h5 { color:#ff6961; } .who .ask h5 { color:var(--up); }
+  .who p { margin:0 0 4px; font-size:14.5px; color:var(--silk); }
+  .who small { color:var(--ash); font-size:13px; }
+
+  /* card grids: the four reads, and the level-finding setups */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four > div { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+  .four + .main, .anim + .four { margin-top:8px; }
+  .four + .main { margin-top:28px; }
+  .four.eight { grid-template-columns:repeat(4,1fr); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the action plan: five cards, or a stepper once js/of-anim.js runs */
+  .of-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .of-steps .stage, .sheet .of-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .of-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .of-steps.is-stepper .stage, .sheet .of-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .of-steps.is-stepper .stage .num { display:none; }
+  .sheet .of-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .of-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.eight { grid-template-columns:repeat(2,1fr); }
+    .of-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim, .sheet .tri + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.eight, .pair, .tri, .who, .of-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .of-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .main + .of-steps, .sheet .section-head + .of-steps { margin-top:24px; }
+  }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/of-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=16" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="order-flow">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; not a setup, a way to confirm the setups you already trade</p>
+      <h1>Order Flow for <span>Beginners</span></h1>
+    </div>
+    <div>
+      <p class="thesis">A candle shows four prices. A footprint shows every executed trade inside it, at the bid and at the ask. Beginners drown trying to read every number.
+      <em>Read four things, and only at a level you already marked.</em></p>
+      <div class="counts">
+        <div><b>4</b><small>things to read on any footprint</small></div>
+        <div><b>1</b><small>instrument to start with</small></div>
+        <div><b>1 week</b><small>of watching before a trade</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">inside the candle</div><div class="n">Bid &times; ask per price</div></div>
+    <div><div class="t">read 1</div><div class="n">Large orders</div></div>
+    <div><div class="t">read 2</div><div class="n">Volume clusters</div></div>
+    <div><div class="t">read 3</div><div class="n">Delta</div></div>
+    <div><div class="t">read 4</div><div class="n">Imbalances</div></div>
+  </nav>
+
+  <div class="section-head" id="what">
+    <h2>What order flow shows you</h2>
+    <p>A standard candle only shows where it opened, where it closed, the high and the low. Order flow lets you see inside each candle: the trades that were actually executed at each price, split into the bid and the ask. The chart that shows it is called a footprint.</p>
+  </div>
+  <section class="anim" data-of-anim="inside" aria-label="Illustrative made-up 30-minute candle on an index future, opened up into a footprint: contracts traded at the bid and at the ask at each price, 121 at the ask at 5,402.00 and 70 at the bid at 5,400.50, a high volume node of 239 contracts at 5,401.50, and a delta of plus 138.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Inside one candle</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up candle opened up into a footprint with bid and ask volume at each price, the high volume node and the delta."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Why it's worth learning</h3>
+          <ul>
+            <li>It shows how volume was distributed inside each candle: where buyers were active, where sellers were, and where nobody was.</li>
+            <li>It shows big player activity. Institutions trade huge size, and their heavy volume leaves footprints you can spot.</li>
+            <li>It shows who is dominating, buyers or sellers, and who is more aggressive.</li>
+          </ul>
+          <p class="why">Aggression equals direction. When buyers are the more aggressive side, price goes up.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Executed trades, not promises</h3>
+          <ul>
+            <li>Every number in a footprint is a trade that actually happened.</li>
+            <li>That's different from the order book (depth of market), which shows resting orders that may never fill.</li>
+            <li>Order flow isn't about reading all the numbers. It's about spotting a few specific things.</li>
+          </ul>
+          <p class="why">No other indicator shows volume per price inside each candle.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Who shows up where</h4>
+        <p class="lead">The part that confuses most people. Every trade has a buyer and a seller; the footprint records which side crossed the spread.</p>
+        <div class="who">
+          <div class="bid"><h5>BID &middot; left</h5><p>Aggressive sellers: market sell orders.</p><p>Passive buyers: limit buys getting filled.</p><small>A big number here at support can mean a big buyer waiting.</small></div>
+          <div class="ask"><h5>ASK &middot; right</h5><p>Aggressive buyers: market buy orders.</p><p>Passive sellers: limit sells getting filled.</p><small>A big number here at resistance can mean a big seller waiting.</small></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>You can't know for certain</h4>
+        <p class="lead">A number on the ask could be an aggressive buyer or a passive seller. Context decides the best guess.</p>
+        <div class="pair">
+          <div class="care"><span class="k">in the middle of nowhere</span><b>A guess</b><p>A big print with no level behind it tells you very little.</p></div>
+          <div class="yes"><span class="k">at a level you marked</span><b>A reasonable read</b><p>Heavy prints right at support or resistance are why the level matters.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="need">
+    <h2>What you need before you start</h2>
+    <p>Order flow isn't part of most standard charting platforms. You need a platform that draws footprints, and a data feed that carries every executed trade.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>A platform with footprint charts</h3>
+          <ul>
+            <li>NinjaTrader is a common choice for futures traders; its free version can run third-party order flow tools.</li>
+            <li>TradingView calls it the volume footprint and puts it on its higher paid plans. Fine to try if you already have that plan; more serious order flow traders tend to move on to dedicated tools.</li>
+            <li>Sierra Chart and other platforms have their own footprint charts. Any of them works for the basics.</li>
+          </ul>
+          <p class="why">The specific software matters less than reading the same four things on it every day.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Futures data, level 1</h3>
+          <ul>
+            <li>Order flow needs level 1 data: executed trades, with the bid and ask they traded at.</li>
+            <li>Level 2 (market depth) shows pending limit orders. Most never fill: algorithms often place them to lure price one way and pull them as price gets close.</li>
+            <li>You subscribe to the exchange that lists your instrument. One exchange's data costs a lot less than all of them.</li>
+          </ul>
+          <p class="why">Only level 1 is needed. Executed trades are what the footprint is built from.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Why futures, not spot forex</h4>
+        <p class="lead">You need accurate volume at every price, and that needs a central exchange.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">futures &middot; centralized</span><b>Everyone sees the same data</b><p>One exchange: the same prices, the same volume, the same bid and ask split for every trader on the planet.</p></div>
+          <div class="care"><span class="k">spot forex &middot; decentralized</span><b>Each feed is a bit different</b><p>No central exchange, so volumes differ by provider and the bid and ask split is weak or missing. Read the currency future instead.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Level 1 vs level 2</h4>
+        <div class="calc">
+          <div class="row"><span>Level 1 &middot; executed trades</span><b>needed</b></div>
+          <div class="row"><span>Level 2 &middot; resting orders (depth)</span><b>not needed</b></div>
+          <div class="row"><span>Pending orders that get pulled</span><b>noise</b></div>
+          <div class="row tot"><span>What a footprint is built from</span><b>trades that happened</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="four">
+    <h2>The four things to read</h2>
+    <p>The biggest problem order flow traders have is that it shows so much: the chart is full of numbers and beginners don't know what to look at first. Four things make it far easier: large orders, volume clusters, delta and imbalances.</p>
+  </div>
+  <section class="anim" data-of-anim="four" aria-label="Illustrative six made-up 30-minute footprints: an uptrend whose high volume nodes shift higher, a volume cluster across two footprints, two footprints making higher highs with negative delta, then a drop with four stacked selling imbalances at the bid.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Four things, not every number</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up footprints showing high volume nodes, a volume cluster, delta divergence and stacked imbalances."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="four">
+    <div style="--tc:#f4b942"><span class="k">read 1</span><h3>Large orders</h3><p>The high volume node: the busiest price in each footprint, usually boxed by the software.</p><small>Footprints of the big players. Watch how it shifts from candle to candle.</small></div>
+    <div style="--tc:#ff9f0a"><span class="k">read 2</span><h3>Volume clusters</h3><p>Heavy volume across several neighbouring prices, easiest to see with cells set to total volume.</p><small>Institutions spread big orders over many prices, so they show as blocks, not single cells.</small></div>
+    <div style="--tc:#30d158"><span class="k">read 3</span><h3>Delta</h3><p>Volume at the ask minus volume at the bid, printed under each footprint.</p><small>Positive: buyers in control. Negative: sellers. Price usually follows it.</small></div>
+    <div style="--tc:#64d2ff"><span class="k">read 4</span><h3>Imbalances</h3><p>One side trading about 3 times the other at a price, highlighted (often in blue).</p><small>Stacked on top of each other they show aggression. One alone means little.</small></div>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">&Delta;</div>
+        <div>
+          <h3>Two ways to use delta</h3>
+          <ul>
+            <li><b>Divergence.</b> Price rising with negative delta means sellers are dominating a rising market. Something fishy is going on, and price may turn from up to down, because price follows delta. Not always, but quite often.</li>
+            <li><b>At a level.</b> Price reaches a resistance zone and prints a footprint with massively negative delta: somebody big is selling, quite possibly reacting to the same resistance. That's a confirmation to go short.</li>
+          </ul>
+          <p class="why">The same reads in reverse at support: price falling with positive delta, or a big positive delta at the level.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">&#9638;</div>
+        <div>
+          <h3>Reading imbalances right</h3>
+          <ul>
+            <li>A selling imbalance shows on the bid: aggressive sellers. A buying imbalance shows on the ask: aggressive buyers.</li>
+            <li>A common default is 300%: one side at least 3 times the other. Many platforms compare diagonally (the bid at one price against the ask one tick higher); the idea is the same.</li>
+            <li>Stacked imbalances (three or more on top of each other) tell a story. A single one usually doesn't.</li>
+          </ul>
+          <p class="why">Selling imbalances cluster in downtrends, buying imbalances in uptrends.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Two cell settings</h4>
+        <p class="lead">Most footprint tools can switch what each cell shows. Use both.</p>
+        <div class="pair">
+          <div><span class="k">bid &times; ask</span><b>Who was aggressive</b><p>Two numbers per price. Needed for delta, imbalances and absorption.</p></div>
+          <div><span class="k">total volume</span><b>Where the weight is</b><p>One number per price, shaded by size. Volume clusters jump out at a glance.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Delta, worked out</h4>
+        <p class="lead">Delta for one footprint, and cumulative delta for the day.</p>
+        <div class="calc">
+          <div class="row"><span>Delta = ask &minus; bid, per footprint</span><b>e.g. +138</b></div>
+          <div class="row"><span>Footprint 1, 2, 3 deltas</span><b>+30, +100, &minus;50</b></div>
+          <div class="row tot"><span>Cumulative delta after footprint 3</span><b>+80</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="confirmation">
+    <h2>Use it as confirmation, not a strategy</h2>
+    <p>The workflow: find a level, for example with a volume profile. Wait for price to pull back to it. Then open the footprint and look for confirmation that big players are reacting there. Without a level, order flow is just noise.</p>
+  </div>
+  <section class="anim" data-of-anim="level" aria-label="Illustrative made-up 30-minute bars with a session volume profile: price rotates around the point of control, sells off, pulls back up to it from below, hovers without confirmation, then a footprint at the level shows a high volume node with 486 contracts at the bid and 455 at the ask, absorption, and price drops from the short.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The level says where, the footprint says when</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative made-up bars and volume profile, with a footprint confirmation at the point of control."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Mark the point of control</h3>
+          <ul>
+            <li>A volume profile is a histogram of volume at each price. Where it's widest, the most volume traded: the point of control.</li>
+            <li>Mark it. It's a strong level to trade from.</li>
+            <li>Price hits it from below: resistance, look for shorts. Price hits it from above: support, look for longs.</li>
+          </ul>
+          <p class="why">Support and resistance are zones, not exact prices. Look for the confirmation somewhere inside the zone.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Wait, then confirm</h3>
+          <ul>
+            <li>Don't trade the touch. Price can move around the level for a while without confirming anything.</li>
+            <li>When it reaches the level, open the footprint and wait for big players to show up: absorption, a big limit order, aggressive orders or a delta divergence.</li>
+            <li>When you see it, pull the trigger.</li>
+          </ul>
+          <p class="why">Confirmations also help when the level isn't especially strong, or price is driving into it fast.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Why the point of control holds</h4>
+        <p class="lead">Two forces push price away when it comes back, and they push the same way.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">reason 1</span><b>The big players defend it</b><p>The heaviest volume traded there, so that's where institutions built positions. When price returns, they defend them.</p></div>
+          <div class="yes"><span class="k">reason 2</span><b>The other side gets out</b><p>Traders on the wrong side don't want a fight with strong buyers or sellers. Closing a short means buying, which adds to the push.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>On this site</h4>
+        <p class="lead">More on finding the levels order flow confirms.</p>
+        <div class="pair">
+          <div><span class="k">setup</span><b><a class="more" href="/setups/volume-profile-system.html">Volume Profile System</a></b><p>Value area, point of control and the break out of value.</p></div>
+          <div><span class="k">setup</span><b><a class="more" href="/setups/volume-sr-rejection.html">Volume S/R Rejection</a></b><p>A heavy-volume level, revisited and rejected.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="absorption">
+    <h2>The absorption setup</h2>
+    <p>The favorite confirmation in the video. Price drops into a strong support, for example a point of control. At the level you want to see unusually heavy volume on both the bid and the ask: sellers pushing, buyers taking everything they sell.</p>
+  </div>
+  <section class="anim" data-of-anim="absorption" aria-label="Illustrative six made-up 5-minute footprints: three red footprints with negative delta push price into a support zone from a point of control; the fourth prints 514 contracts at the bid and 1,025 at the ask at one price, price stops dropping and delta turns positive; a long is taken with the stop below the zone and price rises.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">514 at the bid, 1,025 at the ask</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up footprints showing absorption at a support level."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Identify the zone first</h3>
+          <ul>
+            <li>Use your main method: a volume profile point of control, a heavy-volume level, price action.</li>
+            <li>Only when price gets near that zone do you open the footprint chart.</li>
+          </ul>
+          <p class="why">The absorption has to appear around the zone. Anywhere else it doesn't count.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Wait for heavy volume on both sides</h3>
+          <ul>
+            <li>Unusually heavy volume on the bid (sellers still pushing) and on the ask (buyers taking it all) at the same price.</li>
+            <li>Price stops dropping and stays at one level. The market is absorbing the selling pressure.</li>
+            <li>It can take a few minutes for the orders to build before you can tell it's absorption.</li>
+          </ul>
+          <p class="why">A positive delta on that footprint is a bonus: buyers are jumping in.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Enter as soon as you see it</h3>
+          <ul>
+            <li>Long from support, short from resistance (the mirror image: buying pressure absorbed at resistance).</li>
+            <li>Stop beyond the zone you're trading.</li>
+            <li>A 5-minute or 30-minute footprint works well for spotting it.</li>
+          </ul>
+          <p class="why">Level first, absorption second. Never the other way round.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>What "unusually heavy" means</h4>
+        <p class="lead">It's different for every instrument and every session, which is one reason to start with just one market.</p>
+        <div class="calc">
+          <div class="row"><span>Look at recent footprints</span><b>average cell volume</b></div>
+          <div class="row"><span>Average cell, the walkthrough above</span><b>about 70</b></div>
+          <div class="row"><span>The absorption cell</span><b>514 &times; 1,025</b></div>
+          <div class="row tot"><span>Way above average, on both sides</span><b>absorption</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>What's happening in that cell</h4>
+        <div class="pair">
+          <div class="red"><span class="k">514 at the bid</span><b>Sellers pushing</b><p>Market sell orders driving price down into the level, in size.</p></div>
+          <div class="yes"><span class="k">1,025 at the ask</span><b>Buyers absorbing</b><p>Buyers stepping in at that price and buying everything sellers have to sell.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="confirmations">
+    <h2>Four confirmations at a level</h2>
+    <p>From the book that goes with the video. These aren't setups on their own: their strength is telling you the market is starting to react to a support or resistance zone you already found.</p>
+  </div>
+  <section class="anim" data-of-anim="confirm" aria-label="Illustrative made-up footprints and lines: a 612-contract print on the bid inside support, absorption with 486 at the bid and 455 at the ask inside resistance, big bid prints and negative delta inside resistance, and price making lower lows into support while cumulative delta rises.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Four ways big players show up</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative made-up examples of the four order flow confirmations."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Big limit order</h3>
+          <ul>
+            <li>Someone big waits at the zone and fills passively with a limit order.</li>
+            <li>Support: an unusually large number on the bid (a limit buy). Resistance: on the ask (a limit sell).</li>
+            <li>It may take a few minutes for the whole order to fill. A 5-minute bid &times; ask chart works well.</li>
+          </ul>
+          <p class="why">Enter as soon as you can identify it.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Absorption</h3>
+          <ul>
+            <li>Heavy volume on both the bid and the ask around the zone.</li>
+            <li>The momentum that brought price there is being soaked up, making a reversal likely.</li>
+          </ul>
+          <p class="why">Simpler than the limit order read: you just need both sides heavy.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Aggressive orders and delta</h3>
+          <ul>
+            <li>In resistance, big volume starts appearing on the bid: aggressive sellers hitting it with market orders because they don't want to miss the trade.</li>
+            <li>At support, the ask. It shows up in the delta too: negative for a short, positive for a long.</li>
+          </ul>
+          <p class="why">They see the same level you do, and they're paying up to trade it.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Cumulative delta divergence</h3>
+          <ul>
+            <li>Cumulative delta is the running total of every footprint's delta since the start of the day.</li>
+            <li>Put a 1-minute price chart above a 1-minute cumulative delta line. For a long, price falls into support while cumulative delta rises. For a short, price rises into resistance while cumulative delta falls.</li>
+          </ul>
+          <p class="why">Easy to read, which is why it's popular.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Where to look, by side</h4>
+        <table>
+          <thead><tr><th>Confirmation</th><th>At support (long)</th><th>At resistance (short)</th></tr></thead>
+          <tbody>
+            <tr><td class="txt">Big limit order</td><td>big bid</td><td>big ask</td></tr>
+            <tr><td class="txt">Absorption</td><td>bid + ask heavy</td><td>bid + ask heavy</td></tr>
+            <tr><td class="txt">Aggressive orders</td><td>big ask, +delta</td><td>big bid, &minus;delta</td></tr>
+            <tr><td class="txt">Cum. delta divergence</td><td>price &darr;, cum. delta &uarr;</td><td>price &uarr;, cum. delta &darr;</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel">
+        <h4>The best case: two in a row</h4>
+        <p class="lead">A passive confirmation first, then an aggressive one.</p>
+        <div class="tri">
+          <div class="blu"><span class="k">first</span><b>Limit order or absorption</b><p>A big passive player was waiting at the level and steps in.</p></div>
+          <div class="care"><span class="k">then</span><b>Aggressive orders</b><p>Others see it and pile in with market orders.</p></div>
+          <div class="yes"><span class="k">result</span><b>A snowball</b><p>The strongest confirmation you can ask for.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="levels">
+    <h2>Where the levels come from</h2>
+    <p>The book also gives standalone order flow setups that build levels on the 30-minute footprint, plus volume profile setups for the bigger picture. Each one marks a zone; you trade the pullback to it.</p>
+  </div>
+  <div class="four eight">
+    <div style="--tc:#ff9f0a"><span class="k">order flow &middot; 1</span><h3>Volume clusters</h3><p>A heavy block formed in a trend, or inside a strong rejection of higher or lower prices.</p><small>Enter at the start of the cluster or its heaviest price. Formed in an uptrend: long.</small></div>
+    <div style="--tc:#f4b942"><span class="k">order flow &middot; 2</span><h3>Multiple nodes</h3><p>Two or more footprints in a row with their high volume node at the same price.</p><small>In a trend, before one, or in a strong rejection. More nodes, stronger level.</small></div>
+    <div style="--tc:#2997ff"><span class="k">order flow &middot; 3</span><h3>Big trades only</h3><p>A filter that hides everything except single trades above a size you set.</p><small>Set it so you get roughly 5 to 10 signals a day. The color doesn't decide the side.</small></div>
+    <div style="--tc:#64d2ff"><span class="k">order flow &middot; 4</span><h3>Stacked imbalances</h3><p>A zone of stacked buying imbalances (support) or selling imbalances (resistance).</p><small>Best within a trend or before one; a strong one-way move will do.</small></div>
+    <div style="--tc:#bf5af2"><span class="k">bonus</span><h3>Unfinished business</h3><p>A high or low where both the bid and ask were above zero: a failed auction.</p><small>Works like a magnet. Use it to stretch a target or to avoid a bad entry, not as a setup.</small></div>
+    <div style="--tc:#30d158"><span class="k">volume profile &middot; 1</span><h3>Accumulation</h3><p>A tight rotation, then a strong trend out of it. The heaviest volume in the rotation is the level.</p><small>Institutions build size quietly in a rotation before they move it.</small></div>
+    <div style="--tc:#30d158"><span class="k">volume profile &middot; 2</span><h3>Trend clusters</h3><p>In a strong trend the profile is thin. A small bump of volume inside it is the level.</p><small>Trade with the trend: longs in an uptrend, shorts in a downtrend.</small></div>
+    <div style="--tc:#30d158"><span class="k">volume profile &middot; 3</span><h3>Rejection</h3><p>A strong, aggressive rejection of higher or lower prices. Its heaviest volume is the level.</p><small>The hardest of the three: the rejection has to be clearly aggressive.</small></div>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">&#8635;</div>
+        <div>
+          <h3>Rules the order flow setups share</h3>
+          <ul>
+            <li>Price must first move away: at least one or two whole footprints (30-minute) completely above or below the zone.</li>
+            <li>Then wait for the pullback. Enter when price returns to the zone.</li>
+            <li>Hit from above: long. Hit from below: short.</li>
+            <li>Trade only the first touch. The odds of a second good reaction are lower.</li>
+          </ul>
+          <p class="why">Volume clusters and multiple nodes don't need the bid &times; ask split, so they can be read on total volume.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Profile shapes, briefly</h4>
+        <p class="lead">The shape of a session's profile tells you what kind of day it was.</p>
+        <div class="pair">
+          <div><span class="k">D</span><b>Balance</b><p>The most common. Positions being built before the next move.</p></div>
+          <div><span class="k">P</span><b>Up, then rotation</b><p>Seen in uptrends or at the end of a downtrend.</p></div>
+          <div><span class="k">b</span><b>Down, then rotation</b><p>Seen in downtrends or at the end of an uptrend.</p></div>
+          <div><span class="k">thin</span><b>Strong trend</b><p>Only small bumps of volume: the trend clusters above.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="manage">
+    <h2>Managing the trade with order flow</h2>
+    <p>The same reads that get you in can tell you where to take profit, when to keep trailing, and where the stop makes sense.</p>
+  </div>
+  <div class="tri">
+    <div class="yes"><span class="k">take profit</span><b>Just before heavy volume</b><p>Heavy-volume areas act as support and resistance, so take profit a little before the next one. Price often reacts slightly early. If the nearest one is too close for the reward, skip the trade or aim for the one after.</p></div>
+    <div class="blu"><span class="k">trail</span><b>While imbalances are on your side</b><p>Long: keep trailing while buying imbalances keep printing. Stop trailing on a warning signal: any confirmation that points the other way (a limit order, absorption, aggressive orders or a delta divergence against you).</p></div>
+    <div class="care"><span class="k">stop loss</span><b>Behind the level, sized sensibly</b><p>A fixed stop, beyond the high or low of the zone, or in the low-volume area behind a heavy-volume area. Keep it roughly 10 to 20% of the average daily range (ATR); outside that, skip the trade or use a fixed stop.</p></div>
+  </div>
+
+  <div class="section-head" id="plan">
+    <h2>A beginner's action plan</h2>
+    <p>The video's quick plan for getting started, one step at a time.</p>
+  </div>
+  <div class="of-steps" data-of-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Get a footprint chart</h3>
+          <ul>
+            <li>Choose a platform that draws footprints. A free futures platform with an order flow add-on is enough to learn on.</li>
+            <li>Set it up with bid &times; ask cells, delta under each footprint, and a way to switch to total volume.</li>
+          </ul>
+          <p class="why">Don't pay for features you won't read. Four things is the whole job at first.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Connect futures data</h3>
+          <ul>
+            <li>Level 1 data from the exchange that lists your instrument: executed trades with the bid and ask.</li>
+            <li>Skip level 2. Pending orders aren't what a footprint reads.</li>
+          </ul>
+          <p class="why">Futures: one central exchange, so your volume is everyone's volume.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Pick one instrument</h3>
+          <ul>
+            <li>Only one. Every instrument has different volume, volatility and active hours.</li>
+            <li>What counts as "unusually large" volume is different on each one, and you need to know it by feel.</li>
+          </ul>
+          <p class="why">Even the best traders trade one or two instruments. No more.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Week one: just observe</h3>
+          <ul>
+            <li>Watch large volumes, volume clusters, delta and imbalances on your one market.</li>
+            <li>Don't place any trades yet. Get to know the market and the footprint.</li>
+          </ul>
+          <p class="why">Learn what normal looks like first, so unusual stands out.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Add the point of control</h3>
+          <ul>
+            <li>Start combining with a volume profile and mark the point of control.</li>
+            <li>When price reaches it, open the footprint and look for confirmation, like absorption. Then trade.</li>
+          </ul>
+          <p class="why">Level first, order flow second: that's the whole method.</p>
+        </div>
+      </section>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/93QSoSMjOxs" title="Order flow trading for beginners (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Trader Dale's practical beginner guide to order flow: what to focus on first and how to use it for better entries.</p>
+      <ol>
+        <li><b>0:37</b>Why care about order flow</li>
+        <li><b>2:55</b>Where to get order flow</li>
+        <li><b>6:46</b>Level 1 vs level 2 data</li>
+        <li><b>8:46</b>The four most important things</li>
+        <li><b>10:39</b>Large orders and volume clusters</li>
+        <li><b>13:24</b>Delta</li>
+        <li><b>15:36</b>Imbalances</li>
+        <li><b>17:26</b>Order flow as entry confirmation</li>
+        <li><b>20:50</b>The absorption setup</li>
+        <li><b>23:04</b>Quick action plan</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=93QSoSMjOxs" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Without a level, order flow is just noise.</h2>
+      <p>Find the level first, with a volume profile point of control or your own method. Wait for price to come back to it. Then let the footprint tell you whether big players are reacting there, and only then pull the trigger.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Read four things: large orders, volume clusters, delta, imbalances.</li>
+        <li>Futures and level 1 data: executed trades from one central exchange.</li>
+        <li>One instrument. A week of watching before the first trade.</li>
+        <li>Absorption: unusually heavy volume on the bid and the ask, at the level.</li>
+        <li>Take profit before the next heavy-volume area; trail only while the aggression is on your side.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from Trader Dale's beginner video on order flow trading and his book <i>Order Flow: Trading Setups</i>: the four things to read, order flow as confirmation at a volume profile point of control, the absorption setup, the four confirmations, the level-finding setups and trade management. Product offers, prices and promotions in the video and book are left out. Every footprint, bar and number in the walkthroughs is made up for illustration except the 121, 70, 514 and 1,025 contract examples quoted from the video. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

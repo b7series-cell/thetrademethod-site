@@ -1,0 +1,5 @@
+# Config holds the API key: never serve it, even as source.
+<FilesMatch "^config(\.sample)?\.php$">
+  Require all denied
+</FilesMatch>
+Options -Indexes

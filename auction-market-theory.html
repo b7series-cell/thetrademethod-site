@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auction Market Theory — where to start from zero | The Trade Method</title>
+<meta name="description" content="Auction market theory from Fabio Valentini's &quot;if I started from zero&quot; video: read the market regime first (balance, transition, imbalance), trade wall to wall inside balance, wait for the transition candle, find the asymmetrical opportunity with the delta peak and value area low, and build the position with one third of the locked profit.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/auction-market-theory.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Auction Market Theory — where to start from zero">
+<meta property="og:description" content="Auction market theory from Fabio Valentini's &quot;if I started from zero&quot; video: read the market regime first (balance, transition, imbalance), trade wall to wall inside balance, wait for the transition candle, find the asymmetrical opportunity with the delta peak and value area low, and build the position with one third of the locked profit.">
+<meta property="og:url" content="https://thetrademethod.com/auction-market-theory.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Auction Market Theory — where to start from zero">
+<meta name="twitter:description" content="Auction market theory from Fabio Valentini's &quot;if I started from zero&quot; video: read the market regime first (balance, transition, imbalance), trade wall to wall inside balance, wait for the transition candle, find the asymmetrical opportunity with the delta peak and value area low, and build the position with one third of the locked profit.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Auction Market Theory — where to start from zero",
+ "name": "Auction Market Theory",
+ "description": "Auction market theory from Fabio Valentini's \"if I started from zero\" video: read the market regime first (balance, transition, imbalance), trade wall to wall inside balance, wait for the transition candle, find the asymmetrical opportunity with the delta peak and value area low, and build the position with one third of the locked profit.",
+ "url": "https://thetrademethod.com/auction-market-theory.html",
+ "mainEntityOfPage": "https://thetrademethod.com/auction-market-theory.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-13",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.seven { grid-template-columns:repeat(2,1fr); }
+    .ribbon.seven > div:last-child { grid-column:span 2; }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* where to start from zero: five cards, or a stepper once js/amt-anim.js runs */
+  .amt-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .amt-steps .stage, .sheet .amt-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .amt-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .amt-steps.is-stepper .stage, .sheet .amt-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .amt-steps.is-stepper .stage .num { display:none; }
+  .sheet .amt-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .amt-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .amt-steps + .four { margin-top:28px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .amt-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .amt-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .amt-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .amt-steps { margin-top:24px; }
+  }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/amt-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=22" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="auction-market-theory">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; from Fabio Valentini's "if I started from zero" video</p>
+      <h1>Auction Market <span>Theory</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Imagine every chart, every order flow read and every statistic you know is erased. Where would you start again? Fabio's answer isn't a strategy, because edges disappear and strategies stop working. It's the mechanics of the market: how the auction works, and which regime is in charge right now.
+      <em>Read the regime before you pick the trade.</em></p>
+      <div class="counts">
+        <div><b>3 phases</b><small>balance, transition, imbalance</small></div>
+        <div><b>1:1.5&ndash;1:2</b><small>the realistic target inside balance</small></div>
+        <div><b>&frac13;</b><small>of the locked profit, risked on an add</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon seven" aria-label="Where to start">
+    <div><div class="t">step 1</div><div class="n">Read the regime</div></div>
+    <div><div class="t">step 2</div><div class="n">Trade wall to wall</div></div>
+    <div><div class="t">step 3</div><div class="n">Wait for the transition candle</div></div>
+    <div><div class="t">step 4</div><div class="n">Delta peak + value area low</div></div>
+    <div><div class="t">step 5</div><div class="n">Build with locked profit</div></div>
+  </nav>
+
+  <div class="section-head" id="regime">
+    <h2>Step one: which regime is the market in?</h2>
+    <p>The first question to ask of every market, even a trending one like the Nasdaq or Bitcoin: what's actually dominating right now? Auction market theory answers it with three phases, and it tells you what to expect from the coming week and from each single-day auction.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>A trending asset can still be in balance</h3>
+          <ul>
+            <li>Through the summer the Nasdaq revolved around a three-month rotation on the composite profile.</li>
+            <li>The range was extremely choppy: the market kept running to one extreme, getting rejected, and running to the other.</li>
+            <li>Volatility took the biggest hit. Price moved overnight, after the day's zero-days-to-expiry options had expired, and sat nearly still during the day.</li>
+          </ul>
+          <p class="why">Knowing that regime in advance tells you what kind of week, and what kind of session, you're walking into.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>The market is an elastic band</h3>
+          <ul>
+            <li>Auction market theory is phases of extension and phases of snapback.</li>
+            <li>It starts from balance: every market has to build order and complete its accumulation and distribution.</li>
+            <li>The market is a pool of operators with different objectives and needs. Rotating around one area isn't just compression, it's building the fuel for a directional move.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Three phases</h4>
+        <div class="four" style="grid-template-columns:1fr;gap:12px">
+          <div style="--tc:#2997ff"><span class="k">balance</span><h3>Rotation</h3><p>Price rotates between two walls. Both sides defend their boundary.</p></div>
+          <div style="--tc:#f4b942"><span class="k">transition</span><h3>The transition candle</h3><p>Big orders accept value outside the area. Also called the initiative auction.</p></div>
+          <div style="--tc:#30d158"><span class="k">imbalance</span><h3>Extension</h3><p>A trend toward the next area of value, where a new balance forms.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="anim" data-amt-anim="phases" aria-label="Illustrative made-up 30-minute bars of an index future: price rotates between walls at 30,100 and 29,900, a catalyst arrives, a transition candle accepts value above 30,100, price extends to about 30,400 and builds a new balance between 30,340 and 30,445.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Balance, transition, imbalance</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up bars moving from balance to imbalance and into a new balance."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>What ends a balance</h3>
+          <ul>
+            <li>Watch for the moment the market goes from phase A to phase B: balance, then transition, then imbalance.</li>
+            <li>This year there was almost always a fundamental catalyst behind it: a presidential post, a war threat between Iran and the US, a change from the Fed, strong earnings in tech.</li>
+          </ul>
+          <p class="why">Long term, the fundamentals are the reason a market leaves balance. The auction tells you when it's actually happening.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Read it on any time frame</h4>
+        <p class="lead">Balance can be studied on the composite (long-term) profile and on the short-term profile: the weekly, the daily, or a single candle. Fabio built a template he calls candle framing for exactly this, shown in the intraday walkthrough further down.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">long term</span><b>Composite, weekly</b><p>Which phase is the week in? Sets your expectations and your swing bias.</p></div>
+          <div class="care"><span class="k">short term</span><b>Daily, a single candle</b><p>Who won the last auction? Sets the bias for the next session.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="balance">
+    <h2>Trading inside balance: wall to wall</h2>
+    <p>Auction market theory also tells you which model fits the market. A trend follower in a balanced market can't push reward-to-risk to big numbers, because more often than not the market bounces off the walls above and below.</p>
+  </div>
+  <section class="anim" data-amt-anim="balance" aria-label="Illustrative made-up bars inside a balance between 29,900 and 30,100: a poke above the upper wall traps buyers, an initiative auction candle gives a short from 30,070 to 29,950 with a stop at 30,135, absorption at the lower wall gives a long from 29,940 to 30,050 with a stop at 29,885, and a 1:5 target at 30,215 is never reached.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Wall to wall, not 1:5</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up bars showing two trades from wall to wall inside a balance."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Short-term trend following, inside the range</h3>
+          <ul>
+            <li>Price taps the upper wall. Trapped buyers from big orders, or strong selling aggression as it comes back inside, give you the trade.</li>
+            <li>The rejection prints an initiative auction candle: a strong aggression candle. That's a short-term trend-following trade to the other side of the range.</li>
+            <li>Know where the path of least resistance stops: at the other wall.</li>
+          </ul>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Then expect the opposite</h3>
+          <ul>
+            <li>At the other boundary, expect accumulation: big orders absorbing, or strong absorption on the delta profile. Read order flow with whatever tool you prefer.</li>
+            <li>When price re-enters balance off that wall, the next trade goes back to the other side.</li>
+          </ul>
+          <p class="why">"This is only 1:1.5 or 1:2." Right. Every market phase comes with its own potential direction, and in balance it isn't clear.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Why the targets stay small in balance</h4>
+        <div class="calc">
+          <div class="row"><span>Target inside balance</span><b>1:1.5 to 1:2</b></div>
+          <div class="row"><span>Target that sits past a wall</span><b>1:4, 1:5, 1:6</b></div>
+          <div class="row"><span>What the big target costs in a rotation</span><b>stop after stop</b></div>
+          <div class="row tot"><span>Rule while both walls hold</span><b>capital first</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Mean reversion still pays</h4>
+        <p class="lead">Some summer days you could close at +5, +6 or +7R just mean-reverting inside the area. The one thing not to do: once the market accepts value below the area, stop trying to buy. It usually accelerates in that direction.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="transition">
+    <h2>The transition candle and the asymmetrical opportunity</h2>
+    <p>When a candle finally accepts value outside the area, after six hours in a day or a few days in a week, big orders are switching the regime from balance to imbalance. That's where higher reward-to-risk becomes possible, depending on what's above.</p>
+  </div>
+  <section class="anim" data-amt-anim="asym" aria-label="Illustrative made-up bars: a pre-market balance between about 29,990 and 30,090, a low volume node above, the next value from about 30,260. An initial volume breakout accepts value above. A profile of the move from A to B shows a delta peak at 30,120 with a margin of error of 8 points and a value area low of 30,085. A long at 30,122 with a tight stop at 30,102 or a relaxed stop at 30,078 targets 30,262: about 1:7 or 1:3.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The asymmetrical daily opportunity</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 560" role="img" aria-label="Illustrative made-up bars showing a transition candle, a delta peak and an asymmetrical long."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>What makes it asymmetrical</h3>
+          <ul>
+            <li>Take the pre-market profile, the three hours before the New York open. In the first hours sellers defend the top and buyers defend the bottom.</li>
+            <li>Above it there's an empty, low volume node, and the next value, the next balance, is far away.</li>
+            <li>If value moves up, there's all that room before the next place the market wants to trade.</li>
+          </ul>
+          <p class="why">He takes this once the market shows its hand, usually with the initial volume breakout: the first time the buyers show their intention.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Mark the delta peak and the value area low</h3>
+          <ul>
+            <li>Take a profile of just the move from point A to point B. Zoom in: the levels adapt to how granular you go.</li>
+            <li>Mark the delta peak, where buyers were most aggressive, and the value area low, the most important level, in green.</li>
+            <li>Two levels sit close above and below: that's your margin of error. Mark it on both sides.</li>
+          </ul>
+          <p class="why">Long term, the most relevant switches of the auction all come from a delta peak. You're asking the market: show me where buyers were most aggressive.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Two ways to place the stop</h4>
+        <div class="pair">
+          <div class="care"><span class="k">tight</span><b>Under the aggression</b><p>Just under the area where buyers got aggressive, past the delta peak's margin of error. Bigger reward-to-risk, stopped more often.</p></div>
+          <div class="yes"><span class="k">relaxed</span><b>Under the bulk of delta</b><p>Use the profile from A to B to see where most of the buyers' aggression was built, and protect below all of it. In the swing example this was about a 1:3 to the local top.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Enter on the test of the big trade</h4>
+        <p class="lead">Fabio's position: enter when price tests the big trade, protect below the bulk of the buyers' delta, and go for the expansion to the top side. Opportunities like this don't come every day. Sometimes the market just goes around the consolidation and never offers one.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="build">
+    <h2>Manage it, then build with a third of the locked profit</h2>
+    <p>The long goes well, then the market starts to rotate and buyers and sellers build a new area of battle. How much momentum is left? You either take the position off as soon as the sellers kick in, or you manage it, and if the next balance is far away, build.</p>
+  </div>
+  <section class="anim" data-amt-anim="build" aria-label="Illustrative made-up bars: a long at 30,120 with a stop at 30,080 (1R is 40 points or $1,000) runs to 30,280. A new range forms, buyers accept above it, the stop moves to 30,240 to lock in 3R. One third of that, 1R, is risked on an add at 30,295 with a stop at 30,255. The worst case nets +2R; the directional day exits at 30,360 for +7.6R.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Position building, worst case still green</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up bars showing a long, a locked stop and an add sized from one third of the locked profit."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Don't close the whole thing just because you touched a level</h3>
+          <ul>
+            <li>If buyers are extremely aggressive and you get acceptance at the top of the range, with big trades buying, you can stay with it.</li>
+            <li>Bring all the floating profit to the last invalidation point: move the whole stop there.</li>
+            <li>Now that profit is locked in, and you can use part of it to build another position.</li>
+          </ul>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Divide it in three</h3>
+          <ul>
+            <li>Say the locked profit is $3,000. Take one third, $1,000, and risk it on an additional trend-following position.</li>
+            <li>Worst case the market comes back: you lose 1R on the add, but you still keep the rest of the locked profit.</li>
+            <li>Best case you get a directional market, and an asymmetrical session of 6 or 8R.</li>
+          </ul>
+          <p class="why">One or two sessions like that a week is enough to close an excellent week.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The math from the walkthrough</h4>
+        <div class="calc">
+          <div class="row"><span>First long: 30,120, stop 30,080</span><b>1R = $1,000</b></div>
+          <div class="row"><span>Stop moved to the last invalidation, 30,240</span><b>+3R locked</b></div>
+          <div class="row"><span>Add at 30,295, stop 30,255 (one third)</span><b>risks 1R</b></div>
+          <div class="row"><span>Worst case: add stopped, first stopped</span><b>+3R &minus; 1R = +2R</b></div>
+          <div class="row tot"><span>Directional day: both out at 30,360</span><b>+6R + 1.6R = +7.6R</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Only when the next balance is far</h4>
+        <p class="lead">Building makes sense when, after this balance, the next one is really far away. That's what keeps it an asymmetrical opportunity. If the next value sits right above you, take the position off when the sellers show up.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="sessions">
+    <h2>Reading each session's auction</h2>
+    <p>In practice, start from the long-term profile, then go day by day: who dominated the auction, and what does that mean for the next regular trading hours? In Fabio's Nasdaq example a level at 30,333 acted as the wall, and once value was accepted above it the market expanded hard.</p>
+  </div>
+  <section class="anim" data-amt-anim="sessions" aria-label="Illustrative made-up bars and profiles for four sessions: day 1 builds value near 30,320, day 2 breaches day 1's value area low and builds value lower, day 3 sells into a marked level at 30,060, makes a failed auction tail near 30,010 and then accepts value above, and day 4 holds the new value area low and rallies.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Who won yesterday's auction?</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 560" role="img" aria-label="Illustrative made-up bars and session profiles showing value accepted lower, a failed auction, and value accepted above."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Accepted lower: expect a sell auction</h3>
+          <ul>
+            <li>The previous value got breached on the downside, the POC is lower and the aggression already broke the value area low.</li>
+            <li>Expect the regular session to be an aggressive sell auction, expanding at least to the local low.</li>
+          </ul>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>A failed auction is a tail</h3>
+          <ul>
+            <li>At a level you marked before, buyers get aggressive. First rejection. A second aggression makes a lower POC and tries to go into imbalance, but the profile can't accept below the absorption.</li>
+            <li>It's like an inside candle: I tried to go lower and I failed. Then value is accepted above the previous session's bulk of volume.</li>
+          </ul>
+          <p class="why">Then look for longs next session: fade the value area low in the direction of the pressure.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Merge sessions when single ones confuse you</h4>
+        <p class="lead">Taken one by one, five sessions can be confusing. Merge them into one range and you're adding up the volume of several sessions to see what to expect. Single profiles and the composite together show which area is still being respected, like the value area low that was used for the buy in the video.</p>
+      </div>
+      <div class="panel">
+        <h4>Swing or single auction</h4>
+        <ul class="plain">
+          <li>Swing: a relaxed position protected below the delta peak, to the local top. About a 1:3.</li>
+          <li>Single auction: wait for the candle that finally accepts higher, then scalp in the direction of the higher time frame.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="candle-framing">
+    <h2>Candle framing, intraday</h2>
+    <p>The same logic works one step down, on the intraday profile. Fabio's candle framing template puts a profile on each candle of a range chart, so you can see who won each little auction.</p>
+  </div>
+  <section class="anim" data-amt-anim="frame" aria-label="Illustrative made-up range bars: a compression between 30,192 and 30,228 that buyers win, a profile of the move from A to B with delta peaks near 30,247 and 30,272, a pullback where each candle's POC is lower, buyers try and fail, then a candle whose POC migrates higher, and a long at 30,262 with a stop at 30,238 and a 1:2 target at 30,310.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The change of flow</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up range bars with a POC on each candle, showing a change of flow and a 1:2 long."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>What is a change of flow?</h3>
+          <ul>
+            <li>A candle's POC lower than the one before: sellers still in control.</li>
+            <li>Buyers try to take control back and fail: sellers still in control.</li>
+            <li>Then the POC migrates higher and value is accepted above. Now there's no doubt.</li>
+          </ul>
+          <p class="why">Fabio usually goes for a 1:2 here, taking the expansion area at the top because they accepted value.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Stack it on what you already do</h4>
+        <p class="lead">All of this sits on top of your other studies. Fabio pairs it with a study he calls the Nasdaq effort, which takes the buyers' point of control when they're pushing in the same direction, on a 40 range chart. If it marks buyer aggression inside the area you were already looking at, that's an accumulation area to trade in the direction of the main bias. You can also time the entry with your own order flow.</p>
+      </div>
+      <blockquote class="qb">"The goal here is not to tell you what to trade or how to trade, but <b>teach you how to think</b>." &mdash; Fabio Valentini</blockquote>
+    </div>
+  </div>
+
+  <div class="section-head" id="start">
+    <h2>If you started from zero</h2>
+    <p>The order Fabio would learn it in again: auction market theory and order flow first, then option flow on top. Click through the five steps.</p>
+  </div>
+  <div class="amt-steps" data-amt-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Identify the regime</h3>
+          <ul>
+            <li>Before anything else: is this market in balance, in transition, or in imbalance?</li>
+            <li>Check the composite profile for the week and the daily profile for the session.</li>
+          </ul>
+          <p class="why">It's the single most important question, and it picks the model for you.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>In balance, trade wall to wall</h3>
+          <ul>
+            <li>Initiative auction candles off one wall, absorption at the other.</li>
+            <li>Keep targets at the other wall: 1:1.5 to 1:2. A 1:5 in a rotation is a string of stops.</li>
+          </ul>
+          <p class="why">Protecting capital comes first.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Wait for the transition candle</h3>
+          <ul>
+            <li>Big orders accepting value outside the area: the switch from balance to imbalance.</li>
+            <li>Check what's above: a low volume node and a far-away next value make the opportunity asymmetrical.</li>
+          </ul>
+          <p class="why">Once value is accepted below an area, stop trying to buy it.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Mark the delta peak and the VAL</h3>
+          <ul>
+            <li>Profile the move from A to B. Mark the delta peak and the value area low, plus a margin of error on each side.</li>
+            <li>Enter on the test of the big trade, stop below the bulk of the buyers' delta.</li>
+          </ul>
+          <p class="why">The biggest switches of the auction come from these delta peaks.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Manage, then build</h3>
+          <ul>
+            <li>New area of battle: exit when sellers kick in, or move the whole stop to the last invalidation.</li>
+            <li>Risk one third of the locked profit on an add. Worst case you still close green.</li>
+          </ul>
+          <p class="why">One or two directional days a week make the week.</p>
+        </div>
+      </section>
+  </div>
+
+  <div class="section-head" id="related">
+    <h2>Go deeper</h2>
+    <p>Pages on this site that pick up where this one leaves off.</p>
+  </div>
+  <div class="four">
+    <a href="/order-flow.html" style="--tc:#30d158"><span class="k">order flow</span><h3>Order Flow for Beginners</h3><p>What a footprint shows, delta, absorption, and order flow as confirmation at a profile level.</p><small>Read &rsaquo;</small></a>
+    <a href="/setups/volume-profile-system.html" style="--tc:#2997ff"><span class="k">volume profile</span><h3>Volume Profile System</h3><p>A full setup built on value area high, value area low and the POC.</p><small>Read &rsaquo;</small></a>
+    <a href="/seven-trading-traps.html" style="--tc:#ff9f0a"><span class="k">regime</span><h3>Seven Trading Traps</h3><p>Missing a regime change is trap 2: a simple filter for when to switch from offense to defense.</p><small>Read &rsaquo;</small></a>
+    <a href="/dynamic-risk-sizing.html" style="--tc:#f4b942"><span class="k">sizing</span><h3>Dynamic Risk Sizing</h3><p>Grade setups A+ to C and press the asymmetrical ones, coast the rest.</p><small>Read &rsaquo;</small></a>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/VHhvg96W6lc" title="If I started trading from zero: auction market theory (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Fabio Valentini on what he'd learn first if he had to start trading again from zero.</p>
+      <ol>
+        <li><b>0:00</b>Foundations of trading</li>
+        <li><b>1:17</b>Auction market theory</li>
+        <li><b>2:54</b>Balance and imbalance phases</li>
+        <li><b>4:51</b>Strategies for market phases</li>
+        <li><b>7:33</b>Identifying opportunities</li>
+        <li><b>10:29</b>Trade management logic</li>
+        <li><b>12:54</b>Applying theory in practice</li>
+        <li><b>16:46</b>Analyzing session auctions</li>
+        <li><b>18:49</b>Delta and volume analysis</li>
+        <li><b>21:05</b>Intraday profile techniques</li>
+        <li><b>24:26</b>Conclusion and mindset</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=VHhvg96W6lc" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Learn the auction first. Strategies come and go.</h2>
+      <p>An edge can disappear and a strategy can stop working. Understanding how the market auctions, and which phase it's in, stays with you. Start there, add order flow, and build everything else on top.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Name the regime before the trade: balance, transition or imbalance.</li>
+        <li>In balance, target the other wall: 1:1.5 to 1:2.</li>
+        <li>Value accepted outside the area? That's the transition candle.</li>
+        <li>Far next value plus a thin path: an asymmetrical opportunity.</li>
+        <li>Delta peak and value area low, with a margin of error. Stop beyond them.</li>
+        <li>Lock the profit at the last invalidation, then risk one third to build.</li>
+        <li>Value accepted below the area? Stop trying to buy.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from Fabio Valentini's video on what he'd study first if he started trading from zero: auction market theory, balance and imbalance, the transition candle, the asymmetrical opportunity, the delta peak and value area low with a margin of error, position building with a third of the locked profit, and his candle framing template. The concepts and the market examples (the Nasdaq's summer rotation, the 30,333 wall, the Nasdaq effort study) are his. Mentions of his platform's templates are kept to the idea, not the product. Every bar, profile, level, trade and R figure in the walkthroughs is made up for illustration, including the 1R = $1,000 sizing and the stop and target prices. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

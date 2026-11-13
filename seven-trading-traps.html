@@ -1,0 +1,884 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seven Trading Traps — why experienced traders lose money | The Trade Method</title>
+<meta name="description" content="The seven traps that make experienced traders lose money, from SMB Capital's desk reset meeting: style drift, missing a regime change, holding out for grand slams, not being selective enough, skipping short-term trades, sizing poorly and overusing options, plus the five-point reset checklist.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/seven-trading-traps.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Seven Trading Traps — why experienced traders lose money">
+<meta property="og:description" content="The seven traps that make experienced traders lose money, from SMB Capital's desk reset meeting: style drift, missing a regime change, holding out for grand slams, not being selective enough, skipping short-term trades, sizing poorly and overusing options, plus the five-point reset checklist.">
+<meta property="og:url" content="https://thetrademethod.com/seven-trading-traps.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Seven Trading Traps — why experienced traders lose money">
+<meta name="twitter:description" content="The seven traps that make experienced traders lose money, from SMB Capital's desk reset meeting: style drift, missing a regime change, holding out for grand slams, not being selective enough, skipping short-term trades, sizing poorly and overusing options, plus the five-point reset checklist.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Seven Trading Traps — why experienced traders lose money",
+ "name": "Seven Trading Traps",
+ "description": "The seven traps that make experienced traders lose money, from SMB Capital's desk reset meeting: style drift, missing a regime change, holding out for grand slams, not being selective enough, skipping short-term trades, sizing poorly and overusing options, plus the five-point reset checklist.",
+ "url": "https://thetrademethod.com/seven-trading-traps.html",
+ "mainEntityOfPage": "https://thetrademethod.com/seven-trading-traps.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-11",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.seven { grid-template-columns:repeat(2,1fr); }
+    .ribbon.seven > div:last-child { grid-column:span 2; }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* the quarterback quote */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:#ff6961; }
+  @media (min-width:1101px) { .ribbon.seven { grid-template-columns:repeat(7,1fr); } }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the five-point reset: five cards, or a stepper once js/traps-anim.js runs */
+  .tt-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .tt-steps .stage, .sheet .tt-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .tt-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .tt-steps.is-stepper .stage, .sheet .tt-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .tt-steps.is-stepper .stage .num { display:none; }
+  .sheet .tt-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .tt-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .tt-steps + .four { margin-top:28px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .tt-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .tt-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .tt-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .tt-steps { margin-top:24px; }
+  }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/traps-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=21" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="seven-trading-traps">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; from SMB Capital's desk reset meeting</p>
+      <h1>Seven Traps, <span>One Reset</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Every trader hits a stretch where the P&amp;L bleeds. The dangerous move is calling it "not my market." SMB Capital's partners sat their desk down and went through the seven traps that historically make experienced traders lose money.
+      <em>You're not broken. Find the trap, then adapt.</em></p>
+      <div class="counts">
+        <div><b>7</b><small>traps experienced traders fall into</small></div>
+        <div><b>3 notches</b><small>the downgrade when one nuance is missing</small></div>
+        <div><b>&minus;50%</b><small>size, the moment a setup goes cold</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon seven" aria-label="The seven traps">
+    <div><div class="t">trap 1</div><div class="n">Style drift</div></div>
+    <div><div class="t">trap 2</div><div class="n">Missing a regime change</div></div>
+    <div><div class="t">trap 3</div><div class="n">Holding for grand slams</div></div>
+    <div><div class="t">trap 4</div><div class="n">Not selective enough</div></div>
+    <div><div class="t">trap 5</div><div class="n">Too few easy trades</div></div>
+    <div><div class="t">trap 6</div><div class="n">Sizing poorly</div></div>
+    <div><div class="t">trap 7</div><div class="n">Overusing options</div></div>
+  </nav>
+
+  <div class="section-head" id="excuse">
+    <h2>"It's just not my market"</h2>
+    <p>Mike Bellafiore calls it the single most dangerous excuse he hears from experienced traders in a slump. It sounds reasonable. "I'm a breakout trader and breakouts aren't working." "I just need to wait until the market gets better for me."</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">?</div>
+        <div>
+          <h3>Put the excuse to the test</h3>
+          <ul>
+            <li>Your team's $40 million quarterback has a long, documented history of folding against one defensive scheme, and did nothing in the off season to fix it.</li>
+            <li>The Super Bowl comes, he sees that exact defense, throws four picks and loses by 50.</li>
+            <li>Then he tells the press conference: "We came up against one of those defenses I'm just historically not very good at."</li>
+          </ul>
+          <p class="why">No fan would accept that. So why is it an acceptable answer from a professional trader, and why is it acceptable to you?</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Swap the excuse for a search</h4>
+        <p class="lead">The moment you start losing more than usual, don't panic and don't wonder what hit you.</p>
+        <div class="pair">
+          <div class="care"><span class="k">the excuse</span><b>"It's not my market"</b><p>Wait it out, change nothing, and hope your setups come back.</p></div>
+          <div class="yes"><span class="k">the search</span><b>"Which trap am I in?"</b><p>Go through the historical reasons experienced traders lose money and scrutinize your own trading against each one.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Every desk goes through it</h4>
+        <p class="lead">SMB's own traders were underperforming when the firm held this reset meeting: senior partners, principals, top producers and traders, with one stake in the ground. Trading improves starting right after this meeting. Scrub the trading, size down a little, put some points on the board.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="style-drift">
+    <h2>Trap 1 &middot; Style drift</h2>
+    <p>You abandon your proven setups and take trades outside your core playbook. A principal called out a textbook case from one of the firm's stellar teams, a group that's flat-out outstanding at short-term momentum.</p>
+  </div>
+  <section class="anim" data-tt-anim="drift" aria-label="Illustrative made-up bars: a short-term momentum trade from 42.40 to 43.05 in 25 minutes, then the same stock chopping sideways for six weeks while a 46 call 60 days out bleeds from $3.40 to $1.15, and a made-up month where the playbook trades make $11,400 and the drifted call trades lose $8,900.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Same stocks, a different game</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative made-up bars showing a momentum trade, then a long-dated call losing premium."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>What happened on the desk</h3>
+          <ul>
+            <li>Short-term momentum was the team's bread and butter.</li>
+            <li>Then they started buying calls much further out in time and expanding their holding periods.</li>
+            <li>They bled out option premium on longer-term trades that never materialized.</li>
+          </ul>
+          <p class="why">They stepped outside an impressive, proven playbook into a time horizon where they had zero statistical edge.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Ask it of every trade this month</h4>
+        <div class="calc">
+          <div class="row"><span>Is this a setup in my playbook?</span><b>yes / no</b></div>
+          <div class="row"><span>Same time frame and holding period I have stats on?</span><b>yes / no</b></div>
+          <div class="row"><span>Same instrument I built the edge with?</span><b>yes / no</b></div>
+          <div class="row tot"><span>Any "no": it's a new setup, so test it small</span><b>drift</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="regime">
+    <h2>Trap 2 &middot; Missing a regime change</h2>
+    <p>You keep running strategies built for market conditions that are no longer there. Trading coach Dr. Brett Steenberger reviewed a top portfolio manager at a major institution who'd been flat to down for six straight months. His diagnosis: the process was fine, but there was no system to adapt from trending momentum to mean-reverting chop.</p>
+  </div>
+  <section class="anim" data-tt-anim="regime" aria-label="Illustrative made-up daily bars of an index fund with its 20-day and 50-day moving averages and a line 5% under the all-time high. Three check lights stay green while it trends up, then the 20-day check fails, then all three fail, and the posture switches from offense to defense with smaller size.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Three checks before you size</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 560" role="img" aria-label="Illustrative made-up bars showing a three-part regime filter switching from offense to defense."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Brandon's regime filter for QQQ</h3>
+          <ul>
+            <li>Is QQQ within a defined percentage of its all-time high?</li>
+            <li>Is it above the 20-day moving average?</li>
+            <li>Is it above the 50-day moving average?</li>
+          </ul>
+          <p class="why">If all three aren't met, he turns defensive. That filter kept him green while others drew down.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>What "defensive" means</h3>
+          <ul>
+            <li>Cut risk on upside momentum trades.</li>
+            <li>Shift to a scalp-minded, move-to-move posture: take what the tape gives and don't hold for the trend.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Two regimes, two playbooks</h4>
+        <div class="pair">
+          <div class="yes"><span class="k">all three green</span><b>Trending momentum</b><p>Breakouts follow through. Hold for the move and press the A+ trades.</p></div>
+          <div class="care"><span class="k">any one red</span><b>Mean-reverting chop</b><p>Breakouts fail. Smaller size, quicker exits, scalp move to move.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Pick the percentage before you need it</h4>
+        <p class="lead">The video doesn't give Brandon's exact percentage. The walkthrough uses 5% as a made-up example. Whatever number you choose, write it down while things are calm and don't move it in the middle of a drawdown.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="grand-slams">
+    <h2>Trap 3 &middot; Holding out for grand slams</h2>
+    <p>You get into good trades at good prices, you're well in the money, and you refuse to take profits because you haven't made enough yet.</p>
+  </div>
+  <section class="anim" data-tt-anim="giveback" aria-label="Illustrative made-up daily bars: a long at 24.00 with a stop at 23.00 runs to 31.50, plus $7,500 open on 1,000 shares, then rolls back to 23.20 for minus $800. A give-back stop that never gives back more than half the best close ratchets to 27.75 and locks in plus $3,750.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The round trip vs a give-back rule</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 560" role="img" aria-label="Illustrative made-up bars showing a big winner round-tripping, and a give-back stop locking in half."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Ring the register</h3>
+          <ul>
+            <li>A firm partner brought up CCXI, a name where traders failed to take open profits and let a massive winner round trip into a red trade on the month.</li>
+            <li>His fix was simple: more traders need hard give-back rules, so a great trade never turns into a loser.</li>
+            <li>When you get a windfall gain, lock it in.</li>
+          </ul>
+          <p class="why">The rule in the walkthrough (past 3R, give back no more than half) is one example. The point is that it's written down before the trade.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>A give-back rule, written out</h4>
+        <div class="calc">
+          <div class="row"><span>Entry 24.00, stop 23.00, 1,000 shares</span><b>1R = $1,000</b></div>
+          <div class="row"><span>Rule switches on at 3R open</span><b>27.00</b></div>
+          <div class="row"><span>Best close</span><b>31.50 &middot; +7.5R</b></div>
+          <div class="row"><span>Stop = entry + half of the best gain</span><b>27.75</b></div>
+          <div class="row tot"><span>Locked in, instead of &minus;$800</span><b>+$3,750</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Not the same as letting winners run</h4>
+        <p class="lead">You still hold for the bigger move. A give-back rule only decides how much of an open windfall you're willing to hand back. For trailing styles, see <a class="more" href="/trailing-stops.html">Trailing Stop Exits</a> and <a class="more" href="/let-winners-run.html">Let Winners Run</a>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="selectivity">
+    <h2>Trap 4 &middot; Not selective enough</h2>
+    <p>You force B-minus and C-minus trades when the market demands perfection, or you refuse to fold when a promising setup fails to confirm. To stop the bleeding you need ruthless selectivity. Two SMB leaders gave the desk a rule each.</p>
+  </div>
+  <section class="anim" data-tt-anim="select" aria-label="Illustrative: a relative-strength checklist with one of five items missing. In a normal tape the grade drops one notch from A+ to A; in a tough tape it drops three notches to B+ and gets passed. Then made-up 2-minute bars: a long at 58.10 over 58.00 with a stop at 57.60, the next bars stall back under 58.00 on falling volume, and the trade is folded at 57.95 for minus 0.3R.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Grade it harsh, fold it early</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative grade ladder and made-up bars showing a three-notch downgrade and folding a trade."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Nano's rule: grade it down three notches</h3>
+          <ul>
+            <li>In this kind of tape, if a relative strength or weakness setup is missing even one nuance, don't mark it down one notch. Mark it down three.</li>
+            <li>He also named the hidden tax of starting the day in a hole: clawing back $100k of overnight losses drains the mental capital you need to push size on the high-conviction intraday trades.</li>
+          </ul>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Lance's poker rule: fold the hand</h3>
+          <ul>
+            <li>Unlike poker, there are no blinds forcing you to play a hand.</li>
+            <li>If a setup shows positive signs at entry but the flop comes up suboptimal, just fold.</li>
+            <li>If your variables aren't present, dump the trade.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>A grade ladder for a tough tape</h4>
+        <p class="lead">How the walkthrough applies Nano's rule. Where you draw the cutoff is your call; the habit is grading harder when the regime is against you.</p>
+        <div class="calc">
+          <div class="row"><span>All five pieces there</span><b>A+ &middot; trade</b></div>
+          <div class="row"><span>One missing, normal tape (&minus;1 notch)</span><b>A &middot; trade</b></div>
+          <div class="row"><span>One missing, tough tape (&minus;3 notches)</span><b>B+ &middot; pass</b></div>
+          <div class="row tot"><span>Good entry, bad flop</span><b>fold at &minus;0.3R</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Grading feeds sizing</h4>
+        <p class="lead">A downgrade isn't only a pass or a take. It changes how much you risk. See <a class="more" href="/dynamic-risk-sizing.html">Dynamic Risk Sizing</a> for A+/A/B/C risk tiers.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="easy-money">
+    <h2>Trap 5 &middot; Not enough easy money trades</h2>
+    <p>Bellafiore calls this the single most important lesson in the video. At the reset meeting Graham, a mid-seven-figure producer, called out the developing traders: too many of them were walking the floor complaining the market wasn't any good because overnight momentum had dried up.</p>
+  </div>
+  <section class="anim" data-tt-anim="cash" aria-label="Illustrative made-up daily results in R over twenty days. A trader waiting for overnight momentum has mostly flat days and small losses, minus 2.5R after sixteen days. A trader taking turn trades, tape scalps, low floats and breaking news has small mostly green days, plus 9.8R. Both catch a plus 6R day on day 17; month totals are plus 3R and plus 18.4R.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Waiting vs slicing out cash flow</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative made-up daily results for a trader who waits and one who scalps."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Graham's challenge</h3>
+          <ul>
+            <li>While others said there was nothing to do, Graham was quietly slicing out $50,000 to $75,000 a day in intraday scalps.</li>
+            <li>It kept the cash flowing and his mind razor sharp while he waited for the larger opportunities.</li>
+            <li>His message: you need to be adding those trades to your playbook.</li>
+          </ul>
+          <p class="why">Instead of carping and complaining that there aren't enough opportunities, expand your playbook.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Where he found them</h4>
+        <div class="pair">
+          <div class="yes"><span class="k">turn trades</span><b>Intraday reversals</b><p>The turn at a level, taken move to move.</p></div>
+          <div class="yes"><span class="k">tape scalps</span><b>Reading the prints</b><p>Short holds off what the tape is doing right now.</p></div>
+          <div class="yes"><span class="k">low floats</span><b>Small-float movers</b><p>Names where a little volume moves price a lot.</p></div>
+          <div class="yes"><span class="k">breaking news</span><b>Fresh catalysts</b><p>Reacting to news as it hits, in and out.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Build the new setup the same way</h4>
+        <p class="lead">Take a setup you don't trade and reverse engineer it into your playbook: the catalyst, the level, the entry, the exit, then reps. <a class="more" href="/get-better-faster.html">Get Better Faster</a> and <a class="more" href="/six-momentum-trades.html">Six Momentum Trades</a> walk through it.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="sizing">
+    <h2>Trap 6 &middot; Sizing poorly</h2>
+    <p>You fail to methodically scale risk up when a strategy is hot and down when it goes cold. Or worse, you bet biggest when your edge is lowest.</p>
+  </div>
+  <section class="anim" data-tt-anim="size" aria-label="Illustrative made-up results for 24 trades of one setup that runs hot, cold, then hot. A methodical trader sizes up to 1.5 units while hot and cuts to half size in the drawdown, finishing plus 12.5R. A desperate trader keeps one unit, then puts 3 units on two look-alike trades in the cold stretch, both losers, finishing plus 3R. Even size would have made plus 7R.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Cycle the size with the setup</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative made-up equity curves for methodical and desperate sizing."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Cut size when you're cold</h3>
+          <ul>
+            <li>Senior trader Kenny: the biggest issue is an inability or unwillingness to cut size when you get cold.</li>
+            <li>It's a delicate dance, because you never want to strip away a trader's aggressiveness.</li>
+            <li>Graham, on the operational side: strategy performance is cyclical. When a setup works, methodically size up. When it underperforms, methodically size down.</li>
+          </ul>
+          <p class="why">Oversizing on a cold strategy in an unfavorable tape will crater your account every time.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>What struggling traders do instead</h4>
+        <p class="lead">They haven't seen their favorite setup in weeks. The moment something vaguely resembles it, they deploy monster A+ size out of desperation. That's the biggest bet placed exactly where the edge is lowest.</p>
+      </div>
+      <div class="panel">
+        <h4>A sizing rule you can follow</h4>
+        <div class="calc">
+          <div class="row"><span>Setup printing</span><b>size up, step by step</b></div>
+          <div class="row"><span>Setup hits a drawdown</span><b>cut 50%+ at once</b></div>
+          <div class="row tot"><span>Back to full size</span><b>after it works again</b></div>
+        </div>
+        <p class="lead" style="margin-top:12px">Linda Raschke draws the same line for discretionary traders, and the opposite one for mechanical systems: <a class="more" href="/linda-raschke.html#drawdown">her drawdown rule</a>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="options">
+    <h2>Trap 7 &middot; Overusing options</h2>
+    <p>Options become a default lottery ticket instead of a tactical weapon or a better way to express a trade. Desk partner Tommy shared the firm's internal data at the reset: traders were heavily positive trading the underlying stocks, and down significantly over the same stretch trading options.</p>
+  </div>
+  <section class="anim" data-tt-anim="options" aria-label="Illustrative made-up numbers: a stock trader buys 1,000 shares at 50.00 with a stop at 49.50 and is stopped for minus $500. An options trader buys 30 calls at $1.00 because the loss feels capped; at the stop level the calls are worth $0.55, the trader lets it ride at $0.30, and time decay takes them to $0.05 for minus $2,850.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The stop you'd never skip on stock</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 560" role="img" aria-label="Illustrative made-up stock bars and call premium showing a stop honored on stock and frozen on options."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Why options lose when stock wins</h3>
+          <ul>
+            <li>Capped downside gives the illusion of safety. Traders risk far more capital because they know the absolute loss is defined.</li>
+            <li>In a choppy tape with no follow-through, option market makers will paper-cut you to death with time decay, every single trade.</li>
+            <li>Traders who ruthlessly honor a stop on stock freeze on an option: "I paid a dollar and it's only worth 30 cents, so I'll just let it ride."</li>
+          </ul>
+          <p class="why">That's not risk management. That's paralysis.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Same idea, two structures</h4>
+        <div class="calc">
+          <div class="row"><span>Stock: 1,000 shares, stop 49.50</span><b>&minus;$500</b></div>
+          <div class="row"><span>Calls: honor the same stock level</span><b>&minus;$1,350</b></div>
+          <div class="row tot"><span>Calls: "let it ride" to expiry week</span><b style="color:#ff6961">&minus;$2,850</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Use options on purpose</h4>
+        <p class="lead">Options aren't the problem. A defined structure chosen for a reason can be a better way to express a trade. See <a class="more" href="/covered-calls.html">Covered Calls</a> and the <a class="more" href="/expected-move.html">Expected Move</a> dashboard.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="reset">
+    <h2>The five-point trading reset</h2>
+    <p>Whether you trade on SMB's floor or manage your own book at home, this is the blueprint from their desk reset. Click through the five steps.</p>
+  </div>
+  <div class="tt-steps" data-tt-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Audit your regime before sizing</h3>
+          <ul>
+            <li>Set objective market parameters, like Brandon's QQQ filter: near the high, above the 20-day, above the 50-day.</li>
+            <li>If the tape isn't confirming, stop forcing aggressive momentum into a choppy market.</li>
+          </ul>
+          <p class="why">Fixes trap 2, and keeps trap 1 in check.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Cycle your size methodically</h3>
+          <ul>
+            <li>Strategy performance is cyclical. When a setup is printing, size up.</li>
+            <li>When it hits a drawdown, immediately cut size by 50% or more.</li>
+          </ul>
+          <p class="why">Fixes trap 6. Never bring A+ size to a cold setup.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Audit your options exposure</h3>
+          <ul>
+            <li>Stop letting capped-risk premiums blind you to poor trade structure.</li>
+            <li>If you wouldn't hold the underlying stock through that level, don't hold the option.</li>
+          </ul>
+          <p class="why">Fixes trap 7.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Demand ruthless selectivity</h3>
+          <ul>
+            <li>Lance's poker rule: fold when the flop doesn't fit.</li>
+            <li>Nano's rule: if a setup is missing even one nuance in a choppy regime, downgrade it three grades and pass.</li>
+          </ul>
+          <p class="why">Fixes trap 4, and a give-back rule handles trap 3.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Accept Graham's challenge</h3>
+          <ul>
+            <li>Stop complaining that overnight momentum, or your favorite strategy, has dried up.</li>
+            <li>Slice out daily cash flow in turn trades, tape scalps, low floats, breaking news and other short-term move-to-move trades.</li>
+          </ul>
+          <p class="why">Fixes trap 5: the P&amp;L keeps moving and your mind stays sharp for the bigger trades.</p>
+        </div>
+      </section>
+  </div>
+  <div class="four">
+    <div style="--tc:#2997ff"><span class="k">perspective</span><h3>They've been here before</h3><p>In late 2022 and early 2023, after two monster years, SMB was in a deeper drawdown than this one.</p><small>They came out with stronger traders, tighter teams and a better firm.</small></div>
+    <div style="--tc:#30d158"><span class="k">response</span><h3>Drawdowns don't define you</h3><p>Trading humbles even the great market wizards. How you respond after the drawdown is what defines a career.</p><small>Don't step up to the podium like that quarterback.</small></div>
+    <div style="--tc:#f4b942"><span class="k">the work</span><h3>Scrub your trading</h3><p>Look in the mirror, dissect your data, size down and put points on the board.</p><small>Then get back to the core mechanics that built your edge.</small></div>
+    <div style="--tc:#64d2ff"><span class="k">the desk</span><h3>Don't do it alone</h3><p>Double down on collaboration and triple down on building technology.</p><small>Every rule on this page came from someone else on the desk.</small></div>
+  </div>
+
+  <div class="section-head" id="related">
+    <h2>Go deeper on each trap</h2>
+    <p>Pages on this site that pick up where a trap leaves off.</p>
+  </div>
+  <div class="four">
+    <a href="/dynamic-risk-sizing.html" style="--tc:#f4b942"><span class="k">traps 4 &amp; 6</span><h3>Dynamic Risk Sizing</h3><p>Grade every setup A+ to C and risk more on the best ones, from another SMB video.</p><small>Read &rsaquo;</small></a>
+    <a href="/get-better-faster.html" style="--tc:#30d158"><span class="k">traps 1 &amp; 5</span><h3>Get Better Faster</h3><p>One setup, a real playbook and film-style review: how to add a new trade properly.</p><small>Read &rsaquo;</small></a>
+    <a href="/linda-raschke.html" style="--tc:#64d2ff"><span class="k">traps 2 &amp; 6</span><h3>Linda Raschke's Trading Rules</h3><p>Get the main idea of the day right, and when to cut size in a drawdown.</p><small>Read &rsaquo;</small></a>
+    <a href="/mistakes.html" style="--tc:#ff9f0a"><span class="k">self-check</span><h3>Support &amp; Resistance Mistakes</h3><p>The other self-check: five mistakes at the level itself, not in your process.</p><small>Read &rsaquo;</small></a>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/KwHx3Rp25nw" title="Seven traps experienced traders fall into (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Mike Bellafiore of SMB Capital takes you inside the firm's desk reset meeting: the seven traps and the five-point checklist.</p>
+      <ol>
+        <li><b>0:57</b>The "not my market" excuse</li>
+        <li><b>3:48</b>Inside the desk's reset meeting</li>
+        <li><b>5:08</b>Trap 1: Style drift</li>
+        <li><b>5:59</b>Trap 2: Missing a regime change</li>
+        <li><b>7:30</b>Trap 3: Holding out for grand slams</li>
+        <li><b>8:13</b>Trap 4: Not being selective enough</li>
+        <li><b>9:46</b>Trap 5: Missing shorter-term trades</li>
+        <li><b>12:26</b>Trap 6: Sizing poorly</li>
+        <li><b>13:30</b>Trap 7: Overusing options</li>
+        <li><b>14:45</b>The five-point reset checklist</li>
+        <li><b>16:29</b>Responding to drawdowns</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=KwHx3Rp25nw" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Find the trap. Put a stake in the ground.</h2>
+      <p>When the P&amp;L bleeds, skip the press conference. Search your trading for these seven traps, fix the one you find, and start trading better today, not when the market comes back to you.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Still trading your own playbook, on your own time frame?</li>
+        <li>Regime checked before you size: near the high, above the 20 and 50-day?</li>
+        <li>A hard give-back rule on every windfall.</li>
+        <li>One nuance missing in a tough tape: three notches down. Fold bad flops.</li>
+        <li>Short-term trades in the playbook to keep cash flowing.</li>
+        <li>Cold setup: cut size 50% or more. Never desperation size.</li>
+        <li>Wouldn't hold the stock through the level? Don't hold the option.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from Mike Bellafiore's SMB Capital video on the seven reasons experienced traders lose money and the firm's five-point reset checklist. The traps, the quotes and the desk examples (the momentum team's long-dated calls, Brandon's QQQ filter, CCXI, Nano's and Lance's rules, Graham's $50,000 to $75,000 a day in scalps, Tommy's stock vs options data) are theirs. Mentions of SMB's paid programs are left out. Every bar, trade, account and dollar figure in the walkthroughs is made up for illustration, including the 5% regime band, the 3R give-back trigger and the grade cutoff. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

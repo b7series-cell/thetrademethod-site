@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Day Three Breakout — catalyst, inside day, and the break | The Trade Method</title>
+<meta name="description" content="A real catalyst drives day one, a quiet low-volume day sets up day two, and the break of that day-two high on day three is the entry — the same three-day sequence, six different tickers.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/day-three-breakout.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Day Three Breakout — catalyst, inside day, and the break">
+<meta property="og:description" content="A real catalyst drives day one, a quiet low-volume day sets up day two, and the break of that day-two high on day three is the entry — the same three-day sequence, six different tickers.">
+<meta property="og:url" content="https://thetrademethod.com/setups/day-three-breakout.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Day Three Breakout — catalyst, inside day, and the break">
+<meta name="twitter:description" content="A real catalyst drives day one, a quiet low-volume day sets up day two, and the break of that day-two high on day three is the entry — the same three-day sequence, six different tickers.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Day Three Breakout — catalyst, inside day, and the break",
+ "name": "Day Three Breakout",
+ "description": "A real catalyst drives day one, a quiet low-volume day sets up day two, and the break of that day-two high on day three is the entry — the same three-day sequence, six different tickers.",
+ "url": "https://thetrademethod.com/setups/day-three-breakout.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/day-three-breakout.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:150px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/anim-kit.js?v=2" defer></script>
+<script src="/js/d3b-anim.js?v=1" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
+<script src="/js/live-kit.js?v=3" defer></script>
+<script src="/js/examples/d3b.js?v=1" defer></script><script src="/js/example-kit.js?v=1" defer></script>
+<script src="/js/d3b-live.js?v=1" defer></script>
+<style>
+  /* video (same as relative-volume.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+  /* live chart: the day-one list (breaks are buttons that replay day three) */
+  [data-d3b-live] .d3b-list li.d3b-row { display:block; padding:0; }
+  [data-d3b-live] .d3b-pick { all:unset; box-sizing:border-box; display:flex; justify-content:space-between; gap:8px; width:100%; padding:6px 0; cursor:pointer; color:var(--silk); }
+  [data-d3b-live] .d3b-pick:hover > span:first-child { color:var(--link); }
+  [data-d3b-live] .d3b-pick:focus-visible { outline:2px solid var(--link); outline-offset:2px; border-radius:6px; }
+  [data-d3b-live] .d3b-pick .pos { color:var(--up); font-weight:600; } [data-d3b-live] .d3b-pick .neg { color:#ff6961; font-weight:600; }
+  [data-d3b-live] .d3b-why { display:block; color:var(--ash); font-size:12px; }
+  [data-d3b-live] .live-tf button:disabled { opacity:0.4; cursor:default; }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=2" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="day-three-breakout">
+    <div>
+      <p class="kicker">Catalyst day one &middot; quiet inside day two &middot; break on day three &middot; long-biased momentum</p>
+      <h1>Day Three <span>Breakout</span></h1>
+    </div>
+    <div>
+      <p class="thesis">A real catalyst drives day one. A tight, low-volume inside day on day two lets
+      shorts get comfortable while big money keeps building. <em>The break of that day-two high on day
+      three is the entry</em> &mdash; the same three-day sequence, six different tickers.</p>
+      <div class="counts">
+        <div><b>3&#8209;day</b><small>catalyst &rarr; inside day &rarr; break</small></div>
+        <div><b>4</b><small>filters</small></div>
+        <div><b>48&ndash;695%</b><small>day-one gains across examples</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">day one</div><div class="n">The catalyst move</div></div>
+    <div><div class="t">day two</div><div class="n">Inside / accumulation day</div></div>
+    <div><div class="t">day three, off the open</div><div class="n">Break of the day-two high</div></div>
+    <div><div class="t">at the break</div><div class="n">Entry &amp; stop</div></div>
+    <div><div class="t">into strength</div><div class="n">Scale out in thirds</div></div>
+    <div><div class="t">the rest</div><div class="n">Trail the 9 EMA</div></div>
+  </nav>
+
+  <section class="anim" data-tm-anim="d3b" aria-label="Animated walkthrough: a catalyst day one closing 5.60, up 66 percent, a quiet inside day two from 5.30 to 5.80, then day three on 5-minute bars: buy the break of 5.80 with a 5.55 stop, sell thirds at 6.50 and 7.00, and exit the last third at 6.62 on the first close below the 9 EMA, about 3.6R on average.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Watch one day three break</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Animated walkthrough: a catalyst day one closing 5.60, up 66 percent, a quiet inside day two from 5.30 to 5.80, then day three on 5-minute bars: buy the break of 5.80 with a 5.55 stop, sell thirds at 6.50 and 7.00, and exit the last third at 6.62 on the first close below the 9 EMA, about 3.6R on average."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Find a real catalyst on day one</h3>
+          <ul>
+            <li>The stock needs genuine news behind it &mdash; a partnership, a funding round, a debt restructuring, an earnings beat. Not just a chart pattern with nothing underneath it.</li>
+            <li>Across six examples of this exact sequence, day-one closes ran from roughly 48% to nearly 700% above the prior close.</li>
+          </ul>
+          <p class="why">Real momentum from a real catalyst is what feeds everything that follows. A pattern with no story behind it is a much weaker version of the same setup.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Let day two turn into a tight, quiet inside day</h3>
+          <ul>
+            <li>Look for a low-volume day that stays inside day one's range and doesn't let shorts cover comfortably.</li>
+            <li>Quiet, accepted price at the highs &mdash; not a wide, heavy-volume day &mdash; is what you want to see.</li>
+          </ul>
+          <p class="why">A quiet day two usually means size is still building a position while the crowd loses interest. That's what sets up day three.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Trade the break of the day-two high, off the open</h3>
+          <ul>
+            <li>On day three, the entry is simply the break of the accumulation day's high &mdash; it often comes almost instantly at the open, so be ready.</li>
+            <li>If you miss it, wait for a pullback rather than chasing an already-extended move. You can still get long against low of day.</li>
+          </ul>
+          <p class="why">The entry itself is the easiest part of this trade &mdash; the two quiet days before it are what make the break mean something.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Set the stop off the breakout bar, or low of day</h3>
+          <ul>
+            <li>Two acceptable stops: a few cents below the 5-minute bar that broke the day-two high, or low of day for a wider, one-and-done version of the trade.</li>
+            <li>Pick one per trade and stay consistent &mdash; don't switch mid-trade.</li>
+          </ul>
+          <p class="why">One entry, one stop, and leaving the position alone beats getting chopped up trying to time every wiggle intraday.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Scale out in thirds as volume and levels show up</h3>
+          <ul>
+            <li>Take a third to a quarter of the position off into blow-off volume, into whole-dollar levels, and as price runs into higher-time-frame resistance you already checked on the daily or weekly chart.</li>
+            <li>A dip into VWAP that holds, followed by a reclaim and a fresh push on renewed volume, is often good for another piece.</li>
+          </ul>
+          <p class="why">These moves can run several points in a single session. Selling only at the very end leaves the bulk of the trade to hope instead of a plan.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Trail the rest with the 9 EMA, and leave a piece on</h3>
+          <ul>
+            <li>Hold the remainder above the 9 EMA on the 2-minute chart for an aggressive trail, or the 5-minute chart for a longer hold, and exit on the first confirmed close below it.</li>
+            <li>When you're in from an excellent price, it's not a bad idea to hold 10&ndash;20% of the position as a swing runner just to see what happens.</li>
+          </ul>
+          <p class="why">Strong stocks with real relative volume tend to respect the 9 EMA. The first clean close below it is a simple, repeatable signal that the move is over &mdash; for now.</p>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h4>The three-day sequence on one chart</h4>
+        <p class="lead">Day one's catalyst spike, day two's quiet inside day, and day three's break &mdash; entry, scale-outs, and the 9 EMA trail to the exit.</p>
+        <svg viewBox="0 0 1180 740" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Annotated chart showing a catalyst day one, a quiet inside day two, and a day three breakout with a 9 EMA trail to the exit">
+<defs><marker id="d1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8fa6bd"/></marker><marker id="d2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2ecf7a"/></marker><marker id="d4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5aa9ff"/></marker><marker id="d5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#f4b942"/></marker></defs>
+<rect x="32" y="22" width="1062" height="498" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<rect x="32" y="526" width="1062" height="196" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<line x1="80" y1="250" x2="1060" y2="250" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="88" y="241" fill="#f4f7fb" font-size="13" font-weight="700">Day-two high &mdash; the entry trigger</text>
+<line x1="115" y1="178" x2="115" y2="462" stroke="#1d6f47" stroke-width="2.2"/>
+<rect x="88" y="205" width="54" height="235" fill="#1d6f47" rx="2"/>
+<text x="115" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">day 1</text>
+<line x1="210" y1="222" x2="210" y2="300" stroke="#7d93ad" stroke-width="2"/>
+<rect x="192" y="235" width="36" height="48" fill="#54697f" rx="2"/>
+<text x="210" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">day 2</text>
+<line x1="330" y1="148" x2="330" y2="262" stroke="#1d6f47" stroke-width="2.3"/><rect x="315" y="163" width="30" height="87" fill="#1d6f47" rx="1"/>
+<line x1="394" y1="138" x2="394" y2="178" stroke="#1d6f47" stroke-width="1.8"/><rect x="379" y="146" width="30" height="22" fill="#1d6f47" rx="1"/>
+<line x1="458" y1="108" x2="458" y2="152" stroke="#1d6f47" stroke-width="1.8"/><rect x="443" y="117" width="30" height="27" fill="#1d6f47" rx="1"/>
+<line x1="522" y1="88" x2="522" y2="126" stroke="#1d6f47" stroke-width="1.8"/><rect x="507" y="97" width="30" height="22" fill="#1d6f47" rx="1"/>
+<line x1="586" y1="58" x2="586" y2="102" stroke="#1d6f47" stroke-width="2.1"/><rect x="571" y="67" width="30" height="27" fill="#1d6f47" rx="1"/>
+<line x1="650" y1="53" x2="650" y2="82" stroke="#1d6f47" stroke-width="1.8"/><rect x="635" y="59" width="30" height="15" fill="#1d6f47" rx="1"/>
+<line x1="714" y1="33" x2="714" y2="66" stroke="#1d6f47" stroke-width="1.8"/><rect x="699" y="41" width="30" height="18" fill="#1d6f47" rx="1"/>
+<line x1="778" y1="18" x2="778" y2="46" stroke="#1d6f47" stroke-width="1.8"/><rect x="763" y="25" width="30" height="16" fill="#1d6f47" rx="1"/>
+<line x1="842" y1="24" width="0" height="0"/>
+<line x1="842" y1="24" x2="842" y2="56" stroke="#7d343c" stroke-width="1.8"/><rect x="827" y="29" width="30" height="19" fill="#7d343c" rx="1"/>
+<line x1="906" y1="34" x2="906" y2="68" stroke="#7d343c" stroke-width="1.8"/><rect x="891" y="39" width="30" height="21" fill="#7d343c" rx="1"/>
+<line x1="970" y1="46" x2="970" y2="82" stroke="#7d343c" stroke-width="2.1"/><rect x="955" y="52" width="30" height="22" fill="#7d343c" rx="1"/>
+<line x1="1034" y1="62" x2="1034" y2="92" stroke="#54697f" stroke-width="1.6"/><rect x="1019" y="68" width="30" height="16" fill="#54697f" rx="1"/>
+<polyline points="330,255 394,205 458,168 522,138 586,112 650,88 714,68 778,50 842,42 906,45 970,55 1034,68" fill="none" stroke="#f4b942" stroke-width="2.1" opacity="0.95"/>
+<text x="714" y="30" fill="#f4b942" font-size="12.5">9 EMA</text>
+<rect x="90" y="360" width="230" height="60" rx="7" fill="#0d1a2b" stroke="#8fa6bd" stroke-width="1.7"/>
+<text x="104" y="382" fill="#c8d8e8" font-size="13" font-weight="600">Catalyst day one, tight low-volume</text>
+<text x="104" y="400" fill="#c8d8e8" font-size="13" font-weight="600">inside day two.</text>
+<line x1="200" y1="360" x2="200" y2="302" stroke="#8fa6bd" stroke-width="1.5" marker-end="url(#d1)"/>
+<rect x="335" y="290" width="270" height="46" rx="7" fill="#0d1a2b" stroke="#2ecf7a" stroke-width="1.7"/>
+<text x="349" y="315" fill="#9ff0c4" font-size="13" font-weight="600">Break of the day-two high &mdash; the entry, off the open.</text>
+<line x1="400" y1="290" x2="330" y2="255" stroke="#2ecf7a" stroke-width="1.5" marker-end="url(#d2)"/>
+<rect x="560" y="380" width="290" height="46" rx="7" fill="#0d1a2b" stroke="#5aa9ff" stroke-width="1.7"/>
+<text x="574" y="405" fill="#b3d6ff" font-size="13" font-weight="600">Scale a third off into blow-off volume near day 3.</text>
+<line x1="620" y1="380" x2="586" y2="98" stroke="#5aa9ff" stroke-width="1.3" stroke-dasharray="3 4" marker-end="url(#d4)"/>
+<rect x="700" y="150" width="330" height="60" rx="7" fill="#0d1a2b" stroke="#f4b942" stroke-width="1.7"/>
+<text x="714" y="175" fill="#f4b942" font-size="13" font-weight="600">Trail the rest under the 9 EMA &mdash; first close</text>
+<text x="714" y="193" fill="#f4b942" font-size="13" font-weight="600">below it on the 2 or 5-minute chart is the exit.</text>
+<line x1="800" y1="210" x2="900" y2="42" stroke="#f4b942" stroke-width="1.5" marker-end="url(#d5)"/>
+<text x="46" y="516" fill="#7d93ad" font-size="13">Volume</text>
+<rect x="88" y="586.0" width="54" height="120.0" fill="#54697f" opacity="0.6" rx="1"/>
+<rect x="192" y="670.0" width="36" height="36.0" fill="#54697f" opacity="0.4" rx="1"/>
+<rect x="315" y="566.0" width="30" height="140.0" fill="#f4b942" opacity="0.95" rx="1"/>
+<rect x="379" y="656.0" width="30" height="50.0" fill="#1d6f47" opacity="0.55" rx="1"/>
+<rect x="443" y="661.0" width="30" height="45.0" fill="#1d6f47" opacity="0.5" rx="1"/>
+<rect x="507" y="666.0" width="30" height="40.0" fill="#1d6f47" opacity="0.5" rx="1"/>
+<rect x="571" y="556.0" width="30" height="150.0" fill="#f4b942" opacity="0.95" rx="1"/>
+<rect x="635" y="671.0" width="30" height="35.0" fill="#1d6f47" opacity="0.5" rx="1"/>
+<rect x="699" y="674.0" width="30" height="32.0" fill="#1d6f47" opacity="0.5" rx="1"/>
+<rect x="763" y="678.0" width="30" height="28.0" fill="#1d6f47" opacity="0.45" rx="1"/>
+<rect x="827" y="661.0" width="30" height="45.0" fill="#7d343c" opacity="0.55" rx="1"/>
+<rect x="891" y="656.0" width="30" height="50.0" fill="#7d343c" opacity="0.6" rx="1"/>
+<rect x="955" y="576.0" width="30" height="130.0" fill="#f4b942" opacity="0.9" rx="1"/>
+<rect x="1019" y="681.0" width="30" height="25.0" fill="#54697f" opacity="0.45" rx="1"/>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>Which inside day sets up the trade</h4>
+        <p class="lead">Day one's move gets you watching. Day two's behavior tells you whether it's real accumulation.</p>
+        <svg viewBox="0 0 1180 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Four day-two scenarios compared: a tight low-volume inside day, and three that break the sequence">
+<rect x="10.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#22855a" stroke-width="2"/>
+<line x1="28" y1="130.4" x2="267" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="28" y="121.4" fill="#9fb3c8" font-size="11.5">day one high</text>
+<rect x="45" y="145" width="18" height="10" fill="#54697f" rx="1"/>
+<rect x="70" y="147" width="18" height="8" fill="#54697f" rx="1"/>
+<rect x="95" y="146" width="18" height="9" fill="#54697f" rx="1"/>
+<text x="28.0" y="42" fill="#2ecf7a" font-size="16" font-weight="800">Take it</text>
+<text x="28.0" y="180" fill="#9fb3c8" font-size="12.6">Stays inside day one's range on light</text>
+<text x="28.0" y="196" fill="#9fb3c8" font-size="12.6">volume. Real accumulation.</text>
+<rect x="305.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="323" y1="130.4" x2="562" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="323" y="121.4" fill="#9fb3c8" font-size="11.5">day one high</text>
+<line x1="442.5" y1="150" x2="442.5" y2="215" stroke="#7d343c" stroke-width="2.4"/>
+<rect x="426.5" y="160" width="32" height="45" fill="#7d343c" rx="2"/>
+<rect x="340" y="235" width="18" height="20" fill="#54697f" rx="1"/>
+<text x="323.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="323.0" y="196" fill="#9fb3c8" font-size="12.6">Breaks below day one's low. That's</text>
+<text x="323.0" y="212" fill="#9fb3c8" font-size="12.6">distribution, not accumulation.</text>
+<rect x="600.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="618" y1="130.4" x2="857" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="618" y="121.4" fill="#9fb3c8" font-size="11.5">day one high</text>
+<line x1="737.5" y1="120" x2="737.5" y2="165" stroke="#1d6f47" stroke-width="2.4"/>
+<rect x="721.5" y="128" width="32" height="30" fill="#1d6f47" rx="2"/>
+<rect x="635" y="215" width="18" height="40" fill="#f4b942" rx="1"/>
+<rect x="721.5" y="210" width="18" height="45" fill="#f4b942" rx="1"/>
+<text x="618.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="618.0" y="196" fill="#9fb3c8" font-size="12.6">Volume on day two is as heavy as day</text>
+<text x="618.0" y="212" fill="#9fb3c8" font-size="12.6">one. Shorts are getting an exit, not trapped.</text>
+<rect x="895.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="985" y1="120" x2="1152" y2="120" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="985" y="111" fill="#9fb3c8" font-size="11.5">day one close</text>
+<line x1="1032.5" y1="150" x2="1032.5" y2="190" stroke="#7d343c" stroke-width="2.4"/>
+<rect x="1016.5" y="158" width="32" height="28" fill="#7d343c" rx="2"/>
+<rect x="930" y="235" width="18" height="30" fill="#54697f" rx="1"/>
+<text x="913.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="913.0" y="196" fill="#9fb3c8" font-size="12.6">Gaps well below day one's close. The</text>
+<text x="913.0" y="212" fill="#9fb3c8" font-size="12.6">sequence is already broken before day three.</text>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>The same break, three flavors</h4>
+        <p class="lead">These read as different trades. They're the same trade with a different amount of confirmation on the way in.</p>
+        <div class="timing">
+          <div><b>Clean break, right off the open</b><p>Clears the day-two high within the first candle or two, no real pullback to wait for.</p></div>
+          <div><b>Miss it, wait for the pullback</b><p>A pullback toward VWAP or the day-two high that holds is a second entry, not a reason to chase.</p></div>
+          <div><b>A messier version still works</b><p>Some break attempts fail once or twice at the day-one high before finally clearing it &mdash; still the same trade, just less clean.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The four filters</h2>
+    <p>These don't find the trade &mdash; the catalyst, the inside day, and the break do that. They keep you off the versions that only look like it.</p>
+  </div>
+  <div class="filters">
+    <div class="filter">
+      <h3>1 &nbsp;Day one has no real catalyst</h3>
+      <p>A big green day with nothing behind it is a much weaker version of this setup than one driven by real news.</p>
+      <p class="kill">Kills: trading the pattern on a stock with no story.</p>
+    </div>
+    <div class="filter">
+      <h3>2 &nbsp;Day two isn't actually quiet</h3>
+      <p>A wide-range, heavy-volume day two is distribution, not accumulation &mdash; shorts are getting an exit, not getting trapped.</p>
+      <p class="kill">Kills: mistaking a loud day two for the tight inside day this setup needs.</p>
+    </div>
+    <div class="filter">
+      <h3>3 &nbsp;No higher-time-frame level checked</h3>
+      <p>Always look at the daily and weekly chart before the break, even if you plan to just follow the 9 EMA regardless.</p>
+      <p class="kill">Kills: getting surprised by resistance you could've already seen.</p>
+    </div>
+    <div class="filter">
+      <h3>4 &nbsp;Chasing an already-extended move</h3>
+      <p>If you miss the break at the open, wait for a pullback against low of day instead of buying well above the entry.</p>
+      <p class="kill">Kills: paying up for a move that already happened.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Size off the breakout bar, not the daily range</h2>
+    <p>The daily chart tells you the story is there. The breakout bar tells you where you're wrong. Numbers below are illustrative.</p>
+  </div>
+  <div class="risk">
+    <div class="panel">
+      <div class="calc">
+        <div class="row"><span>Risk budget for the trade</span><b>$500.00</b></div>
+        <div class="row"><span>Entry &mdash; break of the day-two high</span><b>5.80</b></div>
+        <div class="row"><span>Stop &mdash; a few cents below the breakout bar</span><b>5.55</b></div>
+        <div class="row"><span>Risk per share</span><b>$0.25</b></div>
+        <div class="row tot"><span>Position size</span><b>2,000 shares</b></div>
+      </div>
+    </div>
+    <div class="warn">
+      <h4>The mistake this prevents</h4>
+      <p>Use low of day as your stop instead &mdash; say, 4.90 &mdash; and you measure risk as 5.80 &minus; 4.90 = $0.90, sizing for 555 shares.</p>
+      <p class="big">Fine on paper, but you're now holding through a much wider drawdown than the breakout bar itself was already telling you the trade was wrong at 5.55.</p>
+      <p>Either stop is valid. Pick one before the entry, not after the trade starts moving against you.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Six tickers, the same sequence</h2>
+    <p>Long-biased, catalyst-driven momentum names. Tickers, catalysts, and price levels below are drawn from a trading-education video's own review of these six trades and are not independently verified &mdash; a couple of tickers were transcribed inconsistently in the source audio and are presented here under their clearest reading.</p>
+  </div>
+  <div class="tbl-scroll" style="overflow-x:auto;-webkit-overflow-scrolling:touch">
+  <table>
+    <thead>
+      <tr>
+        <th>Ticker</th>
+        <th>Catalyst &mdash; day one</th>
+        <th>Day two</th>
+        <th>Entry &amp; stop</th>
+        <th>Scale-out &amp; result</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th><span class="tick">NVTS<small>power semiconductors</small></span></th>
+        <td class="txt">Partnership with Nvidia to power next-gen AI data centers, announced May 22; roughly a quarter of the float was short.</td>
+        <td class="txt">Inside accumulation day, low volume, held inside day one's range.</td>
+        <td class="txt">Break of the day-two high off the open; stop a few cents below the breakout 5-minute bar.</td>
+        <td class="txt">Sold into blow-off volume through the whole $6 level, then trailed the rest on the 2-minute 9 EMA into a 5-minute close below to finish.</td></tr>
+      <tr><th><span class="tick">SBET<small>Ethereum treasury pivot</small></span></th>
+        <td class="txt">$425 million private investment funding an Ethereum treasury strategy, announced May 27.</td>
+        <td class="txt">Gap-and-hold inside day on low volume &mdash; shorts don't get an easy exit.</td>
+        <td class="txt">Break of the day-two high; stop a few cents below the breakout bar or low of day.</td>
+        <td class="txt">Squeezed roughly ten points into weekly resistance near 42, sold into a VWAP dip-and-reclaim, then again through 54, 65 and 70 before trailing out on the 5-minute 9 EMA.</td></tr>
+      <tr><th><span class="tick">APLD<small>AI data-center leases</small></span></th>
+        <td class="txt">Two 15-year data-center lease deals worth roughly $7B in long-term revenue, announced June 2; about a third of the float was short.</td>
+        <td class="txt">Same inside-day pattern as the other examples.</td>
+        <td class="txt">The break came almost instantly off the open &mdash; a case for waiting on a pullback if you missed it; stop below the breakout bar or low of day.</td>
+        <td class="txt">Ran into $12 weekly resistance and stalled; volume on the break was noticeably lighter than the other names, so profits were taken more proactively into a 5-minute 9 EMA trail.</td></tr>
+      <tr><th><span class="tick">RCT<small>small-float earnings mover</small></span></th>
+        <td class="txt">Earnings showing 135% year-over-year revenue growth, June 28, on a very small ~5 million share float.</td>
+        <td class="txt">Small-float, thin-tape version of the setup &mdash; no clean consolidation day.</td>
+        <td class="txt">Break of the day-two high at $3; stop at low of day &mdash; about as simple as the entry-stop pair gets.</td>
+        <td class="txt">A messier trade: limit-up open, a failed push at the day-one high, a VWAP reclaim, and repeated failed new-high attempts, each one a chance to trim, before finally clearing the day-one high and the $5 all-time high.</td></tr>
+      <tr><th><span class="tick">WOLF<small>Chapter 11 restructuring</small></span></th>
+        <td class="txt">Bankruptcy filing eliminating $4.6B in debt, July 1; roughly half of the float was short.</td>
+        <td class="txt">Inside day on day two, as usual.</td>
+        <td class="txt">Break of the day-two high off the open; stop at low of day.</td>
+        <td class="txt">Trimmed into the $1 psychological level, trimmed again through the day-one high, then sold the remainder into the day's highest-volume bar. Continued to roughly $3.30 the next session &mdash; a reminder to leave a small runner on.</td></tr>
+      <tr><th><span class="tick">BMNR<small>Ethereum treasury + mining</small></span></th>
+        <td class="txt">$250 million raise to fund an Ethereum treasury strategy and crypto-mining expansion, July 1; a roughly 2 million share float.</td>
+        <td class="txt">A variation &mdash; the inside day showed up on day three instead of day two, on a chart that looked different from the rest.</td>
+        <td class="txt">Same read once the accumulation day's high broke &mdash; same entry and stop logic despite the different daily shape.</td>
+        <td class="txt">Broke over the accumulation high and, by the presenter's account, never looked back &mdash; included as proof the blueprint holds even when the daily chart doesn't look identical to the other five.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="panel" style="margin-top:20px;">
+    <h4>What all six trades had in common</h4>
+    <p class="lead">The six-trade review closes with the same checklist restated as one pattern, not six separate ideas.</p>
+    <p style="color:var(--dim); font-size:14px; margin:0;">Every one of these six names broke over its accumulation-day high within the first 30 minutes of day three. Every one had a real catalyst behind day one &mdash; a partnership, a funding round, a restructuring, or an earnings beat &mdash; with day-one closes ranging from roughly 48% to nearly 700% above the prior close. Every one printed a tight, low-volume inside day afterward that let size keep accumulating while shorts stayed put. And every one used the same simple entry-and-stop pair: break of the accumulation-day high, stop at low of day or a few cents under the breakout bar. Float and short-interest dynamics varied &mdash; some names squeezed hard on high short interest, others moved on a genuinely tiny float &mdash; but the sequence itself never changed.</p>
+  </div>
+
+  <div class="section-head">
+    <h2>Example: the three-day sequence</h2>
+    <p>An example run through the indicator's own rules: a catalyst day one closes 62% higher on about 40 times its average volume,
+    day two is a quiet inside day on a third of that volume, and day three breaks the day-two high five minutes after the open.
+    Switch to <b>Day 3 &middot; 5m</b> to see the trade: a third into blow-off volume, a third at the whole dollar after a VWAP dip
+    holds, and the rest on the first close below the 9 EMA. The bars are made up to show the setup clearly. They aren't a real ticker.</p>
+  </div>
+  <section class="live" data-d3b-live data-example data-symbol="NVTS" aria-label="Example chart scanning daily bars for the catalyst, inside day and day-three break, with the day-three 5-minute replay">
+    <style>[data-d3b-live][data-example] .live-symbol{display:flex!important}[data-d3b-live][data-example] .live-symbol > :not(.live-tf){display:none}</style>
+    <div class="live-main">
+      <form class="live-symbol"><label for="d3b-sym">Symbol</label><input id="d3b-sym" name="sym" autocomplete="off" spellcheck="false" maxlength="6"><button class="pill pill-buy" type="submit">Load</button></form>
+      <div class="live-chart"><div class="live-gate"><b>Loading chart&hellip;</b></div></div>
+      <p class="live-status">Daily</p>
+    </div>
+    <aside class="live-side" aria-live="polite"></aside>
+  </section>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/wpPHULhcsn4" title="Day Three Breakout (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Catalyst, inside day and the breakout, walked through on six real trades.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=wpPHULhcsn4" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Same three days, every single time.</h2>
+      <p>Catalyst, quiet accumulation, break. The name and the news change &mdash; the sequence that gets you there almost never does.</p>
+    </div>
+    <div>
+      <ul>
+        <li>A quiet, low-volume day two is the tell &mdash; it's what separates real accumulation from a stock that's simply drifting.</li>
+        <li>One entry, one stop, and leaving the position alone beats getting chopped up trying to time every wiggle.</li>
+        <li>A messier version of the trade, like the one that didn't break cleanly, can still pay off if you follow the same blueprint.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Model built around a three-day catalyst &rarr; inside day &rarr; breakout sequence, as taught in a trading-education video reviewing six real trades (NVTS, SBET, APLD, RCT, WOLF, BMNR). Tickers, catalysts, and price levels are drawn from that video's transcript as stated by the presenter and are not independently verified &mdash; a couple of tickers were transcribed inconsistently in the source audio (for example, one name was referred to as both "ESBET" and "ESB") and are presented here under their clearest reading. <a href="https://youtu.be/wpPHULhcsn4" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

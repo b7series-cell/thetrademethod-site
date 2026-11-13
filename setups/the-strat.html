@@ -1,0 +1,760 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Strat — read the evidence, not the pattern | The Trade Method</title>
+<meta name="description" content="The Strat explained: price can only do three things (a 1, a 2 or a 3), every 3 is a broadening formation, time frame continuity shows which group is more aggressive, and a simultaneous break across a sector is the evidence that institutional algorithms turned on. Enter in force, with the stop just past the bar.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/the-strat.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="The Strat — read the evidence, not the pattern">
+<meta property="og:description" content="The Strat explained: price can only do three things (a 1, a 2 or a 3), every 3 is a broadening formation, time frame continuity shows which group is more aggressive, and a simultaneous break across a sector is the evidence that institutional algorithms turned on. Enter in force, with the stop just past the bar.">
+<meta property="og:url" content="https://thetrademethod.com/setups/the-strat.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Strat — read the evidence, not the pattern">
+<meta name="twitter:description" content="The Strat explained: price can only do three things (a 1, a 2 or a 3), every 3 is a broadening formation, time frame continuity shows which group is more aggressive, and a simultaneous break across a sector is the evidence that institutional algorithms turned on. Enter in force, with the stop just past the bar.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "The Strat — read the evidence, not the pattern",
+ "name": "The Strat",
+ "description": "The Strat explained: price can only do three things (a 1, a 2 or a 3), every 3 is a broadening formation, time frame continuity shows which group is more aggressive, and a simultaneous break across a sector is the evidence that institutional algorithms turned on. Enter in force, with the stop just past the bar.",
+ "url": "https://thetrademethod.com/setups/the-strat.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/the-strat.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-01",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/ts-anim.js?v=1" defer></script>
+<style>
+  /* steps across the page, the two panels side by side under them */
+  .ts-main { grid-template-columns:1fr; gap:22px; }
+  .ts-stages { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .sheet .ts-stages .stage, .sheet .ts-stages .stage:first-child { padding:26px 24px; background:var(--charcoal); align-content:start; }
+  .ts-side { display:grid; grid-template-columns:1fr 1.4fr; gap:16px; align-items:stretch; }
+  .ts-side .panel + .panel { margin-top:0; }
+  .ts-side .timing { grid-template-columns:1fr; }
+  @media (max-width:1100px) { .ts-stages { grid-template-columns:1fr 1fr; } .ts-side { grid-template-columns:1fr; } }
+  @media (max-width:680px) { .ts-stages { grid-template-columns:1fr; } }
+  /* the stepper (js/ts-anim.js builds it from the six steps; same as anchored-vwap.html) */
+  .ts-stages.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#f5f5f7; }
+  .gs-bar { display:grid; grid-template-columns:repeat(6,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:8.333%; right:8.333%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .ts-stages.is-stepper .stage, .sheet .ts-stages.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .ts-stages.is-stepper .stage .num { display:none; }
+  .sheet .ts-stages.is-stepper .stage[hidden] { display:none; }
+  .sheet .ts-stages.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .ts-stages.is-stepper { padding:20px 12px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:34px; height:34px; font-size:14px; }
+    .gs-line { top:16px; }
+    .gs-bar { margin-bottom:20px; }
+  }
+  /* video (same as anchored-vwap.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+  .watch { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:var(--ink); text-decoration:none;
+           background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); border-radius:9999px; padding:7px 14px 7px 10px; }
+  .watch:hover { background:rgba(255,255,255,0.14); }
+  .watch i { width:0; height:0; border-left:9px solid #ff453a; border-top:6px solid transparent; border-bottom:6px solid transparent; margin-left:4px; }
+
+  .h1-ts { color:#bf5af2; }
+  .ribbon .n { font-size:14px; }
+
+  /* the numbers */
+  .nums { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .nums div { background:var(--panel); border:1px solid var(--line); border-top:3px solid #8e8e93; border-radius:11px; padding:16px 17px; }
+  .nums .n2u { border-top-color:var(--up); } .nums .n2d { border-top-color:var(--down); } .nums .n3 { border-top-color:#bf5af2; }
+  .nums b { display:block; font-size:30px; font-weight:800; letter-spacing:-0.03em; line-height:1; margin-bottom:8px; }
+  .nums .n2u b { color:var(--up); } .nums .n2d b { color:var(--down); } .nums .n3 b { color:#bf5af2; }
+  .nums h3 { margin:0 0 6px; font-size:16px; }
+  .nums p { margin:0; font-size:14px; color:var(--dim); }
+  .vs { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .vs div { background:var(--panel); border:1px solid var(--line); border-top:3px solid #bf5af2; border-radius:11px; padding:16px 17px; }
+  .vs .sc { font-family:var(--mono); font-size:13px; color:#bf5af2; font-weight:700; display:block; margin-bottom:6px; }
+  .vs h3 { margin:0 0 6px; font-size:16px; }
+  .vs p { margin:0; font-size:14px; color:var(--dim); }
+  .vs.five { grid-template-columns:repeat(5,1fr); }
+  .vs.five div { border-top-color:var(--gold); } .vs.five .sc { color:var(--gold); }
+  .turns { margin-top:16px; }
+
+  /* the checks and outputs (same look as anchored-vwap.html) */
+  .chk-out { margin-top:14px; border-radius:11px; padding:14px 16px; border:1px solid var(--line); background:var(--panel2); }
+  .chk-out b { display:block; font-size:24px; font-weight:800; letter-spacing:-0.02em; margin-bottom:4px; }
+  .chk-out p { margin:0; font-size:14px; color:var(--dim); }
+  .chk-out.is-a { border-color:#22855a; } .chk-out.is-a b { color:var(--up); }
+  .chk-out.is-b { border-color:#7a5a12; } .chk-out.is-b b { color:var(--gold); }
+  .chk-out.is-no { border-color:#5e2a30; } .chk-out.is-no b { color:var(--down); }
+
+  /* name the bar */
+  .ts-quiz svg { max-width:520px; margin:0 auto; border-radius:14px; }
+  .ts-qbtns { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:14px; }
+  .ts-qbtns button { font:inherit; font-size:17px; font-weight:700; padding:11px 8px; border-radius:12px; cursor:pointer;
+                     background:var(--panel2); color:var(--ink); border:1px solid var(--line); }
+  .ts-qbtns button:hover:not(:disabled) { border-color:#86868b; }
+  .ts-qbtns button:disabled { cursor:default; opacity:0.55; }
+  .ts-qbtns button.is-right { opacity:1; border-color:var(--up); background:#0f2a1b; color:var(--up); }
+  .ts-qbtns button.is-wrong { opacity:1; border-color:var(--down); background:#2a1013; color:var(--down); }
+  .ts-qfoot { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:12px; flex-wrap:wrap; }
+  .ts-qfoot small { color:var(--faint); font-size:13px; }
+  .ts-qscore { font-family:var(--mono); color:var(--ink); }
+
+  /* time frame continuity */
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in.five { grid-template-columns:repeat(5,1fr); }
+  .calc-in.four { grid-template-columns:repeat(4,1fr); }
+  .calc-in label { font-size:12px; color:var(--faint); display:block; }
+  .calc-in input { width:100%; margin-top:4px; background:var(--panel2); color:var(--ink); border:1px solid var(--line); border-radius:8px;
+                   padding:8px 10px; font-family:var(--mono); font-size:15px; }
+  .calc-in input:focus { outline:2px solid var(--blue); outline-offset:1px; }
+  .ts-trows { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+  .ts-trow { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:10px 12px; font-size:13px; color:var(--dim); }
+  .ts-trow i { display:inline-block; width:10px; height:10px; border-radius:50%; background:#48484a; margin-right:6px; vertical-align:-1px; }
+  .ts-trow b { display:block; margin-top:3px; font-size:13.5px; color:var(--ink); }
+  .ts-trow.is-up i { background:var(--up); } .ts-trow.is-up b { color:var(--up); }
+  .ts-trow.is-dn i { background:var(--down); } .ts-trow.is-dn b { color:var(--down); }
+
+  /* case files */
+  .case { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .case div { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 17px; }
+  .case b { display:block; font-size:clamp(22px,2.4vw,28px); font-weight:800; letter-spacing:-0.03em; line-height:1.05; margin-bottom:6px; }
+  .case p { margin:0; font-size:13.6px; color:var(--dim); }
+  .quote { margin:16px 0 0; padding:14px 18px; border-left:3px solid #bf5af2; background:var(--panel); border-radius:0 11px 11px 0; font-size:16px; }
+  .quote small { display:block; color:var(--faint); font-size:12.5px; margin-top:4px; }
+  .howto { margin:0; padding-left:20px; color:var(--ink); font-size:14.5px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#bf5af2; font-weight:600; }
+  .two-note { margin:14px 0 0; color:var(--dim); font-size:14px; max-width:86ch; }
+  .vcase td.txt { min-width:200px; }
+
+  /* the animation redraws for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .ribbon + .anim { margin-top:8px; }
+  @media (max-width:1100px) {
+    .vs, .vs.five { grid-template-columns:1fr 1fr; }
+    .nums { grid-template-columns:repeat(2,1fr); }
+    .case { grid-template-columns:repeat(2,1fr); }
+    .calc-in.five { grid-template-columns:repeat(3,1fr); }
+    .calc-in.four { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:680px) {
+    /* breathing room around the walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .counts { flex-wrap:wrap; gap:16px 22px; }
+    .case, .vs, .vs.five { grid-template-columns:1fr; }
+    .nums { grid-template-columns:1fr 1fr; }
+    .calc-in, .calc-in.four, .calc-in.five { grid-template-columns:1fr 1fr; }
+    .ts-trows { grid-template-columns:1fr 1fr; }
+    .ts-qbtns button { font-size:15px; padding:10px 4px; }
+    .section-head { margin-top:52px; }
+    .vcase th, .vcase td { padding:9px 8px; }
+    .ts-side .filters { grid-template-columns:1fr !important; }
+  }
+  /* the case table scrolls inside itself on a phone, never the page */
+  .tscroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .tscroll table { min-width:720px; }
+  .tscroll.turns table { min-width:560px; }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=14" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/setups/">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="the-strat">
+    <div>
+      <p class="kicker">Smart money evidence &middot; weekly setups, intraday entries</p>
+      <h1>The <span class="h1-ts">Strat</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Smart money doesn't hide. It's big money, and big money has to fill big orders with algorithms that have to be told what to buy,
+      how hard and when. That leaves footprints. Number every bar 1, 2 or 3, use the broadening formation as your map, and wait for
+      <em>the evidence: a whole group breaking the same level at the same time.</em> That's the algorithms turning on.</p>
+      <div class="counts">
+        <div><b>3</b><small>things price can do</small></div>
+        <div><b>4</b><small>opens: quarter, month, week, day</small></div>
+        <div><b>14 of 24</b><small>energy names through last week's high by 11:00</small></div>
+      </div>
+      <a class="watch" href="#video"><i></i>Watch the video</a>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">1 &middot; the numbers</div><div class="n">1, 2 or 3, never the color</div></div>
+    <div><div class="t">2 &middot; the map</div><div class="n">The broadening formation</div></div>
+    <div><div class="t">3 &middot; the groups</div><div class="n">Time frame continuity</div></div>
+    <div><div class="t">4 &middot; the evidence</div><div class="n">A simultaneous break</div></div>
+    <div><div class="t">5 &middot; the entry</div><div class="n">In force, stop past the bar</div></div>
+    <div><div class="t">6 &middot; the management</div><div class="n">Tighten, re-enter, hold winners</div></div>
+  </nav>
+
+  <section class="anim" data-ts-anim aria-label="Animated walkthrough of a weekly 2-1-2 down reversal traded on a simultaneous break">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">8 / 8</p>
+        <h2 class="anim-title">Watch one weekly reversal, Sunday night to Friday</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 620" role="img" aria-label="Illustrative charts of a made-up sector ETF: eleven weekly bars numbered 1, 2 up, 2 down and 3 form a broadening formation, with a red 2 up at the high of 318.60 and an inside week (a 1) after it whose low is 301.80; the target is the other side of the range, the lowest low at 285.00; on Monday the ETF and 7 of 8 holdings break last week's low inside the first hour, a simultaneous break; price stays under it, below the quarter, month, week and day opens; short 301.79 with a stop at 304.61 just above the week's high, 2.82 of risk; the stop walks down above each lower daily high (Tuesday is a green 2 down); Friday tags 285.00 for 16.79 a share, about 6R, and the week closes a 2 down"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main ts-main">
+    <div class="ts-stages" data-ts-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Number every bar</h3>
+          <ul>
+            <li>Stays inside the last bar's range: a <b>1</b>, an inside bar.</li>
+            <li>Takes out one side: a <b>2</b>. Take the high and it's a 2 up; take the low and it's a 2 down.</li>
+            <li>Takes out both sides: a <b>3</b>, an outside bar. There is no fourth thing price can do.</li>
+            <li>The break decides it, not the color. A red bar that took out the high is still a 2 up, and it has until its close to become a 3 down.</li>
+          </ul>
+          <p class="why">You don't need 50 candlestick patterns. You need three numbers, and nobody can argue with them.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Draw the broadening formation</h3>
+          <ul>
+            <li>Every 3 is a broadening formation: a higher high and a lower low in one bar. Zoomed out, charts do the same thing over many bars.</li>
+            <li>Draw it right to left: connect the highest high and the lowest low that got taken out.</li>
+            <li>Now you know where price can turn before it gets there. When it turns at one side, the target is the other side. That's the magnitude.</li>
+            <li>The turns you'll see the most: the 2-2 reversal (2 up, then 2 down) and the 2-1-2 (2 up, inside bar, 2 down), and their mirror images.</li>
+          </ul>
+          <p class="why">At the highs, people want to buy. When it rejects, price goes back through the range to broaden the other side, and that rejection is usually the bigger move.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Check time frame continuity</h3>
+          <ul>
+            <li>Every candle is a group of participants, and every open starts a new group: the 60-minute, the day, the week, the month. Investors can use the quarter instead of the hour.</li>
+            <li>Last price above all four opens: the buyers in every group are more aggressive. Below all four: the sellers are.</li>
+            <li>The bigger the time frame, the bigger the money.</li>
+          </ul>
+          <p class="why">It answers the one question that decides where price goes next: who is more aggressive right now?</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Wait for the simultaneous break</h3>
+          <ul>
+            <li>Sunday night's chart is a setup. It's closer to a reversal, that's all. Don't rush in on Monday.</li>
+            <li>The evidence is a simultaneous break: two or more correlated assets breaking a 2 in the same direction at the same time.</li>
+            <li>Look at the four major indexes and their futures, sector ETFs like tech, QQQ and semis, or a sector and its holdings.</li>
+            <li>When most of a sector breaks at once, only an institution is big enough: the child orders of one huge order split across the group.</li>
+          </ul>
+          <p class="why">Have you ever tried to place ten trades at once? It doesn't work. When a whole sector takes the offer together, the algorithms just turned on.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Enter in force, stop just past the bar</h3>
+          <ul>
+            <li>Enter right as the simultaneous break happens and price goes in force: through the level, and staying there. 3s exist, so it has to hold.</li>
+            <li>At worst, the stop goes just past the current bar's other extreme: for a weekly short, just above this week's high.</li>
+            <li>You don't need a wide stop. If the algorithms are really on, it should go right away.</li>
+            <li>You can widen it with this much evidence. The video doesn't suggest it.</li>
+          </ul>
+          <p class="why">We're not pattern trading reversals. We're trading evidence of algorithmic trading.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Tighten, re-enter, hold the winners</h3>
+          <ul>
+            <li>Stops scale with time frames. A lower time frame inside bar lets you tighten: use the other side of a daily 1 as the stop and walk it down as price makes lower highs.</li>
+            <li>A weekly break's evidence lasts all week. A bounce that turns back down on the 30, 60, 4-hour or daily is a place to get in or add.</li>
+            <li>A tight stop may need a re-entry, because broadening formations exist. It can stop you out and go on the second or third try.</li>
+            <li>Don't hold losing trades. Add to and hold your winners.</li>
+          </ul>
+          <p class="why">Your biggest losing trade was someone else's biggest winner. Hold the winners and you get the really big ones.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="ts-side">
+      <div class="panel">
+        <h4>Where to look for the break</h4>
+        <p class="lead">Two or more correlated things, breaking a 2 the same way at the same time.</p>
+        <div class="timing">
+          <div><b>The indexes</b><p>The four major indexes, futures included. When they all break together, everyone's on one side.</p></div>
+          <div><b>Sector ETFs</b><p>Tech, the QQQ, semis and so on. Semis, tech and the QQQ all going 2-2 down on the week is evidence to short the NASDAQ.</p></div>
+          <div><b>A sector and its holdings</b><p>Semis with the big chip stocks, energy with its names. Count how many take last week's level, and how fast.</p></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>What kills it</h4>
+        <p class="lead">Any one of these and there's no trade yet, or it's time to get out.</p>
+        <div class="filters kills" style="grid-template-columns:repeat(2,1fr); margin-top:14px;">
+    <div class="filter" style="background:var(--panel2)"><h3>Just a setup</h3><p>Sunday night's hammer or 2-1 is only closer to a reversal. Nothing is breaking yet, so there's nothing to see.</p><p class="kill">No break: no trade.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>Not in force</h3><p>Price breaks last week's level and trades right back through it. A 2 can still become a 3.</p><p class="kill">Back through: out, or wait for the re-entry.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>No evidence either way</h3><p>The group doesn't break together and the four opens disagree. Nobody has control of the direction.</p><p class="kill">Mixed and alone: wait.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>Chasing the crowd</h3><p>At the top of the broadening formation everyone has already bought. A crowded trade is at risk of profit taking.</p><p class="kill">At the top: think about the other side.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Three numbers, and the turns you'll see most</h2>
+    <p>A candle is a window of time: where price opened, how high and low it traded, and where it closed. From one bar to the next, price can only do one of these.</p>
+  </div>
+  <div class="nums">
+    <div><b>1</b><h3>Inside bar</h3><p>Stays inside the last bar's range. Neither side is taken. Compression, and the start of most reversals and continuations.</p></div>
+    <div class="n2u"><b>2&#8593;</b><h3>2 up</h3><p>Takes out the last bar's high, not the low. Red or green, it's a 2 up.</p></div>
+    <div class="n2d"><b>2&#8595;</b><h3>2 down</h3><p>Takes out the last bar's low, not the high. A green 2 down is still a 2 down.</p></div>
+    <div class="n3"><b>3</b><h3>Outside bar</h3><p>Takes out the high and the low: a broadening formation in a single bar.</p></div>
+  </div>
+  <div class="tscroll turns">
+    <table>
+      <caption>The combinations named in the video. Each one has a mirror image the other way.</caption>
+      <thead><tr><th>Name</th><th>The bars</th><th>What it means</th></tr></thead>
+      <tbody>
+        <tr><th>2-2 reversal</th><td>2&#8593; then 2&#8595;</td><td class="txt">Took the high, then the next bar took the low. The one you'll see most.</td></tr>
+        <tr><th>2-1-2 reversal</th><td>2&#8593;, 1, then 2&#8595;</td><td class="txt">An inside bar between the two. The break of the inside bar is the trigger.</td></tr>
+        <tr><th>1-2</th><td>1 then 2</td><td class="txt">An inside bar breaks one way, like the semis ETF's daily inside bar breaking down on a Monday. The other side of the 1 is a tight stop.</td></tr>
+        <tr><th>3-2 continuation</th><td>3 then 2</td><td class="txt">An outside bar, then a break in the same direction it closed. A continuation, not a turn.</td></tr>
+        <tr><th>A 2 becoming a 3</th><td>2&#8593; back inside</td><td class="txt">It took the high and came back into the range, so now the low is in play. A red 2 up has until its close to become a 3 down.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-head">
+    <h2>Your turn: name the bar</h2>
+    <p>The video asks it straight out: this bar took out the high and the low, so what is it? Try a few. The first ones are the traps.</p>
+  </div>
+  <div class="risk">
+    <div class="panel ts-quiz" data-ts-quiz>
+      <svg viewBox="0 0 360 220" role="img" aria-label="Two candles: the last bar, with dashed lines at its high and low, and this bar"></svg>
+      <div class="ts-qbtns" role="group" aria-label="Your answer">
+        <button type="button" data-a="1">1</button>
+        <button type="button" data-a="2U">2&#8593;</button>
+        <button type="button" data-a="2D">2&#8595;</button>
+        <button type="button" data-a="3">3</button>
+      </div>
+      <div class="chk-out ts-qout" aria-live="polite"></div>
+      <div class="ts-qfoot"><small>Score: <span class="ts-qscore">0 of 0</span></small><button type="button" class="pill pill-buy ts-qnext" hidden>Next bar &rsaquo;</button></div>
+    </div>
+    <div class="warn">
+      <h4>The one candle that shows where price is trying to go</h4>
+      <p>A bar takes out the high, then comes back inside the range. Now the low is in play: a 2 going to become a 3. When that 2 up is red, it has until its close to take the low and become a 3 down.</p>
+      <p class="big">The biggest losing or winning trade you've ever taken? Go look. It's a 3.</p>
+      <p>That's why the color never decides the number. The break does, and a break that fails points at the other side.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>A phenomenon, not a pattern</h2>
+    <p>Look at a cloud. I see a dog, you see a cow, and we argue. But we both agree it's a cloud. A head and shoulders is the dog. A 3 is the cloud: it took out the high and the low, period.</p>
+  </div>
+  <div class="case">
+    <div><b>Draw it right to left</b><p>Connect the highest high and the lowest low that got taken out. Now you know where price can turn before it gets there, and the target when it does: the other side.</p></div>
+    <div><b>The rejection is bigger</b><p>The video's QQQ example: on the weekly it made all-time highs about 14 points above the old high, then went 2 up, 2 down and rejected. About 55 points so far, and still going.</p></div>
+    <div><b>Good-looking, then the worst</b><p>At the top of the formation, the higher highs, everybody says it looks good. One 2-2 reversal later it's the worst-looking chart in the world. The chart didn't change. The phenomenon played out.</p></div>
+  </div>
+  <p class="quote">&ldquo;As data scientists, we call it price discovery. And it's not a pattern. It's a phenomenon.&rdquo;<small>From the video. Some traders call the broadening formation a megaphone.</small></p>
+
+  <div class="section-head">
+    <h2>Who's inside the candle</h2>
+    <p>Think of a store. Shoppers who check out between 10 and 11 are one group; 11 to 12 is another. Put them together and that's today's group. If today is Monday,
+    it's also the week's first group, and Tuesday's shoppers join it. Every open starts a new group: the hour, the day, the week, the month.</p>
+  </div>
+  <div class="vs">
+    <div><span class="sc">01</span><h3>A candle is everyone who traded</h3><p>Anyone who bought, added, reduced or exited this quarter is in this quarter's candle. Mostly that's algorithms sent by institutions with really big orders to fill.</p></div>
+    <div><span class="sc">02</span><h3>Green means paying up</h3><p>If the month is green, the monthly shoppers are paying higher prices. Ground beef is up 20% and they're still buying, because they have to.</p></div>
+    <div><span class="sc">03</span><h3>Bigger time frame, bigger money</h3><p>The month, week, day and 60-minute are the main groups. When all four agree, that group has control of the direction across every time frame.</p></div>
+  </div>
+  <div class="risk" style="margin-top:20px">
+    <div class="panel" data-ts-tfc>
+      <h4>Check the four opens</h4>
+      <p class="lead">The video's simple version: is the last price above or below each group's open? The numbers start as the walkthrough's Monday, after the break.</p>
+      <div class="calc-in five">
+        <label>Last price<input name="price" type="number" inputmode="decimal" step="0.01" value="300.70"></label>
+        <label>Quarter open<input name="q" type="number" inputmode="decimal" step="0.01" value="306.00"></label>
+        <label>Month open<input name="m" type="number" inputmode="decimal" step="0.01" value="304.20"></label>
+        <label>Week open<input name="w" type="number" inputmode="decimal" step="0.01" value="303.90"></label>
+        <label>Day open<input name="d" type="number" inputmode="decimal" step="0.01" value="303.90"></label>
+      </div>
+      <div class="ts-trows" aria-hidden="true"></div>
+      <div class="chk-out ts-tout" aria-live="polite"></div>
+    </div>
+    <div class="warn">
+      <h4>Why a backtest won't tell you</h4>
+      <p>Nobody knows how much an institution still has to buy. Call the desk and they'll laugh: if the whole world knew, everyone would buy it first and the fund would get a worse price.</p>
+      <p class="big">What decides where price goes next is who's more aggressive right now.</p>
+      <p>That's the video's argument for thinking in evidence instead of probabilities with this method. Time frame continuity and simultaneous breaks are how it reads that aggression.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Stops are fuel</h2>
+    <p>People say smart money hunts your stops. Your stops do get taken out, because price takes out highs and lows. But nobody has to hunt anything. Here's what actually happens.</p>
+  </div>
+  <div class="vs five">
+    <div><span class="sc">01</span><h3>Stops sit at the obvious places</h3><p>Shorts put their stops above an obvious pivot high, or where they got in.</p></div>
+    <div><span class="sc">02</span><h3>A stop is a market order</h3><p>It's just waiting for price to get there before it executes. A short's stop is a buy.</p></div>
+    <div><span class="sc">03</span><h3>The algorithm takes the offer</h3><p>Each price level only holds so much stock. Told to buy aggressively, the algorithm takes every offer and has to pay up to the next level.</p></div>
+    <div><span class="sc">04</span><h3>Stops and breakout buyers pile in</h3><p>Price trades back up through the range to the stops. They buy, breakout buyers jump in, more market orders hit fewer offers, and price speeds up.</p></div>
+    <div><span class="sc">05</span><h3>Then the profit taking</h3><p>Once the stops are out and the algorithm has its shares, the only thing left is taking profit. Price turns from the top of the formation.</p></div>
+  </div>
+  <p class="two-note">That's why the broadening formation matters: when price trades back through a range, the stops sitting against its highs and lows are what speed it up.</p>
+
+  <div class="section-head">
+    <h2>Size it off the bar</h2>
+    <p>The entry is a penny through last week's level as the group breaks. The stop, at worst, is a penny past this week's other extreme. The default numbers are the walkthrough's, and the dollar risk is only an example.</p>
+  </div>
+  <div class="risk">
+    <div class="panel" data-ts-calc>
+      <div class="calc-in four">
+        <label>Last week's level that breaks<input name="level" type="number" inputmode="decimal" step="0.01" value="301.80"></label>
+        <label>This week's other extreme<input name="ext" type="number" inputmode="decimal" step="0.01" value="304.60"></label>
+        <label>The other side (target)<input name="target" type="number" inputmode="decimal" step="0.01" value="285.00"></label>
+        <label>Risk ($)<input name="risk" type="number" inputmode="decimal" step="10" min="0" value="500"></label>
+      </div>
+      <div class="calc ts-cout" aria-live="polite"></div>
+    </div>
+    <div class="warn">
+      <h4>Win rate is set by the stop, not the evidence</h4>
+      <p>Widen the stop and the win rate goes up. That doesn't make the evidence any better; it just risks more on each trade. The video's advice, after six years of trading it: you don't need to.</p>
+      <p class="big">A tight stop can mean a re-entry. That's the trade-off.</p>
+      <p>Broadening formations exist, so a tight stop can get taken out before it goes on the second or third try. Use the lower time frame signals to tighten without choking the trade.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Three calls made on a Sunday night</h2>
+    <p>Each one was laid out in a weekend video before Monday's open, then confirmed by a simultaneous break. Here's each as told in the video. The transcript gives prices without decimal points (6295, 4774); the table writes them as 62.95 and 47.74.</p>
+  </div>
+  <div class="tscroll">
+    <table class="vcase">
+      <thead><tr><th>Sector</th><th>Sunday night: the setup</th><th>Monday: the evidence</th><th>What followed</th></tr></thead>
+      <tbody>
+        <tr><th>Energies<br><small>XLE, XOP, OXY and more</small></th>
+          <td class="txt">Hammers on the weekly almost everywhere. XLE made a slight lower low and closed back near the highs, so shorts down there were trapped and stopped-out longs might have to get back in. The sector was already up 42% on the year. Magnitude: higher highs, to 66.17.</td>
+          <td class="txt">XLE goes above last week's high, 62.95, and above the quarter, month and week opens: full time frame continuity. 14 of 24 big energy stocks took out last week's high before 11:00, 18 by the close. The oil service names (Schlumberger, Baker Hughes) didn't: the algorithms weren't told to buy them.</td>
+          <td class="txt">2 up every day that week, including a red Wednesday that was still a 2 up. Another all-time high the next Monday, at the top of the formation: a crowded trade. Then a big outside day as the day and 60-minute groups took profit, and the bigger groups bought again the next day.</td></tr>
+        <tr><th>Bitcoin miners<br><small>WGMI</small></th>
+          <td class="txt">The week before, every stock in the ETF took out the prior week's high (a 2 up) and closed red: a rejection of the upside. Broadening formations on the zoom-out, data center concerns, and a possible 2-2 down. Not evidence yet, just a setup.</td>
+          <td class="txt">WGMI opens under last week's low, 47.74. At 10:25 it was posted to members as a simultaneous break to the downside. By 11:00, Riot and CleanSpark were under last week's lows too.</td>
+          <td class="txt">2 down Tuesday, Wednesday and Thursday. Friday gapped up, a red 2 up with some short covering, then 2 down again on Monday. Under 40 two weeks later, about 40% down from the weekend video, with the holdings going to the bottom of their formations.</td></tr>
+        <tr><th>Semis and tech<br><small>SMH, XLK, QQQ</small></th>
+          <td class="txt">Tech, semis and the QQQ were all inside days on Friday. A beautiful broadening formation on SMH's weekly. Weekly 2-2 down setups on Nvidia, AMD, Broadcom and Taiwan Semi; 2-1-2 down setups on Applied Materials, Lam Research, KLA and ASML.</td>
+          <td class="txt">15 of 17 big chip stocks broke last week's lows in the first hour. SMH's daily inside bar broke down, a 1-2 down, so the other side of that inside day became a tighter stop.</td>
+          <td class="txt">Tuesday was a green 2 down (profit taking, or badly timed longs), and it kept going 2 down all week. Semis, tech and the QQQ all went 2 up, 2 down on the weekly: evidence to short the NASDAQ. Friday's intraday turns back down on the 30-minute were re-entries.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="quote">&ldquo;The algorithms turned on and they kept them on. That's just what happened.&rdquo;<small>From the video, on the energies week.</small></p>
+
+  <div class="section-head">
+    <h2>How you trade it</h2>
+    <p>The whole method in four steps, as the video closes it out.</p>
+  </div>
+  <div class="panel">
+    <ol class="howto">
+      <li><b>Find the evidence</b>, either across four or more time frames (time frame continuity) or through a simultaneous break across a correlated group.</li>
+      <li><b>Enter right when the simultaneous break happens</b> and price goes in force. Stop, at worst, just past the current bar's other extreme.</li>
+      <li><b>Use reconfirming signals</b> on lower time frames to enter or add in the direction of the higher time frame evidence, like a 30-minute 2 up that turns 2 down during a weekly short.</li>
+      <li><b>Don't hold losing trades.</b> Losing trades lose more. Add to and hold your winners: winning trades win more.</li>
+    </ol>
+  </div>
+
+  <section class="video" id="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/i4UzNsv-7Dc" title="The Strat: what it looks like when smart money moves price (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>A Strat trader walks through the three universal truths, then three sectors he called on a Sunday night: the energies, the bitcoin miners and the semis, with the simultaneous breaks that confirmed them.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=i4UzNsv-7Dc" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Trade the evidence, not the pattern.</h2>
+      <p>Price can only do three things. The candle shows which group is more aggressive. The broadening formation is the map for timing reversals and sizing the move.
+      And a simultaneous break, in force, is the algorithms turning on. Up or down, it's the same evidence every time.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Number every bar: 1, 2 up, 2 down or 3. Never the color.</li>
+        <li>Target the other side of the broadening formation.</li>
+        <li>Want full time frame continuity or a simultaneous break.</li>
+        <li>Enter in force; stop just past the bar. Cut losers, hold winners.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">From a video on The Strat, the method created by Rob Smith. The three scenarios, the broadening formation, time frame continuity, simultaneous breaks, the stop rules and the
+  sector case files are as told in the video. The walkthrough, the stepper chart, the bar quiz and the calculators' default numbers are illustrative, made-up bars and holdings, not any ETF's or stock's actual prints.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

@@ -1,0 +1,1028 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Liquidity Refill — the two-candle imbalance setup | The Trade Method</title>
+<meta name="description" content="Liquidity refill, from a quant's order book research: after a relatively big candle out of compression, watch the next candle's first seconds. A quick wick that stays in the top 10–20% and gets absorbed means the refill moved up. Buy the break of the first candle's high, stop past the wick, out after three or four candles.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/liquidity-refill.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Liquidity Refill — the two-candle imbalance setup">
+<meta property="og:description" content="Liquidity refill, from a quant's order book research: after a relatively big candle out of compression, watch the next candle's first seconds. A quick wick that stays in the top 10–20% and gets absorbed means the refill moved up. Buy the break of the first candle's high, stop past the wick, out after three or four candles.">
+<meta property="og:url" content="https://thetrademethod.com/setups/liquidity-refill.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Liquidity Refill — the two-candle imbalance setup">
+<meta name="twitter:description" content="Liquidity refill, from a quant's order book research: after a relatively big candle out of compression, watch the next candle's first seconds. A quick wick that stays in the top 10–20% and gets absorbed means the refill moved up. Buy the break of the first candle's high, stop past the wick, out after three or four candles.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Liquidity Refill — the two-candle imbalance setup",
+ "name": "Liquidity Refill",
+ "description": "Liquidity refill, from a quant's order book research: after a relatively big candle out of compression, watch the next candle's first seconds. A quick wick that stays in the top 10–20% and gets absorbed means the refill moved up. Buy the break of the first candle's high, stop past the wick, out after three or four candles.",
+ "url": "https://thetrademethod.com/setups/liquidity-refill.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/liquidity-refill.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-11",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+
+  /* hero link to the indicator */
+  .get-ind { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:#08131f; background:#64d2ff;
+             text-decoration:none; border-radius:9999px; padding:9px 18px; }
+  .get-ind:hover { background:#8cdfff; }
+
+  /* ---------- indicator ---------- */
+  .ind-sec { margin-top:56px; scroll-margin-top:110px; }
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .code-wrap { background:var(--panel); border:1px solid var(--line); border-radius:12px; margin-top:16px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--faint); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#1b2a3e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#26394f; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d9e3; tab-size:4; }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-sec { margin-top:44px; } }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/lr-anim.js?v=1" defer></script>
+<style>
+  /* steps across the page, the two panels side by side under them (same as hitchhiker-scalp.html) */
+  .lr-main { grid-template-columns:1fr; gap:22px; }
+  .lr-stages { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .sheet .lr-stages .stage, .sheet .lr-stages .stage:first-child { padding:26px 24px; background:var(--charcoal); align-content:start; }
+  .lr-side { display:grid; grid-template-columns:1fr 1.4fr; gap:16px; align-items:stretch; }
+  .lr-side .panel + .panel { margin-top:0; }
+  .lr-side .timing { grid-template-columns:1fr 1fr; }
+  @media (max-width:1100px) { .lr-stages { grid-template-columns:1fr 1fr; } .lr-side { grid-template-columns:1fr; } }
+  @media (max-width:680px) { .lr-stages { grid-template-columns:1fr; } }
+  /* the stepper (js/lr-anim.js builds it from the six steps) */
+  .lr-stages.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#f5f5f7; }
+  .gs-bar { display:grid; grid-template-columns:repeat(6,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:8.333%; right:8.333%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .lr-stages.is-stepper .stage, .sheet .lr-stages.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .lr-stages.is-stepper .stage .num { display:none; }
+  .sheet .lr-stages.is-stepper .stage[hidden] { display:none; }
+  .sheet .lr-stages.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .lr-stages.is-stepper { padding:20px 12px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:34px; height:34px; font-size:14px; }
+    .gs-line { top:16px; }
+    .gs-bar { margin-bottom:20px; }
+  }
+  /* video (same as hitchhiker-scalp.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+  .watch { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:var(--ink); text-decoration:none;
+           background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); border-radius:9999px; padding:7px 14px 7px 10px; }
+  .watch:hover { background:rgba(255,255,255,0.14); }
+  .watch i { width:0; height:0; border-left:9px solid #ff453a; border-top:6px solid transparent; border-bottom:6px solid transparent; margin-left:4px; }
+
+  .h1-lr { color:#64d2ff; }
+  .ribbon .n { font-size:14px; }
+
+  /* tiles */
+  .vs { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .vs div { background:var(--panel); border:1px solid var(--line); border-top:3px solid #64d2ff; border-radius:11px; padding:16px 17px; }
+  .vs .sc { font-family:var(--mono); font-size:13px; color:#64d2ff; font-weight:700; display:block; margin-bottom:6px; }
+  .vs h3 { margin:0 0 6px; font-size:16px; }
+  .vs p { margin:0; font-size:14px; color:var(--dim); }
+
+  /* the checks and outputs (same look as hitchhiker-scalp.html) */
+  .chk-out { margin-top:14px; border-radius:11px; padding:14px 16px; border:1px solid var(--line); background:var(--panel2); }
+  .chk-out b { display:block; font-size:24px; font-weight:800; letter-spacing:-0.02em; margin-bottom:4px; }
+  .chk-out p { margin:0; font-size:14px; color:var(--dim); }
+  .chk-out.is-a { border-color:#22855a; } .chk-out.is-a b { color:var(--up); }
+  .chk-out.is-b { border-color:#7a5a12; } .chk-out.is-b b { color:var(--gold); }
+  .chk-out.is-no { border-color:#5e2a30; } .chk-out.is-no b { color:var(--down); }
+
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in.four { grid-template-columns:repeat(4,1fr); }
+  .calc-in label { font-size:12px; color:var(--faint); display:block; }
+  .calc-in input, .calc-in select { width:100%; margin-top:4px; background:var(--panel2); color:var(--ink); border:1px solid var(--line); border-radius:8px;
+                   padding:8px 10px; font-family:var(--mono); font-size:15px; }
+  .calc-in input:focus, .calc-in select:focus { outline:2px solid var(--blue); outline-offset:1px; }
+  .calc-in input[type=range] { padding:0; accent-color:#30d158; background:none; border:0; }
+  .calc-in output { font-family:var(--mono); color:var(--ink); font-size:14px; float:right; }
+  .lr-book .calc-in { grid-template-columns:1fr 1fr auto; align-items:end; }
+  .lr-book .warn { margin-top:16px; }
+  .lr-book .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; }
+  .lr-book .reset:hover { background:#3a3a3c; }
+  .lr-book svg, .lr-four svg, .lr-retest svg { border-radius:14px; }
+
+  /* case table + quotes (same as hitchhiker-scalp.html) */
+  .quote { margin:16px 0 0; padding:14px 18px; border-left:3px solid #64d2ff; background:var(--panel); border-radius:0 11px 11px 0; font-size:16px; }
+  .quote small { display:block; color:var(--faint); font-size:12.5px; margin-top:4px; }
+  .howto { margin:0; padding-left:20px; color:var(--ink); font-size:14.5px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#64d2ff; font-weight:600; }
+  .two-note { margin:14px 0 0; color:var(--dim); font-size:14px; max-width:86ch; }
+  .vcase td.txt { min-width:200px; }
+
+  /* the animation redraws for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .ribbon + .anim { margin-top:8px; }
+  @media (max-width:1100px) {
+    .vs { grid-template-columns:1fr 1fr; }
+    .calc-in.four { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:680px) {
+    /* breathing room around the walkthrough and the charts on small screens (project rule: not packed tight on phones) */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .counts { flex-wrap:wrap; gap:16px 22px; }
+    .vs { grid-template-columns:1fr; }
+    .calc-in, .calc-in.four, .lr-book .calc-in { grid-template-columns:1fr 1fr; }
+    .lr-book .calc-in .reset { grid-column:1 / -1; justify-self:start; }
+    .section-head { margin-top:52px; }
+    .lr-four, .lr-retest, .lr-book { margin-top:28px; }
+    .risk + .risk, .panel + .risk { margin-top:28px; }
+    .vcase th, .vcase td { padding:9px 8px; }
+    .lr-side .filters, .lr-side .timing { grid-template-columns:1fr !important; }
+  }
+  /* the case table scrolls inside itself on a phone, never the page */
+  .tscroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .tscroll table { min-width:720px; }
+</style>
+
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=18" defer></script>
+<!-- lr-versions -->
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/setups/">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="liquidity-refill">
+    <div>
+      <p class="kicker">A quant's two-candle pattern &middot; any time frame, long or short</p>
+      <h1>Liquidity <span class="h1-lr">Refill</span></h1>
+    </div>
+    <div>
+      <p class="thesis">When buyers take liquidity faster than sellers can add it back, price has only one way to go. You can't see the order book, but you can see
+      its footprint: <em>a big candle out of compression, then a next candle whose early sell-off gets absorbed in seconds</em>, high up in the first candle.
+      Buy the break of the first candle's high, stop under the wick, and get out after three or four candles.</p>
+      <div class="counts">
+        <div><b>C1 + C2</b><small>two candles, that's the pattern</small></div>
+        <div><b>10&ndash;20%</b><small>how far into C1 C2's early wick may go</small></div>
+        <div><b>3&ndash;4</b><small>candles, then out</small></div>
+      </div>
+      <a class="get-ind" href="#indicator">Get the TradingView indicator &rsaquo;</a>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">1 &middot; the backdrop</div><div class="n">Compression, low volatility</div></div>
+    <div><div class="t">2 &middot; C1</div><div class="n">A relatively big candle</div></div>
+    <div><div class="t">3 &middot; C2's wick</div><div class="n">Early, quick, in C1's top 10&ndash;20%</div></div>
+    <div><div class="t">4 &middot; the entry</div><div class="n">C2 breaks C1's high (low)</div></div>
+    <div><div class="t">5 &middot; the stop</div><div class="n">Just past C2's wick</div></div>
+    <div><div class="t">6 &middot; the exit</div><div class="n">3&ndash;4 candles, or the first opposite one</div></div>
+  </nav>
+
+  <section class="anim" data-lr-anim aria-label="Animated walkthrough of a liquidity refill long on 1-minute bars">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">8 / 8</p>
+        <h2 class="anim-title">Watch one liquidity refill long, start to finish</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 640" role="img" aria-label="Illustrative 1-minute chart of a made-up index future: twelve small candles with lower highs, then C1, a 24.25-point candle that closes near its high at 21,508.25 and breaks the trend line. C2 opens with a sell-off to 21,506.00 in its first 12 seconds, 14% into C1, then flips green and crosses C1's high of 21,509.50: buy 21,509.75, stop 21,505.25 under the wick, 4.50 points of risk. Three more green candles; out at the close of the fourth candle, 21,527.75, about 4R. The next candle closes red."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main lr-main">
+    <div class="lr-stages" data-lr-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Start from compression</h3>
+          <ul>
+            <li>A stretch of small candles: a low-volatility state, ideally with a simple trend line or market structure you can see.</li>
+            <li>It's what makes the next candle stand out. The candles closest to it should be clearly smaller.</li>
+            <li>Skip choppy charts where big candles of about the same size keep coming in a short stretch.</li>
+          </ul>
+          <p class="why">Compression, then an imbalance candle, is where this gives the most accurate results.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Spot C1, a relatively big candle</h3>
+          <ul>
+            <li>Bigger than the candles around it. Call it whatever you like; it's just a relatively big candle.</li>
+            <li>Assume one side was aggressive: buyers took liquidity at a much higher rate than sellers could add it back (or the reverse, short).</li>
+            <li>A structural break at the same time, through a trend line or a few prior highs, makes it more interesting. It isn't required.</li>
+          </ul>
+          <p class="why">One candle isn't enough to know there's an imbalance. It's the first assumption. What happens next decides it.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Watch the first seconds of C2</h3>
+          <ul>
+            <li>For a long, a quick sell-off right as C2 opens. On a 1-minute chart, in the first 10 to 15 seconds.</li>
+            <li>The wick stays small, in the top 10&ndash;20% of C1. It shouldn't come near C1's 50% level.</li>
+            <li>Then buyers absorb it and turn aggressive again: the candle flips. For a short it's all mirrored: a quick pop, absorbed, near C1's low.</li>
+          </ul>
+          <p class="why">Buyers are now lining up liquidity at a much higher price than before, and doing it quickly enough to absorb the selling instantly.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Enter when C2 crosses C1's high</h3>
+          <ul>
+            <li>Long: when price crosses above C1's high. Short: when it crosses below C1's low.</li>
+            <li>It has to be C2. If C2 doesn't break it and C3 does, there's no trade.</li>
+            <li>C2 has to be on your side: bullish for a long. A small wick on a bearish C2 is no trade.</li>
+          </ul>
+          <p class="why">C1's high is the highest price buyers paid. Crossing it says they're now willing to do price discovery above it.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Stop just past the wick</h3>
+          <ul>
+            <li>Long: a little below C2's wick. Short: a little above it.</li>
+            <li>Roughly, not to the tick. Philip puts it a bit away from the wick; you can put it right at it.</li>
+            <li>If the wick is too big, the stop is too wide for the trade to pay. Consider skipping it.</li>
+          </ul>
+          <p class="why">The tight stop is the whole idea. You can lose many times; when it works the win makes it all back.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Ride three or four candles, then out</h3>
+          <ul>
+            <li>An imbalance only lasts a few candles. Out after three or four, as long as each closes in your direction.</li>
+            <li>Out early on the first opposite candle: a red close on a long, a green one on a short. The imbalance is gone.</li>
+            <li>Out earlier at an obvious level in the way, like the previous day's low or high.</li>
+          </ul>
+          <p class="why">Don't expect 20 candles. It's a quick scalp: you want at least 1:2, most likely 1:3.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="lr-side">
+      <div class="panel">
+        <h4>The early window, by time frame</h4>
+        <p class="lead">It works on any time frame. Only the clock for C2's wick changes. Not set in stone: early, quick, absorbed quickly.</p>
+        <div class="timing">
+          <div><b>1-minute</b><p>The first 10 to 15 seconds of C2.</p></div>
+          <div><b>5-minute</b><p>Roughly the first minute.</p></div>
+          <div><b>15-minute</b><p>The first couple of minutes. The live NASDAQ short's wick was done in about two.</p></div>
+          <div><b>Daily</b><p>The first few hours. The daily example's sell-off lasted four.</p></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>When to skip it</h4>
+        <p class="lead">Simple, but not on every chart.</p>
+        <div class="filters kills" style="grid-template-columns:repeat(2,1fr); margin-top:14px;">
+    <div class="filter" style="background:var(--panel2)"><h3>Chop</h3><p>Big candles of about the same size, one after another in a short stretch. No compression, no clear structure break.</p><p class="kill">Ignore the wick entirely.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>A late wick</h3><p>The sell-off (or pop, short) came later in C2, not in its first moments. That's not the absorption you're looking for.</p><p class="kill">Late wick: no trade.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>A wick too deep</h3><p>It goes past C1's 50% level, or far enough that the stop behind it leaves no room for 1:2.</p><p class="kill">Risk-reward gone: pass.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>No break on C2</h3><p>C2 closes against you or never crosses C1's high (low). C3 breaking it instead doesn't count.</p><p class="kill">C1, C2. Not C3.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Aggression meets refill</h2>
+    <p>Two ideas from order book microstructure. Aggression is who's taking liquidity: buyers crossing the spread to take what the ask offers. Liquidity refill is the rate at which new limit orders are added back as the old ones get consumed. Together they show an imbalance, and an imbalance moves price.</p>
+  </div>
+  <div class="lr-book" data-lr-book>
+    <div class="panel">
+      <div class="calc-in">
+        <label>Buyers take, a second <output data-show="aggr">10,000</output><input name="aggr" type="range" min="0" max="12000" step="500" value="10000"></label>
+        <label>Sellers refill, a second <output data-show="refill">2,000</output><input name="refill" type="range" min="0" max="12000" step="500" value="2000"></label>
+        <button type="button" class="reset" data-reset>Reset price</button>
+      </div>
+      <svg viewBox="0 0 1100 300" role="img" aria-label="A simplified ask side of an order book, one level per tick, with the best ask being consumed by buyers and refilled by sellers, and a line of price over the last 15 seconds."></svg>
+      <div class="chk-out lr-bout" aria-live="polite"></div>
+    </div>
+    <div class="warn">
+      <h4>The whiteboard example</h4>
+      <p>Buyers are willing to buy 10,000 contracts a second by crossing the spread. Sellers can only add back 2,000 a second. The ask is refilling, but at a much slower rate, and buyers easily consume whatever comes back.</p>
+      <p class="big">If that continues, there's only one way price can go: up.</p>
+      <p>Most traders don't have this data, and most order execution today is automated. You don't need it: the next section is how the same imbalance shows up on a plain price chart. The 4,000 contracts a level in the sketch is ours, just to make it move.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>What C2 has to do</h2>
+    <p>Same compression, same C1. Only the second candle changes. The wick has to come early, stay shallow, and C2 itself has to flip and break C1's high. The strip under each chart is C2's first minute, with the first 15 seconds in green.</p>
+  </div>
+  <div class="panel lr-four" data-lr-four>
+    <svg viewBox="0 0 1180 330" role="img" aria-label="Four illustrative cases after the same C1. Take it: a 14% wick done by 12 seconds, C2 flips and breaks C1's high. Too deep: the wick reaches 58% of C1, past its halfway line. Too late: the wick forms 44 seconds into C2. No break on C2: C2 closes red and only C3 breaks C1's high, so there's no trade."></svg>
+  </div>
+  <p class="two-note">In the live NASDAQ trade, the first imbalance candle was skipped for exactly the third reason: the wick on the next candle formed later in its 15 minutes, so it wasn't marked.</p>
+
+  <div class="section-head">
+    <h2>Grade the wick, then size it</h2>
+    <p>Type C1's high and low, where C2's early wick reached, and when it was done. The defaults are the walkthrough's. The stop buffer and the dollar risk are only examples; Philip says his stop is placed roughly, not by a rule.</p>
+  </div>
+  <div class="risk">
+    <div class="panel" data-lr-wick>
+      <div class="calc-in four">
+        <label>Side<select name="side"><option value="long">Long</option><option value="short">Short</option></select></label>
+        <label>Time frame<select name="tf"><option value="m1">1-minute</option><option value="m5">5-minute</option><option value="m15">15-minute</option><option value="d1">Daily</option></select></label>
+        <label>C1 high<input name="hi" type="number" inputmode="decimal" step="0.25" value="21509.50"></label>
+        <label>C1 low<input name="lo" type="number" inputmode="decimal" step="0.25" value="21485.25"></label>
+        <label>C2's wick (its low, long)<input name="wick" type="number" inputmode="decimal" step="0.25" value="21506.00"></label>
+        <label>Wick done after (<span data-unit>seconds</span>)<input name="when" type="number" inputmode="decimal" step="1" min="0" value="12"></label>
+        <label>Tick size<input name="tick" type="number" inputmode="decimal" step="0.01" min="0" value="0.25"></label>
+        <label>Stop buffer (ticks)<input name="buf" type="number" inputmode="numeric" step="1" min="0" value="3"></label>
+        <label>Point value ($)<input name="pv" type="number" inputmode="decimal" step="1" min="0" value="20"></label>
+        <label>Risk ($)<input name="risk" type="number" inputmode="decimal" step="10" min="0" value="300"></label>
+      </div>
+      <div class="chk-out lr-wout" aria-live="polite"></div>
+      <div class="calc lr-wcalc" aria-live="polite" style="margin-top:14px"></div>
+    </div>
+    <div class="warn">
+      <h4>The wick is your risk</h4>
+      <p>The smaller the wick, the closer the stop, the better the trade. Inside the top 5% of C1 is an even stronger case than 20%. Past 50%, it isn't the pattern any more.</p>
+      <p class="big">At least 1:2. Most likely 1:3.</p>
+      <p>The price has to make a pretty big move to get there, so if the wick is a bit too big and throws off the risk-reward, Philip would consider not taking it, even with everything else in place.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Missed it? The second chance</h2>
+    <p>If you spot the pattern on a higher time frame and miss the break, drop to a lower one. As long as price stays above C2's low, the initial wick, look for a retest of C2's opening level. When price closes back above the open, that can be a second entry, often with a tighter stop.</p>
+  </div>
+  <div class="panel lr-retest" data-lr-retest>
+    <svg viewBox="0 0 1180 400" role="img" aria-label="Illustrative daily chart with C1 out of compression and C2, then the same C2 on the 1-hour chart: four hours of selling down to 428.50, the flip, the break of C1's high at 433.00 for the first entry at 433.25 with a stop at 428.25, a rally, then a retest of C2's open at 432.00 that dips to 431.60 and closes back above at 432.40, a second entry with a stop at 431.35, before the rally to 444."></svg>
+  </div>
+  <div class="risk" style="margin-top:20px">
+    <div class="panel">
+      <h4>The rules for the retest</h4>
+      <ul style="margin:0; padding-left:18px; font-size:14px">
+        <li style="margin-bottom:6px">C2's low, the initial wick, must not be violated. That's also where the first trade's stop is.</li>
+        <li style="margin-bottom:6px">Price has to come back and test C2's opening level. It doesn't have to go far below it: a quick bounce or a rejection wick is fine. Be a little open-minded.</li>
+        <li style="margin-bottom:6px">When price closes back above the open, that's the second entry, with the stop under the retest.</li>
+        <li>One retest only. If it comes back a second time, the imbalance most likely isn't in place.</li>
+      </ul>
+    </div>
+    <div class="warn">
+      <h4>Skip it on dead candles</h4>
+      <p>If the retest happens on very low volatility candles, ignore it. Technical analysis works best with participants in the market and real volatility.</p>
+      <p class="big">Philip takes the initial entry, not the retest.</p>
+      <p>&ldquo;If I miss the trade, I'm fine. I move on to the next day.&rdquo; He doesn't want to spend hours watching the chart or chase it.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Three ways out</h2>
+    <p>It's a quick setup. You don't need to decide how long to hold it: count candles and watch their color, and know where the obvious level is.</p>
+  </div>
+  <div class="vs">
+    <div><span class="sc">01</span><h3>Three or four candles</h3><p>Each one closing higher than the last on a long (lower, short). After three or four, you're out. The move most likely pulls back next.</p></div>
+    <div><span class="sc">02</span><h3>The first opposite candle</h3><p>If a candle closes red after your long entry (green after a short), close it. The imbalance isn't in place any more.</p></div>
+    <div><span class="sc">03</span><h3>An obvious level</h3><p>Like the previous day's low in the live short. Levels everyone can see tend to get retested and respected, often with a bounce, before a break.</p></div>
+  </div>
+
+  <div class="section-head">
+    <h2>The examples from the video</h2>
+    <p>A daily chart, its 1-hour retest, the live NASDAQ short, and the ones that weren't trades. Philip's own indicator marks the wick when it forms at the start of the next candle; it's a simple marker he made to show the idea, not something he sells or trades with.</p>
+  </div>
+  <div class="tscroll">
+    <table class="vcase">
+      <thead><tr><th>Example</th><th>C1</th><th>C2</th><th>What happened</th></tr></thead>
+      <tbody>
+        <tr><th>Daily long</th>
+          <td class="txt">After about 10 relatively small candles, a relatively bigger one that also closes above a trend line through the highs and takes out three or four prior highs.</td>
+          <td class="txt">A sell-off when C2 opens, formed in its first hours, with the wick tapping only the top 5% of C1. Stronger than 20%.</td>
+          <td class="txt">Entry on the cross of C1's high, stop slightly below the wick. Ride it for one, two, three candles, then out.</td></tr>
+        <tr><th>The same C2, 1-hour</th>
+          <td class="txt">The daily C1, seen from below.</td>
+          <td class="txt">Four hours of instant selling, then the flip and the break of the daily high.</td>
+          <td class="txt">A retest of C2's opening level that holds above C2's low, then closes back above the open: a second chance with a tighter stop. Not one Philip took.</td></tr>
+        <tr><th>NASDAQ short, 15-minute<br><small>live, almost 1:4</small></th>
+          <td class="txt">Previous day's low marked first, as the target. At the New York open, a big red candle after relatively small ones. The next candle's wick came later, so no trade. A second imbalance candle followed.</td>
+          <td class="txt">Quick buying in about the first two minutes, absorbed by sellers. The wick was maybe 30 to 35% of C1: not perfect, but very quick, and it flipped fast.</td>
+          <td class="txt">Short on the cross below C1's low, stop above the high. Held for a few candles until the previous day's low: almost 1:4.</td></tr>
+        <tr><th>The big-wick one</th>
+          <td class="txt">Big, but it closed well off its high, with a big wick to the upside.</td>
+          <td class="txt">Had the early wick, and broke C1's high. Technically a trade on the cross.</td>
+          <td class="txt">The wick was a bit too high, which offsets the risk-reward. A reason to consider not taking it.</td></tr>
+        <tr><th>A C3 break</th>
+          <td class="txt">A C1 that could have made a nice setup.</td>
+          <td class="txt">C2 doesn't break C1's high.</td>
+          <td class="txt">C3 does. No trade: it has to be C1, then C2. A bearish C2, even with a small wick, is no trade either.</td></tr>
+        <tr><th>One candle, then over</th>
+          <td class="txt">C1 out of compression.</td>
+          <td class="txt">The wick, then the break of the high.</td>
+          <td class="txt">One momentum candle, then the next one closes bearish. The imbalance is over: out on that one.</td></tr>
+        <tr><th>Chop</th>
+          <td class="txt">One big candle, another, then another of about the same size, close together.</td>
+          <td class="txt">A wick there, too.</td>
+          <td class="txt">Ignored. Equal-size candles in a compact stretch aren't compression and a structure break.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="quote">&ldquo;We can lose many times, but when we win, we'll win big and make it all back.&rdquo;<small>From the video, on the tight stop.</small></p>
+
+  <div class="section-head">
+    <h2>How you trade it</h2>
+    <p>The whole setup, in order.</p>
+  </div>
+  <div class="panel">
+    <ol class="howto">
+      <li><b>Find compression:</b> small candles, low volatility, ideally a simple trend line or structure. Skip chop.</li>
+      <li><b>Spot C1,</b> a relatively big candle. Assume aggression is outrunning the refill.</li>
+      <li><b>Watch the first moments of C2:</b> a quick sell-off (pop, short) that stays in C1's top 10&ndash;20% and gets absorbed. Late or deep: no trade.</li>
+      <li><b>Enter when C2 crosses C1's high</b> (low, short). Only C2, and only if C2 is on your side.</li>
+      <li><b>Stop just past C2's wick.</b> If that makes the risk too big for 1:2, consider passing.</li>
+      <li><b>Out after three or four candles,</b> on the first opposite candle, or at an obvious level like the previous day's low or high.</li>
+      <li><b>Missed it?</b> One retest of C2's open on a lower time frame, above C2's low, with real volatility. Or just move on.</li>
+    </ol>
+  </div>
+
+  <section class="ind-sec" id="indicator" aria-label="TradingView indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for the setup (Pine Script v6), on any time frame. It finds C1, reads C2's first moments from lower time frame data,
+    and draws the entry, the stop and the exit on your chart. It marks and alerts. It does not place trades.</p>
+    <ul class="ind-list">
+      <li class="ind-card">
+        <div class="ind-card-top">
+          <h3 class="ind-name">Liquidity Refill</h3>
+          <span class="ind-alerts">alerts</span>
+        </div>
+        <p class="ind-blurb">C1 counts when its range is at least 2&times; the average of the 8 quiet bars before it, its body is at least 60% of its range,
+        it closes in the top (bottom) quarter, and no bar among the quiet ones was nearly as big (chop). On the next candle it checks that the wick against C1
+        printed in the early window and held, and went no deeper than 20% into C1. Deeper wicks up to 50% show as gray &ldquo;shaky&rdquo; entries. Entry is marked when C2
+        crosses C1's high (low), the stop 2 ticks past the wick, and the exit at the close of the 4th candle, the first opposite close or the previous day's high/low,
+        whichever comes first. A panel keeps the trade count, wins and average R. Every number is a setting.</p>
+        <p class="ind-blurb" style="color:var(--dim)">The early window sets itself from the chart: 15 seconds on 1-minute, the first minute on 5-minute, 2 minutes on
+        15-minute, 4 hours on daily. On 1-minute charts it needs seconds data, which only some TradingView plans have. Without it, turn &ldquo;Require intrabar timing&rdquo; off
+        and judge the timing yourself. The second-chance retest is left to you. The 2&times;, 60% and quarter thresholds are ours, not the video's.</p>
+        <div class="ind-links">
+          <a class="ind-link ind-link--quiet" href="/pine/liquidity-refill.pine" download>Download source (.pine)</a>
+        </div>
+      </li>
+    </ul>
+    <div class="code-wrap">
+      <div class="code-top">
+        <span>liquidity-refill.pine &middot; Pine Script v6</span>
+        <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/liquidity-refill.pine" download>Download</a></div>
+      </div>
+      <pre class="pine" tabindex="0"><code>//@version=6
+// =====================================================================
+// Liquidity Refill — thetrademethod.com
+//
+// A quant's two-candle imbalance pattern (aggression against liquidity
+// refill), on any time frame, long or short:
+//
+//   1. C1          A relatively big candle out of compression: its range
+//                  is a multiple of the quiet bars before it, it has a
+//                  real body and closes near its extreme. Chop (another
+//                  bar about as big among the quiet bars) is skipped.
+//   2. C2's wick   The NEXT candle opens with a quick move against C1
+//                  (a sell-off after a green C1) that is done in the
+//                  first moments of the bar and stays in the top 10-20%
+//                  of C1. Timing is read from intrabar data; a wick that
+//                  forms later in the bar doesn't count.
+//   3. The entry   C2 crosses C1's high (low, short). Only C2: a break
+//                  on C3 is no trade. Entry is marked a tick past it.
+//   4. The stop    A few ticks past C2's wick.
+//   5. The exit    The close of the Nth candle (C2 counts as 1), the
+//                  first opposite close, or the previous day's high/low
+//                  (intraday), whichever comes first. Or the stop.
+//
+// Early window, by default (the video's numbers, "not set in stone"):
+//   1-minute: first 15 s · 5-minute: first minute · 15-minute: first
+//   2 minutes · daily: first 4 hours. In between, it scales.
+// Seconds data (used on 1-minute charts) needs a TradingView plan that
+// has it. Without intrabar data, turn "Require intrabar timing" off and
+// judge the timing yourself.
+//
+// The second-chance retest on a lower time frame is left to you.
+// Marks and alerts only; it places no orders.
+// =====================================================================
+indicator("Liquidity Refill", shorttitle = "Liq Refill", overlay = true, max_labels_count = 300, max_lines_count = 300)
+
+// ---------------- inputs ----------------
+grpC = "C1 · the imbalance candle"
+lenQ    = input.int(8, "Quiet bars before C1", minval = 3, maxval = 50, group = grpC)
+bigX    = input.float(2.0, "C1 range ≥ × their average range", minval = 1.0, step = 0.1, group = grpC)
+bodyMin = input.float(0.6, "C1 body ≥ share of its range", minval = 0.0, maxval = 1.0, step = 0.05, group = grpC)
+closeIn = input.float(0.25, "C1 closes within this share of its extreme", minval = 0.05, maxval = 0.5, step = 0.05, group = grpC)
+chopX   = input.float(0.75, "Chop: skip if a quiet bar's range ≥ × C1's", minval = 0.3, maxval = 1.0, step = 0.05, group = grpC)
+useCmp  = input.bool(true, "Require compression", group = grpC, tooltip = "The quiet bars' average range must be at or below this multiple of ATR(50).")
+cmpX    = input.float(1.0, "Quiet average range ≤ × ATR(50)", minval = 0.2, step = 0.1, group = grpC)
+
+grpW = "C2 · the early wick"
+maxDepth = input.float(20, "Max wick depth into C1 (%)", minval = 1, maxval = 100, group = grpW)
+showShaky = input.bool(true, "Also mark shaky wicks up to 50%", group = grpW, tooltip = "Deeper than the max but under C1's halfway point. The live trade in the video was about 30-35%, taken because it was very quick. Check the risk-reward.")
+winIn    = input.int(0, "Early window, seconds (0 = auto)", minval = 0, group = grpW)
+ltfIn    = input.timeframe("", "Intrabar timeframe (blank = auto)", group = grpW, tooltip = "Auto: 1S on 1-minute and faster charts, 1 minute up to 15-minute, 5 minutes up to 1-hour, 15 minutes up to 4-hour, 1 hour above.")
+needTime = input.bool(true, "Require intrabar timing", group = grpW, tooltip = "Off: any wick within the depth counts, early or not.")
+
+grpE = "Entry, stop and exit"
+bufT    = input.int(2, "Stop buffer past the wick (ticks)", minval = 0, group = grpE)
+nBars   = input.int(4, "Exit at the close of candle N (C2 = 1)", minval = 1, maxval = 10, group = grpE)
+oppEx   = input.bool(true, "Exit on the first opposite close", group = grpE)
+pdEx    = input.bool(true, "Exit at the previous day's high / low (intraday)", group = grpE)
+doLong  = input.bool(true, "Longs", group = grpE)
+doShort = input.bool(true, "Shorts", group = grpE)
+
+grpV = "Display"
+showC1    = input.bool(true, "Mark every C1", group = grpV)
+showPanel = input.bool(true, "Show panel", group = grpV)
+cUp  = input.color(color.new(#30d158, 0), "Long", group = grpV)
+cDn  = input.color(color.new(#ff453a, 0), "Short", group = grpV)
+cWk  = input.color(color.new(#f4b942, 0), "Early wick", group = grpV)
+cOut = input.color(color.new(#22d3ee, 0), "Exit", group = grpV)
+
+// ---------------- time frame defaults ----------------
+tfSec   = timeframe.in_seconds()
+autoWin = tfSec &lt;= 60 ? 15 : tfSec &lt;= 300 ? 60 : tfSec &lt;= 900 ? 120 : tfSec &lt;= 3600 ? 600 : tfSec &lt;= 14400 ? 1800 : 14400
+winSec  = winIn &gt; 0 ? winIn : autoWin
+autoLtf = tfSec &lt;= 60 ? "1S" : tfSec &lt;= 900 ? "1" : tfSec &lt;= 3600 ? "5" : tfSec &lt;= 14400 ? "15" : "60"
+ltf     = ltfIn == "" ? autoLtf : ltfIn
+
+// ---------------- intrabar data for C2's timing ----------------
+[iL, iH, iT] = request.security_lower_tf(syminfo.tickerid, ltf, [low, high, time], ignore_invalid_timeframe = true)
+winEnd = time + winSec * 1000
+float eLo = na
+float eHi = na
+float lLo = na
+float lHi = na
+nIn = array.size(iT)
+if nIn &gt; 0
+    for i = 0 to nIn - 1
+        lo_ = array.get(iL, i)
+        hi_ = array.get(iH, i)
+        if array.get(iT, i) &lt; winEnd
+            eLo := na(eLo) ? lo_ : math.min(eLo, lo_)
+            eHi := na(eHi) ? hi_ : math.max(eHi, hi_)
+        else
+            lLo := na(lLo) ? lo_ : math.min(lLo, lo_)
+            lHi := na(lHi) ? hi_ : math.max(lHi, hi_)
+hasTiming = nIn &gt; 0 and not na(eLo)
+// the bar's low (long) / high (short) was printed in the early window and not taken out later
+lowEarly  = hasTiming and (na(lLo) or lLo &gt;= eLo)
+highEarly = hasTiming and (na(lHi) or lHi &lt;= eHi)
+var int barsWithData = 0
+if nIn &gt; 0
+    barsWithData += 1
+
+// ---------------- C1 ----------------
+rng   = high - low
+qAvg  = ta.sma(rng, lenQ)[1]
+qMax  = ta.highest(rng, lenQ)[1]
+atr50 = ta.atr(50)[1]
+big   = rng &gt; 0 and rng &gt;= bigX * qAvg and math.abs(close - open) &gt;= bodyMin * rng
+cmpOK = not useCmp or qAvg &lt;= cmpX * atr50
+chopOK = qMax &lt; chopX * rng
+isC1Up = big and close &gt; open and (high - close) &lt;= closeIn * rng and cmpOK and chopOK
+isC1Dn = big and close &lt; open and (close - low) &lt;= closeIn * rng and cmpOK and chopOK
+
+if showC1 and barstate.isconfirmed and (isC1Up or isC1Dn)
+    label.new(bar_index, isC1Up ? low : high, "C1", yloc = yloc.price, style = isC1Up ? label.style_label_up : label.style_label_down,
+              color = color.new(color.gray, 70), textcolor = color.white, size = size.tiny)
+
+// ---------------- previous day's levels (intraday) ----------------
+[pdh, pdl] = request.security(syminfo.tickerid, "D", [high[1], low[1]], lookahead = barmerge.lookahead_on)
+
+// ---------------- the trade ----------------
+var int   side     = 0      // 1 long, -1 short, 0 flat
+var float ent      = na
+var float stp      = na
+var float risk     = na
+var int   entBar   = na
+var line  lnStop   = na
+var line  lnEnt    = na
+var int   nTrades  = 0
+var int   nWins    = 0
+var float sumR     = 0.0
+var float lastR    = na
+var string lastWhy = ""
+
+exitSig = false
+float exitPx = na
+string why = ""
+
+// exits on bars after the entry bar
+if side != 0 and bar_index &gt; entBar
+    if side == 1 and low &lt;= stp
+        exitPx := math.min(open, stp)
+        why := "stop"
+    else if side == -1 and high &gt;= stp
+        exitPx := math.max(open, stp)
+        why := "stop"
+    else if pdEx and timeframe.isintraday and side == 1 and not na(pdh) and pdh &gt; ent and high &gt;= pdh
+        exitPx := math.max(open, pdh)
+        why := "prior day high"
+    else if pdEx and timeframe.isintraday and side == -1 and not na(pdl) and pdl &lt; ent and low &lt;= pdl
+        exitPx := math.min(open, pdl)
+        why := "prior day low"
+    else if barstate.isconfirmed and oppEx and ((side == 1 and close &lt; open) or (side == -1 and close &gt; open))
+        exitPx := close
+        why := "opposite candle"
+    else if barstate.isconfirmed and bar_index - entBar + 1 &gt;= nBars
+        exitPx := close
+        why := str.tostring(nBars) + " candles"
+
+// a new entry on C2
+c1Up = isC1Up[1]
+c1Dn = isC1Dn[1]
+c1Hi = high[1]
+c1Lo = low[1]
+c1R  = c1Hi - c1Lo
+depthL = c1R &gt; 0 ? (c1Hi - low) / c1R * 100 : na
+depthS = c1R &gt; 0 ? (high - c1Lo) / c1R * 100 : na
+wickL = low &lt; open and (not needTime or lowEarly)
+wickS = high &gt; open and (not needTime or highEarly)
+okL = depthL &lt;= maxDepth or (showShaky and depthL &lt;= 50)
+okS = depthS &lt;= maxDepth or (showShaky and depthS &lt;= 50)
+longSig  = doLong  and side == 0 and na(exitPx) and c1Up and wickL and okL and high &gt; c1Hi
+shortSig = doShort and side == 0 and na(exitPx) and c1Dn and wickS and okS and low &lt; c1Lo
+
+if longSig or shortSig
+    side   := longSig ? 1 : -1
+    ent    := longSig ? math.max(open, c1Hi + syminfo.mintick) : math.min(open, c1Lo - syminfo.mintick)
+    stp    := longSig ? low - bufT * syminfo.mintick : high + bufT * syminfo.mintick
+    risk   := math.abs(ent - stp)
+    entBar := bar_index
+    shakyNow = longSig ? depthL &gt; maxDepth : depthS &gt; maxDepth
+    col = longSig ? cUp : cDn
+    dep = longSig ? depthL : depthS
+    label.new(bar_index, longSig ? low : high, "", yloc = yloc.price, style = label.style_circle, color = cWk, size = size.tiny)
+    label.new(bar_index - 1, ent, (longSig ? "Long " : "Short ") + str.tostring(ent, format.mintick) + "\nwick " + str.tostring(dep, "#") + "%" + (shakyNow ? " · shaky, check R:R" : ""),
+              style = longSig ? label.style_label_lower_right : label.style_label_upper_right, color = shakyNow ? color.new(color.gray, 20) : col,
+              textcolor = color.black, size = size.small)
+    lnEnt  := line.new(bar_index, ent, bar_index, ent, color = color.new(color.white, 30), width = 1)
+    lnStop := line.new(bar_index, stp, bar_index, stp, color = cDn, style = line.style_dashed, width = 1)
+
+// exit on the entry bar itself: C2 closes against you, or N = 1
+if side != 0 and bar_index == entBar and barstate.isconfirmed and na(exitPx)
+    if oppEx and ((side == 1 and close &lt; open) or (side == -1 and close &gt; open))
+        exitPx := close
+        why := "C2 closed against it"
+    else if nBars &lt;= 1
+        exitPx := close
+        why := "1 candle"
+
+// keep the lines running while in the trade
+if side != 0
+    line.set_x2(lnEnt, bar_index)
+    line.set_x2(lnStop, bar_index)
+
+if side != 0 and not na(exitPx) and barstate.isconfirmed
+    r  = side == 1 ? (exitPx - ent) / risk : (ent - exitPx) / risk
+    rs = why
+    nTrades += 1
+    nWins   += r &gt; 0 ? 1 : 0
+    sumR    += r
+    lastR   := r
+    lastWhy := rs
+    label.new(bar_index, side == 1 ? high : low, "Out " + str.tostring(exitPx, format.mintick) + "\n" + str.tostring(r, "+0.0;-0.0") + "R · " + rs,
+              style = side == 1 ? label.style_label_down : label.style_label_up, color = r &gt;= 0 ? cOut : color.new(cDn, 20), textcolor = color.black, size = size.small)
+    exitSig := true
+    side := 0
+
+// ---------------- panel ----------------
+var table pnl = table.new(position.top_right, 2, 6, bgcolor = color.new(#1d1d1f, 10), border_color = color.new(#3a3a3c, 0), border_width = 1)
+if showPanel and barstate.islast
+    table.cell(pnl, 0, 0, "Liquidity Refill", text_color = color.white, text_size = size.small)
+    table.cell(pnl, 1, 0, side == 1 ? "LONG" : side == -1 ? "SHORT" : "flat", text_color = side == 1 ? cUp : side == -1 ? cDn : color.gray, text_size = size.small)
+    table.cell(pnl, 0, 1, "Early window", text_color = color.gray, text_size = size.small)
+    table.cell(pnl, 1, 1, str.tostring(winSec) + " s · " + ltf, text_color = color.white, text_size = size.small)
+    table.cell(pnl, 0, 2, "Intrabar data", text_color = color.gray, text_size = size.small)
+    table.cell(pnl, 1, 2, barsWithData &gt; 0 ? "yes" : needTime ? "none: turn timing off" : "not used", text_color = barsWithData &gt; 0 or not needTime ? color.white : cDn, text_size = size.small)
+    table.cell(pnl, 0, 3, "Trades · wins", text_color = color.gray, text_size = size.small)
+    table.cell(pnl, 1, 3, str.tostring(nTrades) + " · " + str.tostring(nWins), text_color = color.white, text_size = size.small)
+    table.cell(pnl, 0, 4, "Average R", text_color = color.gray, text_size = size.small)
+    table.cell(pnl, 1, 4, nTrades &gt; 0 ? str.tostring(sumR / nTrades, "+0.00;-0.00") : "–", text_color = color.white, text_size = size.small)
+    table.cell(pnl, 0, 5, "Last", text_color = color.gray, text_size = size.small)
+    table.cell(pnl, 1, 5, na(lastR) ? "–" : str.tostring(lastR, "+0.0;-0.0") + "R · " + lastWhy, text_color = color.white, text_size = size.small)
+
+// ---------------- alerts ----------------
+alertcondition(isC1Up and barstate.isconfirmed, "C1 up", "Liquidity Refill: a bullish C1 printed. Watch the first moments of the next candle.")
+alertcondition(isC1Dn and barstate.isconfirmed, "C1 down", "Liquidity Refill: a bearish C1 printed. Watch the first moments of the next candle.")
+alertcondition(longSig, "Long entry", "Liquidity Refill: long, C2 crossed C1's high after an early, shallow wick.")
+alertcondition(shortSig, "Short entry", "Liquidity Refill: short, C2 crossed C1's low after an early, shallow wick.")
+alertcondition(exitSig, "Exit", "Liquidity Refill: exit.")</code></pre>
+    </div>
+  </section>
+
+  <section class="video" id="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/CUFpKkBnrp8" title="Liquidity refill and aggression, a quant's two-candle setup (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Philip, a quant who has built more than 100 trading algorithms and indicators, explains liquidity refill and aggression on a whiteboard, then walks through the two-candle pattern on real charts: a daily example, its 1-hour retest, a live NASDAQ short, and the setups he'd skip.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=CUFpKkBnrp8" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>You can't see the order book. You can see what it leaves behind.</h2>
+      <p>A big candle after compression says one side was taking liquidity faster than the other could refill it. A quick, shallow, early wick on the next candle,
+      absorbed right away, says the refill moved up. The break of the first candle's high is where you find out, and three or four candles is all you ask for.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Compression, then a relatively big C1.</li>
+        <li>C2's wick: early, quick, in C1's top 10&ndash;20%.</li>
+        <li>In on C2's break of C1's high (low); stop past the wick.</li>
+        <li>Out after 3&ndash;4 candles, the first opposite one, or a level.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">From a video interview with Philip, a quant trader, on liquidity refill, aggression and imbalance, studied in his own research on CME futures data. The rules, the time-frame windows, the skip list and the examples are as told in the video; the sponsor segments are left out. The indicator's C1 thresholds and settings are ours.
+  The walkthrough, the stepper chart, the four C2 cases, the order book sketch, the daily and 1-hour retest chart and the calculator's default numbers are illustrative, made-up bars, not any market's actual prints.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+<script>
+  /* copy the Pine code */
+  (function () {
+    var b = document.querySelector("[data-copy]"), code = document.querySelector("pre.pine code");
+    if (!b || !code) return;
+    b.addEventListener("click", function () {
+      var t = code.textContent;
+      function done(ok) { b.textContent = ok ? "Copied" : "Select and copy"; setTimeout(function () { b.textContent = "Copy code"; }, 1800); }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { done(true); }, function () { done(false); });
+      else done(false);
+    });
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact — questions, corrections and setup ideas | The Trade Method</title>
+<meta name="description" content="Contact The Trade Method: send a question about a setup, a correction to a page, or a trading setup or video you'd like to see written up and animated.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/contact.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Contact The Trade Method">
+<meta property="og:description" content="Send a question about a setup, a correction to a page, or a trading setup or video you'd like to see written up and animated.">
+<meta property="og:url" content="https://thetrademethod.com/contact.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contact The Trade Method">
+<meta name="twitter:description" content="Send a question about a setup, a correction to a page, or a trading setup or video you'd like to see written up and animated.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "ContactPage",
+ "name": "Contact The Trade Method",
+ "description": "Send a question about a setup, a correction to a page, or a trading setup or video you'd like to see written up and animated.",
+ "url": "https://thetrademethod.com/contact.html",
+ "inLanguage": "en",
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<link rel="stylesheet" href="/css/contact.css?v=1">
+
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/contact.js?v=1" defer></script>
+</head>
+
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="Contact"></div>
+
+<main id="top">
+  <section class="hub-hero">
+    <div class="wrap">
+      <p class="eyebrow">Contact</p>
+      <h1>Say hello.</h1>
+      <p class="lead">A question about a setup, a mistake on a page, or a video you'd like to see written up and animated. <b>Every message gets read.</b></p>
+    </div>
+  </section>
+
+  <section class="band contact-band">
+    <div class="wrap">
+      <div class="contact-grid">
+        <form class="contact-form" id="contact-form" action="/api/contact.php" method="post" novalidate>
+          <div class="cf-row">
+            <div class="cf-field">
+              <label for="cf-name">Name</label>
+              <input id="cf-name" name="name" type="text" autocomplete="name" maxlength="100" required>
+            </div>
+            <div class="cf-field">
+              <label for="cf-email">Email</label>
+              <input id="cf-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="200" required>
+            </div>
+          </div>
+
+          <div class="cf-field">
+            <label for="cf-topic">What's it about?</label>
+            <select id="cf-topic" name="topic">
+              <option value="question">A question about a setup or page</option>
+              <option value="idea">A setup or video idea</option>
+              <option value="correction">A correction or broken page</option>
+              <option value="other">Something else</option>
+            </select>
+          </div>
+
+          <div class="cf-field">
+            <label for="cf-message">Message</label>
+            <textarea id="cf-message" name="message" rows="7" maxlength="5000" required></textarea>
+            <small class="cf-count tnum" id="cf-count" aria-live="polite"></small>
+          </div>
+
+          <!-- Spam traps: people never see or fill these. -->
+          <div class="cf-trap" aria-hidden="true">
+            <label for="cf-website">Leave this empty</label>
+            <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <input type="hidden" name="t" id="cf-t" value="">
+          <input type="hidden" name="page" id="cf-page" value="">
+
+          <div class="cf-actions">
+            <button class="pill pill-buy" type="submit" id="cf-send">Send message</button>
+            <p class="cf-note">Your email is only used to reply to you.</p>
+          </div>
+          <p class="cf-status" id="cf-status" role="status" aria-live="polite" hidden></p>
+        </form>
+
+        <aside class="contact-side">
+          <div class="cs-card">
+            <h2>Good things to send</h2>
+            <ul>
+              <li><b>Setup ideas.</b> A YouTube link, a Pine script or a trader's playbook you'd like broken down step by step.</li>
+              <li><b>Corrections.</b> A number that looks off, a chart that won't load, or a step that doesn't read right. Name the page.</li>
+              <li><b>Questions.</b> How a rule works, or how two setups differ.</li>
+            </ul>
+          </div>
+          <div class="cs-card">
+            <h2>What I can't help with</h2>
+            <p>Trade calls, personal financial advice or signals. This site is a learning notebook, not an advisory service.</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Anchored VWAP — frame the catalyst, buy the reclaim | The Trade Method</title>
+<meta name="description" content="SMB Capital's anchored VWAP method for earnings and catalyst swing trades: anchor the VWAP on the release candle with the source set to the low, want heavy after-hours volume (20% of the average day or more, 50 to 70% is better), buy the day-one or day-two dip and reclaim into the line, and cut at least half on a daily close below it.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/anchored-vwap.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Anchored VWAP — frame the catalyst, buy the reclaim">
+<meta property="og:description" content="SMB Capital's anchored VWAP method for earnings and catalyst swing trades: anchor the VWAP on the release candle with the source set to the low, want heavy after-hours volume (20% of the average day or more, 50 to 70% is better), buy the day-one or day-two dip and reclaim into the line, and cut at least half on a daily close below it.">
+<meta property="og:url" content="https://thetrademethod.com/setups/anchored-vwap.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Anchored VWAP — frame the catalyst, buy the reclaim">
+<meta name="twitter:description" content="SMB Capital's anchored VWAP method for earnings and catalyst swing trades: anchor the VWAP on the release candle with the source set to the low, want heavy after-hours volume (20% of the average day or more, 50 to 70% is better), buy the day-one or day-two dip and reclaim into the line, and cut at least half on a daily close below it.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Anchored VWAP — frame the catalyst, buy the reclaim",
+ "name": "Anchored VWAP",
+ "description": "SMB Capital's anchored VWAP method for earnings and catalyst swing trades: anchor the VWAP on the release candle with the source set to the low, want heavy after-hours volume (20% of the average day or more, 50 to 70% is better), buy the day-one or day-two dip and reclaim into the line, and cut at least half on a daily close below it.",
+ "url": "https://thetrademethod.com/setups/anchored-vwap.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/anchored-vwap.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-27",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/av-anim.js?v=1" defer></script>
+<style>
+  /* steps across the page, the two panels side by side under them */
+  .av-main { grid-template-columns:1fr; gap:22px; }
+  .av-stages { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .sheet .av-stages .stage, .sheet .av-stages .stage:first-child { padding:26px 24px; background:var(--charcoal); align-content:start; }
+  .av-side { display:grid; grid-template-columns:1fr 1.4fr; gap:16px; align-items:stretch; }
+  .av-side .panel + .panel { margin-top:0; }
+  .av-side .timing { grid-template-columns:1fr; }
+  @media (max-width:1100px) { .av-stages { grid-template-columns:1fr 1fr; } .av-side { grid-template-columns:1fr; } }
+  @media (max-width:680px) { .av-stages { grid-template-columns:1fr; } }
+  /* the stepper (js/av-anim.js builds it from the six steps; same as technical-catalyst-breakout.html, six across) */
+  .av-stages.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#5ac8fa; }
+  .gs-bar { display:grid; grid-template-columns:repeat(6,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:8.333%; right:8.333%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .av-stages.is-stepper .stage, .sheet .av-stages.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .av-stages.is-stepper .stage .num { display:none; }
+  .sheet .av-stages.is-stepper .stage[hidden] { display:none; }
+  .sheet .av-stages.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .av-stages.is-stepper { padding:20px 12px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:34px; height:34px; font-size:14px; }
+    .gs-line { top:16px; }
+    .gs-bar { margin-bottom:20px; }
+  }
+  /* video (same as pmh-break.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+  .watch { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:var(--ink); text-decoration:none;
+           background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); border-radius:9999px; padding:7px 14px 7px 10px; }
+  .watch:hover { background:rgba(255,255,255,0.14); }
+  .watch i { width:0; height:0; border-left:9px solid #ff453a; border-top:6px solid transparent; border-bottom:6px solid transparent; margin-left:4px; }
+
+  .h1-av { color:#5ac8fa; }
+  .ribbon .n { font-size:14px; }
+
+  /* AVWAP vs a moving average */
+  .vs { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .vs div { background:var(--panel); border:1px solid var(--line); border-top:3px solid #5ac8fa; border-radius:11px; padding:16px 17px; }
+  .vs .sc { font-family:var(--mono); font-size:13px; color:#5ac8fa; font-weight:700; display:block; margin-bottom:6px; }
+  .vs h3 { margin:0 0 6px; font-size:16px; }
+  .vs p { margin:0; font-size:14px; color:var(--dim); }
+  .math { margin-top:16px; }
+  .math td.hi { color:#5ac8fa; font-weight:700; }
+
+  /* the checks and outputs (same look as technical-catalyst-breakout.html) */
+  .chk-out { margin-top:14px; border-radius:11px; padding:14px 16px; border:1px solid var(--line); background:var(--panel2); }
+  .chk-out b { display:block; font-size:24px; font-weight:800; letter-spacing:-0.02em; margin-bottom:4px; }
+  .chk-out p { margin:0; font-size:14px; color:var(--dim); }
+  .chk-out.is-a { border-color:#22855a; } .chk-out.is-a b { color:var(--up); }
+  .chk-out.is-b { border-color:#1f4f86; } .chk-out.is-b b { color:var(--blue); }
+  .chk-out.is-no { border-color:#5e2a30; } .chk-out.is-no b { color:var(--down); }
+  .av-meter { position:relative; height:10px; border-radius:6px; background:linear-gradient(90deg,#5e2a30 0 25%,#1f4f86 25% 62.5%,#22855a 62.5% 100%); margin:14px 0 4px; }
+  .av-meter i { position:absolute; left:0; top:-4px; bottom:-4px; width:0; border-right:3px solid #f5f5f7; transition:width .25s ease; }
+  .av-meter-k { display:flex; justify-content:space-between; font-family:var(--mono); font-size:11.5px; color:var(--faint); }
+
+  /* calculators */
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in.four { grid-template-columns:repeat(4,1fr); }
+  .calc-in label { font-size:12px; color:var(--faint); display:block; }
+  .calc-in input { width:100%; margin-top:4px; background:var(--panel2); color:var(--ink); border:1px solid var(--line); border-radius:8px;
+                   padding:8px 10px; font-family:var(--mono); font-size:15px; }
+  .calc-in input:focus { outline:2px solid var(--blue); outline-offset:1px; }
+
+  /* the trail */
+  .two { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .two svg { border-radius:12px; }
+  .two-note { margin:14px 0 0; color:var(--dim); font-size:14px; max-width:86ch; }
+  .exits { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:16px; }
+  .exits div { background:var(--panel2); border:1px solid var(--line); border-radius:10px; padding:13px 15px; }
+  .exits b { display:block; font-size:15px; margin-bottom:4px; }
+  .exits p { margin:0; color:var(--dim); font-size:13.6px; }
+
+  /* anchors */
+  .case { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .case div { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 17px; }
+  .case b { display:block; font-size:clamp(22px,2.4vw,28px); font-weight:800; letter-spacing:-0.03em; line-height:1.05; margin-bottom:6px; }
+  .case p { margin:0; font-size:13.6px; color:var(--dim); }
+  .quote { margin:16px 0 0; padding:14px 18px; border-left:3px solid #5ac8fa; background:var(--panel); border-radius:0 11px 11px 0; font-size:16px; }
+  .quote small { display:block; color:var(--faint); font-size:12.5px; margin-top:4px; }
+  .howto { margin:0; padding-left:20px; color:var(--ink); font-size:14.5px; }
+  .howto li { margin-bottom:7px; }
+  .howto b { color:#5ac8fa; font-weight:600; }
+
+  /* the animation redraws for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .ribbon + .anim { margin-top:8px; }
+  @media (max-width:1100px) {
+    .vs, .exits { grid-template-columns:1fr; }
+    .case { grid-template-columns:repeat(2,1fr); }
+    .calc-in.four { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:760px) { .two { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    /* breathing room around the walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .counts { flex-wrap:wrap; gap:16px 22px; }
+    .case { grid-template-columns:1fr; }
+    .calc-in, .calc-in.four { grid-template-columns:1fr 1fr; }
+    .section-head { margin-top:52px; }
+    .two-wrap { padding:12px; }
+    .vcase th, .vcase td { padding:9px 8px; }
+    .av-side .filters { grid-template-columns:1fr !important; }
+  }
+  /* the pattern table scrolls inside itself on a phone, never the page */
+  .tscroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .tscroll table { min-width:620px; }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=13" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/setups/">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="anchored-vwap">
+    <div>
+      <p class="kicker">Earnings and catalyst swings &middot; daily + 15-minute</p>
+      <h1>Anchored <span class="h1-av">VWAP</span></h1>
+    </div>
+    <div>
+      <p class="thesis">A moving average starts wherever its lookback happens to start. An anchored VWAP starts at the event that matters: the earnings release,
+      or the moment a catalyst hit. It measures the average price everyone has paid since then, weighted by volume, so it tells you
+      <em>whether buyers or sellers have been in control since the news.</em> Buy the dip into it that reclaims, risk the trade to it, and trail with it.</p>
+      <div class="counts">
+        <div><b>20%+</b><small>of average volume after hours</small></div>
+        <div><b>Low</b><small>the source for strong stocks</small></div>
+        <div><b>&frac12;</b><small>cut on a daily close below</small></div>
+      </div>
+      <a class="watch" href="#video"><i></i>Watch the video</a>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">1 &middot; the catalyst</div><div class="n">A report on heavy volume</div></div>
+    <div><div class="t">2 &middot; the anchor</div><div class="n">The release candle, source low</div></div>
+    <div><div class="t">3 &middot; the read</div><div class="n">Above the line: buyers</div></div>
+    <div><div class="t">4 &middot; the entry</div><div class="n">Day 1 or 2 dip and reclaim</div></div>
+    <div><div class="t">5 &middot; the stop</div><div class="n">It has to hold the line</div></div>
+    <div><div class="t">6 &middot; the trail</div><div class="n">Daily close below: cut half</div></div>
+  </nav>
+
+  <section class="anim" data-av-anim aria-label="Animated walkthrough of an anchored VWAP earnings trade">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">8 / 8</p>
+        <h2 class="anim-title">Watch one earnings swing, start to finish</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 620" role="img" aria-label="Illustrative charts: on the daily chart a stock bases for months under 47.20 with three failed tests; it reports earnings after the close and trades 2.6 million shares after hours, 62 percent of its 4.2 million average day; a VWAP anchored on the release candle with its source set to the low runs under the normal VWAP; after hours and premarket hold above it; day one drives to 54.77 and closes weak at 52.40 but stays above the line; day two dips off the 52.85 open to 52.06, a few cents above the line, and reclaims, with a buy at 52.90 and a stop at 51.90 under the line; day two closes at 55.95, about 3R"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main av-main">
+    <div class="av-stages" data-av-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Start with a catalyst that matters</h3>
+          <ul>
+            <li>An earnings report is the cleanest one: a fixed moment when the whole market reprices the stock.</li>
+            <li>Check how much traded on the release. You want at least 20% of the stock's average daily volume in the after-hours session; 50 to 70% is better.</li>
+            <li>Best of all is a daily chart breaking out of a long, clean base on that news, on volume.</li>
+          </ul>
+          <p class="why">How much volume a stock does on its report tips you off to how significant the news is, and to the kind of participants who'll be there when the bell rings.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Anchor the VWAP on the release candle</h3>
+          <ul>
+            <li>Click the candle where the news hit: that's where the buyers came in and where the move started. Any timeframe works; a 15-minute chart with extended hours on shows the after-hours reaction.</li>
+            <li>For a strong stock in an uptrend, change the source from the usual price to the <b>low</b> of each bar.</li>
+            <li>The low-source line runs a little under the normal one, roughly half an intraday ATR, and it's often a better picture of support.</li>
+          </ul>
+          <p class="why">The anchor turns the line into a question with a clear answer: on average, is everyone who has traded since the news making money or losing it?</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Read who's in control</h3>
+          <ul>
+            <li>Price holding above the anchored VWAP: buyers are still in control of the move the news started.</li>
+            <li>A messy first day is fine as long as it holds the line. Zoomed in, a weak close looks bad; zoomed out, the daily chart is still breaking out.</li>
+            <li>Price holding below it: there's no reason to think buyers are in control, however good the report sounded.</li>
+          </ul>
+          <p class="why">This is context, not a signal. It frames the trade, shows likely support, and shows how far the stock can trade without breaking the momentum from the news.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Buy the dip and reclaim into the line</h3>
+          <ul>
+            <li>On day one or day two, the stock dips off the open toward the anchored VWAP and immediately reclaims.</li>
+            <li>It doesn't have to touch the line exactly. Getting close is enough to give the trade its shape.</li>
+            <li>A dip and reclaim at the open is a common setup on its own. Into the VWAP from the report, it's a much better one.</li>
+          </ul>
+          <p class="why">Don't buy the dip; buy the strength after the dip. The reclaim is the strength.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>It has to hold here</h3>
+          <ul>
+            <li>The line is where the trade is wrong. If the stock is going to stay strong, it has to hold the VWAP from the report.</li>
+            <li>Put the stop under the line, not at some random percentage. The closer the entry is to the line, the smaller the risk and the better the reward.</li>
+            <li>Bought far above the line, the same idea carries much more risk. That's a chase, not this setup.</li>
+          </ul>
+          <p class="why">Knowing exactly where it has to hold is what turns a strong stock into a trade with defined risk and reward.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Trail it on daily closes</h3>
+          <ul>
+            <li>Once you're in the swing, the anchored VWAP becomes the trailing stop.</li>
+            <li>The rule: when a daily bar closes below the line, cut at least half the position.</li>
+            <li>Take profits along the way if you like. For the runner, the line is how you stay in. If a stock that broke down later reclaims it, the trade can come back on the table.</li>
+          </ul>
+          <p class="why">The best ones hold this level and keep going. A rule tied to the line saves you from full losses and keeps you in the winners.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="av-side">
+      <div class="panel">
+        <h4>Where to anchor</h4>
+        <p class="lead">One anchor per idea: the moment the move began. Move it and you've changed the question.</p>
+        <div class="timing">
+          <div><b>Earnings release</b><p>The candle where the report hit, after hours or before the open. The more volume on the release, the better the anchor.</p></div>
+          <div><b>A market-wide catalyst</b><p>The bar where a big event started the move, like an election-night rally that began overnight. Every name it broke out gets the same anchor.</p></div>
+          <div><b>A swing high or low</b><p>The last major turn. SMB's own tools anchor these automatically, alongside the normal and the high or low-source VWAPs.</p></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>What kills it</h4>
+        <p class="lead">Any one of these and there's no trade, a smaller one, or a cut.</p>
+        <div class="filters kills" style="grid-template-columns:repeat(2,1fr); margin-top:14px;">
+    <div class="filter" style="background:var(--panel2)"><h3>A thin reaction</h3><p>Under 20% of an average day trades after hours. The report didn't bring in real size, so the line carries little weight.</p><p class="kill">Below 20%: lower expectations or pass.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>No base, no breakout</h3><p>A choppy daily chart with no long base to break. The catalyst has nothing to release.</p><p class="kill">No daily breakout: it's just news.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>Holding below the line</h3><p>Price closes and stays under the VWAP from the report. Sellers have taken control of the move.</p><p class="kill">Below it: no long until it reclaims.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>Far from the line</h3><p>The dip never comes near the anchored VWAP, so the stop would have to be miles away.</p><p class="kill">Too far: the risk and reward are gone.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Why not just use a moving average?</h2>
+    <p>On a strong stock it can look like a moving average. It isn't one, and the differences are the whole point.</p>
+  </div>
+  <div class="vs">
+    <div><span class="sc">01</span><h3>It counts volume</h3><p>Prices that traded on big volume weigh more; quiet prices weigh less. The result is the average transaction in the stock, the price the crowd actually paid.</p></div>
+    <div><span class="sc">02</span><h3>It starts at an event</h3><p>It's cumulative from one inflection point, not a rolling window. Nothing drops off the back, so it keeps answering one question: who has been in control since the news?</p></div>
+    <div><span class="sc">03</span><h3>The source is yours to set</h3><p>The normal VWAP uses the bar's typical price. For a strong stock in an uptrend, calculating it from the lows sets the line a little lower, closer to where buyers really defend.</p></div>
+  </div>
+  <div class="tscroll math">
+    <table>
+      <caption>How the line is built: four made-up 15-minute bars from the anchor on. Each bar adds its price times its volume; the line is the running total divided by the running volume.</caption>
+      <thead><tr><th>Bar</th><th>Low</th><th>Volume</th><th>Low &times; volume (running)</th><th>Volume (running)</th><th>AVWAP, source low</th></tr></thead>
+      <tbody>
+        <tr><th>The release</th><td>46.80</td><td>1,150k</td><td>53,820k</td><td>1,150k</td><td class="hi">46.80</td></tr>
+        <tr><th>After hours 1</th><td>49.90</td><td>520k</td><td>79,768k</td><td>1,670k</td><td class="hi">47.77</td></tr>
+        <tr><th>After hours 2</th><td>50.20</td><td>360k</td><td>97,840k</td><td>2,030k</td><td class="hi">48.20</td></tr>
+        <tr><th>After hours 3</th><td>50.20</td><td>300k</td><td>112,900k</td><td>2,330k</td><td class="hi">48.45</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="two-note">The heavy release bar keeps pulling the line back toward 46.80 even as price climbs above 50. That's the volume weighting at work: the biggest
+  crowd bought down there, and the line remembers it.</p>
+
+  <div class="section-head">
+    <h2>Grade the report first</h2>
+    <p>After-hours volume as a share of the average day is a metric SMB has tested and uses in its live models. Type in your stock's numbers, in millions of shares.
+    It starts with the walkthrough's.</p>
+  </div>
+  <div class="risk">
+    <div class="panel" data-av-grade>
+      <div class="calc-in">
+        <label>Average daily volume (M)<input name="adv" type="number" inputmode="decimal" step="0.1" min="0" value="4.2"></label>
+        <label>After-hours volume on the report (M)<input name="ah" type="number" inputmode="decimal" step="0.1" min="0" value="2.6"></label>
+      </div>
+      <div class="av-meter" aria-hidden="true"><i></i></div>
+      <div class="av-meter-k" aria-hidden="true"><span>0%</span><span>20%</span><span>50%</span><span>80%+</span></div>
+      <div class="chk-out av-gout" aria-live="polite"></div>
+    </div>
+    <div class="warn">
+      <h4>The more volume on the release, the better</h4>
+      <p>A report that trades half a normal day before the market even opens has pulled in the funds that move a stock for weeks. A report that
+      trades a sliver of it hasn't, and its anchor means less.</p>
+      <p class="big">20% is the minimum. 50 to 70% is better.</p>
+      <p>Then look at the daily chart. A long base breaking out on the news is the textbook version: something you'd want to own, framed on a shorter timeframe by the line.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The trail: the best ones hold the line</h2>
+    <p>Trend trades are hard to get into, hard to stay in, and hard to know when to leave. The same line does all three jobs. On the left, a stock that holds it
+    for weeks. On the right, one that closes below it.</p>
+  </div>
+  <div class="panel" data-av-two role="group" aria-label="Two illustrative daily charts after an earnings report, each with the low-source anchored VWAP: on the left every pullback comes back to the line and holds for six weeks; on the right the stock runs, makes lower highs, and closes below the line, which means cut at least half, then stays under it">
+    <div class="two">
+      <svg viewBox="0 0 560 340" role="img" aria-label="The best ones hold the line"></svg>
+      <svg viewBox="0 0 560 340" role="img" aria-label="A daily close below the line: cut half"></svg>
+    </div>
+    <div class="exits">
+      <div><b>Hold: closes above</b><p>A pullback that tags the line and closes above it is the trend doing its job. No reason to think sellers have taken over.</p></div>
+      <div><b>Cut: a close below</b><p>The first daily close under the anchored VWAP. Cut at least half, whatever the intraday wiggles looked like.</p></div>
+      <div><b>Back on: a reclaim</b><p>A stock that breaks down and then reclaims the line can come back on the table. Until it does, buyers aren't in control.</p></div>
+    </div>
+    <p class="two-note">The two charts are illustrative. The rule is about the daily close, not intraday pokes through the line: the left chart wicks into it four times and never closes below.</p>
+  </div>
+
+  <div class="section-head">
+    <h2>Size it off the line</h2>
+    <p>The stop goes under the anchored VWAP. Pick how far under (the walkthrough uses a dime) and what you're willing to lose, and the size falls out.
+    The default numbers are the walkthrough's, and the dollar risk is only an example.</p>
+  </div>
+  <div class="risk">
+    <div class="panel" data-av-calc>
+      <div class="calc-in four">
+        <label>Entry<input name="entry" type="number" inputmode="decimal" step="0.01" min="0" value="52.90"></label>
+        <label>AVWAP (low)<input name="line" type="number" inputmode="decimal" step="0.01" min="0" value="52.00"></label>
+        <label>Stop under it by<input name="buf" type="number" inputmode="decimal" step="0.01" min="0" value="0.10"></label>
+        <label>Risk ($)<input name="risk" type="number" inputmode="decimal" step="10" min="0" value="500"></label>
+      </div>
+      <div class="calc av-out" aria-live="polite"></div>
+    </div>
+    <div class="warn">
+      <h4>Cut at least half on a daily close below</h4>
+      <p>That's the systematic trailing stop for the swing. It doesn't need an opinion about the news, the market or the analyst calls. The line answers whether
+      buyers are still in control.</p>
+      <p class="big">The best ones hold this level and keep going.</p>
+      <p>The rest of the position is your call. Many traders give it one more day to reclaim, others trail it under the next higher low. Write your rule down
+      before you're in the trade.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>One pattern, over and over</h2>
+    <p>The video walks through recent earnings and catalyst trades. The same picture keeps showing up: a dip toward the VWAP from the event, and a reclaim.
+    Here's what each one showed, as told in the video.</p>
+  </div>
+  <div class="tscroll">
+    <table class="vcase">
+      <thead><tr><th>Stock</th><th>Catalyst</th><th>What it showed</th></tr></thead>
+      <tbody>
+        <tr><th>Twilio</th><td class="txt">Earnings</td><td class="txt">A multi-year base broke out on the report. Day one was messy with an ugly close but held the line; day two dipped off the open into it and reclaimed.</td></tr>
+        <tr><th>Oracle</th><td class="txt">Earnings</td><td class="txt">Respected the VWAP from the release for months. Bought on day one and trailed on closes below the line, it kept the trade on.</td></tr>
+        <tr><th>Palantir</th><td class="txt">Earnings</td><td class="txt">A day-one dip and reclaim at the open, heading toward the line without quite reaching it. Long from day one, there was no reason to think sellers had taken over.</td></tr>
+        <tr><th>AppLovin</th><td class="txt">Earnings</td><td class="txt">Looked extended on the daily after a big gap. It tested the line on day one and rallied into the close, then dipped toward it and reclaimed at the day-two open.</td></tr>
+        <tr><th>Root</th><td class="txt">Earnings</td><td class="txt">Ran from about 80 to 160 before it topped. It broke down from a lower-high consolidation through the line and kept holding below it: the place to cut.</td></tr>
+        <tr><th>Bitcoin</th><td class="txt">Election</td><td class="txt">Broke out to all-time highs overnight. The first pullback retested and held the VWAP from the catalyst, consolidated on it for days, then broke out again.</td></tr>
+        <tr><th>Tesla</th><td class="txt">Election</td><td class="txt">Sold into the line on day one, dipped below and reclaimed immediately, then held it in a tight range into the next session.</td></tr>
+        <tr><th>GEO Group</th><td class="txt">Election</td><td class="txt">Held the line in premarket, traded off it on day one, dipped back through it in the next premarket and opened right at it for a day-two drive.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-head">
+    <h2>Beyond earnings: any catalyst</h2>
+    <p>The same idea works for any event that starts a move. Anchor where the move began, and you don't have to be anchored to prices you missed.</p>
+  </div>
+  <div class="case">
+    <div><b>Missed the start?</b><p>Plenty of moves break out overnight or before you're watching. You don't need the price below the breakout. Frame the trade around the VWAP from the catalyst instead.</p></div>
+    <div><b>The first pullback</b><p>After a catalyst breakout, the first pullback that retests and holds the line is a high-quality spot. If your play is buying pullbacks, this is your major level of interest.</p></div>
+    <div><b>As it resets</b><p>A stock that consolidates on the line for days is resetting. Watch the line as it catches up: it's a place to re-enter the trade.</p></div>
+  </div>
+  <p class="quote">&ldquo;Don't buy the dip. Buy the strength after the dip.&rdquo;<small>The spirit of Brian Shannon's line, as quoted in the video. He's the go-to name for anchored VWAP work.</small></p>
+
+  <div class="section-head">
+    <h2>Set it up in TradingView</h2>
+    <p>Anchored VWAP is on almost every platform. In TradingView it's a drawing tool, not an indicator.</p>
+  </div>
+  <div class="panel">
+    <ol class="howto">
+      <li>Hover over the toolbar on the left of the chart and open the <b>drawing tools</b>.</li>
+      <li>Scroll to <b>Volume-based</b> and pick <b>Anchored VWAP</b>.</li>
+      <li>Click the candle to anchor from: the earnings release, or the bar where the catalyst hit. For an after-hours report, turn on extended hours first.</li>
+      <li>Right-click the line, open <b>Settings</b>, and change the <b>Source</b> to <b>low</b> for a strong stock in an uptrend.</li>
+      <li>Check it on the daily chart too. That's where the trailing rule lives: a daily close below means cut at least half.</li>
+    </ol>
+  </div>
+
+  <section class="video" id="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/-IemlUcvRDE" title="Anchored VWAP for earnings and catalyst trades (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>An SMB Capital trader shows how the desk anchors VWAP to earnings and catalysts to frame swing trades, nail the pullback, and know when to get out.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=-IemlUcvRDE" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Anchor it where the move began.</h2>
+      <p>The anchored VWAP is pure context: whether buyers or sellers are in control since the event, and where buyers are likely to step in.
+      It works with whatever playbook you trade. Frame the trade around it, buy the strength after the dip, and let a daily close decide when you cut.</p>
+    </div>
+    <div>
+      <ul>
+        <li>A real catalyst: 20% or more of the average day after hours.</li>
+        <li>Anchor on the release candle; source low for strong stocks.</li>
+        <li>Buy the day-one or day-two dip that reclaims near the line.</li>
+        <li>Stop under the line. A daily close below: cut at least half.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">From an SMB Capital video on anchored VWAP for earnings and catalyst trades. The after-hours volume thresholds, the low-source tweak, the cut-half rule and the
+  stock examples are as told in the video. The walkthrough, the two trail charts, the table's bars and the calculators' default numbers are illustrative, made-up bars, not any stock's actual prints.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

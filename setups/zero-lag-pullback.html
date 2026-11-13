@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zero Lag Pullback — trade the reclaim, not the cross | The Trade Method</title>
+<meta name="description" content="Two zero-lag EMAs, 50 and 100, mark the trend. Wait for a close between them, then buy the green candle that closes back over the fast line on above-average volume. Stop on the slow line, target 2R.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/zero-lag-pullback.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Zero Lag Pullback — trade the reclaim, not the cross">
+<meta property="og:description" content="Two zero-lag EMAs, 50 and 100, mark the trend. Wait for a close between them, then buy the green candle that closes back over the fast line on above-average volume. Stop on the slow line, target 2R.">
+<meta property="og:url" content="https://thetrademethod.com/setups/zero-lag-pullback.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Zero Lag Pullback — trade the reclaim, not the cross">
+<meta name="twitter:description" content="Two zero-lag EMAs, 50 and 100, mark the trend. Wait for a close between them, then buy the green candle that closes back over the fast line on above-average volume. Stop on the slow line, target 2R.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Zero Lag Pullback — trade the reclaim, not the cross",
+ "name": "Zero Lag Pullback",
+ "description": "Two zero-lag EMAs, 50 and 100, mark the trend. Wait for a close between them, then buy the green candle that closes back over the fast line on above-average volume. Stop on the slow line, target 2R.",
+ "url": "https://thetrademethod.com/setups/zero-lag-pullback.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/zero-lag-pullback.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/zl-anim.js?v=2" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
+<script src="/js/live-kit.js?v=3" defer></script>
+<script src="/js/examples/zl.js?v=1" defer></script><script src="/js/example-kit.js?v=1" defer></script><script src="/js/zl-live.js?v=2" defer></script>
+<style>
+  /* video (same as relative-volume.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=2" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="zero-lag-pullback">
+    <div>
+      <p class="kicker">Trend pullback &middot; zero-lag EMA 50 &amp; 100 &middot; volume confirmation</p>
+      <h1>Zero Lag <span>Pullback</span></h1>
+    </div>
+    <div>
+      <p class="thesis">The cross only tells you the trend may have turned. <em>The trade is the pullback that closes between
+      the two lines, then closes back over the fast one on real volume,</em> with the slow line as your stop and twice your
+      risk as the target.</p>
+      <div class="counts">
+        <div><b>2</b><small>zero-lag lines</small></div>
+        <div><b>3</b><small>conditions to enter</small></div>
+        <div><b>2R</b><small>target on every trade</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">the chart</div><div class="n">Two lines + volume</div></div>
+    <div><div class="t">the trend</div><div class="n">White over green</div></div>
+    <div><div class="t">the pullback</div><div class="n">Close between</div></div>
+    <div><div class="t">the trigger</div><div class="n">Reclaim on volume</div></div>
+    <div><div class="t">the stop</div><div class="n">On the green line</div></div>
+    <div><div class="t">the target</div><div class="n">2&times; the risk</div></div>
+  </nav>
+
+  <section class="anim" data-zl-anim aria-label="Animated walkthrough of a Zero Lag Pullback long">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">6 / 6</p>
+        <h2 class="anim-title">Watch one long, start to finish</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative 5-minute chart: price falls with the white zero-lag 50 under the green zero-lag 100, then rallies and white crosses over green; price pulls back and closes between the lines, which arms the long; a green candle closes back over white on below-average volume and is skipped; the next green close over white comes on volume 1.9 times its average and is the buy at 104.65; the stop goes on the green line at 103.30 and the 2R target at 107.35; price dips, holds at the green line and runs to the target"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Two zero-lag lines and volume</h3>
+          <ul>
+            <li>Add the zero-lag EMA twice: period 50 in white, period 100 in green, both with a thicker line.</li>
+            <li>Add the standard Volume indicator and turn on its moving average (Style tab), colored white so it stands out.</li>
+            <li>50 and 100 are the most common moving-average settings. Here they track the medium and longer-term momentum.</li>
+          </ul>
+          <p class="why">A zero-lag EMA adds back the gap between an EMA and an EMA of that EMA, so it turns sooner than a plain EMA of the same length. The cross comes earlier, and so does the pullback read.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Read the trend from the lines</h3>
+          <ul>
+            <li>White above green: uptrend. White below green: downtrend.</li>
+            <li>When they cross, the old trend may be ending and a new one starting. Mark it. Don't trade it.</li>
+          </ul>
+          <p class="why">The same cross also prints in a deep pullback that turns back the old way, and right before a range. On its own it can't tell those apart from a real reversal.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Wait for a close between the lines</h3>
+          <ul>
+            <li>In an uptrend, wait for price to close below the white line but still above the green one.</li>
+            <li>That close arms the long. A wick into the zone doesn't count. It has to close there.</li>
+            <li>A close below the green line cancels it. So does the white line crossing back under.</li>
+          </ul>
+          <p class="why">This is the low-risk spot: you're buying a dip inside a trend that's already established, close to the line the trend should hold.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Green candle back over white, with volume</h3>
+          <ul>
+            <li>Now wait for a green candle to close back above the white line.</li>
+            <li>When it closes, check its volume against the volume average. At or above average: the signal is confirmed. Below it: no trade, keep waiting.</li>
+            <li>Shorts are the mirror: a red candle closing back below white, on average-or-better volume.</li>
+          </ul>
+          <p class="why">Volume is the proof the reclaim has buyers behind it. A thin push back over the line is just as likely to fall straight back into the zone.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Enter, stop on the green line</h3>
+          <ul>
+            <li>Enter at the confirmed candle's close.</li>
+            <li>Stop below the green line, as it stood when you entered. Above it for shorts.</li>
+          </ul>
+          <p class="why">If price falls through the green line, the market is turning and the entry was wrong. If the uptrend is real, the green line is where pullbacks should stop.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Target at 2R, risk 1%</h3>
+          <ul>
+            <li>Target = entry plus twice the entry-to-stop distance. Minus for shorts.</li>
+            <li>Size every trade so the stop costs 1% of the account.</li>
+          </ul>
+          <p class="why">This setup still has false signals, and no setup avoids them. At 2R a trade has to win only one time in three to break even, and the 1% rule keeps a string of losers survivable.</p>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h4>Long and short, step for step</h4>
+        <p class="lead">Same three conditions, mirrored. In both, the first reclaim of the white line came on thin volume and was skipped.</p>
+<svg viewBox="0 0 1180 480" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Two panels. Long: white over green, three closes between the lines arm the pullback, a close back over white on low volume is skipped, the next close back over white comes on volume above its average and is the buy, the stop sits on the green line and the target at 2R, and the dip holds the green line. Short: the mirror, where the first red close under white on low volume is skipped and the next red close under white on heavy volume is the sell">
+<rect x="20" y="14" width="560" height="452" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<text x="42" y="42" fill="#30d158" font-size="17" font-weight="800">Long · uptrend</text>
+<text x="42" y="62" fill="#9fb3c8" font-size="13">White over green. Close between, then a green close over white on volume.</text>
+<polygon points="66.0,260.0 94.0,253.4 122.0,246.8 150.0,240.2 178.0,233.6 206.0,227.0 234.0,220.4 262.0,213.8 290.0,207.2 318.0,200.6 346.0,194.0 374.0,187.4 402.0,180.8 430.0,174.2 458.0,167.6 486.0,161.0 486.0,191.0 458.0,197.6 430.0,204.2 402.0,210.8 374.0,217.4 346.0,224.0 318.0,230.6 290.0,237.2 262.0,243.8 234.0,250.4 206.0,257.0 178.0,263.6 150.0,270.2 122.0,276.8 94.0,283.4 66.0,290.0" fill="#30d158" opacity="0.09"/>
+<polyline points="66.0,290.0 94.0,283.4 122.0,276.8 150.0,270.2 178.0,263.6 206.0,257.0 234.0,250.4 262.0,243.8 290.0,237.2 318.0,230.6 346.0,224.0 374.0,217.4 402.0,210.8 430.0,204.2 458.0,197.6 486.0,191.0" fill="none" stroke="#30d158" stroke-width="2.4" stroke-linejoin="round"/>
+<polyline points="66.0,260.0 94.0,253.4 122.0,246.8 150.0,240.2 178.0,233.6 206.0,227.0 234.0,220.4 262.0,213.8 290.0,207.2 318.0,200.6 346.0,194.0 374.0,187.4 402.0,180.8 430.0,174.2 458.0,167.6 486.0,161.0" fill="none" stroke="#f5f5f7" stroke-width="2.2" stroke-linejoin="round"/>
+<text x="62" y="252" fill="#f5f5f7" font-size="11.5" font-weight="700">ZL 50</text>
+<text x="62" y="306" fill="#30d158" font-size="11.5" font-weight="700">ZL 100</text>
+<line x1="318" x2="492" y1="188.0" y2="188.0" stroke="#2997ff" stroke-width="1.5"/>
+<text x="498" y="192.0" fill="#2997ff" font-size="11.5" font-weight="700">entry</text>
+<line x1="318" x2="492" y1="230.6" y2="230.6" stroke="#ff453a" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="498" y="234.6" fill="#ff453a" font-size="11.5" font-weight="700">stop</text>
+<line x1="318" x2="492" y1="102.8" y2="102.8" stroke="#30d158" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="498" y="106.8" fill="#30d158" font-size="11.5" font-weight="700">target 2R</text>
+<polyline points="66.0,224.0 94.0,206.0 122.0,194.0 150.0,200.0 178.0,248.0 206.0,245.0 234.0,239.0 262.0,209.0 290.0,224.0 318.0,188.0 346.0,206.0 374.0,213.5 402.0,182.0 430.0,149.0 458.0,122.0 486.0,101.0" fill="none" stroke="#e7eff8" stroke-width="2.2" stroke-linejoin="round"/>
+<circle cx="178" cy="248.0" r="4.2" fill="#f4b942"/>
+<circle cx="206" cy="245.0" r="4.2" fill="#f4b942"/>
+<circle cx="234" cy="239.0" r="4.2" fill="#f4b942"/>
+<circle cx="290" cy="224.0" r="4.2" fill="#f4b942"/>
+<text x="206" y="279" fill="#f4b942" font-size="12" font-weight="700" text-anchor="middle">closes between · armed</text>
+<circle cx="262" cy="209.0" r="5.5" fill="none" stroke="#8e8e93" stroke-width="2"/>
+<text x="262" y="197" fill="#8e8e93" font-size="12" font-weight="700" text-anchor="middle">low vol · skip</text>
+<path d="M318 179 l-7 -12 h14 z" fill="#30d158" transform="rotate(180 318 173)"/><text x="318" y="160" fill="#30d158" font-size="12.5" font-weight="800" text-anchor="middle">BUY</text>
+<circle cx="374" cy="213.5" r="8" fill="none" stroke="#30d158" stroke-width="1.6"/>
+<text x="374" y="244" fill="#30d158" font-size="11.5" font-weight="700" text-anchor="middle">green line holds</text>
+<circle cx="486" cy="102.8" r="6" fill="none" stroke="#30d158" stroke-width="2"/>
+<text x="42" y="406" fill="#9fb3c8" font-size="11">Volume · white = average</text>
+<rect x="60" y="424" width="12" height="22" rx="1.5" fill="#3a4d63"/>
+<rect x="88" y="426" width="12" height="20" rx="1.5" fill="#3a4d63"/>
+<rect x="116" y="422" width="12" height="24" rx="1.5" fill="#3a4d63"/>
+<rect x="144" y="428" width="12" height="18" rx="1.5" fill="#3a4d63"/>
+<rect x="172" y="435" width="12" height="11" rx="1.5" fill="#3a4d63"/>
+<rect x="200" y="434" width="12" height="12" rx="1.5" fill="#3a4d63"/>
+<rect x="228" y="436" width="12" height="10" rx="1.5" fill="#3a4d63"/>
+<rect x="256" y="432" width="12" height="14" rx="1.5" fill="#8e8e93"/>
+<rect x="284" y="435" width="12" height="11" rx="1.5" fill="#3a4d63"/>
+<rect x="312" y="412" width="12" height="34" rx="1.5" fill="#f4b942"/>
+<rect x="340" y="433" width="12" height="13" rx="1.5" fill="#3a4d63"/>
+<rect x="368" y="434" width="12" height="12" rx="1.5" fill="#3a4d63"/>
+<rect x="396" y="428" width="12" height="18" rx="1.5" fill="#3a4d63"/>
+<rect x="424" y="424" width="12" height="22" rx="1.5" fill="#3a4d63"/>
+<rect x="452" y="422" width="12" height="24" rx="1.5" fill="#3a4d63"/>
+<rect x="480" y="426" width="12" height="20" rx="1.5" fill="#3a4d63"/>
+<line x1="58" x2="494" y1="426" y2="426" stroke="#f5f5f7" stroke-width="1.3" opacity="0.85"/>
+<rect x="600" y="14" width="560" height="452" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<text x="622" y="42" fill="#ff453a" font-size="17" font-weight="800">Short · downtrend</text>
+<text x="622" y="62" fill="#9fb3c8" font-size="13">White under green. Close between, then a red close under white on volume.</text>
+<polygon points="646.0,200.0 674.0,206.6 702.0,213.2 730.0,219.8 758.0,226.4 786.0,233.0 814.0,239.6 842.0,246.2 870.0,252.8 898.0,259.4 926.0,266.0 954.0,272.6 982.0,279.2 1010.0,285.8 1038.0,292.4 1066.0,299.0 1066.0,269.0 1038.0,262.4 1010.0,255.8 982.0,249.2 954.0,242.6 926.0,236.0 898.0,229.4 870.0,222.8 842.0,216.2 814.0,209.6 786.0,203.0 758.0,196.4 730.0,189.8 702.0,183.2 674.0,176.6 646.0,170.0" fill="#ff453a" opacity="0.09"/>
+<polyline points="646.0,170.0 674.0,176.6 702.0,183.2 730.0,189.8 758.0,196.4 786.0,203.0 814.0,209.6 842.0,216.2 870.0,222.8 898.0,229.4 926.0,236.0 954.0,242.6 982.0,249.2 1010.0,255.8 1038.0,262.4 1066.0,269.0" fill="none" stroke="#30d158" stroke-width="2.4" stroke-linejoin="round"/>
+<polyline points="646.0,200.0 674.0,206.6 702.0,213.2 730.0,219.8 758.0,226.4 786.0,233.0 814.0,239.6 842.0,246.2 870.0,252.8 898.0,259.4 926.0,266.0 954.0,272.6 982.0,279.2 1010.0,285.8 1038.0,292.4 1066.0,299.0" fill="none" stroke="#f5f5f7" stroke-width="2.2" stroke-linejoin="round"/>
+<text x="642" y="216" fill="#f5f5f7" font-size="11.5" font-weight="700">ZL 50</text>
+<text x="642" y="162" fill="#30d158" font-size="11.5" font-weight="700">ZL 100</text>
+<line x1="870" x2="1072" y1="263.0" y2="263.0" stroke="#2997ff" stroke-width="1.5"/>
+<text x="1078" y="267.0" fill="#2997ff" font-size="11.5" font-weight="700">entry</text>
+<line x1="870" x2="1072" y1="222.8" y2="222.8" stroke="#ff453a" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="1078" y="226.8" fill="#ff453a" font-size="11.5" font-weight="700">stop</text>
+<line x1="870" x2="1072" y1="343.4" y2="343.4" stroke="#30d158" stroke-width="1.5" stroke-dasharray="6 4"/>
+<text x="1078" y="347.4" fill="#30d158" font-size="11.5" font-weight="700">target 2R</text>
+<polyline points="646.0,236.0 674.0,254.0 702.0,266.0 730.0,260.0 758.0,212.0 786.0,215.0 814.0,221.0 842.0,251.0 870.0,263.0 898.0,254.0 926.0,245.6 954.0,272.0 982.0,296.0 1010.0,320.0 1038.0,344.0 1066.0,350.0" fill="none" stroke="#e7eff8" stroke-width="2.2" stroke-linejoin="round"/>
+<circle cx="758" cy="212.0" r="4.2" fill="#f4b942"/>
+<circle cx="786" cy="215.0" r="4.2" fill="#f4b942"/>
+<circle cx="814" cy="221.0" r="4.2" fill="#f4b942"/>
+<text x="786" y="189" fill="#f4b942" font-size="12" font-weight="700" text-anchor="middle">closes between · armed</text>
+<circle cx="842" cy="251.0" r="5.5" fill="none" stroke="#8e8e93" stroke-width="2"/>
+<text x="832" y="271" fill="#8e8e93" font-size="12" font-weight="700" text-anchor="end">low vol · skip</text>
+<path d="M870 272 l-7 12 h14 z" fill="#ff453a" transform="rotate(180 870 278)"/><text x="870" y="301" fill="#ff453a" font-size="12.5" font-weight="800" text-anchor="middle">SELL</text>
+<circle cx="926" cy="245.6" r="8" fill="none" stroke="#30d158" stroke-width="1.6"/>
+<text x="926" y="282" fill="#30d158" font-size="11.5" font-weight="700" text-anchor="middle">green line holds</text>
+<circle cx="1038" cy="343.4" r="6" fill="none" stroke="#30d158" stroke-width="2"/>
+<text x="622" y="406" fill="#9fb3c8" font-size="11">Volume · white = average</text>
+<rect x="640" y="424" width="12" height="22" rx="1.5" fill="#3a4d63"/>
+<rect x="668" y="426" width="12" height="20" rx="1.5" fill="#3a4d63"/>
+<rect x="696" y="422" width="12" height="24" rx="1.5" fill="#3a4d63"/>
+<rect x="724" y="428" width="12" height="18" rx="1.5" fill="#3a4d63"/>
+<rect x="752" y="435" width="12" height="11" rx="1.5" fill="#3a4d63"/>
+<rect x="780" y="434" width="12" height="12" rx="1.5" fill="#3a4d63"/>
+<rect x="808" y="436" width="12" height="10" rx="1.5" fill="#3a4d63"/>
+<rect x="836" y="432" width="12" height="14" rx="1.5" fill="#8e8e93"/>
+<rect x="864" y="412" width="12" height="34" rx="1.5" fill="#f4b942"/>
+<rect x="892" y="434" width="12" height="12" rx="1.5" fill="#3a4d63"/>
+<rect x="920" y="433" width="12" height="13" rx="1.5" fill="#3a4d63"/>
+<rect x="948" y="434" width="12" height="12" rx="1.5" fill="#3a4d63"/>
+<rect x="976" y="428" width="12" height="18" rx="1.5" fill="#3a4d63"/>
+<rect x="1004" y="424" width="12" height="22" rx="1.5" fill="#3a4d63"/>
+<rect x="1032" y="422" width="12" height="24" rx="1.5" fill="#3a4d63"/>
+<rect x="1060" y="426" width="12" height="20" rx="1.5" fill="#3a4d63"/>
+<line x1="638" x2="1074" y1="426" y2="426" stroke="#f5f5f7" stroke-width="1.3" opacity="0.85"/>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>What a cross can turn into</h4>
+        <p class="lead">Why the cross is never the entry. Only the first of these gives you a pullback that holds the green line.</p>
+<svg viewBox="0 0 1180 320" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Three outcomes of a white-over-green cross: a trend where the pullback closes between the lines and the reclaim is the buy; a deep pullback where price closes through the green line and the lines cross back, so there is no trade; and a range where the lines tangle and nothing qualifies">
+<rect x="10" y="14" width="370" height="290" rx="10" fill="#0c1626" stroke="#22855a" stroke-width="2"/>
+<text x="30" y="42" fill="#30d158" font-size="16" font-weight="800">Trend · the trade</text>
+<polyline points="36.0,180.0 65.1,178.0 94.2,174.0 123.3,168.0 152.4,162.0 181.5,156.0 210.5,151.0 239.6,147.0 268.7,143.0 297.8,138.0 326.9,132.0 356.0,126.0" fill="none" stroke="#30d158" stroke-width="2.2" stroke-linejoin="round"/>
+<polyline points="36.0,200.0 65.1,190.0 94.2,175.0 123.3,158.0 152.4,142.0 181.5,130.0 210.5,124.0 239.6,122.0 268.7,118.0 297.8,110.0 326.9,100.0 356.0,90.0" fill="none" stroke="#f5f5f7" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="36.0,185.0 65.1,165.0 94.2,148.0 123.3,132.0 152.4,120.0 181.5,140.0 210.5,150.0 239.6,128.0 268.7,112.0 297.8,98.0 326.9,88.0 356.0,76.0" fill="none" stroke="#7f93ab" stroke-width="1.6" stroke-linejoin="round" opacity="0.9"/>
+<circle cx="65" cy="165" r="5" fill="#f4b942"/><text x="65" y="153" fill="#f4b942" font-size="11.5" font-weight="700" text-anchor="middle">cross</text>
+<circle cx="211" cy="150" r="5" fill="#f4b942"/><text x="211" y="172" fill="#f4b942" font-size="11.5" font-weight="700" text-anchor="middle">between</text>
+<circle cx="269" cy="112" r="5" fill="#30d158"/><text x="269" y="100" fill="#30d158" font-size="11.5" font-weight="800" text-anchor="middle">BUY</text>
+<text x="30" y="270" fill="#9fb3c8" font-size="12.6">Pullback closes between, reclaims white</text><text x="30" y="288" fill="#9fb3c8" font-size="12.6">on volume, green line holds. BUY.</text>
+<rect x="405" y="14" width="370" height="290" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<text x="425" y="42" fill="#ff453a" font-size="16" font-weight="800">Deep pullback · no trade</text>
+<polyline points="431.0,178.0 460.1,176.0 489.2,173.0 518.3,170.0 547.4,169.0 576.5,170.0 605.5,173.0 634.6,177.0 663.7,181.0 692.8,186.0 721.9,190.0 751.0,194.0" fill="none" stroke="#30d158" stroke-width="2.2" stroke-linejoin="round"/>
+<polyline points="431.0,200.0 460.1,190.0 489.2,178.0 518.3,166.0 547.4,160.0 576.5,162.0 605.5,170.0 634.6,182.0 663.7,194.0 692.8,204.0 721.9,212.0 751.0,218.0" fill="none" stroke="#f5f5f7" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="431.0,188.0 460.1,168.0 489.2,152.0 518.3,150.0 547.4,170.0 576.5,186.0 605.5,200.0 634.6,214.0 663.7,224.0 692.8,226.0 721.9,232.0 751.0,236.0" fill="none" stroke="#7f93ab" stroke-width="1.6" stroke-linejoin="round" opacity="0.9"/>
+<circle cx="460" cy="168" r="5" fill="#f4b942"/><text x="460" y="156" fill="#f4b942" font-size="11.5" font-weight="700" text-anchor="middle">cross</text>
+<text x="606" y="226" fill="#ff453a" font-size="15" font-weight="800" text-anchor="middle">&#215;</text><text x="606" y="242" fill="#ff453a" font-size="11.5" font-weight="700" text-anchor="middle">through green</text>
+<text x="425" y="270" fill="#9fb3c8" font-size="12.6">Price closes through green, the lines</text><text x="425" y="288" fill="#9fb3c8" font-size="12.6">cross back. The pullback is cancelled.</text>
+<rect x="800" y="14" width="370" height="290" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<text x="820" y="42" fill="#ff453a" font-size="16" font-weight="800">Range · no trade</text>
+<polyline points="826.0,158.0 855.1,157.0 884.2,156.0 913.3,156.0 942.4,157.0 971.5,158.0 1000.5,158.0 1029.6,157.0 1058.7,156.0 1087.8,156.0 1116.9,157.0 1146.0,158.0" fill="none" stroke="#30d158" stroke-width="2.2" stroke-linejoin="round"/>
+<polyline points="826.0,160.0 855.1,152.0 884.2,150.0 913.3,156.0 942.4,164.0 971.5,166.0 1000.5,160.0 1029.6,152.0 1058.7,150.0 1087.8,156.0 1116.9,163.0 1146.0,165.0" fill="none" stroke="#f5f5f7" stroke-width="2" stroke-linejoin="round"/>
+<polyline points="826.0,150.0 855.1,140.0 884.2,152.0 913.3,170.0 942.4,172.0 971.5,150.0 1000.5,138.0 1029.6,146.0 1058.7,168.0 1087.8,174.0 1116.9,150.0 1146.0,142.0" fill="none" stroke="#7f93ab" stroke-width="1.6" stroke-linejoin="round" opacity="0.9"/>
+<circle cx="884" cy="152" r="5" fill="#f4b942"/><text x="884" y="140" fill="#f4b942" font-size="11.5" font-weight="700" text-anchor="middle">cross</text>
+<text x="1059" y="194" fill="#ff453a" font-size="15" font-weight="800" text-anchor="middle">&#215;</text><text x="1059" y="210" fill="#ff453a" font-size="11.5" font-weight="700" text-anchor="middle">cross back</text>
+<text x="820" y="270" fill="#9fb3c8" font-size="12.6">Lines flat and tangled, crossing back and</text><text x="820" y="288" fill="#9fb3c8" font-size="12.6">forth. Nothing holds long enough to arm.</text>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>Which closes count</h4>
+        <p class="lead">Every decision in this setup is made on a closed bar, never on a wick or a bar that's still forming.</p>
+        <div class="timing">
+          <div><b>Close between the lines</b><p>Below white, at or above green (the mirror for shorts). Arms the pullback. A wick into the zone that closes back above white doesn't count.</p></div>
+          <div><b>Close through the green line</b><p>Cancels the pullback. The trend is in doubt. Wait for the lines to settle and a fresh close between them.</p></div>
+          <div><b>Lines cross the other way</b><p>Cancels it too, and flips which side you're watching. White under green: only shorts from here.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The four filters</h2>
+    <p>Each one removes a trade that looks like the setup but isn't.</p>
+  </div>
+  <div class="filters">
+    <div class="filter">
+      <h3>1 &nbsp;Never the cross alone</h3>
+      <p>The cross marks a possible new trend. Deep pullbacks and ranges cross the lines too, so the entry waits for a pullback inside the new trend.</p>
+      <p class="kill">Kills: buying a cross that's about to cross back.</p>
+    </div>
+    <div class="filter">
+      <h3>2 &nbsp;A close between the lines</h3>
+      <p>Price has to close below white and above green before the trigger counts. No close in the zone, no pullback, no trade.</p>
+      <p class="kill">Kills: chasing a trend that never pulled back.</p>
+    </div>
+    <div class="filter">
+      <h3>3 &nbsp;Volume at or above average</h3>
+      <p>The candle that closes back over white needs volume at or above the average line. Below it, skip that candle and wait for the next one.</p>
+      <p class="kill">Kills: thin reclaims that fall back into the zone.</p>
+    </div>
+    <div class="filter">
+      <h3>4 &nbsp;Candle in the trend's color</h3>
+      <p>Green candle for a long, red candle for a short. A candle that closes back over white while still red isn't a buy.</p>
+      <p class="kill">Kills: reclaims the bar itself argues against.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Size off the green line, not a guess</h2>
+    <p>The stop sits on the green line, so the distance changes every trade. Size off it so every stop costs the same 1%.</p>
+  </div>
+  <div class="risk">
+    <div class="panel">
+      <div class="calc">
+        <div class="row"><span>Account &times; 1%</span><b>$50,000 &times; 1% = $500.00</b></div>
+        <div class="row"><span>Entry &mdash; green close over white</span><b>104.65</b></div>
+        <div class="row"><span>Stop &mdash; the green line at entry</span><b>103.30</b></div>
+        <div class="row"><span>Risk per share</span><b>$1.35</b></div>
+        <div class="row"><span>Target &mdash; entry + 2 &times; 1.35</span><b>107.35</b></div>
+        <div class="row tot"><span>Position size</span><b>370 shares</b></div>
+      </div>
+    </div>
+    <div class="warn">
+      <h4>The mistake this prevents</h4>
+      <p>Tuck the stop just under the white line instead, at 104.00, and $500 &divide; $0.65 says buy 769 shares.</p>
+      <p class="big">The dip to 103.46 stops you out for &minus;$500.</p>
+      <p>That's the same dip that held at the green line on its way to 107.35. Twice the shares, and the stop sits where normal pullbacks go, not where the trend breaks.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Long and short, side by side</h2>
+    <p>The whole rule set on one table. Each row is one condition, and both sides need all of them.</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><span class="tick">Long<small>uptrend</small></span></th>
+        <th><span class="tick">Short<small>downtrend</small></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>Trend</th><td class="txt">White (50) above green (100)</td><td class="txt">White (50) below green (100)</td></tr>
+      <tr><th>Pullback</th><td class="txt">A close below white, at or above green</td><td class="txt">A close above white, at or below green</td></tr>
+      <tr><th>Trigger candle</th><td class="txt pos">Green, closes back above white</td><td class="txt neg">Red, closes back below white</td></tr>
+      <tr><th>Volume</th><td class="txt">At or above its average on the trigger candle</td><td class="txt">At or above its average on the trigger candle</td></tr>
+      <tr><th>Entry</th><td class="txt">The trigger candle's close</td><td class="txt">The trigger candle's close</td></tr>
+      <tr><th>Stop</th><td class="txt">Below the green line at entry</td><td class="txt">Above the green line at entry</td></tr>
+      <tr><th>Target</th><td>entry + 2 &times; (entry &minus; stop)</td><td>entry &minus; 2 &times; (stop &minus; entry)</td></tr>
+      <tr><th>Cancelled by</th><td class="txt">A close below green, or white crossing under green</td><td class="txt">A close above green, or white crossing over green</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-head">
+    <h2>Example: one pullback long, start to finish</h2>
+    <p>An example run through the indicator's own rules on 5-minute bars: a decline, a rally that turns the white line over the
+    green one, then a pullback that closes between the lines and arms the long (shaded). One close back over white comes on
+    thin volume and is skipped. The next morning a green candle closes back over white on about twice average volume: the BUY.
+    The stop sits on the green line and the 2R target fills just after noon. The bars are made up to show the setup clearly.
+    They aren't a real ticker.</p>
+  </div>
+  <section class="live" data-zl-live data-example data-symbol="QQQ" aria-label="Example chart with the zero-lag 50 and 100, volume and the pullback signals">
+    <div class="live-main">
+      <form class="live-symbol"><label for="zl-sym">Symbol</label><input id="zl-sym" name="sym" autocomplete="off" spellcheck="false" maxlength="6"><button class="pill pill-buy" type="submit">Load</button></form>
+      <div class="live-chart"><div class="live-gate"><b>Loading chart&hellip;</b></div></div>
+      <p class="live-status">5-minute</p>
+    </div>
+    <aside class="live-side" aria-live="polite"></aside>
+  </section>
+
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/BxrBkkarQzQ" title="Zero Lag Pullback (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>The 50 and 100 zero-lag EMAs with volume confirmation, and how to trade the reclaim.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=BxrBkkarQzQ" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <h2 class="ind-heading">Indicators for this setup</h2>
+    <p class="ind-note">Add these to a TradingView chart. The indicator draws both lines, shades the zone between them, marks every
+    signal with its entry, stop and target, and alerts on the setup. It does not place trades.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">Zero Lag Trend Pullback</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">Zero-lag EMA 50 (white) and 100 (green) with the zone tinted by trend. BUY when a pullback that closed
+      between the lines is reclaimed by a green close over white on volume at or above its 20-bar average; SELL on the mirror.
+      Stop on the green line, target 2R (adjustable), share size from a risk amount, a status panel, alerts for signals, target
+      and stop, and a test alert that fires every bar.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/zero-lag-pullback.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">Volume</h3>
+      </div>
+      <p class="ind-blurb">TradingView's built-in Volume indicator, unchanged. In its settings, Style tab, turn on the volume moving
+      average and color it white. The trigger candle's bar has to reach that line.</p>
+      <div class="ind-links">
+        <span class="ind-link ind-link--pending">Built into TradingView</span>
+      </div>
+    </li>
+  </ul>
+
+  <div class="rule">
+    <div>
+      <h2>The cross finds the trend. The pullback and the volume find the entry.</h2>
+      <p>Trading the cross means guessing whether it's a reversal, a deep pullback or a range. Waiting for the pullback and a
+      reclaim on volume means trading with a trend that's already established, from a spot where the stop is obvious.</p>
+    </div>
+    <div>
+      <ul>
+        <li>A close through the green line means the trend read was wrong. That's the stop, not a reason to add.</li>
+        <li>A reclaim on thin volume isn't a signal. Skip it and wait for the next candle; the pullback is still armed.</li>
+        <li>False signals will happen. Risk 1% per trade and let the 2R payoff work over many trades.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Model as taught in a trading-strategy video built on two zero-lag EMAs (50 and 100) with volume confirmation. The
+  charts above illustrate the mechanics. They aren't a real ticker, and the video gives no tickers or trade levels. <a href="https://www.youtube.com/watch?v=BxrBkkarQzQ" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

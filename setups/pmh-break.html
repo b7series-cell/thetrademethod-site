@@ -1,0 +1,754 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PMH Break — the opening drive, run mechanically | The Trade Method</title>
+<meta name="description" content="Price reclaims the premarket high on the opening drive and holds it. The break is the entry; the reclaim level is the invalidation.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/pmh-break.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="PMH Break — the opening drive, run mechanically">
+<meta property="og:description" content="Price reclaims the premarket high on the opening drive and holds it. The break is the entry; the reclaim level is the invalidation.">
+<meta property="og:url" content="https://thetrademethod.com/setups/pmh-break.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PMH Break — the opening drive, run mechanically">
+<meta name="twitter:description" content="Price reclaims the premarket high on the opening drive and holds it. The break is the entry; the reclaim level is the invalidation.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "PMH Break — the opening drive, run mechanically",
+ "name": "PMH Break",
+ "description": "Price reclaims the premarket high on the opening drive and holds it. The break is the entry; the reclaim level is the invalidation.",
+ "url": "https://thetrademethod.com/setups/pmh-break.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/pmh-break.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  /* the six steps: a click-through stepper (js/pmh-anim.js builds it), the two panels side by side under it */
+  .pmh-main { grid-template-columns:1fr; gap:22px; }
+  .pmh-stages { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .sheet .pmh-stages .stage, .sheet .pmh-stages .stage:first-child { padding:26px 24px; background:var(--charcoal); align-content:start; }
+  .pmh-side { display:grid; grid-template-columns:1fr 1fr; gap:16px; align-items:stretch; }
+  .pmh-side .panel + .panel { margin-top:0; }
+  .pmh-side .panel:only-child, .pmh-side .panel.pmh-whole { grid-column:1 / -1; }
+  @media (max-width:1100px) { .pmh-stages { grid-template-columns:1fr 1fr; } .pmh-side { grid-template-columns:1fr; } }
+  @media (max-width:680px) { .pmh-stages { grid-template-columns:1fr; } }
+  .pmh-stages.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#30d158; }
+  .gs-bar { display:grid; grid-template-columns:repeat(6,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:8.33%; right:8.33%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:0.85fr 1.15fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .pmh-stages.is-stepper .stage, .sheet .pmh-stages.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .pmh-stages.is-stepper .stage .num { display:none; }
+  .sheet .pmh-stages.is-stepper .stage[hidden] { display:none; }
+  .sheet .pmh-stages.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:var(--panel); border-radius:18px; padding:10px; }
+  .gs-chart [data-s] { transition:opacity .3s ease; }
+  .gs-chart .gs-cap { margin:2px 4px 8px; text-align:left; font-size:13px; color:var(--dim); }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .pmh-stages.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
+<script src="/js/live-kit.js?v=2" defer></script>
+<script src="/js/examples/pmh.js?v=1" defer></script><script src="/js/example-kit.js?v=1" defer></script>
+<script src="/js/pmh-live.js?v=7" defer></script>
+<script src="/js/pmh-anim.js?v=4" defer></script>
+<style>
+  /* video (same as relative-volume.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=2" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="pmh-break">
+    <div>
+      <p class="kicker">Opening drive playbook · 2-minute chart · first 25 minutes</p>
+      <h1>PMH <span>Break</span></h1>
+    </div>
+    <div>
+      <p class="thesis">There is one trade here, and it is the break of the premarket high.
+      <em>Not the gap. Not the news. Not the first green candle.</em> Everything else on this
+      page exists to keep you out of the bad versions and get you paid on the good ones.</p>
+      <div class="counts">
+        <div><b>1</b><small>trigger</small></div>
+        <div><b>4</b><small>filters</small></div>
+        <div><b>3s</b><small>to run the gate</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">before 9:30</div><div class="n">Context</div></div>
+    <div><div class="t">9:30:00</div><div class="n">Gate</div></div>
+    <div><div class="t">9:30&ndash;9:45</div><div class="n">Trigger</div></div>
+    <div><div class="t">on the close</div><div class="n">Candle check</div></div>
+    <div><div class="t">immediately</div><div class="n">Entry &amp; stop</div></div>
+    <div><div class="t">next 10&ndash;20 min</div><div class="n">Manage</div></div>
+  </nav>
+
+  <section class="anim" data-pmh-anim aria-label="Animated walkthrough of the premarket high break">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">6 / 6</p>
+        <h2 class="anim-title">Watch one morning, start to finish</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart: pre-market range, the 9:30 gate, a failed poke above the premarket high, the breakout close on volume, entry and stop, a trim at 53, and the runner out on the 9 EMA"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main pmh-main">
+    <div class="pmh-stages" data-pmh-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Before the bell</h3>
+          <ul>
+            <li>Market daily above its 10 and 20 SMA, ideally trending up. The market's chart, not the stock's.</li>
+            <li>Sector moving at least as hard as the market, preferably harder.</li>
+            <li>A real catalyst: news out premarket or after yesterday's close, with heavy premarket volume. Or a price catalyst, where the location is the story &mdash; an all-time high, the top of a long base.</li>
+            <li>Room overhead: no obvious resistance for 3&ndash;5%.</li>
+            <li>Write down four numbers: prior close, yesterday's high, premarket high, and the opening print when it comes.</li>
+          </ul>
+          <p class="why">On a trade that lives and dies inside ten minutes, you want the tape helping you. If SPY is red, you are paying to fight it.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>The gate at 9:30</h3>
+          <ul>
+            <li>The opening print must be above yesterday's high <b>and</b> above the prior close. Both, not one.</li>
+            <li>If it opens below yesterday's high, there is no opening drive trade here. However good the news is.</li>
+          </ul>
+          <p class="why">Open above yesterday's high and everyone who bought yesterday is green &mdash; nobody is sitting there waiting to get out at breakeven. Open below it and you are buying into a crowd that wants its money back, and that crowd is exactly who sells into your breakout.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>The trigger</h3>
+          <ul>
+            <li>A 2-minute candle <b>closes</b> above the premarket high, on volume.</li>
+            <li>Closed means closed. Not touched, not wicked through, not "it's above right now."</li>
+            <li>Relative volume above 3 &mdash; roughly three standard deviations above what is normal for that minute of the day over the last five sessions.</li>
+          </ul>
+          <p class="why">The premarket high is the most anyone would pay all morning, with hours to study the chart and the catalyst. When it goes on volume, that argument is settled. Until then you are guessing inside the range.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Check the candle</h3>
+          <ul>
+            <li>Real green body. Upper wick no bigger than half the body.</li>
+            <li>Closes red &rarr; skip. Never closed above the level &rarr; it was a false breakout.</li>
+          </ul>
+          <p class="why">A long upper wick means somebody sold into the breakout hard enough to shove price back down before the candle finished. That is not strength; that is someone unloading into your enthusiasm.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Entry and stop</h3>
+          <ul>
+            <li>Entry is the close of the breakout candle. Not the level.</li>
+            <li>Stop goes under the low of that same candle.</li>
+            <li>Size from the stop distance, never from the level.</li>
+          </ul>
+          <p class="why">A premarket high sitting right on top of the open tells you the trigger will come fast. It does not tell you the stop will be tight. On real examples the risk runs 2.5&ndash;5% per share.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Manage it</h3>
+          <ul>
+            <li>Trim into strength at whole numbers, prior resistance, or roughly 1 ATR from the open.</li>
+            <li>Trail the runner out on the first 2-minute close under the 9 EMA.</li>
+            <li>Early exit: a 2-minute close back below the premarket high after you are in. Do not wait for the stop.</li>
+          </ul>
+          <p class="why">It is a momentum trade. You are not predicting the high of the day, you are paying yourself as it moves.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="pmh-side">
+      <div class="panel pmh-whole">
+        <h4>The whole trade on one chart</h4>
+        <p class="lead">Gate levels, the stuff that traps you, the candle that pays you, and where you get out.</p>
+        <svg viewBox="0 0 1180 740" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Annotated two-minute chart showing a premarket high break, entry, stop and exits">
+<defs><marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8fa6bd"/></marker><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2ecf7a"/></marker><marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#e0505a"/></marker><marker id="a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5aa9ff"/></marker><marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#f4b942"/></marker></defs>
+<rect x="32" y="22" width="1062" height="498" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<rect x="32" y="526" width="1062" height="196" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<rect x="74" y="40" width="271.1" height="460" fill="#101d2f"/>
+<rect x="74" y="556" width="271.1" height="134" fill="#101d2f"/>
+<line x1="345.1" y1="40" x2="345.1" y2="500" stroke="#3a5068" stroke-width="1.3" stroke-dasharray="3 4"/>
+<line x1="345.1" y1="556" x2="345.1" y2="690" stroke="#3a5068" stroke-width="1.3" stroke-dasharray="3 4"/>
+<text x="84" y="60" fill="#7d93ad" font-size="12.5">premarket</text>
+<line x1="74" y1="454.0" x2="1050" y2="454.0" stroke="#1b2a3e" stroke-width="1"/>
+<text x="1060" y="458.0" fill="#7d93ad" font-size="12.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">102.00</text>
+<line x1="74" y1="396.5" x2="1050" y2="396.5" stroke="#1b2a3e" stroke-width="1"/>
+<text x="1060" y="400.5" fill="#7d93ad" font-size="12.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">103.00</text>
+<line x1="74" y1="339.0" x2="1050" y2="339.0" stroke="#1b2a3e" stroke-width="1"/>
+<text x="1060" y="343.0" fill="#7d93ad" font-size="12.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">104.00</text>
+<line x1="74" y1="281.5" x2="1050" y2="281.5" stroke="#1b2a3e" stroke-width="1"/>
+<text x="1060" y="285.5" fill="#7d93ad" font-size="12.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">105.00</text>
+<line x1="74" y1="224.0" x2="1050" y2="224.0" stroke="#1b2a3e" stroke-width="1"/>
+<text x="1060" y="228.0" fill="#7d93ad" font-size="12.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">106.00</text>
+<line x1="74" y1="166.5" x2="1050" y2="166.5" stroke="#1b2a3e" stroke-width="1"/>
+<text x="1060" y="170.5" fill="#7d93ad" font-size="12.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">107.00</text>
+<line x1="74" y1="109.0" x2="1050" y2="109.0" stroke="#1b2a3e" stroke-width="1"/>
+<text x="1060" y="113.0" fill="#7d93ad" font-size="12.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">108.00</text>
+<line x1="74" y1="51.5" x2="1050" y2="51.5" stroke="#1b2a3e" stroke-width="1"/>
+<text x="1060" y="55.5" fill="#7d93ad" font-size="12.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">109.00</text>
+<line data-s="1 3 4 5 6" x1="74" y1="339.0" x2="1050" y2="339.0" stroke="#f4f7fb" stroke-width="2.3" stroke-dasharray="9 6"/>
+<text data-s="1 3 4 5 6" x="82" y="330.0" fill="#f4f7fb" font-size="13" font-weight="700">Premarket high  104.00</text>
+<line data-s="1 2" x1="74" y1="431.0" x2="1050" y2="431.0" stroke="#7a93b0" stroke-width="1.7" stroke-dasharray="5 5"/>
+<text data-s="1 2" x="430" y="448.0" fill="#7a93b0" font-size="13" font-weight="700">Yesterday's high  102.40</text>
+<line data-s="1 2" x1="74" y1="465.5" x2="1050" y2="465.5" stroke="#54697f" stroke-width="1.5" stroke-dasharray="3 6"/>
+<text data-s="1 2" x="430" y="482.5" fill="#54697f" font-size="13" font-weight="700">Prior close  101.80</text>
+<line data-s="1" x1="101.1" y1="433.9" x2="101.1" y2="471.2" stroke="#7d343c" stroke-width="1.8"/>
+<rect data-s="1" x="86.5" y="448.3" width="29.3" height="14.4" fill="#7d343c" rx="1"/>
+<text x="101.1" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">9:20</text>
+<line data-s="1" x1="155.3" y1="436.8" x2="155.3" y2="468.4" stroke="#1d6f47" stroke-width="1.8"/>
+<rect data-s="1" x="140.7" y="442.5" width="29.3" height="20.1" fill="#1d6f47" rx="1"/>
+<line data-s="1" x1="209.6" y1="422.4" x2="209.6" y2="448.3" stroke="#1d6f47" stroke-width="1.8"/>
+<rect data-s="1" x="194.9" y="428.1" width="29.3" height="14.4" fill="#1d6f47" rx="1"/>
+<text x="209.6" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">9:24</text>
+<line data-s="1" x1="263.8" y1="419.5" x2="263.8" y2="451.1" stroke="#7d343c" stroke-width="1.8"/>
+<rect data-s="1" x="249.1" y="428.1" width="29.3" height="17.2" fill="#7d343c" rx="1"/>
+<line data-s="1" x1="318.0" y1="428.1" x2="318.0" y2="451.1" stroke="#1d6f47" stroke-width="1.8"/>
+<rect data-s="1" x="303.4" y="431.0" width="29.3" height="14.4" fill="#1d6f47" rx="1"/>
+<text x="318.0" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">9:28</text>
+<line data-s="2" x1="372.2" y1="376.4" x2="372.2" y2="405.1" stroke="#2ecf7a" stroke-width="1.8"/>
+<rect data-s="2" x="357.6" y="382.1" width="29.3" height="17.2" fill="#2ecf7a" rx="1"/>
+<line data-s="2 3" x1="426.4" y1="370.6" x2="426.4" y2="408.0" stroke="#e0505a" stroke-width="1.8"/>
+<rect data-s="2 3" x="411.8" y="382.1" width="29.3" height="20.1" fill="#e0505a" rx="1"/>
+<text x="426.4" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">9:32</text>
+<line data-s="3 4" x1="480.7" y1="324.6" x2="480.7" y2="405.1" stroke="#2ecf7a" stroke-width="1.8"/>
+<rect data-s="3 4" x="466.0" y="393.6" width="29.3" height="8.6" fill="#2ecf7a" rx="1"/>
+<line data-s="3" x1="534.9" y1="367.8" x2="534.9" y2="399.4" stroke="#2ecf7a" stroke-width="1.8"/>
+<rect data-s="3" x="520.2" y="373.5" width="29.3" height="20.1" fill="#2ecf7a" rx="1"/>
+<text x="534.9" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">9:36</text>
+<line data-s="3 4 5" x1="589.1" y1="270.0" x2="589.1" y2="390.8" stroke="#2ecf7a" stroke-width="1.8"/>
+<rect data-s="3 4 5" x="574.5" y="278.6" width="29.3" height="94.9" fill="#2ecf7a" rx="1"/>
+<line data-s="6" x1="643.3" y1="258.5" x2="643.3" y2="290.1" stroke="#2ecf7a" stroke-width="1.8"/>
+<rect data-s="6" x="628.7" y="264.3" width="29.3" height="14.4" fill="#2ecf7a" rx="1"/>
+<text x="643.3" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">9:40</text>
+<line data-s="6" x1="697.6" y1="226.9" x2="697.6" y2="272.9" stroke="#2ecf7a" stroke-width="1.8"/>
+<rect data-s="6" x="682.9" y="232.6" width="29.3" height="31.6" fill="#2ecf7a" rx="1"/>
+<line data-s="6" x1="751.8" y1="201.0" x2="751.8" y2="241.2" stroke="#2ecf7a" stroke-width="1.8"/>
+<rect data-s="6" x="737.1" y="206.8" width="29.3" height="25.9" fill="#2ecf7a" rx="1"/>
+<text x="751.8" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">9:44</text>
+<line data-s="6" x1="806.0" y1="189.5" x2="806.0" y2="221.1" stroke="#e0505a" stroke-width="1.8"/>
+<rect data-s="6" x="791.4" y="206.8" width="29.3" height="5.7" fill="#e0505a" rx="1"/>
+<line data-s="6" x1="860.2" y1="160.8" x2="860.2" y2="215.4" stroke="#2ecf7a" stroke-width="1.8"/>
+<rect data-s="6" x="845.6" y="166.5" width="29.3" height="46.0" fill="#2ecf7a" rx="1"/>
+<text x="860.2" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">9:48</text>
+<line data-s="6" x1="914.4" y1="132.0" x2="914.4" y2="172.2" stroke="#2ecf7a" stroke-width="1.8"/>
+<rect data-s="6" x="899.8" y="140.6" width="29.3" height="25.9" fill="#2ecf7a" rx="1"/>
+<line data-s="6" x1="968.7" y1="132.0" x2="968.7" y2="183.8" stroke="#e0505a" stroke-width="1.8"/>
+<rect data-s="6" x="954.0" y="140.6" width="29.3" height="37.4" fill="#e0505a" rx="1"/>
+<text x="968.7" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">9:52</text>
+<line data-s="6" x1="1022.9" y1="169.4" x2="1022.9" y2="258.5" stroke="#e0505a" stroke-width="1.8"/>
+<rect data-s="6" x="1008.2" y="178.0" width="29.3" height="71.9" fill="#e0505a" rx="1"/>
+<polyline data-s="6" points="480.7,420.9 534.9,411.4 589.1,384.9 643.3,360.7 697.6,335.1 751.8,309.4 806.0,290.1 860.2,265.3 914.4,240.4 968.7,227.9 1022.9,232.3" fill="none" stroke="#5aa9ff" stroke-width="2.1" opacity="0.9"/>
+<text data-s="6" x="697.6" y="355.1" fill="#5aa9ff" font-size="12.5">9 EMA</text>
+<line data-s="3" x1="74" y1="581.9" x2="1050" y2="581.9" stroke="#f4b942" stroke-width="1.6" stroke-dasharray="6 5"/>
+<text data-s="3" x="82" y="572.9" fill="#f4b942" font-size="12.5" font-weight="700">3× relative volume</text>
+<rect data-s="1" x="86.5" y="654.7" width="29.3" height="35.3" fill="#7d343c" opacity="0.7" rx="1"/>
+<rect data-s="1" x="140.7" y="650.0" width="29.3" height="40.0" fill="#1d6f47" opacity="0.7" rx="1"/>
+<rect data-s="1" x="194.9" y="641.8" width="29.3" height="48.2" fill="#1d6f47" opacity="0.7" rx="1"/>
+<rect data-s="1" x="249.1" y="645.3" width="29.3" height="44.7" fill="#7d343c" opacity="0.7" rx="1"/>
+<rect data-s="1" x="303.4" y="635.9" width="29.3" height="54.1" fill="#1d6f47" opacity="0.7" rx="1"/>
+<rect data-s="2" x="357.6" y="605.4" width="29.3" height="84.6" fill="#2ecf7a" opacity="0.7" rx="1"/>
+<rect data-s="2 3" x="411.8" y="625.4" width="29.3" height="64.6" fill="#e0505a" opacity="0.7" rx="1"/>
+<rect data-s="3 4" x="466.0" y="610.1" width="29.3" height="79.9" fill="#2ecf7a" opacity="0.7" rx="1"/>
+<rect data-s="3" x="520.2" y="638.3" width="29.3" height="51.7" fill="#2ecf7a" opacity="0.7" rx="1"/>
+<rect data-s="3 4 5" x="574.5" y="572.5" width="29.3" height="117.5" fill="#2ecf7a" opacity="1" rx="1"/>
+<rect data-s="6" x="628.7" y="621.8" width="29.3" height="68.2" fill="#2ecf7a" opacity="0.7" rx="1"/>
+<rect data-s="6" x="682.9" y="628.9" width="29.3" height="61.1" fill="#2ecf7a" opacity="0.7" rx="1"/>
+<rect data-s="6" x="737.1" y="632.4" width="29.3" height="57.6" fill="#2ecf7a" opacity="0.7" rx="1"/>
+<rect data-s="6" x="791.4" y="647.7" width="29.3" height="42.3" fill="#e0505a" opacity="0.7" rx="1"/>
+<rect data-s="6" x="845.6" y="634.8" width="29.3" height="55.2" fill="#2ecf7a" opacity="0.7" rx="1"/>
+<rect data-s="6" x="899.8" y="640.6" width="29.3" height="49.4" fill="#2ecf7a" opacity="0.7" rx="1"/>
+<rect data-s="6" x="954.0" y="648.9" width="29.3" height="41.1" fill="#e0505a" opacity="0.7" rx="1"/>
+<rect data-s="6" x="1008.2" y="651.2" width="29.3" height="38.8" fill="#e0505a" opacity="0.7" rx="1"/>
+<text x="46" y="516" fill="#7d93ad" font-size="13">Volume</text>
+<circle data-s="2" cx="372.2" cy="399.4" r="5" fill="#f4f7fb"/>
+<rect data-s="2" x="90" y="250" width="244" height="68" rx="7" fill="#0d1a2b" stroke="#5b7793" stroke-width="1.7"/>
+<text data-s="2" x="104" y="275" fill="#c8d8e8" font-size="13" font-weight="600">9:30 print 102.95 clears both</text>
+<text data-s="2" x="104" y="293" fill="#c8d8e8" font-size="13" font-weight="600">gate levels. The trade is live.</text>
+<line data-s="2" x1="334" y1="292" x2="363.2" y2="395.4" stroke="#8fa6bd" stroke-width="1.4" marker-end="url(#a1)"/>
+<rect data-s="3 4" x="90" y="148" width="254" height="86" rx="7" fill="#0d1a2b" stroke="#e0505a" stroke-width="1.7"/>
+<text data-s="3 4" x="104" y="173" fill="#f2a9ae" font-size="13" font-weight="600">Poked above, closed back under.</text>
+<text data-s="3 4" x="104" y="191" fill="#f2a9ae" font-size="13" font-weight="600">Big upper wick, red body —</text>
+<text data-s="3 4" x="104" y="209" fill="#f2a9ae" font-size="13" font-weight="600">a stuff, not a break. Skip it.</text>
+<line data-s="3 4" x1="344" y1="180" x2="471.7" y2="318.6" stroke="#e0505a" stroke-width="1.5" marker-end="url(#a3)"/>
+<rect data-s="3 4" x="392" y="40" width="272" height="86" rx="7" fill="#0d1a2b" stroke="#2ecf7a" stroke-width="1.7"/>
+<text data-s="3 4" x="406" y="65" fill="#9ff0c4" font-size="13" font-weight="600">The one trigger: a 2-min candle</text>
+<text data-s="3 4" x="406" y="83" fill="#9ff0c4" font-size="13" font-weight="600">closes at 105.05, above 104.00,</text>
+<text data-s="3 4" x="406" y="101" fill="#9ff0c4" font-size="13" font-weight="600">on a real volume expansion.</text>
+<line data-s="3 4" x1="567.1" y1="128" x2="581.1" y2="262.9" stroke="#2ecf7a" stroke-width="1.5" marker-end="url(#a2)"/>
+<rect data-s="6" x="704" y="40" width="292" height="66" rx="7" fill="#0d1a2b" stroke="#f4b942" stroke-width="1.7"/>
+<text data-s="6" x="718" y="65" fill="#f4b942" font-size="13" font-weight="600">Trim into strength: whole numbers,</text>
+<text data-s="6" x="718" y="83" fill="#f4b942" font-size="13" font-weight="600">1 ATR, prior resistance.</text>
+<line data-s="6" x1="860.2" y1="108" x2="860.2" y2="152.8" stroke="#f4b942" stroke-width="1.5" marker-end="url(#a5)"/>
+<line data-s="5" x1="611.8" y1="278.6" x2="675.8" y2="278.6" stroke="#2ecf7a" stroke-width="1.8"/>
+<line data-s="5" x1="611.8" y1="390.8" x2="675.8" y2="390.8" stroke="#e0505a" stroke-width="1.8" stroke-dasharray="5 4"/>
+<line data-s="5" x1="657.8" y1="278.6" x2="657.8" y2="390.8" stroke="#8fa6bd" stroke-width="1.2"/>
+<text data-s="5" x="665.8" y="338.7" fill="#c8d8e8" font-size="12.5" font-weight="700" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">1R</text>
+<rect data-s="6" x="700" y="296" width="300" height="66" rx="7" fill="#0d1a2b" stroke="#5aa9ff" stroke-width="1.7"/>
+<text data-s="6" x="714" y="321" fill="#b3d6ff" font-size="13" font-weight="600">Runner comes off on the first 2-min</text>
+<text data-s="6" x="714" y="339" fill="#b3d6ff" font-size="13" font-weight="600">close back under the 9 EMA.</text>
+<line data-s="6" x1="1000" y1="318" x2="1026.9" y2="218.3" stroke="#5aa9ff" stroke-width="1.5" marker-end="url(#a4)"/>
+<rect data-s="5" x="700" y="380" width="300" height="86" rx="7" fill="#0d1a2b" stroke="#e0505a" stroke-width="1.7"/>
+<text data-s="5" x="714" y="405" fill="#f2a9ae" font-size="13" font-weight="600">Fill is the close, 105.05 — a dollar</text>
+<text data-s="5" x="714" y="423" fill="#f2a9ae" font-size="13" font-weight="600">above the level. Stop 103.10, under</text>
+<text data-s="5" x="714" y="441" fill="#f2a9ae" font-size="13" font-weight="600">that candle's low. Risk $1.95, 1.9%.</text>
+<line data-s="5" x1="700" y1="412" x2="683.8" y2="392.8" stroke="#e0505a" stroke-width="1.5" marker-end="url(#a3)"/>
+<rect data-s="3" x="640" y="558" width="300" height="46" rx="7" fill="#0d1a2b" stroke="#f4b942" stroke-width="1.7"/>
+<text data-s="3" x="654" y="583" fill="#f4b942" font-size="13" font-weight="600">Price is the claim. Volume is the evidence.</text>
+<line data-s="3" x1="640" y1="581" x2="613.8" y2="586.5" stroke="#f4b942" stroke-width="1.5" marker-end="url(#a5)"/>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>The close is the confirmation</h4>
+        <p class="lead">In the middle of a forming candle, a real break and a stuff look identical. That is the whole problem. Stop trying to tell them apart live &mdash; wait for the close and look.</p>
+        <svg viewBox="0 0 1180 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Four breakout candles compared: one to take and three to skip">
+<rect x="10.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#22855a" stroke-width="2"/>
+<line x1="28.0" y1="130.4" x2="267.0" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="28.0" y="121.4" fill="#9fb3c8" font-size="11.5">premarket high</text>
+<line x1="147.5" y1="84.8" x2="147.5" y2="191.2" stroke="#2ecf7a" stroke-width="2.4"/>
+<rect x="131.5" y="96.2" width="32" height="87.4" fill="#2ecf7a" rx="2"/>
+<text x="28.0" y="42" fill="#2ecf7a" font-size="16" font-weight="800">Take it</text>
+<text x="28.0" y="244" fill="#9fb3c8" font-size="12.6">Closes clearly above the level.</text>
+<text x="28.0" y="262" fill="#9fb3c8" font-size="12.6">Full green body, wicks small.</text>
+<rect x="305.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="323.0" y1="130.4" x2="562.0" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="323.0" y="121.4" fill="#9fb3c8" font-size="11.5">premarket high</text>
+<line x1="442.5" y1="73.4" x2="442.5" y2="160.8" stroke="#2ecf7a" stroke-width="2.4"/>
+<rect x="426.5" y="119.0" width="32" height="30.4" fill="#2ecf7a" rx="2"/>
+<text x="323.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="323.0" y="244" fill="#9fb3c8" font-size="12.6">Closed above, but the upper wick</text>
+<text x="323.0" y="262" fill="#9fb3c8" font-size="12.6">dwarfs the body. Someone sold it.</text>
+<rect x="600.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="618.0" y1="130.4" x2="857.0" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="618.0" y="121.4" fill="#9fb3c8" font-size="11.5">premarket high</text>
+<line x1="737.5" y1="77.2" x2="737.5" y2="130.4" stroke="#e0505a" stroke-width="2.4"/>
+<rect x="721.5" y="88.6" width="32" height="30.4" fill="#e0505a" rx="2"/>
+<text x="618.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="618.0" y="244" fill="#9fb3c8" font-size="12.6">Above the level, but the body is</text>
+<text x="618.0" y="262" fill="#9fb3c8" font-size="12.6">red. Sellers won the candle.</text>
+<rect x="895.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="913.0" y1="130.4" x2="1152.0" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="913.0" y="121.4" fill="#9fb3c8" font-size="11.5">premarket high</text>
+<line x1="1032.5" y1="92.4" x2="1032.5" y2="191.2" stroke="#2ecf7a" stroke-width="2.4"/>
+<rect x="1016.5" y="164.6" width="32" height="11.4" fill="#2ecf7a" rx="2"/>
+<text x="913.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="913.0" y="244" fill="#9fb3c8" font-size="12.6">Never closed above the level.</text>
+<text x="913.0" y="262" fill="#9fb3c8" font-size="12.6">That is a poke, not a break.</text>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>The trigger does not run on a clock</h4>
+        <p class="lead">These feel like three different trades. They are one trade, and the trigger never changed.</p>
+        <div class="timing">
+          <div><b>Straight through</b><p>The first candle takes the level and you are in at 9:32. Of the setups studied, this is the strongest version.</p></div>
+          <div><b>Sideways first</b><p>It grinds inside the range for a few minutes, then goes. Same trigger, later.</p></div>
+          <div><b>Flush, then go</b><p>It sells off hard off the open, flushes everyone out, snaps back and takes the level. Same trigger.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The four filters</h2>
+    <p>These do not find the trade &mdash; the trigger does that. They exist to kill the bad versions before you are in one.</p>
+  </div>
+  <div class="filters">
+    <div class="filter">
+      <h3>1 &nbsp;The wick</h3>
+      <p>Price touches the level, pushes through, you buy, you are green for six seconds, then it stuffs and closes back underneath.</p>
+      <p class="kill">Kills: buying inside a forming candle.</p>
+    </div>
+    <div class="filter">
+      <h3>2 &nbsp;The catalyst</h3>
+      <p>Fresh news in the premarket or after the close, with heavy premarket volume behind it &mdash; or a location significant enough to be its own catalyst.</p>
+      <p class="kill">Kills: breakouts nobody is watching.</p>
+    </div>
+    <div class="filter">
+      <h3>3 &nbsp;Room overhead</h3>
+      <p>No obvious resistance within 3&ndash;5% of entry. If there is a wall just above you, you are buying somebody else's exit.</p>
+      <p class="kill">Kills: 20-cent winners.</p>
+    </div>
+    <div class="filter">
+      <h3>4 &nbsp;Market and sector</h3>
+      <p>Strong market daily, strong group on the day. The tape decides whether momentum gets rewarded this morning or sold into.</p>
+      <p class="kill">Kills: good setups on bad days.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Size off the stop, never off the level</h2>
+    <p>Rocket Lab's premarket high sat 27 cents above the open. The candle that broke it closed two dollars higher. Your fill is the close, so your risk is measured from there &mdash; and it will often feel like a chase.</p>
+  </div>
+  <div class="risk">
+    <div class="panel">
+      <div class="calc">
+        <div class="row"><span>Risk budget for the trade</span><b>$500.00</b></div>
+        <div class="row"><span>Entry &mdash; close of breakout candle</span><b>105.05</b></div>
+        <div class="row"><span>Stop &mdash; low of that candle</span><b>103.10</b></div>
+        <div class="row"><span>Risk per share</span><b>$1.95</b></div>
+        <div class="row tot"><span>Position size</span><b>256 shares</b></div>
+      </div>
+    </div>
+    <div class="warn">
+      <h4>The mistake this prevents</h4>
+      <p>Size off the level instead and you measure risk as 105.05 &minus; 104.00 = $1.05, which says buy 476 shares.</p>
+      <p class="big">476 &times; $1.95 = $928 at your actual stop.</p>
+      <p>Nearly double the risk you budgeted, taken before the trade even had a chance to work.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Three mornings, three stories, one trade</h2>
+    <p>An earnings gap, an all-time high with no news at all, and a sector headline. Same gate, same trigger, same stop, same exits.</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><span class="tick">RKLB<small>May 8 &middot; earnings</small></span></th>
+        <th><span class="tick">ARM<small>May 21 &middot; all-time high</small></span></th>
+        <th><span class="tick">RGTI<small>May 22 &middot; sector news</small></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>Catalyst</th>
+        <td class="txt">Earnings, heavy premarket volume</td>
+        <td class="txt">No news. The location is the catalyst &mdash; nobody in the stock's history has paid more, so nothing overhead</td>
+        <td class="txt">Report of $2bn to nine quantum companies through the CHIPS act; lit up the whole group</td></tr>
+      <tr><th>Prior close</th><td>78.58</td><td>256.73</td><td>22.04</td></tr>
+      <tr><th>Yesterday's high</th><td>84.79</td><td>259.44</td><td>22.10</td></tr>
+      <tr><th>Open</th><td class="pos">86.04 &check;</td><td class="pos">266.90 &check;</td><td class="pos">22.96 &check;</td></tr>
+      <tr><th>Premarket high</th><td>86.31</td><td>268.49</td><td>23.57</td></tr>
+      <tr><th>Break candle</th><td>86.04 / 85.87 / 88.18</td><td>266.90 / 266.00 / 272.55</td><td>22.96 / 22.66 / 23.80</td></tr>
+      <tr><th>Entry</th><td class="pos">88.18</td><td class="pos">272.55</td><td class="pos">23.80</td></tr>
+      <tr><th>Stop</th><td class="neg">85.87</td><td class="neg">266.00</td><td class="neg">22.66</td></tr>
+      <tr><th>Risk per share</th><td>$2.31 &middot; 2.6%</td><td>$6.55 &middot; 2.4%</td><td>$1.14 &middot; 4.8%</td></tr>
+      <tr><th>Notes</th>
+        <td class="txt">Trimmed into strength, out near 98&ndash;99 by 10:00 &mdash; about 4.5R. It ran on to 105. Not this trade's money.</td>
+        <td class="txt">Trimmed into strength, roughly 6% extension at the exit. Closed the day at 298.</td>
+        <td class="txt">Widest stop of the three, so the smallest size. Around 4&times; relative volume, the heaviest of the group.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-head">
+    <h2>Example: one morning, 2-minute bars with pre-market</h2>
+    <p>An example session run through the indicator's own rules: a gap up that opens at 102.95, above yesterday's high of 102.40 and
+    close of 101.80, under a pre-market high of 104.00. The 9:32 candle pokes above 104.00 and closes back under it, so nothing fires. The 9:36 candle
+    closes at 105.05 on more than 4&times; normal volume for that time of day, glows yellow and gets the LONG marker. The stop goes under its low at 103.10.
+    Price never comes back to the pre-market high and tops out just over 109 by 10:40. The bars are made up to show the setup clearly. They aren't a real ticker.</p>
+  </div>
+  <section class="live" data-pmh-live data-example data-symbol="QQQ" aria-label="Example chart with the pre-market high break levels">
+    <div class="live-main">
+      <form class="live-symbol"><label for="pmh-sym">Symbol</label><input id="pmh-sym" name="sym" autocomplete="off" spellcheck="false" maxlength="6"><button class="pill pill-buy" type="submit">Load</button></form>
+      <div class="live-chart"><div class="live-gate"><b>Loading chart&hellip;</b></div></div>
+      <p class="live-status">2-minute</p>
+    </div>
+    <aside class="live-side" aria-live="polite"></aside>
+  </section>
+
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/CAAIzHsKsYM" title="PMH Break (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>The opening drive through the premarket high, with the three worked examples.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=CAAIzHsKsYM" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <h2 class="ind-heading">Indicator for this setup</h2>
+    <p class="ind-note">Add this to a TradingView chart (with extended hours on) to mark the levels this page describes. It draws
+    and alerts on the setup &mdash; it does not place trades.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">Pre-Market High / Low + Prior Day</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">Marks the pre-market range and extends it into the session, draws yesterday's high, low, and close,
+      glows on abnormal time-of-day volume, and fires the long setup when a 9:30&ndash;9:45 bar closes above the PDH through the
+      PMH on a glowing candle. Includes break alerts, an info panel, and a 30/60/90-day setup count.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/pmh-prior-levels.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+  </ul>
+
+  <div class="rule">
+    <div>
+      <h2>The trade is the premarket high break. Everything else is filters and management.</h2>
+      <p>The story changes every single morning. The trade does not. That is the entire reason to run it mechanically &mdash; it removes the guesswork from the fastest part of the day.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Trading the gap instead of the break is not a setup, it is a feeling. No level, no trigger, no idea where you are wrong.</li>
+        <li>Opening drives move fast. Paper trade it first, or size it small enough that being wrong feels boring.</li>
+        <li>If it closes back under the premarket high after you are in, that was the whole thesis. Leave.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Model taught as "the opening drive." Chart above is an illustration of the mechanics, not a real ticker &mdash; the three worked examples are the real ones. <a href="https://www.youtube.com/watch?v=CAAIzHsKsYM" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

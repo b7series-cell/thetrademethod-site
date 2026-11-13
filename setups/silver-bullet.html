@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Silver Bullet — ICT's magic hours, tested | The Trade Method</title>
+<meta name="description" content="ICT's Silver Bullet as exact rules: in three one-hour New York windows, wait for a sweep of untouched liquidity, a displacement candle that leaves a fair value gap, and a limit at the gap's edge. Tested over 16 years on four futures markets, it lost money after costs in every hour.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/silver-bullet.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Silver Bullet — ICT's magic hours, tested">
+<meta property="og:description" content="ICT's Silver Bullet as exact rules: in three one-hour New York windows, wait for a sweep of untouched liquidity, a displacement candle that leaves a fair value gap, and a limit at the gap's edge. Tested over 16 years on four futures markets, it lost money after costs in every hour.">
+<meta property="og:url" content="https://thetrademethod.com/setups/silver-bullet.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Silver Bullet — ICT's magic hours, tested">
+<meta name="twitter:description" content="ICT's Silver Bullet as exact rules: in three one-hour New York windows, wait for a sweep of untouched liquidity, a displacement candle that leaves a fair value gap, and a limit at the gap's edge. Tested over 16 years on four futures markets, it lost money after costs in every hour.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Silver Bullet — ICT's magic hours, tested",
+ "name": "Silver Bullet",
+ "description": "ICT's Silver Bullet as exact rules: in three one-hour New York windows, wait for a sweep of untouched liquidity, a displacement candle that leaves a fair value gap, and a limit at the gap's edge. Tested over 16 years on four futures markets, it lost money after costs in every hour.",
+ "url": "https://thetrademethod.com/setups/silver-bullet.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/silver-bullet.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-14",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/sb-anim.js?v=1" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
+<script src="/js/live-kit.js?v=3" defer></script>
+<script src="/js/examples/sb.js?v=1" defer></script><script src="/js/example-kit.js?v=1" defer></script>
+<script src="/js/sb-live.js?v=1" defer></script>
+<style>
+  /* the video */
+  .video { position:relative; aspect-ratio:16/9; border-radius:12px; overflow:hidden; background:#000; }
+  .video iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video-link { display:inline-block; margin-top:10px; font-size:13px; color:var(--blue); text-decoration:none; }
+  .video-link:hover { text-decoration:underline; }
+  .watch { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:var(--ink); text-decoration:none;
+           background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); border-radius:9999px; padding:7px 14px 7px 10px; }
+  .watch:hover { background:rgba(255,255,255,0.14); }
+  .watch i { width:0; height:0; border-left:9px solid #ff453a; border-top:6px solid transparent; border-bottom:6px solid transparent; margin-left:4px; }
+
+  /* the liquidity it hunts */
+  .liq { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .liq div { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--gold); border-radius:11px; padding:14px 15px; }
+  .liq b { display:block; font-size:15px; margin-bottom:5px; }
+  .liq p { margin:0; font-size:13.6px; color:var(--dim); }
+
+  /* the test */
+  .facts { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .fact { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 18px 16px; }
+  .fact b { display:block; font-size:clamp(30px,3.4vw,42px); font-weight:800; letter-spacing:-0.03em; line-height:1; margin-bottom:8px; }
+  .fact b.neg { color:var(--down); } .fact b.pos { color:var(--up); }
+  .fact p { margin:0; font-size:14px; color:var(--dim); }
+  .how { margin:18px 0 0; padding:0; list-style:none; display:grid; grid-template-columns:repeat(5,1fr); gap:14px; counter-reset:how; }
+  .how li { counter-increment:how; background:var(--panel2); border:1px solid var(--line); border-radius:10px; padding:13px 14px; font-size:13.6px; color:var(--dim); }
+  .how li::before { content:counter(how); display:block; font-family:var(--mono); font-weight:700; color:var(--gold); margin-bottom:4px; }
+  .how li b { color:var(--ink); }
+  .miss { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .miss svg { border-radius:12px; }
+  .miss-note { margin:14px 0 0; color:var(--dim); font-size:14px; max-width:86ch; }
+
+  /* the animation redraws for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .ribbon + .anim { margin-top:8px; }
+  @media (max-width:1100px) {
+    .liq { grid-template-columns:repeat(2,1fr); }
+    .facts { grid-template-columns:repeat(2,1fr); }
+    .how { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:760px) { .miss { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    /* breathing room around the walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .counts { flex-wrap:wrap; gap:16px 22px; }
+    .liq, .how { grid-template-columns:1fr; }
+    .fact { padding:15px 15px 13px; }
+    .fact p { font-size:13.4px; }
+    .section-head { margin-top:52px; }
+  }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=4" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="silver-bullet">
+    <div>
+      <p class="kicker">ICT intraday model &middot; sweep, gap, limit &middot; 1 or 5-minute</p>
+      <h1>Silver <span>Bullet</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Three one-hour windows, New York time. Inside one, price runs through a level nobody has hit yet, then a
+      strong candle snaps back and leaves a gap. <em>Buy or sell the return to that gap,</em> stop past the sweep, target the next
+      untouched level. That's the model. Tested over 16 years, it lost money in every hour.</p>
+      <div class="counts">
+        <div><b>3</b><small>one-hour windows</small></div>
+        <div><b>92 / 92</b><small>hour and market tests lost after costs</small></div>
+        <div><b>1 in 4</b><small>trades won</small></div>
+      </div>
+      <a class="watch" href="#video"><i></i>Watch the video</a>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">the window</div><div class="n">3&ndash;4, 10&ndash;11, 2&ndash;3 NY</div></div>
+    <div><div class="t">the sweep</div><div class="n">A tick through liquidity</div></div>
+    <div><div class="t">the gap</div><div class="n">Displacement FVG</div></div>
+    <div><div class="t">the entry</div><div class="n">Limit at the near edge</div></div>
+    <div><div class="t">the stop</div><div class="n">A tick past the sweep</div></div>
+    <div><div class="t">the target</div><div class="n">Next level, 1.5R or more</div></div>
+  </nav>
+
+  <section class="anim" data-sb-anim aria-label="Animated walkthrough of a Silver Bullet long">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">6 / 6</p>
+        <h2 class="anim-title">Watch one long, start to finish</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative 1-minute chart: before the 10:00 window a swing low forms at 100.40 and the hour's high is 101.52; at 10:04 a candle trades down to 100.36, sweeping the swing low; at 10:06 a large green candle leaves a fair value gap from 100.62 to 100.80; a buy limit goes at 100.80 with the stop at 100.35 and the target at 101.52, 1.6 times the risk; at 10:10 price trades 100.76 and fills the order; at 10:18 price reaches 101.52, the target"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Wait for a window, with the liquidity marked</h3>
+          <ul>
+            <li>Three windows, New York time: 3 to 4 am (London), 10 to 11 am and 2 to 3 pm. Nothing outside them counts.</li>
+            <li>Liquidity is any level price hasn't traded through yet: swing highs and lows, the Asia and London session ranges,
+            the previous day's high and low, and the range of the hour before the window.</li>
+          </ul>
+          <p class="why">ICT's idea: stops pile up just past these levels, and the market runs them before it moves the other way.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>The sweep</h3>
+          <ul>
+            <li>A high is swept when a candle trades at least one tick above it. A low, at least one tick below. A wick is enough; an exact touch isn't.</li>
+            <li>Each level can be swept once, and only the window's first sweep on each side counts.</li>
+            <li>A swept high starts the search for a short. A swept low, for a long.</li>
+          </ul>
+          <p class="why">The sweep is the stop run. On its own it isn't a signal; it only tells the indicator which way to look.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Displacement leaves a gap</h3>
+          <ul>
+            <li>A fair value gap the other way: three candles where the first and third don't overlap. The middle candle's body is at least 1 ATR(14).</li>
+            <li>The gap is at least 0.1 ATR (and 2 ticks). All three candles are inside the window, and the gap can't start before the sweep.</li>
+            <li>A swept high needs a gap down; a swept low needs a gap up. Only the first one per side in a window counts.</li>
+          </ul>
+          <p class="why">A candle that big right after a stop run is the snap-back the model is waiting for.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>A limit at the gap, stop past the sweep</h3>
+          <ul>
+            <li>Entry: a limit order at the edge of the gap nearest to price.</li>
+            <li>Stop: one tick beyond the sweep's extreme, the highest high for a short or the lowest low for a long, from the sweep candle to the end of the gap.</li>
+            <li>Target: the nearest untouched level on the other side. Closer than 1.5 times the risk, the setup is skipped. No level at all, the target is 2R.</li>
+          </ul>
+          <p class="why">The order waits for price to come back into the gap rather than chasing the displacement candle.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>The fill, or no trade</h3>
+          <ul>
+            <li>The order fills only if price trades at least one tick through it before the window ends.</li>
+            <li>It's cancelled if price reaches the target first, or the window ends.</li>
+            <li>Each window takes one trade at most.</li>
+          </ul>
+          <p class="why">This is where the study found the problem: the orders that fill are mostly the trades going wrong.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Target, stop or the clock</h3>
+          <ul>
+            <li>The trade closes at the target, the stop, or one hour after the window ends, whichever comes first.</li>
+            <li>If the stop and the target are both hit in the same candle, it counts as a stop.</li>
+            <li>Results are counted in R after slippage and fees. R is the distance from entry to stop.</li>
+          </ul>
+          <p class="why">Counting in R makes a trade on a quiet morning comparable with one on a busy afternoon.</p>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <div class="panel" id="video">
+        <h4>The video</h4>
+        <p class="lead">Part 1 walks through the indicator and its settings. Part 2 is the 16-year backtest.</p>
+        <div class="video">
+          <iframe src="https://www.youtube-nocookie.com/embed/GXFP4-zYAFs" title="The Silver Bullet: indicator and 16-year backtest" loading="lazy"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+        <a class="video-link" href="https://www.youtube.com/watch?v=GXFP4-zYAFs" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+      </div>
+
+      <div class="panel">
+        <h4>What ends it</h4>
+        <p class="lead">Every decision is made on a closed bar, never on a bar that's still forming.</p>
+        <div class="timing">
+          <div><b>No fill in the window</b><p>The limit is cancelled when the window ends, or as soon as price reaches the target without filling it.</p></div>
+          <div><b>The time stop</b><p>An open trade is closed one hour after its window ends: 5 am, noon or 4 pm New York.</p></div>
+          <div><b>One trade per window</b><p>Once one side fills, any order waiting on the other side of the same window is dropped.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The liquidity it hunts</h2>
+    <p>Five kinds of level. Each one is in play until price trades a tick through it.</p>
+  </div>
+  <div class="liq">
+    <div><b>Swing highs and lows</b><p>A high above the 5 candles before it and the 5 after. Marked once those 5 have closed, dropped after 300 candles.</p></div>
+    <div><b>Asia range</b><p>The high and low from 8 pm to midnight New York.</p></div>
+    <div><b>London range</b><p>The high and low from 2 to 5 am New York.</p></div>
+    <div><b>Previous day</b><p>Yesterday's high and low, with the day starting at 6 pm.</p></div>
+    <div><b>The hour before</b><p>The high and low of the clock hour just before the window.</p></div>
+  </div>
+
+  <div class="section-head">
+    <h2>Does it work? The 16-year test</h2>
+    <p>The backtest in part 2 of the video asks one question: are these three hours special, or would the same rules work just as
+    well, or just as badly, at any other time of day?</p>
+  </div>
+  <div class="facts">
+    <div class="fact"><b class="neg">92 / 92</b><p>After costs, the strategy lost money in all 23 trading hours on all four markets.</p></div>
+    <div class="fact"><b>&asymp; 0</b><p>Before costs it roughly broke even or lost a little. There's no hidden edge for costs to eat.</p></div>
+    <div class="fact"><b class="neg">73%</b><p>of trades hit the stop. It wins about one trade in four.</p></div>
+    <div class="fact"><b class="pos">3 in 4</b><p>of the setups whose order never filled would have won.</p></div>
+  </div>
+  <ol class="how">
+    <li><b>Exact rules.</b> Every vague step of ICT's description became a rule a computer follows with no judgement calls.</li>
+    <li><b>Every hour.</b> The same rules ran in all 23 trading hours, so the three windows could be compared with all the others.</li>
+    <li><b>16 years of data.</b> One-minute bars, 2011 to 2026: ES and NQ to look for an effect, the Dow and gold futures to check it.</li>
+    <li><b>Real costs.</b> Two ticks of slippage and a $4.50 round-trip commission on every trade, shown with and without.</li>
+    <li><b>Measured in R.</b> +1R means you won what you risked. The average R per trade says whether it makes money over time.</li>
+  </ol>
+
+  <div class="section-head">
+    <h2>Why the Silver Bullet hours look better</h2>
+    <p>At first the three windows looked slightly better than the average hour. They still lost money, and the reason isn't the clock.</p>
+  </div>
+  <div class="risk">
+    <div class="panel">
+      <div class="calc">
+        <div class="row"><span>ES slippage &mdash; 2 ticks &times; 0.25</span><b>0.50 pt</b></div>
+        <div class="row"><span>Commission &mdash; $4.50 &divide; $50 a point</span><b>0.09 pt</b></div>
+        <div class="row"><span>Cost per trade</span><b>0.59 pt</b></div>
+        <div class="row"><span>Quiet hour, 3-point stop</span><b>0.59 &divide; 3 = 0.20R</b></div>
+        <div class="row tot"><span>Busy hour, 8-point stop</span><b>0.59 &divide; 8 = 0.07R</b></div>
+      </div>
+    </div>
+    <div class="warn">
+      <h4>Busy hours, wider stops, cheaper costs</h4>
+      <p>The windows sit on some of the busiest hours of the day. Bigger moves mean wider stops, so the same fixed cost is a smaller
+      share of each trade. That alone makes them look better than a quiet hour.</p>
+      <p class="big">Matched against other hours that move just as much, the advantage disappeared on all four futures.</p>
+      <p>The cost figures above are arithmetic for ES, not results from the study.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The trades you miss are the winners</h2>
+    <p>The same gap, two endings. A limit order only fills when price comes back, and a move that comes all the way back is often a
+    move that's failing.</p>
+  </div>
+  <div class="panel" data-sb-miss role="group" aria-label="Two illustrative charts: on the left price returns to the gap, fills the limit and keeps falling to the stop; on the right price never returns and runs to the target with no fill">
+    <div class="miss">
+      <svg viewBox="0 0 560 330" role="img" aria-label="Price comes back to the gap, the order fills, and the stop is hit"></svg>
+      <svg viewBox="0 0 560 330" role="img" aria-label="Price never comes back, the order doesn't fill, and price reaches the target"></svg>
+    </div>
+    <p class="miss-note">In the study about three in four of the unfilled setups would have reached the target. That points to a
+    different entry worth testing: a market order at the sweep instead of a limit at the gap. These two charts are illustrative.</p>
+  </div>
+
+  <div class="section-head">
+    <h2>Long and short, side by side</h2>
+    <p>The whole rule set on one table, as the indicator codes it at its default settings.</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><span class="tick">Long<small>after a swept low</small></span></th>
+        <th><span class="tick">Short<small>after a swept high</small></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>Window</th><td class="txt" colspan="2">3:00&ndash;4:00, 10:00&ndash;11:00 or 14:00&ndash;15:00 New York</td></tr>
+      <tr><th>Sweep</th><td class="txt">A low 1 tick under an untouched sell-side level</td><td class="txt">A high 1 tick over an untouched buy-side level</td></tr>
+      <tr><th>Gap</th><td class="txt pos">Up: third candle's low over the first's high</td><td class="txt neg">Down: third candle's high under the first's low</td></tr>
+      <tr><th>Displacement</th><td class="txt" colspan="2">Middle body &ge; 1 ATR(14), gap &ge; 0.1 ATR and 2 ticks, all three candles in the window, after the sweep</td></tr>
+      <tr><th>Entry</th><td class="txt">Buy limit at the gap's top edge</td><td class="txt">Sell limit at the gap's bottom edge</td></tr>
+      <tr><th>Fill</th><td class="txt">A low 1 tick under the limit, before the window ends</td><td class="txt">A high 1 tick over the limit, before the window ends</td></tr>
+      <tr><th>Stop</th><td>lowest low (sweep &rarr; gap) &minus; 1 tick</td><td>highest high (sweep &rarr; gap) + 1 tick</td></tr>
+      <tr><th>Target</th><td class="txt">Nearest untouched high, at least 1.5R; 2R if there's none</td><td class="txt">Nearest untouched low, at least 1.5R; 2R if there's none</td></tr>
+      <tr><th>Exit</th><td class="txt" colspan="2">Target, stop (both in one candle counts as the stop) or one hour after the window ends</td></tr>
+      <tr><th>Cancelled by</th><td class="txt" colspan="2">The target trading before the fill, the window ending, or the other side filling first</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-head">
+    <h2>Example: one winning long, 1-minute bars</h2>
+    <p>An example session run through the indicator's own rules, with the pre-market included. Inside the 10&ndash;11 am window, the
+    10:14 candle trades a few cents under the 9:47 low, the low of the hour before (the sweep). The next candle snaps up and leaves a gap,
+    the buy limit at the gap's top edge (100.62) fills on the pullback at 10:17, the stop sits a tick under the sweep at 100.35, and at 10:38 price
+    reaches the 9:34 high at 101.20, the nearest untouched level above: about +2R after slippage. The bars are made up to show the setup clearly.
+    They aren't a real ticker, and one clean winner is not a result: in the 16-year test above, most of these trades lost.</p>
+  </div>
+  <section class="live" data-sb-live data-example data-symbol="QQQ" aria-label="Example chart with the Silver Bullet windows, sweeps, gaps, entries, stops and targets">
+    <div class="live-main">
+      <form class="live-symbol"><label for="sb-sym">Symbol</label><input id="sb-sym" name="sym" autocomplete="off" spellcheck="false" maxlength="6"><button class="pill pill-buy" type="submit">Load</button></form>
+      <div class="live-chart"><div class="live-gate"><b>Loading chart&hellip;</b></div></div>
+      <p class="live-status">1-minute</p>
+    </div>
+    <aside class="live-side" aria-live="polite"></aside>
+  </section>
+
+  <div class="section-head">
+    <h2 class="ind-heading">Indicator for this setup</h2>
+    <p class="ind-note">Add this to a TradingView chart on 1 to 15-minute bars. It marks the windows and the liquidity, the sweeps
+    and the gaps, places and tracks every trade, and keeps score by window or by hour. It does not place trades.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">Silver Bullet [GBB]</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">The three windows framed and tinted, the session levels named, the window's first sweep crossed, the
+      gap boxed, and each trade's risk and reward zones with a result chip. A stats panel shows trades, win rate and average net R
+      for each window. Hour Scan mode runs the same rules in every clock hour. Alerts for the window, the sweep, the armed setup,
+      the fill and the exit.</p>
+      <p class="ind-blurb">On a stock chart, set Commission to 0 or to your per-share cost. The default $4.50 is per futures
+      contract and would be counted as $4.50 a share. The 3 am window needs a futures chart with overnight hours.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/silver-bullet.pine" download>Download source (.pine)</a>
+        <a class="ind-link" href="https://www.youtube.com/watch?v=GXFP4-zYAFs" target="_blank" rel="noopener">The video</a>
+      </div>
+    </li>
+  </ul>
+
+  <div class="rule">
+    <div>
+      <h2>The magic hour is a myth. The sweep might not be.</h2>
+      <p>With rules built from ICT's teaching, the Silver Bullet hours only look better because they're the busiest hours, and the
+      strategy lost money in every hour on every market tested over 16 years. The parts can still be useful on their own.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Use the sweep detection as a trigger and combine it with your own setups.</li>
+        <li>Use it as a very short scalp right as a sweep happens, not as a limit order waiting at the gap.</li>
+        <li>Test a market entry at the sweep. The unfilled setups were mostly the winners.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Rules as coded in the Silver Bullet [GBB] indicator (Mozilla Public License 2.0) at its default settings. Study results
+  as reported in the video. The walkthrough and the two charts above are illustrative, not a real ticker.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

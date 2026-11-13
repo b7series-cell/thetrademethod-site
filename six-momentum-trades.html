@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Six Momentum Trades — the mechanisms under every strategy name | The Trade Method</title>
+<meta name="description" content="The six momentum trades underneath almost every strategy name: breakout, breakout and retest, pullback continuation, consolidation continuation, trend continuation and reclaim, plus the checklist that comes before entry.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/six-momentum-trades.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Six Momentum Trades — the mechanisms under every strategy name">
+<meta property="og:description" content="The six momentum trades underneath almost every strategy name: breakout, breakout and retest, pullback continuation, consolidation continuation, trend continuation and reclaim, plus the checklist that comes before entry.">
+<meta property="og:url" content="https://thetrademethod.com/six-momentum-trades.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Six Momentum Trades — the mechanisms under every strategy name">
+<meta name="twitter:description" content="The six momentum trades underneath almost every strategy name: breakout, breakout and retest, pullback continuation, consolidation continuation, trend continuation and reclaim, plus the checklist that comes before entry.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Six Momentum Trades — the mechanisms under every strategy name",
+ "name": "Six Momentum Trades",
+ "description": "The six momentum trades underneath almost every strategy name: breakout, breakout and retest, pullback continuation, consolidation continuation, trend continuation and reclaim, plus the checklist that comes before entry.",
+ "url": "https://thetrademethod.com/six-momentum-trades.html",
+ "mainEntityOfPage": "https://thetrademethod.com/six-momentum-trades.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-17",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* what a strategy name is really describing */
+  .decode { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-top:14px; }
+  .decode div { background:var(--charcoal); border-radius:18px; padding:16px 16px 17px; }
+  .decode .k { display:inline-block; font-size:11px; font-family:var(--mono-font); color:#000; border-radius:9999px; padding:2px 9px; background:var(--ash); }
+  .decode .k.loc { background:var(--orange); } .decode .k.shape { background:var(--link); } .decode .k.beh { background:#ff6961; }
+  .decode b { display:block; font-size:18px; margin:10px 0 6px; }
+  .decode p { margin:0; color:var(--mute); font-size:14px; }
+  .decode p em { font-style:normal; color:var(--up); font-weight:600; }
+
+  /* the checklist, in order */
+  .ladder { list-style:none; margin:0; padding:0; counter-reset:step; }
+  .ladder li { display:grid; grid-template-columns:34px 1fr; gap:14px; padding:16px 0 15px; border-top:1px solid rgba(255,255,255,0.1); }
+  .ladder li:first-child { border-top:0; padding-top:0; }
+  .ladder li::before { counter-increment:step; content:counter(step); font-family:var(--mono-font); font-size:14px; font-weight:700; color:#000;
+                       background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center; justify-content:center; }
+  .ladder li.then::before { content:"\2192"; background:var(--graphite); color:var(--silk); }
+  .ladder h3 { margin:2px 0 6px; font-size:19px; }
+  .ladder p { margin:0; color:var(--mute); }
+
+  /* two-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* the six at a glance */
+  .six { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .six a { display:block; background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; color:inherit; text-decoration:none; }
+  .six a:hover { background:var(--raised); }
+  .six .k { font-family:var(--mono-font); font-size:12px; color:var(--up); }
+  .six h3 { margin:6px 0 8px; font-size:20px; }
+  .six p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .six small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .decode { grid-template-columns:repeat(2,1fr); }
+    .six { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .sheet .main + .anim, .sheet .six + .anim, .sheet .decode + .anim { margin-top:56px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .decode, .six, .pair { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+  }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/mt-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=3" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="six-momentum-trades">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; not a setup, the six mechanisms underneath the setups</p>
+      <h1>Six Momentum <span>Trades</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Most strategy names aren't different trades. <em>They're different ways of describing six things price can actually do.</em>
+      Learn the six mechanisms and you stop asking which pattern this is. You start asking what the market is actually doing.</p>
+      <div class="counts">
+        <div><b>6</b><small>momentum trades</small></div>
+        <div><b>5</b><small>checks before any entry</small></div>
+        <div><b>1</b><small>better question</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">the problem</div><div class="n">Names vs mechanisms</div></div>
+    <div><div class="t">the checklist</div><div class="n">Stock in play to trigger</div></div>
+    <div><div class="t">trades 1 &ndash; 2</div><div class="n">Break, then retest</div></div>
+    <div><div class="t">trades 3 &ndash; 5</div><div class="n">Three continuations</div></div>
+    <div><div class="t">trade 6</div><div class="n">The reclaim</div></div>
+  </nav>
+
+  <div class="section-head">
+    <h2>Why strategy names get confusing</h2>
+    <p>The list of names keeps getting longer and the trading doesn't get better, because most names mix four different kinds of information and call every one of them a setup. Some name a place. Some name a shape. Some name a behavior. Only a few name the trade.</p>
+  </div>
+
+  <div class="decode">
+    <div><span class="k loc">a location</span><b>VWAP pullback</b><p>VWAP is where it happens, an opportunity zone. The trade underneath is a <em>pullback continuation</em>.</p></div>
+    <div><span class="k loc">a location</span><b>High of day break</b><p>The high of day is another zone. The trade underneath is a <em>breakout</em>.</p></div>
+    <div><span class="k loc">a location</span><b>9 EMA pullback</b><p>Same trade as the VWAP pullback in a different place: a <em>pullback continuation</em>.</p></div>
+    <div><span class="k shape">a shape</span><b>Bull flag</b><p>Describes how it looks. Price compresses instead of pulling back, then expands: a <em>consolidation continuation</em>.</p></div>
+    <div><span class="k beh">a behavior</span><b>Failed breakout</b><p>The expected move fails, traders get trapped, and momentum turns the other way. Not the same category as a flag at all.</p></div>
+  </div>
+
+  <div class="section-head">
+    <h2>The checklist before you enter</h2>
+    <p>Five layers, in this order. They sit in the gap between &ldquo;I see a pattern&rdquo; and &ldquo;I'm in&rdquo;, and they give you the two-second pause most traders skip.</p>
+  </div>
+
+  <div class="main">
+    <div>
+      <ol class="ladder">
+        <li><div><h3>Stock in play</h3><p>Why does this stock deserve your attention today? What's the catalyst, and why would big players be moving positions here today? You're only as good as the stocks you trade, so this filter always comes first.</p></div></li>
+        <li><div><h3>Setup</h3><p>The larger context on the higher time frame, the daily and the 65-minute. Is it trending, breaking out of a range, making a second-day move, reacting to news? This is where the direction comes from.</p></div></li>
+        <li><div><h3>Momentum trade</h3><p>Which of the six things price is doing inside that setup. This page.</p></div></li>
+        <li><div><h3>Opportunity zone</h3><p>The specific area where it should happen: VWAP, the 9 EMA, high of day, prior resistance. These are places to look, not trades.</p></div></li>
+        <li><div><h3>Trigger</h3><p>The specific price action event that tells you it's actually happening. Not that it might happen. That it is.</p></div></li>
+        <li class="then"><div><h3>Then the plan</h3><p>Only after all five: allocation, stop, entry and target.</p></div></li>
+      </ol>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Fewer trades survive, and that's the point</h4>
+        <p class="lead">Run the five layers every time and many trades you used to take simply won't make it through.</p>
+        <div class="calc">
+          <div class="row"><span>I see a pattern &rarr; I'm in</span><b>skips all five</b></div>
+          <div class="row"><span>Is it in play? &rarr; what's the setup?</span><b>context first</b></div>
+          <div class="row"><span>Which mechanism? &rarr; where? &rarr; is it happening?</span><b>trade, zone, trigger</b></div>
+          <div class="row tot"><span>Everything that survives the checklist</span><b>gets a plan</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Where the other pages fit</h4>
+        <p class="lead">Two of the five layers have their own fundamentals pages.</p>
+        <div class="pair">
+          <div class=""><span class="k">stock in play</span><b><a class="more" href="/relative-volume.html">Relative Volume</a></b><p>Is anyone actually showing up? Abnormal participation is how a stock earns your attention.</p></div>
+          <div class=""><span class="k">setup &rarr; trade</span><b><a class="more" href="/edge.html">Inch Wide, Mile Deep</a></b><p>Scoping catalyst, setup and trade, and starting with your stop.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="breakout">
+    <h2>1 &middot; Breakout</h2>
+    <p>The core question is simple: can price escape a defined trading range?</p>
+  </div>
+
+  <section class="anim" data-mt-anim="breakout" aria-label="Illustrative chart on made-up bars: a stock trades between 49 and 50 for an hour, sold at 50 and bought at 49 each time, then trades 50.02, 50.08, 50.20 and expands toward 51.35 on rising volume">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Escape the range</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart on made-up bars: a stock trades between 49 and 50 for an hour, sold at 50 and bought at 49 each time, then trades 50.02, 50.08, 50.20 and expands toward 51.35 on rising volume"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>The level isn't the trade</h3>
+          <ul>
+            <li>A breakout happens when price moves through a meaningful boundary and starts expanding beyond it.</li>
+            <li>The boundary could be high of day, the premarket high, the top or bottom of a range, a daily resistance level, or a whole dollar.</li>
+            <li>The level is only where it happens. The momentum trade is the act of escaping that level and expanding away from it.</li>
+          </ul>
+          <p class="why">Picture a stock stuck between $49 and $50 for an hour. Sold at 50, bought at 49, again and again. Eventually there aren't enough sellers left at 50, and the ceiling simply disappears.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Read the setup before the break</h3>
+          <ul>
+            <li>Out of a higher time frame range break, an opening range break can be the beginning of a large expansion.</li>
+            <li>Inside an overextension, the exact same break can be the final push before exhaustion.</li>
+            <li>Same drawing, same level, very different odds.</li>
+          </ul>
+          <p class="why">That's why the setup gets identified before the momentum trade gets evaluated.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>What a strong breakout usually has</h4>
+        <p class="lead">Confirmations support the trade. They are not the trade.</p>
+        <div class="calc">
+          <div class="row"><span>A meaningful level</span><b>not any line</b></div>
+          <div class="row"><span>A constructive approach into it</span><b>pressing, not stalling</b></div>
+          <div class="row"><span>Participation behind the expansion</span><b>volume</b></div>
+          <div class="row"><span>Room before the next big obstacle</span><b>air above</b></div>
+          <div class="row"><span>Volume expands, tape speeds up, sellers keep failing</span><b>confirmation</b></div>
+          <div class="row"><span>Relative strength on the higher time frame</span><b>a bonus</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Setups built on it</h4>
+        <p class="lead">Breakouts of a defined boundary, each with its own rules.</p>
+        <div class="pair">
+          <div class=""><span class="k">the open</span><b><a class="more" href="/setups/opening-range-break.html">Opening Range Break</a></b><p>The first 15 to 30 minutes set the range; trade the escape.</p></div>
+          <div class=""><span class="k">premarket</span><b><a class="more" href="/setups/pmh-break.html">PMH Break</a></b><p>The premarket high as the boundary on the opening drive.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="retest">
+    <h2>2 &middot; Breakout and retest</h2>
+    <p>Same level, same drawing, same break. The bet is different: the market already escaped, and now it has to prove the level changed function.</p>
+  </div>
+
+  <section class="anim" data-mt-anim="retest" aria-label="Illustrative chart on made-up bars: price breaks 50 and runs to 50.70, pulls back to 50.10, 50.05 and 50.00, buyers step in and it holds, with a stop just under 50 and a target at the next objective near 51.50">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The old ceiling becomes the floor</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart on made-up bars: price breaks 50 and runs to 50.70, pulls back to 50.10, 50.05 and 50.00, buyers step in and it holds, with a stop just under 50 and a target at the next objective near 51.50"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>A different question</h3>
+          <ul>
+            <li>Price breaks 50 and runs to 50.70, then pulls back. Did 50 break? That already happened.</li>
+            <li>The question now is what happens when price comes back to 50. If buyers step in at 50.10, 50.05, even 50.00, the market has handed you new information.</li>
+            <li>Resistance has become support. On the way down it's the mirror: support becomes resistance.</li>
+          </ul>
+          <p class="why">This is the trade: the broken level being tested and proven.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Classify it, and the plan gets sharper</h3>
+          <ul>
+            <li>A common mistake is calling every pullback after a breakout a pullback trade. If the defining feature is the broken level being tested, it's a breakout and retest.</li>
+            <li>Once it's classified correctly, the stop and the target both get clearer.</li>
+          </ul>
+          <p class="why">&ldquo;Buy the dip&rdquo; has no level. A retest has one.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Where you're wrong, where you're going</h4>
+        <p class="lead">Both come straight from the level.</p>
+        <div class="calc">
+          <div class="row"><span>Wrong if</span><b>it can't hold the new side</b></div>
+          <div class="row"><span>Stop</span><b>just through the level</b></div>
+          <div class="row"><span>Target</span><b>the next logical objective</b></div>
+          <div class="row tot"><span>Compared with buying the dip</span><b>far more precise</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>A setup built on it</h4>
+        <p class="lead">Break, come back, hold.</p>
+        <div class="pair">
+          <div class=""><span class="k">break &middot; knock</span><b><a class="more" href="/setups/knock-twice.html">Knock Twice</a></b><p>Close through an old swing high, stay away, come back and knock on it once.</p></div>
+          <div class=""><span class="k">the mistake</span><b>Every pullback is a retest</b><p>Only when the broken level itself is what's being tested.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="pullback">
+    <h2>3 &middot; Pullback continuation</h2>
+    <p>One of the most important momentum trades in intraday trading, and the one where the most strategy names collapse into a single mechanism.</p>
+  </div>
+
+  <section class="anim" data-mt-anim="pullback" aria-label="Illustrative chart on made-up bars: a stock runs from 100 to 104 on good volume, pulls back to 103, 102.80 and 102.75 into a rising 9 EMA as selling slows, then resumes higher to about 105.70; the 9 EMA then fades away and the trade still makes sense">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Retrace, hold, resume</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart on made-up bars: a stock runs from 100 to 104 on good volume, pulls back to 103, 102.80 and 102.75 into a rising 9 EMA as selling slows, then resumes higher to about 105.70; the 9 EMA then fades away and the trade still makes sense"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Five names, one bet</h3>
+          <ul>
+            <li>First pullback, second pullback, 9 EMA pullback, VWAP pullback, micro pullback. Five names, and underneath them the same bet.</li>
+            <li>An established move is underway. Price temporarily moves back against it.</li>
+            <li>The counter-move can't do structural damage to the trend, and the original direction resumes.</li>
+          </ul>
+          <p class="why">You're not betting on the 9 EMA. It doesn't make stocks go up. You're betting the original buying pressure is still intact and the selloff failed to change the auction.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>The removal test</h3>
+          <ul>
+            <li>Take the 9 EMA off the chart. The trade should still make complete sense.</li>
+            <li>Existing momentum pauses through a retracement, structure holds, momentum resumes. That's the whole mechanism.</li>
+          </ul>
+          <p class="why">If the trade stops making sense without the line, you were trading the indicator, not the mechanism.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Same trade, different parent setup</h4>
+        <p class="lead">Because the setup changes, the evidence you need changes too.</p>
+        <div class="pair">
+          <div class=""><span class="k">inside a mature trend</span><b>Needs strong trend structure</b><p>Clean higher highs and higher lows, the trend doing the work.</p></div>
+          <div class=""><span class="k">after news</span><b>Leans on the catalyst</b><p>Catalyst strength and fresh price discovery carry more of the weight.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Setups built on it</h4>
+        <p class="lead">A pullback continuation in a named zone.</p>
+        <div class="pair">
+          <div class=""><span class="k">9 EMA</span><b><a class="more" href="/setups/nine-ema-continuation.html">9 EMA Continuation</a></b><p>Wait for the pullback, read whether buyers step back up.</p></div>
+          <div class=""><span class="k">zero lag</span><b><a class="more" href="/setups/zero-lag-pullback.html">Zero Lag Pullback</a></b><p>A close between two lines, then the reclaim of the fast one.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="consolidation">
+    <h2>4 &middot; Consolidation continuation</h2>
+    <p>Close to the pullback, with one useful difference: a pullback gives back price, a consolidation gives back mostly time.</p>
+  </div>
+
+  <section class="anim" data-mt-anim="consol" aria-label="Illustrative chart on made-up bars: a stock runs from 20 to 23, then trades sideways between 22.80 and 22.95 instead of pulling back to 22; the trigger is a break of the top of the consolidation and the stop sits under its low, then price expands toward 24.45">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Time instead of price</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart on made-up bars: a stock runs from 20 to 23, then trades sideways between 22.80 and 22.95 instead of pulling back to 22; the trigger is a break of the top of the consolidation and the stop sits under its low, then price expands toward 24.45"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">7</div>
+        <div>
+          <h3>Sideways says something</h3>
+          <ul>
+            <li>A stock runs from $20 to $23. Instead of pulling back to 22, it goes sideways: 22.85, 22.90, 22.80, 22.90.</li>
+            <li>Despite the strong move, sellers can't push price meaningfully lower. The market is digesting the move through time, not price.</li>
+            <li>Eventually that compression can turn into a new expansion. That's the momentum trade.</li>
+          </ul>
+          <p class="why">Bull flag, bear flag, pennant, flat top, high of day consolidation: different visual expressions of the same idea.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">8</div>
+        <div>
+          <h3>Often the cleanest risk on the page</h3>
+          <ul>
+            <li>The stop sits just below the consolidation low.</li>
+            <li>The trigger is clear too: price breaking the top of the range into a new leg.</li>
+            <li>A clear trigger gives a clear entry and a clear stop, and if the checks line up, room to run to the next target.</li>
+          </ul>
+          <p class="why">Tight, defined risk is why the best consolidation trades are worth waiting for.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Two continuations, kept separate</h4>
+        <p class="lead">Closely related, but worth keeping distinct.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">pullback</span><b>Retraces and recovers</b><p>Momentum gives back price, then the original direction resumes.</p></div>
+          <div class="yes"><span class="k">consolidation</span><b>Compresses and expands</b><p>Momentum gives back time, then breaks out of the range.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>A setup built on it</h4>
+        <p class="lead">A flat consolidation before the expansion.</p>
+        <div class="pair">
+          <div class=""><span class="k">consolidation &middot; expansion</span><b><a class="more" href="/setups/macd-continuation-scalp.html">MACD Continuation Scalp</a></b><p>Let the base build, wait for the expansion, trade the pullback.</p></div>
+          <div class=""><span class="k">the squeeze</span><b><a class="more" href="/setups/energy-in-the-tank.html">Energy in the Tank</a></b><p>Compression on the higher time frame, spent on an outlier volume bar.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="trend">
+    <h2>5 &middot; Trend continuation</h2>
+    <p>Use this one carefully. Without discipline it turns into a junk drawer for anything going up or down.</p>
+  </div>
+
+  <section class="anim" data-mt-anim="trend" aria-label="Illustrative chart on made-up bars: price stair-steps from 50 to about 54.5 with higher highs and higher lows inside a rising channel, every shallow dip bought, then a bracket asks how far the move has come from its base">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The trend is the edge</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart on made-up bars: price stair-steps from 50 to about 54.5 with higher highs and higher lows inside a rising channel, every shallow dip bought, then a bracket asks how far the move has come from its base"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">9</div>
+        <div>
+          <h3>Not a junk drawer</h3>
+          <ul>
+            <li>If it's clearly a pullback, call it a pullback continuation. If it's clearly a flag, call it a consolidation continuation.</li>
+            <li>Trend continuation is for the times when the broader directional move itself is the main source of the edge.</li>
+            <li>Higher high, higher low, higher high, higher low: buyers keep winning the auction at higher prices. Downtrends are the mirror, lower lows and lower highs.</li>
+          </ul>
+          <p class="why">Channel trading is this momentum trade.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">10</div>
+        <div>
+          <h3>When it doesn't fit one pattern</h3>
+          <ul>
+            <li>It rides a rising 9 EMA. It stair-steps higher. It keeps holding a trending channel.</li>
+            <li>Every shallow dip gets bought almost immediately.</li>
+            <li>None of that is one textbook pattern. The trade is based on the persistence of the trend.</li>
+          </ul>
+          <p class="why">So call trend continuation in trending environments, and nowhere else.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Context changes the odds</h4>
+        <p class="lead">The setup classification matters most on this one.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">trending setup</span><b>Makes perfect sense</b><p>Persistent directional control is exactly what you're trading.</p></div>
+          <div class="care"><span class="k">overextension setup</span><b>Be more careful</b><p>Persistence can become extension, and extension lowers the odds of more continuation.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Related pages</h4>
+        <p class="lead">Reading the swings, and the late-session trend.</p>
+        <div class="pair">
+          <div class=""><span class="k">swings</span><b><a class="more" href="/price-action-rules.html">Three Price Action Rules</a></b><p>Higher highs, higher lows, and the continuation pattern.</p></div>
+          <div class=""><span class="k">a later trend</span><b><a class="more" href="/setups/fashionably-late.html">Fashionably Late</a></b><p>Join the trend after it has proved itself, not before.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="reclaim">
+    <h2>6 &middot; Reclaim</h2>
+    <p>The one most often misunderstood, because traders treat the level itself as the setup. The reclaim defines the trade, not the location.</p>
+  </div>
+
+  <section class="anim" data-mt-anim="reclaim" aria-label="Illustrative chart on made-up bars: price trades above VWAP, pulls back and loses it, stays below VWAP for several bars while sellers seem in control, then reclaims VWAP, does not lose it again, and runs higher as trapped shorts exit">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Lost, then taken back</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart on made-up bars: price trades above VWAP, pulls back and loses it, stays below VWAP for several bars while sellers seem in control, then reclaims VWAP, does not lose it again, and runs higher as trapped shorts exit"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">11</div>
+        <div>
+          <h3>The sequence</h3>
+          <ul>
+            <li>An important level exists: VWAP, a prior close, the premarket high.</li>
+            <li>Price loses that level for a while, and the sellers seem to have control.</li>
+            <li>Then price recovers the level and, importantly, doesn't lose it again right away. Buyers re-establish control on the original side.</li>
+          </ul>
+          <p class="why">That's the momentum trade. VWAP isn't magic. The market accepted prices below it, failed to hold that control, and shifted back above.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">12</div>
+        <div>
+          <h3>Why the trap matters</h3>
+          <ul>
+            <li>The transition from below to above can trap participants, especially short-term shorts.</li>
+            <li>As they get out, their buying adds to the push and leaves more room on the upside.</li>
+          </ul>
+          <p class="why">The reclaim defines the expectancy of the move, not the opportunity zone.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Reclaim vs breakout and retest</h4>
+        <p class="lead">They can look alike. The starting side is what separates them.</p>
+        <div class="pair">
+          <div class=""><span class="k">breakout and retest</span><b>Starts on one side</b><p>Breaks through, then tests the new side of the level.</p></div>
+          <div class="yes"><span class="k">reclaim</span><b>The level was already lost</b><p>Price had settled on the wrong side, then recovered it.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Setups built on it</h4>
+        <p class="lead">Reclaims of a moving level.</p>
+        <div class="pair">
+          <div class=""><span class="k">VWAP</span><b><a class="more" href="/setups/vwap-reversal.html">VWAP Reversal</a></b><p>A failure test at VWAP, an old level and a band touch.</p></div>
+          <div class=""><span class="k">9 EMA</span><b><a class="more" href="/setups/nine-ema-continuation.html">9 EMA Continuation</a></b><p>Read the reclaim, not the touch.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The six at a glance</h2>
+    <p>One question each. If you can't say which question a trade is answering, you don't have a trade yet.</p>
+  </div>
+
+  <div class="six">
+    <a href="#breakout"><span class="k">momentum trade</span><h3>1 &middot; Breakout</h3><p>Can price escape a defined range?</p><small>Escapes the boundary and expands away from it.</small></a>
+    <a href="#retest"><span class="k">momentum trade</span><h3>2 &middot; Breakout and retest</h3><p>Has the broken level changed function?</p><small>Breaks, comes back, holds the new side.</small></a>
+    <a href="#pullback"><span class="k">momentum trade</span><h3>3 &middot; Pullback continuation</h3><p>Does the move survive a retracement?</p><small>Retraces, holds structure, resumes.</small></a>
+    <a href="#consolidation"><span class="k">momentum trade</span><h3>4 &middot; Consolidation continuation</h3><p>Can it digest the move in time instead of price?</p><small>Compresses, then expands.</small></a>
+    <a href="#trend"><span class="k">momentum trade</span><h3>5 &middot; Trend continuation</h3><p>Is the trend's persistence itself the edge?</p><small>Higher highs and higher lows, dips bought.</small></a>
+    <a href="#reclaim"><span class="k">momentum trade</span><h3>6 &middot; Reclaim</h3><p>Was the level lost, then taken back and held?</p><small>Lost, accepted below, recovered.</small></a>
+  </div>
+
+  <div class="section-head">
+    <h2>Test yourself</h2>
+    <p>A chart, five seconds, two questions: what's the setup, and what's the momentum trade?</p>
+  </div>
+
+  <section class="anim" data-mt-anim="quiz" aria-label="Illustrative chart on made-up bars: a trending stock pulls back into a rising 9 EMA and resumes. The answer: the setup is trending, the momentum trade is a pullback continuation, the 9 EMA is the opportunity zone, and the trigger is the bar that takes out the pullback&#x27;s high">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Name it in five seconds</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart on made-up bars: a trending stock pulls back into a rising 9 EMA and resumes. The answer: the setup is trending, the momentum trade is a pullback continuation, the 9 EMA is the opportunity zone, and the trigger is the bar that takes out the pullback&#x27;s high"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/h6KnW-ahzbU" title="The six fundamental momentum trades (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>The six momentum trades and the checklist above them, drawn out on the board.</p>
+      <ol>
+        <li><b>0:00</b>Knowing patterns vs understanding trades</li>
+        <li><b>1:29</b>Why strategy names get confusing</li>
+        <li><b>4:15</b>The framework before entering</li>
+        <li><b>6:00</b>Breakout</li>
+        <li><b>9:23</b>Breakout and retest</li>
+        <li><b>11:29</b>Pullback continuation</li>
+        <li><b>14:11</b>Consolidation continuation</li>
+        <li><b>16:24</b>Trend continuation</li>
+        <li><b>18:28</b>Reclaim</li>
+        <li><b>20:25</b>Test your understanding</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=h6KnW-ahzbU" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Stop collecting names. Learn what price is doing.</h2>
+      <p>Hundreds of strategy names sit on top of six mechanisms. Once you can see the mechanism, the names stop mattering, and every chart
+      gets the same better question: what is the market actually doing here?</p>
+    </div>
+    <div>
+      <ul>
+        <li>A location is where a trade happens. It's never the trade.</li>
+        <li>A shape describes how a trade looks. The mechanism is why it works.</li>
+        <li>Name the setup first. The same momentum trade means different things in different setups.</li>
+        <li>No stock in play, no setup, no trigger: no trade, however good the pattern looks.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from a trading-education video on the six fundamental momentum trades and the stock in play, setup, momentum trade, opportunity zone and trigger hierarchy. Charts above are illustrations of the mechanics on made-up bars, not real tickers or data. <a href="https://www.youtube.com/watch?v=h6KnW-ahzbU" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

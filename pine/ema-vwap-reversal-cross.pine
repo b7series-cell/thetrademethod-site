@@ -1,0 +1,355 @@
+//@version=6
+//https://www.youtube.com/watch?v=zm4ehSDIr0k&t=249s
+// R1.2 — Screenshot defaults updated 2026-10-04 (America/New_York).
+// Window A: 09:45–10:45 enabled; Window B: 10:46–13:30 enabled.
+indicator("EMA/VWAP Reversal Cross R1.2", overlay=true, max_lines_count=500, max_labels_count=500)
+// ─── Inputs ─────────────────────────────────────────────
+emaLen            = input.int(9,   "EMA Length", minval=1, tooltip="Length of the signal EMA — the fast line that crosses the baseline to generate signals.")
+baselineMode      = input.string("VWAP", "Cross Baseline", options=["VWAP", "EMA"], tooltip="What the signal EMA crosses to generate signals. VWAP: session VWAP (default). EMA: a second EMA with the length below (e.g., 34).")
+baseEmaLen        = input.int(34,  "Baseline EMA Length", minval=1, tooltip="Length of the baseline EMA. Used only when Cross Baseline = EMA; ignored in VWAP mode.")
+useReversalFilter = input.bool(true,  "Require Reversal Before Cross", tooltip="Buy: needs a confirmed pivot low before the EMA crosses over the baseline. Sell: needs a confirmed pivot high before the EMA crosses under the baseline. The pivot also sets the distance used for TP/SL.")
+pivotLen          = input.int(3,   "Reversal Pivot Strength (bars each side)", minval=1, tooltip="Bars required on each side of a high/low for it to count as a pivot. Higher = more significant reversals but slower confirmation (a pivot confirms this many bars after it prints). Lower to 2 or 1 to catch fast V-reversals on low timeframes.")
+sameDayPivotStr   = input.string("Yes", "Pivot Must Be From Same Day", options=["Yes", "No"], tooltip="Yes: only pivots that formed during the current trading day can arm a signal — armed pivots from prior days/overnight are cleared at each new day. No: the most recent pivot arms regardless of day. (Dropdown instead of checkbox so the choice appears in alert names.)")
+pivotDisplay      = input.string("Signal Only", "Show Pivots", options=["All", "Signal Only", "Off"], tooltip="All: mark every confirmed pivot high/low. Signal Only: mark only the pivot that armed a fired signal — drawn at the pivot bar when the BUY/SELL triggers. Off: no pivot markers.")
+waitForClose      = input.bool(false, "Wait for Bar Close", tooltip="ON: signals only on confirmed bar close (no repaint). OFF: signals fire the moment the EMA crosses the baseline intrabar — faster entries, but a signal can vanish if the cross reverses before the bar closes, and any alert already sent cannot be recalled.")
+enableBuys        = input.bool(true,  "Enable Buy Signals", tooltip="Master switch for long signals. OFF hides buy markers and blocks buy alerts.")
+enableSells       = input.bool(true,  "Enable Sell Signals", tooltip="Master switch for short signals. OFF hides sell markers and blocks sell alerts.")
+showTargets       = input.bool(true,  "Show Take Profit / Stop Levels", tooltip="Draws entry (blue), take-profit (green dashed), and stop (red dashed) lines with price labels for each trade. Visual only — hit detection and alerts run either way.")
+tpMult            = input.float(1.0, "Take Profit = Distance ×", step=0.1, minval=0.1, tooltip="Take profit distance = (entry − reversal pivot) × this multiplier. 1.0 targets a move equal to the reversal distance. Raise for wider targets.")
+slDiv             = input.float(3.0, "Stop = Distance ÷", step=0.5, minval=1.0, tooltip="Stop distance = (entry − reversal pivot) ÷ this divisor. Default 3 = stop at one-third of the reversal distance, giving 3:1 reward-to-risk at default TP.")
+sameDayPivot = sameDayPivotStr == "Yes"
+// ─── Exit Method ────────────────────────────────────────
+grpEX       = "Exit Method"
+exitMode    = input.string("Fixed TP", "Profit Exit Method", group=grpEX, options=["Fixed TP", "EMA Cross"], tooltip="Fixed TP: exit at the calculated take-profit level. EMA Cross: long exits when a bar CLOSES under the exit EMA; short exits when a bar closes above it. Stop loss stays active in both modes.")
+exitEmaLen  = input.int(9, "Exit EMA Length", group=grpEX, minval=1, tooltip="EMA length for EMA Cross exits. Can match the signal EMA (9) or be looser (e.g., 20) to trail trends longer. Ignored in Fixed TP mode.")
+showExitEma = input.bool(false, "Plot Exit EMA", group=grpEX, tooltip="Draws the exit EMA on the chart (purple). Only useful if Exit EMA Length differs from the signal EMA.")
+// ─── Time Windows (Eastern Time) ────────────────────────
+grpTW      = "Time Windows"
+useWindowA = input.bool(true, "Enable Window A (Morning)",  group=grpTW, tooltip="Allow signals during Window A hours. If both windows are disabled, signals fire all session (no time filter).")
+sessA      = input.session("0945-1045", "Window A Hours",   group=grpTW, tooltip="Window A session in HHMM-HHMM, interpreted in the timezone below. Default 9:45–10:45 AM.")
+useWindowB = input.bool(true, "Enable Window B (Midday)",  group=grpTW, tooltip="Allow signals during Window B hours. If both windows are disabled, signals fire all session (no time filter).")
+sessB      = input.session("1046-1330", "Window B Hours",   group=grpTW, tooltip="Window B session in HHMM-HHMM, interpreted in the timezone below. Default 10:46 AM–1:30 PM.")
+tzInput    = input.string("America/New_York", "Timezone",   group=grpTW, options=["America/New_York", "America/Chicago", "America/Denver", "America/Los_Angeles", "Exchange"], tooltip="Timezone the window hours are interpreted in. 'Exchange' uses the chart symbol's exchange timezone.")
+showWindows= input.bool(true, "Shade Windows on Chart",    group=grpTW, tooltip="Tints the chart background during each window (teal = A, purple = B) so you can verify alignment at a glance.")
+// ─── Alert Selection ────────────────────────────────────
+grpAL      = "Alerts (alert() function calls)"
+alertBuyA  = input.bool(true,  "Alert: Buy A (Morning)",  group=grpAL, tooltip="Send the JSON webhook payload for buy signals in Window A. In all-session mode (both windows off), this toggle controls all buy alerts.")
+alertBuyB  = input.bool(true, "Alert: Buy B (Midday)",   group=grpAL, tooltip="Send the JSON webhook payload for buy signals in Window B.")
+alertSellA = input.bool(true,  "Alert: Sell A (Morning)", group=grpAL, tooltip="Send the JSON webhook payload for sell signals in Window A. In all-session mode (both windows off), this toggle controls all sell alerts.")
+alertSellB = input.bool(true, "Alert: Sell B (Midday)",  group=grpAL, tooltip="Send the JSON webhook payload for sell signals in Window B.")
+alertTP    = input.bool(false, "Alert: Profit Exit (TP / EMA)", group=grpAL, tooltip="Send a JSON payload when a take-profit level is hit (Fixed TP mode) or when price closes across the exit EMA (EMA Cross mode).")
+alertSL    = input.bool(false, "Alert: Stop Hit",         group=grpAL, tooltip="Send a JSON payload when a stop level is hit. These toggles only affect alert() webhook messages — chart markers and the alertcondition dropdown are unaffected.")
+// ─── Webhook JSON Payload ───────────────────────────────
+grpWH        = "Webhook JSON Payload"
+payloadMode  = input.string("Calculated", "TP/SL Amount Source", group=grpWH, options=["Fixed", "Calculated"], tooltip="Fixed: send the amounts below. Calculated: send the indicator's reversal-distance TP/SL as dollar distances from entry.")
+jsonInclude  = input.string("both", "Include in JSON", group=grpWH, options=["both", "tp", "sl"], tooltip="both: payload has takeProfit and stopLoss. tp: takeProfit only. sl: stopLoss only.")
+fixedTPAmt   = input.float(20.0, "Fixed Take Profit Amount", group=grpWH, minval=0.01, step=1, tooltip="takeProfit amount sent in the JSON when TP/SL Amount Source = Fixed.")
+fixedSLAmt   = input.float(10.0, "Fixed Stop Loss Amount",   group=grpWH, minval=0.01, step=1, tooltip="stopLoss amount sent in the JSON when TP/SL Amount Source = Fixed. Also used as the risk denominator for share sizing in Fixed mode.")
+slType       = input.string("stop", "Stop Loss Type", group=grpWH, options=["stop", "stop_limit", "trailing_stop"], tooltip="Value sent in the stopLoss \"type\" field of the JSON payload — set to whatever your broker/bot endpoint expects.")
+// ─── Position Sizing ────────────────────────────────────
+grpPS        = "Position Sizing"
+useRiskSize  = input.bool(true, "Size Shares by Risk Amount", group=grpPS, tooltip="Quantity = Max Risk ÷ stop distance, rounded down. Adds \"quantity\" to the JSON payload and shows the share count on the SL label. Uses the calculated stop distance in Calculated mode, or the Fixed SL amount in Fixed mode.")
+riskAmt      = input.float(20.0, "Max Risk per Trade ($)", group=grpPS, minval=1, step=5, tooltip="Maximum dollar loss if the stop is hit. Example: $10 risk with a $0.29 stop distance = 34 shares. Warning: very tight stops produce very large share counts.")
+// ─── Stats Panel ────────────────────────────────────────
+grpSP         = "Stats Panel"
+showPanel     = input.bool(true, "Show Win/Loss Panel (Top Right)", group=grpSP, tooltip="Shows a top-right table with wins, losses, and win rate over three adjustable lookback periods, plus current trade status. TP hits and profitable EMA exits count as wins; stop-outs and losing EMA exits count as losses.")
+lookback1     = input.int(90,  "Lookback 1 (Days)", group=grpSP, minval=1, maxval=365, tooltip="First lookback column: counts trades closed within the last N calendar days. Limited to trades within the chart's loaded bar history.")
+lookback2     = input.int(60,  "Lookback 2 (Days)", group=grpSP, minval=1, maxval=365, tooltip="Second lookback column: counts trades closed within the last N calendar days. Limited to trades within the chart's loaded bar history.")
+lookback3     = input.int(30, "Lookback 3 (Days)", group=grpSP, minval=1, maxval=365, tooltip="Third lookback column: counts trades closed within the last N calendar days. Limited to trades within the chart's loaded bar history — on low timeframes the chart may not load this far back.")
+tz = tzInput == "Exchange" ? syminfo.timezone : tzInput
+inWindowA = useWindowA and not na(time(timeframe.period, sessA, tz))
+inWindowB = useWindowB and not na(time(timeframe.period, sessB, tz))
+inAnyWindow = inWindowA or inWindowB
+// If both windows are disabled, trade all session (no time filter)
+noWindows = not useWindowA and not useWindowB
+timeOK    = noWindows or inAnyWindow
+// ─── Core Series ────────────────────────────────────────
+ema9     = ta.ema(close, emaLen)
+exitEma  = ta.ema(close, exitEmaLen)
+vwapVal  = ta.vwap(hlc3)
+baseEma  = ta.ema(close, baseEmaLen)
+baseline = baselineMode == "VWAP" ? vwapVal : baseEma
+pl       = ta.pivotlow(low, pivotLen, pivotLen)
+ph       = ta.pivothigh(high, pivotLen, pivotLen)
+atrPad   = ta.atr(14) * 0.5   // vertical gap for Signal Only pivot markers (mimics plotshape belowbar/abovebar padding)
+crossUp   = ta.crossover(ema9, baseline)
+crossDown = ta.crossunder(ema9, baseline)
+// Gate: confirmed-bar-only, or any tick (intrabar)
+bool sigGate = waitForClose ? barstate.isconfirmed : true
+showAllPivots    = pivotDisplay == "All"
+showSignalPivots = pivotDisplay == "Signal Only"
+// Trading-day tracking (in the configured timezone)
+int curDay = dayofmonth(time, tz) + month(time, tz) * 100 + year(time, tz) * 10000
+bool newDay = curDay != curDay[1]
+// ─── Reversal Tracking ──────────────────────────────────
+var bool  revLowArmed  = false
+var bool  revHighArmed = false
+var float reversalLow  = na
+var float reversalHigh = na
+var int   reversalLowBar  = na   // bar index of the arming pivot (for Signal Only marking)
+var int   reversalHighBar = na
+if barstate.isconfirmed
+    // Same-day rule: clear any armed pivots carried over from a prior day/overnight
+    if sameDayPivot and newDay
+        revLowArmed  := false
+        revHighArmed := false
+        reversalLow  := na
+        reversalHigh := na
+        reversalLowBar  := na
+        reversalHighBar := na
+    // A pivot confirms pivotLen bars after it prints — under the same-day rule,
+    // the pivot BAR itself must belong to the current day
+    bool pivotBarSameDay = not sameDayPivot or (dayofmonth(time[pivotLen], tz) + month(time[pivotLen], tz) * 100 + year(time[pivotLen], tz) * 10000) == curDay
+    if not na(pl) and pivotBarSameDay
+        revLowArmed    := true
+        reversalLow    := pl
+        reversalLowBar := bar_index - pivotLen
+    if not na(ph) and pivotBarSameDay
+        revHighArmed    := true
+        reversalHigh    := ph
+        reversalHighBar := bar_index - pivotLen
+// ─── Signals ────────────────────────────────────────────
+buySignal  = sigGate and timeOK and enableBuys  and crossUp   and (not useReversalFilter or revLowArmed)
+sellSignal = sigGate and timeOK and enableSells and crossDown and (not useReversalFilter or revHighArmed)
+// Window-tagged variants
+buyA  = buySignal  and inWindowA
+buyB  = buySignal  and inWindowB
+sellA = sellSignal and inWindowA
+sellB = sellSignal and inWindowB
+// ─── Formatted JSON Builders ────────────────────────────
+buildJson(string action, float tpAmt, float slAmt, int qty) =>
+    bool incTP = jsonInclude == "both" or jsonInclude == "tp"
+    bool incSL = jsonInclude == "both" or jsonInclude == "sl"
+    string js = "{\n"
+    js += "    \"ticker\": \"" + syminfo.ticker + "\",\n"
+    js += "    \"action\": \"" + action + "\",\n"
+    if useRiskSize and qty > 0
+        js += "    \"quantity\": \"" + str.tostring(qty) + "\",\n"
+    if incTP
+        js += "    \"takeProfit\": {\n"
+        js += "        \"amount\": \"" + str.tostring(tpAmt, "#.##") + "\"\n"
+        js += "    },\n"
+    if incSL
+        js += "    \"stopLoss\": {\n"
+        js += "        \"type\": \"" + slType + "\",\n"
+        js += "        \"amount\": \"" + str.tostring(slAmt, "#.##") + "\"\n"
+        js += "    },\n"
+    js += "    \"signalPrice\": \"" + str.tostring(close, format.mintick) + "\",\n"
+    js += "    \"time\": \"" + str.format_time(timenow, "yyyy-MM-dd'T'HH:mm:ss'Z'", "UTC") + "\",\n"
+    js += "    \"interval\": \"" + timeframe.period + "\"\n"
+    js += "}"
+    js
+buildExitJson(string action, float px) =>
+    string js = "{\n"
+    js += "    \"ticker\": \"" + syminfo.ticker + "\",\n"
+    js += "    \"action\": \"" + action + "\",\n"
+    js += "    \"price\": \"" + str.tostring(px, format.mintick) + "\",\n"
+    js += "    \"time\": \"" + str.format_time(timenow, "yyyy-MM-dd'T'HH:mm:ss'Z'", "UTC") + "\",\n"
+    js += "    \"interval\": \"" + timeframe.period + "\"\n"
+    js += "}"
+    js
+// ─── Trade / Target Management ──────────────────────────
+var bool  inTrade  = false
+var bool  isLong   = false
+var float entryPx  = na
+var float tpPx     = na
+var float slPx     = na
+var line  lnEntry  = na
+var line  lnTP     = na
+var line  lnSL     = na
+// Exit history for the panel: timestamp + win/loss flag per closed trade
+var array<int>  exitTimes = array.new_int()
+var array<bool> exitWins  = array.new_bool()
+recordExit(bool win) =>
+    array.push(exitTimes, time)
+    array.push(exitWins, win)
+bool tpHit   = false   // fixed-TP exit
+bool slHit   = false   // stop exit
+bool emaExit = false   // EMA-cross exit
+float emaExitPx = na
+useEmaExit = exitMode == "EMA Cross"
+// Payload values for this bar's signal (set when a signal fires)
+float payloadTP  = na
+float payloadSL  = na
+int   payloadQty = 0
+if sigGate
+    // Exits are NOT time-gated — an open trade keeps tracking after the window ends
+    if inTrade
+        line.set_x2(lnEntry, bar_index)
+        if not na(lnTP)
+            line.set_x2(lnTP, bar_index)
+        line.set_x2(lnSL, bar_index)
+        if isLong
+            if low <= slPx
+                slHit := true, inTrade := false
+                recordExit(false)
+                label.new(bar_index, slPx, "Stop Hit", style=label.style_label_up, color=color.new(color.red, 0), textcolor=color.white, size=size.small)
+            else if not useEmaExit and high >= tpPx
+                tpHit := true, inTrade := false
+                recordExit(true)
+                label.new(bar_index, tpPx, "TP Hit", style=label.style_label_down, color=color.new(color.green, 0), textcolor=color.white, size=size.small)
+            else if useEmaExit and barstate.isconfirmed and close < exitEma
+                emaExit := true, inTrade := false
+                emaExitPx := close
+                bool win = close > entryPx
+                recordExit(win)
+                // Each color.new() below is const; the ternary only selects between them (keeps Style-tab pickers alive)
+                color exitLblCol = win ? color.new(color.green, 0) : color.new(color.orange, 0)
+                label.new(bar_index, close, "EMA Exit", style=label.style_label_down, color=exitLblCol, textcolor=color.white, size=size.small)
+        else
+            if high >= slPx
+                slHit := true, inTrade := false
+                recordExit(false)
+                label.new(bar_index, slPx, "Stop Hit", style=label.style_label_down, color=color.new(color.red, 0), textcolor=color.white, size=size.small)
+            else if not useEmaExit and low <= tpPx
+                tpHit := true, inTrade := false
+                recordExit(true)
+                label.new(bar_index, tpPx, "TP Hit", style=label.style_label_up, color=color.new(color.green, 0), textcolor=color.white, size=size.small)
+            else if useEmaExit and barstate.isconfirmed and close > exitEma
+                emaExit := true, inTrade := false
+                emaExitPx := close
+                bool win = close < entryPx
+                recordExit(win)
+                color exitLblCol = win ? color.new(color.green, 0) : color.new(color.orange, 0)
+                label.new(bar_index, close, "EMA Exit", style=label.style_label_up, color=exitLblCol, textcolor=color.white, size=size.small)
+    // BUY: pivot low happened, then EMA crossed over the baseline (inside a window)
+    if buySignal
+        float dist = close - reversalLow
+        if not na(reversalLow) and dist > 0
+            entryPx := close
+            tpPx    := close + dist * tpMult
+            slPx    := close - dist / slDiv
+            inTrade := true
+            isLong  := true
+            payloadTP  := payloadMode == "Fixed" ? fixedTPAmt : dist * tpMult
+            payloadSL  := payloadMode == "Fixed" ? fixedSLAmt : dist / slDiv
+            float stopDist = payloadMode == "Fixed" ? fixedSLAmt : dist / slDiv
+            payloadQty := stopDist > 0 ? int(math.floor(riskAmt / stopDist)) : 0
+            // Signal Only pivot marker: circle below the arming pivot low, padded like plotshape belowbar
+            if showSignalPivots and not na(reversalLowBar)
+                label.new(reversalLowBar, reversalLow - atrPad, "●", style=label.style_none, textcolor=color.green, size=size.large)
+            if showTargets
+                lnEntry := line.new(bar_index, entryPx, bar_index, entryPx, color=color.new(color.blue, 0), width=1)
+                lnTP    := useEmaExit ? line(na) : line.new(bar_index, tpPx, bar_index, tpPx, color=color.new(color.green, 0), width=1, style=line.style_dashed)
+                lnSL    := line.new(bar_index, slPx, bar_index, slPx, color=color.new(color.red, 0), width=1, style=line.style_dashed)
+                if not useEmaExit
+                    label.new(bar_index, tpPx, "TP " + str.tostring(tpPx, format.mintick), style=label.style_label_left, color=color.new(color.green, 80), textcolor=color.green, size=size.small)
+                label.new(bar_index, slPx, "SL " + str.tostring(slPx, format.mintick) + (useRiskSize and payloadQty > 0 ? "  (" + str.tostring(payloadQty) + " sh)" : ""), style=label.style_label_left, color=color.new(color.red, 80), textcolor=color.red, size=size.small)
+        revLowArmed := false   // consume the reversal
+    // SELL: pivot high happened, then EMA crossed under the baseline (inside a window)
+    if sellSignal
+        float dist = reversalHigh - close
+        if not na(reversalHigh) and dist > 0
+            entryPx := close
+            tpPx    := close - dist * tpMult
+            slPx    := close + dist / slDiv
+            inTrade := true
+            isLong  := false
+            payloadTP  := payloadMode == "Fixed" ? fixedTPAmt : dist * tpMult
+            payloadSL  := payloadMode == "Fixed" ? fixedSLAmt : dist / slDiv
+            float stopDist = payloadMode == "Fixed" ? fixedSLAmt : dist / slDiv
+            payloadQty := stopDist > 0 ? int(math.floor(riskAmt / stopDist)) : 0
+            // Signal Only pivot marker: circle above the arming pivot high, padded like plotshape abovebar
+            if showSignalPivots and not na(reversalHighBar)
+                label.new(reversalHighBar, reversalHigh + atrPad, "●", style=label.style_none, textcolor=color.red, size=size.large)
+            if showTargets
+                lnEntry := line.new(bar_index, entryPx, bar_index, entryPx, color=color.new(color.blue, 0), width=1)
+                lnTP    := useEmaExit ? line(na) : line.new(bar_index, tpPx, bar_index, tpPx, color=color.new(color.green, 0), width=1, style=line.style_dashed)
+                lnSL    := line.new(bar_index, slPx, bar_index, slPx, color=color.new(color.red, 0), width=1, style=line.style_dashed)
+                if not useEmaExit
+                    label.new(bar_index, tpPx, "TP " + str.tostring(tpPx, format.mintick), style=label.style_label_left, color=color.new(color.green, 80), textcolor=color.green, size=size.small)
+                label.new(bar_index, slPx, "SL " + str.tostring(slPx, format.mintick) + (useRiskSize and payloadQty > 0 ? "  (" + str.tostring(payloadQty) + " sh)" : ""), style=label.style_label_left, color=color.new(color.red, 80), textcolor=color.red, size=size.small)
+        revHighArmed := false  // consume the reversal
+// ─── Stats Panel (Top Right) ────────────────────────────
+// Layout: 4 columns — labels | Lookback 1 | Lookback 2 | Lookback 3
+var table statsPanel = na
+if showPanel and na(statsPanel)
+    statsPanel := table.new(position.middle_right, 4, 5, bgcolor=color.new(color.black, 20), border_width=1, border_color=color.new(color.gray, 60))
+// Count wins/losses for a given cutoff timestamp
+countStats(int cutoff) =>
+    int w = 0
+    int l = 0
+    if array.size(exitTimes) > 0
+        for i = 0 to array.size(exitTimes) - 1
+            if array.get(exitTimes, i) >= cutoff
+                if array.get(exitWins, i)
+                    w += 1
+                else
+                    l += 1
+    [w, l]
+if showPanel and barstate.islast
+    int cutoff1 = timenow - lookback1 * 86400000
+    int cutoff2 = timenow - lookback2 * 86400000
+    int cutoff3 = timenow - lookback3 * 86400000
+    [w1, l1] = countStats(cutoff1)
+    [w2, l2] = countStats(cutoff2)
+    [w3, l3] = countStats(cutoff3)
+    float wr1 = (w1 + l1) > 0 ? 100.0 * w1 / (w1 + l1) : na
+    float wr2 = (w2 + l2) > 0 ? 100.0 * w2 / (w2 + l2) : na
+    float wr3 = (w3 + l3) > 0 ? 100.0 * w3 / (w3 + l3) : na
+    string statusTxt = inTrade ? (isLong ? "LONG open" : "SHORT open") : "Flat"
+    color  statusCol = inTrade ? (isLong ? color.green : color.red) : color.gray
+    // Header row: period labels
+    table.cell(statsPanel, 0, 0, "",                                  text_color=color.white, text_size=size.small, bgcolor=color.new(color.gray, 70))
+    table.cell(statsPanel, 1, 0, str.tostring(lookback1) + "d",       text_color=color.white, text_size=size.small, bgcolor=color.new(color.gray, 70))
+    table.cell(statsPanel, 2, 0, str.tostring(lookback2) + "d",       text_color=color.white, text_size=size.small, bgcolor=color.new(color.gray, 70))
+    table.cell(statsPanel, 3, 0, str.tostring(lookback3) + "d",       text_color=color.white, text_size=size.small, bgcolor=color.new(color.gray, 70))
+    // Wins
+    table.cell(statsPanel, 0, 1, "Wins",                              text_color=color.white, text_size=size.small, bgcolor=color.new(color.green, 70))
+    table.cell(statsPanel, 1, 1, str.tostring(w1),                    text_color=color.white, text_size=size.small, bgcolor=color.new(color.green, 70))
+    table.cell(statsPanel, 2, 1, str.tostring(w2),                    text_color=color.white, text_size=size.small, bgcolor=color.new(color.green, 70))
+    table.cell(statsPanel, 3, 1, str.tostring(w3),                    text_color=color.white, text_size=size.small, bgcolor=color.new(color.green, 70))
+    // Losses
+    table.cell(statsPanel, 0, 2, "Losses",                            text_color=color.white, text_size=size.small, bgcolor=color.new(color.red, 70))
+    table.cell(statsPanel, 1, 2, str.tostring(l1),                    text_color=color.white, text_size=size.small, bgcolor=color.new(color.red, 70))
+    table.cell(statsPanel, 2, 2, str.tostring(l2),                    text_color=color.white, text_size=size.small, bgcolor=color.new(color.red, 70))
+    table.cell(statsPanel, 3, 2, str.tostring(l3),                    text_color=color.white, text_size=size.small, bgcolor=color.new(color.red, 70))
+    // Win Rate
+    table.cell(statsPanel, 0, 3, "Win Rate",                          text_color=color.white, text_size=size.small)
+    table.cell(statsPanel, 1, 3, na(wr1) ? "—" : str.tostring(wr1, "#.#") + "%", text_color=color.white, text_size=size.small)
+    table.cell(statsPanel, 2, 3, na(wr2) ? "—" : str.tostring(wr2, "#.#") + "%", text_color=color.white, text_size=size.small)
+    table.cell(statsPanel, 3, 3, na(wr3) ? "—" : str.tostring(wr3, "#.#") + "%", text_color=color.white, text_size=size.small)
+    // Status
+    table.cell(statsPanel, 0, 4, "Status",                            text_color=color.white, text_size=size.small)
+    table.cell(statsPanel, 1, 4, statusTxt,                           text_color=statusCol,   text_size=size.small)
+    table.cell(statsPanel, 2, 4, "",                                  text_color=color.white, text_size=size.small)
+    table.cell(statsPanel, 3, 4, "",                                  text_color=color.white, text_size=size.small)
+// ─── Plots (Style-tab native colors, defaults per your setup) ──
+plot(ema9, "Signal EMA", color=color.white, linewidth=2)
+plot(baselineMode == "VWAP" ? vwapVal : na, "VWAP Baseline", color=color.teal, linewidth=2)
+plot(baselineMode == "EMA"  ? baseEma : na, "Baseline EMA",  color=color.blue, linewidth=2)
+plot(showExitEma ? exitEma : na, "Exit EMA", color=color.purple, linewidth=1)
+plotshape(buyA,  "Buy A",  style=shape.triangleup,   location=location.belowbar, color=color.green,  size=size.small, text="BUY A",  textcolor=color.green)
+plotshape(buyB,  "Buy B",  style=shape.triangleup,   location=location.belowbar, color=color.lime,   size=size.small, text="BUY B",  textcolor=color.lime)
+plotshape(sellA, "Sell A", style=shape.triangledown, location=location.abovebar, color=color.red,    size=size.small, text="SELL A", textcolor=color.red)
+plotshape(sellB, "Sell B", style=shape.triangledown, location=location.abovebar, color=color.maroon, size=size.small, text="SELL B", textcolor=color.maroon)
+plotshape(buySignal and noWindows,  "Buy (All-Session)",  style=shape.triangleup,   location=location.belowbar, color=color.green, size=size.small, text="BUY",  textcolor=color.green)
+plotshape(sellSignal and noWindows, "Sell (All-Session)", style=shape.triangledown, location=location.abovebar, color=color.red,   size=size.small, text="SELL", textcolor=color.red)
+// "All" mode pivot circles (plotshape); "Signal Only" markers are drawn as labels at signal time; "Off" hides both
+plotshape(showAllPivots and barstate.isconfirmed and not na(pl), "Pivot Low (All mode)",  style=shape.circle, location=location.belowbar, color=color.green, size=size.tiny, offset=-3)
+plotshape(showAllPivots and barstate.isconfirmed and not na(ph), "Pivot High (All mode)", style=shape.circle, location=location.abovebar, color=color.red,   size=size.tiny, offset=-3)
+bgcolor(showWindows and inWindowA ? color.new(color.teal,   92) : na, title="Window A Shade")
+bgcolor(showWindows and inWindowB ? color.new(color.purple, 92) : na, title="Window B Shade")
+// ─── Alerts (formatted JSON webhook payloads) ───────────
+alertFreq = waitForClose ? alert.freq_once_per_bar_close : alert.freq_once_per_bar
+if ((buyA and alertBuyA) or (buyB and alertBuyB) or (buySignal and noWindows and alertBuyA)) and not na(payloadTP)
+    alert(buildJson("buy", payloadTP, payloadSL, payloadQty), alertFreq)
+if ((sellA and alertSellA) or (sellB and alertSellB) or (sellSignal and noWindows and alertSellA)) and not na(payloadTP)
+    alert(buildJson("sell", payloadTP, payloadSL, payloadQty), alertFreq)
+if tpHit and alertTP
+    alert(buildExitJson("take_profit_hit", tpPx), alertFreq)
+if emaExit and alertTP
+    alert(buildExitJson("ema_exit", emaExitPx), alert.freq_once_per_bar_close)
+if slHit and alertSL
+    alert(buildExitJson("stop_hit", slPx), alertFreq)
+// ─── Alert Conditions (dropdown when creating an alert) ─
+alertcondition(buyA,      "Buy A (Morning)",  "Pivot low, then signal EMA crossed over baseline — BUY A (Window A)")
+alertcondition(buyB,      "Buy B (Midday)",   "Pivot low, then signal EMA crossed over baseline — BUY B (Window B)")
+alertcondition(sellA,     "Sell A (Morning)", "Pivot high, then signal EMA crossed under baseline — SELL A (Window A)")
+alertcondition(sellB,     "Sell B (Midday)",  "Pivot high, then signal EMA crossed under baseline — SELL B (Window B)")
+alertcondition(buySignal, "Buy (Any)",        "Pivot low, then signal EMA crossed over baseline — BUY")
+alertcondition(sellSignal,"Sell (Any)",       "Pivot high, then signal EMA crossed under baseline — SELL")
+alertcondition(tpHit,     "Take Profit Hit",  "Take profit level reached")
+alertcondition(emaExit,   "EMA Exit",         "Price closed across the exit EMA — trade closed")
+alertcondition(slHit,     "Stop Hit",         "Stop level reached")
+alertcondition(barstate.isconfirmed, "Test — Fires Every Bar", "🟢 TEST — plumbing works on {{ticker}} @ {{close}}")

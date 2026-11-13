@@ -1,0 +1,28 @@
+# Search engines and AI assistants are welcome to read and cite
+# every page. The AI crawlers are named so it's explicit that the
+# site wants to show up in ChatGPT, Claude, Perplexity, Gemini and
+# Apple Intelligence answers.
+User-agent: *
+User-agent: GPTBot
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: ClaudeBot
+User-agent: Claude-SearchBot
+User-agent: Claude-User
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: Google-Extended
+User-agent: Applebot
+User-agent: Applebot-Extended
+User-agent: Bingbot
+Allow: /
+# Live-data endpoints: no value in search, and every crawl
+# would spend market-data API calls.
+Disallow: /api/
+# Never meant to be public (these shouldn't be uploaded at all).
+Disallow: /_docs/
+Disallow: /Claude%20outputs/
+# Shown only when the app has no connection.
+Disallow: /offline.html
+
+Sitemap: https://thetrademethod.com/sitemap.xml

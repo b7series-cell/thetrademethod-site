@@ -1,0 +1,723 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Trade Earnings — headline, call, then price | The Trade Method</title>
+<meta name="description" content="How to trade earnings in four steps: watch the headline reaction without chasing it, listen to the conference call for contracts, guidance, financing, dilution and share unlocks, wait for price to confirm at a level, then build Plan A and Plan B for the next day. With the SpaceX trade: a spike to 152 that faded, a long near 154, and the 155–156 area.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/trading-earnings.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="How to Trade Earnings — headline, call, then price">
+<meta property="og:description" content="How to trade earnings in four steps: watch the headline reaction without chasing it, listen to the conference call for contracts, guidance, financing, dilution and share unlocks, wait for price to confirm at a level, then build Plan A and Plan B for the next day. With the SpaceX trade: a spike to 152 that faded, a long near 154, and the 155–156 area.">
+<meta property="og:url" content="https://thetrademethod.com/trading-earnings.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How to Trade Earnings — headline, call, then price">
+<meta name="twitter:description" content="How to trade earnings in four steps: watch the headline reaction without chasing it, listen to the conference call for contracts, guidance, financing, dilution and share unlocks, wait for price to confirm at a level, then build Plan A and Plan B for the next day. With the SpaceX trade: a spike to 152 that faded, a long near 154, and the 155–156 area.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "How to Trade Earnings — headline, call, then price",
+ "name": "How to Trade Earnings",
+ "description": "How to trade earnings in four steps: watch the headline reaction without chasing it, listen to the conference call for contracts, guidance, financing, dilution and share unlocks, wait for price to confirm at a level, then build Plan A and Plan B for the next day. With the SpaceX trade: a spike to 152 that faded, a long near 154, and the 155–156 area.",
+ "url": "https://thetrademethod.com/trading-earnings.html",
+ "mainEntityOfPage": "https://thetrademethod.com/trading-earnings.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-11",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* the five call-checklist cards */
+  .four.five { grid-template-columns:repeat(5,1fr); }
+  .after-four { margin-top:28px; }
+
+  /* Plan A / Plan B */
+  .plans { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .plans > div { background:var(--charcoal); border-radius:22px; padding:22px 22px 20px; border-top:3px solid var(--tc); }
+  .plans .plan-a { --tc:var(--up); } .plans .plan-b { --tc:#ff453a; }
+  .plans .k { font-family:var(--mono-font); font-size:12px; color:var(--tc); }
+  .plans h3 { margin:6px 0 10px; font-size:21px; }
+  .plans ul { margin:0; padding-left:18px; color:var(--silk); font-size:15px; }
+  .plans li { margin-bottom:6px; }
+  .plans .why { border-left-color:var(--tc); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the four-step checklist: four cards, or a stepper once js/earn-anim.js runs */
+  .ea-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .sheet .ea-steps .stage, .sheet .ea-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .ea-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(4,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:12.5%; right:12.5%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .ea-steps.is-stepper .stage, .sheet .ea-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .ea-steps.is-stepper .stage .num { display:none; }
+  .sheet .ea-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .ea-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .ea-steps + .four { margin-top:28px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six, .four.five { grid-template-columns:repeat(2,1fr); }
+    .ea-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .four.five, .pair, .ea-steps, .plans { grid-template-columns:1fr; }
+    .sheet .anim + .plans { margin-top:8px; }
+    .after-four { margin-top:24px; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .ea-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .ea-steps { margin-top:24px; }
+  }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/earn-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=20" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="trading-earnings">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; the four-step earnings process from a prop trading desk</p>
+      <h1>Headline, Call, <span>Price</span></h1>
+    </div>
+    <div>
+      <p class="thesis">A stock beats earnings, spikes, and gives back the whole move five minutes later. The headline beat is the least important number in the report. Watch the reaction, listen to the call, wait for price to confirm, then build Plan A and Plan B for tomorrow.
+      <em>Headline, then the call, then price. Not the other way around.</em></p>
+      <div class="counts">
+        <div><b>152</b><small>the headline spike that faded</small></div>
+        <div><b>~154</b><small>the long, after the call changed the story</small></div>
+        <div><b>5</b><small>things to listen for on the call</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">step 1</div><div class="n">Watch the headline, don't chase it</div></div>
+    <div><div class="t">step 2</div><div class="n">The call: what changes the story</div></div>
+    <div><div class="t">step 3</div><div class="n">Price confirmation at a level</div></div>
+    <div><div class="t">step 4</div><div class="n">Plan A and Plan B</div></div>
+    <div><div class="t">contrast</div><div class="n">When the call kills the trade</div></div>
+  </nav>
+
+  <div class="section-head" id="headline">
+    <h2>1 &middot; The headline reaction: watch it, don't chase it</h2>
+    <p>When the report comes out, the first question isn't whether the company beat estimates. It's how the market reacts to the numbers. The stock doesn't care whether the headline sounds good. It cares whether the results are better or worse than what investors were already expecting.</p>
+  </div>
+  <section class="anim" data-ea-anim="headline" aria-label="Illustrative made-up 1-minute bars after an earnings report: a quiet range near 148, the headline beat sends the stock above 150 to a spike high of 152, and within about five minutes it fades back to 148, leaving anyone who bought 152 under water.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The beat that faded in five minutes</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative made-up bars showing a headline spike to 152 that fades back."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>What happened with SpaceX</h3>
+          <ul>
+            <li>The earnings headline came out and the numbers looked good.</li>
+            <li>The stock got above 150 and spiked toward 152.</li>
+            <li>Then it faded right back. Anyone who bought that first spike was immediately in a difficult position.</li>
+          </ul>
+          <p class="why">The best long came later, after this move failed, from information that wasn't in the headline.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>What to watch instead of buying</h3>
+          <ul>
+            <li>Where the stock settles after the first move.</li>
+            <li>Whether it starts holding a level.</li>
+            <li>Whether the selling slows down, and whether buyers come back.</li>
+          </ul>
+          <p class="why">And meanwhile, wait for the next source of information: the conference call.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Why would good news fade?</h4>
+        <p class="lead">You don't need to know which one it is. What matters is that buyers didn't hold the move.</p>
+        <div class="calc">
+          <div class="row"><span>The good numbers were already expected</span><b>priced in</b></div>
+          <div class="row"><span>Investors are worried about something else</span><b>a different concern</b></div>
+          <div class="row"><span>Traders positioned before earnings sell the spike</span><b>profit taking</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>A failed spike isn't a short signal</h4>
+        <div class="pair">
+          <div class="care"><span class="k">what it doesn't mean</span><b>Short it, the report was bad</b><p>Good news giving back the move doesn't make the stock a short, and it doesn't mean the report was bad.</p></div>
+          <div class="yes"><span class="k">what it means</span><b>Nothing is confirmed yet</b><p>The first reaction hasn't confirmed anything. Keep watching instead of buying 152 because the headline looked good.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="call">
+    <h2>2 &middot; The conference call: what actually changes the story</h2>
+    <p>This is the part many short-term traders underestimate. They see the release and the first reaction and think the event is over. But the headline is a snapshot of what the company just did. The call tells you what might happen next, and sometimes it completely changes the direction of the stock.</p>
+  </div>
+  <section class="anim" data-ea-anim="call" aria-label="Illustrative conference call checklist: contracts, signed and tied to the capex, bullish; next-quarter guidance, very strong revenue guidance, bullish; financing, about 500 billion dollars of infrastructure spending next year, watch; dilution, selling stock to fund it adds supply, watch; share unlocks, about 900 million shares unlocking the next day, watch. The tone of the call turns bullish while made-up price bars settle and start to lift.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Five things to listen for</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative conference call checklist with five rows and a tone meter."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="four five">
+    <div style="--tc:#30d158"><span class="k">1 &middot; story</span><h3>Contracts</h3><p>Is the company announcing new business? Are customers actually committing to spend, and is it big relative to the company's size?</p><small>"Demand is strong" is not the same as "we've signed contracts that support future revenue."</small></div>
+    <div style="--tc:#30d158"><span class="k">2 &middot; story</span><h3>Next quarter's guidance</h3><p>One of the biggest things to focus on. A great quarter with disappointing guidance can get crushed. An okay quarter with raised expectations can move a lot higher.</p><small>SpaceX's revenue guidance gave the market a reason to rethink the weak first reaction.</small></div>
+    <div style="--tc:#ff9f0a"><span class="k">3 &middot; supply</span><h3>Financing</h3><p>For companies spending enormous amounts to grow: can cash flow fund it? Does it need to borrow? Does it need to issue stock?</p><small>A huge growth opportunity can still come with financing challenges.</small></div>
+    <div style="--tc:#ff9f0a"><span class="k">4 &middot; supply</span><h3>Dilution</h3><p>If the company raises money by selling more shares, existing shareholders have to weigh the impact, and the market has to absorb the new supply.</p><small>A bullish growth story doesn't automatically mean the stock goes up tomorrow.</small></div>
+    <div style="--tc:#ff9f0a"><span class="k">5 &middot; supply</span><h3>Share unlocks</h3><p>Are large blocks of shares becoming eligible for sale? How much stock could enter the market?</p><small>Not everyone will sell, but buyers may have to absorb the extra supply.</small></div>
+  </div>
+  <div class="main after-four">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>What the SpaceX call said</h3>
+          <ul>
+            <li>The tone was very bullish.</li>
+            <li>Management discussed significant capital expenditures, and importantly tied that spending to contracts.</li>
+            <li>They gave very strong revenue guidance for the next quarter.</li>
+          </ul>
+          <p class="why">Now the conversation isn't about whether the company beat last quarter. It's about how much revenue the business could generate going forward.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>You're not becoming an expert in 30 minutes</h4>
+        <p class="lead">You don't sit through the call analyzing every sentence. You're trying to spot the information that could materially change expectations, and then see whether the market agrees. The SpaceX call was bullish enough to start looking for a long. One thing was still missing: price action confirming the idea.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="price">
+    <h2>3 &middot; Price confirmation: where the trade actually happens</h2>
+    <p>This is the difference between having an opinion about earnings and trading earnings. You can listen to a great call, understand why the company might be worth more, and still lose money buying the stock at the wrong price. So the information always gets connected to a specific level on the chart.</p>
+  </div>
+  <section class="anim" data-ea-anim="confirm" aria-label="Illustrative made-up bars after the failed headline spike: the stock settles near 148, makes higher lows as the call turns bullish, goes through the old spike high at 152 and holds it, a long is taken around 154, and price follows through above 156. Then a dashed what-if path shows repeated failures near 156 that would mean reducing or exiting.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">From opinion to trade</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative made-up bars showing the reclaim of 152, the long near 154 and the follow-through through 156."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Why long at 154 and not at 152</h3>
+          <ul>
+            <li>The initial headline move had already failed.</li>
+            <li>There was new information from the call.</li>
+            <li>The stock was now showing buying interest at higher prices.</li>
+          </ul>
+          <p class="why">That combination was much more compelling than the original spike toward 152. Buying exactly 154 isn't the point; the reasons are.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Use prior levels to define your risk</h3>
+          <ul>
+            <li>Before the trade, know where the stock found support or resistance before.</li>
+            <li>Reclaiming an important level? Can it hold above it?</li>
+            <li>Breaking resistance? Does it keep attracting buyers, or fall right back into the old range?</li>
+          </ul>
+          <p class="why">You don't need to predict the next $10 move. You need the price where your read is no longer being confirmed.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The SpaceX trade, step by step</h4>
+        <div class="calc">
+          <div class="row"><span>Headline spike, faded</span><b>~152</b></div>
+          <div class="row"><span>Kept listening while it settled</span><b>contracts, guidance</b></div>
+          <div class="row"><span>Price action starts to back the bullish read</span><b>buyers respond</b></div>
+          <div class="row"><span>Long</span><b>~154</b></div>
+          <div class="row tot"><span>Follow-through</span><b>through 156</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>What changes the trade</h4>
+        <div class="pair">
+          <div class="yes"><span class="k">still confirmed</span><b>Buyers accept higher prices</b><p>The stock holds above the levels it reclaimed after the call.</p></div>
+          <div class="care"><span class="k">no longer confirmed</span><b>It keeps failing up there</b><p>Maybe reduce size, maybe exit. If it sets up again later, you can always get back in.</p></div>
+        </div>
+        <p class="lead" style="margin:14px 0 0">The goal isn't to be right about the company. It's to make money from a move the market is actually confirming.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="plan">
+    <h2>4 &middot; Plan A and Plan B for the next day</h2>
+    <p>Even after a bullish call there can be very real reasons for the stock to struggle. Those competing forces are why you build two plans instead of walking in with one prediction: what you do if buyers take control, and what you do if sellers do.</p>
+  </div>
+  <section class="anim" data-ea-anim="plan" aria-label="Illustrative made-up bars for the next day. Plan A: the stock dips into the 155 to 156 area twice, buyers defend it, and it builds to a close above 160. Plan B: it loses 155, every bounce fails under it, and it drifts toward 152 as supply from about 900 million unlocking shares and about 500 billion dollars of spending to finance weighs on it.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Hold 155–156, or lose it</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative made-up next-day bars for Plan A and Plan B around the 155 to 156 zone."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="plans">
+    <div class="plan-a">
+      <span class="k">Plan A &middot; the bullish case</span>
+      <h3>Buyers defend 155&ndash;156</h3>
+      <ul>
+        <li>The call was strong: contracts behind the capital spending, very bullish next-quarter revenue guidance.</li>
+        <li>After the headline reaction failed, the stock found buyers and moved higher. Are they still there today?</li>
+        <li>If it holds 155&ndash;156 despite selling pressure, buyers are still willing to own it at these prices.</li>
+        <li>If it keeps building higher, a close above 160 becomes a reasonable upside scenario. Not a promise.</li>
+      </ul>
+      <p class="why">Holds early, moves higher, buyers keep defending the area: interested in the long side.</p>
+    </div>
+    <div class="plan-b">
+      <span class="k">Plan B &middot; the supply problem</span>
+      <h3>It loses 155&ndash;156 and can't reclaim it</h3>
+      <ul>
+        <li>Financing: spending on the order of $500 billion on infrastructure next year. Borrow? Sell stock? At what cost?</li>
+        <li>Unlock: roughly 900 million shares becoming eligible for sale the next day. That's possible new supply, not a promise anyone sells.</li>
+        <li>Excited buyers and shareholders who want out, plus traders selling ahead of them, can all be there at once.</li>
+        <li>If it keeps testing 155&ndash;156 and can't hold, stop forcing the long.</li>
+      </ul>
+      <p class="why">Holding below the levels that supported the post-call move: the supply may be winning over the bullish story.</p>
+    </div>
+  </div>
+
+  <div class="section-head" id="contrast">
+    <h2>Same process, different direction</h2>
+    <p>The call can strengthen a weak first reaction, like SpaceX. It can also undermine a strong one. Plenty of Tesla earnings calls have opened with a positive reaction, then management talked about something investors didn't like (margins, spending, guidance) and the stock started selling off.</p>
+  </div>
+  <section class="anim" data-ea-anim="contrast" aria-label="Illustrative made-up bars in two panels. Left, SpaceX style: the headline spike fails, then the call with contracts and guidance lifts the stock to plus 4.8 percent. Right, a Tesla-style pattern: the first reaction holds near plus 3.5 percent, then the call about margins, spending or guidance sends it to minus 3 percent.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The call can change the trade</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 480" role="img" aria-label="Illustrative made-up bars comparing a call that strengthens a weak reaction with one that undermines a strong reaction."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="section-head" id="checklist">
+    <h2>The four-step earnings checklist</h2>
+    <p>The whole process in order. Click through it before your next earnings trade.</p>
+  </div>
+  <div class="ea-steps" data-ea-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Watch the headline reaction</h3>
+          <ul>
+            <li>Does the initial move hold or fail?</li>
+            <li>Don't chase it just because the headline sounds good.</li>
+            <li>Watch where it settles, whether selling slows, and whether buyers come back.</li>
+          </ul>
+          <p class="why">The stock reacts to expectations, not to the headline.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Listen to the conference call</h3>
+          <ul>
+            <li>Contracts, next-quarter guidance, financing, dilution and share unlocks.</li>
+            <li>Look for information that changes the market's expectations.</li>
+            <li>Then see whether the market agrees.</li>
+          </ul>
+          <p class="why">The headline is what the company did. The call is what might happen next.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Wait for price confirmation</h3>
+          <ul>
+            <li>Where are the important levels?</li>
+            <li>Are buyers defending them?</li>
+            <li>Is the stock reclaiming resistance or failing at it?</li>
+          </ul>
+          <p class="why">That's where you can build a trade with defined risk.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Build Plan A and Plan B</h3>
+          <ul>
+            <li>What would confirm the bullish case for tomorrow?</li>
+            <li>What would invalidate it?</li>
+            <li>What new information might explain why the stock moves one way rather than the other?</li>
+          </ul>
+          <p class="why">Write both down before the open. Then let the stock tell you which one it is.</p>
+        </div>
+      </section>
+  </div>
+  <div class="four">
+    <div style="--tc:#ff9f0a"><span class="k">try it &middot; 1</span><h3>Watch the first reaction</h3><p>On the next big report, don't just check whether the company beat estimates. See if the first move holds.</p><small>The video's homework was Meta's report that night.</small></div>
+    <div style="--tc:#2997ff"><span class="k">try it &middot; 2</span><h3>Listen for spending and revenue</h3><p>What does management say about next quarter's spending, and how will that spending turn into revenue?</p><small>Run the five-item checklist.</small></div>
+    <div style="--tc:#30d158"><span class="k">try it &middot; 3</span><h3>Mark the levels</h3><p>Mark where the stock is actually finding buyers or sellers, not where you think it should.</p><small>Information plus a level equals a trade.</small></div>
+    <div style="--tc:#f4b942"><span class="k">try it &middot; 4</span><h3>Write Plan A and Plan B</h3><p>Before tomorrow's open, write both: the level that confirms the bullish case and the one that breaks it.</p><small>Then don't argue with price.</small></div>
+  </div>
+
+  <div class="section-head" id="related">
+    <h2>Keep going</h2>
+    <p>Pages that pick up where this one stops: what to do with the earnings move once price confirms it.</p>
+  </div>
+  <div class="four">
+    <a href="/setups/anchored-vwap.html" style="--tc:#2997ff"><span class="k">after earnings</span><h3>Anchored VWAP</h3><p>Anchor VWAP to the earnings lows and trade the day-1 and day-2 dip and reclaim.</p><small>Read &rsaquo;</small></a>
+    <a href="/setups/gap-give-and-go.html" style="--tc:#30d158"><span class="k">the gap</span><h3>Gap Give and Go</h3><p>A catalyst gap, a small give at the open, then the go.</p><small>Read &rsaquo;</small></a>
+    <a href="/relative-volume.html" style="--tc:#f4b942"><span class="k">participation</span><h3>Relative Volume</h3><p>Is the buying after the call real participation, and is it growing or fading?</p><small>Read &rsaquo;</small></a>
+    <a href="/dynamic-risk-sizing.html" style="--tc:#ff9f0a"><span class="k">sizing</span><h3>Dynamic Risk Sizing</h3><p>Size up when the story and the price agree, size down when only one does.</p><small>Read &rsaquo;</small></a>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/FQIH6o18y9g" title="Why an earnings beat isn't enough (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>SMB Capital walks through the four steps their desk uses to trade earnings, including the actual SpaceX trade and the levels that mattered the next day.</p>
+      <ol>
+        <li><b>0:00</b>Why an earnings beat isn't enough</li>
+        <li><b>1:07</b>Step 1: watch the headline reaction</li>
+        <li><b>3:29</b>Step 2: listen for what changes the story</li>
+        <li><b>7:24</b>Step 3: wait for price confirmation</li>
+        <li><b>9:11</b>Use key levels to define your risk</li>
+        <li><b>10:30</b>Step 4: build Plan A and Plan B</li>
+        <li><b>13:56</b>Tesla: how the call can reverse the trade</li>
+        <li><b>14:44</b>The four-step earnings checklist</li>
+        <li><b>16:14</b>Apply it to your next earnings trade</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=FQIH6o18y9g" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Headline, then the call, then price.</h2>
+      <p>The headline tells you what happened. The call tells you what might happen next. Price tells you whether the market agrees. Separate the fundamental story from the actual trade, and never decide what an earnings trade should do before you've heard the important information and watched the stock respond.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Watch the first spike. Don't chase it.</li>
+        <li>A faded beat isn't a short. It's unconfirmed.</li>
+        <li>Listen for contracts, guidance, financing, dilution and unlocks.</li>
+        <li>Connect the information to a level. Buy acceptance, not a headline.</li>
+        <li>Know the price where your read stops being confirmed.</li>
+        <li>Write Plan A and Plan B before the next open.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from SMB Capital's YouTube video "Why an earnings beat isn't enough" (FQIH6o18y9g): their four-step process for trading earnings, the SpaceX trade and the Tesla contrast. The promotion for their morning meeting is left out. Every bar in the walkthroughs is made up for illustration. The levels and figures are the video's: the spike above 150 toward 152, the long around 154, the push through 156, the 155&ndash;156 area, a possible close above 160, about $500 billion of planned infrastructure spending and about 900 million shares unlocking. The Tesla panel shows a pattern, not actual prices. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

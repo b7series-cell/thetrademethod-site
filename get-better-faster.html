@@ -1,0 +1,1112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Get Better Faster — compress the learning cycle | The Trade Method</title>
+<meta name="description" content="How to get better at trading faster: narrow to one repeatable setup, build a real playbook, compress your reps with replay and review, risk small enough to learn, find the see-it moment, review like film, and run the learning cycle.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/get-better-faster.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Get Better Faster — compress the learning cycle">
+<meta property="og:description" content="How to get better at trading faster: narrow to one repeatable setup, build a real playbook, compress your reps with replay and review, risk small enough to learn, find the see-it moment, review like film, and run the learning cycle.">
+<meta property="og:url" content="https://thetrademethod.com/get-better-faster.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Get Better Faster — compress the learning cycle">
+<meta name="twitter:description" content="How to get better at trading faster: narrow to one repeatable setup, build a real playbook, compress your reps with replay and review, risk small enough to learn, find the see-it moment, review like film, and run the learning cycle.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Get Better Faster — compress the learning cycle",
+ "name": "Get Better Faster",
+ "description": "How to get better at trading faster: narrow to one repeatable setup, build a real playbook, compress your reps with replay and review, risk small enough to learn, find the see-it moment, review like film, and run the learning cycle.",
+ "url": "https://thetrademethod.com/get-better-faster.html",
+ "mainEntityOfPage": "https://thetrademethod.com/get-better-faster.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-21",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* collecting vs building */
+  .loop { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:14px; }
+  .loop div { background:var(--charcoal); border-radius:18px; padding:16px 16px 17px; }
+  .loop .k { font-family:var(--mono-font); font-size:12px; color:#ff6961; }
+  .loop b { display:block; font-size:18px; margin:8px 0 6px; }
+  .loop p { margin:0; color:var(--mute); font-size:14px; }
+
+  /* decision vs result */
+  .dr { display:grid; grid-template-columns:auto 1fr 1fr; gap:8px; font-size:14px; }
+  .dr > span { color:var(--ash); font-family:var(--mono-font); font-size:12px; align-self:end; padding:0 4px 4px; }
+  .dr > b { color:var(--ash); font-family:var(--mono-font); font-size:12px; font-weight:500; align-self:center; writing-mode:horizontal-tb; padding-right:6px; }
+  .dr div { background:var(--raised); border-radius:14px; padding:12px 14px; }
+  .dr div strong { display:block; font-size:15px; margin-bottom:3px; }
+  .dr div p { margin:0; color:var(--mute); font-size:13.5px; }
+  .dr .g strong { color:var(--up); } .dr .w strong { color:var(--orange); } .dr .r strong { color:#ff6961; }
+
+  /* two-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* the four at a glance */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four a { display:block; background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; color:inherit; text-decoration:none; }
+  .four a:hover { background:var(--raised); }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--up); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .loop, .four { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim, .sheet .loop + .anim { margin-top:56px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .loop, .four, .pair { grid-template-columns:1fr; }
+    .dr { grid-template-columns:1fr 1fr; font-size:13px; }
+    .dr > span:first-child { display:none; }
+    .dr > b { grid-column:1 / -1; padding:6px 4px 0; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+  }
+
+  /* three-way comparisons */
+  .tri { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:14px; }
+  .tri div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .tri .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .tri b { display:block; margin:6px 0 4px; font-size:16px; }
+  .tri p { margin:0; color:var(--mute); font-size:14px; }
+  .tri .yes b { color:var(--up); } .tri .care b { color:var(--orange); } .tri .no b { color:#ff6961; }
+
+  /* feedback quotes */
+  .quotes { margin:0; padding:0; list-style:none; }
+  .quotes li { background:var(--raised); border-radius:14px; padding:11px 14px; margin-bottom:8px; font-size:15px; }
+  .quotes li:before { content:"\201C"; color:var(--up); font-weight:600; margin-right:2px; }
+  .quotes li:after { content:"\201D"; color:var(--up); font-weight:600; margin-left:1px; }
+
+  /* the boring path, nine cards */
+  .boring { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .boring div { background:var(--charcoal); border-radius:20px; padding:16px 18px 18px; }
+  .boring .k { font-family:var(--mono-font); font-size:12px; color:var(--up); }
+  .boring b { display:block; font-size:18px; margin:6px 0 5px; }
+  .boring p { margin:0; color:var(--mute); font-size:14px; }
+
+  /* the learning cycle: five cards, or a stepper once js/gbf-anim.js runs */
+  .gbf-cycle { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .gbf-cycle .stage, .sheet .gbf-cycle .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .gbf-cycle.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .gbf-cycle.is-stepper .stage, .sheet .gbf-cycle.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .gbf-cycle.is-stepper .stage .num { display:none; }
+  .sheet .gbf-cycle.is-stepper .stage[hidden] { display:none; }
+  .sheet .gbf-cycle.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .main + .boring { margin-top:22px; }
+
+  @media (max-width:1100px) {
+    .boring { grid-template-columns:repeat(2,1fr); }
+    .gbf-cycle { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .tri, .boring, .gbf-cycle { grid-template-columns:1fr; }
+    .gbf-cycle.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .main + .gbf-cycle, .sheet .section-head + .gbf-cycle { margin-top:24px; }
+  }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/gbf-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=10" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="get-better-faster">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; not a setup, the process for getting good at any setup faster</p>
+      <h1>Get Better <span>Faster</span></h1>
+    </div>
+    <div>
+      <p class="thesis">The fastest way to get good at trading isn't skipping the work. <em>It's stopping the wrong work.</em>
+      Shorten the feedback loop: see the setup, trade it, review it, correct it, and see it again, until the pattern becomes obvious.</p>
+      <div class="counts">
+        <div><b>1</b><small>setup to start with</small></div>
+        <div><b>100</b><small>examples of it, not 50 strategies</small></div>
+        <div><b>500</b><small>reps until you just see it</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">narrow it</div><div class="n">One repeatable setup</div></div>
+    <div><div class="t">write it down</div><div class="n">A real playbook</div></div>
+    <div><div class="t">speed it up</div><div class="n">Compress your reps</div></div>
+    <div><div class="t">protect it</div><div class="n">Risk small enough to learn</div></div>
+    <div><div class="t">fix it</div><div class="n">Review like film</div></div>
+  </nav>
+
+  <div class="section-head">
+    <h2>Busy isn't the same as improving</h2>
+    <p>Most traders hear &ldquo;get good fast&rdquo; and think shortcut: an indicator they haven't found, a setup they haven't learned, a trader or a Discord to follow. You can spend three years doing all of that and convince yourself you're learning.</p>
+  </div>
+
+  <div class="loop">
+    <div><span class="k">feels like work</span><b>Watching videos</b><p>Hours of trading content and market commentary. Nothing changes about how you execute tomorrow.</p></div>
+    <div><span class="k">feels like work</span><b>Following alerts</b><p>Someone else's idea, someone else's timing. You learn their trade, not yours.</p></div>
+    <div><span class="k">feels like work</span><b>Changing strategies</b><p>A new setup after every bad week, so nothing gets enough reps to teach you anything.</p></div>
+    <div><span class="k">feels like work</span><b>Adding indicators</b><p>More on the screen, more opinions, and still no better at the one trade that pays you.</p></div>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">&#8635;</div>
+        <div>
+          <h3>Shorten the feedback loop</h3>
+          <ul>
+            <li>If none of it turns into better execution, cleaner risk, better review and a more repeatable process, you're not improving. You're staying busy.</li>
+            <li>The traders who improve fastest usually aren't the ones who know the most.</li>
+            <li>They see a setup, trade it, review it, correct it and see it again, and they repeat that cycle until the pattern becomes obvious.</li>
+          </ul>
+          <p class="why">That cycle is the real speed hack. Everything on this page is a way to run it more often, with cleaner data.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Two ways to spend a year</h4>
+        <p class="lead">Same screen time. Very different results.</p>
+        <div class="pair">
+          <div class="care"><span class="k">busy</span><b>More inputs</b><p>Videos, alerts, new strategies, new indicators. Lots of hours, very few lessons.</p></div>
+          <div class="yes"><span class="k">improving</span><b>More useful reps</b><p>One setup, traded small, reviewed every time. Fewer hours wasted, and each one compounds.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-head" id="one-setup">
+    <h2>1 &middot; Get good at one setup, not &ldquo;trading&rdquo;</h2>
+    <p>Trading is too broad: thousands of stocks, options, futures, crypto, scalps, swings, momentum, mean reversion, news, tape. If the goal is &ldquo;get good at trading&rdquo;, you've already made it too hard.</p>
+  </div>
+  <section class="anim" data-gbf-anim="setup" aria-label="Illustrative chart on made-up bars: a trader buys a random pop with no level or stop and it fails, then explains it afterward; next the same stock builds a base under a $21.50 level and six questions are answered before the trade (why it is in play, the level, a 5-minute close over $21.50 as the trigger, wrong back under $21.20, target $22.40, pass if no volume), and the break plays out to the target">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Explain it before it happens</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart on made-up bars: a trader buys a random pop with no level or stop and it fails, then explains it afterward; next the same stock builds a base under a $21.50 level and six questions are answered before the trade (why it is in play, the level, a 5-minute close over $21.50 as the trigger, wrong back under $21.20, target $22.40, pass if no volume), and the break plays out to the target"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>One situation, deep</h3>
+          <ul>
+            <li>Pick one setup that shows up often enough to study it, recognize it and improve at it.</li>
+            <li>Opening momentum through the premarket high, a 10 or 15-minute opening range break, VWAP continuation, a day three breakout, a liquidity trap, a mean reversion after a stock gets too extended.</li>
+            <li>The exact setup matters less than the depth.</li>
+          </ul>
+          <p class="why">Don't try to become good at everything. Pick one trade and become annoying about it.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>An interest is not an edge</h3>
+          <ul>
+            <li>Most developing traders aren't bad because they have no ideas. They're bad because every trade is a new idea.</li>
+            <li>They see something moving, react to it, and afterward try to explain why it was a setup. That's backwards.</li>
+            <li>If you can't answer the six questions in this section before the trade, you don't have a setup yet. You have an interest in the stock.</li>
+          </ul>
+          <p class="why">The first way to speed up is to narrow the game.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Answer these before the trade</h4>
+        <p class="lead">If you can't answer them clearly, you don't have a setup yet.</p>
+        <div class="calc">
+          <div class="row"><span>What is the stock, and why is it in play?</span><b>catalyst</b></div>
+          <div class="row"><span>What is the level?</span><b>where</b></div>
+          <div class="row"><span>What's the trigger?</span><b>when</b></div>
+          <div class="row"><span>Where are you wrong?</span><b>stop</b></div>
+          <div class="row"><span>Where is the target?</span><b>exit</b></div>
+          <div class="row"><span>What would make you pass?</span><b>the no</b></div>
+          <div class="row tot"><span>All six answered, before the open</span><b>a setup</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>One setup each, already on this site</h4>
+        <p class="lead">Any of these can be the one you get deep on.</p>
+        <div class="pair">
+          <div class=""><span class="k">opening momentum</span><b><a class="more" href="/setups/pmh-break.html">PMH Break</a></b><p>The opening drive through the premarket high.</p></div>
+          <div class=""><span class="k">first 15 minutes</span><b><a class="more" href="/setups/opening-range-break.html">Opening Range Break</a></b><p>The same range, every single day.</p></div>
+          <div class=""><span class="k">behavior pattern</span><b><a class="more" href="/setups/day-three-breakout.html">Day Three Breakout</a></b><p>Catalyst, inside day, and the break.</p></div>
+          <div class=""><span class="k">too extended</span><b><a class="more" href="/setups/vwap-reversal.html">VWAP Reversal</a></b><p>Mean reversion when three signals line up.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-head" id="playbook">
+    <h2>2 &middot; Build a real playbook</h2>
+    <p>&ldquo;I like breakouts&rdquo; isn't a playbook. That's a sentence. A real playbook has examples, rules, variables and lots of screenshots: the best versions of the trade, the average versions, and the traps that looked close but failed.</p>
+  </div>
+  <section class="anim" data-gbf-anim="playbook" aria-label="Illustrative charts on made-up bars shown twice: a stock bases under $48 and breaks out; the first time it has fresh news, relative volume of 3.8, room overhead and a strong market, and it runs; the second time the same shape has no catalyst, relative volume of 0.9, resistance at $49 and a weak market, and it stalls and falls back under the base">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Same chart, different opportunity</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative charts on made-up bars shown twice: a stock bases under $48 and breaks out; the first time it has fresh news, relative volume of 3.8, room overhead and a strong market, and it runs; the second time the same shape has no catalyst, relative volume of 0.9, resistance at $49 and a weak market, and it stalls and falls back under the base"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Rules get you started</h3>
+          <ul>
+            <li>Break every trade of your setup down the same way, with the fields on the right.</li>
+            <li>That's how you stop saying &ldquo;this setup works&rdquo; and start understanding when it works.</li>
+            <li>Most traders want a rule. Good traders want the nuance behind the rule.</li>
+          </ul>
+          <p class="why">The rules get you started. The nuance is where the money is.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>A hundred examples of one strategy</h3>
+          <ul>
+            <li>A breakout with fresh news, high RVOL, room overhead and a strong market isn't the same as a breakout in a random name with no catalyst, resistance overhead and a so-so market.</li>
+            <li>On the surface both charts look like breakouts. They aren't the same opportunity.</li>
+            <li>Take screenshots, save charts, mark them up, put them in categories. You don't need 50 strategies; you need 100 examples of one.</li>
+          </ul>
+          <p class="why">That's what builds pattern recognition, and what gets newer traders to stop hesitating.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Every trade, the same fields</h4>
+        <p class="lead">A page in the playbook for each attempt.</p>
+        <div class="calc">
+          <div class="row"><span>Catalyst, daily chart, sector, market</span><b>context</b></div>
+          <div class="row"><span>Key level and what volume looked like</span><b>the spot</b></div>
+          <div class="row"><span>Entry and stop</span><b>the plan</b></div>
+          <div class="row"><span>How it acted after you entered</span><b>the tape</b></div>
+          <div class="row"><span>Where to add, where to trim</span><b>management</b></div>
+          <div class="row"><span>Where the thesis failed</span><b>the lesson</b></div>
+          <div class="row tot"><span>Filed with a marked-up screenshot</span><b>one more example</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Three folders per setup</h4>
+        <p class="lead">Sort every example into one of them.</p>
+        <div class="tri">
+          <div class="yes"><span class="k">folder 1</span><b>The best versions</b><p>Everything lined up. What you're trying to find again.</p></div>
+          <div class="care"><span class="k">folder 2</span><b>The average ones</b><p>Worked, sort of. Where most trades actually live.</p></div>
+          <div class="no"><span class="k">folder 3</span><b>The traps</b><p>Looked close, failed. Where the pass rules come from.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-head" id="reps">
+    <h2>3 &middot; Compress your reps</h2>
+    <p>Experience doesn't just mean sitting in front of the screen every day. If you only count live trades, your setup shows up once a day, maybe once a week, and sometimes you miss it. That's too slow.</p>
+  </div>
+  <section class="anim" data-gbf-anim="reps" aria-label="Illustrative chart of made-up rep counts over four weeks: a trader who only trades live gets 12 reps of one setup; a trader who adds replay, chart review, the best trade of the day, historical study, watching tape and the best trades of the week gets 192 reps in the same four weeks">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Same calendar, more reps</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative chart of made-up rep counts over four weeks: a trader who only trades live gets 12 reps of one setup; a trader who adds replay, chart review, the best trade of the day, historical study, watching tape and the best trades of the week gets 192 reps in the same four weeks"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Every look is a rep</h3>
+          <ul>
+            <li>Live trading is one rep. A replay is another. Chart review is another. Historical study and backtesting is another.</li>
+            <li>Watching tape is another. Reviewing the best opportunities of the day, the week or the month is another.</li>
+            <li>Show yourself the same setup 500 times and you stop thinking about it the same way. You just start to see it.</li>
+          </ul>
+          <p class="why">Same calendar time, more useful reps. That's what getting good fast actually means.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Intuition is reps, not magic</h3>
+          <ul>
+            <li>You'll know when it's clean and when something is off: the stock isn't acting right, the volume isn't there, the entry is too early, the move is too extended, the market isn't helping.</li>
+            <li>People call that market intuition. It's pattern recognition built from reps.</li>
+            <li>The trader who only trades live and never reviews is moving slowly.</li>
+          </ul>
+          <p class="why">Trade live, screenshot it, review it after the close, study the best past examples, replay it. Same day, far more learning.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Where the reps come from</h4>
+        <p class="lead">A made-up day for one setup.</p>
+        <div class="calc">
+          <div class="row"><span>Live trade, if it shows up</span><b>0 to 1</b></div>
+          <div class="row"><span>Replay the same situation</span><b>2</b></div>
+          <div class="row"><span>Chart review after the close</span><b>1</b></div>
+          <div class="row"><span>Best opportunity of the day</span><b>1</b></div>
+          <div class="row"><span>Historical examples and backtest</span><b>3</b></div>
+          <div class="row"><span>Watching the tape on it</span><b>1</b></div>
+          <div class="row tot"><span>Instead of one rep a day</span><b>about 9</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Two traders, one month</h4>
+        <p class="lead">The calendar is the same for both.</p>
+        <div class="pair">
+          <div class="care"><span class="k">live only</span><b>Trades it, moves on</b><p>A handful of reps, most of them unreviewed. Slow.</p></div>
+          <div class="yes"><span class="k">compressed</span><b>Trades, screenshots, reviews, replays</b><p>Many times the reps on the same setup. Much, much faster.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-head" id="why">
+    <h2>4 &middot; Learn what actually moves stocks</h2>
+    <p>Charts matter, levels matter, price action matters. But if you only look at the chart, you're missing a huge part of the trade. The chart tells you what is happening; the catalyst and positioning help you understand why the move might continue.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">7</div>
+        <div>
+          <h3>Why this stock, why today, why now</h3>
+          <ul>
+            <li>Who is trapped? Who needs to buy it? Who needs to sell it?</li>
+            <li>Is it fresh news, earnings, a sector move, a short squeeze, a macro headline, an analyst event, or a random move with no real reason behind it?</li>
+            <li>A day three breakout isn't just a chart pattern. It's a behavior pattern: positioning, trapped traders, momentum, and how people respond after a stock has proven it can move.</li>
+          </ul>
+          <p class="why">A liquidity trap isn't just a line on a chart. It's where people are leaning, where they're wrong, and what happens when price forces them out.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">8</div>
+        <div>
+          <h3>A chart becomes a case study</h3>
+          <ul>
+            <li>The fastest developing traders don't just save charts. They mark them up and save the context with them.</li>
+            <li>What the market was doing, what the sector was doing, what the news was, what the expectations were, what people were thinking coming into the day.</li>
+            <li>Build enough case studies and you stop asking &ldquo;is this green candle good?&rdquo;</li>
+          </ul>
+          <p class="why">You start asking &ldquo;have I seen this situation before?&rdquo; That's a completely different level of trading.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Same chart, different reason</h4>
+        <p class="lead">The context is part of the setup.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">with its sector</span><b>Breaking out with the group</b><p>The whole sector is in play, and others need to own it too.</p></div>
+          <div class="care"><span class="k">alone</span><b>Breaking out by itself</b><p>Nothing behind it but the chart.</p></div>
+          <div class="yes"><span class="k">real news</span><b>Opening strong on news</b><p>A reason for bigger buyers to keep coming.</p></div>
+          <div class="care"><span class="k">no reason</span><b>Gapping for nothing</b><p>No catalyst, so nobody knows what to do with it.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Where context lives on this site</h4>
+        <p class="lead">Pages that cover the why behind the move.</p>
+        <div class="pair">
+          <div class=""><span class="k">participation</span><b><a class="more" href="/relative-volume.html">Relative Volume</a></b><p>Is anyone actually showing up for this stock today?</p></div>
+          <div class=""><span class="k">catalyst &rarr; setup</span><b><a class="more" href="/edge.html">Inch Wide, Mile Deep</a></b><p>Scoping catalyst, setup and trade, and starting with your stop.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-head" id="risk">
+    <h2>5 &middot; Risk small enough to learn</h2>
+    <p>The quickest way to slow down your development, or end it in a few months, is to trade too big. When the size is too big you stop learning and start surviving, and your data becomes useless.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">9</div>
+        <div>
+          <h3>Too big, and you study your emotions</h3>
+          <ul>
+            <li>You cut winners early because you're afraid to give money back, and hold losers because the loss feels too big to take.</li>
+            <li>You hesitate on good setups because you're still thinking about the last trade, and force trades to make money back.</li>
+            <li>You're not studying your strategy anymore. You're studying what you do when you're emotional.</li>
+          </ul>
+          <p class="why">In the learning phase, your job isn't to maximize P&amp;L. It's to maximize quality reps.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">10</div>
+        <div>
+          <h3>Earn the right to size up</h3>
+          <ul>
+            <li>Paper trading forever, with no pressure at all, has its limits too. The money should mean something.</li>
+            <li>But the size has to be small enough that you can still make good decisions. Cut it down until you can follow the trade plan.</li>
+            <li>You don't size up because you want to make more money. You size up because your execution, your edge and your data justify it.</li>
+          </ul>
+          <p class="why">That's how professional traders think about size.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The too-big test</h4>
+        <p class="lead">Any one of these: you're too big.</p>
+        <div class="calc">
+          <div class="row"><span>Losing this trade would change how you manage the next one</span><b>too big</b></div>
+          <div class="row"><span>You're staring at the P&amp;L instead of the chart</span><b>too big</b></div>
+          <div class="row"><span>You know where the stop is, and you're already negotiating with it</span><b>too big</b></div>
+          <div class="row tot"><span>You can follow the plan, every time</span><b>the right size</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Who's learning faster?</h4>
+        <p class="lead">Made-up numbers, the video's example.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">$20 risk</span><b>Executing correctly</b><p>Every trade is clean data on the setup.</p></div>
+          <div class="care"><span class="k">$500 risk</span><b>Panicking</b><p>Every trade is data on fear, not on the setup.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-head" id="see-it">
+    <h2>6 &middot; Find the see-it moment</h2>
+    <p>After a trade, especially a losing one, don't just ask whether the stop was in the right place. Ask: when should I have known? When was the moment the trade stopped acting right?</p>
+  </div>
+  <section class="anim" data-gbf-anim="seeit" aria-label="Illustrative charts on made-up bars: a stock breaks out of a base under $35 with entry $35.20 and stop $34.70; it stalls, volume fades and it closes back under $35, the see-it moment, for an exit near minus 0.5R instead of the full minus 1R stop it later hits; then the same trigger acts right, goes quickly on expanding volume, the dip holds above $35 and it reaches plus 3R at $36.70">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">When should I have known?</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative charts on made-up bars: a stock breaks out of a base under $35 with entry $35.20 and stop $34.70; it stalls, volume fades and it closes back under $35, the see-it moment, for an exit near minus 0.5R instead of the full minus 1R stop it later hits; then the same trigger acts right, goes quickly on expanding volume, the dip holds above $35 and it reaches plus 3R at $36.70"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">11</div>
+        <div>
+          <h3>Where the moment shows up</h3>
+          <ul>
+            <li>Sometimes before the entry: the stock never really confirmed, but you wanted it to, so you took it anyway.</li>
+            <li>Sometimes right after the entry: you got the trigger, but the follow-through just isn't there.</li>
+            <li>Sometimes halfway to the stop: price says the thesis is weakening, and you ignore it because technically the stop hasn't hit.</li>
+          </ul>
+          <p class="why">If your only risk tool is a full stop, you lose a full R every time you're wrong.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">12</div>
+        <div>
+          <h3>Reading behavior, not nerves</h3>
+          <ul>
+            <li>Not guessing, not panic selling, not bailing because you're nervous. Reading behavior against the version of the setup you've studied.</li>
+            <li>Get good at it and you stop taking unnecessary full losses, cutting risk earlier when the thesis weakens.</li>
+            <li>Just as important: you hold longer when the trade is acting exactly the way it should.</li>
+          </ul>
+          <p class="why">You'll rarely see it in real time at first. You see it after the close. After seeing it after the close 50 times, you start seeing it during the day.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>That's information</h4>
+        <p class="lead">Each one is the trade telling you something before the stop does.</p>
+        <div class="calc">
+          <div class="row"><span>It should go quickly, and it stalls</span><b>information</b></div>
+          <div class="row"><span>The breakout should hold the level, and it slips back under</span><b>information</b></div>
+          <div class="row"><span>Volume should expand, and it dies on the break</span><b>information</b></div>
+          <div class="row"><span>The market should help, and it turns against you</span><b>information</b></div>
+          <div class="row tot"><span>No longer acting like the version you studied</span><b>the see-it moment</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Related pages</h4>
+        <p class="lead">Exits and stops in more detail.</p>
+        <div class="pair">
+          <div class=""><span class="k">stop first</span><b><a class="more" href="/price-action-rules.html">Three Price Action Rules</a></b><p>Define your stop before you enter.</p></div>
+          <div class=""><span class="k">hold the good ones</span><b><a class="more" href="/let-winners-run.html">Let Winners Run</a></b><p>Exits that let a trade acting right keep paying.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-head" id="review">
+    <h2>7 &middot; Review like an athlete watches film</h2>
+    <p>Probably the least exciting part, and probably the most important. Not vague review (&ldquo;I looked at my trades and I think I did okay&rdquo;) but real review, with questions that have answers.</p>
+  </div>
+  <section class="anim" data-gbf-anim="review" aria-label="Illustrative bar charts of one made-up month of trades: sorted by time of day, trades before 11:30 make plus 13.6R and trades after lose 12.3R; sorted by type, playbook A setups make plus 11.8R, B setups plus 2.4R and unplanned trades lose 12.9R; then the 20 best trades share traits such as a fresh catalyst in 18 of 20 and being taken before 10:30 in 17 of 20">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">What the data says the problem is</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Illustrative bar charts of one made-up month of trades: sorted by time of day, trades before 11:30 make plus 13.6R and trades after lose 12.3R; sorted by type, playbook A setups make plus 11.8R, B setups plus 2.4R and unplanned trades lose 12.9R; then the 20 best trades share traits such as a fresh catalyst in 18 of 20 and being taken before 10:30 in 17 of 20"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">13</div>
+        <div>
+          <h3>Most traders are wrong about their problem</h3>
+          <ul>
+            <li>They think it's entries, and the data says they're taking low-quality trades.</li>
+            <li>They think it's stock selection, and the data says their best ideas work and their random trades are killing them.</li>
+            <li>They think it's discipline, and the data says they trade fine in the morning and fall apart after 11:30.</li>
+          </ul>
+          <p class="why">You don't know until you do this kind of review.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">14</div>
+        <div>
+          <h3>Review the winners too</h3>
+          <ul>
+            <li>Your winners, and the few things you do well at first, are where your edge lives.</li>
+            <li>Pull up 20 or 30 charts of your best trades side by side. What time of day? What was the market doing? What was the catalyst, the volume, what did the stock do before your entry?</li>
+            <li>How did you risk it, and where did it give you a chance to add?</li>
+          </ul>
+          <p class="why">Losers teach you what to avoid. Winners teach you what to look for and what to push. You need both.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The daily review</h4>
+        <p class="lead">Write the answers down. Every day.</p>
+        <div class="calc">
+          <div class="row"><span>What was my best trade? My worst?</span><b>the range</b></div>
+          <div class="row"><span>What did I miss? What did I force?</span><b>the misses</b></div>
+          <div class="row"><span>Which mistake showed up more than once?</span><b>the pattern</b></div>
+          <div class="row"><span>Did I follow my risk plan? Give back morning profits?</span><b>the rules</b></div>
+          <div class="row"><span>Did I trade worse after a loss, tired or distracted?</span><b>the state</b></div>
+          <div class="row tot"><span>What did I do well? What do I improve tomorrow?</span><b>the next rep</b></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>What they think vs what the data says</h4>
+        <p class="lead">From the video's examples.</p>
+        <div class="pair">
+          <div class="care"><span class="k">they think</span><b>&ldquo;My entries&rdquo;</b><p>The data: too many low-quality trades.</p></div>
+          <div class="yes"><span class="k">the data</span><b>Stop after 11:30</b><p>Fine in the morning, falls apart late.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-head" id="mentors">
+    <h2>8 &middot; Get around traders who are better than you</h2>
+    <p>You could figure it all out alone. It just takes much longer and costs more. Not so they can tell you what to buy, which is the wrong way to use better traders. The value is in how they think.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">15</div>
+        <div>
+          <h3>You don't know what you don't know</h3>
+          <ul>
+            <li>You might spend three months fixing your entries when the real issue is that you're trading the wrong stocks.</li>
+            <li>You might think you need more confidence when the real issue is that your setup isn't defined.</li>
+            <li>You might think you need more screen time when the real issue is that you're not reviewing the screen time you already have.</li>
+          </ul>
+          <p class="why">One honest piece of feedback can save you months, sometimes years.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">16</div>
+        <div>
+          <h3>Your environment becomes your norm</h3>
+          <ul>
+            <li>Around traders who prepare seriously, review seriously and hold high standards, that becomes normal.</li>
+            <li>Around traders who chase alerts, complain, post wins and hide losses, and jump strategies every week, that becomes normal too.</li>
+            <li>Who you're around changes what you think trading is supposed to look like.</li>
+          </ul>
+          <p class="why">Choose carefully.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Feedback that saves months</h4>
+        <p class="lead">The kind a better trader can give you in one look.</p>
+        <ul class="quotes">
+          <li>That wasn't actually an A setup.</li>
+          <li>You entered too early.</li>
+          <li>You sized that like an A trade, but it was really a B.</li>
+          <li>You missed the real opportunity because you were staring at the wrong ticker today.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4>Two rooms</h4>
+        <p class="lead">Pick the one you want to become normal.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">high standards</span><b>Prepare, review, hold the line</b><p>Serious prep, serious review, honest about losses.</p></div>
+          <div class="care"><span class="k">noise</span><b>Chase, complain, post the wins</b><p>Alerts, hidden losses, a new strategy every week.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-head" id="no-shortcuts">
+    <h2>9 &middot; Stop looking for the fast way</h2>
+    <p>The annoying truth: the search for the fast way is what makes traders slow.</p>
+  </div>
+  <section class="anim" data-gbf-anim="restart" aria-label="Illustrative chart of made-up skill curves over two years: a trader who keeps one setup dips through a normal losing stretch and keeps compounding; a trader who scraps the setup after the losing stretch and starts over twenty times never builds anything that carries over">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Twenty restarts, or one build</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 500" role="img" aria-label="Illustrative chart of made-up skill curves over two years: a trader who keeps one setup dips through a normal losing stretch and keeps compounding; a trader who scraps the setup after the losing stretch and starts over twenty times never builds anything that carries over"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">17</div>
+        <div>
+          <h3>Every restart resets the clock</h3>
+          <ul>
+            <li>Every week spent hunting for a new strategy is a week without reps on your current one.</li>
+            <li>Every hour watching random market opinions is an hour not reviewing your own trades.</li>
+            <li>Every time you scrap a setup after a normal losing stretch, you reset the clock.</li>
+          </ul>
+          <p class="why">That's how traders spend years in the market and are still beginners. They never built anything; they started over 20 times.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">18</div>
+        <div>
+          <h3>Then, and only then, add another</h3>
+          <ul>
+            <li>Once your execution on one setup is consistent and the data backs it, you've actually got something.</li>
+            <li>Then you can add a second playbook, and run the same process on it.</li>
+            <li>Not because it sounds exciting. Because it compounds.</li>
+          </ul>
+          <p class="why">The fastest path is boring. The nine steps below are the whole thing.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>What resets the clock</h4>
+        <p class="lead">Each one sends you back to day one.</p>
+        <div class="calc">
+          <div class="row"><span>A new strategy after a normal losing stretch</span><b>reset</b></div>
+          <div class="row"><span>A new indicator instead of a review</span><b>reset</b></div>
+          <div class="row"><span>Someone else's alerts instead of your setup</span><b>reset</b></div>
+          <div class="row tot"><span>The same setup, reviewed and corrected</span><b>compounds</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="boring">
+    <div><span class="k">1</span><b>Pick one setup</b><p>One that shows up often enough to study.</p></div>
+    <div><span class="k">2</span><b>Study it</b><p>A hundred examples, marked up, with the context saved.</p></div>
+    <div><span class="k">3</span><b>Trade it small</b><p>Small enough that you can follow the plan.</p></div>
+    <div><span class="k">4</span><b>Review every attempt</b><p>The winners as well as the losers.</p></div>
+    <div><span class="k">5</span><b>Build rules from what you see</b><p>From your own data, not someone else's opinion.</p></div>
+    <div><span class="k">6</span><b>Find the see-it moment</b><p>Cut earlier when it stops acting right; hold when it does.</p></div>
+    <div><span class="k">7</span><b>Cut the repeating mistakes</b><p>The one that shows up more than once is the one to fix.</p></div>
+    <div><span class="k">8</span><b>Size up when execution is consistent</b><p>Earned by the data, not wanted for the money.</p></div>
+    <div><span class="k">9</span><b>Then add another playbook</b><p>And run the same process on it.</p></div>
+  </div>
+  <div class="section-head" id="cycle">
+    <h2>The learning cycle</h2>
+    <p>The whole page in one line: compress the learning cycle. See it, trade it, review it, correct it, see it again. Do that hundreds of times, then thousands of times.</p>
+  </div>
+  <div class="gbf-cycle" data-gbf-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>See it</h3>
+          <ul>
+            <li>Recognize the setup you've studied: the stock in play, the level, the base forming under it.</li>
+            <li>Before the trigger, you can already answer the six questions: why it's in play, level, trigger, wrong, target, pass.</li>
+            <li>If it doesn't look like the version in your playbook, it isn't your trade today.</li>
+          </ul>
+          <p class="why">Seeing it is the skill the reps build. At first you'll only see it in review.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Trade it</h3>
+          <ul>
+            <li>Take it the way you wrote it: the trigger, the stop, the target.</li>
+            <li>Small enough that you could follow the plan, so the result is data on the setup, not on your nerves.</li>
+            <li>Watch how it acts after the entry. That's the information for the see-it moment.</li>
+          </ul>
+          <p class="why">You're maximizing quality reps, not P&amp;L.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Review it</h3>
+          <ul>
+            <li>After the close, screenshot it and save the context: the catalyst, the market, the sector, the volume.</li>
+            <li>Best trade, worst trade, what you missed, what you forced, what showed up more than once.</li>
+            <li>File it with the best versions, the average ones, or the traps.</li>
+          </ul>
+          <p class="why">Review it like film. That's where the real problems show up.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Correct it</h3>
+          <ul>
+            <li>Find the one thing to fix: an entry before the close, a trade after 11:30, a B setup sized like an A.</li>
+            <li>Turn it into a rule in the playbook, so the next attempt is different.</li>
+            <li>Then ask when you should have known, and mark the see-it moment.</li>
+          </ul>
+          <p class="why">One mistake, one fix. Not a new strategy.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>See it again</h3>
+          <ul>
+            <li>The next time the setup shows up, live, in replay or in your history, you see it a little faster and a little cleaner.</li>
+            <li>Rep 2, rep 50, rep 500. Each one tightens the feedback loop.</li>
+            <li>That's how you get good at trading as fast as humanly possible.</li>
+          </ul>
+          <p class="why">Not by skipping the work. By making sure the work you're doing actually builds skill.</p>
+        </div>
+      </section>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/XF1usbFkA2w" title="How to get better at trading faster (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>A full-time trader since 2018, from the SMB Capital trading floor, on shortening the feedback loop.</p>
+      <ol>
+        <li><b>0:00</b>Not a shortcut: stop the wrong work</li>
+        <li><b>1:40</b>Focus on one repeatable setup</li>
+        <li><b>3:35</b>Build a real playbook</li>
+        <li><b>5:41</b>Get more reps through replay and review</li>
+        <li><b>7:40</b>Learn what actually moves stocks</li>
+        <li><b>9:40</b>Keep risk small enough to learn</li>
+        <li><b>11:35</b>The see-it moment</li>
+        <li><b>13:48</b>Review your trades like film</li>
+        <li><b>15:56</b>Learn from better traders</li>
+        <li><b>17:40</b>Stop chasing shortcuts</li>
+        <li><b>18:48</b>The learning cycle</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=XF1usbFkA2w" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>See it, trade it, review it, correct it, see it again.</h2>
+      <p>The fastest path isn't the exciting one. One setup, studied deeply, traded small, reviewed every time, with rules built from what you actually see.
+      Same calendar time as everyone else. Far more useful reps.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Narrow the game to one setup you can explain before it happens.</li>
+        <li>Collect examples until the nuance is obvious.</li>
+        <li>Count every replay, review and study session as a rep.</li>
+        <li>Keep the size small enough that the data means something.</li>
+        <li>Find the see-it moment, and review the winners too.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from a trading-education video on how to get better at trading faster: one setup, a real playbook, compressed reps, what moves stocks, small risk, the see-it moment, film-style review, better traders and the learning cycle. It's how one trader thinks about learning the job, shared for education; it's not advice and not a promise of profit. Charts above are illustrations on made-up bars, made-up trades and made-up rep counts, not real tickers or data. <a href="https://www.youtube.com/watch?v=XF1usbFkA2w" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

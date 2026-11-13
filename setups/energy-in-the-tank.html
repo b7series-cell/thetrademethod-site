@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Energy in the Tank — the volatility cycle breakout | The Trade Method</title>
+<meta name="description" content="A squeeze on the higher time frame stores energy. An outlier volume bar on the breakout is what spends it — the same signal behind some of the biggest continuation moves in recent memory.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/energy-in-the-tank.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Energy in the Tank — the volatility cycle breakout">
+<meta property="og:description" content="A squeeze on the higher time frame stores energy. An outlier volume bar on the breakout is what spends it — the same signal behind some of the biggest continuation moves in recent memory.">
+<meta property="og:url" content="https://thetrademethod.com/setups/energy-in-the-tank.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Energy in the Tank — the volatility cycle breakout">
+<meta name="twitter:description" content="A squeeze on the higher time frame stores energy. An outlier volume bar on the breakout is what spends it — the same signal behind some of the biggest continuation moves in recent memory.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Energy in the Tank — the volatility cycle breakout",
+ "name": "Energy in the Tank",
+ "description": "A squeeze on the higher time frame stores energy. An outlier volume bar on the breakout is what spends it — the same signal behind some of the biggest continuation moves in recent memory.",
+ "url": "https://thetrademethod.com/setups/energy-in-the-tank.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/energy-in-the-tank.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/anim-kit.js?v=2" defer></script>
+<script src="/js/eit-anim.js?v=1" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
+<script src="/js/live-kit.js?v=3" defer></script>
+<script src="/js/examples/eit.js?v=1" defer></script><script src="/js/example-kit.js?v=1" defer></script>
+<script src="/js/eit-live.js?v=1" defer></script>
+<style>
+  /* video (same as relative-volume.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=2" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="energy-in-the-tank">
+    <div>
+      <p class="kicker">Volatility cycle &middot; multi-timeframe squeeze + volume &middot; daily or higher</p>
+      <h1>Energy in the <span>Tank</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Volatility moves in cycles &mdash; compression builds energy, expansion spends it.
+      <em>A squeeze on the higher time frame plus an outlier volume bar on the breakout</em> is how you
+      find a stock with real fuel left before the move, not after it's already run.</p>
+      <div class="counts">
+        <div><b>2</b><small>timeframes stacked</small></div>
+        <div><b>4</b><small>filters</small></div>
+        <div><b>2&sigma;</b><small>volume outlier bar</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">higher time frame</div><div class="n">Find the squeeze</div></div>
+    <div><div class="t">inside the squeeze</div><div class="n">Read the cycle</div></div>
+    <div><div class="t">at the level</div><div class="n">Watch for the break</div></div>
+    <div><div class="t">on the breakout bar</div><div class="n">The volume filter</div></div>
+    <div><div class="t">on the close</div><div class="n">Entry</div></div>
+    <div><div class="t">after the move</div><div class="n">Take profits</div></div>
+  </nav>
+
+  <section class="anim" data-tm-anim="eit" aria-label="Animated walkthrough: a weekly squeeze, a daily coil under 200 with the volatility measure below 1.5 times ATR, a poke to 200.80 that closes 198.60 on ordinary volume, the break that closes 204.00 on 3.4M shares, and a trim at 242.60 when the measure crosses 6 times ATR.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Watch one squeeze release</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Animated walkthrough: a weekly squeeze, a daily coil under 200 with the volatility measure below 1.5 times ATR, a poke to 200.80 that closes 198.60 on ordinary volume, the break that closes 204.00 on 3.4M shares, and a trim at 242.60 when the measure crosses 6 times ATR."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Find the squeeze on the higher time frame</h3>
+          <ul>
+            <li>Look one time frame up from the one you plan to trade &mdash; weekly for a daily breakout, monthly for a multi-quarter position.</li>
+            <li>You want volatility compressed to a significant level: two standard deviations of closing prices over 20 bars falling below roughly 1.5&times; ATR &mdash; the classic squeeze threshold.</li>
+          </ul>
+          <p class="why">A breakout on a stock with no stored energy is just noise. A breakout on a stock that's been coiling for months is a different animal.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Read the full volatility cycle</h3>
+          <ul>
+            <li>Volatility isn't binary &mdash; it's a continuous cycle. Range expands (energy spent, big moves), range contracts (energy built, consolidation), and it repeats.</li>
+            <li>Track that same measure continuously, not just at the squeeze threshold, so you can see where in the cycle a stock actually sits.</li>
+            <li>The measure doesn't care about direction &mdash; it only reads magnitude. A squeeze can resolve up or down.</li>
+          </ul>
+          <p class="why">Knowing where you are in the cycle tells you how much potential is stored, before you ever look at a chart pattern or a level.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Watch for the level, not the noise</h3>
+          <ul>
+            <li>Mark the level that actually matters &mdash; the top of the range the stock has been coiling under.</li>
+            <li>A squeeze by itself is not a trade. It's stored potential. It still needs a trigger from price.</li>
+          </ul>
+          <p class="why">Plenty of squeezes never resolve into anything. You're waiting for permission from price, not predicting the move.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>The volume filter</h3>
+          <ul>
+            <li>On the breakout bar, you want volume that's a real outlier &mdash; more than two standard deviations above the average.</li>
+            <li>Read compressed volatility as stored energy, and elevated volume on the break as the fuel that actually burns it.</li>
+          </ul>
+          <p class="why">A breakout on thin volume is a poke, not a launch. The outlier volume bar is what tells you real participation showed up.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Enter on the close, not the poke</h3>
+          <ul>
+            <li>Wait for the close above the level on that outlier-volume bar &mdash; not an intrabar touch.</li>
+            <li>Invalidation is a close back below the breakout level. That's the level giving back the argument that just got made.</li>
+          </ul>
+          <p class="why">The level that triggered the trade is also what disproves it. If price can't hold above it, the fuel didn't actually ignite anything.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Use the expansion side to take profits</h3>
+          <ul>
+            <li>As the move runs, the same volatility measure rises too. Track a high-side threshold &mdash; roughly 6&times; ATR in the examples here &mdash; for the expansion extreme.</li>
+            <li>Once expansion reaches that extreme, the stock has spent a large share of its stored energy. That's a cue to trim or expect mean reversion, not necessarily an exact top.</li>
+          </ul>
+          <p class="why">A squeeze tells you when energy built up. The same tool, read the other way, tells you when most of it has already been spent.</p>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h4>The whole cycle on one chart</h4>
+        <p class="lead">Weeks of compression, the outlier-volume breakout, and the same measure swinging through its own expansion extreme as the move runs.</p>
+        <svg viewBox="0 0 1180 740" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Annotated chart showing a volatility squeeze, an outlier-volume breakout, and the volatility cycle indicator swinging from compression to expansion">
+<defs><marker id="e1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8fa6bd"/></marker><marker id="e2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2ecf7a"/></marker><marker id="e3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#c77dff"/></marker><marker id="e5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#f4b942"/></marker></defs>
+<rect x="32" y="22" width="1062" height="358" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<rect x="32" y="386" width="1062" height="134" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<rect x="32" y="526" width="1062" height="196" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<line x1="74" y1="250" x2="1050" y2="250" stroke="#f4f7fb" stroke-width="2.1" stroke-dasharray="8 5"/>
+<text x="82" y="241" fill="#f4f7fb" font-size="13" font-weight="700">Breakout level &mdash; top of the range</text>
+<line x1="101.1" y1="238" x2="101.1" y2="268" stroke="#7d343c" stroke-width="1.8"/><rect x="86.5" y="245" width="29.3" height="15" fill="#7d343c" rx="1"/>
+<line x1="155.3" y1="243" x2="155.3" y2="272" stroke="#1d6f47" stroke-width="1.8"/><rect x="140.7" y="250" width="29.3" height="15" fill="#1d6f47" rx="1"/>
+<text x="155.3" y="366" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">wk 1</text>
+<line x1="209.6" y1="235" x2="209.6" y2="265" stroke="#7d343c" stroke-width="1.8"/><rect x="194.9" y="242" width="29.3" height="15" fill="#7d343c" rx="1"/>
+<line x1="263.8" y1="240" x2="263.8" y2="270" stroke="#1d6f47" stroke-width="1.8"/><rect x="249.1" y="247" width="29.3" height="15" fill="#1d6f47" rx="1"/>
+<text x="263.8" y="366" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">wk 2</text>
+<line x1="318.0" y1="236" x2="318.0" y2="268" stroke="#7d343c" stroke-width="1.8"/><rect x="303.4" y="244" width="29.3" height="15" fill="#7d343c" rx="1"/>
+<line x1="372.2" y1="242" x2="372.2" y2="273" stroke="#1d6f47" stroke-width="1.8"/><rect x="357.6" y="249" width="29.3" height="15" fill="#1d6f47" rx="1"/>
+<text x="372.2" y="366" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">wk 3</text>
+<line x1="426.4" y1="235" x2="426.4" y2="267" stroke="#7d343c" stroke-width="1.8"/><rect x="411.8" y="242" width="29.3" height="15" fill="#7d343c" rx="1"/>
+<line x1="480.7" y1="239" x2="480.7" y2="270" stroke="#1d6f47" stroke-width="1.8"/><rect x="466.0" y="246" width="29.3" height="15" fill="#1d6f47" rx="1"/>
+<text x="480.7" y="366" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">wk 4</text>
+<line x1="534.9" y1="236" x2="534.9" y2="268" stroke="#7d343c" stroke-width="1.8"/><rect x="520.2" y="244" width="29.3" height="15" fill="#7d343c" rx="1"/>
+<line x1="589.1" y1="140" x2="589.1" y2="265" stroke="#1d6f47" stroke-width="2.3"/><rect x="574.5" y="150" width="29.3" height="110" fill="#1d6f47" rx="1"/>
+<circle cx="589.1" cy="250" r="5" fill="#f4f7fb"/>
+<text x="589.1" y="366" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">break</text>
+<line x1="643.3" y1="140" x2="643.3" y2="198" stroke="#1d6f47" stroke-width="1.8"/><rect x="628.7" y="150" width="29.3" height="40" fill="#1d6f47" rx="1"/>
+<line x1="697.6" y1="112" x2="697.6" y2="162" stroke="#1d6f47" stroke-width="1.8"/><rect x="682.9" y="120" width="29.3" height="35" fill="#1d6f47" rx="1"/>
+<text x="697.6" y="366" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">wk 6</text>
+<line x1="751.8" y1="88" x2="751.8" y2="132" stroke="#1d6f47" stroke-width="1.8"/><rect x="737.1" y="95" width="29.3" height="30" fill="#1d6f47" rx="1"/>
+<line x1="806.0" y1="68" x2="806.0" y2="108" stroke="#1d6f47" stroke-width="1.8"/><rect x="791.4" y="75" width="29.3" height="26" fill="#1d6f47" rx="1"/>
+<text x="806.0" y="366" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">wk 8</text>
+<line x1="860.2" y1="52" x2="860.2" y2="90" stroke="#1d6f47" stroke-width="1.8"/><rect x="845.6" y="60" width="29.3" height="22" fill="#1d6f47" rx="1"/>
+<line x1="914.4" y1="44" x2="914.4" y2="78" stroke="#1d6f47" stroke-width="1.8"/><rect x="899.8" y="50" width="29.3" height="20" fill="#1d6f47" rx="1"/>
+<text x="914.4" y="366" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">wk 10</text>
+<line x1="968.7" y1="38" x2="968.7" y2="70" stroke="#1d6f47" stroke-width="1.8"/><rect x="954.0" y="44" width="29.3" height="18" fill="#1d6f47" rx="1"/>
+<line x1="1022.9" y1="35" x2="1022.9" y2="65" stroke="#1d6f47" stroke-width="1.8"/><rect x="1008.2" y="40" width="29.3" height="17" fill="#1d6f47" rx="1"/>
+<text x="1022.9" y="366" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">wk 12</text>
+<rect x="90" y="285" width="270" height="60" rx="7" fill="#0d1a2b" stroke="#c77dff" stroke-width="1.7"/>
+<text x="104" y="308" fill="#e6c8ff" font-size="13" font-weight="600">Compressed for weeks &mdash; energy</text>
+<text x="104" y="326" fill="#e6c8ff" font-size="13" font-weight="600">building, not being spent.</text>
+<line x1="225" y1="285" x2="240" y2="272" stroke="#c77dff" stroke-width="1.5" marker-end="url(#e3)"/>
+<text x="46" y="410" fill="#7d93ad" font-size="13">Volume</text>
+<rect x="86.5" y="495" width="29.3" height="18" fill="#7d343c" opacity="0.6" rx="1"/>
+<rect x="140.7" y="493" width="29.3" height="20" fill="#1d6f47" opacity="0.6" rx="1"/>
+<rect x="194.9" y="497" width="29.3" height="16" fill="#7d343c" opacity="0.6" rx="1"/>
+<rect x="249.1" y="494" width="29.3" height="19" fill="#1d6f47" opacity="0.6" rx="1"/>
+<rect x="303.4" y="496" width="29.3" height="17" fill="#7d343c" opacity="0.6" rx="1"/>
+<rect x="357.6" y="493" width="29.3" height="20" fill="#1d6f47" opacity="0.6" rx="1"/>
+<rect x="411.8" y="497" width="29.3" height="16" fill="#7d343c" opacity="0.6" rx="1"/>
+<rect x="466.0" y="494" width="29.3" height="19" fill="#1d6f47" opacity="0.6" rx="1"/>
+<rect x="520.2" y="496" width="29.3" height="17" fill="#7d343c" opacity="0.6" rx="1"/>
+<rect x="574.5" y="392" width="29.3" height="121" fill="#f4b942" opacity="0.95" rx="1"/>
+<rect x="628.7" y="450" width="29.3" height="63" fill="#1d6f47" opacity="0.8" rx="1"/>
+<rect x="682.9" y="458" width="29.3" height="55" fill="#1d6f47" opacity="0.75" rx="1"/>
+<rect x="737.1" y="463" width="29.3" height="50" fill="#1d6f47" opacity="0.7" rx="1"/>
+<rect x="791.4" y="467" width="29.3" height="46" fill="#1d6f47" opacity="0.65" rx="1"/>
+<rect x="845.6" y="471" width="29.3" height="42" fill="#1d6f47" opacity="0.6" rx="1"/>
+<rect x="899.8" y="474" width="29.3" height="39" fill="#1d6f47" opacity="0.55" rx="1"/>
+<rect x="954.0" y="477" width="29.3" height="36" fill="#1d6f47" opacity="0.5" rx="1"/>
+<rect x="1008.2" y="479" width="29.3" height="34" fill="#1d6f47" opacity="0.5" rx="1"/>
+<rect x="392" y="392" width="300" height="46" rx="7" fill="#0d1a2b" stroke="#f4b942" stroke-width="1.7"/>
+<text x="406" y="417" fill="#f4b942" font-size="13" font-weight="600">The breakout, on a real outlier volume bar &mdash; the fuel.</text>
+<line x1="500" y1="438" x2="588" y2="465" stroke="#f4b942" stroke-width="1.5" marker-end="url(#e5)"/>
+<line x1="74" y1="560" x2="1050" y2="560" stroke="#f4b942" stroke-width="1.6" stroke-dasharray="6 5"/>
+<text x="82" y="551" fill="#f4b942" font-size="12.5" font-weight="700">Expansion threshold &mdash; ~6&times; ATR</text>
+<line x1="74" y1="660" x2="1050" y2="660" stroke="#c77dff" stroke-width="1.6" stroke-dasharray="6 5"/>
+<text x="82" y="678" fill="#e6c8ff" font-size="12.5" font-weight="700">Squeeze threshold &mdash; ~1.5&times; ATR</text>
+<polyline points="101.1,605 155.3,615 209.6,625 263.8,635 318.0,645 372.2,655 426.4,663 480.7,670 534.9,676 589.1,672 643.3,640 697.6,600 751.8,565 806.0,545 860.2,530 914.4,520 968.7,515 1022.9,512" fill="none" stroke="#5aa9ff" stroke-width="2.3"/>
+<circle cx="480.7" cy="670" r="4.5" fill="#c77dff"/>
+<circle cx="534.9" cy="676" r="4.5" fill="#c77dff"/>
+<circle cx="806.0" cy="545" r="4.5" fill="#f4b942"/>
+<rect x="700" y="590" width="320" height="60" rx="7" fill="#0d1a2b" stroke="#f4b942" stroke-width="1.7"/>
+<text x="714" y="613" fill="#f4b942" font-size="13" font-weight="600">Crosses its own expansion extreme &mdash;</text>
+<text x="714" y="631" fill="#f4b942" font-size="13" font-weight="600">energy mostly spent. Start protecting profits.</text>
+<line x1="808" y1="590" x2="806.5" y2="550" stroke="#f4b942" stroke-width="1.5" marker-end="url(#e5)"/>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>Volume is what tells the squeeze apart from a trap</h4>
+        <p class="lead">A tight range and a level crossed only get you halfway. Volume is the other half.</p>
+        <svg viewBox="0 0 1180 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Four squeeze-and-breakout scenarios compared: one with real outlier volume and three without">
+<rect x="10.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#22855a" stroke-width="2"/>
+<line x1="28" y1="130.4" x2="267" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="28" y="121.4" fill="#9fb3c8" font-size="11.5">breakout level</text>
+<rect x="45" y="140" width="18" height="12" fill="#1d6f47" rx="1"/>
+<rect x="70" y="138" width="18" height="14" fill="#7d343c" rx="1"/>
+<line x1="147.5" y1="70" x2="147.5" y2="140" stroke="#1d6f47" stroke-width="2.4"/>
+<rect x="131.5" y="80" width="32" height="55" fill="#1d6f47" rx="2"/>
+<rect x="131.5" y="205" width="32" height="55" fill="#f4b942" rx="2"/>
+<text x="28.0" y="42" fill="#2ecf7a" font-size="16" font-weight="800">Take it</text>
+<text x="28.0" y="244" fill="#9fb3c8" font-size="12.6">Breaks the level on volume more than</text>
+<text x="28.0" y="262" fill="#9fb3c8" font-size="12.6">two standard deviations above average.</text>
+<rect x="305.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="323" y1="130.4" x2="562" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="323" y="121.4" fill="#9fb3c8" font-size="11.5">breakout level</text>
+<rect x="340" y="120" width="18" height="14" fill="#1d6f47" rx="1"/>
+<rect x="365" y="122" width="18" height="12" fill="#7d343c" rx="1"/>
+<rect x="390" y="119" width="18" height="15" fill="#1d6f47" rx="1"/>
+<rect x="340" y="230" width="18" height="30" fill="#54697f" rx="1"/>
+<rect x="365" y="232" width="18" height="28" fill="#54697f" rx="1"/>
+<text x="323.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="323.0" y="244" fill="#9fb3c8" font-size="12.6">Still chopping under the level.</text>
+<text x="323.0" y="262" fill="#9fb3c8" font-size="12.6">Stored energy that hasn't been spent.</text>
+<rect x="600.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="618" y1="130.4" x2="857" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="618" y="121.4" fill="#9fb3c8" font-size="11.5">breakout level</text>
+<line x1="742.5" y1="75" x2="742.5" y2="140" stroke="#1d6f47" stroke-width="2.4"/>
+<rect x="726.5" y="85" width="32" height="50" fill="#1d6f47" rx="2"/>
+<rect x="726.5" y="235" width="32" height="25" fill="#54697f" rx="2"/>
+<text x="618.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="618.0" y="244" fill="#9fb3c8" font-size="12.6">Clears the level, but volume is</text>
+<text x="618.0" y="262" fill="#9fb3c8" font-size="12.6">completely ordinary. No fuel behind it.</text>
+<rect x="895.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="913" y1="130.4" x2="1152" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="913" y="121.4" fill="#9fb3c8" font-size="11.5">breakout level</text>
+<rect x="930" y="95" width="18" height="60" fill="#7d343c" rx="1"/>
+<rect x="955" y="150" width="18" height="60" fill="#1d6f47" rx="1"/>
+<line x1="1032.5" y1="70" x2="1032.5" y2="140" stroke="#1d6f47" stroke-width="2.4"/>
+<rect x="1016.5" y="80" width="32" height="55" fill="#1d6f47" rx="2"/>
+<rect x="1016.5" y="205" width="32" height="55" fill="#f4b942" rx="2"/>
+<text x="913.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="913.0" y="244" fill="#9fb3c8" font-size="12.6">Volume spikes, but there was no squeeze</text>
+<text x="913.0" y="262" fill="#9fb3c8" font-size="12.6">first &mdash; nothing was stored to spend.</text>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>Two states, and a lot of in-between</h4>
+        <p class="lead">The cycle spends most of its time in neither extreme. That's exactly why the two thresholds matter.</p>
+        <div class="timing">
+          <div><b>Compression &middot; below ~1.5&times; ATR</b><p>Energy building. This is the setup phase &mdash; watch for the level, not a trade yet.</p></div>
+          <div><b>Expansion &middot; above ~6&times; ATR</b><p>Energy spent. The move phase is maturing &mdash; start watching for mean reversion.</p></div>
+          <div><b>The fuzzy middle</b><p>No strong read either way. Most of the cycle lives here, which is exactly why the thresholds do the work.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The four filters</h2>
+    <p>A squeeze and a level get you watching. These decide whether the breakout in front of you is real.</p>
+  </div>
+  <div class="filters">
+    <div class="filter">
+      <h3>1 &nbsp;Higher time frame confirmation</h3>
+      <p>The squeeze needs to show up a level above the one you're trading &mdash; weekly for a daily trigger, monthly for a swing position.</p>
+      <p class="kill">Kills: daily-only squeezes with no real energy stored behind them.</p>
+    </div>
+    <div class="filter">
+      <h3>2 &nbsp;Real outlier volume</h3>
+      <p>Greater than two standard deviations above average volume, not just "a little heavier than usual."</p>
+      <p class="kill">Kills: low-conviction breakouts that fade back into the range.</p>
+    </div>
+    <div class="filter">
+      <h3>3 &nbsp;Close above the level</h3>
+      <p>An intrabar poke through the level doesn't count. You need the close.</p>
+      <p class="kill">Kills: chasing a wick that reverses by the close.</p>
+    </div>
+    <div class="filter">
+      <h3>4 &nbsp;Direction-agnostic squeeze</h3>
+      <p>The measure only reads magnitude, not direction. Confirm your own bias and structure before sizing it like a sure thing.</p>
+      <p class="kill">Kills: assuming every squeeze breaks the way you're hoping.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Size off the level, never off the wick</h2>
+    <p>Invalidation is a close back below the breakout level &mdash; not the intrabar low of the breakout candle. Numbers below are illustrative, built around the levels discussed for MSTR.</p>
+  </div>
+  <div class="risk">
+    <div class="panel">
+      <div class="calc">
+        <div class="row"><span>Risk budget for the trade</span><b>$500.00</b></div>
+        <div class="row"><span>Entry &mdash; close above the breakout level</span><b>204.00</b></div>
+        <div class="row"><span>Stop &mdash; close back below the level</span><b>199.00</b></div>
+        <div class="row"><span>Risk per share</span><b>$5.00</b></div>
+        <div class="row tot"><span>Position size</span><b>100 shares</b></div>
+      </div>
+    </div>
+    <div class="warn">
+      <h4>The mistake this prevents</h4>
+      <p>Use the breakout bar's intrabar low instead &mdash; say 201.75 &mdash; and you measure risk as 204.00 &minus; 201.75 = $2.25, sizing for 222 shares.</p>
+      <p class="big">222 &times; $5.00 = $1,110 at the trade's real invalidation.</p>
+      <p>More than double the budget, the moment a normal pullback wick tests the position &mdash; long before the actual thesis has broken.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Three breakouts, same signal</h2>
+    <p>Weekly squeeze, daily trigger, outlier volume on the break. Levels below are the presenter's own stated numbers from the reference video, not independently verified fills.</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><span class="tick">MSTR<small>early October</small></span></th>
+        <th><span class="tick">NVDA<small>same pattern</small></span></th>
+        <th><span class="tick">SMCI<small>earlier in the year</small></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>Higher-TF context</th>
+        <td class="txt">Weekly squeeze, testing the top of the range after its prior runup.</td>
+        <td class="txt">Same weekly-squeeze-into-daily-trigger pattern.</td>
+        <td class="txt">Same weekly-squeeze-into-daily-trigger pattern.</td></tr>
+      <tr><th>Breakout level</th><td>200</td><td>500</td><td>360</td></tr>
+      <tr><th>Trigger time frame</th><td>Daily</td><td>Daily</td><td>Daily</td></tr>
+      <tr><th>Volume filter</th><td class="txt">Outlier bar, &gt;2&sigma; above average</td><td class="txt">Outlier bar, &gt;2&sigma; above average</td><td class="txt">Outlier bar, &gt;2&sigma; above average</td></tr>
+      <tr><th>What followed</th>
+        <td class="txt">A sustained, explosive continuation move.</td>
+        <td class="txt">A sustained, explosive continuation move.</td>
+        <td class="txt">A sustained, explosive continuation move.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="panel" style="margin-top:20px;">
+    <h4>The forward-looking case, and the reminder that this doesn't always work</h4>
+    <p class="lead">On the monthly chart, one name discussed in the video had been in a squeeze for the better part of a year and was testing a breakout level near $415 at the time of recording &mdash; the same pattern, playing out on the highest time frame this page covers.</p>
+    <p style="color:var(--dim); font-size:14px; margin:0;">Its prior monthly squeeze resolved into a split-adjusted run from roughly $26 to just over $400. The squeeze after <em style="color:var(--up); font-style:normal;">that</em> one resolved to the downside instead &mdash; and the stock held, chopping sideways for a long stretch rather than continuing lower, read as a sign of real strength, not a failed signal to ignore. A squeeze is stored potential, not a promise of direction, and this level and date are from the reference video, not a current call &mdash; check where price actually sits before treating it as live.</p>
+  </div>
+
+  <div class="section-head">
+    <h2>Example: the volatility cycle on daily bars</h2>
+    <p>An example stretch of daily bars run through the indicator's own rules: closes coil in a tight range until the measure
+    (2σ of 20 closes ÷ ATR(14)) drops under 1.5 and the squeeze is shaded. A close above the top of the coil on volume well over the
+    average + 2σ line is the buy, the level stays under it as the stop, and the first close with the measure above 6 is the trim cue.
+    The bars are made up to show the setup clearly. They aren't a real ticker.</p>
+  </div>
+  <section class="live" data-eit-live data-example data-symbol="NVDA" aria-label="Example daily chart with the volatility-cycle measure, squeezes, breakout levels and signals">
+    <div class="live-main">
+      <form class="live-symbol"><label for="eit-sym">Symbol</label><input id="eit-sym" name="sym" autocomplete="off" spellcheck="false" maxlength="6"><button class="pill pill-buy" type="submit">Load</button></form>
+      <div class="live-chart"><div class="live-gate"><b>Loading chart&hellip;</b></div></div>
+      <p class="live-status">Daily</p>
+    </div>
+    <aside class="live-side" aria-live="polite"></aside>
+  </section>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/pyS_jw8ygJo" title="Energy in the Tank (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Reading the volatility cycle and catching the breakout when the energy releases.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=pyS_jw8ygJo" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>A squeeze is stored energy. Volume on the break is what actually spends it.</h2>
+      <p>None of this predicts direction, and it doesn't work every time. It tells you which stocks have real fuel in the tank before the move, and which ones are just drifting through a level on no participation.</p>
+    </div>
+    <div>
+      <ul>
+        <li>A squeeze with no volume on the break is potential that never got spent &mdash; it's not a trade yet.</li>
+        <li>The higher time frame tells you how much energy is stored. The lower time frame is where you actually trade it.</li>
+        <li>When volatility expansion reaches its own extreme, that's a cue to protect profits, not proof the move is over.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Model built around a volatility-cycle read &mdash; the standard deviation of closing prices over 20 bars, normalized by ATR, the same math behind the classic Bollinger Band / Keltner Channel volatility squeeze &mdash; combined with an outlier-volume breakout filter, as taught in a trading-education video. Breakout levels cited for MSTR, NVDA, SMCI, and the forward-looking example are the presenter's own stated levels from that video, not independently verified, and reflect a date from that recording, not a current signal. <a href="https://youtu.be/pyS_jw8ygJo" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

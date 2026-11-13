@@ -1,0 +1,618 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volume Profile Trading System — PC, value area, breakout | The Trade Method</title>
+<meta name="description" content="One tool, read three different ways depending on how the prior session closed — a point-of-control bounce, a value-area reversal, or a value-area breakout continuation — all sized to a fixed 2R.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/volume-profile-system.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Volume Profile Trading System — PC, value area, breakout">
+<meta property="og:description" content="One tool, read three different ways depending on how the prior session closed — a point-of-control bounce, a value-area reversal, or a value-area breakout continuation — all sized to a fixed 2R.">
+<meta property="og:url" content="https://thetrademethod.com/setups/volume-profile-system.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Volume Profile Trading System — PC, value area, breakout">
+<meta name="twitter:description" content="One tool, read three different ways depending on how the prior session closed — a point-of-control bounce, a value-area reversal, or a value-area breakout continuation — all sized to a fixed 2R.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Volume Profile Trading System — PC, value area, breakout",
+ "name": "Volume Profile System",
+ "description": "One tool, read three different ways depending on how the prior session closed — a point-of-control bounce, a value-area reversal, or a value-area breakout continuation — all sized to a fixed 2R.",
+ "url": "https://thetrademethod.com/setups/volume-profile-system.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/volume-profile-system.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--blue); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--blue); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--blue); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--blue); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- placement ---------- */
+  .placement { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:14px; }
+  .placement div { border-radius:9px; padding:13px 15px; border:1px solid var(--line); background:var(--panel2); }
+  .placement .yes { border-color:#22855a; background:#0b1c17; }
+  .placement .no  { border-color:#5e2a30; background:#1a1013; }
+  .placement b { display:block; font-size:15px; margin-bottom:4px; }
+  .placement .yes b { color:var(--up); }
+  .placement .no b { color:var(--down); }
+  .placement p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--blue); color:var(--blue); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #1f4a85; background:#0a1627; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .placement { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
+<script src="/js/live-kit.js?v=2" defer></script>
+<script src="/js/examples/vp.js?v=1" defer></script><script src="/js/example-kit.js?v=1" defer></script><script src="/js/vp-live.js?v=6" defer></script>
+<script src="/js/vp-anim.js?v=1" defer></script>
+<style>
+  /* video (same as relative-volume.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=2" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="volume-profile-system">
+    <div>
+      <p class="kicker">Volume profile &middot; point of control, value area, breakout &middot; long or short</p>
+      <h1>Volume Profile <span>System</span></h1>
+    </div>
+    <div>
+      <p class="thesis">One tool, read three different ways depending on how the prior session closed:
+      a bounce off the point of control, a reversal back into the value area, or a breakout continuation
+      out of it. <em>Different setup, same fixed 2R.</em></p>
+      <div class="counts">
+        <div><b>3</b><small>setups, one tool</small></div>
+        <div><b>4</b><small>filters</small></div>
+        <div><b>2R</b><small>fixed target, every setup</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">the tool</div><div class="n">Point of control, value area high/low</div></div>
+    <div><div class="t">placement</div><div class="n">Always the previous session, never the current one</div></div>
+    <div><div class="t">setup 1</div><div class="n">PC bounce &mdash; closed outside the value area</div></div>
+    <div><div class="t">setup 2</div><div class="n">Value area reversal &mdash; closed inside it</div></div>
+    <div><div class="t">setup 3</div><div class="n">Value area breakout &mdash; pullback, then structure</div></div>
+    <div><div class="t">risk</div><div class="n">Fixed 2R on every setup</div></div>
+  </nav>
+
+  <section class="anim" data-vp-anim aria-label="Illustrative chart">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">6 / 6</p>
+        <h2 class="anim-title">Watch the system work one session</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 500" role="img" aria-label="Illustrative chart: yesterday&#39;s volume profile builds with its point of control and value area; yesterday closed above the value area, so the PC bounce is in play; today price returns to the PC, rejects it and a long reaches 2R; the value area reversal is shown aside because it needs a close inside the value area; later price breaks out above the value area, pulls back, breaks the high, and a second long reaches 2R"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Read the profile, not just the price</h3>
+          <ul>
+            <li>A traditional volume indicator measures volume across time &mdash; one bar per period. The volume profile measures the same volume across <b>price</b> instead, showing exactly which levels attracted the trading activity.</li>
+            <li>The point of control (PC) marks the single price with the highest volume in the range &mdash; the longest bar. The value area high and low (VAH/VAL) bound the zone holding 70% of all volume traded, the levels where most of the activity actually happened.</li>
+          </ul>
+          <p class="why">Long bars are where both sides were actively trading &mdash; price tends to slow down and consolidate there. Short bars are where one side dominated &mdash; price tends to move through them quickly. That rhythm is what the three setups below are built on.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Place it on the previous session &mdash; never the current one</h3>
+          <ul>
+            <li>Draw the fixed-range volume profile across the full previous session, open to close, then use its PC and value area as reference levels for the session that's trading right now.</li>
+            <li>Tool settings: row size 60, value area volume 70%, with VH, VAL, and PC all enabled.</li>
+          </ul>
+          <p class="why">The current session's profile is still being built candle by candle, so its levels keep shifting in real time &mdash; trading off them is trading off a moving target. Yesterday's profile is finished and stable.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Setup 1 &mdash; the PC bounce</h3>
+          <ul>
+            <li>Valid only when the previous session closed outside its value area. Mark the PC and wait for the current session's price to return to it.</li>
+            <li>Confirm with a reversal candle at the level &mdash; a rejection wick through the PC that closes back below it, an engulfing candle, or a run of candles in the new direction &mdash; before entering.</li>
+          </ul>
+          <p class="why">The PC is the level the market agreed on most. A touch alone isn't an entry &mdash; the previous-session condition and the confirming candle are what separate a real reaction from a random pass through the level.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Setup 2 &mdash; the value area reversal</h3>
+          <ul>
+            <li>Valid only when the previous session closed inside its value area. Wait for the current session's price to cross outside the value area high or low, then wait for a full candle to <b>close</b> back inside it &mdash; a wick alone doesn't count.</li>
+            <li>Stop goes near the swing high or low the move crossed outside from; target is fixed at 2R.</li>
+          </ul>
+          <p class="why">Moving outside the value area means price is trading at a relative premium or discount to where most of the volume traded &mdash; a close back inside is the market rejecting that extension, not just touching it.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Setup 3 &mdash; the value area breakout</h3>
+          <ul>
+            <li>Works regardless of how the previous session closed. Requires price to break significantly outside the value area, then pull back and hold near it &mdash; it doesn't have to hold the level perfectly, just not push too deep back inside.</li>
+            <li>Final trigger is a break of structure in the breakout direction: a higher high for a long setup, a lower low for a short.</li>
+          </ul>
+          <p class="why">A breakout that holds its pullback and then prints a fresh structure break is showing real continuation, not just a one-candle spike that's about to get reclaimed.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>One system, not three separate strategies</h3>
+          <ul>
+            <li>All three read off the same profile and the same previous-session condition decides which one is even in play &mdash; closed outside the value area points to the PC bounce, closed inside points to the reversal, and a clean breakout can override either one as the session develops.</li>
+            <li>Every setup is sized the same way: a defined stop specific to that setup, and a fixed 2R target.</li>
+          </ul>
+          <p class="why">A reversal that stops out doesn't mean the tool failed &mdash; the same session's price action can hand you a breakout setup right after, which is why these are read together as one system, not three competing ideas.</p>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h4>Anatomy of the profile</h4>
+        <p class="lead">Long bars mark where volume piled up &mdash; price slows down and consolidates there. Short bars mark where it didn't &mdash; price moves through them quickly.</p>
+        <svg viewBox="0 0 1180 560" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Annotated chart showing a volume profile beside price, with the point of control at the longest bar, the value area high and low bounding the 70 percent volume zone, price consolidating near the high-volume node, and price moving quickly through the low-volume nodes">
+<rect x="32" y="20" width="1062" height="520" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<rect x="60" y="40" width="230" height="480" fill="#101d2f" stroke="#1b2a3e"/>
+<rect x="70" y="60" width="40" height="30" fill="#3a526e" rx="1"/>
+<rect x="70" y="100" width="70" height="30" fill="#3a526e" rx="1"/>
+<rect x="70" y="140" width="130" height="30" fill="#e0505a" rx="1"/>
+<text x="210" y="160" fill="#e0505a" font-size="12" font-weight="700">PC</text>
+<rect x="70" y="180" width="190" height="30" fill="#5aa9ff" rx="1"/>
+<rect x="70" y="220" width="150" height="30" fill="#3a526e" rx="1"/>
+<rect x="70" y="260" width="95" height="30" fill="#3a526e" rx="1"/>
+<rect x="70" y="300" width="55" height="30" fill="#3a526e" rx="1"/>
+<rect x="70" y="340" width="30" height="30" fill="#3a526e" rx="1"/>
+<line x1="60" y1="150" x2="1046" y2="150" stroke="#e0505a" stroke-width="1.8" stroke-dasharray="3 4"/>
+<text x="900" y="142" fill="#e0505a" font-size="13" font-weight="700">point of control &mdash; highest-volume price</text>
+<line x1="60" y1="175" x2="1046" y2="175" stroke="#5aa9ff" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.9"/>
+<text x="900" y="192" fill="#5aa9ff" font-size="13" font-weight="700">value area high</text>
+<line x1="60" y1="345" x2="1046" y2="345" stroke="#5aa9ff" stroke-width="1.6" stroke-dasharray="3 4" opacity="0.9"/>
+<text x="900" y="362" fill="#5aa9ff" font-size="13" font-weight="700">value area low</text>
+<path d="M 340,420 L 370,400 L 400,250 L 430,160" fill="none" stroke="#8fa6bd" stroke-width="1.8" opacity="0.6"/>
+<line x1="350" y1="395" x2="350" y2="430" stroke="#8fa6bd" stroke-width="1.8"/><rect x="340" y="400" width="20" height="24" fill="#8fa6bd" rx="1"/>
+<line x1="390" y1="300" x2="390" y2="350" stroke="#8fa6bd" stroke-width="1.8"/><rect x="380" y="305" width="20" height="40" fill="#8fa6bd" rx="1"/>
+<text x="390" y="460" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">fast move &mdash; low-volume node</text>
+<line x1="480" y1="150" x2="480" y2="200" stroke="#f4b942" stroke-width="1.8"/><rect x="470" y="155" width="20" height="38" fill="#f4b942" opacity="0.8" rx="1"/>
+<line x1="530" y1="140" x2="530" y2="190" stroke="#f4b942" stroke-width="1.8"/><rect x="520" y="148" width="20" height="35" fill="#f4b942" opacity="0.8" rx="1"/>
+<line x1="580" y1="150" x2="580" y2="195" stroke="#f4b942" stroke-width="1.8"/><rect x="570" y="155" width="20" height="33" fill="#f4b942" opacity="0.8" rx="1"/>
+<line x1="630" y1="145" x2="630" y2="188" stroke="#f4b942" stroke-width="1.8"/><rect x="620" y="150" width="20" height="33" fill="#f4b942" opacity="0.8" rx="1"/>
+<text x="555" y="460" fill="#f4b942" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">consolidation &mdash; high-volume node</text>
+<line x1="700" y1="130" x2="700" y2="170" stroke="#8fa6bd" stroke-width="1.8"/><rect x="690" y="135" width="20" height="28" fill="#8fa6bd" rx="1"/>
+<line x1="750" y1="80" x2="750" y2="140" stroke="#8fa6bd" stroke-width="1.8"/><rect x="740" y="85" width="20" height="40" fill="#8fa6bd" rx="1"/>
+<text x="725" y="460" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">fast move again</text>
+<rect x="790" y="420" width="280" height="60" rx="7" fill="#0d1a2b" stroke="#5aa9ff" stroke-width="1.7"/>
+<text x="804" y="443" fill="#9ec8ff" font-size="13" font-weight="600">The value area holds 70% of all volume</text>
+<text x="804" y="461" fill="#9ec8ff" font-size="13" font-weight="600">traded &mdash; outside it, price is at a relative</text>
+<text x="804" y="477" fill="#9ec8ff" font-size="13" font-weight="600">premium or discount.</text>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>Three setups, one tool</h4>
+        <p class="lead">Which setup is in play depends on how the previous session's profile closed &mdash; then on what price actually does with it.</p>
+        <svg viewBox="0 0 1180 320" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Three panels comparing the PC bounce after a close outside the value area, the value area reversal after a close inside it, and the value area breakout with a pullback and break of structure">
+<rect x="14" y="14" width="372" height="292" rx="10" fill="#0c1626" stroke="#22855a" stroke-width="2"/>
+<text x="30" y="42" fill="#2ecf7a" font-size="16" font-weight="800">PC bounce</text>
+<text x="30" y="62" fill="#9fb3c8" font-size="11.5">prior session closed outside VA</text>
+<line x1="30" y1="190" x2="368" y2="190" stroke="#e0505a" stroke-width="1.6" stroke-dasharray="3 4"/>
+<text x="30" y="182" fill="#e0505a" font-size="11">PC</text>
+<path d="M 60,230 L 110,205 L 160,190 L 200,215 L 250,250" fill="none" stroke="#c8d8e8" stroke-width="1.8" opacity="0.6"/>
+<circle cx="180" cy="195" r="20" fill="none" stroke="#2ecf7a" stroke-width="2"/>
+<text x="30" y="270" fill="#9fb3c8" font-size="12.6">Price returns to the PC, a reversal</text>
+<text x="30" y="286" fill="#9fb3c8" font-size="12.6">candle confirms, price bounces away.</text>
+<rect x="404" y="14" width="372" height="292" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<text x="420" y="42" fill="#f4b942" font-size="16" font-weight="800">VA reversal</text>
+<text x="420" y="62" fill="#9fb3c8" font-size="11.5">prior session closed inside VA</text>
+<line x1="420" y1="150" x2="758" y2="150" stroke="#5aa9ff" stroke-width="1.6" stroke-dasharray="3 4"/>
+<text x="420" y="142" fill="#5aa9ff" font-size="11">value area low</text>
+<path d="M 450,170 L 490,200 L 530,235 L 560,200 L 600,165 L 650,150" fill="none" stroke="#c8d8e8" stroke-width="1.8" opacity="0.6"/>
+<circle cx="535" cy="225" r="18" fill="none" stroke="#e0505a" stroke-width="2"/>
+<text x="420" y="270" fill="#9fb3c8" font-size="12.6">Price crosses outside, then a full</text>
+<text x="420" y="286" fill="#9fb3c8" font-size="12.6">candle closes back inside the VA.</text>
+<rect x="794" y="14" width="372" height="292" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<text x="810" y="42" fill="#5aa9ff" font-size="16" font-weight="800">VA breakout</text>
+<text x="810" y="62" fill="#9fb3c8" font-size="11.5">either close condition qualifies</text>
+<line x1="810" y1="200" x2="1148" y2="200" stroke="#5aa9ff" stroke-width="1.6" stroke-dasharray="3 4"/>
+<text x="810" y="192" fill="#5aa9ff" font-size="11">value area high</text>
+<path d="M 840,230 L 880,190 L 920,150 L 950,185 L 985,170 L 1020,120" fill="none" stroke="#c8d8e8" stroke-width="1.8" opacity="0.6"/>
+<circle cx="935" cy="190" r="18" fill="none" stroke="#f4b942" stroke-width="2"/>
+<text x="973" y="152" fill="#2ecf7a" font-size="11" font-weight="700">break of structure</text>
+<text x="810" y="270" fill="#9fb3c8" font-size="12.6">Breaks out, pulls back to hold near</text>
+<text x="810" y="286" fill="#9fb3c8" font-size="12.6">the level, then breaks structure again.</text>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>Previous session only</h4>
+        <p class="lead">Where you place the profile decides whether the levels it generates hold up at all.</p>
+        <div class="placement">
+          <div class="yes"><b>Previous session &mdash; use this</b><p>Fully closed, open to close. Its PC and value area are finished and stable, so they hold as reference levels for the session trading right now.</p></div>
+          <div class="no"><b>Current session &mdash; never this</b><p>Still forming candle by candle. Its profile keeps changing in real time, which makes any level drawn from it unreliable and prone to misleading signals.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The four filters</h2>
+    <p>The tool draws the same levels either way &mdash; these are what keep you from trading a level the setup's own rules haven't actually qualified yet.</p>
+  </div>
+  <div class="filters">
+    <div class="filter">
+      <h3>1 &nbsp;Profiling the current session</h3>
+      <p>Drawing the volume profile across today's still-forming session instead of yesterday's completed one, then trading off levels that are still shifting in real time.</p>
+      <p class="kill">Kills: reference levels that move under you while you're trying to trade them.</p>
+    </div>
+    <div class="filter">
+      <h3>2 &nbsp;A PC bounce with the wrong prior close</h3>
+      <p>Taking a PC touch as an entry signal without first confirming the previous session actually closed outside its value area.</p>
+      <p class="kill">Kills: treating every touch of the point of control as the same setup, when only one condition makes it valid.</p>
+    </div>
+    <div class="filter">
+      <h3>3 &nbsp;A wick instead of a close</h3>
+      <p>Counting a wick back into the value area as reversal confirmation instead of waiting for a full candle to actually close back inside it.</p>
+      <p class="kill">Kills: entering on a level that price only touched in passing, not one it actually accepted.</p>
+    </div>
+    <div class="filter">
+      <h3>4 &nbsp;A pullback that doesn't hold</h3>
+      <p>Taking the breakout setup when the pullback pushes too deep back into the value area, or never holds near the level at all.</p>
+      <p class="kill">Kills: a "breakout" that was really just a spike about to get fully reclaimed.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Same tool, same fixed 2R</h2>
+    <p>The figures below are clean, illustrative numbers to show the sequence &mdash; the source material describes the setups visually, without a specific numeric trade attached.</p>
+  </div>
+  <div class="risk">
+    <div class="panel">
+      <div class="calc">
+        <div class="row"><span>Entry &mdash; PC bounce trigger (illustrative)</span><b>$100.00</b></div>
+        <div class="row"><span>Stop &mdash; just beyond the PC</span><b>$100.60</b></div>
+        <div class="row"><span>Target &mdash; fixed at 2R</span><b>$98.80</b></div>
+        <div class="row tot"><span>Reward : risk</span><b>2.00 : 1</b></div>
+      </div>
+    </div>
+    <div class="warn">
+      <h4>The mistake this prevents</h4>
+      <p>Sizing the stop off a round number or a comfort level instead of the level the setup actually defines &mdash; just beyond the PC, the swing high or low, or the break-of-structure candle.</p>
+      <p class="big">A stop that isn't anchored to the setup's own invalidation point makes the fixed 2R target meaningless &mdash; the ratio only holds if the risk side is measured correctly in the first place.</p>
+      <p>Define the stop from the setup's own structure first. The 2R target follows from that, never the other way around.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Which setup fits which read</h2>
+    <p>All three share one tool and one risk model &mdash; what changes is the previous-session condition and the trigger each one requires.</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><span class="tick">PC Bounce<small>reaction trade</small></span></th>
+        <th><span class="tick">VA Reversal<small>mean-reversion trade</small></span></th>
+        <th><span class="tick">VA Breakout<small>continuation trade</small></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>Previous-session condition</th>
+        <td class="txt">Must have closed outside the value area.</td>
+        <td class="txt">Must have closed inside the value area.</td>
+        <td class="txt">Either &mdash; inside or outside both qualify.</td></tr>
+      <tr><th>Trigger</th>
+        <td class="txt">Price returns to the PC with a confirming reversal candle.</td>
+        <td class="txt">Price crosses outside the value area, then a full candle closes back inside it.</td>
+        <td class="txt">Price breaks significantly outside the value area, pulls back to hold near it, then breaks structure in that direction.</td></tr>
+      <tr><th>Stop</th>
+        <td class="txt">Just beyond the PC, on the side price rejected from.</td>
+        <td class="txt">Near the swing high or low the move crossed outside from.</td>
+        <td class="txt">Just beyond the break-of-structure candle.</td></tr>
+      <tr><th>Target</th>
+        <td class="txt">Fixed 2R.</td>
+        <td class="txt">Fixed 2R.</td>
+        <td class="txt">Fixed 2R.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-head">
+    <h2>Example: a PC bounce to 2R</h2>
+    <p>An example session run through the indicator's own rules, on 2-minute bars. The day before closed above its value area, so the PC bounce is in play.
+    This morning price slides back down to that PC, a hammer rejects it and closes back above, and the long reaches its 2R target before lunch.
+    The bars are made up to show the setup clearly. They aren't a real ticker.</p>
+  </div>
+  <section class="live" data-vp-live data-example data-symbol="QQQ" data-mult="2" aria-label="Example chart with the volume profile system">
+    <div class="live-main">
+      <div class="live-chart"><div class="live-gate"><b>Loading chart&hellip;</b></div></div>
+      <p class="live-status">QQQ &middot; 2-minute</p>
+    </div>
+    <aside class="live-side" aria-live="polite"></aside>
+  </section>
+
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/Xa2fB097ajs" title="Volume Profile Trading System (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Point of control, value area and breakout continuation off the prior session's profile.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=Xa2fB097ajs" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="section-head">
+    <h2 class="ind-heading">Indicator for this setup</h2>
+    <p class="ind-note">Add this to a TradingView chart to build the previous session's profile automatically and
+    mark all three setups this page describes. It draws and alerts on the setups &mdash; it does not place trades.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">VP System &mdash; PC &middot; VA Reversal &middot; VA Breakout</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">Builds the previous session's volume profile (row size 60, 70% value area) and extends its PC,
+      VAH, and VAL across today's session. Reads the prior close to decide which setup is in play, then marks PC
+      bounces, value area reversals, and breakout continuations with stops and 2R targets, plus webhook-ready alerts.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/volume-profile-system.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+  </ul>
+
+  <div class="rule">
+    <div>
+      <h2>One tool. Three reads. One fixed ratio.</h2>
+      <p>The profile doesn't change &mdash; what changes is how the previous session closed and what price does
+      with the levels that close produced.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Previous session only, never the current one &mdash; the levels have to be finished to be reliable.</li>
+        <li>Let the prior close decide the setup: outside the value area points to the PC bounce, inside points to the reversal, a clean break can hand you the breakout either way.</li>
+        <li>Stop from the setup's own structure, target fixed at 2R &mdash; every single time.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Model built around a volume-profile trading system &mdash; reading the point of control, the value area, and breakout continuation off the previous session's profile, each sized to a fixed 2 reward-to-risk ratio &mdash; as taught in a trading-education video. The risk figures above are clean, illustrative numbers and are not from a specific trade named in that video. <a href="https://www.youtube.com/watch?v=Xa2fB097ajs" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

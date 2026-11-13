@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GEX Levels — call wall, put wall, gamma flip | The Trade Method</title>
+<meta name="description" content="Dealer hedging leaves fingerprints at a few prices every morning. The walls say where price is likely to stall; the gamma flip says whether to fade them or follow the break.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/gex-levels.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="GEX Levels — call wall, put wall, gamma flip">
+<meta property="og:description" content="Dealer hedging leaves fingerprints at a few prices every morning. The walls say where price is likely to stall; the gamma flip says whether to fade them or follow the break.">
+<meta property="og:url" content="https://thetrademethod.com/setups/gex-levels.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="GEX Levels — call wall, put wall, gamma flip">
+<meta name="twitter:description" content="Dealer hedging leaves fingerprints at a few prices every morning. The walls say where price is likely to stall; the gamma flip says whether to fade them or follow the break.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "GEX Levels — call wall, put wall, gamma flip",
+ "name": "GEX Levels",
+ "description": "Dealer hedging leaves fingerprints at a few prices every morning. The walls say where price is likely to stall; the gamma flip says whether to fade them or follow the break.",
+ "url": "https://thetrademethod.com/setups/gex-levels.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/gex-levels.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--gold); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--gold); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--gold); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--gold); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/gex-anim.js?v=2" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
+<script src="/js/live-kit.js?v=3" defer></script>
+<script src="/js/examples/gex.js?v=1" defer></script><script src="/js/example-kit.js?v=1" defer></script><script src="/js/gex-live.js?v=3" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=2" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="gex-levels">
+    <div>
+      <p class="kicker">Options positioning &middot; call wall, put wall, gamma flip &middot; long or short</p>
+      <h1>GEX <span>Levels</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Options dealers hedge, and their hedging leaves fingerprints at a few prices every morning.
+      The walls tell you <em>where</em> price is likely to stall. The gamma flip tells you <em>how</em> it will move:
+      fade the walls above the flip, follow the break below it.</p>
+      <div class="counts">
+        <div><b>3</b><small>levels that matter</small></div>
+        <div><b>2</b><small>regimes, two playbooks</small></div>
+        <div><b>9:30</b><small>snapshot, fresh every day</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">the math</div><div class="n">Gamma exposure by strike</div></div>
+    <div><div class="t">above price</div><div class="n">The call wall</div></div>
+    <div><div class="t">below price</div><div class="n">The put wall</div></div>
+    <div><div class="t">the regime</div><div class="n">The gamma flip</div></div>
+    <div><div class="t">the playbook</div><div class="n">Fade above, follow below</div></div>
+    <div><div class="t">the filter</div><div class="n">Confidence and size</div></div>
+  </nav>
+
+  <section class="anim" data-gex-anim aria-label="Animated walkthrough of the GEX levels">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">6 / 6</p>
+        <h2 class="anim-title">Watch one session against the levels</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 500" role="img" aria-label="Illustrative chart: net gamma exposure by strike builds into a call wall at 775, a put wall at 765 and a gamma flip at 770; above the flip price grinds into the call wall and is rejected; it then closes under the flip, the regime turns negative, a retest of the flip from below fails, and price stretches into the put wall, where a green bar closes back over it"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Measure gamma exposure at every strike</h3>
+          <ul>
+            <li>For each strike: gamma &times; open interest &times; 100 &times; spot&sup2; &times; 1%. Calls count positive, puts negative. The result is the dollars dealers have to buy or sell for each 1% move.</li>
+            <li>Use expirations out to 30 days and price them at the 9:30 open. Including every expiration lets far-dated round strikes take over the picture.</li>
+          </ul>
+          <p class="why">Dealers are mostly short the options the public buys, and they hedge to stay neutral. Where that hedging is concentrated, their buying and selling becomes the market's.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>The call wall: the biggest call exposure above price</h3>
+          <ul>
+            <li>Of the strikes above the current price, the one with the largest call gamma is the call wall. A second-largest is the backup (CW2).</li>
+            <li>Above the flip it acts as resistance: as price climbs into it, dealer hedging leans against the move.</li>
+          </ul>
+          <p class="why">It's a ceiling made of hedging flows, not of past prices. It moves when positioning moves, which is why it's recalculated every morning.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>The put wall: the biggest put exposure below price</h3>
+          <ul>
+            <li>Of the strikes below the current price, the one with the largest put gamma is the put wall, with a backup (PW2).</li>
+            <li>It acts as support. Same-day (0DTE) walls are tracked separately: they matter for SPY and QQQ every day and for most names on Fridays.</li>
+          </ul>
+          <p class="why">A put wall that holds tends to hold hard, because the hedging there pushes back against the drop. A put wall that breaks tends to break fast.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>The gamma flip sets the regime</h3>
+          <ul>
+            <li>Re-price the whole chain across a range of prices and find where total gamma crosses zero. That price is the flip.</li>
+            <li>Above it, dealers are long gamma: they sell rips and buy dips, so moves get damped. Below it, they're short gamma and hedge with the move, so moves stretch.</li>
+          </ul>
+          <p class="why">The flip doesn't tell you direction. It tells you which playbook the market is running today, and that decides how to treat every other level.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Fade the walls above the flip, follow the break below it</h3>
+          <ul>
+            <li><b>Above the flip:</b> short the call wall rejection (tag the zone, close red back under) and buy the put wall hold (tag the zone, close green back over).</li>
+            <li><b>Below the flip:</b> short the failed flip retest from below; take wall breaks seriously. A close back over the flip is the reclaim, and the regime turns again.</li>
+          </ul>
+          <p class="why">The same touch of the same wall is a different trade depending on which side of the flip you're on. Most bad GEX trades are fades in negative gamma.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Grade the levels before trusting them</h3>
+          <ul>
+            <li>Confidence comes from total net GEX: HIGH at $500M or more, GOOD at $100M, MED at $25M, LOW below that. Any ticker whose biggest wall is under $5M is LOW too.</li>
+            <li>Each wall also carries its own size in dollars per 1% move. A $2.4B put wall and a $49M put wall are not the same level.</li>
+          </ul>
+          <p class="why">On thin names the walls are a few contracts deep, and nothing about them forces anyone to hedge. Faded lines on the chart mean LOW confidence: treat them as reference only.</p>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h4>Where the levels come from</h4>
+        <p class="lead">Net gamma exposure by strike. The tallest call bar above price is the call wall; the tallest put bar below price is the put wall; the flip sits where the total crosses zero.</p>
+<svg viewBox="0 0 1180 560" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Net gamma exposure by strike: put exposure on the left below price, call exposure on the right above price; the biggest call bar above price is the call wall at 775, the biggest put bar below price is the put wall at 765, and the gamma flip at 770 sits where net gamma crosses zero">
+<rect x="20" y="14" width="1140" height="532" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<text x="44" y="44" fill="#9fb3c8" font-size="14">Net GEX by strike · $B per 1% move · illustrative</text>
+<line x1="590" x2="590" y1="56" y2="506" stroke="#2b4058" stroke-width="1.5"/>
+<text x="578" y="530" fill="#69f0ae" font-size="13" font-weight="700" text-anchor="end">&#9664; puts (negative)</text>
+<text x="602" y="530" fill="#ff8a80" font-size="13" font-weight="700">calls (positive) &#9654;</text>
+<rect x="406.7" y="470.0" width="183.3" height="22" rx="3" fill="#69f0ae" opacity="0.45"/>
+<text x="398.7" y="485.0" fill="#9fb3c8" font-size="12" text-anchor="end">&#8722;1.1</text>
+<text x="64" y="485.0" fill="#6d84a0" font-size="12" font-family="ui-monospace, Menlo, monospace">764</text>
+<rect x="190.0" y="438.3" width="400.0" height="22" rx="3" fill="#69f0ae" opacity="0.95"/>
+<text x="182.0" y="453.3" fill="#9fb3c8" font-size="12" text-anchor="end">&#8722;2.4</text>
+<text x="64" y="453.3" fill="#6d84a0" font-size="12" font-family="ui-monospace, Menlo, monospace">765</text>
+<rect x="390.0" y="406.6" width="200.0" height="22" rx="3" fill="#69f0ae" opacity="0.45"/>
+<text x="382.0" y="421.6" fill="#9fb3c8" font-size="12" text-anchor="end">&#8722;1.2</text>
+<text x="64" y="421.6" fill="#6d84a0" font-size="12" font-family="ui-monospace, Menlo, monospace">766</text>
+<rect x="340.0" y="374.9" width="250.0" height="22" rx="3" fill="#69f0ae" opacity="0.45"/>
+<text x="332.0" y="389.9" fill="#9fb3c8" font-size="12" text-anchor="end">&#8722;1.5</text>
+<text x="64" y="389.9" fill="#6d84a0" font-size="12" font-family="ui-monospace, Menlo, monospace">767</text>
+<rect x="440.0" y="343.2" width="150.0" height="22" rx="3" fill="#69f0ae" opacity="0.45"/>
+<text x="432.0" y="358.2" fill="#9fb3c8" font-size="12" text-anchor="end">&#8722;0.9</text>
+<text x="64" y="358.2" fill="#6d84a0" font-size="12" font-family="ui-monospace, Menlo, monospace">768</text>
+<rect x="490.0" y="311.5" width="100.0" height="22" rx="3" fill="#69f0ae" opacity="0.45"/>
+<text x="482.0" y="326.5" fill="#9fb3c8" font-size="12" text-anchor="end">&#8722;0.6</text>
+<text x="64" y="326.5" fill="#6d84a0" font-size="12" font-family="ui-monospace, Menlo, monospace">769</text>
+<rect x="590.0" y="279.8" width="16.7" height="22" rx="3" fill="#ff8a80" opacity="0.45"/>
+<text x="614.7" y="294.8" fill="#9fb3c8" font-size="12" text-anchor="start">+0.1</text>
+<text x="64" y="294.8" fill="#6d84a0" font-size="12" font-family="ui-monospace, Menlo, monospace">770</text>
+<rect x="590.0" y="248.2" width="83.3" height="22" rx="3" fill="#ff8a80" opacity="0.45"/>
+<text x="681.3" y="263.2" fill="#9fb3c8" font-size="12" text-anchor="start">+0.5</text>
+<text x="64" y="263.2" fill="#6d84a0" font-size="12" font-family="ui-monospace, Menlo, monospace">771</text>
+<rect x="590.0" y="216.5" width="116.7" height="22" rx="3" fill="#ff8a80" opacity="0.45"/>
+<text x="714.7" y="231.5" fill="#9fb3c8" font-size="12" text-anchor="start">+0.7</text>
+<text x="64" y="231.5" fill="#6d84a0" font-size="12" font-family="ui-monospace, Menlo, monospace">772</text>
+<rect x="590.0" y="184.8" width="150.0" height="22" rx="3" fill="#ff8a80" opacity="0.45"/>
+<text x="748.0" y="199.8" fill="#9fb3c8" font-size="12" text-anchor="start">+0.9</text>
+<text x="64" y="199.8" fill="#6d84a0" font-size="12" font-family="ui-monospace, Menlo, monospace">773</text>
+<rect x="590.0" y="153.1" width="166.7" height="22" rx="3" fill="#ff8a80" opacity="0.45"/>
+<text x="764.7" y="168.1" fill="#9fb3c8" font-size="12" text-anchor="start">+1.0</text>
+<text x="64" y="168.1" fill="#6d84a0" font-size="12" font-family="ui-monospace, Menlo, monospace">774</text>
+<rect x="590.0" y="121.4" width="350.0" height="22" rx="3" fill="#ff8a80" opacity="0.95"/>
+<text x="948.0" y="136.4" fill="#9fb3c8" font-size="12" text-anchor="start">+2.1</text>
+<text x="64" y="136.4" fill="#6d84a0" font-size="12" font-family="ui-monospace, Menlo, monospace">775</text>
+<rect x="590.0" y="89.7" width="133.3" height="22" rx="3" fill="#ff8a80" opacity="0.45"/>
+<text x="731.3" y="104.7" fill="#9fb3c8" font-size="12" text-anchor="start">+0.8</text>
+<text x="64" y="104.7" fill="#6d84a0" font-size="12" font-family="ui-monospace, Menlo, monospace">776</text>
+<rect x="590.0" y="58.0" width="100.0" height="22" rx="3" fill="#ff8a80" opacity="0.45"/>
+<text x="698.0" y="73.0" fill="#9fb3c8" font-size="12" text-anchor="start">+0.6</text>
+<text x="64" y="73.0" fill="#6d84a0" font-size="12" font-family="ui-monospace, Menlo, monospace">777</text>
+<line x1="110" x2="1140" y1="132.4" y2="132.4" stroke="#ff5252" stroke-width="1.6" opacity="0.75"/>
+<line x1="110" x2="1140" y1="290.8" y2="290.8" stroke="#ffd600" stroke-width="1.6" stroke-dasharray="8 6" opacity="0.75"/>
+<line x1="110" x2="1140" y1="449.3" y2="449.3" stroke="#00e676" stroke-width="1.6" opacity="0.75"/>
+<text x="1136" y="114.4" fill="#ff5252" font-size="14" font-weight="700" text-anchor="end">CALL WALL 775</text>
+<text x="1136" y="280.8" fill="#ffd600" font-size="14" font-weight="700" text-anchor="end">GAMMA FLIP 770</text>
+<text x="1136" y="479.3" fill="#00e676" font-size="14" font-weight="700" text-anchor="end">PUT WALL 765</text>
+<line x1="110" x2="1140" y1="246.5" y2="246.5" stroke="#f4f7fb" stroke-width="1.2" stroke-dasharray="3 5"/>
+<text x="114" y="239.5" fill="#e7eff8" font-size="12.5" font-weight="700">price 771.40</text>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>Same levels, two playbooks</h4>
+        <p class="lead">Which side of the flip price is on decides whether the walls are levels to fade or levels to break.</p>
+<svg viewBox="0 0 1180 480" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Two panels. Above the flip, price swings between the walls and the call wall rejection and put wall hold are the trades. Below the flip, price loses the flip, a retest from below fails, and the move runs through the put wall">
+<rect x="20" y="14" width="560" height="452" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<text x="42" y="44" fill="#2ecf7a" font-size="17" font-weight="800">Above the flip · positive gamma</text>
+<text x="42" y="66" fill="#9fb3c8" font-size="13">Dealers sell rips and buy dips. Walls hold more often: fade them.</text>
+<line x1="42" x2="558" y1="120" y2="120" stroke="#ff5252" stroke-width="1.8"/>
+<text x="554" y="113" fill="#ff5252" font-size="12" font-weight="700" text-anchor="end">CALL WALL</text>
+<line x1="42" x2="558" y1="250" y2="250" stroke="#ffd600" stroke-width="1.8" stroke-dasharray="8 6"/>
+<text x="554" y="243" fill="#ffd600" font-size="12" font-weight="700" text-anchor="end">FLIP</text>
+<line x1="42" x2="558" y1="380" y2="380" stroke="#00e676" stroke-width="1.8"/>
+<text x="554" y="373" fill="#00e676" font-size="12" font-weight="700" text-anchor="end">PUT WALL</text>
+<polyline points="60,300 88,270 116,230 144,190 172,150 200,128 228,140 256,175 284,215 312,250 340,300 368,340 396,368 424,378 452,352 480,318 508,280 536,240" fill="none" stroke="#e7eff8" stroke-width="2.4" stroke-linejoin="round"/>
+<path d="M200 116 l-7 -12 h14 z" fill="#ff5252"/><text x="200" y="98" fill="#ff5252" font-size="12.5" font-weight="700" text-anchor="middle">CW rejection</text>
+<path d="M424 390 l-7 12 h14 z" fill="#00e676"/><text x="424" y="420" fill="#00e676" font-size="12.5" font-weight="700" text-anchor="middle">PW hold</text>
+<rect x="600" y="14" width="560" height="452" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<text x="622" y="44" fill="#e0505a" font-size="17" font-weight="800">Below the flip · negative gamma</text>
+<text x="622" y="66" fill="#9fb3c8" font-size="13">Dealers hedge with the move. Moves stretch: follow them.</text>
+<line x1="622" x2="1138" y1="120" y2="120" stroke="#ff5252" stroke-width="1.8"/>
+<text x="1134" y="113" fill="#ff5252" font-size="12" font-weight="700" text-anchor="end">CALL WALL</text>
+<line x1="622" x2="1138" y1="250" y2="250" stroke="#ffd600" stroke-width="1.8" stroke-dasharray="8 6"/>
+<text x="1134" y="243" fill="#ffd600" font-size="12" font-weight="700" text-anchor="end">FLIP</text>
+<line x1="622" x2="1138" y1="380" y2="380" stroke="#00e676" stroke-width="1.8"/>
+<text x="1134" y="373" fill="#00e676" font-size="12" font-weight="700" text-anchor="end">PUT WALL</text>
+<polyline points="640,230 674,245 708,262 742,278 776,262 810,255 844,262 878,290 912,320 946,345 980,368 1014,395 1048,420 1082,446 1116,440" fill="none" stroke="#e7eff8" stroke-width="2.4" stroke-linejoin="round"/>
+<path d="M674 233 l-7 -12 h14 z" fill="#ff9800"/><text x="674" y="215" fill="#ff9800" font-size="12.5" font-weight="700" text-anchor="middle">loses flip</text>
+<path d="M810 243 l-7 -12 h14 z" fill="#ffd600"/><text x="810" y="225" fill="#ffd600" font-size="12.5" font-weight="700" text-anchor="middle">retest fails</text>
+<path d="M1014 383 l-7 -12 h14 z" fill="#e040fb"/><text x="1014" y="365" fill="#e040fb" font-size="12.5" font-weight="700" text-anchor="middle">PW break</text>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>When to pull the levels</h4>
+        <p class="lead">The levels are a morning snapshot. They're good for that session, and they go stale when positioning shifts.</p>
+        <div class="timing">
+          <div><b>Morning &middot; 8:45&ndash;9:15 ET</b><p>The main run, before the open. Open interest is from the prior close; gamma is priced at the 9:30 open.</p></div>
+          <div><b>Midday rerun</b><p>For 0DTE names (SPY, QQQ, and everything on Fridays), or after a big move. Same-day options shift the walls by the hour.</p></div>
+          <div><b>Not tomorrow</b><p>Never carry today's walls into tomorrow. New open interest, new expirations, new levels.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The four filters</h2>
+    <p>The levels are only as good as the positioning behind them. These keep you from trading a line that isn't really there.</p>
+  </div>
+  <div class="filters">
+    <div class="filter">
+      <h3>1 &nbsp;Stale levels</h3>
+      <p>Yesterday's walls, or this morning's walls after a big move or heavy 0DTE flow. Positioning has changed and the line hasn't.</p>
+      <p class="kill">Kills: trading a wall that has already moved.</p>
+    </div>
+    <div class="filter">
+      <h3>2 &nbsp;LOW confidence</h3>
+      <p>Total net GEX under $25M, or a biggest wall under $5M. There isn't enough hedging there to push price around.</p>
+      <p class="kill">Kills: treating a few contracts as a wall.</p>
+    </div>
+    <div class="filter">
+      <h3>3 &nbsp;Fading in negative gamma</h3>
+      <p>Below the flip, dealers add to the move. A wall touch here is far more likely to give way than in positive gamma.</p>
+      <p class="kill">Kills: catching a falling knife at a put wall.</p>
+    </div>
+    <div class="filter">
+      <h3>4 &nbsp;Another symbol's strikes</h3>
+      <p>SPX levels on SPY, or NDX levels on QQQ, without converting them. SPX 7700 is not SPY 770.00 exactly; the ratio drifts.</p>
+      <p class="kill">Kills: a level that's off by a few dollars and misses every touch.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Stop past the level, target the next one</h2>
+    <p>The levels hand you both ends of the trade: the stop goes just past the level you're trading, the target is the next level in the way.</p>
+  </div>
+  <div class="risk">
+    <div class="panel">
+      <div class="calc">
+        <div class="row"><span>Risk budget for the trade</span><b>$500.00</b></div>
+        <div class="row"><span>Entry &mdash; flip retest fails, short</span><b>769.80</b></div>
+        <div class="row"><span>Stop &mdash; over the flip plus the zone</span><b>770.40</b></div>
+        <div class="row"><span>Risk per share</span><b>$0.60</b></div>
+        <div class="row"><span>Target &mdash; the put wall</span><b>767.00</b></div>
+        <div class="row tot"><span>Position size &middot; reward</span><b>833 shares &middot; 4.7R</b></div>
+      </div>
+    </div>
+    <div class="warn">
+      <h4>The mistake this prevents</h4>
+      <p>A wall is a zone, not a tick. Put the stop exactly on the level and every tag of the zone takes you out right before the turn.</p>
+      <p class="big">Zone = 0.25 &times; ATR(14). Stop beyond the level by at least that.</p>
+      <p>And the target is the next level, not a fixed R. If the next level is too close to pay for the risk, there's no trade.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>One morning, three tickers</h2>
+    <p>Levels from the morning pipeline. These are the calculated levels, not trade results.</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><span class="tick">SPX<small>index &middot; checked against a reference chart</small></span></th>
+        <th><span class="tick">SPY<small>Oct 5</small></span></th>
+        <th><span class="tick">MU<small>single stock</small></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>Call wall</th><td class="neg">7700</td><td>&mdash;</td><td class="neg">1100 &middot; $105M</td></tr>
+      <tr><th>Gamma flip</th><td>7685</td><td>770</td><td>989.87</td></tr>
+      <tr><th>Put wall</th><td class="pos">7650</td><td class="pos">767 &middot; $2.4B</td><td class="pos">1000 &middot; $49M</td></tr>
+      <tr><th>Second walls / 0DTE</th><td>0DTE call wall 7700</td><td>&mdash;</td><td>CW2 1150</td></tr>
+      <tr><th>Net GEX &middot; confidence</th><td>HIGH</td><td>&minus;$5.2B &middot; strong negative gamma</td><td>GOOD</td></tr>
+      <tr><th>The read</th>
+        <td class="txt">The calculated walls matched the reference chart's 7700 / 7650 / 7685 once expirations were capped at 30 days.</td>
+        <td class="txt">Stuck just under its 770 flip in strong negative gamma, with the 767 put wall as the line to watch: a break there runs.</td>
+        <td class="txt">A $105M call wall over a $49M put wall: GOOD, but a fraction of SPY's size. Weight the levels accordingly.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-head">
+    <h2>Example: one session against the levels</h2>
+    <p>An example session run through the indicator's own rules, with a call wall at 775, a gamma flip at 770 and a put wall at 765.
+    Above the flip price grinds into the call wall and is rejected; it then closes under the flip, a retest of the flip from below fails,
+    and the slide stops at the put wall, where a green bar closes back over it. Each bar is tinted green above the flip and red below it.
+    The bars and levels are made up to show the setup clearly. They aren't a real ticker.</p>
+  </div>
+  <section class="live" data-gex-live data-example data-symbol="SPY" aria-label="Example chart with the GEX levels and signals">
+    <div class="live-main">
+      <div class="live-chart"><div class="live-gate"><b>Loading chart&hellip;</b></div></div>
+      <p class="live-status">2-minute</p>
+      <div class="gex-paste" hidden>
+        <div class="gex-paste-head">
+          <label>Levels for <select class="gex-date" aria-label="Levels date"></select></label>
+          <span class="gex-saved" aria-live="polite"></span>
+        </div>
+        <textarea class="gex-text" spellcheck="false" aria-label="Paste levels, one line per ticker" placeholder="SPY:CW=775;PW=767;GF=770;CONF=HIGH;PWM=2400&#10;MU:CW=1100;CW2=1150;PW=1000;GF=989.87;CONF=GOOD;CWM=105;PWM=49"></textarea>
+        <div class="gex-actions">
+          <button type="button" class="pill pill-buy gex-save">Save for today</button>
+          <button type="button" class="pill gex-apply">Show without saving</button>
+          <label>Index&rarr;ETF ratio <input type="text" class="gex-ratio" inputmode="decimal" placeholder="0.0998" aria-label="Ratio for converting index strikes"></label>
+          <label><input type="checkbox" class="gex-vol"> Volume signals</label>
+        </div>
+      </div>
+    </div>
+    <aside class="live-side" aria-live="polite"></aside>
+  </section>
+
+
+  <div class="section-head">
+    <h2 class="ind-heading">Indicator for this setup</h2>
+    <p class="ind-note">Add this to a TradingView chart and paste the morning levels into its settings. It draws and alerts on the
+    levels &mdash; it does not place trades.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">GEX Levels &mdash; Paste-In</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">Paste one line per ticker each morning (call wall, put wall, gamma flip, second and 0DTE walls, confidence, wall
+      size). It picks the line for the chart, converts SPX or NDX strikes for ES, SPY, NQ and QQQ, and draws the levels with their
+      confidence and dollar size, a regime tint above and below the flip, and a dashboard. Signals: wall rejection and hold, flip loss,
+      reclaim and retest, wall breaks, and optional volume-confirmed reversals and breaks, with JSON webhook alerts and a test alert.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/gex-levels.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+  </ul>
+
+  <div class="rule">
+    <div>
+      <h2>The walls tell you where. The flip tells you how.</h2>
+      <p>A level without its regime is half the information. Check which side of the flip you're on before you decide whether a wall is something to lean on or something about to give way.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Pull the levels every morning, and again midday for 0DTE names or after a big move.</li>
+        <li>Above the flip, fade the walls. Below it, respect the breaks and short failed flip retests.</li>
+        <li>Grade before you trade: LOW confidence or a thin wall is a reference line, not a level.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Levels calculated from delayed options chains each morning (gamma &times; open interest &times; 100 &times; spot&sup2; &times; 1%, expirations out to 30 days, priced at the 9:30 open); the SPX method was checked against a reference chart's published levels. Chart above is an illustration of the mechanics; the table shows calculated levels, not trades.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

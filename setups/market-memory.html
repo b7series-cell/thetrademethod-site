@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Market Memory — the day two model, run mechanically | The Trade Method</title>
+<meta name="description" content="Yesterday&#x27;s real buyers and sellers left a map. Price returns to those levels and reacts on the John Wick candle, the confirmed rejection that says which way memory is pulling it.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/market-memory.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Market Memory — the day two model, run mechanically">
+<meta property="og:description" content="Yesterday&#x27;s real buyers and sellers left a map. Price returns to those levels and reacts on the John Wick candle, the confirmed rejection that says which way memory is pulling it.">
+<meta property="og:url" content="https://thetrademethod.com/setups/market-memory.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Market Memory — the day two model, run mechanically">
+<meta name="twitter:description" content="Yesterday&#x27;s real buyers and sellers left a map. Price returns to those levels and reacts on the John Wick candle, the confirmed rejection that says which way memory is pulling it.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Market Memory — the day two model, run mechanically",
+ "name": "Market Memory",
+ "description": "Yesterday's real buyers and sellers left a map. Price returns to those levels and reacts on the John Wick candle, the confirmed rejection that says which way memory is pulling it.",
+ "url": "https://thetrademethod.com/setups/market-memory.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/market-memory.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-10-10",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=33" defer></script>
+<script src="/js/anim-kit.js?v=2" defer></script>
+<script src="/js/mm-anim.js?v=1" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
+<script src="/js/live-kit.js?v=3" defer></script>
+<script src="/js/examples/mm.js?v=1" defer></script><script src="/js/example-kit.js?v=1" defer></script>
+<script src="/js/mm-live.js?v=1" defer></script>
+<style>
+  /* video (same as relative-volume.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+</style>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=2" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#setups">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="market-memory">
+    <div>
+      <p class="kicker">Day two playbook &middot; 5-minute chart &middot; full session, long or short</p>
+      <h1>Market <span>Memory</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Yesterday's real buyers and real sellers left a map. <em>Not indicators.
+      Not predictions. Not what should happen next.</em> Price comes back to where the market
+      already made its decisions, and this page exists to tell you which reaction to trust and
+      which one to fade.</p>
+      <div class="counts">
+        <div><b>3</b><small>steps to draw it</small></div>
+        <div><b>4</b><small>filters</small></div>
+        <div><b>1</b><small>candle to wait for</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">before the open</div><div class="n">Find day two</div></div>
+    <div><div class="t">pre-market</div><div class="n">Draw the box</div></div>
+    <div><div class="t">all session</div><div class="n">Read the box</div></div>
+    <div><div class="t">at the extremes</div><div class="n">The two mistakes</div></div>
+    <div><div class="t">on the reaction</div><div class="n">John Wick candle</div></div>
+    <div><div class="t">after the wick</div><div class="n">Entry &amp; target</div></div>
+  </nav>
+
+  <section class="anim" data-tm-anim="mm" aria-label="Animated walkthrough: yesterday&#x27;s box of 106.00, 104.50 and 103.00, a John Wick candle that wicks to 106.60 and closes 105.30, a short at 105.20 with a 106.65 stop, and the cover at 103.00 for about 1.5R.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Watch one day two trade</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Animated walkthrough: yesterday&#x27;s box of 106.00, 104.50 and 103.00, a John Wick candle that wicks to 106.60 and closes 105.30, a short at 105.20 with a 106.65 stop, and the cover at 103.00 for about 1.5R."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Find a day two name</h3>
+          <ul>
+            <li>Look for a stock that made a significant move yesterday, ideally with a catalyst &mdash; a news story, earnings, or a technical break or failure of a key range.</li>
+            <li>Both count as catalysts because they force other participants to make real decisions about their positions.</li>
+            <li>This is not a scan-everything strategy. Run it on a random name with no prior-day story and you're just trading the noise.</li>
+          </ul>
+          <p class="why">A stock without a real prior-day fight has no memory yet. There's nothing here for price to react to tomorrow.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Draw the box</h3>
+          <ul>
+            <li>Mark yesterday's high and yesterday's low.</li>
+            <li>On the intraday chart, mark the one or two places where price fought hard and lost &mdash; an area it pushed into and never got back above, or broke below and never got back under.</li>
+            <li>Cap it at three to four lines total. More than that and you're drawing noise, not memory.</li>
+          </ul>
+          <p class="why">Every line should be a real decision you can point to, not a guess. If you can't name the fight that made the line, don't draw it.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Read the box</h3>
+          <ul>
+            <li>The top of the box is the largest collective seller from the prior day &mdash; the price where the market said "no more."</li>
+            <li>The bottom of the box is the largest collective buyer &mdash; where real money stepped in and defended the price.</li>
+            <li>Any lines in between are inflection points, not as important as the outer edges. They mark where buyers or sellers <b>defended</b> a level, not just where they first showed up.</li>
+          </ul>
+          <p class="why">These aren't opinions, they're documented decisions. When price returns to them, the people who made those decisions are usually still there.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>The two mistakes that cost the most</h3>
+          <ul>
+            <li>Don't buy when price opens or runs quickly into, at, or just above yesterday's high without sustaining above it.</li>
+            <li>Don't sell when price opens or runs quickly into, at, or below yesterday's low without sustaining below it.</li>
+            <li>Don't diddle in the middle. That's where memory is weakest and emotion takes over.</li>
+          </ul>
+          <p class="why">FOMO buys the top of yesterday's range and panic sells the bottom of it. Both are the market memory model working against you instead of for you.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Wait for the John Wick candle</h3>
+          <ul>
+            <li>A sharp wick through a remembered level, followed by a distinct close back on the other side.</li>
+            <li>It works in both directions &mdash; a wick above resistance that closes red, or a wick below support that closes green.</li>
+            <li>It's the moment the level gets rejected live, in front of you, instead of you guessing it will.</li>
+          </ul>
+          <p class="why">Mid-candle, a real rejection and a real breakout look identical. The John Wick candle is the close that settles the argument.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Entry, stop, target</h3>
+          <ul>
+            <li>Enter on the break of the John Wick candle in the direction of the rejection.</li>
+            <li>Stop goes on the far side of that same candle &mdash; above the high for a short, below the low for a long.</li>
+            <li>Target is the other side of the range. This is an auction between two remembered extremes, not a prediction of a new one.</li>
+            <li>Move the stop to breakeven once price clears the level with a real hold.</li>
+          </ul>
+          <p class="why">The stop lives on the candle that proved the level, not on the level itself &mdash; size off the trigger, never off the number you were only watching.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">7</div>
+        <div>
+          <h3>The backside trade</h3>
+          <ul>
+            <li>When price keeps pressing into a level and keeps failing, it's building a small range on the wrong side of the bigger one.</li>
+            <li>Once that small range breaks toward the remembered side, the participants who forced the failed pushes go into panic exit.</li>
+            <li>Same model, later in the day &mdash; let the smaller range fail, then ride it back toward the other extreme.</li>
+          </ul>
+          <p class="why">A level defended twice in one session doesn't quietly disappear by lunchtime. Fading the exhaustion here is trusting the same memory, just later in the day.</p>
+        </div>
+      </section>
+    </div>
+
+    <div>
+      <div class="panel">
+        <h4>The whole trade on one chart</h4>
+        <p class="lead">Yesterday's box, the John Wick candle that rejects it, and where the market naturally wants to go next.</p>
+        <svg viewBox="0 0 1180 740" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Annotated five-minute chart showing a John Wick rejection at yesterday's high and the auction back down to yesterday's low">
+<defs><marker id="m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8fa6bd"/></marker><marker id="m2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2ecf7a"/></marker><marker id="m3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#e0505a"/></marker><marker id="m4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#5aa9ff"/></marker><marker id="m5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#f4b942"/></marker></defs>
+<rect x="32" y="22" width="1062" height="498" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<rect x="32" y="526" width="1062" height="196" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<line x1="74" y1="454.0" x2="1050" y2="454.0" stroke="#1b2a3e" stroke-width="1"/>
+<text x="1060" y="458.0" fill="#7d93ad" font-size="12.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">102.00</text>
+<line x1="74" y1="396.5" x2="1050" y2="396.5" stroke="#1b2a3e" stroke-width="1"/>
+<text x="1060" y="400.5" fill="#7d93ad" font-size="12.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">103.00</text>
+<line x1="74" y1="339.0" x2="1050" y2="339.0" stroke="#1b2a3e" stroke-width="1"/>
+<text x="1060" y="343.0" fill="#7d93ad" font-size="12.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">104.00</text>
+<line x1="74" y1="281.5" x2="1050" y2="281.5" stroke="#1b2a3e" stroke-width="1"/>
+<text x="1060" y="285.5" fill="#7d93ad" font-size="12.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">105.00</text>
+<line x1="74" y1="224.0" x2="1050" y2="224.0" stroke="#1b2a3e" stroke-width="1"/>
+<text x="1060" y="228.0" fill="#7d93ad" font-size="12.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">106.00</text>
+<line x1="74" y1="166.5" x2="1050" y2="166.5" stroke="#1b2a3e" stroke-width="1"/>
+<text x="1060" y="170.5" fill="#7d93ad" font-size="12.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">107.00</text>
+<line x1="74" y1="109.0" x2="1050" y2="109.0" stroke="#1b2a3e" stroke-width="1"/>
+<text x="1060" y="113.0" fill="#7d93ad" font-size="12.5" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">108.00</text>
+<line x1="74" y1="224.0" x2="1050" y2="224.0" stroke="#f4f7fb" stroke-width="2.3" stroke-dasharray="9 6"/>
+<text x="82" y="215.0" fill="#f4f7fb" font-size="13" font-weight="700">Yesterday's high  106.00</text>
+<line x1="74" y1="310.0" x2="1050" y2="310.0" stroke="#54697f" stroke-width="1.5" stroke-dasharray="3 6"/>
+<text x="430" y="327.0" fill="#7a93b0" font-size="13" font-weight="700">Battle line &mdash; yesterday's inflection  104.50</text>
+<line x1="74" y1="396.5" x2="1050" y2="396.5" stroke="#7a93b0" stroke-width="1.7" stroke-dasharray="5 5"/>
+<text x="430" y="413.5" fill="#7a93b0" font-size="13" font-weight="700">Yesterday's low  103.00</text>
+<line x1="101.1" y1="300" x2="101.1" y2="330" stroke="#1d6f47" stroke-width="1.8"/>
+<rect x="86.5" y="308" width="29.3" height="14" fill="#1d6f47" rx="1"/>
+<text x="101.1" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">9:35</text>
+<line x1="155.3" y1="275" x2="155.3" y2="308" stroke="#1d6f47" stroke-width="1.8"/>
+<rect x="140.7" y="283" width="29.3" height="17" fill="#1d6f47" rx="1"/>
+<line x1="209.6" y1="245" x2="209.6" y2="278" stroke="#1d6f47" stroke-width="1.8"/>
+<rect x="194.9" y="252" width="29.3" height="16" fill="#1d6f47" rx="1"/>
+<text x="209.6" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">9:45</text>
+<line x1="263.8" y1="238" x2="263.8" y2="268" stroke="#7d343c" stroke-width="1.8"/>
+<rect x="249.1" y="245" width="29.3" height="15" fill="#7d343c" rx="1"/>
+<line x1="318.0" y1="208" x2="318.0" y2="248" stroke="#1d6f47" stroke-width="1.8"/>
+<rect x="303.4" y="222" width="29.3" height="22" fill="#1d6f47" rx="1"/>
+<text x="318.0" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">9:55</text>
+<line x1="372.2" y1="189" x2="372.2" y2="270" stroke="#7d343c" stroke-width="2.1"/>
+<rect x="357.6" y="230" width="29.3" height="34" fill="#7d343c" rx="1"/>
+<circle cx="372.2" cy="189" r="5" fill="#f4f7fb"/>
+<line x1="426.4" y1="258" x2="426.4" y2="300" stroke="#7d343c" stroke-width="1.8"/>
+<rect x="411.8" y="264" width="29.3" height="26" fill="#7d343c" rx="1"/>
+<text x="426.4" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">10:05</text>
+<line x1="480.7" y1="285" x2="480.7" y2="330" stroke="#7d343c" stroke-width="1.8"/>
+<rect x="466.0" y="292" width="29.3" height="28" fill="#7d343c" rx="1"/>
+<line x1="534.9" y1="315" x2="534.9" y2="360" stroke="#7d343c" stroke-width="1.8"/>
+<rect x="520.2" y="322" width="29.3" height="28" fill="#7d343c" rx="1"/>
+<text x="534.9" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">10:15</text>
+<line x1="589.1" y1="335" x2="589.1" y2="368" stroke="#1d6f47" stroke-width="1.8"/>
+<rect x="574.5" y="340" width="29.3" height="20" fill="#1d6f47" rx="1"/>
+<line x1="643.3" y1="355" x2="643.3" y2="400" stroke="#7d343c" stroke-width="1.8"/>
+<rect x="628.7" y="362" width="29.3" height="30" fill="#7d343c" rx="1"/>
+<text x="643.3" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">10:25</text>
+<line x1="697.6" y1="388" x2="697.6" y2="430" stroke="#7d343c" stroke-width="1.8"/>
+<rect x="682.9" y="395" width="29.3" height="25" fill="#7d343c" rx="1"/>
+<line x1="751.8" y1="408" x2="751.8" y2="445" stroke="#7d343c" stroke-width="1.8"/>
+<rect x="737.1" y="414" width="29.3" height="24" fill="#7d343c" rx="1"/>
+<text x="751.8" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">10:35</text>
+<line x1="806.0" y1="420" x2="806.0" y2="448" stroke="#7d343c" stroke-width="1.8"/>
+<rect x="791.4" y="426" width="29.3" height="14" fill="#7d343c" rx="1"/>
+<line x1="860.2" y1="400" x2="860.2" y2="432" stroke="#1d6f47" stroke-width="1.8"/>
+<rect x="845.6" y="406" width="29.3" height="18" fill="#1d6f47" rx="1"/>
+<text x="860.2" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">10:45</text>
+<line x1="914.4" y1="385" x2="914.4" y2="412" stroke="#1d6f47" stroke-width="1.8"/>
+<rect x="899.8" y="390" width="29.3" height="15" fill="#1d6f47" rx="1"/>
+<line x1="968.7" y1="392" x2="968.7" y2="418" stroke="#7d343c" stroke-width="1.8"/>
+<rect x="954.0" y="398" width="29.3" height="14" fill="#7d343c" rx="1"/>
+<text x="968.7" y="716" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">10:55</text>
+<line x1="1022.9" y1="384" x2="1022.9" y2="406" stroke="#1d6f47" stroke-width="1.8"/>
+<rect x="1008.2" y="388" width="29.3" height="12" fill="#1d6f47" rx="1"/>
+<polyline points="101.1,340 155.3,325 209.6,305 263.8,295 318.0,280 372.2,270 426.4,275 480.7,290 534.9,310 589.1,330 643.3,350 697.6,368 751.8,385 806.0,398 860.2,405 914.4,405 968.7,402 1022.9,400" fill="none" stroke="#5aa9ff" stroke-width="2.1" opacity="0.9"/>
+<text x="643.3" y="345" fill="#5aa9ff" font-size="12.5">VWAP</text>
+<rect x="90" y="120" width="252" height="66" rx="7" fill="#0d1a2b" stroke="#2ecf7a" stroke-width="1.7"/>
+<text x="104" y="145" fill="#9ff0c4" font-size="13" font-weight="600">Tests yesterday's high, wicks</text>
+<text x="104" y="163" fill="#9ff0c4" font-size="13" font-weight="600">through, closes back under.</text>
+<line x1="216" y1="186" x2="330" y2="215" stroke="#2ecf7a" stroke-width="1.5" marker-end="url(#m2)"/>
+<rect x="392" y="150" width="272" height="66" rx="7" fill="#0d1a2b" stroke="#e0505a" stroke-width="1.7"/>
+<text x="406" y="175" fill="#f2a9ae" font-size="13" font-weight="600">The John Wick candle. Short on</text>
+<text x="406" y="193" fill="#f2a9ae" font-size="13" font-weight="600">the break of its low, stop above the wick.</text>
+<line x1="405" y1="216" x2="380" y2="228" stroke="#e0505a" stroke-width="1.5" marker-end="url(#m3)"/>
+<rect x="700" y="220" width="292" height="66" rx="7" fill="#0d1a2b" stroke="#f4b942" stroke-width="1.7"/>
+<text x="714" y="245" fill="#f4b942" font-size="13" font-weight="600">Battle line loses meaning once</text>
+<text x="714" y="263" fill="#f4b942" font-size="13" font-weight="600">price clears it with real conviction.</text>
+<line x1="700" y1="253" x2="660" y2="312" stroke="#f4b942" stroke-width="1.5" marker-end="url(#m5)"/>
+<rect x="700" y="380" width="300" height="66" rx="7" fill="#0d1a2b" stroke="#5aa9ff" stroke-width="1.7"/>
+<text x="714" y="405" fill="#b3d6ff" font-size="13" font-weight="600">Target: the other side of the range</text>
+<text x="714" y="423" fill="#b3d6ff" font-size="13" font-weight="600">&mdash; yesterday's low.</text>
+<line x1="820" y1="380" x2="830" y2="418" stroke="#5aa9ff" stroke-width="1.5" marker-end="url(#m4)"/>
+<rect x="640" y="558" width="380" height="46" rx="7" fill="#0d1a2b" stroke="#f4b942" stroke-width="1.7"/>
+<text x="654" y="583" fill="#f4b942" font-size="13" font-weight="600">Markets remember. This is an auction between two remembered extremes.</text>
+<line x1="640" y1="581" x2="613.8" y2="586.5" stroke="#f4b942" stroke-width="1.5" marker-end="url(#m5)"/>
+<rect x="86.5" y="654.7" width="29.3" height="35.3" fill="#1d6f47" opacity="0.6" rx="1"/>
+<rect x="140.7" y="646.0" width="29.3" height="44.0" fill="#1d6f47" opacity="0.6" rx="1"/>
+<rect x="194.9" y="641.8" width="29.3" height="48.2" fill="#1d6f47" opacity="0.6" rx="1"/>
+<rect x="249.1" y="649.3" width="29.3" height="40.7" fill="#7d343c" opacity="0.6" rx="1"/>
+<rect x="303.4" y="635.9" width="29.3" height="54.1" fill="#1d6f47" opacity="0.7" rx="1"/>
+<rect x="357.6" y="574.0" width="29.3" height="116.0" fill="#7d343c" opacity="1" rx="1"/>
+<rect x="411.8" y="620.4" width="29.3" height="69.6" fill="#7d343c" opacity="0.7" rx="1"/>
+<rect x="466.0" y="628.9" width="29.3" height="61.1" fill="#7d343c" opacity="0.6" rx="1"/>
+<rect x="520.2" y="638.3" width="29.3" height="51.7" fill="#7d343c" opacity="0.6" rx="1"/>
+<rect x="574.5" y="645.3" width="29.3" height="44.7" fill="#1d6f47" opacity="0.5" rx="1"/>
+<rect x="628.7" y="632.4" width="29.3" height="57.6" fill="#7d343c" opacity="0.6" rx="1"/>
+<rect x="682.9" y="628.9" width="29.3" height="61.1" fill="#7d343c" opacity="0.6" rx="1"/>
+<rect x="737.1" y="608.9" width="29.3" height="81.1" fill="#7d343c" opacity="0.85" rx="1"/>
+<rect x="791.4" y="600.7" width="29.3" height="89.3" fill="#7d343c" opacity="0.9" rx="1"/>
+<rect x="845.6" y="634.8" width="29.3" height="55.2" fill="#1d6f47" opacity="0.6" rx="1"/>
+<rect x="899.8" y="645.9" width="29.3" height="44.1" fill="#1d6f47" opacity="0.5" rx="1"/>
+<rect x="954.0" y="650.9" width="29.3" height="39.1" fill="#7d343c" opacity="0.5" rx="1"/>
+<rect x="1008.2" y="655.2" width="29.3" height="34.8" fill="#1d6f47" opacity="0.5" rx="1"/>
+<text x="46" y="516" fill="#7d93ad" font-size="13">Volume</text>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>Not every wick is a John Wick candle</h4>
+        <p class="lead">A real rejection and a hesitation look similar for a second. Wait for the close and check which one you actually got.</p>
+        <svg viewBox="0 0 1180 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Four candles compared: one real John Wick rejection and three that are not">
+<rect x="10.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#22855a" stroke-width="2"/>
+<line x1="28.0" y1="130.4" x2="267.0" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="28.0" y="121.4" fill="#9fb3c8" font-size="11.5">remembered level</text>
+<line x1="147.5" y1="60.0" x2="147.5" y2="175.0" stroke="#7d343c" stroke-width="2.4"/>
+<rect x="131.5" y="140.6" width="32" height="34.4" fill="#7d343c" rx="2"/>
+<text x="28.0" y="42" fill="#2ecf7a" font-size="16" font-weight="800">Take it</text>
+<text x="28.0" y="244" fill="#9fb3c8" font-size="12.6">Long wick clears the level, full</text>
+<text x="28.0" y="262" fill="#9fb3c8" font-size="12.6">body closes back on the other side.</text>
+<rect x="305.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="323.0" y1="130.4" x2="562.0" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="323.0" y="121.4" fill="#9fb3c8" font-size="11.5">remembered level</text>
+<line x1="442.5" y1="108.0" x2="442.5" y2="150.0" stroke="#7d343c" stroke-width="2.4"/>
+<rect x="426.5" y="121.0" width="32" height="20.0" fill="#7d343c" rx="2"/>
+<text x="323.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="323.0" y="244" fill="#9fb3c8" font-size="12.6">Wick barely clears the level. No</text>
+<text x="323.0" y="262" fill="#9fb3c8" font-size="12.6">real close beyond it &mdash; nothing rejected.</text>
+<rect x="600.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="618.0" y1="130.4" x2="857.0" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="618.0" y="121.4" fill="#9fb3c8" font-size="11.5">remembered level</text>
+<line x1="737.5" y1="70.0" x2="737.5" y2="160.0" stroke="#2ecf7a" stroke-width="2.4"/>
+<rect x="721.5" y="82.0" width="32" height="45.0" fill="#2ecf7a" rx="2"/>
+<text x="618.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="618.0" y="244" fill="#9fb3c8" font-size="12.6">Wicks through but closes green &mdash;</text>
+<text x="618.0" y="262" fill="#9fb3c8" font-size="12.6">that's defending the break, not rejecting it.</text>
+<rect x="895.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
+<line x1="913.0" y1="130.4" x2="1152.0" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
+<text x="913.0" y="121.4" fill="#9fb3c8" font-size="11.5">remembered level</text>
+<line x1="1032.5" y1="55.0" x2="1032.5" y2="100.0" stroke="#2ecf7a" stroke-width="2.4"/>
+<rect x="1016.5" y="60.0" width="32" height="35.0" fill="#2ecf7a" rx="2"/>
+<text x="913.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
+<text x="913.0" y="244" fill="#9fb3c8" font-size="12.6">Broke the level and the whole body</text>
+<text x="913.0" y="262" fill="#9fb3c8" font-size="12.6">closed beyond it. That's a breakout, different trade.</text>
+</svg>
+      </div>
+
+      <div class="panel">
+        <h4>Same model, three different times of day</h4>
+        <p class="lead">These feel like different setups. They're one setup, and the trigger never changes.</p>
+        <div class="timing">
+          <div><b>At the open</b><p>Price tests yesterday's high or low straight out of the gate. This is where the two mistakes &mdash; buying sellers, selling buyers &mdash; happen fastest.</p></div>
+          <div><b>Midday, narrowing range</b><p>New micro-levels form and get tested again and again, pulling in less each time. Same rules, smaller box.</p></div>
+          <div><b>Backside, after 12:00</b><p>Repeated failed pushes build a small range on the wrong side of the bigger one, then it breaks toward the remembered extreme.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The four filters</h2>
+    <p>These don't find the trade &mdash; the John Wick candle does that. They exist to keep you off the setups that only look like this one.</p>
+  </div>
+  <div class="filters">
+    <div class="filter">
+      <h3>1 &nbsp;The catalyst</h3>
+      <p>Yesterday needs a real reason behind the move: news, earnings, or a clean technical break or failure of a key range.</p>
+      <p class="kill">Kills: random names with no memory to trade.</p>
+    </div>
+    <div class="filter">
+      <h3>2 &nbsp;The clean-lines filter</h3>
+      <p>Three to four levels, maximum. If it takes more than that to describe the day, the structure isn't clear enough to trust.</p>
+      <p class="kill">Kills: over-drawn charts and manufactured setups.</p>
+    </div>
+    <div class="filter">
+      <h3>3 &nbsp;The hold filter</h3>
+      <p>A poke past a level doesn't count on its own. It has to hold, or fail back, with a real close &mdash; not a wick you caught mid-candle.</p>
+      <p class="kill">Kills: chasing before the candle settles.</p>
+    </div>
+    <div class="filter">
+      <h3>4 &nbsp;The middle filter</h3>
+      <p>No trade with no level nearby. If price is drifting through open air between the lines, there's nothing to react to yet.</p>
+      <p class="kill">Kills: guessing inside the range.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Size off the wick, never off the level</h2>
+    <p>The level and the top of the wick can sit well apart &mdash; the market overshoots the line before it rejects. Your risk is measured from where the candle actually proved the level, not from the line itself.</p>
+  </div>
+  <div class="risk">
+    <div class="panel">
+      <div class="calc">
+        <div class="row"><span>Risk budget for the trade</span><b>$500.00</b></div>
+        <div class="row"><span>Entry &mdash; break of the John Wick candle's low</span><b>76.40</b></div>
+        <div class="row"><span>Stop &mdash; high of that candle</span><b>78.15</b></div>
+        <div class="row"><span>Risk per share</span><b>$1.75</b></div>
+        <div class="row tot"><span>Position size</span><b>285 shares</b></div>
+      </div>
+    </div>
+    <div class="warn">
+      <h4>The mistake this prevents</h4>
+      <p>Size off the remembered level instead and you measure risk as 77.00 &minus; 76.40 = $0.60, which says sell short 833 shares.</p>
+      <p class="big">833 &times; $1.75 = $1,458 at your actual stop.</p>
+      <p>Nearly three times the risk you budgeted, on a stop the trade hadn't even reached yet.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Three reactions, same map</h2>
+    <p>A resistance rejection, a support defense, and a backside breakdown &mdash; drawn from the cases in the reference video, not filled trades. Swap in your own once you've run this a few times.</p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>&nbsp;</th>
+        <th><span class="tick">Resistance rejection<small>the John Wick example</small></span></th>
+        <th><span class="tick">Support defense<small>the falling-knife example</small></span></th>
+        <th><span class="tick">Backside breakdown<small>the shrinking-range example</small></span></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><th>Day one setup</th>
+        <td class="txt">Topped out and printed a clear high the prior session.</td>
+        <td class="txt">Defended the same level twice in one session &mdash; real buyers, twice.</td>
+        <td class="txt">Ordinary range day, nothing dramatic yet.</td></tr>
+      <tr><th>Day two open</th>
+        <td class="txt">Opens near support, sprays higher right into yesterday's seller zone.</td>
+        <td class="txt">Opens and slides hard straight into that same buyer zone &mdash; looks like a falling knife.</td>
+        <td class="txt">Presses above a level repeatedly, pulling in tighter and failing each time.</td></tr>
+      <tr><th>Level tested</th>
+        <td class="txt">Yesterday's high / seller zone</td>
+        <td class="txt">Yesterday's low / buyer zone</td>
+        <td class="txt">Same resistance zone, three times</td></tr>
+      <tr><th>The tell</th>
+        <td class="txt">Sharp upside wick into resistance, closes back down at the lows &mdash; the candle that named the pattern.</td>
+        <td class="txt">Hard wick down through the level, sharp close back above it.</td>
+        <td class="txt">No single candle &mdash; the shrinking range itself is the tell once it starts trading below its own base.</td></tr>
+      <tr><th>Trade taken</th>
+        <td class="txt">Short on the break of that candle's low, stop above the wick.</td>
+        <td class="txt">Long on the break above the prior candle's high, stop below the wick's low.</td>
+        <td class="txt">Short the break of the small range's low.</td></tr>
+      <tr><th>Path after</th>
+        <td class="txt">Falls, pauses, falls more, breaks below VWAP, runs back down to test the low of the range.</td>
+        <td class="txt">Reclaims the level, runs back to VWAP and beyond, toward the other side of the range.</td>
+        <td class="txt">Breaks down to VWAP and often through it as the failed-push buyers get stopped out.</td></tr>
+      <tr><th>Lesson</th>
+        <td class="txt">You're not predicting a collapse &mdash; you're respecting a level the market already rejected once.</td>
+        <td class="txt">The scariest-looking prices often have the strongest memory. Fear is human; the level doesn't care.</td>
+        <td class="txt">A level defended more than once in a session doesn't expire by lunchtime.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="section-head">
+    <h2>Example: a day-two short off yesterday&#x27;s high</h2>
+    <p>An example session run through the indicator&#x27;s own rules. Yesterday&#x27;s high (106.00), low (103.00) and battle line (104.50) are drawn across today. The first run into 106 is marked &ldquo;don&#x27;t buy&rdquo;. At 10:40 a John Wick candle wicks through the high and closes back under it, red. The next bar breaks its low for the short, with the stop one cent past the wick. Two closes under the battle line move the stop to breakeven, and price reaches yesterday&#x27;s low for the target. The bars are made up to show the setup clearly. They aren&#x27;t a real ticker.</p>
+  </div>
+  <section class="live" data-mm-live data-example data-symbol="TSLA" aria-label="Example market memory chart with yesterday&#x27;s high, low and battle line, John Wick candles and trades">
+    <div class="live-main">
+      <form class="live-symbol"><label for="mm-sym">Symbol</label><input id="mm-sym" name="sym" autocomplete="off" spellcheck="false" maxlength="6"><button class="pill pill-buy" type="submit">Load</button></form>
+      <div class="live-chart"><div class="live-gate"><b>Loading chart&hellip;</b></div></div>
+      <p class="live-status">TSLA · 5-minute · regular session · yesterday&#x27;s high, low and battle line</p>
+    </div>
+    <aside class="live-side" aria-live="polite"></aside>
+  </section>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/y_ujkIcs6so" title="Market Memory (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>The day two model on the real charts, and why most traders miss it.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=y_ujkIcs6so" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>The trade is the reaction. The level just tells you where to expect one.</h2>
+      <p>The story changes every day. The lines don't. That's the reason to run this mechanically instead of freelancing a new read every morning.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Trading a level with no real prior-day decision behind it isn't memory, it's a guess.</li>
+        <li>The John Wick candle is the confirmation, not the setup. Waiting for the close costs a few cents and saves you the trades that go nowhere.</li>
+        <li>If price closes back through the level after you're in, the memory just changed. Leave &mdash; don't wait for the stop to tell you.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Model as taught in the trading-education video "The Trade Everyone Misses" &mdash; the market memory / day two framework. Chart above is an illustration of the mechanics, not a real ticker; the three examples are drawn from cases described in that video, not verified fills. <a href="https://youtu.be/y_ujkIcs6so" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

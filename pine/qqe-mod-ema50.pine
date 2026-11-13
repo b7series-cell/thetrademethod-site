@@ -1,0 +1,218 @@
+//@version=6
+// QQE MOD + EMA 50 — The Trade Method (thetrademethod.com/setups/qqe-mod.html)
+// One indicator for the whole setup:
+//   • QQE Mod in its own pane (same math as the QQE MOD script, primary RSI length 8)
+//   • the EMA 50 drawn on the price chart
+//   • BUY when price is above the EMA 50 and QQE Mod turns from red to blue on a strong
+//     candle that has closed; SELL is the mirror image below the EMA 50
+//   • stop beyond the last swing, 2R target, and a room check against the nearest swing
+//     high (buy) or swing low (sell) between the entry and the target
+//   • stay-out filters: EMA chop, chasing far from the EMA, unclosed candles
+// It marks and alerts. It does not place trades.
+
+indicator("QQE MOD + EMA 50", shorttitle="QQE + EMA 50", overlay=false, max_lines_count=300, max_labels_count=300)
+
+// === PRIMARY QQE SETTINGS ===
+group_primary = "Primary QQE Settings"
+rsiLengthPrimary = input.int(8, title="RSI Length", minval=1, group=group_primary)
+rsiSmoothingPrimary = input.int(5, title="RSI Smoothing", minval=1, group=group_primary)
+qqeFactorPrimary = input.float(3.0, title="QQE Factor", group=group_primary)
+sourcePrimary = input.source(close, title="RSI Source", group=group_primary)
+
+// === SECONDARY QQE SETTINGS ===
+group_secondary = "Secondary QQE Settings"
+rsiLengthSecondary = input.int(6, title="RSI Length", minval=1, group=group_secondary)
+rsiSmoothingSecondary = input.int(5, title="RSI Smoothing", minval=1, group=group_secondary)
+qqeFactorSecondary = input.float(1.61, title="QQE Factor", group=group_secondary)
+thresholdSecondary = input.float(3.0, title="Threshold", group=group_secondary)
+sourceSecondary = input.source(close, title="RSI Source", group=group_secondary)
+
+// === BOLLINGER BANDS SETTINGS ===
+group_bollinger = "Bollinger Bands Settings"
+bollingerLength = input.int(50, minval=1, title="Length", group=group_bollinger)
+bollingerMultiplier = input.float(0.35, step=0.1, minval=0.001, maxval=5, title="Multiplier", group=group_bollinger)
+
+// === EMA ===
+group_ema = "EMA (on the price chart)"
+emaLength = input.int(50, minval=1, title="EMA Length", group=group_ema)
+emaColor = input.color(color.new(#ff9f0a, 0), title="EMA Color", group=group_ema)
+
+// === SIGNAL RULES ===
+group_sig = "Signal Rules"
+colorWithin = input.int(10, minval=1, title="Opposite color within (bars)", group=group_sig, tooltip="Buy: the histogram must have been red within this many bars before it turns blue. Sell: blue before red.")
+useCandle = input.bool(true, title="Require a strong candle", group=group_sig)
+minBody = input.float(0.6, minval=0.0, maxval=1.0, step=0.05, title="Min body (% of range)", group=group_sig, tooltip="0.6 = the body is at least 60% of the candle's high-to-low range.")
+closeNear = input.float(0.25, minval=0.0, maxval=1.0, step=0.05, title="Close within top/bottom (% of range)", group=group_sig, tooltip="Buy: close in the top 25% of the range. Sell: close in the bottom 25%.")
+
+// === STOP, TARGET, ROOM ===
+group_risk = "Stop, Target, Room"
+swingLeft = input.int(3, minval=1, title="Swing pivot: bars left", group=group_risk)
+swingRight = input.int(2, minval=1, title="Swing pivot: bars right", group=group_risk)
+stopBuffer = input.float(0.0, minval=0.0, title="Stop buffer (price)", group=group_risk, tooltip="Extra distance beyond the swing, in price. Gold example: 0.50.")
+rrTarget = input.float(2.0, minval=0.1, step=0.5, title="Target (R)", group=group_risk)
+maxRisk = input.float(0.0, minval=0.0, title="Max stop distance (price, 0 = off)", group=group_risk, tooltip="Skip the trade when the stop is further than this from the entry.")
+useRoom = input.bool(true, title="Skip when a level sits before the target", group=group_risk, tooltip="Buy: the nearest earlier swing high above the entry. Sell: the nearest earlier swing low below it.")
+levelMemory = input.int(30, minval=1, maxval=200, title="Swing levels to remember", group=group_risk)
+
+// === STAY-OUT FILTERS ===
+group_out = "Stay-Out Filters"
+useChop = input.bool(true, title="Skip when price keeps crossing the EMA", group=group_out)
+chopBars = input.int(20, minval=2, title="Chop: look back (bars)", group=group_out)
+chopMax = input.int(3, minval=0, title="Chop: max EMA crosses", group=group_out)
+useChase = input.bool(true, title="Skip when too far from the EMA (chasing)", group=group_out)
+chaseAtr = input.float(2.5, minval=0.1, step=0.1, title="Chase: max distance (ATRs)", group=group_out)
+
+// === DISPLAY ===
+group_disp = "Display"
+showLevels = input.bool(true, title="Draw entry, stop and target", group=group_disp)
+levelBars = input.int(20, minval=1, maxval=400, title="Level length (bars)", group=group_disp)
+showSkips = input.bool(true, title="Mark skipped signals (no room)", group=group_disp)
+
+// === FUNCTIONS ===
+calculateQQE(rsiLength, smoothingFactor, qqeFactor, source) =>
+    wildersLength = rsiLength * 2 - 1
+    rsi = ta.rsi(source, rsiLength)
+    smoothedRsi = ta.ema(rsi, smoothingFactor)
+    atrRsi = math.abs(smoothedRsi[1] - smoothedRsi)
+    smoothedAtrRsi = ta.ema(atrRsi, wildersLength)
+    dynamicAtrRsi = smoothedAtrRsi * qqeFactor
+
+    longBand = 0.0
+    shortBand = 0.0
+    trendDirection = 0
+
+    newShortBand = smoothedRsi + dynamicAtrRsi
+    newLongBand = smoothedRsi - dynamicAtrRsi
+    longBand := smoothedRsi[1] > longBand[1] and smoothedRsi > longBand[1] ? math.max(longBand[1], newLongBand) : newLongBand
+    shortBand := smoothedRsi[1] < shortBand[1] and smoothedRsi < shortBand[1] ? math.min(shortBand[1], newShortBand) : newShortBand
+    longBandCross = ta.cross(longBand[1], smoothedRsi)
+
+    if ta.cross(smoothedRsi, shortBand[1])
+        trendDirection := 1
+    else if longBandCross
+        trendDirection := -1
+    else
+        trendDirection := trendDirection[1]
+
+    qqeTrendLine = trendDirection == 1 ? longBand : shortBand
+    [qqeTrendLine, smoothedRsi]
+
+// nearest remembered level above (dir = 1) or below (dir = -1) a price
+nearestLevel(array<float> levels, float price, int dir) =>
+    float best = na
+    if array.size(levels) > 0
+        for i = 0 to array.size(levels) - 1
+            lv = array.get(levels, i)
+            if dir == 1 and lv > price and (na(best) or lv < best)
+                best := lv
+            if dir == -1 and lv < price and (na(best) or lv > best)
+                best := lv
+    best
+
+// === QQE MOD ===
+[primaryQQETrendLine, primaryRSI] = calculateQQE(rsiLengthPrimary, rsiSmoothingPrimary, qqeFactorPrimary, sourcePrimary)
+[secondaryQQETrendLine, secondaryRSI] = calculateQQE(rsiLengthSecondary, rsiSmoothingSecondary, qqeFactorSecondary, sourceSecondary)
+
+bollingerBasis = ta.sma(primaryQQETrendLine - 50, bollingerLength)
+bollingerDeviation = bollingerMultiplier * ta.stdev(primaryQQETrendLine - 50, bollingerLength)
+bollingerUpper = bollingerBasis + bollingerDeviation
+bollingerLower = bollingerBasis - bollingerDeviation
+
+qqeBlue = secondaryRSI - 50 > thresholdSecondary and primaryRSI - 50 > bollingerUpper
+qqeRed = secondaryRSI - 50 < -thresholdSecondary and primaryRSI - 50 < bollingerLower
+
+rsiColorSecondary = math.abs(secondaryRSI - 50) > thresholdSecondary ? color.new(#707070, 20) : na
+
+// === EMA 50 AND FILTERS ===
+ema50 = ta.ema(close, emaLength)
+atr14 = ta.atr(14)
+emaCrosses = math.sum(ta.cross(close, ema50) ? 1 : 0, chopBars)
+chopOk = not useChop or emaCrosses <= chopMax
+chaseOk = not useChase or math.abs(close - ema50) <= chaseAtr * atr14
+
+// === COLOR CHANGES ===
+barsSinceRed = ta.barssince(qqeRed)
+barsSinceBlue = ta.barssince(qqeBlue)
+turnBlue = qqeBlue and not qqeBlue[1] and barsSinceRed[1] < colorWithin
+turnRed = qqeRed and not qqeRed[1] and barsSinceBlue[1] < colorWithin
+
+// === THE CANDLE ===
+candleRange = high - low
+bodyPct = candleRange > 0 ? math.abs(close - open) / candleRange : 0.0
+bullCandle = not useCandle or (close > open and bodyPct >= minBody and (high - close) / candleRange <= closeNear)
+bearCandle = not useCandle or (close < open and bodyPct >= minBody and (close - low) / candleRange <= closeNear)
+
+// === SWINGS: the stop, and the levels for the room check ===
+var float lastSwingLow = na
+var float lastSwingHigh = na
+var array<float> swingHighs = array.new<float>()
+var array<float> swingLows = array.new<float>()
+pl = ta.pivotlow(low, swingLeft, swingRight)
+ph = ta.pivothigh(high, swingLeft, swingRight)
+if not na(pl)
+    lastSwingLow := pl
+    array.push(swingLows, pl)
+    if array.size(swingLows) > levelMemory
+        array.shift(swingLows)
+if not na(ph)
+    lastSwingHigh := ph
+    array.push(swingHighs, ph)
+    if array.size(swingHighs) > levelMemory
+        array.shift(swingHighs)
+
+// the swing must sit beyond this candle, or it can't hold a stop
+buyStop = math.min(nz(lastSwingLow, low), low) - stopBuffer
+sellStop = math.max(nz(lastSwingHigh, high), high) + stopBuffer
+buyRisk = close - buyStop
+sellRisk = sellStop - close
+buyTarget = close + rrTarget * buyRisk
+sellTarget = close - rrTarget * sellRisk
+buyLevel = nearestLevel(swingHighs, close, 1)
+sellLevel = nearestLevel(swingLows, close, -1)
+buyRoom = not useRoom or na(buyLevel) or buyLevel >= buyTarget
+sellRoom = not useRoom or na(sellLevel) or sellLevel <= sellTarget
+buyRiskOk = buyRisk > 0 and (maxRisk == 0 or buyRisk <= maxRisk)
+sellRiskOk = sellRisk > 0 and (maxRisk == 0 or sellRisk <= maxRisk)
+
+// === SIGNALS (only on a closed candle) ===
+buySetup = barstate.isconfirmed and close > ema50 and turnBlue and bullCandle and chopOk and chaseOk and buyRiskOk
+sellSetup = barstate.isconfirmed and close < ema50 and turnRed and bearCandle and chopOk and chaseOk and sellRiskOk
+buySignal = buySetup and buyRoom
+sellSignal = sellSetup and sellRoom
+buySkip = buySetup and not buyRoom
+sellSkip = sellSetup and not sellRoom
+
+// === PANE: QQE MOD ===
+plot(secondaryQQETrendLine - 50, title="Secondary QQE Trend Line", color=color.white, linewidth=2)
+plot(secondaryRSI - 50, color=rsiColorSecondary, title="Secondary RSI Histogram", style=plot.style_columns)
+plot(qqeBlue ? secondaryRSI - 50 : na, title="QQE Up Signal", style=plot.style_columns, color=#00c3ff)
+plot(qqeRed ? secondaryRSI - 50 : na, title="QQE Down Signal", style=plot.style_columns, color=#ff0062)
+hline(0, title="Zero Line", color=color.white, linestyle=hline.style_dotted)
+
+// === PRICE CHART: EMA 50 and the signals ===
+plot(ema50, title="EMA 50", color=emaColor, linewidth=2, force_overlay=true)
+plotshape(buySignal, title="Buy", style=shape.labelup, location=location.belowbar, color=color.new(#30d158, 0), textcolor=color.black, text="BUY", size=size.small, force_overlay=true)
+plotshape(sellSignal, title="Sell", style=shape.labeldown, location=location.abovebar, color=color.new(#ff453a, 0), textcolor=color.white, text="SELL", size=size.small, force_overlay=true)
+plotshape(showSkips and buySkip, title="Buy skipped (no room)", style=shape.xcross, location=location.belowbar, color=color.new(#8e8e93, 0), text="no room", textcolor=color.new(#8e8e93, 0), size=size.tiny, force_overlay=true)
+plotshape(showSkips and sellSkip, title="Sell skipped (no room)", style=shape.xcross, location=location.abovebar, color=color.new(#8e8e93, 0), text="no room", textcolor=color.new(#8e8e93, 0), size=size.tiny, force_overlay=true)
+
+// entry (next open, drawn at this close), stop and target
+if showLevels and (buySignal or sellSignal)
+    isBuy = buySignal
+    stopPx = isBuy ? buyStop : sellStop
+    tgtPx = isBuy ? buyTarget : sellTarget
+    x2 = bar_index + levelBars
+    line.new(bar_index, close, x2, close, color=color.new(color.white, 0), width=1, force_overlay=true)
+    line.new(bar_index, stopPx, x2, stopPx, color=color.new(#ff453a, 0), width=2, force_overlay=true)
+    line.new(bar_index, tgtPx, x2, tgtPx, color=color.new(#30d158, 0), width=2, force_overlay=true)
+    label.new(x2, stopPx, "Stop " + str.tostring(stopPx, format.mintick), style=label.style_label_left, color=color.new(#ff453a, 0), textcolor=color.black, size=size.tiny, force_overlay=true)
+    label.new(x2, tgtPx, str.tostring(rrTarget) + "R " + str.tostring(tgtPx, format.mintick), style=label.style_label_left, color=color.new(#30d158, 0), textcolor=color.black, size=size.tiny, force_overlay=true)
+
+// === ALERTS ===
+alertcondition(buySignal, title="QQE + EMA 50 Buy", message="QQE Mod turned blue above the EMA 50 on a strong closed candle: buy the next open.")
+alertcondition(sellSignal, title="QQE + EMA 50 Sell", message="QQE Mod turned red below the EMA 50 on a strong closed candle: sell the next open.")
+alertcondition(buySkip or sellSkip, title="QQE + EMA 50 Skipped (no room)", message="QQE + EMA 50 signal skipped: a level sits before the target.")
+if buySignal
+    alert("BUY " + syminfo.ticker + " · entry ~" + str.tostring(close, format.mintick) + " · stop " + str.tostring(buyStop, format.mintick) + " · target " + str.tostring(buyTarget, format.mintick), alert.freq_once_per_bar_close)
+if sellSignal
+    alert("SELL " + syminfo.ticker + " · entry ~" + str.tostring(close, format.mintick) + " · stop " + str.tostring(sellStop, format.mintick) + " · target " + str.tostring(sellTarget, format.mintick), alert.freq_once_per_bar_close)
