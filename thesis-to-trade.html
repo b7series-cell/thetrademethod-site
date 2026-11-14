@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Thesis to Trade — levels, price action, patience | The Trade Method</title>
+<meta name="description" content="Vincent Desiano's daily trading system from his live stream: build levels only on the weekly, daily, 4-hour and hourly charts and group nearby lows into zones, think through each level with a written game plan, read the price action at the level (hold, fail, or the sweep and reclaim), enter on the break and retest only after confirmation instead of front-running, and manage the trade with intraday structure and the EMA cloud.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/thesis-to-trade.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Thesis to Trade — levels, price action, patience">
+<meta property="og:description" content="Vincent Desiano's daily trading system from his live stream: build levels only on the weekly, daily, 4-hour and hourly charts and group nearby lows into zones, think through each level with a written game plan, read the price action at the level (hold, fail, or the sweep and reclaim), enter on the break and retest only after confirmation instead of front-running, and manage the trade with intraday structure and the EMA cloud.">
+<meta property="og:url" content="https://thetrademethod.com/thesis-to-trade.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Thesis to Trade — levels, price action, patience">
+<meta name="twitter:description" content="Vincent Desiano's daily trading system from his live stream: build levels only on the weekly, daily, 4-hour and hourly charts and group nearby lows into zones, think through each level with a written game plan, read the price action at the level (hold, fail, or the sweep and reclaim), enter on the break and retest only after confirmation instead of front-running, and manage the trade with intraday structure and the EMA cloud.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Thesis to Trade — levels, price action, patience",
+ "name": "Thesis to Trade",
+ "description": "Vincent Desiano's daily trading system from his live stream: build levels only on the weekly, daily, 4-hour and hourly charts and group nearby lows into zones, think through each level with a written game plan, read the price action at the level (hold, fail, or the sweep and reclaim), enter on the break and retest only after confirmation instead of front-running, and manage the trade with intraday structure and the EMA cloud.",
+ "url": "https://thetrademethod.com/thesis-to-trade.html",
+ "mainEntityOfPage": "https://thetrademethod.com/thesis-to-trade.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-14",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.seven { grid-template-columns:repeat(2,1fr); }
+    .ribbon.seven > div:last-child { grid-column:span 2; }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* thesis to trade: five cards, or a stepper once js/ttt-anim.js runs */
+  .ttt-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .ttt-steps .stage, .sheet .ttt-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .ttt-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .ttt-steps.is-stepper .stage, .sheet .ttt-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .ttt-steps.is-stepper .stage .num { display:none; }
+  .sheet .ttt-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .ttt-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .ttt-steps + .four { margin-top:28px; }
+  .ttt-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .ttt-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .ttt-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .ttt-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .ttt-steps { margin-top:24px; }
+  }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=34" defer></script>
+<script src="/js/ttt-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=23" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="thesis-to-trade">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; from Vincent Desiano's "my entire trading system" live stream</p>
+      <h1>Thesis to <span>Trade</span></h1>
+    </div>
+    <div>
+      <p class="thesis">No magic system and no fancy words. Every morning Vincent builds his levels on the higher time frames, writes a game plan for each one, and only watches price action when it reaches a zone. Then he waits for the break and retest to confirm before he enters.
+      <em>Levels, price action, self-control. Nothing else.</em></p>
+      <div class="counts">
+        <div><b>4</b><small>time frames for levels: weekly, daily, 4-hour, hourly</small></div>
+        <div><b>20&ndash;30 pts</b><small>a zone on the S&amp;P (about 100 on the Nasdaq)</small></div>
+        <div><b>1</b><small>entry model: the break and retest</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon seven" aria-label="Thesis to trade">
+    <div><div class="t">step 1</div><div class="n">Build the levels</div></div>
+    <div><div class="t">step 2</div><div class="n">Think through them</div></div>
+    <div><div class="t">step 3</div><div class="n">Read hold, fail or trap</div></div>
+    <div><div class="t">step 4</div><div class="n">Break and retest entry</div></div>
+    <div><div class="t">step 5</div><div class="n">Manage with structure</div></div>
+  </nav>
+
+  <div class="section-head" id="levels">
+    <h2>Step one: build the levels on the higher time frames</h2>
+    <p>Levels come from the weekly, daily, 4-hour and hourly charts, and from nothing lower. If you're going to take an intraday trade, it should come off a major inflection point, not a little pivot from yesterday.</p>
+  </div>
+  <section class="anim" data-ttt-anim="zones" aria-label="Illustrative made-up daily bars of the S&amp;P 500 future: the lows at 7,322, 7,341 and 7,358 are grouped into one demand zone, a 4-hour supply zone sits at 7,648 to 7,665, no levels are drawn above it, and hourly zones at 7,469 to 7,490 and 7,590 to 7,600 are added inside the range.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">From lows to a zone</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up daily bars with demand and supply zones drawn on them."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>A zone, not a line</h3>
+          <ul>
+            <li>Start with the clearest daily low. Then find the other lows close to it.</li>
+            <li>Put the zone between the lowest low and the highest of those nearby lows.</li>
+            <li>Keep it within reason: about 20 to 30 points on the S&amp;P, about 100 on the Nasdaq. A 200-point "demand zone" isn't a zone.</li>
+            <li>The more touches, the better. A low that held three or four times over six months is a huge daily inflection point.</li>
+          </ul>
+          <p class="why">One line at the extreme low would leave you blind to a major low sitting just above it on your intraday chart.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Less work than it sounds</h3>
+          <ul>
+            <li>Skip levels above a high that's clearly rejecting. If price gets above it, add levels the next day.</li>
+            <li>The major highs and lows stay on the chart until they break. Most mornings it's only small adjustments inside the range.</li>
+            <li>He uses horizontal lines, not trend lines.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The morning run-through</h4>
+        <p class="lead">Coffee, then the same order every day. Levels first, then a feel for which sectors are strong and which are weak, because money rotates almost daily.</p>
+        <ul class="plain">
+          <li><b>Futures and ETFs:</b> Nasdaq future, S&amp;P future, SPY, QQQ, IWM, SMH.</li>
+          <li><b>Equities:</b> Tesla and Nvidia, then semiconductors, memory names, large-cap tech, the neoclouds, healthcare, software, financials.</li>
+          <li><b>Macro:</b> gold and the 10-year.</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4>Adjusted or not adjusted?</h4>
+        <p class="lead">He keeps the futures chart adjusted for the contract change and watches the ETF beside it, which never adjusts: the S&amp;P next to SPY, the Nasdaq next to QQQ. If they disagree at a level, that's worth knowing. On Friday's trade the QQQ rejecting its previous day low was the guide for the Nasdaq short.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="story">
+    <h2>Step two: think through the levels</h2>
+    <p>A line on the chart isn't the work. For each zone you need the story: if this happens, then that. Here's the S&amp;P story from the stream, and the game plan it produces.</p>
+  </div>
+  <section class="anim" data-ttt-anim="story" aria-label="Illustrative made-up hourly bars of the S&amp;P 500 future: a stair-step uptrend where old highs become new lows, a break of the last higher low, a lower high under 7,600, and a game plan to fade a failure at 7,600 toward Friday's low or the 7,469 to 7,490 demand.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The story and the game plan</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up hourly bars showing market structure turning from bullish to a lower high."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Zoom out before you panic</h3>
+          <ul>
+            <li>After a big down day it's easy to think the market is about to tank. On the daily, the S&amp;P was just chopping sideways above a low it had defended three or four times.</li>
+            <li>That's status quo, not a bear market. A break and failure below those major lows would change the story.</li>
+            <li>Short term, the structure is what flips first: lower highs under 7,600 after the bulls lost the key lows.</li>
+          </ul>
+          <p class="why">The higher time frame sets the macro idea. The intraday chart is only where you act on it.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Only the candles inside colored zones</h4>
+        <p class="lead">Levels remove the noise. Instead of watching every candle that prints, you only care about candles inside the zones. "I only care what happens at 7,600 to 7,590. I only care what happens at 7,490 to 7,469."</p>
+        <div class="pair">
+          <div class="yes"><span class="k">at a zone</span><b>Full attention</b><p>Watch for the hold, the fail or the trap, and be ready to act.</p></div>
+          <div class="care"><span class="k">between zones</span><b>Leave it alone</b><p>No cute setups on a one-minute chart in the middle of nowhere.</p></div>
+        </div>
+      </div>
+      <blockquote class="qb">"We would be better traders if we just walked into the day and said, if we get to 7,600 I'll look for a fade. <b>If we don't, I'll see you tomorrow.</b>" &mdash; Vincent Desiano</blockquote>
+    </div>
+  </div>
+
+  <div class="section-head" id="read">
+    <h2>Step three: at the level, hold, fail, or trap?</h2>
+    <p>Getting to the level isn't the signal. Price has to show you something there, and very often it plays a game first: it breaks the level, traps the people who reacted, and then gets back above it.</p>
+  </div>
+  <section class="anim" data-ttt-anim="reclaim" aria-label="Illustrative made-up 5-minute bars of the S&amp;P 500 future sliding into a 7,469 to 7,490 demand zone, sweeping below it to 7,452, reclaiming the zone, retesting it with a higher low and going long at 7,499 with a stop at 7,486.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The sweep and the reclaim</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up 5-minute bars showing a sweep below a level and a reclaim long."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Expect the games</h3>
+          <ul>
+            <li>Buying just because price is at the level, in a downtrend, is what blew him up early on.</li>
+            <li>Now he walks into every day expecting something tricky at the zone: a trap, a sweep, something to wait for.</li>
+            <li>His favorite trade of all is the sweep and reclaim, which he calls the "reclaim ripper". It's a form of break and retest.</li>
+          </ul>
+          <p class="why">Traps and sweeps came into his system over the last two years. It's an advanced read, and it only works because the levels are good.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Once a level breaks, look for one of two things</h4>
+        <div class="pair">
+          <div class="care"><span class="k">with the break</span><b>Retest and reject</b><p>The level breaks, price comes back to it from the other side and gets rejected. Trade in the direction of the break.</p></div>
+          <div class="yes"><span class="k">against the break</span><b>Reclaim and hold</b><p>The level breaks, price gets back through it, retests it and holds with a higher low. Trade the reclaim.</p></div>
+        </div>
+        <p class="lead" style="margin-top:14px">If you don't chase the break, he says, something clean usually sets up later in the session.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="entry">
+    <h2>Step four: the break and retest, after confirmation</h2>
+    <p>The break and retest is the entry model, and it only works at the inflection points from steps one to three. The hard part isn't seeing it, it's waiting for it.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>The 7,490 long from the stream</h3>
+          <ul>
+            <li>The S&amp;P pulled back into the hourly 7,469 to 7,490 zone.</li>
+            <li>On the hourly it started to hold: a bounce, higher lows, buyers stepping up at 7,490. That's the break and retest of the key level.</li>
+            <li>Entry there, stop under the level (or lower, at 7,470), target back up into the highs.</li>
+            <li>It ran almost 100 points on the ES. No fancy words, just the level and the price action at it.</li>
+          </ul>
+          <p class="why">The vehicle doesn't matter. The same level held on SPY around 744 to 745 for a swing in shares or options.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Can you enter on the break?</h3>
+          <ul>
+            <li>You can, but he'd strongly advise against it. The break is where the traps happen.</li>
+            <li>The entry belongs at or after the level starts to hold and confirms it's holding.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Idea vs entry</h4>
+        <p class="lead">Two separate grades. The idea can be S tier, the best trade you could ask for, and the entry can still be early. Entering before the retest confirms is called front-running. It can pay well, and it has very high negatives when it doesn't.</p>
+        <div class="pair">
+          <div class="care"><span class="k">front-running</span><b>In before the retest</b><p>More drawdown, a worse reward-to-risk, and no confirmation behind it.</p></div>
+          <div class="yes"><span class="k">confirmed</span><b>In after the hold</b><p>Stop right under the retest candle's low. A better reward-to-risk and a better win rate.</p></div>
+        </div>
+      </div>
+      <blockquote class="qb">"You didn't have to get in early. <b>You just had to be patient.</b>" &mdash; Vincent Desiano</blockquote>
+    </div>
+  </div>
+  <section class="anim" data-ttt-anim="frontrun" aria-label="Illustrative made-up 2-minute bars of the Nasdaq 100 future: a break above 28,340, an early long at 28,374 that goes 43 points red on the retest, then a confirmed long at 28,362 with a stop at 28,330 that runs about 200 points.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Front-running vs the confirmed entry</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up 2-minute bars comparing an early entry with a confirmed break and retest entry."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="section-head" id="manage">
+    <h2>Step five: manage it with intraday structure</h2>
+    <p>Friday was a trending day down, and a lesson in what not to do as much as what to do. No level, no trade. Don't short into the 200 or the previous day low. Short the break and retest of the PDL, then let the structure tell you when to get out.</p>
+  </div>
+  <section class="anim" data-ttt-anim="pdl" aria-label="Illustrative made-up 5-minute bars of the Nasdaq 100 future on a trending down day: the first candle low is marked, price slides with no level, passes on shorting into the 200 moving average and the previous day low at 25,462, shorts the break and retest of the previous day low, trails the stop above each lower high under the EMA cloud, and exits when price holds back above a low.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Break and retest a PDL, then hold it</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up 5-minute bars of a previous day low break and retest short managed with lower highs and an EMA cloud."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">7</div>
+        <div>
+          <h3>Random shots get rewarded, until they don't</h3>
+          <ul>
+            <li>On a day like Friday, someone who just thinks "it's going down, I'm short" can outperform an experienced trader.</li>
+            <li>That behavior gets rewarded often, which is the problem. There's no system to stop it when it goes wrong, and it gives everything back and then some.</li>
+            <li>A break and retest of the previous day low is repeatable. A random short into a 200 moving average is a house of cards.</li>
+          </ul>
+          <p class="why">The more you know, the more cautious you get. That isn't a bad thing.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">8</div>
+        <div>
+          <h3>What is price actually doing?</h3>
+          <ul>
+            <li>Instead of panicking out of a position, look at the structure: lows, highs, lows, highs.</li>
+            <li>Long: hold while price stays above the last higher low and keeps stepping up. Short: hold while it makes lower highs under the EMA cloud.</li>
+            <li>When price holds back above a previous low (on a short), the structure is gone. That's the exit.</li>
+            <li>This is for trending markets only.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>An experiment: the first candle low</h4>
+        <p class="lead">Something he's been watching more and more this year: mark the low of the first one-minute candle of the session. It has kept showing up as an inflection, including Friday's rejections. He's clear it won't work every time and asks people to watch it with him and report back. Treat it as a level to observe, not a rule.</p>
+      </div>
+      <div class="panel">
+        <h4>The last piece: self-control</h4>
+        <p class="lead">Levels and price action are the whole system. The third piece, and the hardest, is battling yourself: not self-sabotaging, not chasing, not front-running. It's the part he says everyone, him included, keeps working on.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="start">
+    <h2>Every morning, thesis to trade</h2>
+    <p>The whole routine in five steps. Click through them.</p>
+  </div>
+  <div class="ttt-steps" data-ttt-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Build the levels</h3>
+          <ul>
+            <li>Weekly, daily, 4-hour, hourly only. Group the lowest low and the lows near it into one zone.</li>
+            <li>Keep the big zones until they break. Skip levels above a high that's clearly rejecting.</li>
+          </ul>
+          <p class="why">Good levels come first. Nothing after this works without them.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Think through them</h3>
+          <ul>
+            <li>Read the structure: highs turning into lows, or a lower high under a level.</li>
+            <li>Write the plan for each zone: if it pushes in and fails, fade it to the next zone. If it never gets there, no trade.</li>
+          </ul>
+          <p class="why">A line isn't a plan. The story is.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Read the price action there</h3>
+          <ul>
+            <li>Only at the zones. Is it holding, failing, or setting a trap?</li>
+            <li>Expect a sweep. A break and reclaim is often the best thing that can happen.</li>
+          </ul>
+          <p class="why">Use all your attention at the inflection points and none on the slide between them.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Break and retest entry</h3>
+          <ul>
+            <li>Retest and reject, or reclaim and hold. Enter after it confirms, never on the break.</li>
+            <li>Stop under the retest candle's low (or above its high on a short).</li>
+          </ul>
+          <p class="why">The idea and the entry are two different grades. Don't front-run an S-tier idea.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Manage, and control yourself</h3>
+          <ul>
+            <li>In a trend, hold while the structure holds and price stays on the right side of the EMA cloud. Exit when it breaks.</li>
+            <li>Then the hard part: no chasing, no random shots, no self-sabotage.</li>
+          </ul>
+          <p class="why">Levels, price action, self-control. Every day, the same thing.</p>
+        </div>
+      </section>
+  </div>
+
+  <div class="section-head" id="related">
+    <h2>Go deeper</h2>
+    <p>Pages on this site that pick up where this one leaves off.</p>
+  </div>
+  <div class="four">
+    <a href="/price-action-rules.html" style="--tc:#30d158"><span class="k">price action</span><h3>Three Price Action Rules</h3><p>Continuation, where the stop goes, and adding to a winner the right way.</p><small>Read &rsaquo;</small></a>
+    <a href="/mistakes.html" style="--tc:#ff9f0a"><span class="k">levels</span><h3>Support and Resistance Mistakes</h3><p>The common ways traders draw and trade levels wrong.</p><small>Read &rsaquo;</small></a>
+    <a href="/setups/knock-twice.html" style="--tc:#2997ff"><span class="k">break and retest</span><h3>Knock Twice</h3><p>Break, knock, break again: a pullback to the broken level, entered on the knock.</p><small>Read &rsaquo;</small></a>
+    <a href="/trailing-stops.html" style="--tc:#f4b942"><span class="k">management</span><h3>Trailing Stop Exits</h3><p>Four ways to trail a stop in a trend so the winner pays.</p><small>Read &rsaquo;</small></a>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/JjlxYYMPIMc" title="My entire trading system, taught live (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the stream</h2>
+      <p>Vincent Desiano teaching his full system live, day one of a four-day event. The teaching starts about twelve minutes in.</p>
+      <ol>
+        <li><b>12:31</b>Thesis to a trade: the plan</li>
+        <li><b>22:31</b>Higher time frames first</li>
+        <li><b>27:02</b>Adjusted contracts and the big four</li>
+        <li><b>31:00</b>Building the daily zone</li>
+        <li><b>37:30</b>4-hour supply, hourly demand</li>
+        <li><b>43:32</b>The 7,490 long</li>
+        <li><b>49:30</b>Market structure and the game plan</li>
+        <li><b>59:31</b>Hold or fail</li>
+        <li><b>1:03:02</b>Traps, sweeps and the reclaim</li>
+        <li><b>1:17:32</b>Idea vs entry: front-running</li>
+        <li><b>1:25:03</b>The first candle low</li>
+        <li><b>1:29:31</b>Friday: the PDL break and retest</li>
+        <li><b>1:35:00</b>Holding with intraday structure</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=JjlxYYMPIMc" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Build the levels. Watch them. Wait.</h2>
+      <p>Most traders would do better trading only the major inflection points: if price gets to the zone, look for the trade, and if it doesn't, see you tomorrow. The skill is patience for the level, patience for the retest, and patience for it to develop.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Levels from the weekly, daily, 4-hour and hourly. Nothing lower.</li>
+        <li>Group nearby lows into a zone: 20&ndash;30 points on the ES.</li>
+        <li>Write the story for each zone before the open.</li>
+        <li>Between zones, leave it alone.</li>
+        <li>At a zone, expect a trap. Wait for the hold or the reclaim.</li>
+        <li>Enter on the confirmed retest, never on the break.</li>
+        <li>Hold with the structure; exit when it breaks.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from Vincent Desiano's live stream "My Entire Trading System, Taught Live &amp; Free" (day one of a four-day event): building levels on higher time frames and grouping lows into zones, thinking through each level with a game plan, reading hold, fail and trap at the level, the break and retest entry, idea vs entry and front-running, the first candle low, the previous day low break and retest, and managing a trade with intraday structure and the EMA cloud. The concepts, the levels (7,322 to 7,358, 7,469 to 7,490, 7,590 to 7,600, 7,648 to 7,665 on the S&amp;P future and 28,340 on the Nasdaq future) and the trade stories are his. Giveaways, sponsor offers and the paid community from the stream are left out. Every bar in the walkthroughs is made up for illustration, and the walkthrough entry, stop and point figures (including 28,374, 28,362, 28,330 and 25,462) are illustrative, not his fills. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

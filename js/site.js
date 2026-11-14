@@ -51,6 +51,7 @@
     { href: "/trading-earnings.html", title: "How to Trade Earnings", kind: "Process · 4 steps", blurb: "Watch the headline reaction without chasing it, listen to the call for what changes the story, wait for price to confirm at a level, then write Plan A and Plan B." },
     { href: "/seven-trading-traps.html", title: "Seven Trading Traps", kind: "Self-check · 7 traps", blurb: "Why experienced traders lose money, from SMB Capital's desk reset: style drift, missing a regime change, grand slams, poor selectivity, too few short-term trades, sizing poorly and overusing options, plus the five-point reset." },
     { href: "/auction-market-theory.html", title: "Auction Market Theory", kind: "Framework · 3 phases", blurb: "Read the regime first: balance, transition or imbalance. Trade wall to wall in balance, wait for the transition candle, then use the delta peak and value area low for an asymmetrical trade and build with a third of the locked profit." },
+    { href: "/thesis-to-trade.html", title: "Thesis to Trade", kind: "System · 5 steps", blurb: "Vincent Desiano's daily system: build zones on the higher time frames, write the game plan for each, read hold, fail or trap at the level, enter on the confirmed break and retest instead of front-running, and manage with intraday structure." },
     { href: "/covered-calls.html",      title: "Covered Calls",                  kind: "Options · 4 outcomes",      blurb: "Own the stock, sell a call against it, keep the premium. The four outcomes, the cap on your upside, and how to place the order." },
     { href: "/expected-move.html",      title: "Expected Move",                  kind: "Options · calculator",      blurb: "A dashboard for the range the options market prices: enter the chain, get the upper and lower move on a chart, and see if it's wide or narrow for the stock." }
   ];
@@ -474,7 +475,7 @@
      each page's description and section headings, so a hit on a heading
      links straight to that section. Bump SEARCH_INDEX_URL's ?v= after
      rebuilding the index. */
-  var SEARCH_INDEX_URL = "/js/search-index.js?v=12";
+  var SEARCH_INDEX_URL = "/js/search-index.js?v=13";
   var searchDocs = null, searchIndexState = "";
 
   function searchBase() {

@@ -851,6 +851,32 @@
       }
     },
 
+    /* Thesis to trade: slide with no level (sit on hands), a demand zone from the higher time frame,
+       a sweep under it, the reclaim and retest (the entry), then intraday structure carries the long */
+    "thesis-to-trade": {
+      story: function (st) {
+        var Z, top, bot, i0;
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { d: -0.7, n: 0.4, mk: { t: "No level here · leave it alone", col: GRAY, below: true } }); }),
+          rep(6, function (st) { return bar(st, { d: -0.75, n: 0.7 }); }),
+          rep(1, function (st) {
+            top = st.price - 0.6; bot = top - 2.4; i0 = st.candles.length;
+            Z = level(st, top, "Demand zone · from the daily / 4h", BLUE, true); level(st, bot, "Zone low", BLUE);
+            st.boxes.push({ i0: i0, i1: i0 + 14, y0: bot, y1: top, col: BLUE });
+            return bar(st, { to: top - 0.6, pull: 0.6, n: 0.3, flo: bot });
+          }),
+          rep(2, function (st) { return bar(st, { to: bot + 0.5, pull: 0.5, n: 0.4, flo: bot }); }),
+          rep(1, function (st) { return bar(st, { d: -1.6, n: 0.2, pierce: true, lo: bot - 1.4, flash: ORANGE, mk: { t: "The sweep · a trap", col: ORANGE, below: true } }); }),
+          rep(1, function (st) { Z.col = GREEN; Z.label = "Reclaimed · now the retest"; return bar(st, { d: 2.4, n: 0.2, v: 0.8, mk: { t: "Reclaim", col: GREEN } }); }),
+          rep(2, function (st) { return bar(st, { to: bot + 0.8, pull: 0.45, n: 0.3, flo: bot + 0.4 }); }),
+          rep(1, function (st) { return bar(st, { d: 1.2, n: 0.2, v: 0.8, flash: GREEN, mk: { t: "Higher low holds · long", col: GREEN, below: true } }); }),
+          rep(4, function (st, k) { return bar(st, { d: k % 2 ? -0.4 : 1.1, n: 0.4 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.9, n: 0.3, mk: { t: "Highs turn into lows · hold it", col: SILK } }); }),
+          rep(5, function (st, k) { return bar(st, { d: k % 3 === 2 ? -0.5 : 0.9, n: 0.5 }); })
+        ];
+      }
+    },
+
     /* Covered calls: a strike caps the upside each cycle, the premium is collected up front either way */
     "covered-calls": {
       story: function (st) {
