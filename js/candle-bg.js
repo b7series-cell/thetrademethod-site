@@ -877,6 +877,34 @@
       }
     },
 
+    /* Pyramiding: a 1R breakout, then each add smaller (0.5R, 0.25R) off a consolidation,
+       with the stop stepping up behind every add */
+    "pyramiding": {
+      story: function (st) {
+        var S, hi, lo;
+        function base(n, label) {
+          return [
+            rep(1, function (st) { hi = st.price + 0.6; lo = st.price - 1.6; return bar(st, { n: 0.4, cap: hi, flo: lo }); }),
+            rep(n - 1, function (st) { return bar(st, { n: 0.6, cap: hi, flo: lo }); }),
+            rep(1, function (st) {
+              if (S) S.i1 = st.candles.length - 1;
+              S = level(st, lo - 0.3, label, RED, true);
+              return bar(st, { d: 1.8, n: 0.2, v: 0.9, pierce: true, flash: GREEN, mk: { t: label === "Stop · under the range" ? "First entry · 1R" : (label === "Stop · moved up" ? "Add · 0.5R" : "Add · 0.25R"), col: GREEN } });
+            })
+          ];
+        }
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); S = null; return bar(st, { n: 0.5 }); })
+        ].concat(base(6, "Stop · under the range"),
+          [rep(5, function (st) { return bar(st, { d: 0.8, n: 0.5 }); })],
+          base(5, "Stop · moved up"),
+          [rep(4, function (st) { return bar(st, { d: 0.8, n: 0.5 }); })],
+          base(4, "Stop · moved up again"),
+          [rep(1, function (st) { return bar(st, { d: 0.9, n: 0.3, mk: { t: "Most size on · least risk", col: SILK, below: true } }); }),
+           rep(6, function (st) { return bar(st, { d: 0.8, n: 0.5 }); })]);
+      }
+    },
+
     /* Covered calls: a strike caps the upside each cycle, the premium is collected up front either way */
     "covered-calls": {
       story: function (st) {
