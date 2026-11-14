@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pyramiding Into Winners — add smaller, risk less | The Trade Method</title>
+<meta name="description" content="How to add to a winning trade and end up risking less than when you started, from SMB Capital: the first entry is 1R, every add is smaller (0.5R, 0.25R, down to 0.1R) and moves the stop in your favor, an add has to be a new valid setup at a better location, never on open profit or volume alone, and two questions before every add.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/pyramiding.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Pyramiding Into Winners — add smaller, risk less">
+<meta property="og:description" content="How to add to a winning trade and end up risking less than when you started, from SMB Capital: the first entry is 1R, every add is smaller (0.5R, 0.25R, down to 0.1R) and moves the stop in your favor, an add has to be a new valid setup at a better location, never on open profit or volume alone, and two questions before every add.">
+<meta property="og:url" content="https://thetrademethod.com/pyramiding.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pyramiding Into Winners — add smaller, risk less">
+<meta name="twitter:description" content="How to add to a winning trade and end up risking less than when you started, from SMB Capital: the first entry is 1R, every add is smaller (0.5R, 0.25R, down to 0.1R) and moves the stop in your favor, an add has to be a new valid setup at a better location, never on open profit or volume alone, and two questions before every add.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Pyramiding Into Winners — add smaller, risk less",
+ "name": "Pyramiding Into Winners",
+ "description": "How to add to a winning trade and end up risking less than when you started, from SMB Capital: the first entry is 1R, every add is smaller (0.5R, 0.25R, down to 0.1R) and moves the stop in your favor, an add has to be a new valid setup at a better location, never on open profit or volume alone, and two questions before every add.",
+ "url": "https://thetrademethod.com/pyramiding.html",
+ "mainEntityOfPage": "https://thetrademethod.com/pyramiding.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-14",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.seven { grid-template-columns:repeat(2,1fr); }
+    .ribbon.seven > div:last-child { grid-column:span 2; }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the pyramid: five cards, or a stepper once js/pyr-anim.js runs */
+  .pyr-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .pyr-steps .stage, .sheet .pyr-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .pyr-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .pyr-steps.is-stepper .stage, .sheet .pyr-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .pyr-steps.is-stepper .stage .num { display:none; }
+  .sheet .pyr-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .pyr-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .pyr-steps + .four { margin-top:28px; }
+  .pyr-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .pyr-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .pyr-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .pyr-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .pyr-steps { margin-top:24px; }
+  }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=35" defer></script>
+<script src="/js/pyr-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=24" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="pyramiding">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; from SMB Capital's "The Prop Trading Technique that Will Make You Dangerously Good"</p>
+      <h1>Pyramiding <span>Into Winners</span></h1>
+    </div>
+    <div>
+      <p class="thesis">How do you add to a winner and end up risking less than when you started? The first entry is a full risk unit. Every add is smaller than the one before it, and every add moves the stop in your favor.
+      <em>The size grows. The risk falls.</em></p>
+      <div class="counts">
+        <div><b>1R</b><small>the first entry, a full risk unit</small></div>
+        <div><b>0.5R</b><small>the first add, then smaller each time</small></div>
+        <div><b>0.1R</b><small>the lowest tier worth adding</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon seven" aria-label="Pyramiding">
+    <div><div class="t">step 1</div><div class="n">First entry: 1R</div></div>
+    <div><div class="t">step 2</div><div class="n">Let the tape hand you the add</div></div>
+    <div><div class="t">step 3</div><div class="n">Ask the two questions</div></div>
+    <div><div class="t">step 4</div><div class="n">Add smaller each time</div></div>
+    <div><div class="t">step 5</div><div class="n">Move the stop, check total risk</div></div>
+  </nav>
+
+  <div class="section-head" id="trap">
+    <h2>Adding to a loser is not a strategy</h2>
+    <p>You buy a stock, it goes against you, and instead of taking the loss you buy more because now it's cheaper. That feels like discipline. It isn't. It's adding to a loser and calling it a strategy, and over time it takes a large bite out of your capital. Pyramiding is the opposite, and it's the thing almost nobody does well.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>The trap on the winning side</h3>
+          <ul>
+            <li>You're in a trade that's working. The stock is doing exactly what you wanted, how you wanted, when you wanted.</li>
+            <li>The second entry looks obvious, and the voice in your head says, "I'm already up. I can afford it." That voice is the trap.</li>
+            <li>Most traders undersize the first trade and oversize the second one, and every add after it. They try to get paid more because the trade is working.</li>
+          </ul>
+          <p class="why">That's how most people get pyramiding wrong: too little risk on the first entry, too much on the add.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Pyramiding is not martingale</h4>
+        <p class="lead">The distinction that makes everything else work.</p>
+        <div class="pair">
+          <div class="care"><span class="k">martingale</span><b>Bigger bets against you</b><p>The trade goes wrong and you add more, typically doubling the bet, then doubling again until it works. A dangerous strategy. On the SMB desk, someone doing it is kindly invited to leave.</p></div>
+          <div class="yes"><span class="k">pyramiding</span><b>Smaller bets with you</b><p>You add only after favorable movement, and every add is smaller than the one before it from a risk perspective. You never increase past your original risk.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="math">
+    <h2>The math, in risk units</h2>
+    <p>Talk about everything in R to keep it simple. One R is the most you're willing to lose on the trade. The first entry gets 1R. Every add gets a fraction of that, and the stop moves up behind it.</p>
+  </div>
+  <section class="anim" data-pyr-anim="ladder" aria-label="Illustrative made-up bars: a breakout of a range entered with 1R and a stop under the range low, a 0.5R add after a pullback and consolidation with the stop moved up to that support, a 0.25R add with the stop moved up again, and the stop levels where the trade would still finish in profit.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">1R, then 0.5R, then 0.25R</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up bars of a pyramid: three entries, each smaller, with a stop that steps up behind them."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Smaller every time, stop up every time</h3>
+          <ul>
+            <li>First entry on a breakout of a range: 1R, with the stop below the low of the range.</li>
+            <li>Price goes up, pulls back and consolidates. If it gives you another trade, the add is a fraction of the first size. Never more than 1R. Maybe 0.5R.</li>
+            <li>As you add, move the stop up to the prior support the add came from. Every add after that, the stop moves in your favor and the size goes down.</li>
+          </ul>
+          <p class="why">That's the whole trick. By the third entry you can be holding your biggest position of the trade and risking less than on the very first entry.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Four outcomes, and the math picks</h4>
+        <p class="lead">If the trade fails, you stop out small, and if you stop out small you're likely in profit. If it runs, your biggest size is on for the real move. Done right, the occasional winner can run to 20 or 25R, not because you predicted a home run, but because the math lets you stay in with size while the risk keeps shrinking.</p>
+        <div class="pair">
+          <div class="care"><span class="k">if it fails</span><b>Flat, small loser, small winner</b><p>The stop has moved up behind every add, so a failure costs little or nothing.</p></div>
+          <div class="yes"><span class="k">if it runs</span><b>Home run</b><p>Your biggest size is on for the real move.</p></div>
+        </div>
+      </div>
+      <blockquote class="qb">"I'm not trying to find opportunities to pyramid. <b>I take a pyramiding opportunity if the trade shows up for me.</b>" &mdash; SMB Capital</blockquote>
+    </div>
+  </div>
+
+  <div class="section-head" id="model">
+    <h2>The model: an add on a fashionably late trade</h2>
+    <p>A drawing of the structure first, with no ticker and no prices, because the model is where the math is cleanest. The first entry follows the fashionably late rules. The add comes near target, and it has to earn its place.</p>
+  </div>
+  <section class="anim" data-pyr-anim="model" aria-label="Illustrative made-up bars of a fashionably late trade: a distinct low, the 9 EMA crossing VWAP for a 1R entry with the stop a third of the measured move, a target of one full measured move (3R), a balance near target, a 0.5R add above the balance highs with the whole stop moved up to the initial target, and the worst case of still being up 2.5R compared with a 3R add that would wipe out the profit.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Up 3R: add half, not three</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up bars of a fashionably late trade with a half-size add near target."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Open profit is not a cushion</h3>
+          <ul>
+            <li>Near target, most traders see the open profit and treat it like a cushion: "This is working better than I thought, I can add big."</li>
+            <li>Instead of just taking it off into target, you might take an offside scalp in the direction of the trade: a second entry at a really good location.</li>
+            <li>Then move the entire stop up to where the initial target was.</li>
+          </ul>
+          <p class="why">Up 3R and risking 0.5R on the add, the worst case is still up 2.5R. Risk another 3R on the add and a failure wipes out every bit of profit. That's what puts more traders on tilt than anything else, and it's mentally fatiguing.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The question the add has to answer</h4>
+        <p class="lead"><b>Is the structure stronger at the add than it was at the entry?</b> If yes, it's a new, independently valid setup at a better location, and you can put more risk on. But it's a smaller second entry: half a risk unit, not a whole one.</p>
+      </div>
+      <div class="panel">
+        <h4>Think in R, start with halves</h4>
+        <p class="lead">Halves are an honest way to start. A dollar stop is fine, but when you think about every trade in risk units you can pyramid into trades consistently.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="amd">
+    <h2>AMD: a half-size add on the long</h2>
+    <p>A recent example from the desk. An opening range break long, a structure that builds, and one add at half a risk unit. Watch what happens to the risk when the whole stop moves up.</p>
+  </div>
+  <section class="anim" data-pyr-anim="amd" aria-label="Illustrative made-up 5-minute bars of AMD: an opening range break long at 478 with a stop at 468 for 100 shares, a run and a pullback, a small puppy dog consolidation above the pullback highs, a break on increased volume, an add of 125 shares at 493 with a stop at 489, and the whole 225-share position's stop moved to 489, which is still above the first entry.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The puppy dog add</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up 5-minute bars of AMD with an opening range break long and a half-size add."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Where the add came from</h3>
+          <ul>
+            <li>Right after the entry? Not really. Some people take a 9 EMA continuation there, but he likes the structure to be built.</li>
+            <li>A small "puppy dog" consolidation above the highs of the recent pullback, then a break on increased volume: he loves that spot for an add.</li>
+            <li>Stop below the low of the consolidation. Clean, 4 points of risk.</li>
+          </ul>
+          <p class="why">Not increasing size randomly, not adding without a plan, half-sizing all the way up: that's how you keep adding while protecting against giving back too much open P&amp;L, and protect your mindset, which matters most.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel calc">
+        <h4>The AMD numbers</h4>
+        <p class="lead">One R for the day is $1,000.</p>
+        <div class="row"><span>First entry: long 478, stop 468 (10 pts)</span><b>100 shares &middot; 1R</b></div>
+        <div class="row"><span>Add: 493, stop 489 (4 pts), $500 of risk</span><b>125 shares &middot; 0.5R</b></div>
+        <div class="row"><span>The whole position, stop moved to 489</span><b>225 shares</b></div>
+        <div class="row"><span>Stopped out: 4 pts on 225 shares from 493</span><b>&minus;$900</b></div>
+        <div class="row tot"><span>But the first 100 came in at 478, below that stop</span><b>still up money</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="cbrs">
+    <h2>CBRS: a half-size add on the short</h2>
+    <p>The same rule on the short side. It broke 160, its IPO price, and the opening range broke below that level.</p>
+  </div>
+  <section class="anim" data-pyr-anim="cbrs" aria-label="Illustrative made-up 5-minute bars of CBRS: below the 160 IPO price, an opening range break short at 155.50 with a stop at 157.50 for 500 shares, a strong move down, a pop and a curl back toward VWAP, an add of 250 shares at 151.50 with a stop at 153.50 against VWAP, and a low-of-day style close.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The VWAP add</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up 5-minute bars of CBRS with an opening range break short and a half-size add against VWAP."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Keep stepping down</h3>
+          <ul>
+            <li>The add doesn't have to risk to the highs. A clear, distinct turn against VWAP is a more conservative place to stand.</li>
+            <li>CBRS only gave one chance to add, but you could keep going: 0.25R ($250), then less.</li>
+            <li>If you keep pyramiding, 0.1R is a good lowest tier.</li>
+          </ul>
+          <p class="why">Every entry goes down in risk units, so you're protected all the way. You get the experience of adding to a winner without the "I was up a ton and gave it all back" pitfalls.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel calc">
+        <h4>The CBRS numbers</h4>
+        <p class="lead">Same $1,000 risk unit.</p>
+        <div class="row"><span>First entry: short 155.50, stop 157.50 (2 pts)</span><b>500 shares &middot; 1R</b></div>
+        <div class="row"><span>Add: short 151.50, stop 153.50 (2 pts), $500 of risk</span><b>250 shares &middot; 0.5R</b></div>
+        <div class="row"><span>Next add, if it came</span><b>0.25R &middot; $250</b></div>
+        <div class="row tot"><span>The lowest tier</span><b>0.1R</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="volume">
+    <h2>An add on volume alone isn't pyramiding</h2>
+    <p>One contrast, because it will save you money. Both examples above passed the same test: the add earned its place on the structure, not on the open P&amp;L. A volume spike with no technical location of its own doesn't.</p>
+  </div>
+  <section class="anim" data-pyr-anim="volume" aria-label="Illustrative made-up bars: a working long, an add on a volume spike in the middle of the move with no level or stop of its own, price moving against the add and the whole position being closed, and a later re-entry from a real structure that works after the trader is already out.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Adding risk on hope</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up bars of an add on a volume spike that has no level of its own."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="section-head" id="questions">
+    <h2>Before every add, ask out loud</h2>
+    <p>Write it down, because the moment you need it is the moment your gut will argue with it.</p>
+  </div>
+  <div class="four">
+    <div style="--tc:#ff9f0a"><span class="k">question one</span><h3>Is the idea still valid?</h3><p>And is it playing out better than expected (BTE)? Is the price action doing exactly what you hoped for?</p></div>
+    <div style="--tc:#ff9f0a"><span class="k">question two</span><h3>Would I take it on its own?</h3><p>If you weren't already in the original trade, would you take this one? And what is your total risk in the position now?</p><small>No number or risk unit for the total? Don't add. Wait.</small></div>
+    <div style="--tc:#30d158"><span class="k">sizing</span><h3>Sized for its own structure</h3><p>The add has its own level, its own stop and its own size, with the whole position's risk checked before you click.</p></div>
+    <div style="--tc:#2997ff"><span class="k">mindset</span><h3>Don't fall in love with the add</h3><p>The first entry was just a trade. The second is a new trade that happens to sit next to it. Same standard, same skepticism.</p><small>Most adds won't earn their place. The ones that do are the ones that pay.</small></div>
+  </div>
+
+  <div class="section-head" id="steps">
+    <h2>The pyramid, step by step</h2>
+    <p>The whole technique in five steps. Click through them.</p>
+  </div>
+  <div class="pyr-steps" data-pyr-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>First entry: 1R</h3>
+          <ul>
+            <li>Put the appropriate risk on the first trade: a full risk unit, to the stop the setup calls for.</li>
+            <li>Don't enter thinking "I hope I can pyramid this."</li>
+          </ul>
+          <p class="why">Undersizing the first entry is half of how traders get pyramiding wrong.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Let the tape hand you the add</h3>
+          <ul>
+            <li>Wait for structure: a pullback, a consolidation, a level the add can stand on.</li>
+            <li>You don't hunt for adds. The tape hands you one, or it doesn't.</li>
+          </ul>
+          <p class="why">That's the difference between a rule and a habit you force.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Ask the two questions</h3>
+          <ul>
+            <li>Is the trade idea still valid, and is it playing out better than expected?</li>
+            <li>Is this a new trade I'd take on its own? And what's my total risk in the position?</li>
+          </ul>
+          <p class="why">If you can't answer the total risk with a number or a risk unit, you don't add.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Add smaller each time</h3>
+          <ul>
+            <li>Never more than the original risk. Start with halves: 0.5R, then 0.25R.</li>
+            <li>If you keep pyramiding, 0.1R is the lowest tier.</li>
+          </ul>
+          <p class="why">The add is sized for its own structure, never for the open profit.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Move the stop, check the total</h3>
+          <ul>
+            <li>Every add moves the stop for the whole position in your favor.</li>
+            <li>Check the whole position's risk before you click. It should be going down.</li>
+          </ul>
+          <p class="why">The size grows naturally. The risk falls the entire time.</p>
+        </div>
+      </section>
+  </div>
+
+  <div class="section-head" id="related">
+    <h2>Go deeper</h2>
+    <p>Pages on this site that pick up where this one leaves off.</p>
+  </div>
+  <div class="four">
+    <a href="/dynamic-risk-sizing.html" style="--tc:#30d158"><span class="k">risk</span><h3>Dynamic Risk Sizing</h3><p>The A+, A, B, C model for sizing each trade to its grade.</p><small>Read &rsaquo;</small></a>
+    <a href="/price-action-rules.html" style="--tc:#2997ff"><span class="k">price action</span><h3>Three Price Action Rules</h3><p>Continuation, where the stop goes, and adding to a winner the right way.</p><small>Read &rsaquo;</small></a>
+    <a href="/setups/fashionably-late.html" style="--tc:#f4b942"><span class="k">setup</span><h3>Fashionably Late</h3><p>The 9 EMA crossing VWAP, the stop a third of the move, the target one measured move.</p><small>Read &rsaquo;</small></a>
+    <a href="/setups/opening-range-break.html" style="--tc:#ff9f0a"><span class="k">setup</span><h3>Opening Range Break</h3><p>The entry behind both the AMD and CBRS examples.</p><small>Read &rsaquo;</small></a>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/9tVfd-I4VAY" title="The Prop Trading Technique that Will Make You Dangerously Good (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>SMB Capital on adding to winners: the math in risk units, the model, and two trades from the desk.</p>
+      <ol>
+        <li><b>0:00</b>Adding to a loser vs a winner</li>
+        <li><b>2:18</b>Pyramiding is not martingale</li>
+        <li><b>3:25</b>The math in risk units</li>
+        <li><b>7:21</b>The model: a fashionably late trade</li>
+        <li><b>9:05</b>Where most traders go wrong</li>
+        <li><b>12:41</b>AMD: the half-size add</li>
+        <li><b>16:45</b>CBRS: the short</li>
+        <li><b>19:37</b>Down to 0.1R</li>
+        <li><b>20:40</b>Volume alone isn't an add</li>
+        <li><b>21:33</b>The two questions</li>
+        <li><b>22:37</b>Don't fall in love with the add</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=9tVfd-I4VAY" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Pull up your last winning trade.</h2>
+      <p>Was the add you took, or the add you wanted to take, smaller in risk units than the first entry? Did your total risk go down when you took it? If not, you weren't pyramiding. You were averaging in the other direction, which is gambling. You can fix it on the very next one.</p>
+    </div>
+    <div>
+      <ul>
+        <li>First entry: a full 1R.</li>
+        <li>Add only after favorable movement, never against you.</li>
+        <li>The add has to be a new valid setup at a better location.</li>
+        <li>Each add smaller: 0.5R, 0.25R, down to 0.1R.</li>
+        <li>Move the whole stop in your favor with every add.</li>
+        <li>No level, no stop of its own? It's hope, not an add.</li>
+        <li>Know your total risk before you click.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from SMB Capital's video "The Prop Trading Technique that Will Make You Dangerously Good": pyramiding vs martingale, the math in risk units, a fashionably late model with a half-size add near target, the AMD and CBRS opening range break examples, stepping down to 0.1R, why an add on volume alone isn't pyramiding, and the two questions to ask before every add. The concepts, the trade stories and their prices and sizes (AMD 478, 468, 493, 489; CBRS 160, 155.50, 157.50, 151.50, 153.50; a $1,000 risk unit) are from the video. Every bar in the walkthroughs is made up for illustration, and the R results shown on the risk-unit walkthrough (+0.5R, +3.25R) are worked out from its made-up entries. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>
