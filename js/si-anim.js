@@ -1,6 +1,7 @@
 /* =====================================================================
    si-anim.js — the animated walkthroughs on stacked-imbalances.html
-   (Orderflows, "Stacked Imbalances In The Order Flow Find Low Risk Trades").
+   (Orderflows, "Stacked Imbalances In The Order Flow Find Low Risk Trades",
+   and Futures Flow, "How To Trade Stacked Imbalances - Advanced Footprint Techniques").
 
      [data-si-anim="diagonal"]  what an imbalance is: the bid at one price against the
                                 offer one tick up, 20 vs 150, about 4 to 1
@@ -11,6 +12,10 @@
                                 sideways, blows through
      [data-si-anim="short"]     the selling stack at 3,921–3,922: a shallow return with
                                 sellers still there, and the short
+     [data-si-anim="where"]     (Futures Flow) where the stack sits in the candle and the
+                                first reaction: mid-body vs wick, passive orders, traps
+     [data-si-anim="trigger"]   (Futures Flow) back at a buying stack: negative delta in,
+                                a 128-lot buyer, positive delta, the long
      [data-si-steps]            "trading a stacked imbalance, step by step" as a stepper
 
    Imbalances are read diagonally at 4:1, as in the video: the offer at a price
@@ -763,7 +768,190 @@
     });
   }
 
-  var SPECS = { diagonal: diagonalSpec, stack: stackSpec, memory: memorySpec, outcomes: outcomesSpec, short: shortSpec };
+  /* =====================================================================
+     6 · Where the stack sits in the candle, and what price did next (Futures Flow).
+     Imbalances here are read horizontally, the way that video reads them:
+     one side at a price at least 4x (400%) the other side at the same price.
+     ===================================================================== */
+  function whereSpec() {
+    function cells(seed, set) {
+      var R = rng(seed), out = [];
+      for (var i = 0; i < 10; i++) { var v = 10 + Math.round(R() * 18); out.push([v, Math.max(4, v + Math.round((R() - 0.5) * 10))]); }
+      Object.keys(set).forEach(function (k) { out[k] = set[k]; });
+      return out;
+    }
+    var P = [
+      { t1: "Red candle", t2: "sell stack mid-body", o: 8.6, c: 1.2, h: 9.3, l: 0.6, side: "bid", a: 3, b: 5,
+        fp: cells(61, { 3: [40, 9], 4: [22, 0], 5: [42, 3] }),
+        path: [[0, 1.2], [1, -0.6], [2, 0.4], [3, 2.8], [4, 4.6], [5, 3.0], [6, 0.2]], col: C.dn,
+        v: "Bearish", why: ["Sellers drove the body.", "Resistance on the return."] },
+      { t1: "Red candle", t2: "buy stack in the top wick", o: 6.4, c: 1.0, h: 9.6, l: 0.5, side: "ask", a: 7, b: 9,
+        fp: cells(62, { 7: [6, 34], 8: [4, 29], 9: [3, 18] }),
+        path: [[0, 1.0], [1, -0.4], [2, -1.2], [3, -0.6], [4, -1.8]], col: C.dn,
+        v: "Bearish", why: ["Passive sellers filled on", "the ask. Buyers trapped."] },
+      { t1: "Red candle", t2: "sell stack in the bottom wick", o: 8.6, c: 5.4, h: 9.0, l: 0.4, side: "bid", a: 1, b: 3,
+        fp: cells(63, { 1: [31, 0], 2: [38, 5], 3: [27, 4] }),
+        path: [[0, 5.4], [1, 6.8], [2, 7.6], [3, 9.0], [4, 10.0]], col: C.up,
+        v: "Bullish", why: ["Passive buyers filled on", "the bid. Play the bounce."] },
+      { t1: "Green candle", t2: "buy stack in the top wick", o: 1.0, c: 6.2, h: 9.6, l: 0.5, side: "ask", a: 7, b: 9,
+        fp: cells(64, { 7: [5, 33], 8: [6, 41], 9: [3, 20] }),
+        path: [[0, 6.2], [1, 4.4], [2, 3.2], [3, 1.6], [4, 0.8]], col: C.dn,
+        v: "Bearish next", why: ["Passive sellers on top.", "Watch for a red candle."] },
+      { t1: "Green candle", t2: "buy stack mid-body", o: 1.0, c: 8.8, h: 9.4, l: 0.6, side: "ask", a: 4, b: 6,
+        fp: cells(65, { 4: [7, 36], 5: [5, 44], 6: [8, 39] }),
+        path: [[0, 8.8], [1, 10.2], [2, 9.0], [3, 6.8], [4, 5.4], [5, 7.4], [6, 10.0]], col: C.up,
+        v: "Bullish", why: ["Buyers drove the body.", "Support on the return."] }
+    ];
+    var AT = [0.3, 4.3, 8.3, 12.3, 16.3];
+    var ST = [
+      { at: 0, title: "Red candle, sell stack mid-body", text: "A strong red candle: most of it is body and it closes near the low. Right in the middle of the body, sellers outweigh buyers 400% or more at stacked prices. Look for price to move down, come back up into that area, and get pushed down again." },
+      { at: 4.3, title: "Red candle, buy stack in the top wick", text: "Buy imbalances at the top of a red candle look bullish. They aren't. Price pushed up into sell limit orders, passive sellers filled on the ask, and the first reaction was down. The buyers up there are trapped. His favorite kind to trade." },
+      { at: 8.3, title: "Red candle, sell stack in the bottom wick", text: "The mirror. Price dropped into buy limit orders that filled on the bid, with almost nothing on the ask, and the first reaction was up. Passive buyers. Even though it's red, this candle is bullish: play the initial reaction up." },
+      { at: 12.3, title: "Green candle, buy stack in the top wick", text: "Green, but there's no bullish stack in the body. The stack sits on the top wick, a sign of passive sellers. If a red candle follows, look for a move down." },
+      { at: 16.3, title: "Green candle, buy stack mid-body", text: "The clean bullish one: opens low, closes near the high, buy stack in the middle of the body. Look for the move up, the pullback to that area, the hold, and the next push up." },
+      { at: 20.3, title: "Where it sits decides it", text: "Same imbalances, different meaning. In the middle of the body, the stack is the side that won: mark it as support or resistance. In a wick, with the first move going the other way, it's passive orders and trapped traders." }
+    ];
+    return {
+      stages: ST, end: 24,
+      size: function (n) { return n ? { W: 440, H: 1040 } : { W: 1180, H: 540 }; },
+      frame: function (T, L) {
+        var n = L.narrow, s = "";
+        P.forEach(function (p, i) {
+          var pw, ph, px0, py0;
+          if (n) { pw = 206; ph = 330; px0 = 10 + (i % 2) * (pw + 8); py0 = 10 + Math.floor(i / 2) * (ph + 12); if (i === 4) px0 = (440 - pw) / 2; }
+          else { pw = 222; ph = 500; px0 = 12 + i * (pw + 10); py0 = 18; }
+          var t0 = AT[i], on = T >= t0, cur = T >= t0 && (i === 4 ? T < 20.3 : T < AT[i + 1]);
+          s += rect(px0, py0, pw, ph, "#141416", 14, 1);
+          if (cur) s += frameRect(px0, py0, pw, ph, p.col, 1.6, 0.85, 14);
+          s += txt(px0 + 12, py0 + 24, p.t1, on ? (p.t1.indexOf("Red") === 0 ? C.dn : C.up) : C.faint, 13.5, "start", 700);
+          s += txt(px0 + 12, py0 + 24 + 18 * FS, p.t2, on ? C.ink : C.faint, 12, "start", 600);
+          var top = py0 + (n ? 74 : 72), bot = py0 + ph - (n ? 92 : 128), rh = (bot - top) / 10;
+          var Yr = function (r) { return bot - (r + 0.5) * rh; };
+          var cX = px0 + 22, fx = px0 + 38, cw = n ? 30 : 34, pX0 = fx + 2 * cw + 14, pX1 = px0 + pw - 10;
+          var k = clamp01((T - t0) / 1.0);
+          if (k <= 0) { s += txt(px0 + pw / 2, (top + bot) / 2, String(i + 1), "#2c2c2e", 40, "middle", 800); return; }
+          /* the candle */
+          s += candle(cX, function (v) { return bot - (v / 10) * (bot - top) - rh / 2 + rh / 2; }, [p.o, p.h, p.l, p.c], k, n ? 12 : 14);
+          /* the footprint column beside it, read horizontally */
+          var fk = clamp01((T - t0 - 0.4) / 0.8), hk = fade(T, t0 + 1.3, 0.4);
+          for (var r = 0; r < 10; r++) {
+            var y = Yr(r) - rh / 2 + 1, q = p.fp[r], inS = r >= p.a && r <= p.b;
+            if (fk <= r / 12) continue;
+            s += rect(fx, y, cw - 2, rh - 2, "#2c2c2e", 3);
+            s += rect(fx + cw, y, cw - 2, rh - 2, "#2c2c2e", 3);
+            if (inS) s += rect(p.side === "bid" ? fx : fx + cw, y, cw - 2, rh - 2, p.side === "bid" ? C.dn : C.up, 3, 0.6 * hk);
+            var fs = Math.min(11, rh * 0.62);
+            s += num(fx + cw / 2 - 1, y + rh / 2 + fs * 0.32, String(q[0]), inS && p.side === "bid" && hk > 0.5 ? "#fff" : C.dim, fs, "middle", inS && p.side === "bid" && hk > 0.5 ? 800 : null);
+            s += num(fx + cw * 1.5 - 1, y + rh / 2 + fs * 0.32, String(q[1]), inS && p.side === "ask" && hk > 0.5 ? "#fff" : C.dim, fs, "middle", inS && p.side === "ask" && hk > 0.5 ? 800 : null);
+          }
+          s += frameRect(fx - 3, Yr(p.b) - rh / 2 - 2, 2 * cw + 4, (p.b - p.a + 1) * rh + 2, p.side === "bid" ? C.dn : C.up, 2, hk, 4);
+          /* the zone, carried right, and what price did next */
+          var zk = fade(T, t0 + 1.8, 0.4);
+          if (zk > 0) s += rect(pX0 - 6, Yr(p.b) - rh / 2, pX1 - pX0 + 6, (p.b - p.a + 1) * rh, p.side === "bid" ? C.dn : C.up, 2, 0.12 * zk);
+          var pk = clamp01((T - t0 - 2.0) / 1.2);
+          if (pk > 0) {
+            var last = p.path.length - 1, upto = pk * last, pts = [];
+            for (var j = 0; j <= Math.floor(upto); j++) pts.push([lerp(pX0, pX1, p.path[j][0] / last), Yr(p.path[j][1] - 0.5) + rh / 2]);
+            if (upto < last) { var j0 = Math.floor(upto), f = upto - j0; pts.push([lerp(pX0, pX1, (j0 + f) / last), Yr(lerp(p.path[j0][1], p.path[j0 + 1][1], f) - 0.5) + rh / 2]); }
+            s += poly(pts, p.col, 2.4);
+            if (pk >= 1) s += dot(pts[pts.length - 1][0], pts[pts.length - 1][1], 4, p.col, 1);
+          }
+          /* the verdict */
+          var vk = fade(T, t0 + 3.2, 0.4);
+          if (vk > 0) {
+            s += pill(px0 + 12, bot + (n ? 34 : 40), p.v, p.col, vk, "start");
+            s += txt(px0 + 12, bot + (n ? 58 : 66) * 1, p.why[0], C.dim, 11.5, "start", null, vk);
+            s += txt(px0 + 12, bot + (n ? 58 : 66) + 16 * FS, p.why[1], C.dim, 11.5, "start", null, vk);
+          }
+        });
+        return s + stamp(L, n ? "Illustrative · made-up candles" : "Illustrative · made-up candles · imbalances read horizontally at 400%");
+      }
+    };
+  }
+
+  /* =====================================================================
+     7 · The trigger: back at a buying stack, wait for the large participant (Futures Flow)
+     ===================================================================== */
+  function triggerSpec() {
+    var CL = [21488, 21486, 21490, 21487, 21489, 21492, 21490,
+              21522,
+              21530, 21534, 21531, 21537, 21541, 21538,
+              21533, 21528, 21524, 21520, 21516, 21514,
+              21513, 21519,
+              21526, 21531, 21529, 21537, 21545, 21551, 21556, 21560, 21557];
+    var B = mkBars(CL, 21489, 71, 2.2);
+    B[7] = { o: 21491, h: 21524, l: 21490, c: 21522 };
+    clampRange(B, 8, 30, 21512.5, null);
+    B[19].l = 21512; B[20] = { o: 21514, h: 21516, l: 21511.5, c: 21513 }; B[21] = { o: 21513, h: 21520, l: 21512, c: 21519 };
+    var N = B.length, lo = 21478, hi = 21566, ZA = 21508, ZB = 21514;
+    var DL = [12, -18, 25, -14, 9, 20, -11, 210, 60, 44, -30, 52, 38, -26, -60, -95, -120, -88, -140, -110, -70, 180, 120, 75, -40, 90, 110, 64, 58, 30, -35];
+    var ST = [
+      { at: 0, title: "A bullish stack, mid-body", text: "Made-up NQ-style bars. A strong green bar closes near its high with a buy stack in the middle of the body, and the first reaction is up. Mark the zone." },
+      { at: 4, title: "Back to the level, sellers pressing", text: "Price comes back into the stack on heavy negative delta. Good: sellers leaning on a level the buyers defended can get trapped. But a limit order sitting there isn't the trade yet." },
+      { at: 8, title: "A large participant shows up", text: "At the level the prints jump: 10 lots, 20, 30, then 128 in the blink of an eye on a short-lived candle. That's probably a large buyer, and it's what he waits for, often on a smaller chart like a range chart." },
+      { at: 12, title: "Positive delta, the reaction", text: "Delta flips strongly positive and the bar closes green off the stack. That initial reaction is the long entry, with the stop under the zone." },
+      { at: 16, title: "The move", text: "Moves like this in the video ran 26 to 55 points on NQ, this one about 43. Not every return gets a large participant. No participant, no trade." }
+    ];
+    return {
+      stages: ST, end: 20.5,
+      size: function (n) { return n ? { W: 440, H: 800 } : { W: 1180, H: 540 }; },
+      frame: function (T, L) {
+        var n = L.narrow, g = geo(L, { vol: 1, band: 200 }), s = "", post = "";
+        var X = function (k) { return g.x0 + (k + 0.5) * (g.x1 - g.x0) / N; }, Y = function (v) { return g.y1 - (v - lo) / (hi - lo) * (g.y1 - g.y0); };
+        var cnt = track([[0, 1], [3, 14], [7.6, 20], [11.6, 21], [12.4, 22], [15.6, 22], [19.4, N]], T), bw = (g.x1 - g.x0) / N * 0.62;
+        var last = Math.min(N - 1, Math.ceil(cnt) - 1);
+        s += grid(g);
+        s += axis(g, 21480, 21560, 20, Y, 0);
+        s += txt(g.x0, g.y0 - 14, n ? "Made-up NQ-style bars" : "Made-up NQ-style bars · delta under each bar", C.faint, 12, "start", 600);
+        var zo = fade(T, 1.4, 0.4);
+        if (zo > 0) {
+          var xa = X(7) - bw, xb = Math.max(X(last) + bw, X(7) + bw);
+          s += rect(xa, Y(ZB), xb - xa, Y(ZA) - Y(ZB), C.up, 2, 0.2 * zo) + line(xa, Y(ZB), xb, Y(ZB), C.up, 1.4, null, zo) + line(xa, Y(ZA), xb, Y(ZA), C.up, 1.4, null, zo);
+          post += tag(X(7) - bw - 6, Y((ZA + ZB) / 2), n ? "buy stack" : "buy stack · mid-body", C.up, zo, "end");
+        }
+        /* delta bars */
+        var top = g.y1 + 24, mid = (top + g.vy1) / 2, hh = (g.vy1 - top) / 2;
+        s += txt(g.x0, top - 6, "delta", C.faint, 11, "start");
+        s += line(g.x0, mid, g.x1, mid, "#3a3a3c", 1);
+        for (var i = 0; i <= last && i < N; i++) {
+          var p = i < Math.floor(cnt) ? 1 : cnt - Math.floor(cnt), v = DL[i] / 210 * hh * p, hot = (i >= 14 && i <= 20 && T >= 4 && T < 12) || (i === 21 && T >= 12);
+          s += rect(X(i) - bw / 2, v >= 0 ? mid - v : mid, bw, Math.abs(v), v >= 0 ? C.up : C.dn, 1, hot ? 0.95 : 0.45);
+        }
+        s += drawBars(B, X, Y, cnt, bw);
+        var nd = win(T, 4.4, 12);
+        if (nd > 0) post += tag(X(17), Y(21553), n ? "negative delta in" : "negative delta into the level", C.dn, nd, "middle");
+        /* the large print */
+        var lp = fade(T, 8.2, 0.4) * (1 - 0.5 * fade(T, 16, 0.4));
+        if (lp > 0) {
+          s += frameRect(X(20) - bw - 3, Y(21513.5) - 9, 2 * bw + 6, 18, C.gold, 2.2, lp, 4);
+          var seq = ["10", "20", "30", "128"], sk = Math.min(4, Math.floor((T - 8.2) / 0.5) + 1);
+          post += n ? tag(X(20), Y(ZA) + 64, seq.slice(0, Math.max(1, sk)).join(" · ") + " lots", C.gold, lp, "middle") : tag(X(20) - bw - 8, Y(21513.5) + 30, seq.slice(0, Math.max(1, sk)).join(" · ") + " lots", C.gold, lp, "end");
+        }
+        /* entry, stop, target */
+        var eo = fade(T, 12.4, 0.4);
+        if (eo > 0) {
+          s += line(X(21) - bw, Y(ZA - 2), g.x1, Y(ZA - 2), C.dn, 2, "6 4", eo);
+          post += tag(g.x1 - 2, Y(ZA - 2) + 16 * FS, "stop under the zone", C.dn, eo, "end");
+          s += dot(X(21), Y(21519), 6, C.up, eo);
+          post += tag(X(21) + bw + 6, Y(21519) - 16, "long", C.up, eo, "start");
+        }
+        var to = fade(T, 18.6, 0.4);
+        if (to > 0) {
+          s += line(X(21) + bw + 4, Y(21519), X(21) + bw + 4, Y(21562), C.ink, 1.6, null, to);
+          post += tag(X(21) + bw + 10, Y(21545), "+43 pts", C.ink, to, "start");
+        }
+        s += post;
+        s += note2(g, ["A mid-body buy stack", "Green bar, closes near", "the high, first move up.", "Mark it."], C.up, win(T, 0.4, 4));
+        s += note2(g, ["Sellers pressing in", "Negative delta into the", "stack. Sellers who could", "get trapped. Not yet."], C.dn, win(T, 4.2, 8));
+        s += note2(g, ["The large participant", "10, 20, 30 lots, then 128", "in an instant on a fast", "candle: a large buyer."], C.gold, win(T, 8.2, 12));
+        s += note2(g, ["Delta flips, go", "Strong positive delta and", "a green close off the", "stack. Stop under it."], C.up, win(T, 12.2, 16));
+        s += note2(g, ["About 43 points", "His examples ran 26 to 55", "points on NQ. No large", "participant, no trade."], C.up, fade(T, 16.2, 0.4));
+        return s + stamp(L, "Illustrative · made-up bars");
+      }
+    };
+  }
+
+  var SPECS = { diagonal: diagonalSpec, stack: stackSpec, memory: memorySpec, outcomes: outcomesSpec, short: shortSpec, where: whereSpec, trigger: triggerSpec };
   document.querySelectorAll("[data-si-anim]").forEach(function (root) {
     var f = SPECS[root.getAttribute("data-si-anim")];
     if (f) player(root, f());
