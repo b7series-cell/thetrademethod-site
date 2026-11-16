@@ -111,10 +111,10 @@ Check before bumping; these are the values on `main` as of 2026-11-16.
 
 | Asset | Current | Next bump |
 |---|---|---|
-| `site.js` (all pages) | `?v=36` | 37 |
+| `site.js` (all pages) | `?v=37` | 38 |
 | `nav.js` (all pages) | `?v=23` | 24 |
 | `apple.css` (all pages) | `?v=23` | 24 |
-| `SEARCH_INDEX_URL` in site.js | `search-index.js?v=15` | 16 |
+| `SEARCH_INDEX_URL` in site.js | `search-index.js?v=16` | 17 |
 | `candle-bg.js` (newest page) | `?v=25` (stacked-imbalances.html) | 26 |
 | `sw.js` `CACHE_VERSION` | `2026-10-29-1` | only for unversioned file or sw rule changes |
 
@@ -193,7 +193,7 @@ Other Pine files: `cumulative-rvol.pine` (Relative Volume), `let-winners-run-exi
 | Auction Market Theory | /auction-market-theory.html | Fabio Valentini [VHhvg96W6lc](https://www.youtube.com/watch?v=VHhvg96W6lc) | amt-anim | 2026-11-13 |
 | Thesis to Trade | /thesis-to-trade.html | Vincent Desiano [JjlxYYMPIMc](https://www.youtube.com/watch?v=JjlxYYMPIMc) | ttt-anim | 2026-11-14, PR #1 |
 | Pyramiding Into Winners | /pyramiding.html | SMB [9tVfd-I4VAY](https://www.youtube.com/watch?v=9tVfd-I4VAY) | pyr-anim | 2026-11-14, PR #4 |
-| Stacked Imbalances | /stacked-imbalances.html | Orderflows [q3afc_rvvYg](https://www.youtube.com/watch?v=q3afc_rvvYg) | si-anim | 2026-11-16. Imbalances read diagonally at 4:1 |
+| Stacked Imbalances | /stacked-imbalances.html | Orderflows [q3afc_rvvYg](https://www.youtube.com/watch?v=q3afc_rvvYg) + Futures Flow [y7KuTf4hesY](https://www.youtube.com/watch?v=y7KuTf4hesY) | si-anim | 2026-11-16 (PR #6, second video PR #7). Diagonal 4:1 and horizontal 400% |
 
 ### Other pages
 - **Home** `/` (index.html): Opening bell hero, setups and fundamentals grids with links to the hub pages.
@@ -234,6 +234,7 @@ Newest first. Dates are when the change was built or shipped.
 
 | Date | Change |
 |---|---|
+| 2026-11-16 | Stacked Imbalances: second video (Futures Flow) folded in: where the stack sits in the candle, passive orders/trapped traders, large-participant trigger (128 lots), S/R flip. Two new walkthroughs (`where`, `trigger`), si-anim ?v=2, site.js ?v=37, search-index ?v=16. |
 | 2026-11-16 | **Stacked Imbalances** fundamentals page (Orderflows video): diagonal 4:1 imbalances, stacks of 3+, payroll long 3,974/3,973 to 3,994, four outcomes, 3,921–22 short. site.js ?v=36, search-index ?v=15, candle-bg ?v=25. This reference committed to the repo. |
 | 2026-11-15 | This project reference added to `_docs/`. |
 | 2026-11-14 | **Pyramiding Into Winners** fundamentals page (PR #4): 1R then 0.5R/0.25R/0.1R adds, AMD + CBRS. site.js ?v=35, search-index ?v=14, candle-bg ?v=24. |
