@@ -905,6 +905,24 @@
       }
     },
 
+    /* Stacked imbalances: a news bar leaves a buying stack, price comes back to it, holds, and rallies */
+    "stacked-imbalances": {
+      story: function (st) {
+        var Z;
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); Z = null; return bar(st, { n: 0.6 }); }),
+          rep(7, function (st) { return bar(st, { d: rnd(-0.3, 0.3), n: 0.9 }); }),
+          rep(1, function (st) { Z = level(st, st.price + 2.4, "Stacked buying imbalance", GREEN, true); return bar(st, { d: 6.2, n: 0.3, v: 1, lw: 0.3, flash: GREEN, mk: { t: "3+ buying imbalances in a row", col: GREEN } }); }),
+          rep(4, function (st) { return bar(st, { d: 0.9, n: 0.6 }); }),
+          rep(8, function (st, k) { return bar(st, { to: Z.y + 0.4, pull: 0.3, n: 0.6, flo: Z.y, mk: k === 6 ? { t: "Back to the stack", col: SILK } : null }); }),
+          rep(3, function (st, k) { return bar(st, { to: Z.y + 0.6, pull: 0.5, n: 0.3, flo: Z.y - 0.2, v: 0.7, mk: k === 1 ? { t: "Holding", col: GREEN, below: true } : null }); }),
+          rep(1, function (st) { Z.label = "Stacked buying imbalance \u00b7 held"; return bar(st, { d: 2.4, n: 0.2, v: 0.85, flash: GREEN, mk: { t: "Long \u00b7 stop past the stack", col: GREEN } }); }),
+          rep(7, function (st) { return bar(st, { d: 1.1, n: 0.6 }); }),
+          rep(4, function (st) { return bar(st, { d: -0.4, n: 0.8 }); })
+        ];
+      }
+    },
+
     /* Covered calls: a strike caps the upside each cycle, the premium is collected up front either way */
     "covered-calls": {
       story: function (st) {

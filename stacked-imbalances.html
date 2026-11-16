@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stacked Imbalances — order flow levels with a small stop | The Trade Method</title>
+<meta name="description" content="What a stacked imbalance is and how to trade it, from Orderflows: an imbalance compares the bid at one price with the offer one tick higher at about 4 to 1, three or more in a row make a stack, markets have memory so price often comes back to it, and a bid at the payroll stack (3,974, stop 3,973) ran 20 points. Plus the stacks that fail, and the short side.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/stacked-imbalances.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Stacked Imbalances — order flow levels with a small stop">
+<meta property="og:description" content="What a stacked imbalance is and how to trade it, from Orderflows: an imbalance compares the bid at one price with the offer one tick higher at about 4 to 1, three or more in a row make a stack, markets have memory so price often comes back to it, and a bid at the payroll stack (3,974, stop 3,973) ran 20 points. Plus the stacks that fail, and the short side.">
+<meta property="og:url" content="https://thetrademethod.com/stacked-imbalances.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Stacked Imbalances — order flow levels with a small stop">
+<meta name="twitter:description" content="What a stacked imbalance is and how to trade it, from Orderflows: an imbalance compares the bid at one price with the offer one tick higher at about 4 to 1, three or more in a row make a stack, markets have memory so price often comes back to it, and a bid at the payroll stack (3,974, stop 3,973) ran 20 points. Plus the stacks that fail, and the short side.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Stacked Imbalances — order flow levels with a small stop",
+ "name": "Stacked Imbalances",
+ "description": "What a stacked imbalance is and how to trade it, from Orderflows: an imbalance compares the bid at one price with the offer one tick higher at about 4 to 1, three or more in a row make a stack, markets have memory so price often comes back to it, and a bid at the payroll stack (3,974, stop 3,973) ran 20 points. Plus the stacks that fail, and the short side.",
+ "url": "https://thetrademethod.com/stacked-imbalances.html",
+ "mainEntityOfPage": "https://thetrademethod.com/stacked-imbalances.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-16",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.seven { grid-template-columns:repeat(2,1fr); }
+    .ribbon.seven > div:last-child { grid-column:span 2; }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=23">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the steps: five cards, or a stepper once js/si-anim.js runs */
+  .si-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .si-steps .stage, .sheet .si-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .si-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .si-steps.is-stepper .stage, .sheet .si-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .si-steps.is-stepper .stage .num { display:none; }
+  .sheet .si-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .si-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .si-steps + .four { margin-top:28px; }
+  .si-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .si-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .si-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .si-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .si-steps { margin-top:24px; }
+  }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=36" defer></script>
+<script src="/js/si-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=25" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="stacked-imbalances">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; order flow &middot; from Orderflows' "Stacked Imbalances In The Order Flow Find Low Risk Trades"</p>
+      <h1>Stacked <span>Imbalances</span></h1>
+    </div>
+    <div>
+      <p class="thesis">What is a stacked imbalance, and why do order flow traders key off it? It's three or more prices in a row where one side traded about four times harder than the other. Markets have memory, so when price comes back to that zone it's a place to get long or short with a small stop.
+      <em>Mark it. Wait for the return. See if it holds.</em></p>
+      <div class="counts">
+        <div><b>4:1</b><small>the usual ratio for one imbalance</small></div>
+        <div><b>3+</b><small>imbalances in a row make a stack</small></div>
+        <div><b>1 pt</b><small>of risk on the payroll trade, for 20</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon seven" aria-label="Stacked imbalances">
+    <div><div class="t">step 1</div><div class="n">Spot imbalances at 4:1</div></div>
+    <div><div class="t">step 2</div><div class="n">Mark three or more in a row</div></div>
+    <div><div class="t">step 3</div><div class="n">Wait for price to return</div></div>
+    <div><div class="t">step 4</div><div class="n">Read it: holding, same side?</div></div>
+    <div><div class="t">step 5</div><div class="n">Trade it with a small stop</div></div>
+  </nav>
+
+  <div class="section-head" id="imbalance">
+    <h2>What an imbalance is</h2>
+    <p>An imbalance is more aggressive buying than selling, or the other way around, measured on the volume that actually traded in the two-way auction. You can only see it on a footprint chart, which lists the contracts that traded on the bid and on the ask at every price inside a bar.</p>
+  </div>
+  <section class="anim" data-si-anim="diagonal" aria-label="Illustrative made-up footprint price ladder on an index future: the best bid at 3,965.00 and the best offer at 3,965.25, 20 contracts on the bid against 150 on the offer for a 7.5 to 1 buying imbalance, a ratio scale from 3 to 1 to 6 to 1 with about 4 to 1 marked as the usual standard, a scan up the ladder comparing each offer with the bid one tick lower, and a selling imbalance of 96 on the bid at 3,963.25 against 19 on the offer at 3,963.50.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">20 on the bid, 150 on the offer</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up footprint ladder showing a buying and a selling imbalance read diagonally."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Diagonal, not side by side</h3>
+          <ul>
+            <li>There's always a bid at one price and an offer at the next price up. Say the market is 5 bid at 6.</li>
+            <li>20 lots trade on the bid at 5 and 150 trade on the offer at 6. Only 20 against 150: a <b>buying imbalance</b>.</li>
+            <li>A <b>selling imbalance</b> is the mirror: the bid at a price trading far more than the offer one tick above it.</li>
+          </ul>
+          <p class="why">Most footprint software compares this way, across the one-tick gap. Our <a href="/order-flow.html">Order Flow for Beginners</a> page keeps it simpler and compares the two numbers on the same row. Both are looking for the same thing: one side hitting far harder than the other.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>How lopsided is lopsided?</h4>
+        <p class="lead">There's no law. Pick a ratio and stick with it so your levels mean the same thing every day.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">about 4 to 1</span><b>The closest thing to a standard</b><p>Most people use something near 4 to 1, and it's what every walkthrough on this page uses.</p></div>
+          <div class="care"><span class="k">3, 5 or 6 to 1</span><b>Also in use</b><p>A lower ratio marks more imbalances and more noise. A higher one marks fewer, stronger ones.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="stack">
+    <h2>When they stack</h2>
+    <p>One imbalance in a bar is worth noticing. When you start seeing more than one, it's time to pay attention. Three or more stacked neatly on top of each other, a buying imbalance at 5, at 6 and at 7, is a stacked imbalance.</p>
+  </div>
+  <section class="anim" data-si-anim="stack" aria-label="Illustrative five made-up footprints on an index future: imbalances at 4 to 1 lit up, two lone imbalances that mean little, four buying imbalances stacked from 3,943.00 to 3,943.75 carried forward as a zone, and four selling imbalances stacked from 3,944.50 to 3,945.25 as the last footprint turns down.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">One is noise, three is a level</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up footprints with single and stacked imbalances."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Why a stack is a level</h3>
+          <ul>
+            <li>A stack means one side was aggressive at every price through a gap, with nobody on the other side able to slow it down.</li>
+            <li>Markets have memory. Liquidity has memory. When the market comes back to those prices, it often reacts.</li>
+            <li>So note where it happened. Most order flow platforms draw it forward as a line across the chart for you.</li>
+          </ul>
+          <p class="why">A buying stack is a place to look for longs on a return. A selling stack is a place to look for shorts.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Generated by what traded</h4>
+        <p class="lead">These levels don't come from a formula. They come from the market itself: at these prices, aggressive buying beat aggressive selling, by a lot. That's why they're worth keying around.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">buying stack</span><b>Aggressive buyers</b><p>The offers lifted, price after price. On a return, a level to look for longs.</p></div>
+          <div class="care"><span class="k">selling stack</span><b>Aggressive sellers</b><p>The bids hit, price after price. On a return, a level to look for shorts.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="memory">
+    <h2>Markets have memory: the payroll stack</h2>
+    <p>On a normal bar or candle chart you see the open, the high, the low and the close. You can't see why a market pulls back to a price and stops there. Usually something happened in the order flow at that price earlier. Here's the example from the video, on non-farm payroll Friday.</p>
+  </div>
+  <section class="anim" data-si-anim="memory" aria-label="Illustrative made-up bars on an index future: a tight range before the payroll number, a big payroll bar up, a later pullback that stops at 3,974, the payroll bar opened up to show five stacked buying imbalances from 3,973.00 to 3,974.00, a bid at 3,974 with a stop at 3,973 that holds for four bars, and a rally to 3,994.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Bid 3,974, stop 3,973</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up bars of a payroll stacked imbalance retested and holding."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Market-generated information</h3>
+          <ul>
+            <li>The payroll bar ripped straight up. A lot of aggressive buying, not much liquidity in the way, and a stacked buying imbalance left right in the middle of the bar, around 3,973 to 3,974.</li>
+            <li>The market went up, came off, and came right back down to 3,974.</li>
+            <li>If you knew that level, you just put a bid in around 3,974 with a stop at 3,973. It held one bar, two bars, three bars, four bars, then rallied to 3,994.</li>
+          </ul>
+          <p class="why">His own words on it: a trade that comes right to the level, holds it perfectly and rallies 20 points is not normal. Don't take the best example as the usual one. Take it as proof the level is real.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel calc">
+        <h4>The payroll numbers</h4>
+        <p class="lead">From the video's E-mini chart.</p>
+        <div class="row"><span>Stacked buying imbalance in the payroll bar</span><b>3,973&ndash;3,974</b></div>
+        <div class="row"><span>The return: bid</span><b>3,974</b></div>
+        <div class="row"><span>Stop, the other end of the stack</span><b>3,973 &middot; 1 pt</b></div>
+        <div class="row"><span>Held for</span><b>4 bars</b></div>
+        <div class="row tot"><span>Rally, in about 10 to 15 minutes</span><b>to 3,994 &middot; +20 pts</b></div>
+      </div>
+      <blockquote class="qb">"Imagine if you knew of that level "Imagine if you knew of that level as being a piece of <b>market generated information</b>. You can trade around it."hellip; <b>you can trade around it.</b>" &mdash; Mike, Orderflows</blockquote>
+    </div>
+  </div>
+
+  <div class="section-head" id="outcomes">
+    <h2>Not every stack holds</h2>
+    <p>He's blunt about it: this isn't a trade you mortgage your house on. Four returns to a stack from the video, side by side, so you know what each one looks like when it happens to you.</p>
+  </div>
+  <section class="anim" data-si-anim="outcomes" aria-label="Illustrative four small made-up charts of price returning to a stacked imbalance: a buying stack that holds and gives a quick five points, a buying stack that price pushes one tick through before running 20 points, a selling stack where price just goes sideways and the trade is scratched, and a selling stack that price blows through for a small loss.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Same signal, four outcomes</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative four outcomes of a return to a stacked imbalance."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Is the market paying me?</h3>
+          <ul>
+            <li>Some stacks hold and pay quickly. A little three-bar stack bought around 86 rallied into the 90s: a quick five points.</li>
+            <li>Some overshoot by a tick before they go. Price came back, went one tick past the level, then ran about 20 points.</li>
+            <li>Some just go sideways. If the market isn't paying you, get out and wait for something with more push behind it.</li>
+            <li>Some fail outright. The aggressive sellers who were there earlier aren't interested anymore, and price takes the level out.</li>
+          </ul>
+          <p class="why">That's why the stop sits just past the stack. When the level is wrong you find out fast, and it costs a point, not a day.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Something to build a strategy around</h4>
+        <p class="lead">Stacked imbalances don't replace a plan. They give you a level made by real trading, so the plan has somewhere precise to enter and somewhere precise to be wrong.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">still needed</span><b>Market context</b><p>Where is the stack relative to the day's range, the trend, and the bigger levels?</p></div>
+          <div class="care"><span class="k">still needed</span><b>Risk management</b><p>A stop past the stack on every one, and the discipline to scratch a trade that stalls.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="short">
+    <h2>The short side: check the sellers are still there</h2>
+    <p>Same idea, upside down. A selling stack came in around 3,921 to 3,922. If the market comes back up there, doesn't push too far into it, and aggressive selling is still coming in, that's a short.</p>
+  </div>
+  <section class="anim" data-si-anim="short" aria-label="Illustrative six made-up footprints on an index future: a hard down bar with five selling imbalances stacked from 3,921.00 to 3,922.00, a drop and a rally back toward the level, a return that only reaches one tick into the stack with fresh selling imbalances just below it, and a short at 3,921.00 with a stop at 3,922.00 as the market rolls over.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Barely in, sellers still there</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up footprints of a short at a stacked selling imbalance."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Two things to read at the return</h3>
+          <ul>
+            <li><b>Depth.</b> A level that's holding doesn't get penetrated much. A tick or two in is fine. Deep inside it, the level is in doubt.</li>
+            <li><b>Who's aggressive now.</b> At a selling stack you want to see aggressive selling still coming in when price gets there. At a buying stack, buyers.</li>
+          </ul>
+          <p class="why">The stack tells you where to look. The order flow at the return tells you whether to act.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Any market with a footprint</h4>
+        <p class="lead">It doesn't matter what you trade. In crude oil the same payroll morning left a stack around 88.20 to 88.25 just after the 7:30 number (Central time). Price came right back down to it and moved up nicely from there.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">e-minis</span><b>3,973&ndash;3,974 &middot; 3,921&ndash;3,922</b><p>The payroll long and the short from the video.</p></div>
+          <div class="yes"><span class="k">crude oil</span><b>88.20&ndash;88.25</b><p>A buying stack from the number, retested and held.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="rules">
+    <h2>Rules of thumb</h2>
+    <p>Short ones. He says it himself: it's not brain surgery. People over-complicate the market. Trade what's right in front of you.</p>
+  </div>
+  <div class="four">
+    <div style="--tc:#2997ff"><span class="k">session</span><h3>US hours first</h3><p>He prefers stacks made during the US session. The overnight session trades less volume, so its imbalances carry less weight.</p></div>
+    <div style="--tc:#30d158"><span class="k">chart</span><h3>Footprint only</h3><p>A bar or candle chart can't show an imbalance. You need a footprint chart to see where the stacks are.</p></div>
+    <div style="--tc:#ff9f0a"><span class="k">timing</span><h3>Freshest is best</h3><p>Order flow is best used as soon as it appears. When the number hits and a stack prints, you have a level for the rest of the morning.</p></div>
+    <div style="--tc:#ff453a"><span class="k">exit</span><h3>Sideways is a signal</h3><p>If the trade is going sideways on you, get out and wait for the next one. Doesn't work? Fine. Wait for the next trade.</p></div>
+  </div>
+
+  <div class="section-head" id="steps">
+    <h2>Trading a stacked imbalance, step by step</h2>
+    <p>The whole idea in five steps. Click through them.</p>
+  </div>
+  <div class="si-steps" data-si-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Spot the imbalances</h3>
+          <ul>
+            <li>On a footprint chart, compare each offer with the bid one tick below it, and each bid with the offer one tick above it.</li>
+            <li>About 4 to 1 or more is an imbalance. Keep the same ratio every day.</li>
+          </ul>
+          <p class="why">A buying imbalance is aggressive buyers. A selling imbalance is aggressive sellers.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Mark three or more in a row</h3>
+          <ul>
+            <li>One alone means little. Three or more stacked at consecutive prices is a stacked imbalance.</li>
+            <li>Mark the zone and carry it forward. Favor stacks from the US session.</li>
+          </ul>
+          <p class="why">It's a level the market made, not one a formula made.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Wait for the return</h3>
+          <ul>
+            <li>Don't chase the bar that made the stack. Let price leave and come back.</li>
+            <li>Markets and liquidity have memory: the return is where the trade is.</li>
+          </ul>
+          <p class="why">No return, no trade. There's always another stack.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Read the return</h3>
+          <ul>
+            <li>Is it holding, without pushing far into the stack?</li>
+            <li>Is the same side still aggressive there: buyers at a buying stack, sellers at a selling stack?</li>
+          </ul>
+          <p class="why">If it blows straight through, the traders who made the stack aren't there anymore.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Trade it with a small stop</h3>
+          <ul>
+            <li>Enter at the stack, stop at or just past its far end. On the payroll trade: bid 3,974, stop 3,973.</li>
+            <li>If it pays, let it. If it goes sideways, get out. If it fails, take the small loss.</li>
+          </ul>
+          <p class="why">Small risk is what makes the 10 to 1 and 20 to 1 winners possible, and the losers cheap.</p>
+        </div>
+      </section>
+  </div>
+
+  <div class="section-head" id="related">
+    <h2>Go deeper</h2>
+    <p>Pages on this site that pick up where this one leaves off.</p>
+  </div>
+  <div class="four">
+    <a href="/order-flow.html" style="--tc:#64d2ff"><span class="k">order flow</span><h3>Order Flow for Beginners</h3><p>The footprint chart, delta, volume clusters and the absorption setup.</p><small>Read &rsaquo;</small></a>
+    <a href="/auction-market-theory.html" style="--tc:#bf5af2"><span class="k">framework</span><h3>Auction Market Theory</h3><p>Balance, transition and imbalance: the context a stack sits in.</p><small>Read &rsaquo;</small></a>
+    <a href="/setups/volume-profile-system.html" style="--tc:#f4b942"><span class="k">setup</span><h3>Volume Profile System</h3><p>Point of control, value area and breakouts: the bigger levels to line a stack up with.</p><small>Read &rsaquo;</small></a>
+    <a href="/dynamic-risk-sizing.html" style="--tc:#30d158"><span class="k">risk</span><h3>Dynamic Risk Sizing</h3><p>How much to put on a trade with a one-point stop, graded A+ to C.</p><small>Read &rsaquo;</small></a>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/q3afc_rvvYg" title="Stacked Imbalances In The Order Flow Find Low Risk Trades (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Mike from Orderflows on imbalances, stacked imbalances, and trading around them on the E-mini and crude oil footprint charts.</p>
+      <ol>
+        <li><b>0:00</b>What an imbalance is</li>
+        <li><b>0:47</b>About 4 to 1, and stacks</li>
+        <li><b>1:39</b>What a candle chart can't show</li>
+        <li><b>2:37</b>The payroll stack at 3,973&ndash;74</li>
+        <li><b>3:52</b>A stack that failed</li>
+        <li><b>5:18</b>The day before: one tick through</li>
+        <li><b>6:21</b>Selling stacks and the short</li>
+        <li><b>7:54</b>Not brain surgery</li>
+        <li><b>8:17</b>Crude oil</li>
+        <li><b>10:05</b>Order flow is best when fresh</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=q3afc_rvvYg" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Open yesterday's footprint.</h2>
+      <p>Find every stack of three or more imbalances from the US session and draw it forward. Then scroll ahead and watch what price did when it came back. Which ones held, which went one tick through, which went sideways, and which failed? That's your feel for the level before you put money on it.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Read imbalances diagonally, at about 4 to 1.</li>
+        <li>One alone is noise. Three or more in a row is a stack.</li>
+        <li>Mark it and carry it forward.</li>
+        <li>Wait for price to come back to it.</li>
+        <li>Holding, not too deep, same side still aggressive? Take it.</li>
+        <li>Stop just past the far end of the stack.</li>
+        <li>Sideways means out. Through means out.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from the Orderflows video "Stacked Imbalances In The Order Flow Find Low Risk Trades": imbalances measured across the bid and the next higher offer, the 4 to 1 ratio, stacks of three or more, why markets come back to them, the payroll long, the stacks that failed or went sideways, the short side and a crude oil example. The ratios and the prices named in the video (20 vs 150; 3,973&ndash;3,974 with a bid at 3,974, a stop at 3,973 and a rally to 3,994; the buy around 86; 3,921&ndash;3,922; crude 88.20&ndash;88.25) are from the video. Every bar and every footprint number in the walkthroughs is made up for illustration. The video's product links are left out. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>
