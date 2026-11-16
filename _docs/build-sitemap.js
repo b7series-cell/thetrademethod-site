@@ -52,6 +52,7 @@ const EXTRA_PAGES = [
   { loc: "/auction-market-theory.html", priority: "0.7" },
   { loc: "/thesis-to-trade.html", priority: "0.7" },
   { loc: "/pyramiding.html", priority: "0.7" },
+  { loc: "/stacked-imbalances.html", priority: "0.7" },
   { loc: "/covered-calls.html", priority: "0.7" },
   { loc: "/expected-move.html", priority: "0.7" },
   { loc: "/blog/", priority: "0.8" },
