@@ -1,0 +1,1593 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Level Radar — the odds price reaches a key level today | The Trade Method</title>
+<meta name="description" content="How Level Radar, a free TradingView and NinjaTrader indicator from The Good, The Bad And The Bitcoin, puts a percent on every key intraday level (previous day high, low and close, overnight high and low, the open, the opening range): the distance against the room price still has today, checked against 15 years of futures data and your own chart, and how to use the odds for targets, as a filter and for timing.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/level-radar.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Level Radar — the odds price reaches a key level today">
+<meta property="og:description" content="How Level Radar, a free TradingView and NinjaTrader indicator from The Good, The Bad And The Bitcoin, puts a percent on every key intraday level (previous day high, low and close, overnight high and low, the open, the opening range): the distance against the room price still has today, checked against 15 years of futures data and your own chart, and how to use the odds for targets, as a filter and for timing.">
+<meta property="og:url" content="https://thetrademethod.com/level-radar.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Level Radar — the odds price reaches a key level today">
+<meta name="twitter:description" content="How Level Radar, a free TradingView and NinjaTrader indicator from The Good, The Bad And The Bitcoin, puts a percent on every key intraday level (previous day high, low and close, overnight high and low, the open, the opening range): the distance against the room price still has today, checked against 15 years of futures data and your own chart, and how to use the odds for targets, as a filter and for timing.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Level Radar — the odds price reaches a key level today",
+ "name": "Level Radar",
+ "description": "How Level Radar, a free TradingView and NinjaTrader indicator from The Good, The Bad And The Bitcoin, puts a percent on every key intraday level (previous day high, low and close, overnight high and low, the open, the opening range): the distance against the room price still has today, checked against 15 years of futures data and your own chart, and how to use the odds for targets, as a filter and for timing.",
+ "url": "https://thetrademethod.com/level-radar.html",
+ "mainEntityOfPage": "https://thetrademethod.com/level-radar.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-17",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.seven { grid-template-columns:repeat(2,1fr); }
+    .ribbon.seven > div:last-child { grid-column:span 2; }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=25">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the odds, step by step: five cards, or a stepper once js/lrad-anim.js runs */
+  .lrad-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .lrad-steps .stage, .sheet .lrad-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .lrad-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .lrad-steps.is-stepper .stage, .sheet .lrad-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .lrad-steps.is-stepper .stage .num { display:none; }
+  .sheet .lrad-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .lrad-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .lrad-steps + .four { margin-top:28px; }
+  .lrad-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .lrad-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .lrad-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .lrad-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .lrad-steps { margin-top:24px; }
+  }
+  /* calculator */
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in.four { grid-template-columns:repeat(4,1fr); }
+  .calc-in label { font-size:12px; color:var(--ash); display:block; }
+  .calc-in input { width:100%; margin-top:4px; background:var(--raised); color:var(--silk); border:1px solid #3a3a3c; border-radius:10px;
+                   padding:9px 11px; font:inherit; font-size:15px; font-variant-numeric:tabular-nums; }
+  .calc-in input:focus { outline:2px solid #2997ff; outline-offset:1px; }
+  .presets { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 12px; }
+  .presets .pill { font-size:13px; padding:6px 14px; }
+  .lmeter { height:12px; border-radius:9999px; background:#3a3a3c; overflow:hidden; margin-top:12px; }
+  .lmeter i { display:block; height:100%; width:0; background:linear-gradient(90deg,#ff453a,#f4b942 45%,#30d158); transition:width .25s ease; }
+  .pair .no { background:rgba(255,69,58,0.12); } .pair .no b { color:var(--down); }
+  .pair + .pair { margin-top:10px; }
+  .hero-cta { margin:18px 0 0; }
+  .tbl-wrap { background:var(--charcoal); border-radius:22px; padding:8px 16px; overflow-x:auto; }
+  .tbl-wrap tbody th { width:190px; }
+  #sources { margin-top:28px; }
+  /* indicator */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0; color:var(--mute); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid; gap:16px; }
+  .ind-card { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:19px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12; background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14.5px; color:var(--silk); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:14px; }
+  .ind-link { font-size:14px; font-weight:600; color:#2997ff; text-decoration:none; }
+  .ind-link:hover { text-decoration:underline; }
+  .ind-link--quiet { color:var(--mute); }
+  .howto { margin:0; padding-left:20px; color:var(--silk); font-size:14.5px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#ff9f0a; font-weight:600; }
+  .code-wrap { background:var(--charcoal); border-radius:22px; margin-top:22px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid #2c2c2e; flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--ash); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:#f5f5f7; background:#2c2c2e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#3a3a3c; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d1d6; tab-size:4; }
+  @media (max-width:1100px) { .calc-in.four { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:680px) {
+    pre.pine { font-size:11.5px; max-height:420px; }
+    .calc-in, .calc-in.four { grid-template-columns:1fr 1fr; }
+    .tbl-wrap { padding:4px 10px; border-radius:18px; }
+    .tbl-wrap table, .tbl-wrap tbody, .tbl-wrap tr, .tbl-wrap th, .tbl-wrap td { display:block; width:auto; }
+    .tbl-wrap thead { display:none; }
+    .tbl-wrap tr { padding:12px 0; border-bottom:1px solid #2c2c2e; }
+    .tbl-wrap th, .tbl-wrap td { border:0; padding:3px 0; }
+    .tbl-wrap tbody th { width:auto; color:#f5f5f7; font-size:15px; }
+  }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=48" defer></script>
+<script src="/js/lrad-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=36" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="level-radar">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; from The Good, The Bad And The Bitcoin's "I Stopped Guessing Where Price Goes Today"</p>
+      <h1>Level <span>Radar</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Every day trader watches the same levels: yesterday's high, low and close, the overnight high and low, today's open, the opening range. A line can't tell you how likely price is to get there with the time that's left. Level Radar puts a number on it.
+      <em>The chance in percent that price touches each level before the session ends.</em></p>
+      <div class="counts">
+        <div><b>10</b><small>levels, each with its own odds</small></div>
+        <div><b>10</b><small>sessions behind the typical range</small></div>
+        <div><b>15 yrs</b><small>of futures data built in</small></div>
+      </div>
+      <p class="hero-cta"><a class="pill pill-buy" href="#indicator">Get the TradingView indicator</a></p>
+    </div>
+  </header>
+
+  <nav class="ribbon seven" aria-label="Level Radar">
+    <div><div class="t">step 1</div><div class="n">Mark the levels</div></div>
+    <div><div class="t">step 2</div><div class="n">Measure the distance</div></div>
+    <div><div class="t">step 3</div><div class="n">Size the room left today</div></div>
+    <div><div class="t">step 4</div><div class="n">Check the past</div></div>
+    <div><div class="t">step 5</div><div class="n">Read the odds</div></div>
+  </nav>
+
+  <div class="section-head" id="levels">
+    <h2>The levels everyone watches, with a number on each</h2>
+    <p>These areas often act like price magnets, and you see them revisited again and again through the trading day. What a plain line can't tell you is how likely that still is right now, with this much of the session left. For every level, Level Radar shows that chance in percent, and it updates with every bar.</p>
+  </div>
+  <section class="anim" data-lrad-anim="levels" aria-label="Illustrative made-up 5-minute session of an index future: the previous day's high, low and close, the overnight high and low and today's open drawn at the open with their touch odds, levels above price in green and below in red with brighter lines for higher odds, the opening range high and low locking in after 30 minutes, the opening range low sharing a label with the overnight low, the overnight high getting a tick mark once touched, a ranking panel with the next likely touch, a session clock and meters, and the far levels' odds falling late in the day.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The levels at the open</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 560" role="img" aria-label="Illustrative made-up session with key levels and their touch odds."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>The ten levels</h3>
+          <ul>
+            <li><b>PDH, PDL, PDC:</b> the previous session's high, low and close.</li>
+            <li><b>ONH, ONL:</b> the high and low of the bars between the previous session and this one. Empty on full-day sessions and on charts without extended hours.</li>
+            <li><b>OPEN:</b> today's open.</li>
+            <li><b>ORH, ORL:</b> the high and low of the opening range, the first 30 minutes by default. They appear half an hour in, once the range is over.</li>
+            <li><b>HOD, LOD:</b> today's high and low so far. Their odds are the chance of a new high or low before the session ends.</li>
+          </ul>
+          <p class="why">Many traders watch the opening range because the first minutes of a session often set the tone for the rest of the day. Use 15 minutes or an hour instead if that's your range.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Reading a label</h4>
+        <p class="lead">Each level is a glowing line across today's session with a label on the right. The label tells you three things: the name, the price, and the chance of a touch before the session ends.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">green</span><b>Above price</b><p>Brighter and thicker means higher odds. The unlikely ones fade into the background.</p></div>
+          <div class="no"><span class="k">red</span><b>Below price</b><p>Same rule. The levels that matter right now literally stand out.</p></div>
+        </div>
+        <div class="pair">
+          <div><span class="k">✓ tick mark</span><b>Already touched today</b><p>The percentage is then the chance price comes back to it once more.</p></div>
+          <div><span class="k">ORL · ONL</span><b>One shared label</b><p>Two levels almost on top of each other share a label, so the chart doesn't clutter.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="odds">
+    <h2>How the odds are worked out</h2>
+    <p>Level Radar compares how far away a level is with how far price usually still travels in the time that's left today. Then it checks that against the past.</p>
+  </div>
+  <section class="anim" data-lrad-anim="math" aria-label="Illustrative made-up numbers at 11:00: price at 5,024 and the previous day's high at 5,041, 17 points away; ten past session ranges averaging 48 points; a cone of room left that shrinks with the square root of the time left and widens on a busy day; ten earlier days drawn from the same time of day, seven of which reach the level, so the level shows 70 percent; and the two sources of past days.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">First, the distance</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up numbers showing how one level's odds are worked out."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="section-head" id="steps">
+    <h2>The odds, step by step</h2>
+    <p>Five steps on every bar, for every level. Click through them.</p>
+  </div>
+  <div class="lrad-steps" data-lrad-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Mark the levels</h3>
+          <ul>
+            <li>Yesterday's high, low and close, the overnight high and low, today's open, and the opening range once it's over.</li>
+            <li>Today's high and low so far ride along too, for the odds of a new extreme.</li>
+          </ul>
+          <p class="why">The levels most traders are already watching. Nothing new to learn.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Measure the distance</h3>
+          <ul>
+            <li>For every level, how far price would have to move from the last close to get there.</li>
+            <li>A level price is sitting on shows 100%.</li>
+          </ul>
+          <p class="why">Distance alone isn't enough. Twenty points is easy at the open and a lot at 3:30.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Size the room left today</h3>
+          <ul>
+            <li>Start from the average range of the last ten sessions.</li>
+            <li>Shrink it as the session runs out: less time means less room to move.</li>
+            <li>If today is moving more or less than usual, adjust for that too.</li>
+          </ul>
+          <p class="why">In the script: the typical range times the square root of the share of the session left, times today's range against the usual range by this time, capped between half and double.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Check the past</h3>
+          <ul>
+            <li>On many earlier days, at this time of day, how often did price still travel that far before the close?</li>
+            <li>Seven out of ten days makes 70%.</li>
+          </ul>
+          <p class="why">Those days come from fifteen years of index and gold futures built into the script, and from the last twenty sessions of your own chart.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Read the odds</h3>
+          <ul>
+            <li>A percent on every level, updated on every bar, and a panel that ranks them.</li>
+            <li>A nearby level in the morning shows a high number. A distant level late in the afternoon shows a low one.</li>
+          </ul>
+          <p class="why">One glance tells you where price is probably heading, and where it probably isn't.</p>
+        </div>
+      </section>
+  </div>
+
+  <div class="main" id="sources">
+    <div>
+      <div class="panel">
+        <h4>Where the past days come from</h4>
+        <p class="lead">Two sources, so the odds fit the market you're actually watching.</p>
+        <ul class="plain">
+          <li><b>Built in:</b> fifteen years of S&amp;P 500, Nasdaq and Dow futures (9:30 to 16:00 New York) and gold futures (8:20 to 13:30), 5-minute bars from 2011 to 2026. In the script that's one table: 16 time-of-day buckets by 61 distance steps.</li>
+          <li><b>Your chart:</b> the last 20 completed sessions, split the same way, up and down kept apart. The script weighs them by sessions &divide; (sessions + 80), so 20 sessions count for 20% and the long-run table for the rest.</li>
+          <li><b>Crypto, forex and other full-day charts:</b> no futures table. A statistical formula instead (the random-walk law), with the room left taken from a time-of-day profile of the last 60 days, blended with your chart's own sessions.</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Are the levels really magnets?</h4>
+        <p class="lead">The script keeps score on your chart. For each named level it scores one forecast per session (at the open, or when the opening range is set): the average forecast against the share that was actually touched.</p>
+        <blockquote class="qb">The script's own note on the scoreboard: in a 15-year study on index futures and gold, <b>named levels were touched as often as any other price at the same distance.</b></blockquote>
+        <p class="lead" style="margin-top:14px">So the odds come from distance and time, not from the name on the line. That's useful in itself: it tells you which of the levels you already watch are realistic today.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="calc">
+    <h2>Try the math</h2>
+    <p>The room-left part of the odds, as a calculator. It uses the script's random-walk law with its session scale. The indicator also mixes in its 15-year table and your chart's history, so its numbers will differ a little.</p>
+  </div>
+  <div class="main">
+    <div class="panel" data-lrad-calc>
+      <div class="calc-in four">
+        <label>Distance to the level (pts)<input name="dist" type="number" inputmode="decimal" step="0.25" min="0" value="17"></label>
+        <label>Average range, last 10 sessions<input name="rbar" type="number" inputmode="decimal" step="0.25" min="0" value="48"></label>
+        <label>Session left (%)<input name="left" type="number" inputmode="decimal" step="1" min="0" max="100" value="76"></label>
+        <label>Today's range so far<input name="today" type="number" inputmode="decimal" step="0.25" min="0" value="21"></label>
+      </div>
+      <div class="presets">
+        <button type="button" class="pill" data-preset="12,48,100,0">Morning, near level</button>
+        <button type="button" class="pill" data-preset="24,48,25,20">Afternoon, far level</button>
+        <button type="button" class="pill" data-preset="17,48,76,40">Busy day</button>
+      </div>
+      <div class="calc" aria-live="polite">
+        <div class="row"><span>Today's pace vs usual by now</span><b data-out="pace">–</b></div>
+        <div class="row"><span>Room left today (pts)</span><b data-out="room">–</b></div>
+        <div class="row"><span>Distance in room units</span><b data-out="x">–</b></div>
+        <div class="row tot"><span>Chance of a touch before the close</span><b data-out="odds">–</b></div>
+      </div>
+      <div class="lmeter" data-meter><i></i></div>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The formula</h4>
+        <p class="lead">Room left = average range &times; &radic;(share of session left) &times; pace, with pace capped between 0.5&times; and 2&times;. Pace = today's range &divide; (average range &times; &radic;share of session gone).</p>
+        <p class="lead">Chance of a touch = 2 &times; (1 &minus; &Phi;(1.596 &times; distance &divide; room left)), where &Phi; is the normal curve and 1.596 is how a random walk's expected range compares to its standard deviation.</p>
+        <p class="lead" style="margin-bottom:0">Half the usual range away at the open: about 42%. A quarter: about 69%, close to the 70% in the video's example.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="time">
+    <h2>Time is part of the number</h2>
+    <p>All of the odds run until the end of the session. A level that looked easy to reach in the morning can become a long shot by the afternoon, even if price never moves.</p>
+  </div>
+  <section class="anim" data-lrad-anim="decay" aria-label="Illustrative curves: the touch odds of two levels 12 and 24 points away with a usual range of 48 points, as price stays put through the day. Right after the open they show 69 and 42 percent, by 11:30 63 and 33, by 14:00 46 and 14, and at 15:30 12 percent and under 1 percent.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The same distance, worth less every hour</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 500" role="img" aria-label="Illustrative touch odds falling through the day."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="panel">
+    <h4>So it has to know your session</h4>
+    <p class="lead">By default it picks the session for you. If you trade a different window, switch to Full day, or choose Custom and type in your own start, end and time zone.</p>
+    <div class="timing">
+      <div><b>Stocks</b><p>The exchange's regular trading hours.</p></div>
+      <div><b>US index futures</b><p>ES, NQ, YM, RTY and the micros: the New York session, 9:30 to 16:00.</p></div>
+      <div><b>Everything else</b><p>Crypto, forex and the rest: the full trading day.</p></div>
+    </div>
+  </div>
+
+  <div class="section-head" id="use">
+    <h2>Three ways to use it</h2>
+    <p>Level Radar is not a signal generator. It doesn't tell you when to buy or sell. It gives you context, and it works best combined with the analysis you already do.</p>
+  </div>
+  <section class="anim" data-lrad-anim="use" aria-label="Illustrative made-up 5-minute bars: a long at 5,024 at 11:00 from the trader's own strategy, the overnight high at 5,033 showing 64 percent and the previous day's high at 5,050 showing 17 percent, a note that a setup needing a 10 to 20 percent level is betting against the odds, the overnight high's odds slipping to 31 percent by 14:30 while the previous day's high falls under 1 percent, and price reaching the overnight high, where the trader's own tools decide whether it holds or breaks.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Your setup says long</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up long with two targets and their odds."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="four">
+    <div style="--tc:#30d158"><span class="k">1 · targets</span><h3>Realistic profit targets</h3><p>Your strategy gives a long. If yesterday's high sits above you at 70%, that's a realistic target. At 15%, aim for something closer.</p></div>
+    <div style="--tc:#ff9f0a"><span class="k">2 · filter</span><h3>Betting against the odds</h3><p>If your setup only works when price reaches a level the radar puts at 10 or 20%, the trade can still work. It's a reason to think twice, or to size down.</p></div>
+    <div style="--tc:#f4b942"><span class="k">3 · timing</span><h3>Watch the numbers drop</h3><p>The odds shrink as the session runs out. Watching them fall keeps you from holding on to a target the market no longer has time to reach.</p></div>
+    <div style="--tc:#ff453a"><span class="k">not this</span><h3>Hold or break</h3><p>It doesn't tell you what happens when price gets there. A level can hold or break. That part is market structure, trend, volume, order flow, your method.</p></div>
+  </div>
+  <blockquote class="qb" style="margin-top:22px">"Level Radar tells you <b>where price is likely to go</b>, but your own strategy decides what to do about it." &mdash; The Good, The Bad And The Bitcoin</blockquote>
+
+  <div class="section-head" id="panel">
+    <h2>The panel and the settings</h2>
+    <p>What you see on the chart, and what you can change. Every level type is also explained in a tooltip in the indicator's settings.</p>
+  </div>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>Part</th><th>What it does</th><th>Settings</th></tr></thead>
+    <tbody>
+      <tr><th>Panel headline</th><td class="txt">The level price is most likely to touch next, in large type, with its price and how far away it is. Tinted green or red with that level.</td><td class="txt">Position (nine spots or off), size Tiny to Huge.</td></tr>
+      <tr><th>Session clock</th><td class="txt">Ten cells, one per tenth of the session, and the time left.</td><td class="txt">Follows the session setting.</td></tr>
+      <tr><th>Ranking</th><td class="txt">Every level from most to least likely, each with a ten-cell meter and its percent. A footer says how many of your chart's sessions are in the numbers.</td><td class="txt">Turn single levels on or off.</td></tr>
+      <tr><th>Scoreboard</th><td class="txt">One forecast per level per session, scored when the session ends: average forecast against the share actually touched.</td><td class="txt">Compact, Full (per level), or Off.</td></tr>
+      <tr><th>Glow</th><td class="txt">A halo and a zone around each level, scaled by its odds.</td><td class="txt">Strong, Soft, Off. Themes Neon, Classic or Custom colors.</td></tr>
+      <tr><th>Dimmed candles, shaded session</th><td class="txt">On purpose, so the levels are the first thing your eye catches.</td><td class="txt">Switch either off to keep your own colors.</td></tr>
+      <tr><th>Alerts</th><td class="txt">When a level is touched, and optionally when a level's odds rise above a threshold (65% by default). On bar close.</td><td class="txt">Create one alert with &ldquo;Any alert() function call&rdquo;.</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <section class="ind-sec" id="indicator" aria-label="TradingView indicator">
+    <div class="section-head" style="margin-top:56px">
+      <h2 class="ind-heading">The indicator</h2>
+      <p class="ind-note">Level Radar [GBB] by The Good, The Bad And The Bitcoin, free and open source on TradingView (Pine Script v6). It draws the levels and their odds, the panel and the scoreboard, and alerts on touches. It doesn't place trades. A NinjaTrader version is linked from the video.</p>
+    </div>
+    <div class="main">
+      <div>
+        <ul class="ind-list">
+          <li class="ind-card">
+            <div class="ind-card-top">
+              <h3 class="ind-name">Level Radar [GBB]</h3>
+              <span class="ind-alerts">alerts</span>
+            </div>
+            <p class="ind-blurb">PDH, PDL, PDC, ONH, ONL, OPEN, ORH, ORL, HOD and LOD with the chance of a touch before the session ends, a ranking panel with a session clock, and a scoreboard that checks its own forecasts on your chart.</p>
+            <p class="ind-blurb" style="color:var(--mute)">Works on intraday charts from 1 to 60 minutes. It needs three completed sessions before the odds start (&ldquo;Warming up&rdquo;), and gets better as up to 20 of your chart's sessions fill its table. A touch counts when a bar's range, including the gap from the previous close, covers the level. Session length is the most common of the last five sessions.</p>
+            <div class="ind-links">
+              <a class="ind-link" href="https://www.tradingview.com/script/AmwVr0kF-Level-Radar-GBB/" target="_blank" rel="noopener">Open on TradingView &rsaquo;</a>
+              <a class="ind-link ind-link--quiet" href="/pine/level-radar.pine" download>Download source (.pine)</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="panel">
+        <h4>Add it to TradingView</h4>
+        <ol class="howto">
+          <li>Open it from the TradingView link and click <b>Add to chart</b>, or copy the code below.</li>
+          <li>To paste the code: open the Pine Editor at the bottom of a chart, paste it in, and click <b>Add to chart</b>.</li>
+          <li>Use a 1- to 60-minute chart. Give it a few sessions of history to warm up.</li>
+          <li>Check the <b>Session</b> setting matches the window you trade.</li>
+          <li>For alerts, create one alert on the indicator with <b>Any alert() function call</b>.</li>
+        </ol>
+      </div>
+    </div>
+    <div class="code-wrap">
+      <div class="code-top">
+        <span>level-radar.pine &middot; Pine Script v6 &middot; by The Good, The Bad And The Bitcoin</span>
+        <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/level-radar.pine" download>Download</a></div>
+      </div>
+      <pre class="pine" tabindex="0"><code>//@version=6
+// Level Radar [GBB]
+
+indicator("Level Radar [GBB]", "LevelRadar", overlay = true, max_lines_count = 50, max_labels_count = 50, max_boxes_count = 50)
+
+// ---------------------------------------------------------------- inputs
+grpW = "Session"
+sessSel  = input.string("Auto", "Session", options = ["Auto", "Full day", "Custom"], group = grpW,
+     tooltip = "The odds run to the end of this window. Auto: stocks use the regular session, US equity index futures 09:30 to 16:00 New York, everything else the full trading day.")
+custSess = input.session("0820-1330", "Custom session", group = grpW,
+     tooltip = "Used with Session = Custom. Start it on a bar boundary of the chart's timeframe.")
+custTz   = input.string("America/New_York", "Custom time zone", group = grpW)
+
+grpL = "Levels"
+onPdh = input.bool(true, "PDH", group = grpL, inline = "l1", tooltip = "High, low and close of the previous session.")
+onPdl = input.bool(true, "PDL", group = grpL, inline = "l1")
+onPdc = input.bool(true, "PDC", group = grpL, inline = "l1")
+onOnh = input.bool(true, "ONH", group = grpL, inline = "l2", tooltip = "High and low of the bars between the previous session and this one. Empty on full-day sessions and on charts without extended hours.")
+onOnl = input.bool(true, "ONL", group = grpL, inline = "l2")
+onOpn = input.bool(true, "OPEN", group = grpL, inline = "l2")
+onOrh = input.bool(true, "ORH", group = grpL, inline = "l3", tooltip = "High and low of the opening range. They exist once the opening range is over.")
+onOrl = input.bool(true, "ORL", group = grpL, inline = "l3")
+onHod = input.bool(true, "HOD", group = grpL, inline = "l4", tooltip = "Today's high and low so far. The odds are the chance of a new high or low before the session ends.")
+onLod = input.bool(true, "LOD", group = grpL, inline = "l4")
+orMin = input.int(30, "Opening range (minutes)", minval = 1, group = grpL)
+
+grpD = "Display"
+showLines = input.bool(true, "Level lines with odds", group = grpD, inline = "ln",
+     tooltip = "Each line is labelled with the chance that price touches it before the session ends. Brighter means more likely. A tick mark means it was already touched today; the odds are then the chance of another touch.")
+extBars   = input.int(12, "bars to the right", minval = 2, maxval = 100, group = grpD, inline = "ln")
+lblSize   = input.string("Normal", "Label size", options = ["Small", "Normal", "Large"], group = grpD)
+panelSel  = input.string("Top right", "Panel", options = ["Top right", "Middle right", "Bottom right", "Top center", "Bottom center", "Top left", "Middle left", "Bottom left", "Off"], group = grpD,
+     tooltip = "Time left, today's range against the usual range, and the levels ranked by odds.")
+panelSize = input.string("Normal", "Panel size", options = ["Tiny", "Small", "Normal", "Large", "Huge"], group = grpD,
+     tooltip = "Text and meter size of the panel, independent of the label size.")
+boardSel  = input.string("Compact", "Scoreboard", options = ["Compact", "Full", "Off"], group = grpD,
+     tooltip = "Keeps score on this chart. For each named level, one forecast per session is scored (at the open; opening-range levels when the range is over): the average forecast against the share that was touched. In a 15-year study on index futures and gold, named levels were touched as often as any other price at the same distance.")
+showPast  = input.bool(false, "Levels of past sessions", group = grpD)
+shadeOn   = input.bool(true, "Shade the session", group = grpD)
+
+grpS = "Style"
+themeSel = input.string("Neon", "Theme", options = ["Neon", "Classic", "Custom"], group = grpS,
+     tooltip = "Neon and Classic set the colours; Custom uses the three below.")
+upIn  = input.color(#00e5b4, "Above price", group = grpS, inline = "cu")
+dnIn  = input.color(#ff4d6d, "Below price", group = grpS, inline = "cu")
+accIn = input.color(#ffb21e, "Accent", group = grpS, inline = "cu")
+color upCol  = themeSel == "Neon" ? #00e5b4 : themeSel == "Classic" ? #26a69a : upIn
+color dnCol  = themeSel == "Neon" ? #ff4d6d : themeSel == "Classic" ? #ef5350 : dnIn
+color accCol = themeSel == "Neon" ? #ffb21e : themeSel == "Classic" ? #f5b041 : accIn
+
+glowSel  = input.string("Strong", "Glow", options = ["Strong", "Soft", "Off"], group = grpS,
+     tooltip = "Halo and zone around each level, scaled by its odds. Strong: three layers and a zone. Soft: one thin halo.")
+dimBars  = input.bool(true, "Dim candles", group = grpS, tooltip = "Greys the bars so the levels stand out. Turn off to keep your chart's colours.")
+showPrice = input.bool(true, "Price in labels", group = grpS)
+
+grpA = "Alerts (on bar close; create one alert with 'Any alert() function call')"
+alTouch = input.bool(true, "A level was touched", group = grpA)
+alOdds  = input.bool(false, "A level's odds rose above", group = grpA, inline = "odds")
+alThr   = input.float(65.0, "%", minval = 1, maxval = 99, group = grpA, inline = "odds")
+
+// ---------------------------------------------------------------- constants
+var string[] US_IDX = array.from("ES", "NQ", "YM", "RTY", "MES", "MNQ", "MYM", "M2K")
+bool  IS_US_IDX = syminfo.type == "futures" and US_IDX.includes(syminfo.root)
+bool  IS_STOCK  = syminfo.type == "stock" or syminfo.type == "fund" or syminfo.type == "index" or syminfo.type == "dr"
+// 0 = full trading day, 1 = session string, 2 = the exchange's regular session
+int   MODE = sessSel == "Custom" ? 1 : sessSel == "Full day" ? 0 : IS_US_IDX ? 1 : IS_STOCK ? 2 : 0
+string SESS = sessSel == "Custom" ? custSess : "0930-1600"
+string TZ   = sessSel == "Custom" ? custTz : "America/New_York"
+float TF    = timeframe.in_seconds() / 60.0                  // bar length in minutes
+bool  TF_OK = timeframe.isintraday and timeframe.in_seconds() &gt;= 60 and timeframe.in_seconds() &lt;= 3600
+int   LEN_N = 5                                              // window length = most common of the last 5 completed windows
+// odds model
+bool  DAY   = MODE == 0             // full-day windows: time-of-day scale, pooled table, random-walk law
+int   NB    = 60                    // bins of width BW, plus one overflow bin
+float BW    = 0.05
+float C_RW  = 1.596                 // expected range of a random walk over a window / its standard deviation
+int   W_TAB = 20                    // completed windows behind the tables
+int   RBAR_N = 10
+int   RBAR_MIN = 3
+int   PROF_N = 60                   // windows behind the time-of-day profile
+int   SLOT   = 30                   // minutes per profile slot
+int   NSLOT_MAX = 48
+int   NBK   = DAY ? 1 : 16          // time buckets per window
+int   ROWS  = NBK * 2               // bucket and direction (0 = up, 1 = down)
+int   RLEN  = ROWS * (NB + 1)
+float M1    = 80.0                  // session windows: weight of the bucket table is n / (n + M1)
+float M2    = 80.0                  // full-day windows: weight of the pooled table is n / (n + M2)
+
+// ---------------------------------------------------------------- helpers
+// Most common value; ties go to the most recent one.
+modeRecent(array&lt;float&gt; a) =&gt;
+    float best = na
+    int bestN = 0
+    for i = a.size() - 1 to 0
+        float v = a.get(i)
+        int n = 0
+        for j = 0 to a.size() - 1
+            if a.get(j) == v
+                n += 1
+        if n &gt; bestN
+            bestN := n
+            best := v
+    best
+
+// tail[r * (NB + 2) + k] = sum of row r's bins k .. NB; one extra 0 closes each row.
+tails(array&lt;float&gt; hist, int nrow) =&gt;
+    array&lt;float&gt; t = array.new&lt;float&gt;(nrow * (NB + 2), 0.0)
+    for r = 0 to nrow - 1
+        float acc = 0.0
+        for k = NB to 0
+            acc += hist.get(r * (NB + 1) + k)
+            t.set(r * (NB + 2) + k, acc)
+    t
+
+// Share of samples &gt;= x in row r, linear inside a bin; na when the row is empty.
+surv(array&lt;float&gt; hist, array&lt;float&gt; tail, int r, float x) =&gt;
+    float n = tail.get(r * (NB + 2))
+    float res = na
+    if n &gt; 0
+        float q = math.min(x / BW, NB + 1.0)
+        int k = math.min(int(math.floor(q)), NB)
+        float frac = k &lt; NB ? q - k : 0.0
+        res := (tail.get(r * (NB + 2) + k + 1) + (1.0 - frac) * hist.get(r * (NB + 1) + k)) / n
+    res
+
+// Random-walk law 2 * (1 - Phi(C_RW * x)), Abramowitz-Stegun 7.1.26.
+s0(float x) =&gt;
+    float u = C_RW * x / math.sqrt(2.0)
+    float k = 1.0 / (1.0 + 0.3275911 * u)
+    float poly = k * (0.254829592 + k * (-0.284496736 + k * (1.421413741 + k * (-1.453152027 + k * 1.061405429))))
+    poly * math.exp(-u * u)
+
+// Long-run curve for session windows: remaining excursion in model units, 16 time buckets x 61 bins,
+// ES, NQ, YM (09:30 to 16:00) and GC (08:20 to 13:30), 5-minute bars, 2011 to 2026.
+curveInit() =&gt;
+    array&lt;string&gt; rows = array.from(
+         "16441,14922,14283,13672,12674,11495,10132,8792,7625,6695,5589,4668,3920,3425,2878,2464,1970,1684,1470,1257,1037,871,767,656,570,497,362,377,295,259,251,199,197,189,140,150,115,92,80,84,79,67,67,48,48,45,51,40,35,38,28,33,28,21,20,18,16,8,19,8,127",
+         "15563,15272,13839,13215,12300,10933,9852,8881,7880,6821,5958,4941,4190,3517,2909,2521,2134,1820,1628,1369,1151,1026,823,667,547,506,414,371,333,285,274,238,203,178,153,148,129,102,103,74,75,71,53,55,46,41,45,31,42,37,27,29,30,24,21,14,18,15,12,12,164",
+         "15970,14987,14033,12805,11722,10638,9587,8741,7790,6741,5783,4928,4258,3673,3050,2682,2283,1886,1624,1452,1243,1048,941,771,667,558,476,393,358,292,259,260,223,173,178,148,138,137,114,101,91,108,56,57,61,35,49,34,42,23,32,43,17,26,24,15,18,16,12,15,237",
+         "15783,14956,13864,12800,11713,10878,9786,8479,7455,6507,5569,4908,4292,3638,3187,2626,2315,2074,1801,1540,1369,1151,970,776,652,572,455,398,393,293,295,248,230,196,175,142,135,115,119,92,108,87,74,63,60,69,63,51,57,48,32,34,34,21,26,24,10,19,17,19,259",
+         "15691,14931,13720,12779,12119,10829,9547,8540,7356,6515,5660,4805,4269,3560,3216,2775,2392,1999,1794,1535,1340,1058,973,841,705,597,448,407,362,310,287,248,220,194,154,151,147,126,108,77,80,68,56,71,60,51,59,52,39,39,32,29,28,33,23,27,34,18,25,16,261",
+         "15309,14746,14150,13144,11889,10814,9611,8603,7368,6410,5683,4908,4223,3685,3131,2635,2254,1926,1610,1466,1296,1072,983,857,728,653,501,414,372,289,287,230,175,170,177,151,137,119,113,105,105,74,81,62,42,40,53,41,41,41,36,38,20,27,32,19,31,20,19,16,292",
+         "14591,14750,13965,13202,11806,10790,9827,8669,7603,6502,5647,4789,4320,3583,3019,2653,2283,1946,1673,1505,1323,1173,927,866,810,665,538,456,373,293,290,239,219,188,176,168,143,117,128,94,90,78,74,77,79,52,56,39,44,47,41,38,33,40,30,21,16,8,12,11,327",
+         "11545,11345,11028,10192,9261,8505,7455,6499,6042,5167,4574,3988,3359,2898,2478,2104,1844,1729,1392,1200,1106,889,794,701,598,528,422,405,352,280,253,192,176,182,157,135,98,105,94,79,86,70,60,65,47,42,44,40,31,36,36,42,36,30,23,25,24,19,13,23,267",
+         "14235,13744,13355,12775,11505,10504,9344,8250,7463,6625,5689,5096,4380,3748,3207,2712,2346,1995,1794,1559,1434,1189,1058,927,783,723,629,520,462,436,404,319,268,235,174,185,143,143,149,108,99,101,96,66,70,69,50,51,52,66,54,44,43,37,38,28,29,35,18,23,410",
+         "13512,13029,12915,12360,11353,10227,9213,8146,7275,6578,5827,5170,4405,3749,3199,2819,2411,2101,1717,1655,1416,1234,1070,939,853,713,655,560,486,466,434,391,333,275,199,204,165,176,142,147,126,118,82,99,71,76,65,72,61,40,44,48,46,48,47,37,29,31,29,25,445",
+         "12644,12706,12507,11900,11291,10603,9431,8397,7243,6422,5875,5179,4331,3894,3317,2815,2544,2242,1922,1655,1464,1199,1095,991,847,783,666,659,570,504,420,356,334,268,269,242,194,165,163,158,142,138,124,108,82,75,74,49,77,57,49,58,48,43,43,48,35,34,26,37,540",
+         "12677,12094,12119,11749,11012,10366,9443,8387,7594,6656,5842,5149,4464,3967,3335,3026,2637,2292,1987,1756,1540,1400,1151,1054,941,767,663,595,538,504,418,434,369,295,265,245,263,213,185,167,159,132,111,87,84,71,66,47,54,45,59,37,51,40,45,30,32,28,40,22,353",
+         "11821,11873,11834,11581,10843,10111,9306,8358,7294,6650,5973,5229,4623,4171,3594,3196,2685,2461,2140,1834,1628,1471,1302,1140,994,830,748,698,544,550,475,418,375,326,287,247,228,205,186,189,152,121,146,98,104,79,69,70,60,63,59,53,51,46,44,45,46,30,43,29,330",
+         "11601,10984,11213,10800,10411,9509,9134,8152,7622,6607,6047,5413,4962,4409,3833,3331,3081,2631,2310,2040,1803,1639,1406,1251,1003,994,845,763,648,592,507,462,408,341,315,296,276,228,224,181,163,158,143,122,118,112,85,83,87,60,71,52,59,48,52,42,35,32,30,25,311",
+         "11334,9932,10260,9768,9579,9085,8423,7875,7292,6573,6041,5443,4984,4564,4054,3671,3227,2946,2638,2345,2022,1840,1624,1458,1329,1172,1071,895,845,743,646,591,498,474,431,361,326,284,299,245,239,214,169,149,160,136,137,130,129,87,82,84,72,63,58,46,44,47,52,37,399",
+         "8077,4634,4676,4631,4400,4394,4246,3997,3836,3520,3329,3142,2807,2663,2429,2137,1996,1938,1743,1543,1502,1342,1201,1094,992,921,874,728,694,631,601,505,475,388,397,350,328,311,271,241,229,196,164,177,158,134,140,125,96,89,98,82,64,75,55,50,59,49,46,37,461")
+    array&lt;float&gt; a = array.new&lt;float&gt;()
+    for r in rows
+        for t in str.split(r, ",")
+            a.push(str.tonumber(t))
+    a
+var array&lt;float&gt; PH = curveInit()
+var array&lt;float&gt; PT = tails(PH, 16)
+
+// Pine has no bitwise operators: add the bit's value if it is not in the mask yet.
+setBit(int mask, int bit) =&gt;
+    int(mask / bit) % 2 == 1 ? mask : mask + bit
+
+hasBit(int mask, int bit) =&gt;
+    int(mask / bit) % 2 == 1
+
+// ---------------------------------------------------------------- windows
+var int startBar = na
+if na(startBar)
+    startBar := bar_index
+bool started = not na(startBar)
+
+bool inSess = MODE == 1 ? not na(time(timeframe.period, SESS, TZ)) : MODE == 2 ? session.ismarket : true
+bool inWin  = started and TF_OK and inSess
+
+var bool  live   = false      // inside a window
+var int   winId  = 0          // number of windows started
+var int   tday   = na         // trading day of the live window
+var int   wStart = na         // open time of the live window's first bar
+var int   wLastT = na         // open time of its latest bar
+var float wHi = na
+var float wLo = na
+var float wCl = na
+var bool  havePd = false
+var float pdh = na
+var float pdl = na
+var float pdc = na
+var float onHi = na           // bars between two windows, running
+var float onLo = na
+var float onh = na
+var float onl = na
+var float opn = na
+var float orHiAcc = na
+var float orLoAcc = na
+var int   orBars = 0
+var float orh = na
+var float orl = na
+var int   touched = 0         // bit mask: PDH 1, PDL 2, PDC 4, ONH 8, ONL 16, OPEN 32, ORH 64, ORL 128
+var array&lt;float&gt; lens = array.new&lt;float&gt;()
+var float winLen = na         // window length in minutes
+// odds model state
+var array&lt;float&gt; rngs = array.new&lt;float&gt;()                   // ranges of the last RBAR_N completed windows
+var int   nComp = 0
+var float rbar  = na                                         // typical window range, fixed for the live window
+var matrix&lt;float&gt; ring = matrix.new&lt;float&gt;(W_TAB, RLEN, 0.0) // histograms of the last W_TAB completed windows
+var array&lt;bool&gt; ringValid = array.new&lt;bool&gt;(W_TAB, false)
+var int   ringPos = 0
+var array&lt;float&gt; tab = array.new&lt;float&gt;(RLEN, 0.0)           // their sum
+var array&lt;float&gt; tabTail = array.new&lt;float&gt;(ROWS * (NB + 2), 0.0)
+var array&lt;float&gt; pool = array.new&lt;float&gt;(NB + 1, 0.0)        // all buckets, both directions
+var array&lt;float&gt; poolTail = array.new&lt;float&gt;(NB + 2, 0.0)
+var int   nValid = 0
+var matrix&lt;float&gt; sqRing = matrix.new&lt;float&gt;(PROF_N, NSLOT_MAX, 0.0)
+var int   sqPos = 0
+var array&lt;float&gt; sq = array.new&lt;float&gt;(NSLOT_MAX, 0.0)       // squared returns per slot, live window
+var array&lt;float&gt; prof = array.new&lt;float&gt;(NSLOT_MAX, 0.0)
+var float profTot = 0.0
+var array&lt;float&gt; wh = array.new&lt;float&gt;()                     // the live window's bars
+var array&lt;float&gt; wl = array.new&lt;float&gt;()
+var array&lt;float&gt; wc = array.new&lt;float&gt;()
+var array&lt;float&gt; ws = array.new&lt;float&gt;()
+var array&lt;int&gt;   wb = array.new&lt;int&gt;()
+var float prevC = na
+// scoreboard: PDH 0, PDL 1, PDC 2, ONH 3, ONL 4, ORH 5, ORL 6
+int NT = 7
+var array&lt;float&gt; cpP   = array.new&lt;float&gt;(NT, na)             // this window's forecast at the checkpoint
+var array&lt;float&gt; cpL   = array.new&lt;float&gt;(NT, na)
+var array&lt;bool&gt;  cpUp  = array.new&lt;bool&gt;(NT, false)
+var array&lt;bool&gt;  cpSeen = array.new&lt;bool&gt;(NT, false)          // a bar came after the checkpoint
+var array&lt;float&gt; cpHit = array.new&lt;float&gt;(NT, 0.0)
+var array&lt;float&gt; sbN   = array.new&lt;float&gt;(NT, 0.0)            // scored windows, sum of forecasts, sum of touches
+var array&lt;float&gt; sbP   = array.new&lt;float&gt;(NT, 0.0)
+var array&lt;float&gt; sbY   = array.new&lt;float&gt;(NT, 0.0)
+var int wStartBar = na
+var int orBar = na
+var int closedBar = na        // first bar after the last completed window
+
+// A window starts on the first bar inside the session, when the trading day changes, or 24 hours after the
+// window's start. The last rule splits a holiday session that the exchange books into the next trading day.
+bool first = inWin and (not live or time_tradingday != tday or time - wStart &gt;= 86400000)
+
+// a window is complete when the next bar is outside it or starts a new one
+if live and (not inWin or first)
+    // scoreboard: the finished window's forecasts are scored
+    for t = 0 to NT - 1
+        if not na(cpP.get(t)) and cpSeen.get(t)
+            sbN.set(t, sbN.get(t) + 1.0)
+            sbP.set(t, sbP.get(t) + cpP.get(t))
+            sbY.set(t, sbY.get(t) + cpHit.get(t))
+        cpP.set(t, na)
+        cpSeen.set(t, false)
+        cpHit.set(t, 0.0)
+    // the finished window's samples: remaining excursion after each bar, up and down, in units of that bar's scale
+    array&lt;float&gt; row = array.new&lt;float&gt;(RLEN, 0.0)
+    bool valid = not na(rbar) and rbar &gt; 0
+    int m = wc.size()
+    if valid and m &gt; 0
+        float fh = na
+        float fl = na
+        for j = m - 1 to 0
+            float scj = ws.get(j)
+            if j &lt; m - 1 and not na(scj) and scj &gt; 0
+                float up = math.max(fh - wc.get(j), 0.0) / scj
+                float dn = math.max(wc.get(j) - fl, 0.0) / scj
+                int iu = wb.get(j) * 2 * (NB + 1) + math.min(int(math.min(up / BW, NB + 1.0)), NB)
+                int iD = (wb.get(j) * 2 + 1) * (NB + 1) + math.min(int(math.min(dn / BW, NB + 1.0)), NB)
+                row.set(iu, row.get(iu) + 1.0)
+                row.set(iD, row.get(iD) + 1.0)
+            fh := na(fh) ? wh.get(j) : math.max(fh, wh.get(j))
+            fl := na(fl) ? wl.get(j) : math.min(fl, wl.get(j))
+    // it replaces the oldest window in the tables
+    for q = 0 to RLEN - 1
+        tab.set(q, tab.get(q) - ring.get(ringPos, q) + row.get(q))
+        ring.set(ringPos, q, row.get(q))
+    nValid += (valid ? 1 : 0) - (ringValid.get(ringPos) ? 1 : 0)
+    ringValid.set(ringPos, valid)
+    ringPos := (ringPos + 1) % W_TAB
+    tabTail := tails(tab, ROWS)
+    for k = 0 to NB
+        float acc = 0.0
+        for r = 0 to ROWS - 1
+            acc += tab.get(r * (NB + 1) + k)
+        pool.set(k, acc)
+    poolTail := tails(pool, 1)
+    rngs.push(wHi - wLo)
+    if rngs.size() &gt; RBAR_N
+        rngs.shift()
+    nComp += 1
+    for k = 0 to NSLOT_MAX - 1
+        sqRing.set(sqPos, k, sq.get(k))
+    sqPos := (sqPos + 1) % PROF_N
+    pdh := wHi
+    pdl := wLo
+    pdc := wCl
+    havePd := true
+    lens.push((wLastT - wStart) / 60000.0 + TF)
+    if lens.size() &gt; LEN_N
+        lens.shift()
+    winLen := modeRecent(lens)
+    live := false
+    onHi := na
+    onLo := na
+    closedBar := bar_index
+
+if started and TF_OK and not inWin
+    onHi := na(onHi) ? high : math.max(onHi, high)
+    onLo := na(onLo) ? low : math.min(onLo, low)
+
+if first
+    live := true
+    winId += 1
+    tday := time_tradingday
+    wStart := time
+    wHi := high
+    wLo := low
+    onh := havePd ? onHi : na
+    onl := havePd ? onLo : na
+    opn := open
+    orHiAcc := na
+    orLoAcc := na
+    orBars := 0
+    orh := na
+    orl := na
+    touched := 0
+    wStartBar := bar_index
+    orBar := na
+    // odds model: scale inputs for the new window
+    rbar := na
+    if nComp &gt;= RBAR_MIN
+        float acc = 0.0
+        for v in rngs
+            acc += v
+        rbar := acc / rngs.size()
+    sq.fill(0.0)
+    prof.fill(0.0)
+    for i = 0 to PROF_N - 1                                   // oldest window first
+        int r = (sqPos + i) % PROF_N
+        for k = 0 to NSLOT_MAX - 1
+            prof.set(k, prof.get(k) + sqRing.get(r, k))
+    profTot := 0.0
+    for k = 0 to NSLOT_MAX - 1
+        profTot += prof.get(k)
+    wh.clear()
+    wl.clear()
+    wc.clear()
+    ws.clear()
+    wb.clear()
+    prevC := na
+else if inWin
+    wHi := math.max(wHi, high)
+    wLo := math.min(wLo, low)
+
+float op  = na                // minutes from the window's first bar to this bar's open
+float tau = na                // share of the window's time still to come after this bar closes
+float sc  = na                // scale of this bar in price units
+bool  orNew = false           // the opening-range levels were set on this bar
+int   bk  = na                // time bucket of this bar
+if inWin
+    wLastT := time
+    wCl := close
+    op := (time - wStart) / 60000.0
+    if not na(winLen)
+        tau := (winLen - math.min(op + TF, winLen)) / winLen
+    // opening range: bars that open before orMin minutes; the level exists from the first bar after them
+    if op &lt; orMin
+        orHiAcc := na(orHiAcc) ? high : math.max(orHiAcc, high)
+        orLoAcc := na(orLoAcc) ? low : math.min(orLoAcc, low)
+        orBars += 1
+    else if na(orh) and orBars &gt; 0
+        orh := orHiAcc
+        orl := orLoAcc
+        orNew := true
+        orBar := bar_index
+    // touched so far in this window: the bar's true range holds the level
+    float trH = na(close[1]) ? high : math.max(high, close[1])
+    float trL = na(close[1]) ? low : math.min(low, close[1])
+    if not na(pdh) and trL &lt;= pdh and pdh &lt;= trH
+        touched := setBit(touched, 1)
+    if not na(pdl) and trL &lt;= pdl and pdl &lt;= trH
+        touched := setBit(touched, 2)
+    if not na(pdc) and trL &lt;= pdc and pdc &lt;= trH
+        touched := setBit(touched, 4)
+    if not na(onh) and trL &lt;= onh and onh &lt;= trH
+        touched := setBit(touched, 8)
+    if not na(onl) and trL &lt;= onl and onl &lt;= trH
+        touched := setBit(touched, 16)
+    if not first and trL &lt;= opn and opn &lt;= trH
+        touched := setBit(touched, 32)
+    if not na(orh) and trL &lt;= orh and orh &lt;= trH
+        touched := setBit(touched, 64)
+    if not na(orl) and trL &lt;= orl and orl &lt;= trH
+        touched := setBit(touched, 128)
+    // scale of this bar: distance / sc is the model's unit
+    int nslot = na(winLen) ? NSLOT_MAX : math.min(int(math.ceil(winLen / SLOT)), NSLOT_MAX)
+    float ret = close - (na(prevC) ? open : prevC)
+    prevC := close
+    int si = math.min(int(math.floor(op / SLOT)), nslot - 1)
+    sq.set(si, sq.get(si) + ret * ret)
+    if not na(tau) and not na(rbar) and rbar &gt; 0
+        bk := math.min(int(op / winLen * NBK), NBK - 1)
+        if DAY
+            // share of the day's usual variance still to come, from the time-of-day profile
+            float share = tau
+            if profTot &gt; 0
+                float el = math.min(op + TF, winLen)
+                float acc = 0.0
+                for k = 0 to nslot - 1
+                    float lo = k * SLOT
+                    float ln = math.min(lo + SLOT, winLen) - lo
+                    acc += math.min(math.max((lo + ln - el) / ln, 0.0), 1.0) * prof.get(k)
+                share := acc / profTot
+            sc := rbar * math.sqrt(share)
+        else
+            // square root of the time left, times today's range so far against the usual range by now
+            sc := rbar * math.sqrt(tau)
+            float den = rbar * math.sqrt(1.0 - tau)
+            float rr = den &gt; 0 ? (wHi - wLo) / den : 1.0
+            sc := sc * math.min(math.max(rr, 0.5), 2.0)
+    wh.push(high)
+    wl.push(low)
+    wc.push(close)
+    ws.push(sc)
+    wb.push(bk)
+
+// Chance that the level is touched in the rest of the window. na: no level or still warming up.
+oddsOf(float lv, float scale, int bucket) =&gt;
+    float res = na
+    if not na(lv) and not na(scale)
+        if lv == close
+            res := 1.0
+        else if not (scale &gt; 0)
+            res := 0.0
+        else
+            float x = math.abs(lv - close) / scale
+            int d = lv &lt; close ? 1 : 0
+            float n = nValid
+            float pr = DAY ? s0(x) : surv(PH, PT, bucket, x)
+            float sPool = n &gt; 0 ? surv(pool, poolTail, 0, x) : na
+            float sBd = n &gt; 0 ? surv(tab, tabTail, bucket * 2 + d, x) : na
+            float w2 = DAY ? n / (n + M2) : 0.0
+            float pooled = na(sPool) ? pr : w2 * sPool + (1.0 - w2) * pr
+            float w1 = DAY or na(sBd) ? 0.0 : n / (n + M1)
+            res := w1 * nz(sBd) + (1.0 - w1) * pooled
+    res
+
+float pPdh = inWin ? oddsOf(pdh, sc, bk) : na
+float pPdl = inWin ? oddsOf(pdl, sc, bk) : na
+float pPdc = inWin ? oddsOf(pdc, sc, bk) : na
+float pOnh = inWin ? oddsOf(onh, sc, bk) : na
+float pOnl = inWin ? oddsOf(onl, sc, bk) : na
+float pOpn = inWin ? oddsOf(opn, sc, bk) : na
+float pOrh = inWin ? oddsOf(orh, sc, bk) : na
+float pOrl = inWin ? oddsOf(orl, sc, bk) : na
+float pHod = inWin ? oddsOf(wHi, sc, bk) : na
+float pLod = inWin ? oddsOf(wLo, sc, bk) : na
+
+// ---------------------------------------------------------------- scoreboard
+// One forecast per window and level type, taken at its checkpoint: the window's first bar, or the bar on
+// which the opening-range levels are set. Scored when the window ends: was the level touched after that bar?
+scoreSet(int t, float lv, float pr) =&gt;
+    if not na(lv) and not na(pr) and not na(sc) and sc &gt; 0 and lv != close
+        cpP.set(t, pr)
+        cpL.set(t, lv)
+        cpUp.set(t, lv &gt; close)
+
+if inWin
+    for t = 0 to NT - 1
+        if not na(cpP.get(t))
+            cpSeen.set(t, true)
+            if cpUp.get(t) ? high &gt;= cpL.get(t) : low &lt;= cpL.get(t)
+                cpHit.set(t, 1.0)
+    if first
+        scoreSet(0, pdh, pPdh)
+        scoreSet(1, pdl, pPdl)
+        scoreSet(2, pdc, pPdc)
+        scoreSet(3, onh, pOnh)
+        scoreSet(4, onl, pOnl)
+    if orNew
+        scoreSet(5, orh, pOrh)
+        scoreSet(6, orl, pOrl)
+
+// ---------------------------------------------------------------- alerts
+if barstate.isconfirmed and inWin
+    string head = syminfo.ticker + " Level Radar: "
+    int was = first ? 0 : nz(touched[1])
+    if alTouch
+        string msg = ""
+        if onPdh and hasBit(touched, 1) and not hasBit(was, 1)
+            msg += " PDH " + str.tostring(pdh, format.mintick)
+        if onPdl and hasBit(touched, 2) and not hasBit(was, 2)
+            msg += " PDL " + str.tostring(pdl, format.mintick)
+        if onPdc and hasBit(touched, 4) and not hasBit(was, 4)
+            msg += " PDC " + str.tostring(pdc, format.mintick)
+        if onOnh and hasBit(touched, 8) and not hasBit(was, 8)
+            msg += " ONH " + str.tostring(onh, format.mintick)
+        if onOnl and hasBit(touched, 16) and not hasBit(was, 16)
+            msg += " ONL " + str.tostring(onl, format.mintick)
+        if onOpn and hasBit(touched, 32) and not hasBit(was, 32)
+            msg += " OPEN " + str.tostring(opn, format.mintick)
+        if onOrh and hasBit(touched, 64) and not hasBit(was, 64)
+            msg += " ORH " + str.tostring(orh, format.mintick)
+        if onOrl and hasBit(touched, 128) and not hasBit(was, 128)
+            msg += " ORL " + str.tostring(orl, format.mintick)
+        if msg != ""
+            alert(head + "touched" + msg, alert.freq_once_per_bar_close)
+    if alOdds and not first
+        float thr = alThr / 100.0
+        string msg = ""
+        if onPdh and pPdh &gt;= thr and pPdh[1] &lt; thr
+            msg += " PDH"
+        if onPdl and pPdl &gt;= thr and pPdl[1] &lt; thr
+            msg += " PDL"
+        if onPdc and pPdc &gt;= thr and pPdc[1] &lt; thr
+            msg += " PDC"
+        if onOnh and pOnh &gt;= thr and pOnh[1] &lt; thr
+            msg += " ONH"
+        if onOnl and pOnl &gt;= thr and pOnl[1] &lt; thr
+            msg += " ONL"
+        if onOpn and pOpn &gt;= thr and pOpn[1] &lt; thr
+            msg += " OPEN"
+        if onOrh and pOrh &gt;= thr and pOrh[1] &lt; thr
+            msg += " ORH"
+        if onOrl and pOrl &gt;= thr and pOrl[1] &lt; thr
+            msg += " ORL"
+        if msg != ""
+            alert(head + "touch odds above " + str.tostring(alThr) + "% for" + msg, alert.freq_once_per_bar_close)
+
+// ---------------------------------------------------------------- display
+color shadeCol = themeSel == "Neon" ? color.new(#7c5cff, 95) : color.new(color.gray, 94)
+bgcolor(shadeOn and inWin ? shadeCol : na, title = "Session")
+barcolor(dimBars and TF_OK ? (close &gt;= open ? color.new(chart.fg_color, 62) : color.new(chart.fg_color, 84)) : na, title = "Dim candles")
+
+float atr14 = ta.atr(14)
+// price range of the bars on screen, to tell when two labels would overlap
+var float visHi = na
+var float visLo = na
+if time &gt;= chart.left_visible_bar_time and time &lt;= chart.right_visible_bar_time
+    visHi := na(visHi) ? high : math.max(visHi, high)
+    visLo := na(visLo) ? low : math.min(visLo, low)
+
+addLevel(array&lt;string&gt; tg, array&lt;float&gt; lv, array&lt;float&gt; pp, array&lt;bool&gt; tc, array&lt;int&gt; x0, bool on, string tag, float v, float pr, bool t, int x) =&gt;
+    if on and not na(v)
+        tg.push(tag)
+        lv.push(v)
+        pp.push(pr)
+        tc.push(t)
+        x0.push(x)
+
+pct(float pr) =&gt;
+    na(pr) ? "" : str.tostring(math.round(pr * 100)) + "%"
+
+levelColor(float v) =&gt;
+    v &gt; close ? upCol : v &lt; close ? dnCol : accCol
+
+var array&lt;line&gt;  lns = array.new&lt;line&gt;()
+var array&lt;label&gt; lbs = array.new&lt;label&gt;()
+var array&lt;box&gt;   bxs = array.new&lt;box&gt;()
+var table pnl = na
+// panel text follows the Panel size input; the small lines are one step smaller, the headline is the largest
+int    PI   = panelSize == "Tiny" ? 0 : panelSize == "Small" ? 1 : panelSize == "Normal" ? 2 : panelSize == "Large" ? 3 : 4
+string PSZ  = array.from(size.tiny, size.small, size.normal, size.large, size.huge).get(PI)
+string PSZ2 = array.from(size.tiny, size.tiny, size.small, size.normal, size.large).get(PI)
+string PSZH = array.from(size.normal, size.large, size.huge, size.huge, size.huge).get(PI)
+float  MW   = array.from(0.35, 0.5, 0.65, 0.85, 1.1).get(PI)              // meter cell width, % of the pane
+string PANEL_POS = switch panelSel
+    "Top right"     =&gt; position.top_right
+    "Middle right"  =&gt; position.middle_right
+    "Bottom right"  =&gt; position.bottom_right
+    "Top center"    =&gt; position.top_center
+    "Bottom center" =&gt; position.bottom_center
+    "Top left"      =&gt; position.top_left
+    "Middle left"   =&gt; position.middle_left
+    =&gt; position.bottom_left
+// solid mixes of the chart background and a colour: cells stay opaque, so the chart never shows through
+mix(color c, float share) =&gt;
+    color.from_gradient(share, 0, 100, chart.bg_color, c)
+
+if barstate.islast and TF_OK
+    for l in lns
+        l.delete()
+    lns.clear()
+    for l in lbs
+        l.delete()
+    lbs.clear()
+    for b in bxs
+        b.delete()
+    bxs.clear()
+    array&lt;string&gt; tg = array.new&lt;string&gt;()
+    array&lt;float&gt;  lv = array.new&lt;float&gt;()
+    array&lt;float&gt;  pp = array.new&lt;float&gt;()
+    array&lt;bool&gt;   tc = array.new&lt;bool&gt;()
+    array&lt;int&gt;    x0 = array.new&lt;int&gt;()
+    if inWin
+        addLevel(tg, lv, pp, tc, x0, onPdh, "PDH", pdh, pPdh, hasBit(touched, 1), wStartBar)
+        addLevel(tg, lv, pp, tc, x0, onPdl, "PDL", pdl, pPdl, hasBit(touched, 2), wStartBar)
+        addLevel(tg, lv, pp, tc, x0, onPdc, "PDC", pdc, pPdc, hasBit(touched, 4), wStartBar)
+        addLevel(tg, lv, pp, tc, x0, onOnh, "ONH", onh, pOnh, hasBit(touched, 8), wStartBar)
+        addLevel(tg, lv, pp, tc, x0, onOnl, "ONL", onl, pOnl, hasBit(touched, 16), wStartBar)
+        addLevel(tg, lv, pp, tc, x0, onOpn, "OPEN", opn, pOpn, hasBit(touched, 32), wStartBar)
+        addLevel(tg, lv, pp, tc, x0, onOrh, "ORH", orh, pOrh, hasBit(touched, 64), orBar)
+        addLevel(tg, lv, pp, tc, x0, onOrl, "ORL", orl, pOrl, hasBit(touched, 128), orBar)
+        addLevel(tg, lv, pp, tc, x0, onHod, "HOD", wHi, pHod, false, wStartBar)
+        addLevel(tg, lv, pp, tc, x0, onLod, "LOD", wLo, pLod, false, wStartBar)
+    else if havePd and started
+        // between sessions: the coming session's levels as far as they are known, without odds
+        addLevel(tg, lv, pp, tc, x0, onPdh, "PDH", pdh, na, false, closedBar)
+        addLevel(tg, lv, pp, tc, x0, onPdl, "PDL", pdl, na, false, closedBar)
+        addLevel(tg, lv, pp, tc, x0, onPdc, "PDC", pdc, na, false, closedBar)
+        addLevel(tg, lv, pp, tc, x0, onOnh, "ONH", onHi, na, false, closedBar)
+        addLevel(tg, lv, pp, tc, x0, onOnl, "ONL", onLo, na, false, closedBar)
+    int nl = lv.size()
+    color fg = chart.fg_color
+
+    // ---- glow, lines and merged labels
+    // each level: zone box and outer halo (Strong), inner halo (Strong, Soft), core line; all scale with the odds
+    if showLines and nl &gt; 0
+        string sz = lblSize == "Small" ? size.small : lblSize == "Large" ? size.large : size.normal
+        array&lt;int&gt; ord = lv.sort_indices(order.descending)
+        int xr = bar_index + extBars
+        // labels closer than about one label height share one label: a share of the price range on screen
+        // (levels included), and never less than a quarter ATR
+        float span = math.max(nz(visHi, lv.max()), lv.max()) - math.min(nz(visLo, lv.min()), lv.min())
+        float gap = math.max(0.25 * nz(atr14), (lblSize == "Small" ? 0.02 : lblSize == "Large" ? 0.035 : 0.025) * span)
+        int g0 = 0                                   // first member of the label group, as a position in ord
+        for q = 0 to nl - 1
+            int i = ord.get(q)
+            float v = lv.get(i)
+            float pr = pp.get(i)
+            float p = nz(pr)
+            color col = levelColor(v)
+            int xa = x0.get(i)
+            if glowSel == "Strong" and not na(pr)
+                float bh = nz(atr14) * (0.05 + 0.12 * p)
+                bxs.push(box.new(xa, v + bh, xr, v - bh, border_color = color.new(col, 100), bgcolor = color.new(col, int(94 - 20 * p))))
+                lns.push(line.new(xa, v, xr, v, xloc.bar_index, extend.none, color.new(col, int(97 - 9 * p)), line.style_solid, int(8 + 10 * p)))
+            if glowSel != "Off" and not na(pr)
+                bool strong = glowSel == "Strong"
+                lns.push(line.new(xa, v, xr, v, xloc.bar_index, extend.none, color.new(col, strong ? int(90 - 30 * p) : int(94 - 14 * p)), line.style_solid, strong ? int(4 + 5 * p) : int(3 + 3 * p)))
+            lns.push(line.new(xa, v, xr, v, xloc.bar_index, extend.none, color.new(col, na(pr) ? 45 : int(65 - 65 * p)), line.style_solid, na(pr) ? 1 : p &gt;= 0.5 ? 2 : 1))
+            // a label group ends when the next level is further than the gap below this one
+            float nextV = q == nl - 1 ? na : lv.get(ord.get(q + 1))
+            if na(nextV) or v - nextV &gt; gap
+                int best = ord.get(g0)
+                string tags = ""
+                bool anyT = false
+                for r = g0 to q
+                    int j = ord.get(r)
+                    tags += (r &gt; g0 ? " · " : "") + tg.get(j)
+                    anyT := anyT or tc.get(j)
+                    if nz(pp.get(j), -1) &gt; nz(pp.get(best), -1)
+                        best := j
+                float bp = pp.get(best)
+                color bc = levelColor(lv.get(best))
+                string txt = tags + (anyT ? " ✓" : "") + (showPrice ? "  " + str.tostring(lv.get(best), format.mintick) : "") + (na(bp) ? "" : "   " + pct(bp))
+                lbs.push(label.new(xr, lv.get(best), txt, xloc.bar_index, yloc.price, color.new(chart.bg_color, 10), label.style_label_left, color.new(bc, na(bp) ? 30 : int(40 - 40 * bp)), sz))
+                g0 := q + 1
+
+    // ---- panel: 12 columns = name, ten meter cells, odds
+    if panelSel != "Off"
+        // rebuilt on every update: merged cells would otherwise stay merged when the rows change
+        if not na(pnl)
+            pnl.delete()
+        color PBG = mix(fg, 3)
+        color OFF = mix(fg, 11)
+        pnl := table.new(PANEL_POS, 12, 32, bgcolor = PBG, frame_color = mix(fg, 22), frame_width = 1, border_color = PBG, border_width = 1)
+        int row = 0
+        array&lt;int&gt; rank = pp.sort_indices(order.descending)
+        bool ready = inWin and not na(sc) and nl &gt; 0
+        int ti = ready ? rank.get(0) : 0
+        color hc = ready ? levelColor(lv.get(ti)) : accCol
+        color tint = mix(hc, 16)
+        // header, tinted with the colour of the most likely level
+        pnl.cell(0, row, "◉ LEVEL RADAR", text_color = accCol, text_halign = text.align_left, text_size = PSZ2, bgcolor = tint)
+        pnl.merge_cells(0, row, 6, row)
+        string right = not inWin ? "session closed" : na(rbar) ? "" : "range " + str.tostring((wHi - wLo) / rbar, "0.00") + "×"
+        pnl.cell(7, row, right, text_color = color.new(fg, 35), text_halign = text.align_right, text_size = PSZ2, bgcolor = tint)
+        pnl.merge_cells(7, row, 11, row)
+        row += 1
+        // headline: the next likely touch
+        if ready
+            float tp = pp.get(ti)
+            float tv = lv.get(ti)
+            pnl.cell(0, row, pct(tp) + "  " + tg.get(ti) + (tc.get(ti) ? " ✓" : ""), text_color = fg, text_halign = text.align_left, text_size = PSZH, bgcolor = tint)
+            pnl.merge_cells(0, row, 11, row)
+            row += 1
+            string side = tv &gt; close ? "above" : tv &lt; close ? "below" : "at price"
+            pnl.cell(0, row, "next likely touch · " + str.tostring(tv, format.mintick) + " · " + str.tostring(math.abs(tv - close), format.mintick) + " " + side, text_color = hc, text_halign = text.align_left, text_size = PSZ2, bgcolor = tint)
+            pnl.merge_cells(0, row, 11, row)
+            row += 1
+        // session clock: ten cells, one per tenth of the window
+        if inWin and not na(tau)
+            int mins = int(math.round(tau * winLen))
+            string left = (mins &gt;= 60 ? str.tostring(int(mins / 60)) + "h " : "") + str.tostring(mins % 60) + "m"
+            float el = 1.0 - tau
+            pnl.cell(0, row, "SESSION", text_color = color.new(fg, 45), text_halign = text.align_left, text_size = PSZ2, bgcolor = PBG)
+            for k = 1 to 10
+                color cc = el &gt;= k / 10.0 ? accCol : el &gt; (k - 1) / 10.0 ? mix(accCol, 45) : OFF
+                pnl.cell(k, row, "", width = MW, bgcolor = cc, text_size = PSZ2)
+            pnl.cell(11, row, left, text_color = fg, text_halign = text.align_right, text_size = PSZ2, bgcolor = PBG)
+            row += 1
+        if inWin and na(sc)
+            pnl.cell(0, row, "Warming up: " + str.tostring(nComp) + " of " + str.tostring(RBAR_MIN) + " sessions seen", text_color = color.new(fg, 30), text_halign = text.align_left, text_size = PSZ, bgcolor = PBG)
+            pnl.merge_cells(0, row, 11, row)
+            row += 1
+        else if ready
+            // levels ranked by odds, with a ten-cell meter
+            for q = 0 to nl - 1
+                int i = rank.get(q)
+                float pr = pp.get(i)
+                color col = levelColor(lv.get(i))
+                int f = int(math.round(nz(pr) * 10))
+                pnl.cell(0, row, tg.get(i) + (tc.get(i) ? " ✓" : ""), text_color = col, text_halign = text.align_left, text_size = PSZ, bgcolor = PBG)
+                for k = 1 to 10
+                    pnl.cell(k, row, "", width = MW, bgcolor = k &lt;= f ? mix(col, 35 + 6.5 * (k - 1)) : OFF, text_size = PSZ)
+                pnl.cell(11, row, pct(pr), text_color = fg, text_halign = text.align_right, text_size = PSZ, bgcolor = PBG)
+                row += 1
+            string src = DAY ? "random-walk law" : "long-run curve"
+            pnl.cell(0, row, "touch odds to session end · " + str.tostring(nValid) + " sessions + " + src, text_color = color.new(fg, 55), text_halign = text.align_left, text_size = PSZ2, bgcolor = PBG)
+            pnl.merge_cells(0, row, 11, row)
+            row += 1
+        else if not inWin and nl &gt; 0
+            // between sessions: the levels from the top down, prices only
+            array&lt;int&gt; byPrice = lv.sort_indices(order.descending)
+            for q = 0 to nl - 1
+                int i = byPrice.get(q)
+                pnl.cell(0, row, tg.get(i), text_color = levelColor(lv.get(i)), text_halign = text.align_left, text_size = PSZ, bgcolor = PBG)
+                pnl.cell(1, row, str.tostring(lv.get(i), format.mintick), text_color = color.new(fg, 30), text_halign = text.align_right, text_size = PSZ, bgcolor = PBG)
+                pnl.merge_cells(1, row, 11, row)
+                row += 1
+            pnl.cell(0, row, "next session's levels · odds start at the open", text_color = color.new(fg, 55), text_halign = text.align_left, text_size = PSZ2, bgcolor = PBG)
+            pnl.merge_cells(0, row, 11, row)
+            row += 1
+        // scoreboard
+        if boardSel != "Off"
+            float tn = sbN.sum()
+            string line1 = tn &gt; 0 ? str.tostring(tn) + " scored · forecast " + pct(sbP.sum() / tn) + " · touched " + pct(sbY.sum() / tn) : "nothing scored yet"
+            pnl.cell(0, row, line1, text_color = color.new(fg, 45), text_halign = text.align_left, text_size = PSZ2, bgcolor = PBG)
+            pnl.merge_cells(0, row, 11, row)
+            row += 1
+            if boardSel == "Full"
+                array&lt;string&gt; names = array.from("PDH", "PDL", "PDC", "ONH", "ONL", "ORH", "ORL")
+                for t = 0 to NT - 1
+                    float n = sbN.get(t)
+                    if n &gt; 0
+                        float d = (sbY.get(t) - sbP.get(t)) / n * 100
+                        pnl.cell(0, row, names.get(t), text_color = color.new(fg, 30), text_halign = text.align_left, text_size = PSZ2, bgcolor = PBG)
+                        pnl.cell(1, row, "n " + str.tostring(n) + " · " + pct(sbP.get(t) / n) + " → " + pct(sbY.get(t) / n), text_color = color.new(fg, 45), text_halign = text.align_left, text_size = PSZ2, bgcolor = PBG)
+                        pnl.merge_cells(1, row, 10, row)
+                        pnl.cell(11, row, (d &gt;= 0 ? "+" : "") + str.tostring(d, "0"), text_color = fg, text_halign = text.align_right, text_size = PSZ2, bgcolor = PBG)
+                        row += 1
+
+// ---------------------------------------------------------------- parity plots (data window only)
+// The eight level plots double as the lines of past sessions when that input is on (the plot limit is 64).
+PAST_DISPLAY = showPast ? display.pane + display.data_window : display.data_window
+plot(inWin ? pdh : na, "LR PDH", color = color.new(upCol, 45), style = plot.style_linebr, display = PAST_DISPLAY)
+plot(inWin ? pdl : na, "LR PDL", color = color.new(dnCol, 45), style = plot.style_linebr, display = PAST_DISPLAY)
+plot(inWin ? pdc : na, "LR PDC", color = color.new(accCol, 45), style = plot.style_linebr, display = PAST_DISPLAY)
+plot(inWin ? onh : na, "LR ONH", color = color.new(upCol, 65), style = plot.style_linebr, display = PAST_DISPLAY)
+plot(inWin ? onl : na, "LR ONL", color = color.new(dnCol, 65), style = plot.style_linebr, display = PAST_DISPLAY)
+plot(inWin ? opn : na, "LR OPEN", color = color.new(accCol, 65), style = plot.style_linebr, display = PAST_DISPLAY)
+plot(inWin ? orh : na, "LR ORH", color = color.new(upCol, 75), style = plot.style_linebr, display = PAST_DISPLAY)
+plot(inWin ? orl : na, "LR ORL", color = color.new(dnCol, 75), style = plot.style_linebr, display = PAST_DISPLAY)
+plot(started ? bar_index - startBar : na, "LR bar", display = display.data_window)
+plot(inWin ? winId : na,   "LR win",     display = display.data_window)
+plot(op,                   "LR op",      display = display.data_window)
+plot(inWin ? winLen : na,  "LR len",     display = display.data_window)
+plot(tau,                  "LR tau",     display = display.data_window)
+plot(inWin ? wHi : na,     "LR HOD",     display = display.data_window)
+plot(inWin ? wLo : na,     "LR LOD",     display = display.data_window)
+plot(inWin ? touched : na, "LR touched", display = display.data_window)
+plot(inWin ? rbar : na,    "LR rbar",    display = display.data_window)
+plot(sc,                   "LR s",       display = display.data_window)
+plot(bk,                   "LR bk",      display = display.data_window)
+plot(inWin and not na(sc) ? nValid : na, "LR n", display = display.data_window)
+plot(pPdh, "LR p PDH",  display = display.data_window)
+plot(pPdl, "LR p PDL",  display = display.data_window)
+plot(pPdc, "LR p PDC",  display = display.data_window)
+plot(pOnh, "LR p ONH",  display = display.data_window)
+plot(pOnl, "LR p ONL",  display = display.data_window)
+plot(pOpn, "LR p OPEN", display = display.data_window)
+plot(pOrh, "LR p ORH",  display = display.data_window)
+plot(pOrl, "LR p ORL",  display = display.data_window)
+plot(pHod, "LR p HOD",  display = display.data_window)
+plot(pLod, "LR p LOD",  display = display.data_window)
+plot(started ? sbN.get(0) : na, "LR sb n PDH", display = display.data_window)
+plot(started ? sbP.get(0) : na, "LR sb p PDH", display = display.data_window)
+plot(started ? sbY.get(0) : na, "LR sb y PDH", display = display.data_window)
+plot(started ? sbN.get(1) : na, "LR sb n PDL", display = display.data_window)
+plot(started ? sbP.get(1) : na, "LR sb p PDL", display = display.data_window)
+plot(started ? sbY.get(1) : na, "LR sb y PDL", display = display.data_window)
+plot(started ? sbN.get(2) : na, "LR sb n PDC", display = display.data_window)
+plot(started ? sbP.get(2) : na, "LR sb p PDC", display = display.data_window)
+plot(started ? sbY.get(2) : na, "LR sb y PDC", display = display.data_window)
+plot(started ? sbN.get(3) : na, "LR sb n ONH", display = display.data_window)
+plot(started ? sbP.get(3) : na, "LR sb p ONH", display = display.data_window)
+plot(started ? sbY.get(3) : na, "LR sb y ONH", display = display.data_window)
+plot(started ? sbN.get(4) : na, "LR sb n ONL", display = display.data_window)
+plot(started ? sbP.get(4) : na, "LR sb p ONL", display = display.data_window)
+plot(started ? sbY.get(4) : na, "LR sb y ONL", display = display.data_window)
+plot(started ? sbN.get(5) : na, "LR sb n ORH", display = display.data_window)
+plot(started ? sbP.get(5) : na, "LR sb p ORH", display = display.data_window)
+plot(started ? sbY.get(5) : na, "LR sb y ORH", display = display.data_window)
+plot(started ? sbN.get(6) : na, "LR sb n ORL", display = display.data_window)
+plot(started ? sbP.get(6) : na, "LR sb p ORL", display = display.data_window)
+plot(started ? sbY.get(6) : na, "LR sb y ORL", display = display.data_window)
+
+// ---------------------------------------------------------------- unsupported timeframe
+if barstate.islast and not TF_OK
+    var table msg = table.new(position.middle_center, 1, 1)
+    msg.cell(0, 0, "Level Radar works on intraday charts from 1 to 60 minutes.", text_color = chart.fg_color)
+</code></pre>
+    </div>
+  </section>
+
+  <div class="section-head" id="related">
+    <h2>Pairs well with</h2>
+    <p>Pages on this site that use the same levels, or put odds on the day's move.</p>
+  </div>
+  <div class="four">
+    <a href="/expected-move.html" style="--tc:#2997ff"><span class="k">tool</span><h3>Expected Move</h3><p>How far the options market prices the move, up and down.</p><small>Read &rsaquo;</small></a>
+    <a href="/setups/opening-range-break.html" style="--tc:#ff9f0a"><span class="k">setup</span><h3>Opening Range Break</h3><p>Trading the ORH and ORL this indicator marks.</p><small>Read &rsaquo;</small></a>
+    <a href="/setups/pmh-break.html" style="--tc:#30d158"><span class="k">setup</span><h3>PMH Break</h3><p>The premarket high, one of the overnight levels.</p><small>Read &rsaquo;</small></a>
+    <a href="/setups/silver-bullet.html" style="--tc:#f4b942"><span class="k">setup</span><h3>Silver Bullet</h3><p>Another honest, data-first indicator from the same channel.</p><small>Read &rsaquo;</small></a>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/imowh_-iclQ" title="I Stopped Guessing Where Price Goes Today. I Built This Instead (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>The Good, The Bad And The Bitcoin on the concept, the inner workings and every setting of Level Radar.</p>
+      <ol>
+        <li><b>0:00</b>Key price levels day traders watch</li>
+        <li><b>2:05</b>What the tool does</li>
+        <li><b>2:35</b>How the odds are calculated</li>
+        <li><b>3:28</b>Where the past data comes from</li>
+        <li><b>4:05</b>Setting your trading session hours</li>
+        <li><b>4:45</b>Reading the levels on your chart</li>
+        <li><b>5:51</b>The ranking panel in the corner</li>
+        <li><b>6:27</b>Display options and settings</li>
+        <li><b>6:52</b>High and low of the first 30 minutes</li>
+        <li><b>7:44</b>How to use it in your trading</li>
+        <li><b>9:00</b>What the tool cannot tell you</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=imowh_-iclQ" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Before your next target, ask what the odds are.</h2>
+      <p>Not whether the level is important. Whether price still has the room and the time to get there today. A nearby level in the morning is a realistic target. A distant one late in the afternoon is a hope. Then let your own method decide what to do when price arrives.</p>
+    </div>
+    <div>
+      <ul>
+        <li>The odds run to the end of the session. Set the session right.</li>
+        <li>Room left = the usual range, shrunk by the time left, adjusted for today's pace.</li>
+        <li>Seven of ten earlier days got there = 70%.</li>
+        <li>Targets: aim where the odds are realistic.</li>
+        <li>Filter: a 10 to 20% level means think twice, or size down.</li>
+        <li>Timing: watch the odds fall as the day runs out.</li>
+        <li>Not a signal: hold or break is your call.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from The Good, The Bad And The Bitcoin's video "I Stopped Guessing Where Price Goes Today. I Built This Instead" and the Level Radar [GBB] Pine script shown above. The concepts, the levels, the 70% example, the 70% vs 15% target and the 10 to 20% filter are from the video; the model details (ten-session range, square-root time scaling, pace capped at 0.5&times; to 2&times;, the 2011 to 2026 futures table, the 20-session weighting, the scoreboard and its note) are from the script. Every bar and level price in the walkthroughs is made up, and the percentages drawn on them, in the calculator and in the time curves are worked out with the script's random-walk law only, so the indicator's own numbers will differ. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+<script>
+  /* copy the Pine code */
+  (function () {
+    var b = document.querySelector("[data-copy]"), code = document.querySelector("pre.pine code");
+    if (!b || !code) return;
+    b.addEventListener("click", function () {
+      var t = code.textContent;
+      function done(ok) { b.textContent = ok ? "Copied" : "Select and copy"; setTimeout(function () { b.textContent = "Copy code"; }, 1800); }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { done(true); }, function () { done(false); });
+      else done(false);
+    });
+  })();
+</script>
+
+</body>
+</html>

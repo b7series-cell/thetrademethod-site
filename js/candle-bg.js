@@ -1155,6 +1155,28 @@
       }
     },
 
+    /* Level Radar: key levels carry touch odds; a near one gets touched, a far one fades as the day runs out */
+    "level-radar": {
+      story: function (st) {
+        var H, N, D;
+        return [
+          rep(1, function (st) {
+            closeLevels(st); session(st);
+            H = level(st, st.price + 6.5, "PDH \u00b7 18% today", GREEN, true);
+            N = level(st, st.price + 2.6, "ONH \u00b7 64% today", GREEN, true);
+            D = level(st, st.price - 5.5, "PDL \u00b7 22% today", RED, true);
+            return bar(st, { n: 0.5, mk: { t: "The odds of a touch before the close", col: SILK, below: true } });
+          }),
+          rep(6, function (st) { return bar(st, { d: rnd(-0.2, 0.35), n: 0.7, cap: N.y - 0.4 }); }),
+          rep(5, function (st, k) { N.label = "ONH \u00b7 " + (70 + k * 5) + "% today"; return bar(st, { to: N.y - 0.3, pull: 0.35, n: 0.5, cap: N.y - 0.2 }); }),
+          rep(1, function (st) { N.label = "ONH \u2713 touched"; return bar(st, { d: 0.9, n: 0.3, v: 0.85, pierce: true, flash: GREEN, mk: { t: "Most likely level reached", col: GREEN } }); }),
+          rep(8, function (st, k) { H.label = "PDH \u00b7 " + Math.max(2, 14 - k * 2) + "% \u00b7 time running out"; D.label = "PDL \u00b7 " + Math.max(1, 9 - k) + "%"; return bar(st, { d: rnd(-0.35, 0.25), n: 0.7, cap: H.y - 1.5, flo: D.y + 1.5 }); }),
+          rep(1, function (st) { return bar(st, { d: -0.1, n: 0.4, mk: { t: "Far levels fade into the close", col: SILK, below: true } }); }),
+          rep(4, function (st) { return bar(st, { d: rnd(-0.3, 0.3), n: 0.6, cap: H.y - 1.5 }); })
+        ];
+      }
+    },
+
     /* Covered calls: a strike caps the upside each cycle, the premium is collected up front either way */
     "covered-calls": {
       story: function (st) {
