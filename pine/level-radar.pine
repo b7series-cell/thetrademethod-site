@@ -1,0 +1,811 @@
+//@version=6
+// Level Radar [GBB]
+
+indicator("Level Radar [GBB]", "LevelRadar", overlay = true, max_lines_count = 50, max_labels_count = 50, max_boxes_count = 50)
+
+// ---------------------------------------------------------------- inputs
+grpW = "Session"
+sessSel  = input.string("Auto", "Session", options = ["Auto", "Full day", "Custom"], group = grpW,
+     tooltip = "The odds run to the end of this window. Auto: stocks use the regular session, US equity index futures 09:30 to 16:00 New York, everything else the full trading day.")
+custSess = input.session("0820-1330", "Custom session", group = grpW,
+     tooltip = "Used with Session = Custom. Start it on a bar boundary of the chart's timeframe.")
+custTz   = input.string("America/New_York", "Custom time zone", group = grpW)
+
+grpL = "Levels"
+onPdh = input.bool(true, "PDH", group = grpL, inline = "l1", tooltip = "High, low and close of the previous session.")
+onPdl = input.bool(true, "PDL", group = grpL, inline = "l1")
+onPdc = input.bool(true, "PDC", group = grpL, inline = "l1")
+onOnh = input.bool(true, "ONH", group = grpL, inline = "l2", tooltip = "High and low of the bars between the previous session and this one. Empty on full-day sessions and on charts without extended hours.")
+onOnl = input.bool(true, "ONL", group = grpL, inline = "l2")
+onOpn = input.bool(true, "OPEN", group = grpL, inline = "l2")
+onOrh = input.bool(true, "ORH", group = grpL, inline = "l3", tooltip = "High and low of the opening range. They exist once the opening range is over.")
+onOrl = input.bool(true, "ORL", group = grpL, inline = "l3")
+onHod = input.bool(true, "HOD", group = grpL, inline = "l4", tooltip = "Today's high and low so far. The odds are the chance of a new high or low before the session ends.")
+onLod = input.bool(true, "LOD", group = grpL, inline = "l4")
+orMin = input.int(30, "Opening range (minutes)", minval = 1, group = grpL)
+
+grpD = "Display"
+showLines = input.bool(true, "Level lines with odds", group = grpD, inline = "ln",
+     tooltip = "Each line is labelled with the chance that price touches it before the session ends. Brighter means more likely. A tick mark means it was already touched today; the odds are then the chance of another touch.")
+extBars   = input.int(12, "bars to the right", minval = 2, maxval = 100, group = grpD, inline = "ln")
+lblSize   = input.string("Normal", "Label size", options = ["Small", "Normal", "Large"], group = grpD)
+panelSel  = input.string("Top right", "Panel", options = ["Top right", "Middle right", "Bottom right", "Top center", "Bottom center", "Top left", "Middle left", "Bottom left", "Off"], group = grpD,
+     tooltip = "Time left, today's range against the usual range, and the levels ranked by odds.")
+panelSize = input.string("Normal", "Panel size", options = ["Tiny", "Small", "Normal", "Large", "Huge"], group = grpD,
+     tooltip = "Text and meter size of the panel, independent of the label size.")
+boardSel  = input.string("Compact", "Scoreboard", options = ["Compact", "Full", "Off"], group = grpD,
+     tooltip = "Keeps score on this chart. For each named level, one forecast per session is scored (at the open; opening-range levels when the range is over): the average forecast against the share that was touched. In a 15-year study on index futures and gold, named levels were touched as often as any other price at the same distance.")
+showPast  = input.bool(false, "Levels of past sessions", group = grpD)
+shadeOn   = input.bool(true, "Shade the session", group = grpD)
+
+grpS = "Style"
+themeSel = input.string("Neon", "Theme", options = ["Neon", "Classic", "Custom"], group = grpS,
+     tooltip = "Neon and Classic set the colours; Custom uses the three below.")
+upIn  = input.color(#00e5b4, "Above price", group = grpS, inline = "cu")
+dnIn  = input.color(#ff4d6d, "Below price", group = grpS, inline = "cu")
+accIn = input.color(#ffb21e, "Accent", group = grpS, inline = "cu")
+color upCol  = themeSel == "Neon" ? #00e5b4 : themeSel == "Classic" ? #26a69a : upIn
+color dnCol  = themeSel == "Neon" ? #ff4d6d : themeSel == "Classic" ? #ef5350 : dnIn
+color accCol = themeSel == "Neon" ? #ffb21e : themeSel == "Classic" ? #f5b041 : accIn
+
+glowSel  = input.string("Strong", "Glow", options = ["Strong", "Soft", "Off"], group = grpS,
+     tooltip = "Halo and zone around each level, scaled by its odds. Strong: three layers and a zone. Soft: one thin halo.")
+dimBars  = input.bool(true, "Dim candles", group = grpS, tooltip = "Greys the bars so the levels stand out. Turn off to keep your chart's colours.")
+showPrice = input.bool(true, "Price in labels", group = grpS)
+
+grpA = "Alerts (on bar close; create one alert with 'Any alert() function call')"
+alTouch = input.bool(true, "A level was touched", group = grpA)
+alOdds  = input.bool(false, "A level's odds rose above", group = grpA, inline = "odds")
+alThr   = input.float(65.0, "%", minval = 1, maxval = 99, group = grpA, inline = "odds")
+
+// ---------------------------------------------------------------- constants
+var string[] US_IDX = array.from("ES", "NQ", "YM", "RTY", "MES", "MNQ", "MYM", "M2K")
+bool  IS_US_IDX = syminfo.type == "futures" and US_IDX.includes(syminfo.root)
+bool  IS_STOCK  = syminfo.type == "stock" or syminfo.type == "fund" or syminfo.type == "index" or syminfo.type == "dr"
+// 0 = full trading day, 1 = session string, 2 = the exchange's regular session
+int   MODE = sessSel == "Custom" ? 1 : sessSel == "Full day" ? 0 : IS_US_IDX ? 1 : IS_STOCK ? 2 : 0
+string SESS = sessSel == "Custom" ? custSess : "0930-1600"
+string TZ   = sessSel == "Custom" ? custTz : "America/New_York"
+float TF    = timeframe.in_seconds() / 60.0                  // bar length in minutes
+bool  TF_OK = timeframe.isintraday and timeframe.in_seconds() >= 60 and timeframe.in_seconds() <= 3600
+int   LEN_N = 5                                              // window length = most common of the last 5 completed windows
+// odds model
+bool  DAY   = MODE == 0             // full-day windows: time-of-day scale, pooled table, random-walk law
+int   NB    = 60                    // bins of width BW, plus one overflow bin
+float BW    = 0.05
+float C_RW  = 1.596                 // expected range of a random walk over a window / its standard deviation
+int   W_TAB = 20                    // completed windows behind the tables
+int   RBAR_N = 10
+int   RBAR_MIN = 3
+int   PROF_N = 60                   // windows behind the time-of-day profile
+int   SLOT   = 30                   // minutes per profile slot
+int   NSLOT_MAX = 48
+int   NBK   = DAY ? 1 : 16          // time buckets per window
+int   ROWS  = NBK * 2               // bucket and direction (0 = up, 1 = down)
+int   RLEN  = ROWS * (NB + 1)
+float M1    = 80.0                  // session windows: weight of the bucket table is n / (n + M1)
+float M2    = 80.0                  // full-day windows: weight of the pooled table is n / (n + M2)
+
+// ---------------------------------------------------------------- helpers
+// Most common value; ties go to the most recent one.
+modeRecent(array<float> a) =>
+    float best = na
+    int bestN = 0
+    for i = a.size() - 1 to 0
+        float v = a.get(i)
+        int n = 0
+        for j = 0 to a.size() - 1
+            if a.get(j) == v
+                n += 1
+        if n > bestN
+            bestN := n
+            best := v
+    best
+
+// tail[r * (NB + 2) + k] = sum of row r's bins k .. NB; one extra 0 closes each row.
+tails(array<float> hist, int nrow) =>
+    array<float> t = array.new<float>(nrow * (NB + 2), 0.0)
+    for r = 0 to nrow - 1
+        float acc = 0.0
+        for k = NB to 0
+            acc += hist.get(r * (NB + 1) + k)
+            t.set(r * (NB + 2) + k, acc)
+    t
+
+// Share of samples >= x in row r, linear inside a bin; na when the row is empty.
+surv(array<float> hist, array<float> tail, int r, float x) =>
+    float n = tail.get(r * (NB + 2))
+    float res = na
+    if n > 0
+        float q = math.min(x / BW, NB + 1.0)
+        int k = math.min(int(math.floor(q)), NB)
+        float frac = k < NB ? q - k : 0.0
+        res := (tail.get(r * (NB + 2) + k + 1) + (1.0 - frac) * hist.get(r * (NB + 1) + k)) / n
+    res
+
+// Random-walk law 2 * (1 - Phi(C_RW * x)), Abramowitz-Stegun 7.1.26.
+s0(float x) =>
+    float u = C_RW * x / math.sqrt(2.0)
+    float k = 1.0 / (1.0 + 0.3275911 * u)
+    float poly = k * (0.254829592 + k * (-0.284496736 + k * (1.421413741 + k * (-1.453152027 + k * 1.061405429))))
+    poly * math.exp(-u * u)
+
+// Long-run curve for session windows: remaining excursion in model units, 16 time buckets x 61 bins,
+// ES, NQ, YM (09:30 to 16:00) and GC (08:20 to 13:30), 5-minute bars, 2011 to 2026.
+curveInit() =>
+    array<string> rows = array.from(
+         "16441,14922,14283,13672,12674,11495,10132,8792,7625,6695,5589,4668,3920,3425,2878,2464,1970,1684,1470,1257,1037,871,767,656,570,497,362,377,295,259,251,199,197,189,140,150,115,92,80,84,79,67,67,48,48,45,51,40,35,38,28,33,28,21,20,18,16,8,19,8,127",
+         "15563,15272,13839,13215,12300,10933,9852,8881,7880,6821,5958,4941,4190,3517,2909,2521,2134,1820,1628,1369,1151,1026,823,667,547,506,414,371,333,285,274,238,203,178,153,148,129,102,103,74,75,71,53,55,46,41,45,31,42,37,27,29,30,24,21,14,18,15,12,12,164",
+         "15970,14987,14033,12805,11722,10638,9587,8741,7790,6741,5783,4928,4258,3673,3050,2682,2283,1886,1624,1452,1243,1048,941,771,667,558,476,393,358,292,259,260,223,173,178,148,138,137,114,101,91,108,56,57,61,35,49,34,42,23,32,43,17,26,24,15,18,16,12,15,237",
+         "15783,14956,13864,12800,11713,10878,9786,8479,7455,6507,5569,4908,4292,3638,3187,2626,2315,2074,1801,1540,1369,1151,970,776,652,572,455,398,393,293,295,248,230,196,175,142,135,115,119,92,108,87,74,63,60,69,63,51,57,48,32,34,34,21,26,24,10,19,17,19,259",
+         "15691,14931,13720,12779,12119,10829,9547,8540,7356,6515,5660,4805,4269,3560,3216,2775,2392,1999,1794,1535,1340,1058,973,841,705,597,448,407,362,310,287,248,220,194,154,151,147,126,108,77,80,68,56,71,60,51,59,52,39,39,32,29,28,33,23,27,34,18,25,16,261",
+         "15309,14746,14150,13144,11889,10814,9611,8603,7368,6410,5683,4908,4223,3685,3131,2635,2254,1926,1610,1466,1296,1072,983,857,728,653,501,414,372,289,287,230,175,170,177,151,137,119,113,105,105,74,81,62,42,40,53,41,41,41,36,38,20,27,32,19,31,20,19,16,292",
+         "14591,14750,13965,13202,11806,10790,9827,8669,7603,6502,5647,4789,4320,3583,3019,2653,2283,1946,1673,1505,1323,1173,927,866,810,665,538,456,373,293,290,239,219,188,176,168,143,117,128,94,90,78,74,77,79,52,56,39,44,47,41,38,33,40,30,21,16,8,12,11,327",
+         "11545,11345,11028,10192,9261,8505,7455,6499,6042,5167,4574,3988,3359,2898,2478,2104,1844,1729,1392,1200,1106,889,794,701,598,528,422,405,352,280,253,192,176,182,157,135,98,105,94,79,86,70,60,65,47,42,44,40,31,36,36,42,36,30,23,25,24,19,13,23,267",
+         "14235,13744,13355,12775,11505,10504,9344,8250,7463,6625,5689,5096,4380,3748,3207,2712,2346,1995,1794,1559,1434,1189,1058,927,783,723,629,520,462,436,404,319,268,235,174,185,143,143,149,108,99,101,96,66,70,69,50,51,52,66,54,44,43,37,38,28,29,35,18,23,410",
+         "13512,13029,12915,12360,11353,10227,9213,8146,7275,6578,5827,5170,4405,3749,3199,2819,2411,2101,1717,1655,1416,1234,1070,939,853,713,655,560,486,466,434,391,333,275,199,204,165,176,142,147,126,118,82,99,71,76,65,72,61,40,44,48,46,48,47,37,29,31,29,25,445",
+         "12644,12706,12507,11900,11291,10603,9431,8397,7243,6422,5875,5179,4331,3894,3317,2815,2544,2242,1922,1655,1464,1199,1095,991,847,783,666,659,570,504,420,356,334,268,269,242,194,165,163,158,142,138,124,108,82,75,74,49,77,57,49,58,48,43,43,48,35,34,26,37,540",
+         "12677,12094,12119,11749,11012,10366,9443,8387,7594,6656,5842,5149,4464,3967,3335,3026,2637,2292,1987,1756,1540,1400,1151,1054,941,767,663,595,538,504,418,434,369,295,265,245,263,213,185,167,159,132,111,87,84,71,66,47,54,45,59,37,51,40,45,30,32,28,40,22,353",
+         "11821,11873,11834,11581,10843,10111,9306,8358,7294,6650,5973,5229,4623,4171,3594,3196,2685,2461,2140,1834,1628,1471,1302,1140,994,830,748,698,544,550,475,418,375,326,287,247,228,205,186,189,152,121,146,98,104,79,69,70,60,63,59,53,51,46,44,45,46,30,43,29,330",
+         "11601,10984,11213,10800,10411,9509,9134,8152,7622,6607,6047,5413,4962,4409,3833,3331,3081,2631,2310,2040,1803,1639,1406,1251,1003,994,845,763,648,592,507,462,408,341,315,296,276,228,224,181,163,158,143,122,118,112,85,83,87,60,71,52,59,48,52,42,35,32,30,25,311",
+         "11334,9932,10260,9768,9579,9085,8423,7875,7292,6573,6041,5443,4984,4564,4054,3671,3227,2946,2638,2345,2022,1840,1624,1458,1329,1172,1071,895,845,743,646,591,498,474,431,361,326,284,299,245,239,214,169,149,160,136,137,130,129,87,82,84,72,63,58,46,44,47,52,37,399",
+         "8077,4634,4676,4631,4400,4394,4246,3997,3836,3520,3329,3142,2807,2663,2429,2137,1996,1938,1743,1543,1502,1342,1201,1094,992,921,874,728,694,631,601,505,475,388,397,350,328,311,271,241,229,196,164,177,158,134,140,125,96,89,98,82,64,75,55,50,59,49,46,37,461")
+    array<float> a = array.new<float>()
+    for r in rows
+        for t in str.split(r, ",")
+            a.push(str.tonumber(t))
+    a
+var array<float> PH = curveInit()
+var array<float> PT = tails(PH, 16)
+
+// Pine has no bitwise operators: add the bit's value if it is not in the mask yet.
+setBit(int mask, int bit) =>
+    int(mask / bit) % 2 == 1 ? mask : mask + bit
+
+hasBit(int mask, int bit) =>
+    int(mask / bit) % 2 == 1
+
+// ---------------------------------------------------------------- windows
+var int startBar = na
+if na(startBar)
+    startBar := bar_index
+bool started = not na(startBar)
+
+bool inSess = MODE == 1 ? not na(time(timeframe.period, SESS, TZ)) : MODE == 2 ? session.ismarket : true
+bool inWin  = started and TF_OK and inSess
+
+var bool  live   = false      // inside a window
+var int   winId  = 0          // number of windows started
+var int   tday   = na         // trading day of the live window
+var int   wStart = na         // open time of the live window's first bar
+var int   wLastT = na         // open time of its latest bar
+var float wHi = na
+var float wLo = na
+var float wCl = na
+var bool  havePd = false
+var float pdh = na
+var float pdl = na
+var float pdc = na
+var float onHi = na           // bars between two windows, running
+var float onLo = na
+var float onh = na
+var float onl = na
+var float opn = na
+var float orHiAcc = na
+var float orLoAcc = na
+var int   orBars = 0
+var float orh = na
+var float orl = na
+var int   touched = 0         // bit mask: PDH 1, PDL 2, PDC 4, ONH 8, ONL 16, OPEN 32, ORH 64, ORL 128
+var array<float> lens = array.new<float>()
+var float winLen = na         // window length in minutes
+// odds model state
+var array<float> rngs = array.new<float>()                   // ranges of the last RBAR_N completed windows
+var int   nComp = 0
+var float rbar  = na                                         // typical window range, fixed for the live window
+var matrix<float> ring = matrix.new<float>(W_TAB, RLEN, 0.0) // histograms of the last W_TAB completed windows
+var array<bool> ringValid = array.new<bool>(W_TAB, false)
+var int   ringPos = 0
+var array<float> tab = array.new<float>(RLEN, 0.0)           // their sum
+var array<float> tabTail = array.new<float>(ROWS * (NB + 2), 0.0)
+var array<float> pool = array.new<float>(NB + 1, 0.0)        // all buckets, both directions
+var array<float> poolTail = array.new<float>(NB + 2, 0.0)
+var int   nValid = 0
+var matrix<float> sqRing = matrix.new<float>(PROF_N, NSLOT_MAX, 0.0)
+var int   sqPos = 0
+var array<float> sq = array.new<float>(NSLOT_MAX, 0.0)       // squared returns per slot, live window
+var array<float> prof = array.new<float>(NSLOT_MAX, 0.0)
+var float profTot = 0.0
+var array<float> wh = array.new<float>()                     // the live window's bars
+var array<float> wl = array.new<float>()
+var array<float> wc = array.new<float>()
+var array<float> ws = array.new<float>()
+var array<int>   wb = array.new<int>()
+var float prevC = na
+// scoreboard: PDH 0, PDL 1, PDC 2, ONH 3, ONL 4, ORH 5, ORL 6
+int NT = 7
+var array<float> cpP   = array.new<float>(NT, na)             // this window's forecast at the checkpoint
+var array<float> cpL   = array.new<float>(NT, na)
+var array<bool>  cpUp  = array.new<bool>(NT, false)
+var array<bool>  cpSeen = array.new<bool>(NT, false)          // a bar came after the checkpoint
+var array<float> cpHit = array.new<float>(NT, 0.0)
+var array<float> sbN   = array.new<float>(NT, 0.0)            // scored windows, sum of forecasts, sum of touches
+var array<float> sbP   = array.new<float>(NT, 0.0)
+var array<float> sbY   = array.new<float>(NT, 0.0)
+var int wStartBar = na
+var int orBar = na
+var int closedBar = na        // first bar after the last completed window
+
+// A window starts on the first bar inside the session, when the trading day changes, or 24 hours after the
+// window's start. The last rule splits a holiday session that the exchange books into the next trading day.
+bool first = inWin and (not live or time_tradingday != tday or time - wStart >= 86400000)
+
+// a window is complete when the next bar is outside it or starts a new one
+if live and (not inWin or first)
+    // scoreboard: the finished window's forecasts are scored
+    for t = 0 to NT - 1
+        if not na(cpP.get(t)) and cpSeen.get(t)
+            sbN.set(t, sbN.get(t) + 1.0)
+            sbP.set(t, sbP.get(t) + cpP.get(t))
+            sbY.set(t, sbY.get(t) + cpHit.get(t))
+        cpP.set(t, na)
+        cpSeen.set(t, false)
+        cpHit.set(t, 0.0)
+    // the finished window's samples: remaining excursion after each bar, up and down, in units of that bar's scale
+    array<float> row = array.new<float>(RLEN, 0.0)
+    bool valid = not na(rbar) and rbar > 0
+    int m = wc.size()
+    if valid and m > 0
+        float fh = na
+        float fl = na
+        for j = m - 1 to 0
+            float scj = ws.get(j)
+            if j < m - 1 and not na(scj) and scj > 0
+                float up = math.max(fh - wc.get(j), 0.0) / scj
+                float dn = math.max(wc.get(j) - fl, 0.0) / scj
+                int iu = wb.get(j) * 2 * (NB + 1) + math.min(int(math.min(up / BW, NB + 1.0)), NB)
+                int iD = (wb.get(j) * 2 + 1) * (NB + 1) + math.min(int(math.min(dn / BW, NB + 1.0)), NB)
+                row.set(iu, row.get(iu) + 1.0)
+                row.set(iD, row.get(iD) + 1.0)
+            fh := na(fh) ? wh.get(j) : math.max(fh, wh.get(j))
+            fl := na(fl) ? wl.get(j) : math.min(fl, wl.get(j))
+    // it replaces the oldest window in the tables
+    for q = 0 to RLEN - 1
+        tab.set(q, tab.get(q) - ring.get(ringPos, q) + row.get(q))
+        ring.set(ringPos, q, row.get(q))
+    nValid += (valid ? 1 : 0) - (ringValid.get(ringPos) ? 1 : 0)
+    ringValid.set(ringPos, valid)
+    ringPos := (ringPos + 1) % W_TAB
+    tabTail := tails(tab, ROWS)
+    for k = 0 to NB
+        float acc = 0.0
+        for r = 0 to ROWS - 1
+            acc += tab.get(r * (NB + 1) + k)
+        pool.set(k, acc)
+    poolTail := tails(pool, 1)
+    rngs.push(wHi - wLo)
+    if rngs.size() > RBAR_N
+        rngs.shift()
+    nComp += 1
+    for k = 0 to NSLOT_MAX - 1
+        sqRing.set(sqPos, k, sq.get(k))
+    sqPos := (sqPos + 1) % PROF_N
+    pdh := wHi
+    pdl := wLo
+    pdc := wCl
+    havePd := true
+    lens.push((wLastT - wStart) / 60000.0 + TF)
+    if lens.size() > LEN_N
+        lens.shift()
+    winLen := modeRecent(lens)
+    live := false
+    onHi := na
+    onLo := na
+    closedBar := bar_index
+
+if started and TF_OK and not inWin
+    onHi := na(onHi) ? high : math.max(onHi, high)
+    onLo := na(onLo) ? low : math.min(onLo, low)
+
+if first
+    live := true
+    winId += 1
+    tday := time_tradingday
+    wStart := time
+    wHi := high
+    wLo := low
+    onh := havePd ? onHi : na
+    onl := havePd ? onLo : na
+    opn := open
+    orHiAcc := na
+    orLoAcc := na
+    orBars := 0
+    orh := na
+    orl := na
+    touched := 0
+    wStartBar := bar_index
+    orBar := na
+    // odds model: scale inputs for the new window
+    rbar := na
+    if nComp >= RBAR_MIN
+        float acc = 0.0
+        for v in rngs
+            acc += v
+        rbar := acc / rngs.size()
+    sq.fill(0.0)
+    prof.fill(0.0)
+    for i = 0 to PROF_N - 1                                   // oldest window first
+        int r = (sqPos + i) % PROF_N
+        for k = 0 to NSLOT_MAX - 1
+            prof.set(k, prof.get(k) + sqRing.get(r, k))
+    profTot := 0.0
+    for k = 0 to NSLOT_MAX - 1
+        profTot += prof.get(k)
+    wh.clear()
+    wl.clear()
+    wc.clear()
+    ws.clear()
+    wb.clear()
+    prevC := na
+else if inWin
+    wHi := math.max(wHi, high)
+    wLo := math.min(wLo, low)
+
+float op  = na                // minutes from the window's first bar to this bar's open
+float tau = na                // share of the window's time still to come after this bar closes
+float sc  = na                // scale of this bar in price units
+bool  orNew = false           // the opening-range levels were set on this bar
+int   bk  = na                // time bucket of this bar
+if inWin
+    wLastT := time
+    wCl := close
+    op := (time - wStart) / 60000.0
+    if not na(winLen)
+        tau := (winLen - math.min(op + TF, winLen)) / winLen
+    // opening range: bars that open before orMin minutes; the level exists from the first bar after them
+    if op < orMin
+        orHiAcc := na(orHiAcc) ? high : math.max(orHiAcc, high)
+        orLoAcc := na(orLoAcc) ? low : math.min(orLoAcc, low)
+        orBars += 1
+    else if na(orh) and orBars > 0
+        orh := orHiAcc
+        orl := orLoAcc
+        orNew := true
+        orBar := bar_index
+    // touched so far in this window: the bar's true range holds the level
+    float trH = na(close[1]) ? high : math.max(high, close[1])
+    float trL = na(close[1]) ? low : math.min(low, close[1])
+    if not na(pdh) and trL <= pdh and pdh <= trH
+        touched := setBit(touched, 1)
+    if not na(pdl) and trL <= pdl and pdl <= trH
+        touched := setBit(touched, 2)
+    if not na(pdc) and trL <= pdc and pdc <= trH
+        touched := setBit(touched, 4)
+    if not na(onh) and trL <= onh and onh <= trH
+        touched := setBit(touched, 8)
+    if not na(onl) and trL <= onl and onl <= trH
+        touched := setBit(touched, 16)
+    if not first and trL <= opn and opn <= trH
+        touched := setBit(touched, 32)
+    if not na(orh) and trL <= orh and orh <= trH
+        touched := setBit(touched, 64)
+    if not na(orl) and trL <= orl and orl <= trH
+        touched := setBit(touched, 128)
+    // scale of this bar: distance / sc is the model's unit
+    int nslot = na(winLen) ? NSLOT_MAX : math.min(int(math.ceil(winLen / SLOT)), NSLOT_MAX)
+    float ret = close - (na(prevC) ? open : prevC)
+    prevC := close
+    int si = math.min(int(math.floor(op / SLOT)), nslot - 1)
+    sq.set(si, sq.get(si) + ret * ret)
+    if not na(tau) and not na(rbar) and rbar > 0
+        bk := math.min(int(op / winLen * NBK), NBK - 1)
+        if DAY
+            // share of the day's usual variance still to come, from the time-of-day profile
+            float share = tau
+            if profTot > 0
+                float el = math.min(op + TF, winLen)
+                float acc = 0.0
+                for k = 0 to nslot - 1
+                    float lo = k * SLOT
+                    float ln = math.min(lo + SLOT, winLen) - lo
+                    acc += math.min(math.max((lo + ln - el) / ln, 0.0), 1.0) * prof.get(k)
+                share := acc / profTot
+            sc := rbar * math.sqrt(share)
+        else
+            // square root of the time left, times today's range so far against the usual range by now
+            sc := rbar * math.sqrt(tau)
+            float den = rbar * math.sqrt(1.0 - tau)
+            float rr = den > 0 ? (wHi - wLo) / den : 1.0
+            sc := sc * math.min(math.max(rr, 0.5), 2.0)
+    wh.push(high)
+    wl.push(low)
+    wc.push(close)
+    ws.push(sc)
+    wb.push(bk)
+
+// Chance that the level is touched in the rest of the window. na: no level or still warming up.
+oddsOf(float lv, float scale, int bucket) =>
+    float res = na
+    if not na(lv) and not na(scale)
+        if lv == close
+            res := 1.0
+        else if not (scale > 0)
+            res := 0.0
+        else
+            float x = math.abs(lv - close) / scale
+            int d = lv < close ? 1 : 0
+            float n = nValid
+            float pr = DAY ? s0(x) : surv(PH, PT, bucket, x)
+            float sPool = n > 0 ? surv(pool, poolTail, 0, x) : na
+            float sBd = n > 0 ? surv(tab, tabTail, bucket * 2 + d, x) : na
+            float w2 = DAY ? n / (n + M2) : 0.0
+            float pooled = na(sPool) ? pr : w2 * sPool + (1.0 - w2) * pr
+            float w1 = DAY or na(sBd) ? 0.0 : n / (n + M1)
+            res := w1 * nz(sBd) + (1.0 - w1) * pooled
+    res
+
+float pPdh = inWin ? oddsOf(pdh, sc, bk) : na
+float pPdl = inWin ? oddsOf(pdl, sc, bk) : na
+float pPdc = inWin ? oddsOf(pdc, sc, bk) : na
+float pOnh = inWin ? oddsOf(onh, sc, bk) : na
+float pOnl = inWin ? oddsOf(onl, sc, bk) : na
+float pOpn = inWin ? oddsOf(opn, sc, bk) : na
+float pOrh = inWin ? oddsOf(orh, sc, bk) : na
+float pOrl = inWin ? oddsOf(orl, sc, bk) : na
+float pHod = inWin ? oddsOf(wHi, sc, bk) : na
+float pLod = inWin ? oddsOf(wLo, sc, bk) : na
+
+// ---------------------------------------------------------------- scoreboard
+// One forecast per window and level type, taken at its checkpoint: the window's first bar, or the bar on
+// which the opening-range levels are set. Scored when the window ends: was the level touched after that bar?
+scoreSet(int t, float lv, float pr) =>
+    if not na(lv) and not na(pr) and not na(sc) and sc > 0 and lv != close
+        cpP.set(t, pr)
+        cpL.set(t, lv)
+        cpUp.set(t, lv > close)
+
+if inWin
+    for t = 0 to NT - 1
+        if not na(cpP.get(t))
+            cpSeen.set(t, true)
+            if cpUp.get(t) ? high >= cpL.get(t) : low <= cpL.get(t)
+                cpHit.set(t, 1.0)
+    if first
+        scoreSet(0, pdh, pPdh)
+        scoreSet(1, pdl, pPdl)
+        scoreSet(2, pdc, pPdc)
+        scoreSet(3, onh, pOnh)
+        scoreSet(4, onl, pOnl)
+    if orNew
+        scoreSet(5, orh, pOrh)
+        scoreSet(6, orl, pOrl)
+
+// ---------------------------------------------------------------- alerts
+if barstate.isconfirmed and inWin
+    string head = syminfo.ticker + " Level Radar: "
+    int was = first ? 0 : nz(touched[1])
+    if alTouch
+        string msg = ""
+        if onPdh and hasBit(touched, 1) and not hasBit(was, 1)
+            msg += " PDH " + str.tostring(pdh, format.mintick)
+        if onPdl and hasBit(touched, 2) and not hasBit(was, 2)
+            msg += " PDL " + str.tostring(pdl, format.mintick)
+        if onPdc and hasBit(touched, 4) and not hasBit(was, 4)
+            msg += " PDC " + str.tostring(pdc, format.mintick)
+        if onOnh and hasBit(touched, 8) and not hasBit(was, 8)
+            msg += " ONH " + str.tostring(onh, format.mintick)
+        if onOnl and hasBit(touched, 16) and not hasBit(was, 16)
+            msg += " ONL " + str.tostring(onl, format.mintick)
+        if onOpn and hasBit(touched, 32) and not hasBit(was, 32)
+            msg += " OPEN " + str.tostring(opn, format.mintick)
+        if onOrh and hasBit(touched, 64) and not hasBit(was, 64)
+            msg += " ORH " + str.tostring(orh, format.mintick)
+        if onOrl and hasBit(touched, 128) and not hasBit(was, 128)
+            msg += " ORL " + str.tostring(orl, format.mintick)
+        if msg != ""
+            alert(head + "touched" + msg, alert.freq_once_per_bar_close)
+    if alOdds and not first
+        float thr = alThr / 100.0
+        string msg = ""
+        if onPdh and pPdh >= thr and pPdh[1] < thr
+            msg += " PDH"
+        if onPdl and pPdl >= thr and pPdl[1] < thr
+            msg += " PDL"
+        if onPdc and pPdc >= thr and pPdc[1] < thr
+            msg += " PDC"
+        if onOnh and pOnh >= thr and pOnh[1] < thr
+            msg += " ONH"
+        if onOnl and pOnl >= thr and pOnl[1] < thr
+            msg += " ONL"
+        if onOpn and pOpn >= thr and pOpn[1] < thr
+            msg += " OPEN"
+        if onOrh and pOrh >= thr and pOrh[1] < thr
+            msg += " ORH"
+        if onOrl and pOrl >= thr and pOrl[1] < thr
+            msg += " ORL"
+        if msg != ""
+            alert(head + "touch odds above " + str.tostring(alThr) + "% for" + msg, alert.freq_once_per_bar_close)
+
+// ---------------------------------------------------------------- display
+color shadeCol = themeSel == "Neon" ? color.new(#7c5cff, 95) : color.new(color.gray, 94)
+bgcolor(shadeOn and inWin ? shadeCol : na, title = "Session")
+barcolor(dimBars and TF_OK ? (close >= open ? color.new(chart.fg_color, 62) : color.new(chart.fg_color, 84)) : na, title = "Dim candles")
+
+float atr14 = ta.atr(14)
+// price range of the bars on screen, to tell when two labels would overlap
+var float visHi = na
+var float visLo = na
+if time >= chart.left_visible_bar_time and time <= chart.right_visible_bar_time
+    visHi := na(visHi) ? high : math.max(visHi, high)
+    visLo := na(visLo) ? low : math.min(visLo, low)
+
+addLevel(array<string> tg, array<float> lv, array<float> pp, array<bool> tc, array<int> x0, bool on, string tag, float v, float pr, bool t, int x) =>
+    if on and not na(v)
+        tg.push(tag)
+        lv.push(v)
+        pp.push(pr)
+        tc.push(t)
+        x0.push(x)
+
+pct(float pr) =>
+    na(pr) ? "" : str.tostring(math.round(pr * 100)) + "%"
+
+levelColor(float v) =>
+    v > close ? upCol : v < close ? dnCol : accCol
+
+var array<line>  lns = array.new<line>()
+var array<label> lbs = array.new<label>()
+var array<box>   bxs = array.new<box>()
+var table pnl = na
+// panel text follows the Panel size input; the small lines are one step smaller, the headline is the largest
+int    PI   = panelSize == "Tiny" ? 0 : panelSize == "Small" ? 1 : panelSize == "Normal" ? 2 : panelSize == "Large" ? 3 : 4
+string PSZ  = array.from(size.tiny, size.small, size.normal, size.large, size.huge).get(PI)
+string PSZ2 = array.from(size.tiny, size.tiny, size.small, size.normal, size.large).get(PI)
+string PSZH = array.from(size.normal, size.large, size.huge, size.huge, size.huge).get(PI)
+float  MW   = array.from(0.35, 0.5, 0.65, 0.85, 1.1).get(PI)              // meter cell width, % of the pane
+string PANEL_POS = switch panelSel
+    "Top right"     => position.top_right
+    "Middle right"  => position.middle_right
+    "Bottom right"  => position.bottom_right
+    "Top center"    => position.top_center
+    "Bottom center" => position.bottom_center
+    "Top left"      => position.top_left
+    "Middle left"   => position.middle_left
+    => position.bottom_left
+// solid mixes of the chart background and a colour: cells stay opaque, so the chart never shows through
+mix(color c, float share) =>
+    color.from_gradient(share, 0, 100, chart.bg_color, c)
+
+if barstate.islast and TF_OK
+    for l in lns
+        l.delete()
+    lns.clear()
+    for l in lbs
+        l.delete()
+    lbs.clear()
+    for b in bxs
+        b.delete()
+    bxs.clear()
+    array<string> tg = array.new<string>()
+    array<float>  lv = array.new<float>()
+    array<float>  pp = array.new<float>()
+    array<bool>   tc = array.new<bool>()
+    array<int>    x0 = array.new<int>()
+    if inWin
+        addLevel(tg, lv, pp, tc, x0, onPdh, "PDH", pdh, pPdh, hasBit(touched, 1), wStartBar)
+        addLevel(tg, lv, pp, tc, x0, onPdl, "PDL", pdl, pPdl, hasBit(touched, 2), wStartBar)
+        addLevel(tg, lv, pp, tc, x0, onPdc, "PDC", pdc, pPdc, hasBit(touched, 4), wStartBar)
+        addLevel(tg, lv, pp, tc, x0, onOnh, "ONH", onh, pOnh, hasBit(touched, 8), wStartBar)
+        addLevel(tg, lv, pp, tc, x0, onOnl, "ONL", onl, pOnl, hasBit(touched, 16), wStartBar)
+        addLevel(tg, lv, pp, tc, x0, onOpn, "OPEN", opn, pOpn, hasBit(touched, 32), wStartBar)
+        addLevel(tg, lv, pp, tc, x0, onOrh, "ORH", orh, pOrh, hasBit(touched, 64), orBar)
+        addLevel(tg, lv, pp, tc, x0, onOrl, "ORL", orl, pOrl, hasBit(touched, 128), orBar)
+        addLevel(tg, lv, pp, tc, x0, onHod, "HOD", wHi, pHod, false, wStartBar)
+        addLevel(tg, lv, pp, tc, x0, onLod, "LOD", wLo, pLod, false, wStartBar)
+    else if havePd and started
+        // between sessions: the coming session's levels as far as they are known, without odds
+        addLevel(tg, lv, pp, tc, x0, onPdh, "PDH", pdh, na, false, closedBar)
+        addLevel(tg, lv, pp, tc, x0, onPdl, "PDL", pdl, na, false, closedBar)
+        addLevel(tg, lv, pp, tc, x0, onPdc, "PDC", pdc, na, false, closedBar)
+        addLevel(tg, lv, pp, tc, x0, onOnh, "ONH", onHi, na, false, closedBar)
+        addLevel(tg, lv, pp, tc, x0, onOnl, "ONL", onLo, na, false, closedBar)
+    int nl = lv.size()
+    color fg = chart.fg_color
+
+    // ---- glow, lines and merged labels
+    // each level: zone box and outer halo (Strong), inner halo (Strong, Soft), core line; all scale with the odds
+    if showLines and nl > 0
+        string sz = lblSize == "Small" ? size.small : lblSize == "Large" ? size.large : size.normal
+        array<int> ord = lv.sort_indices(order.descending)
+        int xr = bar_index + extBars
+        // labels closer than about one label height share one label: a share of the price range on screen
+        // (levels included), and never less than a quarter ATR
+        float span = math.max(nz(visHi, lv.max()), lv.max()) - math.min(nz(visLo, lv.min()), lv.min())
+        float gap = math.max(0.25 * nz(atr14), (lblSize == "Small" ? 0.02 : lblSize == "Large" ? 0.035 : 0.025) * span)
+        int g0 = 0                                   // first member of the label group, as a position in ord
+        for q = 0 to nl - 1
+            int i = ord.get(q)
+            float v = lv.get(i)
+            float pr = pp.get(i)
+            float p = nz(pr)
+            color col = levelColor(v)
+            int xa = x0.get(i)
+            if glowSel == "Strong" and not na(pr)
+                float bh = nz(atr14) * (0.05 + 0.12 * p)
+                bxs.push(box.new(xa, v + bh, xr, v - bh, border_color = color.new(col, 100), bgcolor = color.new(col, int(94 - 20 * p))))
+                lns.push(line.new(xa, v, xr, v, xloc.bar_index, extend.none, color.new(col, int(97 - 9 * p)), line.style_solid, int(8 + 10 * p)))
+            if glowSel != "Off" and not na(pr)
+                bool strong = glowSel == "Strong"
+                lns.push(line.new(xa, v, xr, v, xloc.bar_index, extend.none, color.new(col, strong ? int(90 - 30 * p) : int(94 - 14 * p)), line.style_solid, strong ? int(4 + 5 * p) : int(3 + 3 * p)))
+            lns.push(line.new(xa, v, xr, v, xloc.bar_index, extend.none, color.new(col, na(pr) ? 45 : int(65 - 65 * p)), line.style_solid, na(pr) ? 1 : p >= 0.5 ? 2 : 1))
+            // a label group ends when the next level is further than the gap below this one
+            float nextV = q == nl - 1 ? na : lv.get(ord.get(q + 1))
+            if na(nextV) or v - nextV > gap
+                int best = ord.get(g0)
+                string tags = ""
+                bool anyT = false
+                for r = g0 to q
+                    int j = ord.get(r)
+                    tags += (r > g0 ? " · " : "") + tg.get(j)
+                    anyT := anyT or tc.get(j)
+                    if nz(pp.get(j), -1) > nz(pp.get(best), -1)
+                        best := j
+                float bp = pp.get(best)
+                color bc = levelColor(lv.get(best))
+                string txt = tags + (anyT ? " ✓" : "") + (showPrice ? "  " + str.tostring(lv.get(best), format.mintick) : "") + (na(bp) ? "" : "   " + pct(bp))
+                lbs.push(label.new(xr, lv.get(best), txt, xloc.bar_index, yloc.price, color.new(chart.bg_color, 10), label.style_label_left, color.new(bc, na(bp) ? 30 : int(40 - 40 * bp)), sz))
+                g0 := q + 1
+
+    // ---- panel: 12 columns = name, ten meter cells, odds
+    if panelSel != "Off"
+        // rebuilt on every update: merged cells would otherwise stay merged when the rows change
+        if not na(pnl)
+            pnl.delete()
+        color PBG = mix(fg, 3)
+        color OFF = mix(fg, 11)
+        pnl := table.new(PANEL_POS, 12, 32, bgcolor = PBG, frame_color = mix(fg, 22), frame_width = 1, border_color = PBG, border_width = 1)
+        int row = 0
+        array<int> rank = pp.sort_indices(order.descending)
+        bool ready = inWin and not na(sc) and nl > 0
+        int ti = ready ? rank.get(0) : 0
+        color hc = ready ? levelColor(lv.get(ti)) : accCol
+        color tint = mix(hc, 16)
+        // header, tinted with the colour of the most likely level
+        pnl.cell(0, row, "◉ LEVEL RADAR", text_color = accCol, text_halign = text.align_left, text_size = PSZ2, bgcolor = tint)
+        pnl.merge_cells(0, row, 6, row)
+        string right = not inWin ? "session closed" : na(rbar) ? "" : "range " + str.tostring((wHi - wLo) / rbar, "0.00") + "×"
+        pnl.cell(7, row, right, text_color = color.new(fg, 35), text_halign = text.align_right, text_size = PSZ2, bgcolor = tint)
+        pnl.merge_cells(7, row, 11, row)
+        row += 1
+        // headline: the next likely touch
+        if ready
+            float tp = pp.get(ti)
+            float tv = lv.get(ti)
+            pnl.cell(0, row, pct(tp) + "  " + tg.get(ti) + (tc.get(ti) ? " ✓" : ""), text_color = fg, text_halign = text.align_left, text_size = PSZH, bgcolor = tint)
+            pnl.merge_cells(0, row, 11, row)
+            row += 1
+            string side = tv > close ? "above" : tv < close ? "below" : "at price"
+            pnl.cell(0, row, "next likely touch · " + str.tostring(tv, format.mintick) + " · " + str.tostring(math.abs(tv - close), format.mintick) + " " + side, text_color = hc, text_halign = text.align_left, text_size = PSZ2, bgcolor = tint)
+            pnl.merge_cells(0, row, 11, row)
+            row += 1
+        // session clock: ten cells, one per tenth of the window
+        if inWin and not na(tau)
+            int mins = int(math.round(tau * winLen))
+            string left = (mins >= 60 ? str.tostring(int(mins / 60)) + "h " : "") + str.tostring(mins % 60) + "m"
+            float el = 1.0 - tau
+            pnl.cell(0, row, "SESSION", text_color = color.new(fg, 45), text_halign = text.align_left, text_size = PSZ2, bgcolor = PBG)
+            for k = 1 to 10
+                color cc = el >= k / 10.0 ? accCol : el > (k - 1) / 10.0 ? mix(accCol, 45) : OFF
+                pnl.cell(k, row, "", width = MW, bgcolor = cc, text_size = PSZ2)
+            pnl.cell(11, row, left, text_color = fg, text_halign = text.align_right, text_size = PSZ2, bgcolor = PBG)
+            row += 1
+        if inWin and na(sc)
+            pnl.cell(0, row, "Warming up: " + str.tostring(nComp) + " of " + str.tostring(RBAR_MIN) + " sessions seen", text_color = color.new(fg, 30), text_halign = text.align_left, text_size = PSZ, bgcolor = PBG)
+            pnl.merge_cells(0, row, 11, row)
+            row += 1
+        else if ready
+            // levels ranked by odds, with a ten-cell meter
+            for q = 0 to nl - 1
+                int i = rank.get(q)
+                float pr = pp.get(i)
+                color col = levelColor(lv.get(i))
+                int f = int(math.round(nz(pr) * 10))
+                pnl.cell(0, row, tg.get(i) + (tc.get(i) ? " ✓" : ""), text_color = col, text_halign = text.align_left, text_size = PSZ, bgcolor = PBG)
+                for k = 1 to 10
+                    pnl.cell(k, row, "", width = MW, bgcolor = k <= f ? mix(col, 35 + 6.5 * (k - 1)) : OFF, text_size = PSZ)
+                pnl.cell(11, row, pct(pr), text_color = fg, text_halign = text.align_right, text_size = PSZ, bgcolor = PBG)
+                row += 1
+            string src = DAY ? "random-walk law" : "long-run curve"
+            pnl.cell(0, row, "touch odds to session end · " + str.tostring(nValid) + " sessions + " + src, text_color = color.new(fg, 55), text_halign = text.align_left, text_size = PSZ2, bgcolor = PBG)
+            pnl.merge_cells(0, row, 11, row)
+            row += 1
+        else if not inWin and nl > 0
+            // between sessions: the levels from the top down, prices only
+            array<int> byPrice = lv.sort_indices(order.descending)
+            for q = 0 to nl - 1
+                int i = byPrice.get(q)
+                pnl.cell(0, row, tg.get(i), text_color = levelColor(lv.get(i)), text_halign = text.align_left, text_size = PSZ, bgcolor = PBG)
+                pnl.cell(1, row, str.tostring(lv.get(i), format.mintick), text_color = color.new(fg, 30), text_halign = text.align_right, text_size = PSZ, bgcolor = PBG)
+                pnl.merge_cells(1, row, 11, row)
+                row += 1
+            pnl.cell(0, row, "next session's levels · odds start at the open", text_color = color.new(fg, 55), text_halign = text.align_left, text_size = PSZ2, bgcolor = PBG)
+            pnl.merge_cells(0, row, 11, row)
+            row += 1
+        // scoreboard
+        if boardSel != "Off"
+            float tn = sbN.sum()
+            string line1 = tn > 0 ? str.tostring(tn) + " scored · forecast " + pct(sbP.sum() / tn) + " · touched " + pct(sbY.sum() / tn) : "nothing scored yet"
+            pnl.cell(0, row, line1, text_color = color.new(fg, 45), text_halign = text.align_left, text_size = PSZ2, bgcolor = PBG)
+            pnl.merge_cells(0, row, 11, row)
+            row += 1
+            if boardSel == "Full"
+                array<string> names = array.from("PDH", "PDL", "PDC", "ONH", "ONL", "ORH", "ORL")
+                for t = 0 to NT - 1
+                    float n = sbN.get(t)
+                    if n > 0
+                        float d = (sbY.get(t) - sbP.get(t)) / n * 100
+                        pnl.cell(0, row, names.get(t), text_color = color.new(fg, 30), text_halign = text.align_left, text_size = PSZ2, bgcolor = PBG)
+                        pnl.cell(1, row, "n " + str.tostring(n) + " · " + pct(sbP.get(t) / n) + " → " + pct(sbY.get(t) / n), text_color = color.new(fg, 45), text_halign = text.align_left, text_size = PSZ2, bgcolor = PBG)
+                        pnl.merge_cells(1, row, 10, row)
+                        pnl.cell(11, row, (d >= 0 ? "+" : "") + str.tostring(d, "0"), text_color = fg, text_halign = text.align_right, text_size = PSZ2, bgcolor = PBG)
+                        row += 1
+
+// ---------------------------------------------------------------- parity plots (data window only)
+// The eight level plots double as the lines of past sessions when that input is on (the plot limit is 64).
+PAST_DISPLAY = showPast ? display.pane + display.data_window : display.data_window
+plot(inWin ? pdh : na, "LR PDH", color = color.new(upCol, 45), style = plot.style_linebr, display = PAST_DISPLAY)
+plot(inWin ? pdl : na, "LR PDL", color = color.new(dnCol, 45), style = plot.style_linebr, display = PAST_DISPLAY)
+plot(inWin ? pdc : na, "LR PDC", color = color.new(accCol, 45), style = plot.style_linebr, display = PAST_DISPLAY)
+plot(inWin ? onh : na, "LR ONH", color = color.new(upCol, 65), style = plot.style_linebr, display = PAST_DISPLAY)
+plot(inWin ? onl : na, "LR ONL", color = color.new(dnCol, 65), style = plot.style_linebr, display = PAST_DISPLAY)
+plot(inWin ? opn : na, "LR OPEN", color = color.new(accCol, 65), style = plot.style_linebr, display = PAST_DISPLAY)
+plot(inWin ? orh : na, "LR ORH", color = color.new(upCol, 75), style = plot.style_linebr, display = PAST_DISPLAY)
+plot(inWin ? orl : na, "LR ORL", color = color.new(dnCol, 75), style = plot.style_linebr, display = PAST_DISPLAY)
+plot(started ? bar_index - startBar : na, "LR bar", display = display.data_window)
+plot(inWin ? winId : na,   "LR win",     display = display.data_window)
+plot(op,                   "LR op",      display = display.data_window)
+plot(inWin ? winLen : na,  "LR len",     display = display.data_window)
+plot(tau,                  "LR tau",     display = display.data_window)
+plot(inWin ? wHi : na,     "LR HOD",     display = display.data_window)
+plot(inWin ? wLo : na,     "LR LOD",     display = display.data_window)
+plot(inWin ? touched : na, "LR touched", display = display.data_window)
+plot(inWin ? rbar : na,    "LR rbar",    display = display.data_window)
+plot(sc,                   "LR s",       display = display.data_window)
+plot(bk,                   "LR bk",      display = display.data_window)
+plot(inWin and not na(sc) ? nValid : na, "LR n", display = display.data_window)
+plot(pPdh, "LR p PDH",  display = display.data_window)
+plot(pPdl, "LR p PDL",  display = display.data_window)
+plot(pPdc, "LR p PDC",  display = display.data_window)
+plot(pOnh, "LR p ONH",  display = display.data_window)
+plot(pOnl, "LR p ONL",  display = display.data_window)
+plot(pOpn, "LR p OPEN", display = display.data_window)
+plot(pOrh, "LR p ORH",  display = display.data_window)
+plot(pOrl, "LR p ORL",  display = display.data_window)
+plot(pHod, "LR p HOD",  display = display.data_window)
+plot(pLod, "LR p LOD",  display = display.data_window)
+plot(started ? sbN.get(0) : na, "LR sb n PDH", display = display.data_window)
+plot(started ? sbP.get(0) : na, "LR sb p PDH", display = display.data_window)
+plot(started ? sbY.get(0) : na, "LR sb y PDH", display = display.data_window)
+plot(started ? sbN.get(1) : na, "LR sb n PDL", display = display.data_window)
+plot(started ? sbP.get(1) : na, "LR sb p PDL", display = display.data_window)
+plot(started ? sbY.get(1) : na, "LR sb y PDL", display = display.data_window)
+plot(started ? sbN.get(2) : na, "LR sb n PDC", display = display.data_window)
+plot(started ? sbP.get(2) : na, "LR sb p PDC", display = display.data_window)
+plot(started ? sbY.get(2) : na, "LR sb y PDC", display = display.data_window)
+plot(started ? sbN.get(3) : na, "LR sb n ONH", display = display.data_window)
+plot(started ? sbP.get(3) : na, "LR sb p ONH", display = display.data_window)
+plot(started ? sbY.get(3) : na, "LR sb y ONH", display = display.data_window)
+plot(started ? sbN.get(4) : na, "LR sb n ONL", display = display.data_window)
+plot(started ? sbP.get(4) : na, "LR sb p ONL", display = display.data_window)
+plot(started ? sbY.get(4) : na, "LR sb y ONL", display = display.data_window)
+plot(started ? sbN.get(5) : na, "LR sb n ORH", display = display.data_window)
+plot(started ? sbP.get(5) : na, "LR sb p ORH", display = display.data_window)
+plot(started ? sbY.get(5) : na, "LR sb y ORH", display = display.data_window)
+plot(started ? sbN.get(6) : na, "LR sb n ORL", display = display.data_window)
+plot(started ? sbP.get(6) : na, "LR sb p ORL", display = display.data_window)
+plot(started ? sbY.get(6) : na, "LR sb y ORL", display = display.data_window)
+
+// ---------------------------------------------------------------- unsupported timeframe
+if barstate.islast and not TF_OK
+    var table msg = table.new(position.middle_center, 1, 1)
+    msg.cell(0, 0, "Level Radar works on intraday charts from 1 to 60 minutes.", text_color = chart.fg_color)
