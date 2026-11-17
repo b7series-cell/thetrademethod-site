@@ -975,6 +975,23 @@
       }
     },
 
+    "can-slim": {
+      story: function (st) {
+        var P;
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { n: 0.5, mk: { t: "C · A · N · S · L · I · M checked", col: SILK, below: true } }); }),
+          rep(6, function (st) { return bar(st, { d: -0.6, n: 0.6 }); }),
+          rep(6, function (st) { return bar(st, { d: 0.6, n: 0.5 }); }),
+          rep(1, function (st) { P = level(st, st.price + 0.3, "Pivot · top of the handle", ORANGE, true); return bar(st, { d: -0.2, n: 0.3, v: 0.3, mk: { t: "Handle on light volume", col: ORANGE } }); }),
+          rep(3, function (st) { return bar(st, { d: -0.15, n: 0.25, v: 0.25 }); }),
+          rep(1, function (st) { level(st, st.price * 0.92, "Stop · −8%", RED, true); return bar(st, { d: 1.6, n: 0.3, v: 1, pierce: true, flash: GREEN, mk: { t: "Breakout · volume +50%", col: GREEN } }); }),
+          rep(10, function (st, k) { return bar(st, { d: k % 4 === 3 ? -0.5 : 0.65, n: 0.6 }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 0.3, n: 0.4, mk: { t: "+20–25% · take most of it", col: GREEN, below: true } }); }),
+          rep(5, function (st) { return bar(st, { d: rnd(-0.4, 0.4), n: 0.6 }); })
+        ];
+      }
+    },
+
     "pyramiding": {
       story: function (st) {
         var S, hi, lo;
