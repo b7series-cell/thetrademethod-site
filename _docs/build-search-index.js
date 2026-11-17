@@ -24,6 +24,7 @@ const PAGES = [
   "let-winners-run.html", "relative-volume.html", "six-momentum-trades.html",
   "four-pillars.html", "get-better-faster.html", "dynamic-risk-sizing.html", "order-flow.html", "linda-raschke.html", "trading-earnings.html", "seven-trading-traps.html", "auction-market-theory.html", "thesis-to-trade.html", "pyramiding.html", "stacked-imbalances.html",
   "famous-strategies/cross-sectional-momentum.html",
+  "famous-strategies/post-earnings-drift.html",
   "covered-calls.html", "expected-move.html",
   "blog/introducing-backtest-board.html", "contact.html"
 ];
