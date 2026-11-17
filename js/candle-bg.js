@@ -1156,6 +1156,32 @@
     },
 
     /* Level Radar: key levels carry touch odds; a near one gets touched, a far one fades as the day runs out */
+    /* Look above and fail: balance, a poke past an edge with aggression, back inside, to the other side (alternates long / short) */
+    "look-above-and-fail": {
+      profile: true,
+      story: function (st) {
+        var dir = st.dir = -(st.dir || -1), C, H, P, Lo, E, X, edge, other;
+        return [
+          rep(1, function (st) {
+            closeLevels(st); C = st.price;
+            H = level(st, C + 4.2, "Value area high", PURPLE, dir > 0); P = level(st, C - 0.4, "POC", ORANGE); Lo = level(st, C - 4.2, "Value area low", PURPLE, dir < 0);
+            E = dir > 0 ? H : Lo; X = dir > 0 ? Lo : H; edge = E.y; other = X.y;
+            return bar(st, { to: C, n: 1.2, v: 0.5, mk: { t: "Balance \u00b7 wait for an edge", col: SILK, below: true } });
+          }),
+          rep(12, function (st, k) { return bar(st, { to: k % 6 < 3 ? H.y - 1 : Lo.y + 1, pull: 0.35, n: 1.1, cap: H.y, flo: Lo.y, v: rnd(0.4, 0.7) }); }),
+          rep(1, function (st) { return bar(st, { to: edge - 0.4 * dir, pull: 0.7, n: 0.4, cap: H.y, flo: Lo.y }); }),
+          rep(1, function (st) { var c = dir > 0 ? GREEN : RED; return bar(st, { d: 2.6 * dir, n: 0.3, v: 1, pierce: true, flash: c, mk: { t: dir > 0 ? "Look above \u00b7 big trades at the offer" : "Look below \u00b7 big trades at the bid", col: c, below: dir < 0 } }); }),
+          rep(1, function (st) { return bar(st, { d: 0.3 * dir, n: 0.3, v: 0.8, pierce: true }); }),
+          rep(1, function (st) { var c = dir > 0 ? RED : GREEN; E.col = c; E.label = (dir > 0 ? "Value area high" : "Value area low") + " \u00b7 failed, back inside"; return bar(st, { to: edge - 1.6 * dir, pull: 1, n: 0.2, v: 1, flash: c, mk: { t: dir > 0 ? "And fail \u00b7 short the reclaim" : "And fail \u00b7 buy the reclaim", col: c, below: dir > 0 } }); }),
+          rep(2, function (st) { return bar(st, { to: P.y, pull: 0.6, n: 0.4, v: 0.7 }); }),
+          rep(1, function (st) { return bar(st, { d: -0.3 * dir, n: 0.3, v: 0.6, mk: { t: "POC \u00b7 partial", col: ORANGE, below: dir > 0 } }); }),
+          rep(2, function (st) { return bar(st, { to: other + 0.3 * dir, pull: 0.6, n: 0.4, v: 0.65 }); }),
+          rep(1, function (st) { X.col = BLUE; X.label = "The other side of balance"; return bar(st, { to: other, pull: 0.9, n: 0.2, v: 0.6, mk: { t: "Other side \u00b7 out", col: BLUE, below: dir > 0 } }); }),
+          rep(4, function (st) { return bar(st, { to: other + 1.2 * dir, pull: 0.3, n: 0.9, v: 0.4 }); })
+        ];
+      }
+    },
+
     "level-radar": {
       story: function (st) {
         var H, N, D;
