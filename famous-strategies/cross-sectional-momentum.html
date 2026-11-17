@@ -324,9 +324,26 @@
   .cites small { display:block; color:var(--ash); font-size:13.5px; margin-top:2px; }
   @media (max-width:1100px) { .facts { grid-template-columns:repeat(2,1fr); } .tl { grid-template-columns:repeat(3,1fr); } }
   @media (max-width:680px) { .facts, .tl { grid-template-columns:1fr; } .sheet .section-head + .xsm-steps { margin-top:24px; } }
+
+  /* the indicator */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-wrap { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:22px; align-items:start; }
+  .ind-mock { background:var(--charcoal); border-radius:22px; padding:14px; }
+  .howto { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#f4b942; font-weight:600; }
+  .code-wrap { background:var(--charcoal); border-radius:22px; margin-top:22px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid #2c2c2e; flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--ash); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--silk); background:#2c2c2e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#3a3a3c; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d1d6; tab-size:4; }
+  @media (max-width:1100px) { .ind-wrap { grid-template-columns:1fr; } }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-mock { padding:8px; } }
 </style>
 <script src="/js/nav.js?v=23" defer></script>
-<script src="/js/site.js?v=38" defer></script>
+<script src="/js/site.js?v=39" defer></script>
 <script src="/js/xsm-anim.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=26" defer></script>
@@ -678,6 +695,174 @@
       </section>
   </div>
 
+  <div class="section-head" id="indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for this strategy (Pine Script v6). A chart can't rank the whole market, so it ranks a list you give it: every stock's return from 12 months ago to 1 month ago, best to worst, with the chart's stock placed in that ranking. It marks and alerts. It doesn't place trades.</p>
+  </div>
+  <div class="ind-wrap">
+    <ul class="ind-list">
+      <li class="ind-card">
+        <div class="ind-card-top">
+          <h3 class="ind-name">Cross-Sectional Momentum Rank</h3>
+          <span class="ind-alerts">alerts</span>
+        </div>
+        <p class="ind-blurb">A pane under your chart with three lines: this stock's 12-to-1-month return (gold), the benchmark's (SPY by default, blue) and the median of your list (gray). The background turns green while the stock ranks in the top N of the list and red while it's in the bottom N, with a marker and an alert when it moves into or out of the top.</p>
+        <p class="ind-blurb">A table on the right ranks the whole list today: the top N are the "hold" names, the bottom N the losers. It ships with 30 large US stocks; replace them with your own universe (up to 38 symbols, TradingView's limit).</p>
+        <p class="ind-blurb" style="color:var(--ash)">It uses completed monthly closes only. Every number is a setting: the lookback (3 to 36 months), the skip, how many to hold, the benchmark, and the list.</p>
+        <div class="ind-links">
+          <a class="ind-link ind-link--quiet" href="/pine/cross-sectional-momentum.pine" download>Download source (.pine)</a>
+        </div>
+      </li>
+    </ul>
+    <div class="ind-mock"><svg viewBox="0 0 560 330" role="img" aria-label="An illustrative mock of the indicator: the stock's 12-1 month momentum line in gold rising above the benchmark in blue and the list median in gray, a green background while it ranks in the top 3, and a ranking table on the right with the top 3 marked hold and the bottom 3 marked loser."><rect width="560" height="330" rx="14" fill="#141416"/><rect x="190.9" y="40" width="99.1" height="260" fill="#30d158" opacity="0.14"/><line x1="16" x2="360" y1="235.0" y2="235.0" stroke="#48484a" stroke-dasharray="4 4"/><polyline fill="none" stroke="#8e8e93" stroke-width="1.4" points="16.0,224.2 21.8,224.2 27.7,225.5 33.5,226.6 39.3,227.6 45.2,225.4 51.0,223.0 56.8,223.4 62.6,223.6 68.5,222.8 74.3,222.1 80.1,222.8 86.0,223.0 91.8,223.3 97.6,223.8 103.5,221.9 109.3,219.5 115.1,218.0 120.9,219.4 126.8,218.6 132.6,217.3 138.4,217.0 144.3,216.6 150.1,215.4 155.9,213.6 161.8,212.5 167.6,213.3 173.4,211.7 179.3,211.7 185.1,211.4 190.9,209.7 196.7,209.5 202.6,207.2 208.4,207.8 214.2,207.0 220.1,206.8 225.9,204.5 231.7,203.6 237.6,201.5 243.4,199.9 249.2,200.9 255.1,202.1 260.9,202.3 266.7,203.2 272.5,204.5 278.4,205.4 284.2,205.4 290.0,203.0 295.9,204.2 301.7,204.6 307.5,206.0 313.4,206.9 319.2,206.3 325.0,205.0 330.8,205.8 336.7,204.2 342.5,202.5 348.3,200.9 354.2,201.4 360.0,202.8"/><polyline fill="none" stroke="#2997ff" stroke-width="1.6" points="16.0,223.0 21.8,222.0 27.7,221.2 33.5,222.6 39.3,220.1 45.2,218.6 51.0,218.3 56.8,215.6 62.6,216.8 68.5,217.7 74.3,217.5 80.1,219.0 86.0,218.6 91.8,218.0 97.6,216.1 103.5,215.2 109.3,215.5 115.1,215.1 120.9,214.3 126.8,212.2 132.6,212.3 138.4,211.1 144.3,208.0 150.1,209.4 155.9,206.1 161.8,205.8 167.6,205.2 173.4,206.7 179.3,207.2 185.1,208.6 190.9,205.8 196.7,206.1 202.6,203.3 208.4,204.2 214.2,203.4 220.1,205.2 225.9,204.0 231.7,203.1 237.6,204.7 243.4,201.9 249.2,201.6 255.1,203.1 260.9,204.0 266.7,205.8 272.5,205.7 278.4,204.3 284.2,204.3 290.0,201.6 295.9,200.9 301.7,200.9 307.5,201.9 313.4,200.9 319.2,202.6 325.0,199.9 330.8,199.7 336.7,198.8 342.5,199.4 348.3,196.7 354.2,194.7 360.0,194.6"/><polyline fill="none" stroke="#f4b942" stroke-width="2.6" points="16.0,219.7 21.8,222.9 27.7,226.3 33.5,226.3 39.3,226.3 45.2,228.2 51.0,226.8 56.8,230.3 62.6,232.9 68.5,229.4 74.3,227.4 80.1,230.8 86.0,228.5 91.8,227.1 97.6,223.7 103.5,222.4 109.3,219.7 115.1,222.5 120.9,225.0 126.8,218.3 132.6,209.7 138.4,203.6 144.3,195.3 150.1,188.6 155.9,182.1 161.8,178.8 167.6,178.0 173.4,176.3 179.3,174.4 185.1,165.9 190.9,160.2 196.7,151.7 202.6,147.8 208.4,145.8 214.2,143.0 220.1,139.9 225.9,135.9 231.7,129.0 237.6,122.2 243.4,114.4 249.2,110.2 255.1,103.8 260.9,101.3 266.7,100.1 272.5,107.3 278.4,107.5 284.2,113.3 290.0,120.3 295.9,124.2 301.7,131.4 307.5,132.0 313.4,131.5 319.2,134.6 325.0,133.9 330.8,139.6 336.7,140.7 342.5,145.8 348.3,145.0 354.2,145.7 360.0,149.1"/><path d="M190.9 314 l-6 10 h12z" fill="#30d158"/><path d="M290.0 36 l-6 -10 h12z" fill="#ff453a"/><text x="16" y="24" fill="#86868b" font-size="12" font-weight="600">XS Momentum · 12-1 mo</text><text x="144.3" y="106.4" fill="#f4b942" font-size="11" font-weight="700">this stock</text><text x="360.0" y="188.6" fill="#2997ff" font-size="11" font-weight="700" text-anchor="end">SPY</text><text x="240.5" y="56" fill="#30d158" font-size="11" font-weight="700" text-anchor="middle">top 3</text><text x="378" y="32" fill="#86868b" font-size="11" font-weight="600"># · symbol · 12-1</text><rect x="378" y="40" width="168" height="18" fill="#173d24"/><text x="384" y="53" fill="#86868b" font-size="11">1</text><text x="404" y="53" fill="#f5f5f7" font-size="11" font-weight="600">Stock A</text><text x="506" y="53" fill="#30d158" font-size="11" text-anchor="end">+64%</text><text x="512" y="53" fill="#30d158" font-size="10" font-weight="700">hold</text><rect x="378" y="59" width="168" height="18" fill="#173d24"/><text x="384" y="72" fill="#86868b" font-size="11">2</text><text x="404" y="72" fill="#f5f5f7" font-size="11" font-weight="600">Stock B</text><text x="506" y="72" fill="#30d158" font-size="11" text-anchor="end">+51%</text><text x="512" y="72" fill="#30d158" font-size="10" font-weight="700">hold</text><rect x="378" y="78" width="168" height="18" fill="#5b4a1f"/><text x="384" y="91" fill="#86868b" font-size="11">3</text><text x="404" y="91" fill="#f5f5f7" font-size="11" font-weight="600">This stock</text><text x="506" y="91" fill="#30d158" font-size="11" text-anchor="end">+43%</text><text x="512" y="91" fill="#30d158" font-size="10" font-weight="700">hold</text><rect x="378" y="97" width="168" height="18" fill="#1d1d1f"/><text x="384" y="110" fill="#86868b" font-size="11">4</text><text x="404" y="110" fill="#f5f5f7" font-size="11" font-weight="600">Stock D</text><text x="506" y="110" fill="#30d158" font-size="11" text-anchor="end">+30%</text><text x="512" y="110" fill="#ff453a" font-size="10" font-weight="700"></text><rect x="378" y="116" width="168" height="18" fill="#1d1d1f"/><text x="384" y="129" fill="#86868b" font-size="11">5</text><text x="404" y="129" fill="#f5f5f7" font-size="11" font-weight="600">Stock E</text><text x="506" y="129" fill="#30d158" font-size="11" text-anchor="end">+22%</text><text x="512" y="129" fill="#ff453a" font-size="10" font-weight="700"></text><rect x="378" y="135" width="168" height="18" fill="#1d1d1f"/><text x="384" y="148" fill="#86868b" font-size="11">…</text><text x="404" y="148" fill="#f5f5f7" font-size="11" font-weight="600"></text><text x="506" y="148" fill="#ff453a" font-size="11" text-anchor="end"></text><text x="512" y="148" fill="#ff453a" font-size="10" font-weight="700"></text><rect x="378" y="154" width="168" height="18" fill="#4a1d1b"/><text x="384" y="167" fill="#86868b" font-size="11">10</text><text x="404" y="167" fill="#f5f5f7" font-size="11" font-weight="600">Stock J</text><text x="506" y="167" fill="#ff453a" font-size="11" text-anchor="end">−12%</text><text x="512" y="167" fill="#ff453a" font-size="10" font-weight="700">loser</text><rect x="378" y="173" width="168" height="18" fill="#4a1d1b"/><text x="384" y="186" fill="#86868b" font-size="11">11</text><text x="404" y="186" fill="#f5f5f7" font-size="11" font-weight="600">Stock K</text><text x="506" y="186" fill="#ff453a" font-size="11" text-anchor="end">−19%</text><text x="512" y="186" fill="#ff453a" font-size="10" font-weight="700">loser</text><rect x="378" y="192" width="168" height="18" fill="#4a1d1b"/><text x="384" y="205" fill="#86868b" font-size="11">12</text><text x="404" y="205" fill="#f5f5f7" font-size="11" font-weight="600">Stock L</text><text x="506" y="205" fill="#ff453a" font-size="11" text-anchor="end">−31%</text><text x="512" y="205" fill="#ff453a" font-size="10" font-weight="700">loser</text><text x="546" y="320" fill="#6e6e73" font-size="11" text-anchor="end">Illustrative mock · made-up values</text></svg></div>
+  </div>
+  <div class="panel" style="margin-top:22px">
+    <h4>Add it to TradingView</h4>
+    <ol class="howto">
+      <li><b>Copy the code</b> below, open TradingView's Pine Editor, paste it in and click <b>Add to chart</b>.</li>
+      <li>Use a <b>daily or weekly</b> chart. The ranking only changes when a month closes.</li>
+      <li>In the settings, put <b>your universe</b> in "Symbols to rank" as EXCHANGE:TICKER, comma separated.</li>
+      <li>On the first trading day of the month, the table's top names are your hold list. Set the <b>"Enters the top N"</b> alert on a name you're watching.</li>
+    </ol>
+  </div>
+  <div class="code-wrap">
+    <div class="code-top">
+      <span>cross-sectional-momentum.pine &middot; Pine Script v6</span>
+      <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/cross-sectional-momentum.pine" download>Download</a></div>
+    </div>
+    <pre class="pine" tabindex="0"><code>//@version=6
+// =====================================================================
+// Cross-Sectional Momentum Rank — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/cross-sectional-momentum.html
+//
+// Jegadeesh and Titman (1993): rank every stock on its past 3-12 month
+// return, buy the top, sell the bottom, hold, then re-rank. A single
+// chart can't rank the whole market, so this ranks a list you choose.
+//
+//   1. Measure   Each stock's return from L months ago to S months ago,
+//                on completed monthly closes. Default 12 to 1: the last
+//                year, skipping the most recent month (later research's
+//                "12-2" convention; the original paper skipped a week).
+//   2. Rank      The chart's stock against every stock in your list,
+//                best to worst.
+//   3. Hold      Green background while the chart's stock is in the top
+//                N of the list, red while it's in the bottom N.
+//   4. Re-rank   The table on the right is the full ranking today:
+//                the top N are the "hold" list, the bottom N the losers.
+//
+// Pane: the chart stock's momentum (gold), the benchmark's (blue), and
+// the list's median (gray). Alerts when the stock enters or leaves the
+// top N. Use a daily or weekly chart. Marks and alerts only; it places
+// no orders. Up to 38 symbols in the list (TradingView's request limit).
+// =====================================================================
+indicator("Cross-Sectional Momentum Rank", shorttitle = "XS Momentum", overlay = false, precision = 1)
+
+// ---------------- inputs ----------------
+grpM = "Momentum"
+lookback = input.int(12, "Measure from (months ago)", minval = 2, maxval = 36, group = grpM)
+skip     = input.int(1, "...to (months ago)", minval = 0, maxval = 6, group = grpM, tooltip = "1 skips the most recent completed month, the usual convention. 0 ranks right up to the last monthly close.")
+topN     = input.int(3, "Hold the top", minval = 1, maxval = 19, group = grpM, tooltip = "How many names count as winners (and, from the other end, losers).")
+
+grpU = "Universe"
+bench    = input.symbol("AMEX:SPY", "Benchmark", group = grpU)
+listIn   = input.text_area("NASDAQ:AAPL,NASDAQ:MSFT,NASDAQ:NVDA,NASDAQ:AMZN,NASDAQ:GOOGL,NASDAQ:META,NASDAQ:AVGO,NASDAQ:TSLA,NYSE:BRK.B,NYSE:JPM,NYSE:LLY,NYSE:V,NYSE:UNH,NYSE:XOM,NYSE:MA,NYSE:JNJ,NYSE:PG,NYSE:HD,NASDAQ:COST,NYSE:ABBV,NYSE:MRK,NYSE:CVX,NYSE:KO,NASDAQ:PEP,NASDAQ:ADBE,NYSE:CRM,NASDAQ:NFLX,NASDAQ:AMD,NASDAQ:WMT,NYSE:BAC", "Symbols to rank (comma separated)", group = grpU)
+
+grpD = "Display"
+showTable = input.bool(true, "Show the ranking table", group = grpD)
+tablePos  = input.string("Right", "Table position", options = ["Right", "Left"], group = grpD)
+maxRows   = input.int(40, "Rows in the table", minval = 6, maxval = 40, group = grpD)
+
+// ---------------- momentum on completed monthly closes ----------------
+mom() =&gt; close[1 + skip] / close[1 + lookback] - 1
+
+selfMom  = request.security(syminfo.tickerid, "1M", mom(), lookahead = barmerge.lookahead_off) * 100
+benchMom = request.security(bench, "1M", mom(), lookahead = barmerge.lookahead_off, ignore_invalid_symbol = true) * 100
+
+raw = str.split(str.replace_all(str.replace_all(listIn, "\n", ","), " ", ""), ",")
+syms = array.new&lt;string&gt;()
+for s in raw
+    if str.length(s) &gt; 0 and array.size(syms) &lt; 38
+        array.push(syms, s)
+
+rets  = array.new&lt;float&gt;()
+names = array.new&lt;string&gt;()
+for s in syms
+    r = request.security(s, "1M", mom(), lookahead = barmerge.lookahead_off, ignore_invalid_symbol = true) * 100
+    if not na(r)
+        array.push(rets, r)
+        array.push(names, s)
+
+// ---------------- the chart stock's rank in the list ----------------
+selfTicker = syminfo.ticker
+inList = false
+for s in names
+    parts = str.split(s, ":")
+    if array.get(parts, array.size(parts) - 1) == selfTicker
+        inList := true
+n = array.size(rets) + (inList ? 0 : 1)
+better = 0
+for r in rets
+    if not na(selfMom) and r &gt; selfMom
+        better += 1
+rank = na(selfMom) ? na : better + 1
+isTop = not na(rank) and rank &lt;= topN
+isBot = not na(rank) and rank &gt; n - topN
+median = array.size(rets) &gt; 0 ? array.median(rets) : na
+
+// ---------------- pane ----------------
+hline(0, "Zero", color = color.new(color.gray, 50), linestyle = hline.style_dashed)
+bgcolor(isTop ? color.new(color.green, 85) : isBot ? color.new(color.red, 85) : na, title = "Top / bottom of the list")
+plot(median, "List median", color = color.new(color.gray, 20), linewidth = 1)
+plot(benchMom, "Benchmark", color = color.new(color.blue, 0), linewidth = 1)
+plot(selfMom, "This stock", color = color.new(#f4b942, 0), linewidth = 2)
+
+enter = isTop and not isTop[1]
+leave = not isTop and isTop[1]
+plotshape(enter, "Enters the top", shape.triangleup, location.bottom, color.green, size = size.tiny)
+plotshape(leave, "Leaves the top", shape.triangledown, location.top, color.red, size = size.tiny)
+alertcondition(enter, "Enters the top N", "{{ticker}} moved into the top of the momentum ranking")
+alertcondition(leave, "Leaves the top N", "{{ticker}} dropped out of the top of the momentum ranking")
+
+// ---------------- the ranking table ----------------
+var table tb = table.new(tablePos == "Right" ? position.top_right : position.top_left, 4, 42, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+if showTable and barstate.islast
+    table.clear(tb, 0, 0, 3, 41)
+    hdr = color.new(#86868b, 0)
+    table.cell(tb, 0, 0, "#", text_color = hdr, text_size = size.small)
+    table.cell(tb, 1, 0, "Symbol", text_color = hdr, text_size = size.small)
+    table.cell(tb, 2, 0, str.tostring(lookback) + "-" + str.tostring(skip) + " mo", text_color = hdr, text_size = size.small)
+    table.cell(tb, 3, 0, "", text_color = hdr, text_size = size.small)
+    // all rows: the list plus the chart stock if it isn't in it
+    allR = array.copy(rets)
+    allN = array.copy(names)
+    if not inList and not na(selfMom)
+        array.push(allR, selfMom)
+        array.push(allN, syminfo.tickerid)
+    idx = array.sort_indices(allR, order.descending)
+    total = array.size(idx)
+    shown = math.min(total, maxRows)
+    for k = 0 to shown - 1
+        if k &gt;= total
+            break
+        // show the top rows, then jump to the bottom rows if the list is long
+        pos = total &gt; maxRows and k &gt;= shown / 2 ? total - (shown - k) : k
+        i = array.get(idx, pos)
+        nm = array.get(allN, i)
+        parts = str.split(nm, ":")
+        tk = array.get(parts, array.size(parts) - 1)
+        rv = array.get(allR, i)
+        top = pos &lt; topN
+        bot = pos &gt;= total - topN
+        mine = tk == selfTicker
+        bg = mine ? color.new(#f4b942, 70) : top ? color.new(color.green, 75) : bot ? color.new(color.red, 75) : color.new(#1d1d1f, 0)
+        tc = color.new(#f5f5f7, 0)
+        table.cell(tb, 0, k + 1, str.tostring(pos + 1), text_color = hdr, bgcolor = bg, text_size = size.small)
+        table.cell(tb, 1, k + 1, tk, text_color = tc, bgcolor = bg, text_size = size.small, text_halign = text.align_left)
+        table.cell(tb, 2, k + 1, (rv &gt;= 0 ? "+" : "") + str.tostring(rv, "#.0") + "%", text_color = rv &gt;= 0 ? color.new(#30d158, 0) : color.new(#ff453a, 0), bgcolor = bg, text_size = size.small, text_halign = text.align_right)
+        table.cell(tb, 3, k + 1, top ? "hold" : bot ? "loser" : "", text_color = top ? color.new(#30d158, 0) : color.new(#ff453a, 0), bgcolor = bg, text_size = size.small)
+</code></pre>
+  </div>
+
   <div class="section-head" id="related">
     <h2>Go deeper</h2>
     <p>Pages on this site that pick up where this one leaves off.</p>
@@ -721,6 +906,19 @@
   <p class="src">Built from Jegadeesh and Titman's 1993 paper and the follow-up research listed above. The figures quoted from the papers are labelled as such on the charts. Every stock, ranking, return and price path in the walkthroughs is made up for illustration, including the market path on the crash chart and the line between the paper's two event-time points. Past results from these studies don't promise future returns, and the long-only, top-few version shown here is a simplification that the original paper didn't test. It's shared for education, not as trading advice.</p>
 </div>
 <footer class="gfoot" data-gfooter></footer>
+<script>
+  /* copy the Pine code */
+  (function () {
+    var b = document.querySelector("[data-copy]"), code = document.querySelector("pre.pine code");
+    if (!b || !code) return;
+    b.addEventListener("click", function () {
+      var t = code.textContent;
+      function done(ok) { b.textContent = ok ? "Copied" : "Select and copy"; setTimeout(function () { b.textContent = "Copy code"; }, 1800); }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { done(true); }, function () { done(false); });
+      else done(false);
+    });
+  })();
+</script>
 
 </body>
 </html>

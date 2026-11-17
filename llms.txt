@@ -61,7 +61,7 @@ Educational content only, not financial advice. Times are US Eastern; examples u
 ## Famous strategies
 
 - [Famous strategies](https://thetrademethod.com/famous-strategies/): famous, research-backed trading strategies for stocks and ETFs, one detailed animated page each (more pages being added).
-- [Cross-Sectional Momentum — buy past winners, short past losers](https://thetrademethod.com/famous-strategies/cross-sectional-momentum.html): Jegadeesh and Titman's 1993 momentum strategy, animated: rank every stock on its last 3 to 12 months, buy the top tenth and short the bottom tenth, skip the latest stretch, hold 3 to 12 months in overlapping cohorts, what the paper found (1.31% a month for 12/3 in 1965–1989), why half of it fades, and the 2009 momentum crash.
+- [Cross-Sectional Momentum — buy past winners, short past losers](https://thetrademethod.com/famous-strategies/cross-sectional-momentum.html): Jegadeesh and Titman's 1993 momentum strategy, animated: rank every stock on its last 3 to 12 months, buy the top tenth and short the bottom tenth, skip the latest stretch, hold 3 to 12 months in overlapping cohorts, what the paper found (1.31% a month for 12/3 in 1965–1989), why half of it fades, the 2009 momentum crash, and a free TradingView Pine Script indicator that ranks a list of stocks on 12-1 month momentum.
 
 ## Blog
 

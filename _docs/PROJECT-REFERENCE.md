@@ -17,7 +17,7 @@ Look and feel (colors, type, layout, motion, copy voice) is covered in the separ
 - Installable as an app (PWA) since 2026-10-29.
 - Sister sites linked from the nav: **Trade Review** (journal.thetrademethod.com), **Volendar** (volendar.com), **Backtest Board** (backtestboard.com).
 
-Counts today: **26 setup pages**, **19 fundamentals pages**, **1 blog post**, plus home, /setups/, /fundamentals/, /blog/, contact, 404 and offline pages. **17 Pine indicators** in `/pine/`.
+Counts today: **26 setup pages**, **19 fundamentals pages**, **1 blog post**, plus home, /setups/, /fundamentals/, /blog/, contact, 404 and offline pages. **18 Pine indicators** in `/pine/`.
 
 ---
 
@@ -111,10 +111,10 @@ Check before bumping; these are the values as of 2026-11-17 (Famous Strategies b
 
 | Asset | Current | Next bump |
 |---|---|---|
-| `site.js` (all pages) | `?v=38` | 39 |
+| `site.js` (all pages) | `?v=39` | 40 |
 | `nav.js` (all pages) | `?v=23` | 24 |
 | `apple.css` (all pages) | `?v=24` | 25 |
-| `SEARCH_INDEX_URL` in site.js | `search-index.js?v=17` | 18 |
+| `SEARCH_INDEX_URL` in site.js | `search-index.js?v=18` | 19 |
 | `candle-bg.js` (newest page) | `?v=26` (famous-strategies/cross-sectional-momentum.html) | 27 |
 | `sw.js` `CACHE_VERSION` | `2026-10-29-1` | only for unversioned file or sw rule changes |
 
@@ -198,7 +198,7 @@ Other Pine files: `cumulative-rvol.pine` (Relative Volume), `let-winners-run-exi
 ### Famous strategies (`/famous-strategies/`)
 - Registry: `STRATEGIES` in `js/site.js` (15 entries, `live: true/false`). Unbuilt ones show as "Coming soon" cards (no link, not in search) on the hub and the homepage band (`#strategies`, `#strat-cards`). Footer and search list only live ones. Nav link "Strategies" hides at 920px and below (`.hide-lg`).
 - Adding the next one: copy `famous-strategies/cross-sectional-momentum.html` + its anim script pattern (`js/xsm-anim.js`), flip `live: true`, add the hub page's JSON-LD item and static card, `EXTRA_PAGES` + `PAGES` in both build scripts, a line under "## Famous strategies" in llms.txt, a candle-bg scene.
-- **Cross-Sectional Momentum** (`/famous-strategies/cross-sectional-momentum.html`, 2026-11-17): Jegadeesh & Titman (1993) + Daniel & Moskowitz (2016) figures; `js/xsm-anim.js` (rank, window, event, crash, rebalance + 5-step stepper).
+- **Cross-Sectional Momentum** (`/famous-strategies/cross-sectional-momentum.html`, 2026-11-17): Jegadeesh & Titman (1993) + Daniel & Moskowitz (2016) figures; `js/xsm-anim.js` (rank, window, event, crash, rebalance + 5-step stepper). Pine: `/pine/cross-sectional-momentum.pine` (static indicator section on the page, not from nav.js).
 
 ### Other pages
 - **Home** `/` (index.html): Opening bell hero, setups and fundamentals grids with links to the hub pages.
@@ -239,6 +239,7 @@ Newest first. Dates are when the change was built or shipped.
 
 | Date | Change |
 |---|---|
+| 2026-11-17 | Cross-Sectional Momentum: **Cross-Sectional Momentum Rank** Pine indicator (`/pine/cross-sectional-momentum.pine`, ranks a list on 12-1 month momentum, top-N alerts, ranking table) + indicator section with mock, how-to and code. site.js ?v=39, search-index ?v=18. |
 | 2026-11-17 | **Famous Strategies** section: /famous-strategies/ hub (15 strategies, 1 live), homepage band, nav link, footer; first page **Cross-Sectional Momentum** (Jegadeesh & Titman 1993). site.js ?v=38, apple.css ?v=24, search-index ?v=17, candle-bg ?v=26 on that page, sitemap 54 URLs. |
 | 2026-11-16 | Stacked Imbalances: second video (Futures Flow) folded in: where the stack sits in the candle, passive orders/trapped traders, large-participant trigger (128 lots), S/R flip. Two new walkthroughs (`where`, `trigger`), si-anim ?v=2, site.js ?v=37, search-index ?v=16. |
 | 2026-11-16 | **Stacked Imbalances** fundamentals page (Orderflows video): diagonal 4:1 imbalances, stacks of 3+, payroll long 3,974/3,973 to 3,994, four outcomes, 3,921–22 short. site.js ?v=36, search-index ?v=15, candle-bg ?v=25. This reference committed to the repo. |

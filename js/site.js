@@ -548,7 +548,7 @@
      each page's description and section headings, so a hit on a heading
      links straight to that section. Bump SEARCH_INDEX_URL's ?v= after
      rebuilding the index. */
-  var SEARCH_INDEX_URL = "/js/search-index.js?v=17";
+  var SEARCH_INDEX_URL = "/js/search-index.js?v=18";
   var searchDocs = null, searchIndexState = "";
 
   function searchBase() {
