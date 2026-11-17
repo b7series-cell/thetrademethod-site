@@ -1,0 +1,90 @@
+//@version=6
+// =====================================================================
+// Post-Earnings Drift — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/post-earnings-drift.html
+//
+// Bernard and Thomas (1989, 1990): after an earnings surprise, prices keep
+// drifting in the surprise's direction for weeks, and a big share of the
+// drift arrives around the NEXT few earnings reports.
+//
+//   1. Surprise   Reported EPS against the consensus estimate, as a percent.
+//   2. Score      A SUE-style score: this quarter's surprise divided by the
+//                 standard deviation of the last N surprises, so a "beat"
+//                 is judged against how noisy this company usually is.
+//   3. Drift      The window after each report (default 60 trading days)
+//                 is shaded green after a big beat, red after a big miss.
+//   4. Track      The table shows the stock's return since the report
+//                 against the benchmark's (SPY by default): the drift so far.
+//
+// Use a daily chart on a stock with earnings data. Marks and alerts only;
+// it places no orders.
+// =====================================================================
+indicator("Post-Earnings Drift", shorttitle = "PEAD", overlay = true, max_labels_count = 200)
+
+// ---------------- inputs ----------------
+grpS = "Surprise"
+nHist    = input.int(8, "Surprises used for the score", minval = 4, maxval = 20, group = grpS)
+sueBig   = input.float(1.0, "Big surprise (score at least)", minval = 0.1, step = 0.1, group = grpS)
+pctBig   = input.float(5.0, "...or a surprise of at least (%)", minval = 0, step = 0.5, group = grpS, tooltip = "Used until there are enough past surprises to compute the score.")
+grpD = "Drift"
+driftLen = input.int(60, "Drift window (trading days)", minval = 5, maxval = 250, group = grpD)
+bench    = input.symbol("AMEX:SPY", "Benchmark", group = grpD)
+showTbl  = input.bool(true, "Show the table", group = grpD)
+
+// ---------------- earnings ----------------
+act = request.earnings(syminfo.tickerid, earnings.actual, barmerge.gaps_on, ignore_invalid_symbol = true)
+est = request.earnings(syminfo.tickerid, earnings.estimate, barmerge.gaps_on, ignore_invalid_symbol = true)
+bClose = request.security(bench, timeframe.period, close, ignore_invalid_symbol = true)
+
+var hist = array.new<float>()
+var int   eBar  = na
+var float eSurp = na
+var float eSue  = na
+var float base  = na
+var float bBase = na
+var int   eDir  = 0
+
+isNew = not na(act) and not na(est)
+if isNew
+    diff = act - est
+    sd = array.size(hist) >= 4 ? array.stdev(hist) : na
+    eSue  := not na(sd) and sd > 0 ? diff / sd : na
+    eSurp := est != 0 ? diff / math.abs(est) * 100 : na
+    eBar  := bar_index
+    base  := close[1]
+    bBase := bClose[1]
+    big = not na(eSue) ? math.abs(eSue) >= sueBig : not na(eSurp) and math.abs(eSurp) >= pctBig
+    eDir  := big ? (diff > 0 ? 1 : -1) : 0
+    array.push(hist, diff)
+    if array.size(hist) > nHist
+        array.shift(hist)
+    txtL = (diff >= 0 ? "Beat " : "Miss ") + (na(eSurp) ? "" : (eSurp >= 0 ? "+" : "") + str.tostring(eSurp, "#.0") + "%") + (na(eSue) ? "" : "\nscore " + str.tostring(eSue, "#.0"))
+    label.new(bar_index, diff >= 0 ? low : high, txtL, style = diff >= 0 ? label.style_label_up : label.style_label_down,
+              color = eDir > 0 ? color.new(#30d158, 10) : eDir < 0 ? color.new(#ff453a, 10) : color.new(#8e8e93, 20), textcolor = color.white, size = size.small)
+
+inWin = not na(eBar) and bar_index - eBar < driftLen
+bgcolor(inWin and eDir > 0 ? color.new(#30d158, 90) : inWin and eDir < 0 ? color.new(#ff453a, 90) : na, title = "Drift window")
+
+drift  = na(base) ? na : (close / base - 1) * 100
+bDrift = na(bBase) or na(bClose) ? na : (bClose / bBase - 1) * 100
+abn    = na(drift) or na(bDrift) ? na : drift - bDrift
+
+alertcondition(isNew and eDir > 0, "Big beat", "{{ticker}}: big earnings beat, the drift window starts")
+alertcondition(isNew and eDir < 0, "Big miss", "{{ticker}}: big earnings miss, the drift window starts")
+
+var table tb = table.new(position.top_right, 2, 6, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+if showTbl and barstate.islast
+    lc = color.new(#86868b, 0)
+    vc = color.new(#f5f5f7, 0)
+    table.cell(tb, 0, 0, "Last surprise", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 0, na(eSurp) ? "n/a" : (eSurp >= 0 ? "+" : "") + str.tostring(eSurp, "#.0") + "%", text_color = vc, text_size = size.small)
+    table.cell(tb, 0, 1, "Score (SUE-style)", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 1, na(eSue) ? "n/a" : str.tostring(eSue, "#.0"), text_color = vc, text_size = size.small)
+    table.cell(tb, 0, 2, "Days since report", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 2, na(eBar) ? "n/a" : str.tostring(bar_index - eBar), text_color = vc, text_size = size.small)
+    table.cell(tb, 0, 3, "Stock since report", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 3, na(drift) ? "n/a" : (drift >= 0 ? "+" : "") + str.tostring(drift, "#.0") + "%", text_color = vc, text_size = size.small)
+    table.cell(tb, 0, 4, "vs benchmark", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 4, na(abn) ? "n/a" : (abn >= 0 ? "+" : "") + str.tostring(abn, "#.0") + " pts", text_color = na(abn) ? vc : abn >= 0 ? color.new(#30d158, 0) : color.new(#ff453a, 0), text_size = size.small)
+    table.cell(tb, 0, 5, "Window", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 5, inWin ? (eDir > 0 ? "drift up" : eDir < 0 ? "drift down" : "small surprise") : "closed", text_color = vc, text_size = size.small)

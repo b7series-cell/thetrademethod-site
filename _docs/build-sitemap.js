@@ -37,6 +37,7 @@ const EXTRA_PAGES = [
   { loc: "/fundamentals/", priority: "0.9" },
   { loc: "/famous-strategies/", priority: "0.9" },
   { loc: "/famous-strategies/cross-sectional-momentum.html", priority: "0.7" },
+  { loc: "/famous-strategies/post-earnings-drift.html", priority: "0.7" },
   { loc: "/edge.html", priority: "0.6" },
   { loc: "/mistakes.html", priority: "0.6" },
   { loc: "/price-action-rules.html", priority: "0.6" },

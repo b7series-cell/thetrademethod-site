@@ -896,6 +896,22 @@
       }
     },
 
+    "post-earnings-drift": {
+      story: function (st) {
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { n: 0.6, mk: { t: "Into the report · forecast set", col: SILK, below: true } }); }),
+          rep(10, function (st) { return bar(st, { d: rnd(-0.35, 0.35), n: 0.6 }); }),
+          rep(1, function (st) { level(st, st.price - 0.2, "Report-day low · stop", RED, true); return bar(st, { d: 2.6, n: 0.3, v: 1, flash: GREEN, mk: { t: "Big beat · SUE +3", col: GREEN } }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 0.5, n: 0.3, v: 0.8, mk: { t: "Bought · gap held", col: GREEN } }); }),
+          rep(12, function (st, k) { return bar(st, { d: k % 4 === 3 ? -0.6 : 0.55, n: 0.6 }); }),
+          rep(1, function (st) { return bar(st, { d: 1.4, n: 0.3, v: 0.9, flash: GREEN, mk: { t: "Next report · drift jumps", col: GREEN } }); }),
+          rep(8, function (st, k) { return bar(st, { d: k % 3 === 2 ? -0.5 : 0.45, n: 0.6 }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 0.2, n: 0.4, mk: { t: "~60 days · out", col: SILK, below: true } }); }),
+          rep(5, function (st) { return bar(st, { d: rnd(-0.5, 0.4), n: 0.8 }); })
+        ];
+      }
+    },
+
     "pyramiding": {
       story: function (st) {
         var S, hi, lo;

@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Post-Earnings Announcement Drift (PEAD), Explained | The Trade Method</title>
+<meta name="description" content="Post-earnings announcement drift (Bernard and Thomas, 1989): after a big earnings surprise, stocks keep drifting the same way for weeks. How the surprise is scored, why the drift jumps at the next reports, how much it has faded, plus a free TradingView indicator.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/famous-strategies/post-earnings-drift.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Post-Earnings Announcement Drift (PEAD), Explained">
+<meta property="og:description" content="Post-earnings announcement drift (Bernard and Thomas, 1989): after a big earnings surprise, stocks keep drifting the same way for weeks. How the surprise is scored, why the drift jumps at the next reports, how much it has faded, plus a free TradingView indicator.">
+<meta property="og:url" content="https://thetrademethod.com/famous-strategies/post-earnings-drift.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Post-Earnings Announcement Drift (PEAD), Explained">
+<meta name="twitter:description" content="Post-earnings announcement drift (Bernard and Thomas, 1989): after a big earnings surprise, stocks keep drifting the same way for weeks. How the surprise is scored, why the drift jumps at the next reports, how much it has faded, plus a free TradingView indicator.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Post-Earnings Announcement Drift (PEAD), Explained",
+ "name": "Post-Earnings Drift",
+ "description": "Post-earnings announcement drift (Bernard and Thomas, 1989): after a big earnings surprise, stocks keep drifting the same way for weeks. How the surprise is scored, why the drift jumps at the next reports, how much it has faded, plus a free TradingView indicator.",
+ "url": "https://thetrademethod.com/famous-strategies/post-earnings-drift.html",
+ "mainEntityOfPage": "https://thetrademethod.com/famous-strategies/post-earnings-drift.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-17",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.seven { grid-template-columns:repeat(2,1fr); }
+    .ribbon.seven > div:last-child { grid-column:span 2; }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=24">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the pyramid: five cards, or a stepper once js/pyr-anim.js runs */
+  .fs-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .fs-steps .stage, .sheet .fs-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .fs-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .fs-steps.is-stepper .stage, .sheet .fs-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .fs-steps.is-stepper .stage .num { display:none; }
+  .sheet .fs-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .fs-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .fs-steps + .four { margin-top:28px; }
+  .fs-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .fs-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .fs-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .fs-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .fs-steps { margin-top:24px; }
+  }
+
+  /* fact sheet, timeline, sources */
+  .facts { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--graphite); border-radius:22px; overflow:hidden; margin-top:26px; }
+  .facts div { background:var(--charcoal); padding:16px 18px; }
+  .facts .k { font-family:var(--mono-font); font-size:12px; color:var(--ash); }
+  .facts b { display:block; margin-top:4px; font-size:16px; font-weight:600; line-height:1.3; }
+  .tl { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+  .tl li { background:var(--charcoal); border-radius:20px; padding:16px 16px 18px; border-top:3px solid var(--tc, var(--up)); }
+  .tl .y { font-family:var(--mono-font); font-size:13px; color:var(--tc, var(--up)); font-weight:600; }
+  .tl b { display:block; margin:6px 0 6px; font-size:16px; line-height:1.25; }
+  .tl p { margin:0; color:var(--mute); font-size:14px; }
+  .cites { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .cites li { margin-bottom:10px; }
+  .cites i { color:var(--platinum); }
+  .cites small { display:block; color:var(--ash); font-size:13.5px; margin-top:2px; }
+  @media (max-width:1100px) { .facts { grid-template-columns:repeat(2,1fr); } .tl { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:680px) { .facts, .tl { grid-template-columns:1fr; } .sheet .section-head + .fs-steps { margin-top:24px; } }
+
+  /* the indicator */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-wrap { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:22px; align-items:start; }
+  .ind-mock { background:var(--charcoal); border-radius:22px; padding:14px; }
+  .howto { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#f4b942; font-weight:600; }
+  .code-wrap { background:var(--charcoal); border-radius:22px; margin-top:22px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid #2c2c2e; flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--ash); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--silk); background:#2c2c2e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#3a3a3c; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d1d6; tab-size:4; }
+  @media (max-width:1100px) { .ind-wrap { grid-template-columns:1fr; } }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-mock { padding:8px; } }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=40" defer></script>
+<script src="/js/fs-kit.js?v=1" defer></script>
+<script src="/js/fs-post-earnings-drift.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=27" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="Post-Earnings Drift"></div>
+<div class="sheet">
+
+  <a class="back" href="/famous-strategies/">&lsaquo; Famous strategies</a>
+
+  <header class="top" data-candle-bg="post-earnings-drift">
+    <div>
+      <p class="kicker">Famous strategies &middot; Stocks &middot; Bernard and Thomas, <i>Journal of Accounting Research</i>, 1989</p>
+      <h1>Post-Earnings <span>Drift</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Does a stock that blows out its earnings keep going after the first day? Score every company's surprise against its own history, buy the biggest beats, short the biggest misses, and hold for about a quarter.
+      <em>The news takes weeks to sink in.</em></p>
+      <div class="counts">
+        <div><b>41 of 48</b><small>quarters the long-short made money, 1974&ndash;85</small></div>
+        <div><b>~60 days</b><small>the hold: about one quarter</small></div>
+        <div><b>25&ndash;30%</b><small>of the drift lands at the next reports</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon seven" aria-label="Post-Earnings Drift">
+    <div><div class="t">step 1</div><div class="n">Know the forecast</div></div>
+    <div><div class="t">step 2</div><div class="n">Score the surprise</div></div>
+    <div><div class="t">step 3</div><div class="n">Sort into tenths</div></div>
+    <div><div class="t">step 4</div><div class="n">Long beats, short misses</div></div>
+    <div><div class="t">step 5</div><div class="n">Hold about a quarter</div></div>
+  </nav>
+
+  <div class="facts" aria-label="At a glance">
+    <div><span class="k">paper</span><b>"Post-Earnings-Announcement Drift: Delayed Price Response or Risk Premium?"</b></div>
+    <div><span class="k">authors</span><b>Victor Bernard &amp; Jacob Thomas</b></div>
+    <div><span class="k">published</span><b><i>Journal of Accounting Research</i> 27 (Supplement), 1989, pp. 1&ndash;36</b></div>
+    <div><span class="k">first seen</span><b>Ball &amp; Brown, 1968</b></div>
+    <div><span class="k">signal</span><b>Standardized unexpected earnings (SUE)</b></div>
+    <div><span class="k">trade</span><b>Long the top SUE decile, short the bottom</b></div>
+    <div><span class="k">hold</span><b>About 60 trading days, through the next report</b></div>
+    <div><span class="k">headline</span><b>Long-short positive in 41 of 48 quarters, 1974&ndash;1985</b></div>
+  </div>
+
+  <div class="section-head" id="surprise">
+    <h2>The idea in one picture</h2>
+    <p>Every quarter a company reports earnings, and the market already has a number in mind. The strategy only cares about the gap between the two, and how unusual that gap is for this particular company.</p>
+  </div>
+  <section class="anim" data-fs-anim="surprise" aria-label="A made-up company with a forecast of $1.00 a share reports $1.18. The 18-cent surprise is divided by the company&#x27;s usual miss of 6 cents, giving a SUE of 3, and every company is sorted into ten groups by its SUE.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Scoring the surprise</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Scoring the surprise"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>The rule</h3>
+          <ul>
+            <li>When a company reports, measure its surprise: reported earnings minus what was expected.</li>
+            <li>Divide by how much this company's earnings usually miss the forecast. That's the standardized unexpected earnings, or SUE.</li>
+            <li>Each quarter, sort every company that reported into ten groups by SUE. Buy the top group (biggest beats), sell short the bottom group (biggest misses), and hold for about a quarter.</li>
+          </ul>
+          <p class="why">There's no chart reading in the original. The surprise picks the stocks and the calendar picks the exit, which is why it could be tested over thousands of reports.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Two ways to measure "expected"</h4>
+        <p class="lead">The papers and the traders don't use the same forecast.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">the paper</span><b>Last year, plus growth</b><p>Bernard and Thomas forecast each quarter from the same quarter a year earlier, plus the company's usual growth. No analysts needed.</p></div>
+          <div class="care"><span class="k">today</span><b>The analysts' consensus</b><p>Most data feeds and screeners, and the indicator below, compare reported EPS with the consensus estimate instead.</p></div>
+        </div>
+      </div>
+      <div class="panel calc">
+        <h4>The made-up example</h4>
+        <p class="lead">How one report turns into a score.</p>
+        <div class="row"><span>Forecast</span><b>$1.00</b></div>
+        <div class="row"><span>Reported</span><b>$1.18</b></div>
+        <div class="row"><span>Surprise</span><b>+$0.18</b></div>
+        <div class="row"><span>Usual miss for this company</span><b>$0.06</b></div>
+        <div class="row tot"><span>SUE</span><b>+3.0</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="drift">
+    <h2>The drift</h2>
+    <p>If prices took in earnings news at once, the line after a report would go flat. Bernard and Thomas lined up thousands of reports and found it doesn't: the good news keeps rising and the bad news keeps falling, for weeks.</p>
+  </div>
+  <section class="anim" data-fs-anim="drift" aria-label="Made-up abnormal-return paths for ten surprise groups over 60 trading days: the top groups keep rising and the bottom groups keep falling, and the strategy buys group 10 and shorts group 1.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">60 days after the report</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="60 days after the report"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>What the paper found</h3>
+          <ul>
+            <li>The long-short position (top tenth of SUE minus bottom tenth) made money in 41 of 48 quarters from 1974 to 1985.</li>
+            <li>It was positive in 11 of the 16 quarters when the NYSE index fell, so it wasn't just riding the market.</li>
+            <li>The drift was larger in smaller companies, and a big share of it arrived around the next three earnings reports.</li>
+          </ul>
+          <p class="why">The paper's title asks the real question: is the drift a reward for some hidden risk, or are prices just slow? Their evidence pointed to slow prices.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <blockquote class="qb"><b>Older than momentum.</b> Ball and Brown saw it first, in 1968: returns kept moving in the direction of the earnings news after the report. Bernard and Thomas turned it into a strategy and tried to explain it away with risk. They couldn't.</blockquote>
+      <div class="panel">
+        <h4>Delayed reaction or risk?</h4>
+        <p class="lead">The two explanations the paper tested.</p>
+        <div class="pair">
+          <div class="care"><span class="k">risk premium</span><b>You're paid for risk</b><p>If the drift were pay for extra risk, the long-short would lose in bad markets. It made money in 11 of 16 down quarters.</p></div>
+          <div class="yes"><span class="k">delayed response</span><b>Prices are slow</b><p>Investors under-react to the news and catch up over the next weeks and reports. The paper's evidence favored this.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="next">
+    <h2>Why it jumps at the next report</h2>
+    <p>Bernard and Thomas's 1990 follow-up asked where the drift happens. A surprising amount of it lands in a few days: right around the company's next earnings reports.</p>
+  </div>
+  <section class="anim" data-fs-anim="next" aria-label="A made-up long-short return path over three quarters after a report, rising in steps at the next three earnings dates, with the earnings autocorrelations 0.34, 0.19, 0.06 and minus 0.24.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Jumps at the next reports</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Jumps at the next reports"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Earnings surprises repeat</h3>
+          <ul>
+            <li>A beat this quarter tends to be followed by smaller beats in the same direction over the next three quarters, then a partial reversal a year out.</li>
+            <li>Prices act as if investors expect next quarter to look like the same quarter last year, missing that the surprise will partly repeat.</li>
+            <li>So when the next report confirms it, the stock jumps again. About 25&ndash;30% of the drift fell in the 3-day windows around the next reports, roughly 5% of the trading days.</li>
+          </ul>
+          <p class="why">That's why the hold runs through the next report. Exit just before it and you skip one of the biggest pieces.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel calc">
+        <h4>How surprises carry forward</h4>
+        <p class="lead">Correlation of this quarter's seasonal earnings change with the next four (Bernard and Thomas, 1990).</p>
+        <div class="row"><span>Next quarter</span><b>0.34</b></div>
+        <div class="row"><span>Two quarters on</span><b>0.19</b></div>
+        <div class="row"><span>Three quarters on</span><b>0.06</b></div>
+        <div class="row tot"><span>Four quarters on</span><b>&minus;0.24</b></div>
+      </div>
+      <blockquote class="qb"><b>The paper's title says it plainly:</b> "Evidence that stock prices do not fully reflect the implications of current earnings for future earnings."</blockquote>
+    </div>
+  </div>
+
+  <div class="section-head" id="fade">
+    <h2>It has faded</h2>
+    <p>Post-earnings drift is one of the most studied anomalies in finance. That's a problem for anyone hoping to trade the plain version today.</p>
+  </div>
+  <section class="anim" data-fs-anim="fade" aria-label="The spread between the highest and lowest SUE groups shown falling from about 5% in the 1980s and 1990s to 3% or less by the late 2010s, as reported by Kettell, McInnis and Zhao.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">A famous anomaly gets smaller</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="A famous anomaly gets smaller"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <ol class="tl">
+    <li style="--tc:#2997ff"><span class="y">1968</span><b>Ball &amp; Brown</b><p>Returns keep moving in the direction of the earnings news after the report: the first sighting.</p></li>
+    <li style="--tc:#30d158"><span class="y">1989</span><b>Bernard &amp; Thomas</b><p>The long-short SUE strategy, positive in 41 of 48 quarters, and not explained by risk.</p></li>
+    <li style="--tc:#30d158"><span class="y">1990</span><b>Bernard &amp; Thomas</b><p>The drift bunches up around the next reports, because surprises repeat and prices don't expect it.</p></li>
+    <li style="--tc:#ff453a"><span class="y">2022</span><b>Kettell, McInnis &amp; Zhao</b><p>The top-minus-bottom SUE spread falls from about 5% to 3% or less, partly because surprises repeat less than they used to.</p></li>
+  </ol>
+
+  <div class="section-head" id="trade">
+    <h2>A version a single account can run</h2>
+    <p>The papers trade every company at once. Traders usually take one name at a time: a big surprise, with price agreeing with the news, held for weeks rather than minutes.</p>
+  </div>
+  <section class="anim" data-fs-anim="trade" aria-label="A made-up stock drifts sideways into earnings, gaps up on a big beat and closes near the high, is bought after the report with a stop under the report-day low, and is held for weeks as it drifts higher.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">One stock, one report</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="One stock, one report"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="four">
+    <div style="--tc:#2997ff"><span class="k">rule one</span><h3>Only big surprises</h3><p>Small beats and misses are noise. Set the size that counts, as a score or a percent, before the report.</p></div>
+    <div style="--tc:#30d158"><span class="k">rule two</span><h3>Price has to agree</h3><p>A beat that gaps up and holds is the setup. A beat the stock sells off is the market telling you something else.</p></div>
+    <div style="--tc:#ff9f0a"><span class="k">rule three</span><h3>Hold through the next report</h3><p>A big piece of the drift arrives at the next earnings date. Decide in advance whether you're holding through it.</p></div>
+    <div style="--tc:#ff453a"><span class="k">rule four</span><h3>Expect less than the paper</h3><p>The spread has roughly halved since the 1990s. Count costs, and size it like an edge that's smaller than it used to be.</p></div>
+  </div>
+
+  <div class="section-head" id="steps">
+    <h2>The strategy, step by step</h2>
+    <p>The whole thing in five steps. Click through them.</p>
+  </div>
+  <div class="fs-steps" data-fs-steps data-fs-label="Post-Earnings Drift, step by step">
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Know the forecast</h3>
+          <ul>
+            <li>Before the report, know what was expected: the consensus estimate, or last year's same quarter plus growth.</li>
+            <li>Write down what size of surprise you'll act on.</li>
+          </ul>
+          <p class="why">The plan comes before the number.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Score the surprise</h3>
+          <ul>
+            <li>Surprise = reported minus expected.</li>
+            <li>Divide by how much this company usually misses. A score of 1 or more is a big surprise for this company.</li>
+          </ul>
+          <p class="why">Eight cents is huge for a steady utility and nothing for a chip maker.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Sort</h3>
+          <ul>
+            <li>In the paper: every company that reported this quarter, sorted into ten groups by score.</li>
+            <li>For one account: only the reports in the top or bottom of your list.</li>
+          </ul>
+          <p class="why">The edge is in the extremes, not the middle.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Trade</h3>
+          <ul>
+            <li>Buy the biggest beats. The paper also shorts the biggest misses.</li>
+            <li>Traders often wait for price to confirm: a gap that holds into the close.</li>
+          </ul>
+          <p class="why">Long-only is simpler, and it's what most accounts run.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Hold</h3>
+          <ul>
+            <li>About a quarter (60 trading days) in the research, through the next report.</li>
+            <li>Or set a stop under the report-day low and trail it under higher lows.</li>
+          </ul>
+          <p class="why">The drift is weeks long. Don't take it off in the first hour.</p>
+        </div>
+      </section>
+  </div>
+
+  <div class="section-head" id="indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for this strategy (Pine Script v6). It reads TradingView's own earnings data, scores each surprise against the company's recent history, shades the drift window that follows a big beat or miss, and tracks the stock against SPY since the report. It marks and alerts. It doesn't place trades.</p>
+  </div>
+  <div class="ind-wrap">
+    <ul class="ind-list">
+      <li class="ind-card">
+        <div class="ind-card-top">
+          <h3 class="ind-name">Post-Earnings Drift</h3>
+          <span class="ind-alerts">alerts</span>
+        </div>
+        <p class="ind-blurb">A label on every report: beat or miss, the surprise as a percent of the estimate, and a SUE-style score (this surprise divided by the spread of the last 8 surprises). A big beat shades the next 60 trading days green, a big miss red.</p>
+        <p class="ind-blurb">A table on the right tracks the latest report: the surprise, the score, days since, the stock's move since the day before the report, and how far ahead of or behind the benchmark (SPY by default) it is.</p>
+        <p class="ind-blurb"><span style="color:var(--ash)">It uses the consensus estimate, not the paper's seasonal forecast. Every number is a setting: how many surprises feed the score, what counts as big, the window length and the benchmark. Alerts fire on a big beat or a big miss.</span></p>
+        <div class="ind-links">
+          <a class="ind-link ind-link--quiet" href="/pine/post-earnings-drift.pine" download>Download source (.pine)</a>
+        </div>
+      </li>
+    </ul>
+    <div class="ind-mock"><svg viewBox="0 0 560 330" role="img" aria-label="An illustrative mock of the indicator: a made-up daily chart with a big earnings beat labelled Beat +14% score 2.3, the stock gapping up, a green drift window shading the next 60 days, and a table showing the stock up 21.4% since the report and 17.9 points ahead of the benchmark."><rect width="560" height="330" rx="14" fill="#141416"/><rect x="127.6" y="40.0" width="227.4" height="256.0" rx="0" fill="#30d158" opacity="0.13"/><line x1="18.0" y1="257.0" x2="18.0" y2="263.0" stroke="#30d158" stroke-width="1"/><rect x="16.7" y="259.7" width="2.6" height="1.2" rx="0" fill="#30d158" opacity="1"/><line x1="21.8" y1="253.4" x2="21.8" y2="264.9" stroke="#30d158" stroke-width="1"/><rect x="20.5" y="257.8" width="2.6" height="1.9" rx="0" fill="#30d158" opacity="1"/><line x1="25.5" y1="238.0" x2="25.5" y2="268.2" stroke="#30d158" stroke-width="1"/><rect x="24.2" y="246.3" width="2.6" height="11.5" rx="0" fill="#30d158" opacity="1"/><line x1="29.3" y1="246.2" x2="29.3" y2="249.2" stroke="#ff453a" stroke-width="1"/><rect x="28.0" y="246.3" width="2.6" height="1.2" rx="0" fill="#ff453a" opacity="1"/><line x1="33.0" y1="242.0" x2="33.0" y2="250.0" stroke="#30d158" stroke-width="1"/><rect x="31.7" y="246.5" width="2.6" height="1.2" rx="0" fill="#30d158" opacity="1"/><line x1="36.8" y1="238.5" x2="36.8" y2="247.1" stroke="#30d158" stroke-width="1"/><rect x="35.5" y="243.9" width="2.6" height="2.6" rx="0" fill="#30d158" opacity="1"/><line x1="40.5" y1="239.5" x2="40.5" y2="254.2" stroke="#ff453a" stroke-width="1"/><rect x="39.2" y="243.9" width="2.6" height="8.0" rx="0" fill="#ff453a" opacity="1"/><line x1="44.3" y1="248.7" x2="44.3" y2="254.6" stroke="#30d158" stroke-width="1"/><rect x="43.0" y="251.3" width="2.6" height="1.2" rx="0" fill="#30d158" opacity="1"/><line x1="48.0" y1="247.5" x2="48.0" y2="252.7" stroke="#30d158" stroke-width="1"/><rect x="46.7" y="247.6" width="2.6" height="3.7" rx="0" fill="#30d158" opacity="1"/><line x1="51.8" y1="237.0" x2="51.8" y2="256.0" stroke="#30d158" stroke-width="1"/><rect x="50.5" y="239.5" width="2.6" height="8.0" rx="0" fill="#30d158" opacity="1"/><line x1="55.5" y1="231.4" x2="55.5" y2="251.7" stroke="#ff453a" stroke-width="1"/><rect x="54.2" y="239.5" width="2.6" height="10.4" rx="0" fill="#ff453a" opacity="1"/><line x1="59.3" y1="244.1" x2="59.3" y2="255.9" stroke="#ff453a" stroke-width="1"/><rect x="58.0" y="250.0" width="2.6" height="4.9" rx="0" fill="#ff453a" opacity="1"/><line x1="63.0" y1="248.2" x2="63.0" y2="266.7" stroke="#ff453a" stroke-width="1"/><rect x="61.7" y="254.8" width="2.6" height="10.5" rx="0" fill="#ff453a" opacity="1"/><line x1="66.8" y1="256.9" x2="66.8" y2="273.6" stroke="#30d158" stroke-width="1"/><rect x="65.5" y="256.9" width="2.6" height="8.5" rx="0" fill="#30d158" opacity="1"/><line x1="70.5" y1="249.9" x2="70.5" y2="258.5" stroke="#30d158" stroke-width="1"/><rect x="69.2" y="251.5" width="2.6" height="5.4" rx="0" fill="#30d158" opacity="1"/><line x1="74.3" y1="240.2" x2="74.3" y2="273.3" stroke="#ff453a" stroke-width="1"/><rect x="73.0" y="251.5" width="2.6" height="11.8" rx="0" fill="#ff453a" opacity="1"/><line x1="78.0" y1="246.7" x2="78.0" y2="275.0" stroke="#30d158" stroke-width="1"/><rect x="76.7" y="250.3" width="2.6" height="13.0" rx="0" fill="#30d158" opacity="1"/><line x1="81.8" y1="231.3" x2="81.8" y2="258.4" stroke="#30d158" stroke-width="1"/><rect x="80.5" y="237.7" width="2.6" height="12.6" rx="0" fill="#30d158" opacity="1"/><line x1="85.6" y1="231.9" x2="85.6" y2="244.3" stroke="#30d158" stroke-width="1"/><rect x="84.3" y="233.4" width="2.6" height="4.4" rx="0" fill="#30d158" opacity="1"/><line x1="89.3" y1="225.6" x2="89.3" y2="239.5" stroke="#30d158" stroke-width="1"/><rect x="88.0" y="230.0" width="2.6" height="3.3" rx="0" fill="#30d158" opacity="1"/><line x1="93.1" y1="221.4" x2="93.1" y2="241.6" stroke="#ff453a" stroke-width="1"/><rect x="91.8" y="230.0" width="2.6" height="8.7" rx="0" fill="#ff453a" opacity="1"/><line x1="96.8" y1="234.5" x2="96.8" y2="253.2" stroke="#ff453a" stroke-width="1"/><rect x="95.5" y="238.8" width="2.6" height="12.5" rx="0" fill="#ff453a" opacity="1"/><line x1="100.6" y1="249.5" x2="100.6" y2="251.6" stroke="#30d158" stroke-width="1"/><rect x="99.3" y="250.2" width="2.6" height="1.2" rx="0" fill="#30d158" opacity="1"/><line x1="104.3" y1="246.8" x2="104.3" y2="268.3" stroke="#ff453a" stroke-width="1"/><rect x="103.0" y="250.2" width="2.6" height="11.3" rx="0" fill="#ff453a" opacity="1"/><line x1="108.1" y1="261.5" x2="108.1" y2="275.6" stroke="#ff453a" stroke-width="1"/><rect x="106.8" y="261.6" width="2.6" height="7.9" rx="0" fill="#ff453a" opacity="1"/><line x1="111.8" y1="266.6" x2="111.8" y2="278.5" stroke="#ff453a" stroke-width="1"/><rect x="110.5" y="269.4" width="2.6" height="6.5" rx="0" fill="#ff453a" opacity="1"/><line x1="115.6" y1="266.4" x2="115.6" y2="293.7" stroke="#ff453a" stroke-width="1"/><rect x="114.3" y="276.0" width="2.6" height="12.1" rx="0" fill="#ff453a" opacity="1"/><line x1="119.3" y1="286.6" x2="119.3" y2="291.0" stroke="#ff453a" stroke-width="1"/><rect x="118.0" y="288.1" width="2.6" height="1.2" rx="0" fill="#ff453a" opacity="1"/><line x1="123.1" y1="285.1" x2="123.1" y2="290.3" stroke="#ff453a" stroke-width="1"/><rect x="121.8" y="288.7" width="2.6" height="1.3" rx="0" fill="#ff453a" opacity="1"/><line x1="126.8" y1="270.9" x2="126.8" y2="290.2" stroke="#30d158" stroke-width="1"/><rect x="125.5" y="280.7" width="2.6" height="9.3" rx="0" fill="#30d158" opacity="1"/><line x1="130.6" y1="135.1" x2="130.6" y2="334.1" stroke="#30d158" stroke-width="1"/><rect x="129.3" y="182.5" width="2.6" height="98.2" rx="0" fill="#30d158" opacity="1"/><line x1="134.3" y1="176.3" x2="134.3" y2="188.8" stroke="#30d158" stroke-width="1"/><rect x="133.0" y="176.5" width="2.6" height="6.0" rx="0" fill="#30d158" opacity="1"/><line x1="138.1" y1="172.0" x2="138.1" y2="179.8" stroke="#30d158" stroke-width="1"/><rect x="136.8" y="174.1" width="2.6" height="2.3" rx="0" fill="#30d158" opacity="1"/><line x1="141.8" y1="167.4" x2="141.8" y2="174.5" stroke="#30d158" stroke-width="1"/><rect x="140.5" y="167.5" width="2.6" height="6.6" rx="0" fill="#30d158" opacity="1"/><line x1="145.6" y1="165.3" x2="145.6" y2="172.4" stroke="#30d158" stroke-width="1"/><rect x="144.3" y="166.3" width="2.6" height="1.2" rx="0" fill="#30d158" opacity="1"/><line x1="149.3" y1="165.0" x2="149.3" y2="174.7" stroke="#ff453a" stroke-width="1"/><rect x="148.0" y="166.3" width="2.6" height="3.5" rx="0" fill="#ff453a" opacity="1"/><line x1="153.1" y1="141.6" x2="153.1" y2="182.7" stroke="#30d158" stroke-width="1"/><rect x="151.8" y="154.3" width="2.6" height="15.5" rx="0" fill="#30d158" opacity="1"/><line x1="156.9" y1="134.2" x2="156.9" y2="159.1" stroke="#30d158" stroke-width="1"/><rect x="155.6" y="138.9" width="2.6" height="15.4" rx="0" fill="#30d158" opacity="1"/><line x1="160.6" y1="121.7" x2="160.6" y2="147.5" stroke="#30d158" stroke-width="1"/><rect x="159.3" y="127.5" width="2.6" height="11.3" rx="0" fill="#30d158" opacity="1"/><line x1="164.4" y1="118.7" x2="164.4" y2="134.4" stroke="#30d158" stroke-width="1"/><rect x="163.1" y="119.7" width="2.6" height="7.8" rx="0" fill="#30d158" opacity="1"/><line x1="168.1" y1="115.0" x2="168.1" y2="127.3" stroke="#ff453a" stroke-width="1"/><rect x="166.8" y="119.7" width="2.6" height="2.5" rx="0" fill="#ff453a" opacity="1"/><line x1="171.9" y1="122.0" x2="171.9" y2="133.9" stroke="#ff453a" stroke-width="1"/><rect x="170.6" y="122.2" width="2.6" height="4.8" rx="0" fill="#ff453a" opacity="1"/><line x1="175.6" y1="126.5" x2="175.6" y2="132.4" stroke="#ff453a" stroke-width="1"/><rect x="174.3" y="127.0" width="2.6" height="3.2" rx="0" fill="#ff453a" opacity="1"/><line x1="179.4" y1="124.3" x2="179.4" y2="148.2" stroke="#ff453a" stroke-width="1"/><rect x="178.1" y="130.3" width="2.6" height="9.0" rx="0" fill="#ff453a" opacity="1"/><line x1="183.1" y1="126.5" x2="183.1" y2="148.5" stroke="#30d158" stroke-width="1"/><rect x="181.8" y="129.9" width="2.6" height="9.4" rx="0" fill="#30d158" opacity="1"/><line x1="186.9" y1="127.4" x2="186.9" y2="131.6" stroke="#ff453a" stroke-width="1"/><rect x="185.6" y="129.9" width="2.6" height="1.2" rx="0" fill="#ff453a" opacity="1"/><line x1="190.6" y1="115.1" x2="190.6" y2="132.2" stroke="#30d158" stroke-width="1"/><rect x="189.3" y="118.7" width="2.6" height="11.5" rx="0" fill="#30d158" opacity="1"/><line x1="194.4" y1="118.3" x2="194.4" y2="120.0" stroke="#ff453a" stroke-width="1"/><rect x="193.1" y="118.7" width="2.6" height="1.2" rx="0" fill="#ff453a" opacity="1"/><line x1="198.1" y1="95.9" x2="198.1" y2="132.3" stroke="#30d158" stroke-width="1"/><rect x="196.8" y="104.9" width="2.6" height="14.4" rx="0" fill="#30d158" opacity="1"/><line x1="201.9" y1="91.5" x2="201.9" y2="105.4" stroke="#30d158" stroke-width="1"/><rect x="200.6" y="93.4" width="2.6" height="11.5" rx="0" fill="#30d158" opacity="1"/><line x1="205.6" y1="82.6" x2="205.6" y2="110.0" stroke="#ff453a" stroke-width="1"/><rect x="204.3" y="93.4" width="2.6" height="10.8" rx="0" fill="#ff453a" opacity="1"/><line x1="209.4" y1="101.1" x2="209.4" y2="111.3" stroke="#ff453a" stroke-width="1"/><rect x="208.1" y="104.2" width="2.6" height="5.3" rx="0" fill="#ff453a" opacity="1"/><line x1="213.1" y1="89.0" x2="213.1" y2="119.7" stroke="#30d158" stroke-width="1"/><rect x="211.8" y="96.3" width="2.6" height="13.2" rx="0" fill="#30d158" opacity="1"/><line x1="216.9" y1="92.4" x2="216.9" y2="98.6" stroke="#30d158" stroke-width="1"/><rect x="215.6" y="94.8" width="2.6" height="1.6" rx="0" fill="#30d158" opacity="1"/><line x1="220.7" y1="79.0" x2="220.7" y2="107.1" stroke="#30d158" stroke-width="1"/><rect x="219.4" y="79.8" width="2.6" height="15.0" rx="0" fill="#30d158" opacity="1"/><line x1="224.4" y1="79.6" x2="224.4" y2="82.4" stroke="#ff453a" stroke-width="1"/><rect x="223.1" y="79.8" width="2.6" height="1.2" rx="0" fill="#ff453a" opacity="1"/><line x1="228.2" y1="71.9" x2="228.2" y2="90.3" stroke="#ff453a" stroke-width="1"/><rect x="226.9" y="80.1" width="2.6" height="8.9" rx="0" fill="#ff453a" opacity="1"/><line x1="231.9" y1="77.5" x2="231.9" y2="96.5" stroke="#30d158" stroke-width="1"/><rect x="230.6" y="83.3" width="2.6" height="5.8" rx="0" fill="#30d158" opacity="1"/><line x1="235.7" y1="67.1" x2="235.7" y2="91.3" stroke="#30d158" stroke-width="1"/><rect x="234.4" y="73.6" width="2.6" height="9.7" rx="0" fill="#30d158" opacity="1"/><line x1="239.4" y1="72.9" x2="239.4" y2="80.2" stroke="#ff453a" stroke-width="1"/><rect x="238.1" y="73.6" width="2.6" height="3.7" rx="0" fill="#ff453a" opacity="1"/><line x1="243.2" y1="75.9" x2="243.2" y2="93.9" stroke="#ff453a" stroke-width="1"/><rect x="241.9" y="77.3" width="2.6" height="8.6" rx="0" fill="#ff453a" opacity="1"/><line x1="246.9" y1="84.2" x2="246.9" y2="90.5" stroke="#ff453a" stroke-width="1"/><rect x="245.6" y="85.9" width="2.6" height="2.1" rx="0" fill="#ff453a" opacity="1"/><line x1="250.7" y1="60.2" x2="250.7" y2="99.2" stroke="#30d158" stroke-width="1"/><rect x="249.4" y="73.3" width="2.6" height="14.6" rx="0" fill="#30d158" opacity="1"/><line x1="254.4" y1="54.5" x2="254.4" y2="77.8" stroke="#30d158" stroke-width="1"/><rect x="253.1" y="64.2" width="2.6" height="9.2" rx="0" fill="#30d158" opacity="1"/><line x1="258.2" y1="59.8" x2="258.2" y2="78.5" stroke="#ff453a" stroke-width="1"/><rect x="256.9" y="64.2" width="2.6" height="7.7" rx="0" fill="#ff453a" opacity="1"/><line x1="261.9" y1="68.6" x2="261.9" y2="78.3" stroke="#ff453a" stroke-width="1"/><rect x="260.6" y="71.9" width="2.6" height="4.3" rx="0" fill="#ff453a" opacity="1"/><line x1="265.7" y1="72.5" x2="265.7" y2="85.8" stroke="#ff453a" stroke-width="1"/><rect x="264.4" y="76.3" width="2.6" height="8.2" rx="0" fill="#ff453a" opacity="1"/><line x1="269.4" y1="80.7" x2="269.4" y2="103.6" stroke="#ff453a" stroke-width="1"/><rect x="268.1" y="84.5" width="2.6" height="9.3" rx="0" fill="#ff453a" opacity="1"/><line x1="273.2" y1="73.5" x2="273.2" y2="100.3" stroke="#30d158" stroke-width="1"/><rect x="271.9" y="83.5" width="2.6" height="10.2" rx="0" fill="#30d158" opacity="1"/><line x1="276.9" y1="79.5" x2="276.9" y2="92.4" stroke="#ff453a" stroke-width="1"/><rect x="275.6" y="83.5" width="2.6" height="6.2" rx="0" fill="#ff453a" opacity="1"/><line x1="280.7" y1="85.2" x2="280.7" y2="91.5" stroke="#30d158" stroke-width="1"/><rect x="279.4" y="85.8" width="2.6" height="3.9" rx="0" fill="#30d158" opacity="1"/><line x1="284.4" y1="80.9" x2="284.4" y2="90.1" stroke="#30d158" stroke-width="1"/><rect x="283.1" y="84.8" width="2.6" height="1.2" rx="0" fill="#30d158" opacity="1"/><line x1="288.2" y1="82.0" x2="288.2" y2="96.9" stroke="#ff453a" stroke-width="1"/><rect x="286.9" y="84.8" width="2.6" height="5.8" rx="0" fill="#ff453a" opacity="1"/><line x1="292.0" y1="74.8" x2="292.0" y2="97.2" stroke="#30d158" stroke-width="1"/><rect x="290.7" y="82.2" width="2.6" height="8.5" rx="0" fill="#30d158" opacity="1"/><line x1="295.7" y1="76.3" x2="295.7" y2="96.3" stroke="#ff453a" stroke-width="1"/><rect x="294.4" y="82.2" width="2.6" height="7.4" rx="0" fill="#ff453a" opacity="1"/><line x1="299.5" y1="80.5" x2="299.5" y2="95.3" stroke="#30d158" stroke-width="1"/><rect x="298.2" y="83.4" width="2.6" height="6.1" rx="0" fill="#30d158" opacity="1"/><line x1="303.2" y1="80.9" x2="303.2" y2="95.6" stroke="#ff453a" stroke-width="1"/><rect x="301.9" y="83.4" width="2.6" height="7.8" rx="0" fill="#ff453a" opacity="1"/><line x1="307.0" y1="87.5" x2="307.0" y2="94.4" stroke="#30d158" stroke-width="1"/><rect x="305.7" y="91.0" width="2.6" height="1.2" rx="0" fill="#30d158" opacity="1"/><line x1="310.7" y1="88.7" x2="310.7" y2="103.3" stroke="#ff453a" stroke-width="1"/><rect x="309.4" y="91.0" width="2.6" height="5.2" rx="0" fill="#ff453a" opacity="1"/><line x1="314.5" y1="91.9" x2="314.5" y2="103.8" stroke="#ff453a" stroke-width="1"/><rect x="313.2" y="96.2" width="2.6" height="3.7" rx="0" fill="#ff453a" opacity="1"/><line x1="318.2" y1="85.0" x2="318.2" y2="107.2" stroke="#30d158" stroke-width="1"/><rect x="316.9" y="85.1" width="2.6" height="14.8" rx="0" fill="#30d158" opacity="1"/><line x1="322.0" y1="72.1" x2="322.0" y2="92.3" stroke="#30d158" stroke-width="1"/><rect x="320.7" y="74.8" width="2.6" height="10.4" rx="0" fill="#30d158" opacity="1"/><line x1="325.7" y1="72.0" x2="325.7" y2="82.6" stroke="#ff453a" stroke-width="1"/><rect x="324.4" y="74.8" width="2.6" height="2.8" rx="0" fill="#ff453a" opacity="1"/><line x1="329.5" y1="57.4" x2="329.5" y2="87.1" stroke="#30d158" stroke-width="1"/><rect x="328.2" y="65.1" width="2.6" height="12.5" rx="0" fill="#30d158" opacity="1"/><line x1="333.2" y1="62.5" x2="333.2" y2="75.3" stroke="#ff453a" stroke-width="1"/><rect x="331.9" y="65.1" width="2.6" height="5.3" rx="0" fill="#ff453a" opacity="1"/><line x1="337.0" y1="67.0" x2="337.0" y2="74.7" stroke="#ff453a" stroke-width="1"/><rect x="335.7" y="70.4" width="2.6" height="1.2" rx="0" fill="#ff453a" opacity="1"/><line x1="340.7" y1="55.2" x2="340.7" y2="80.5" stroke="#30d158" stroke-width="1"/><rect x="339.4" y="59.1" width="2.6" height="11.7" rx="0" fill="#30d158" opacity="1"/><line x1="344.5" y1="46.1" x2="344.5" y2="64.7" stroke="#30d158" stroke-width="1"/><rect x="343.2" y="53.1" width="2.6" height="6.1" rx="0" fill="#30d158" opacity="1"/><line x1="348.2" y1="44.0" x2="348.2" y2="70.2" stroke="#ff453a" stroke-width="1"/><rect x="346.9" y="53.1" width="2.6" height="8.2" rx="0" fill="#ff453a" opacity="1"/><line x1="352.0" y1="39.0" x2="352.0" y2="68.4" stroke="#30d158" stroke-width="1"/><rect x="350.7" y="46.0" width="2.6" height="15.3" rx="0" fill="#30d158" opacity="1"/><line x1="130.6" y1="280.7" x2="352.0" y2="280.7" stroke="#86868b" stroke-width="1" stroke-dasharray="4 4"/><rect x="84.6" y="308.0" width="92.0" height="34.0" rx="6" fill="#30d158" opacity="0.95"/><text x="130.6" y="322.0" fill="#fff" font-size="11" font-weight="700" text-anchor="middle">Beat +14%</text><text x="130.6" y="336.0" fill="#fff" font-size="11" font-weight="600" text-anchor="middle">score 2.3</text><text x="243.2" y="60.0" fill="#30d158" font-size="11" font-weight="700" text-anchor="middle">drift window</text><text x="18.0" y="24.0" fill="#86868b" font-size="12" font-weight="600" text-anchor="start">PEAD &#183; daily</text><rect x="368.0" y="40.0" width="176.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="53.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Last surprise</text><text x="490.0" y="53.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">+14.0%</text><rect x="368.0" y="59.0" width="176.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="72.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Score (SUE-style)</text><text x="490.0" y="72.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">2.3</text><rect x="368.0" y="78.0" width="176.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="91.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Days since report</text><text x="490.0" y="91.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">59</text><rect x="368.0" y="97.0" width="176.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="110.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Stock since report</text><text x="490.0" y="110.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">+21.4%</text><rect x="368.0" y="116.0" width="176.0" height="18.0" rx="0" fill="#173d24" opacity="1"/><text x="374.0" y="129.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">vs benchmark</text><text x="490.0" y="129.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">+17.9 pts</text><rect x="368.0" y="135.0" width="176.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="148.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Window</text><text x="490.0" y="148.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">drift up</text><text x="546" y="320" fill="#6e6e73" font-size="11" text-anchor="end">Illustrative mock &middot; made-up values</text></svg></div>
+  </div>
+  <div class="panel" style="margin-top:22px">
+    <h4>Add it to TradingView</h4>
+    <ol class="howto">
+      <li>Copy the code below, or download the .pine file.</li>
+      <li>In TradingView, open the Pine Editor at the bottom of a chart, paste it in, and click <b>Add to chart</b>.</li>
+      <li>Use a daily chart of a stock that reports earnings. ETFs and indexes have no earnings, so nothing will show.</li>
+      <li>To get alerted, create an alert on the chart and pick <b>Big beat</b> or <b>Big miss</b> under this indicator.</li>
+    </ol>
+  </div>
+  <div class="code-wrap">
+    <div class="code-top">
+      <span>post-earnings-drift.pine &middot; Pine Script v6</span>
+      <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/post-earnings-drift.pine" download>Download</a></div>
+    </div>
+    <pre class="pine" tabindex="0"><code>//@version=6
+// =====================================================================
+// Post-Earnings Drift — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/post-earnings-drift.html
+//
+// Bernard and Thomas (1989, 1990): after an earnings surprise, prices keep
+// drifting in the surprise's direction for weeks, and a big share of the
+// drift arrives around the NEXT few earnings reports.
+//
+//   1. Surprise   Reported EPS against the consensus estimate, as a percent.
+//   2. Score      A SUE-style score: this quarter's surprise divided by the
+//                 standard deviation of the last N surprises, so a "beat"
+//                 is judged against how noisy this company usually is.
+//   3. Drift      The window after each report (default 60 trading days)
+//                 is shaded green after a big beat, red after a big miss.
+//   4. Track      The table shows the stock's return since the report
+//                 against the benchmark's (SPY by default): the drift so far.
+//
+// Use a daily chart on a stock with earnings data. Marks and alerts only;
+// it places no orders.
+// =====================================================================
+indicator("Post-Earnings Drift", shorttitle = "PEAD", overlay = true, max_labels_count = 200)
+
+// ---------------- inputs ----------------
+grpS = "Surprise"
+nHist    = input.int(8, "Surprises used for the score", minval = 4, maxval = 20, group = grpS)
+sueBig   = input.float(1.0, "Big surprise (score at least)", minval = 0.1, step = 0.1, group = grpS)
+pctBig   = input.float(5.0, "...or a surprise of at least (%)", minval = 0, step = 0.5, group = grpS, tooltip = "Used until there are enough past surprises to compute the score.")
+grpD = "Drift"
+driftLen = input.int(60, "Drift window (trading days)", minval = 5, maxval = 250, group = grpD)
+bench    = input.symbol("AMEX:SPY", "Benchmark", group = grpD)
+showTbl  = input.bool(true, "Show the table", group = grpD)
+
+// ---------------- earnings ----------------
+act = request.earnings(syminfo.tickerid, earnings.actual, barmerge.gaps_on, ignore_invalid_symbol = true)
+est = request.earnings(syminfo.tickerid, earnings.estimate, barmerge.gaps_on, ignore_invalid_symbol = true)
+bClose = request.security(bench, timeframe.period, close, ignore_invalid_symbol = true)
+
+var hist = array.new&lt;float&gt;()
+var int   eBar  = na
+var float eSurp = na
+var float eSue  = na
+var float base  = na
+var float bBase = na
+var int   eDir  = 0
+
+isNew = not na(act) and not na(est)
+if isNew
+    diff = act - est
+    sd = array.size(hist) &gt;= 4 ? array.stdev(hist) : na
+    eSue  := not na(sd) and sd &gt; 0 ? diff / sd : na
+    eSurp := est != 0 ? diff / math.abs(est) * 100 : na
+    eBar  := bar_index
+    base  := close[1]
+    bBase := bClose[1]
+    big = not na(eSue) ? math.abs(eSue) &gt;= sueBig : not na(eSurp) and math.abs(eSurp) &gt;= pctBig
+    eDir  := big ? (diff &gt; 0 ? 1 : -1) : 0
+    array.push(hist, diff)
+    if array.size(hist) &gt; nHist
+        array.shift(hist)
+    txtL = (diff &gt;= 0 ? "Beat " : "Miss ") + (na(eSurp) ? "" : (eSurp &gt;= 0 ? "+" : "") + str.tostring(eSurp, "#.0") + "%") + (na(eSue) ? "" : "\nscore " + str.tostring(eSue, "#.0"))
+    label.new(bar_index, diff &gt;= 0 ? low : high, txtL, style = diff &gt;= 0 ? label.style_label_up : label.style_label_down,
+              color = eDir &gt; 0 ? color.new(#30d158, 10) : eDir &lt; 0 ? color.new(#ff453a, 10) : color.new(#8e8e93, 20), textcolor = color.white, size = size.small)
+
+inWin = not na(eBar) and bar_index - eBar &lt; driftLen
+bgcolor(inWin and eDir &gt; 0 ? color.new(#30d158, 90) : inWin and eDir &lt; 0 ? color.new(#ff453a, 90) : na, title = "Drift window")
+
+drift  = na(base) ? na : (close / base - 1) * 100
+bDrift = na(bBase) or na(bClose) ? na : (bClose / bBase - 1) * 100
+abn    = na(drift) or na(bDrift) ? na : drift - bDrift
+
+alertcondition(isNew and eDir &gt; 0, "Big beat", "{{ticker}}: big earnings beat, the drift window starts")
+alertcondition(isNew and eDir &lt; 0, "Big miss", "{{ticker}}: big earnings miss, the drift window starts")
+
+var table tb = table.new(position.top_right, 2, 6, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+if showTbl and barstate.islast
+    lc = color.new(#86868b, 0)
+    vc = color.new(#f5f5f7, 0)
+    table.cell(tb, 0, 0, "Last surprise", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 0, na(eSurp) ? "n/a" : (eSurp &gt;= 0 ? "+" : "") + str.tostring(eSurp, "#.0") + "%", text_color = vc, text_size = size.small)
+    table.cell(tb, 0, 1, "Score (SUE-style)", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 1, na(eSue) ? "n/a" : str.tostring(eSue, "#.0"), text_color = vc, text_size = size.small)
+    table.cell(tb, 0, 2, "Days since report", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 2, na(eBar) ? "n/a" : str.tostring(bar_index - eBar), text_color = vc, text_size = size.small)
+    table.cell(tb, 0, 3, "Stock since report", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 3, na(drift) ? "n/a" : (drift &gt;= 0 ? "+" : "") + str.tostring(drift, "#.0") + "%", text_color = vc, text_size = size.small)
+    table.cell(tb, 0, 4, "vs benchmark", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 4, na(abn) ? "n/a" : (abn &gt;= 0 ? "+" : "") + str.tostring(abn, "#.0") + " pts", text_color = na(abn) ? vc : abn &gt;= 0 ? color.new(#30d158, 0) : color.new(#ff453a, 0), text_size = size.small)
+    table.cell(tb, 0, 5, "Window", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 5, inWin ? (eDir &gt; 0 ? "drift up" : eDir &lt; 0 ? "drift down" : "small surprise") : "closed", text_color = vc, text_size = size.small)
+</code></pre>
+  </div>
+
+  <div class="section-head" id="related">
+    <h2>Go deeper</h2>
+    <p>Pages on this site that pick up where this one leaves off.</p>
+  </div>
+  <div class="four">
+    <a href="/trading-earnings.html" style="--tc:#2997ff"><span class="k">fundamentals</span><h3>How to Trade Earnings</h3><p>Reading the headline reaction, the call and the price confirmation on report day.</p><small>Read &rsaquo;</small></a>
+    <a href="/famous-strategies/cross-sectional-momentum.html" style="--tc:#30d158"><span class="k">famous strategy</span><h3>Cross-Sectional Momentum</h3><p>The other big "prices are slow" anomaly: winners keep winning for months.</p><small>Read &rsaquo;</small></a>
+    <a href="/relative-volume.html" style="--tc:#f4b942"><span class="k">fundamentals</span><h3>Relative Volume</h3><p>How to tell a report-day move with real participation from a quiet one.</p><small>Read &rsaquo;</small></a>
+    <a href="/six-momentum-trades.html" style="--tc:#ff9f0a"><span class="k">fundamentals</span><h3>Six Momentum Trades</h3><p>Chart entries for the weeks after the gap: pullbacks, retests and continuation.</p><small>Read &rsaquo;</small></a>
+  </div>
+
+  <div class="rule">
+    <div>
+      <h2>Try it on paper first.</h2>
+      <p>Pick the 20 biggest beats of the next earnings season, scored against each company's own history. Note the close the day after each report, and check them against SPY at 20, 40 and 60 trading days. Do it again next season before putting money on it.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Decide what counts as a big surprise before the season starts.</li>
+        <li>Note which ones held the gap and which faded it.</li>
+        <li>Write down whether you'd hold through the next report.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-head" id="sources">
+    <h2>Sources</h2>
+    <p>The papers and books behind every figure on this page.</p>
+  </div>
+  <ol class="cites">
+    <li>Bernard, V. L., &amp; Thomas, J. K. (1989). Post-earnings-announcement drift: Delayed price response or risk premium? <i>Journal of Accounting Research</i>, 27 (Supplement), 1&ndash;36.<small>The SUE decile strategy, 41 of 48 quarters, 11 of 16 down-market quarters, larger drift in small firms, and the drift around the next three reports.</small></li>
+    <li>Bernard, V. L., &amp; Thomas, J. K. (1990). Evidence that stock prices do not fully reflect the implications of current earnings for future earnings. <i>Journal of Accounting and Economics</i>, 13(4), 305&ndash;340.<small>About 25&ndash;30% of the drift in the 3-day windows around the next reports, and the autocorrelations 0.34, 0.19, 0.06 and &minus;0.24.</small></li>
+    <li>Ball, R., &amp; Brown, P. (1968). An empirical evaluation of accounting income numbers. <i>Journal of Accounting Research</i>, 6(2), 159&ndash;178.</li>
+    <li>Kettell, McInnis &amp; Zhao (2022), research on the decline of post-earnings announcement drift.<small>The high-minus-low SUE spread falling from about 5% in the 1980s and 1990s to 3% or less by the late 2010s.</small></li>
+  </ol>
+
+  <p class="src">Built from Bernard and Thomas's 1989 and 1990 papers and the research listed above. The figures quoted from the papers are labelled as such on the charts. Every company, earnings number, score and price path in the walkthroughs is made up for illustration, including the shapes of the drift lines. Past results from these studies don't promise future returns, and the one-stock, price-confirmed version shown here is a simplification the original papers didn't test. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>
