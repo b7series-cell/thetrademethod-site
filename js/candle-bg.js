@@ -992,6 +992,21 @@
       }
     },
 
+    "opening-range-breakout": {
+      story: function (st) {
+        var H;
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { d: 0.7, n: 0.4, v: 1, mk: { t: "9:30 · first 5 min: green", col: GREEN, below: true } }); }),
+          rep(1, function (st) { H = level(st, st.price + 0.35, "Range high · buy stop", GREEN, true); return bar(st, { d: -0.2, n: 0.3, v: 0.6 }); }),
+          rep(2, function (st) { return bar(st, { d: 0.05, n: 0.25, v: 0.5 }); }),
+          rep(1, function (st) { level(st, st.price - 0.25, "Stop · 10% of ATR", RED, true); return bar(st, { d: 0.9, n: 0.3, v: 0.9, pierce: true, flash: GREEN, mk: { t: "Break of the high · in play", col: GREEN } }); }),
+          rep(12, function (st, k) { return bar(st, { d: k % 4 === 3 ? -0.4 : 0.5, n: 0.5 }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 0.2, n: 0.3, mk: { t: "4:00 pm · out at the close", col: SILK, below: true } }); }),
+          rep(5, function (st) { return bar(st, { d: rnd(-0.4, 0.4), n: 0.6 }); })
+        ];
+      }
+    },
+
     "pyramiding": {
       story: function (st) {
         var S, hi, lo;

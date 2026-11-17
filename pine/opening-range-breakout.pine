@@ -1,0 +1,137 @@
+//@version=6
+// =====================================================================
+// Opening Range Breakout — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/opening-range-breakout.html
+//
+// The rules tested by Zarattini, Barbon & Aziz (2024) on US "stocks in
+// play", 2016-2023:
+//
+//   1  The first 5-minute candle sets the side: green = longs only,
+//      red = shorts only, a doji = no trade.
+//   2  Long: stop buy at its high. Short: stop sell at its low.
+//   3  Stop loss 10% of the 14-day ATR from the entry.
+//   4  No target: whatever is left is closed at the 4:00 pm close.
+//   5  Only stocks in play: first-5-minute volume at least 100% of its
+//      14-day average for that window (relative volume), price over $5,
+//      14-day average volume of 1M+ shares, 14-day ATR over $0.50.
+//      (The paper traded the 20 stocks with the highest relative volume.)
+//
+// Use a 1- or 5-minute chart of a US stock, regular hours only.
+// Marks and alerts only; it places no orders.
+// =====================================================================
+indicator("Opening Range Breakout", shorttitle = "ORB", overlay = true, max_labels_count = 200)
+
+orMin    = input.int(5, "Opening range (minutes)", options = [5, 15, 30, 60])
+atrFrac  = input.float(10, "Stop: % of the 14-day ATR", step = 1)
+rvMin    = input.float(100, "In play: relative volume at least (%)", step = 10)
+rvLen    = input.int(14, "Relative volume: days averaged", minval = 2)
+minPx    = input.float(5, "In play: price above ($)")
+minAvgV  = input.float(1000000, "In play: 14-day average volume at least (shares)")
+minAtr   = input.float(0.5, "In play: 14-day ATR above ($)", step = 0.05)
+onlyPlay = input.bool(true, "Signal only on stocks in play")
+
+// daily values from yesterday (no look-ahead)
+atrD  = request.security(syminfo.tickerid, "D", ta.atr(14)[1], lookahead = barmerge.lookahead_on)
+avgVD = request.security(syminfo.tickerid, "D", ta.sma(volume, 14)[1], lookahead = barmerge.lookahead_on)
+
+var float sessStart = na
+var float orH = na
+var float orL = na
+var float orO = na
+var float orC = na
+var float orV = 0.0
+var bool  orDone = false
+var int   dir = 0
+var float relVol = na
+var bool  inPlay = false
+var history = array.new<float>()
+
+var int   pos = 0
+var float entry = na
+var float stopL = na
+var bool  tradedToday = false
+
+newDay = session.isfirstbar_regular
+if newDay
+    sessStart := time
+    orH := high
+    orL := low
+    orO := open
+    orC := close
+    orV := volume
+    orDone := false
+    dir := 0
+    relVol := na
+    inPlay := false
+    pos := 0
+    entry := na
+    stopL := na
+    tradedToday := false
+
+inOR = not na(sessStart) and time < sessStart + orMin * 60000
+if inOR and not newDay
+    orH := math.max(orH, high)
+    orL := math.min(orL, low)
+    orC := close
+    orV += volume
+
+// the first bar after the range: decide the side and whether it's in play
+orJustDone = not inOR and not orDone and not na(sessStart)
+if orJustDone
+    orDone := true
+    dir := orC > orO ? 1 : orC < orO ? -1 : 0
+    n = array.size(history)
+    if n > 0
+        avgOR = array.avg(history)
+        relVol := avgOR > 0 ? orV / avgOR * 100 : na
+    array.push(history, orV)
+    if array.size(history) > rvLen
+        array.shift(history)
+    inPlay := not na(relVol) and relVol >= rvMin and orO > minPx and avgVD >= minAvgV and atrD > minAtr
+
+canTrade = orDone and not tradedToday and dir != 0 and (inPlay or not onlyPlay) and not na(atrD)
+longIn  = canTrade and dir == 1 and high > orH
+shortIn = canTrade and dir == -1 and low < orL
+stopHit = pos != 0 and ((pos == 1 and low <= stopL) or (pos == -1 and high >= stopL))
+if stopHit
+    label.new(bar_index, pos == 1 ? low : high, "stop", style = pos == 1 ? label.style_label_up : label.style_label_down, color = color.new(#ff453a, 10), textcolor = color.white, size = size.tiny)
+    pos := 0
+if longIn
+    entry := math.max(open, orH)
+    stopL := entry - atrD * atrFrac / 100
+    pos := 1
+    tradedToday := true
+    label.new(bar_index, low, "ORB long" + (na(relVol) ? "" : "\nRV " + str.tostring(relVol, "#") + "%"), style = label.style_label_up, color = color.new(#30d158, 10), textcolor = color.white, size = size.small)
+if shortIn
+    entry := math.min(open, orL)
+    stopL := entry + atrD * atrFrac / 100
+    pos := -1
+    tradedToday := true
+    label.new(bar_index, high, "ORB short" + (na(relVol) ? "" : "\nRV " + str.tostring(relVol, "#") + "%"), style = label.style_label_down, color = color.new(#ff453a, 10), textcolor = color.white, size = size.small)
+closeOut = session.islastbar_regular and pos != 0
+if closeOut
+    label.new(bar_index, close, "out at the close", style = label.style_label_left, color = color.new(#86868b, 20), textcolor = color.white, size = size.tiny)
+    pos := 0
+
+plot(orDone ? orH : na, "Range high", color = color.new(#30d158, 0), style = plot.style_linebr, linewidth = 2)
+plot(orDone ? orL : na, "Range low", color = color.new(#ff453a, 0), style = plot.style_linebr, linewidth = 2)
+plot(pos != 0 or stopHit ? stopL : na, "Stop (10% ATR)", color = color.new(#f4b942, 0), style = plot.style_linebr)
+bgcolor(inOR ? color.new(#2997ff, 88) : na, title = "Opening range window")
+
+alertcondition(longIn, "ORB long", "{{ticker}}: broke the opening-range high on a green first candle")
+alertcondition(shortIn, "ORB short", "{{ticker}}: broke the opening-range low on a red first candle")
+alertcondition(stopHit, "ORB stop hit", "{{ticker}}: hit the 10% ATR stop")
+
+var table tb = table.new(position.top_right, 2, 7, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+row(int r, string k, string v, color c) =>
+    table.cell(tb, 0, r, k, text_color = color.new(#86868b, 0), text_size = size.small)
+    table.cell(tb, 1, r, v, text_color = c, text_size = size.small)
+if barstate.islast
+    ink = color.new(#f5f5f7, 0)
+    row(0, "Range (" + str.tostring(orMin) + " min)", orDone ? str.tostring(orL, format.mintick) + " – " + str.tostring(orH, format.mintick) : "forming", ink)
+    row(1, "First candle", not orDone ? "–" : dir == 1 ? "green: longs only" : dir == -1 ? "red: shorts only" : "doji: no trade", dir == 1 ? color.new(#30d158, 0) : dir == -1 ? color.new(#ff453a, 0) : ink)
+    row(2, "Relative volume", na(relVol) ? "n/a" : str.tostring(relVol, "#") + "%", not na(relVol) and relVol >= rvMin ? color.new(#30d158, 0) : ink)
+    row(3, "14-day ATR", na(atrD) ? "n/a" : str.tostring(atrD, "#.00"), ink)
+    row(4, "Stop distance", na(atrD) ? "n/a" : str.tostring(atrD * atrFrac / 100, "#.00"), color.new(#f4b942, 0))
+    row(5, "In play", orDone ? (inPlay ? "yes" : "no") : "–", inPlay ? color.new(#30d158, 0) : color.new(#ff453a, 0))
+    row(6, "Position", pos == 1 ? "long from " + str.tostring(entry, format.mintick) : pos == -1 ? "short from " + str.tostring(entry, format.mintick) : tradedToday ? "done for today" : "flat", ink)
