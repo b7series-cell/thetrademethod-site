@@ -1,0 +1,74 @@
+//@version=6
+// =====================================================================
+// 10-Month Moving Average Timing — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/ten-month-sma.html
+//
+// Mebane Faber, A Quantitative Approach to Tactical Asset Allocation
+// (2007, updated 2013). Once a month, at the month-end close:
+//
+//   Close above its 10-month simple moving average  ->  hold it
+//   Close below it                                  ->  move to cash (T-bills)
+//
+// Each asset is timed on its own. The five-asset version spreads the
+// money equally over US stocks, foreign stocks, bonds, real estate and
+// commodities, each with its own signal (the table on the right).
+//
+// Works on any timeframe: the signal is always the monthly one.
+// Marks and alerts only; it places no orders.
+// =====================================================================
+indicator("10-Month SMA Timing", shorttitle = "10M SMA", overlay = true)
+
+len   = input.int(10, "Moving average length (months)", minval = 2)
+show5 = input.bool(true, "Show the five-asset table")
+grp = "Five assets"
+s1 = input.symbol("AMEX:SPY", "US stocks", group = grp)
+s2 = input.symbol("AMEX:EFA", "Foreign stocks", group = grp)
+s3 = input.symbol("NASDAQ:IEF", "Bonds (10-year Treasuries)", group = grp)
+s4 = input.symbol("AMEX:VNQ", "Real estate", group = grp)
+s5 = input.symbol("AMEX:DBC", "Commodities", group = grp)
+
+// the last completed month only: no look-ahead, no mid-month flips
+mClose = request.security(syminfo.tickerid, "M", close[1], lookahead = barmerge.lookahead_on)
+mSma   = request.security(syminfo.tickerid, "M", ta.sma(close, len)[1], lookahead = barmerge.lookahead_on)
+liveSma = request.security(syminfo.tickerid, "M", ta.sma(close, len), lookahead = barmerge.lookahead_off)
+
+invested = mClose > mSma
+buySig  = invested and not invested[1] and not na(mSma[1])
+sellSig = not invested and invested[1] and not na(mSma[1])
+
+plot(timeframe.ismonthly ? ta.sma(close, len) : liveSma, "10-month SMA", color = color.new(#2997ff, 0), linewidth = 2)
+bgcolor(na(mSma) ? na : invested ? color.new(#30d158, 92) : color.new(#ff453a, 92), title = "Invested / cash")
+plotshape(buySig, "Buy: month closed above", shape.labelup, location.belowbar, color.new(#30d158, 10), text = "IN", textcolor = color.white, size = size.small)
+plotshape(sellSig, "Sell: month closed below", shape.labeldown, location.abovebar, color.new(#ff453a, 10), text = "CASH", textcolor = color.white, size = size.small)
+
+alertcondition(buySig, "10M SMA: buy", "{{ticker}}: the month closed above its 10-month average. Hold it.")
+alertcondition(sellSig, "10M SMA: to cash", "{{ticker}}: the month closed below its 10-month average. Move to cash.")
+
+sig(sym) =>
+    c = request.security(sym, "M", close[1], lookahead = barmerge.lookahead_on, ignore_invalid_symbol = true)
+    m = request.security(sym, "M", ta.sma(close, len)[1], lookahead = barmerge.lookahead_on, ignore_invalid_symbol = true)
+    [c, m]
+[c1, m1] = sig(s1)
+[c2, m2] = sig(s2)
+[c3, m3] = sig(s3)
+[c4, m4] = sig(s4)
+[c5, m5] = sig(s5)
+
+var table tb = table.new(position.top_right, 3, 8, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+cellRow(int r, string name, float c, float m) =>
+    ok = not na(c) and not na(m)
+    up = ok and c > m
+    table.cell(tb, 0, r, name, text_color = color.new(#f5f5f7, 0), text_size = size.small)
+    table.cell(tb, 1, r, ok ? str.tostring((c / m - 1) * 100, "+#.0;-#.0") + "%" : "n/a", text_color = color.new(#86868b, 0), text_size = size.small)
+    table.cell(tb, 2, r, not ok ? "?" : up ? "hold" : "cash", text_color = not ok ? color.new(#f4b942, 0) : up ? color.new(#30d158, 0) : color.new(#ff453a, 0), text_size = size.small)
+    ok and up ? 1 : 0
+if barstate.islast
+    table.cell(tb, 0, 0, "Last month's close", text_color = color.new(#86868b, 0), text_size = size.small)
+    table.cell(tb, 1, 0, "vs 10M SMA", text_color = color.new(#86868b, 0), text_size = size.small)
+    table.cell(tb, 2, 0, "", text_size = size.small)
+    cellRow(1, syminfo.ticker + " (this chart)", mClose, mSma)
+    if show5
+        n = cellRow(2, "US stocks", c1, m1) + cellRow(3, "Foreign stocks", c2, m2) + cellRow(4, "Bonds", c3, m3) + cellRow(5, "Real estate", c4, m4) + cellRow(6, "Commodities", c5, m5)
+        table.cell(tb, 0, 7, "Five-asset mix", text_color = color.new(#86868b, 0), text_size = size.small)
+        table.cell(tb, 1, 7, str.tostring(n * 20) + "% invested", text_color = color.new(#f5f5f7, 0), text_size = size.small)
+        table.cell(tb, 2, 7, str.tostring(100 - n * 20) + "% cash", text_color = color.new(#86868b, 0), text_size = size.small)

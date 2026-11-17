@@ -1007,6 +1007,21 @@
       }
     },
 
+    "ten-month-sma": {
+      story: function (st) {
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { d: 0.4, n: 0.6, mk: { t: "Month-end · above the 10-month average", col: GREEN, below: true } }); }),
+          rep(8, function (st, k) { return bar(st, { d: k % 3 === 2 ? -0.4 : 0.55, n: 0.7 }); }),
+          rep(1, function (st) { level(st, st.price - 0.6, "10-month average", BLUE, true); return bar(st, { d: -0.7, n: 0.6 }); }),
+          rep(3, function (st) { return bar(st, { d: -0.7, n: 0.7 }); }),
+          rep(1, function (st) { return bar(st, { d: -0.9, n: 0.6, v: 0.8, flash: RED, mk: { t: "Closed below · to T-bills", col: RED } }); }),
+          rep(6, function (st, k) { return bar(st, { d: k < 3 ? -0.6 : 0.5, n: 0.8 }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 0.9, n: 0.5, flash: GREEN, mk: { t: "Closed above · back in", col: GREEN, below: true } }); }),
+          rep(6, function (st) { return bar(st, { d: rnd(-0.3, 0.6), n: 0.7 }); })
+        ];
+      }
+    },
+
     "pyramiding": {
       story: function (st) {
         var S, hi, lo;
