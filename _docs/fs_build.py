@@ -17,7 +17,7 @@ Run node _docs/build-sitemap.js and node _docs/build-search-index.js after.
 import html, importlib.util, os, re, sys, json
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-V = {"KITV": "1", "CBGV": "30", "SITEV": "43", "CSSV": "24", "DATE": "2026-11-17"}
+V = {"KITV": "1", "CBGV": "31", "SITEV": "44", "CSSV": "24", "DATE": "2026-11-17"}
 
 
 def esc(s):
