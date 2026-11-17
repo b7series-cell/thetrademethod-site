@@ -58,6 +58,11 @@ Educational content only, not financial advice. Times are US Eastern; examples u
 - [Covered Calls — get paid now, cap the upside](https://thetrademethod.com/covered-calls.html): Covered calls explained with real numbers: own 100 shares, sell a call against them and keep the premium. Four INTC outcomes, the break-even and the cap, the strike and duration trade-offs, and how to place the order.
 - [Expected Move Calculator — the range the options market prices](https://thetrademethod.com/expected-move.html): An expected move dashboard: enter a ticker, expiration and the options chain prices (ATM straddle × 1.25, straddle plus first ITM strangle ÷ 2, implied volatility, or the 16 delta strikes) to get the upper and lower expected move drawn on a delayed price chart, compared with the stock's actual past moves and a weekly accuracy scorecard. Explains that the 68% is the odds of finishing inside at expiration (about 37% of staying inside all week), with SPY, QQQ and AAPL examples from June 3, 2022, and why a break outside the range is context, not a reversal signal.
 
+## Famous strategies
+
+- [Famous strategies](https://thetrademethod.com/famous-strategies/): famous, research-backed trading strategies for stocks and ETFs, one detailed animated page each (more pages being added).
+- [Cross-Sectional Momentum — buy past winners, short past losers](https://thetrademethod.com/famous-strategies/cross-sectional-momentum.html): Jegadeesh and Titman's 1993 momentum strategy, animated: rank every stock on its last 3 to 12 months, buy the top tenth and short the bottom tenth, skip the latest stretch, hold 3 to 12 months in overlapping cohorts, what the paper found (1.31% a month for 12/3 in 1965–1989), why half of it fades, and the 2009 momentum crash.
+
 ## Blog
 
 - [Blog](https://thetrademethod.com/blog/): backtest results, trading research and notes, newest first.

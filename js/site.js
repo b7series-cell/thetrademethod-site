@@ -27,6 +27,10 @@
    blog/index.html, and add it to EXTRA_PAGES in _docs/build-sitemap.js
    and PAGES in _docs/build-search-index.js.
 
+   Adding a famous strategy page: flip its STRATEGIES entry to live: true
+   (and add it to EXTRA_PAGES in _docs/build-sitemap.js and PAGES in
+   _docs/build-search-index.js).
+
    Adding a framework page: add it to FUNDAMENTALS below (and to
    EXTRA_PAGES in _docs/build-sitemap.js). The /setups/ and
    /fundamentals/ pages pick both lists up on their own.
@@ -57,6 +61,28 @@
     { href: "/covered-calls.html",      title: "Covered Calls",                  kind: "Options · 4 outcomes",      blurb: "Own the stock, sell a call against it, keep the premium. The four outcomes, the cap on your upside, and how to place the order." },
     { href: "/expected-move.html",      title: "Expected Move",                  kind: "Options · calculator",      blurb: "A dashboard for the range the options market prices: enter the chain, get the upper and lower move on a chart, and see if it's wide or narrow for the stock." }
   ];
+
+  /* Famous strategies: the published, research-backed systems, one page each.
+     live: false shows as "Coming soon" on the hub and homepage (no link, not in search).
+     Feeds the hub (/famous-strategies/), the homepage band, the footer and site search. */
+  var STRATEGIES = [
+    { href: "/famous-strategies/cross-sectional-momentum.html", title: "Cross-Sectional Momentum", who: "Jegadeesh & Titman, 1993", market: "Stocks", live: true, blurb: "Rank every stock on its last 3 to 12 months, buy the top tenth, short the bottom tenth, hold for months and rebalance on a schedule." },
+    { href: "/famous-strategies/post-earnings-drift.html", title: "Post-Earnings Announcement Drift", who: "Bernard & Thomas, 1989", market: "Stocks", live: false, blurb: "Stocks keep drifting in the direction of an earnings surprise for weeks after the report." },
+    { href: "/famous-strategies/pairs-trading.html", title: "Pairs Trading", who: "Gatev, Goetzmann & Rouwenhorst, 2006", market: "Stocks", live: false, blurb: "Trade the spread between two stocks that have moved together, when it stretches too far apart." },
+    { href: "/famous-strategies/magic-formula.html", title: "Magic Formula", who: "Joel Greenblatt", market: "Stocks", live: false, blurb: "Rank stocks by earnings yield plus return on capital and hold the top names for a year." },
+    { href: "/famous-strategies/value-and-size.html", title: "Fama-French Value and Size", who: "Fama & French, 1992–93", market: "Stocks", live: false, blurb: "Tilt toward cheap stocks and small stocks." },
+    { href: "/famous-strategies/low-volatility.html", title: "Low-Volatility Anomaly", who: "Ang et al., 2006; Frazzini & Pedersen, 2014", market: "Stocks", live: false, blurb: "Calmer stocks have beaten riskier ones on a risk-adjusted basis." },
+    { href: "/famous-strategies/can-slim.html", title: "CAN SLIM", who: "William O'Neil", market: "Stocks", live: false, blurb: "Growth stocks breaking out of bases on volume." },
+    { href: "/famous-strategies/opening-range-breakout.html", title: "Opening Range Breakout", who: "Crabel, 1990; Zarattini & Aziz, 2023–24", market: "Stocks", live: false, blurb: "Trade the break of the first minutes' range, focused on stocks in play." },
+    { href: "/famous-strategies/ten-month-sma.html", title: "10-Month Moving Average Timing", who: "Meb Faber, 2007", market: "ETFs", live: false, blurb: "Hold each asset-class ETF only while it is above its 10-month simple moving average." },
+    { href: "/famous-strategies/dual-momentum.html", title: "Dual Momentum", who: "Gary Antonacci, 2014", market: "ETFs", live: false, blurb: "Hold the stronger of US or international stocks, and switch to bonds when both trail T-bills." },
+    { href: "/famous-strategies/sector-rotation.html", title: "Sector Rotation", who: "Faber; Moskowitz & Grinblatt, 1999", market: "ETFs", live: false, blurb: "Own the top few sector ETFs by trailing momentum." },
+    { href: "/famous-strategies/rsi-2.html", title: "RSI(2)", who: "Larry Connors", market: "ETFs", live: false, blurb: "Buy SPY or QQQ on short-term oversold readings while above the 200-day average." },
+    { href: "/famous-strategies/intraday-momentum.html", title: "Intraday Momentum", who: "Gao, Han, Li & Zhou, 2018", market: "ETFs", live: false, blurb: "SPY's first half-hour return tends to predict its last half-hour." },
+    { href: "/famous-strategies/turn-of-the-month.html", title: "Turn of the Month", who: "Lakonishok & Smidt, 1988", market: "ETFs", live: false, blurb: "Index returns cluster around the last and first few trading days of the month." },
+    { href: "/famous-strategies/overnight-effect.html", title: "Overnight Effect", who: "Cooper, Cliff & Gulen, 2008", market: "ETFs", live: false, blurb: "Most of the index's long-run gain has come between the close and the open, not during the day." }
+  ];
+  var STRAT_LIVE = STRATEGIES.filter(function (x) { return x.live; });
 
   /* Blog posts, newest first. Feeds site search and the footer. */
   var POSTS = [
@@ -138,6 +164,7 @@
         '<a class="hide-xxs" href="/#sessions">Sessions</a>' +
         '<a class="hide-xs hide-md" href="/#day">Trading day</a>' +
         '<a class="hide-tiny" href="/#fundamentals">Fundamentals</a>' +
+        '<a class="hide-lg" href="/famous-strategies/"' + (here().indexOf("/famous-strategies/") === 0 ? ' aria-current="page"' : "") + '>Strategies</a>' +
         '<a class="hide-md" href="/blog/"' + (here().indexOf("/blog/") === 0 ? ' aria-current="page"' : "") + '>Blog</a>' +
         '<a class="hide-sm" href="/#inside">Inside a page</a>' +
         '<a class="hide-sm hide-xs" href="/#tape">Live tape</a>' +
@@ -158,10 +185,13 @@
     var p = here(), isHome = p === "/";
     var hubLink = function (href, label) { return '<a href="' + href + '"' + (p === href ? ' aria-current="page"' : "") + ">" + label + "</a>"; };
     var isBlog = p.indexOf("/blog/") === 0;
+    var isStrat = p.indexOf("/famous-strategies/") === 0;
     var right = isHome
       ? '<a href="#inside">Overview</a><a href="#day">Trading day</a><a class="pill pill-buy" href="#setups">Browse</a>'
       : isBlog
       ? (p === "/blog/" ? "" : '<a href="/blog/">All posts</a>') + '<a class="pill pill-buy" href="/">Home</a>'
+      : isStrat
+      ? (p === "/famous-strategies/" ? hubLink("/setups/", "All setups") + hubLink("/fundamentals/", "Fundamentals") : '<a href="/famous-strategies/">All strategies</a>') + '<a class="pill pill-buy" href="/">Home</a>'
       : (p === "/setups/" || p === "/fundamentals/")
       ? hubLink("/setups/", "All setups") + hubLink("/fundamentals/", "Fundamentals") + '<a class="pill pill-buy" href="/">Home</a>'
       : (s ? '<span class="tnum">' + esc(s.session) + "</span>" : "") + '<a href="/setups/">All setups</a><a class="pill pill-buy" href="/#setups">Browse</a>';
@@ -181,6 +211,9 @@
     }).join("") +
       "<div><h4>Fundamentals</h4>" +
       FUNDAMENTALS.map(function (f) { return '<a href="' + esc(f.href) + '">' + esc(f.title) + "</a>"; }).join("") +
+      '<h4 style="margin-top:18px">Famous strategies</h4>' +
+      STRAT_LIVE.map(function (x) { return '<a href="' + esc(x.href) + '">' + esc(x.title) + "</a>"; }).join("") +
+      '<a href="/famous-strategies/">All strategies</a>' +
       '<h4 style="margin-top:18px">Blog</h4>' +
       POSTS.slice(0, 3).map(function (b) { return '<a href="' + esc(b.href) + '">' + esc(b.title) + "</a>"; }).join("") +
       '<a href="/blog/">All posts</a>' + "</div>";
@@ -422,6 +455,45 @@
     draw();
   }
 
+  /* ---------- famous strategies: homepage band (#strat-cards) and hub (/famous-strategies/) ---------- */
+  function stratCard(x) {
+    var inner = '<span class="k">' + esc(x.market) + " &middot; " + esc(x.who) + "</span><h3>" + esc(x.title) + "</h3><p>" + esc(x.blurb) + "</p>";
+    return x.live
+      ? '<a class="scard" href="' + esc(x.href) + '">' + inner + '<span class="more">Read &rsaquo;</span></a>'
+      : '<div class="scard is-soon" aria-disabled="true">' + inner + '<span class="soon">Coming soon</span></div>';
+  }
+  function stratOrder(list) { return list.filter(function (x) { return x.live; }).concat(list.filter(function (x) { return !x.live; })); }
+  function renderStratCards() {
+    var el = document.getElementById("strat-cards");
+    if (!el) return;
+    el.innerHTML = stratOrder(STRATEGIES).map(stratCard).join("");
+  }
+  function renderStratIndex() {
+    var grid = document.getElementById("strat-index");
+    var bar = document.getElementById("strat-filters");
+    if (!grid || !bar) return;
+    var P = hubParams();
+    var want = String(P.get("market") || "").toLowerCase();
+    var state = { market: want === "stocks" ? "Stocks" : want === "etfs" ? "ETFs" : "all", q: P.get("q") || "" };
+    bar.innerHTML =
+      '<label class="hub-search"><span class="sr">Search strategies</span><input type="search" placeholder="Search, e.g. momentum" value="' + esc(state.q) + '" autocomplete="off"></label>' +
+      chipRow("Market", "market", [["all", "All"], ["Stocks", "Stocks"], ["ETFs", "ETFs"]], state.market);
+    var count = document.getElementById("strat-count");
+    var empty = document.getElementById("strat-empty");
+    function draw() {
+      var list = STRATEGIES.filter(function (x) {
+        return (state.market === "all" || x.market === state.market) && matches(state.q, [x.title, x.who, x.market, x.blurb].join(" "));
+      });
+      grid.innerHTML = stratOrder(list).map(stratCard).join("");
+      var ready = list.filter(function (x) { return x.live; }).length;
+      if (count) count.textContent = list.length + " strateg" + (list.length === 1 ? "y" : "ies") + " · " + ready + " page" + (ready === 1 ? "" : "s") + " ready";
+      if (empty) empty.hidden = list.length > 0;
+      hubSave({ market: state.market === "all" ? "" : state.market.toLowerCase(), q: state.q });
+    }
+    wireChips(bar.parentNode, state, draw);
+    draw();
+  }
+
   /* hero: rim-lit candles climbing through the premarket high (y = 236) */
   function renderHeroChart() {
     var g = document.getElementById("hero-candles");
@@ -477,7 +549,7 @@
      each page's description and section headings, so a hit on a heading
      links straight to that section. Bump SEARCH_INDEX_URL's ?v= after
      rebuilding the index. */
-  var SEARCH_INDEX_URL = "/js/search-index.js?v=16";
+  var SEARCH_INDEX_URL = "/js/search-index.js?v=17";
   var searchDocs = null, searchIndexState = "";
 
   function searchBase() {
@@ -493,6 +565,9 @@
     FUNDAMENTALS.forEach(function (f) {
       docs.push({ u: f.href, t: f.title, sub: "", kind: "Fundamentals · " + f.kind, d: f.blurb, k: fundKind(f), h: [], order: 1 });
     });
+    STRAT_LIVE.forEach(function (x) {
+      docs.push({ u: x.href, t: x.title, sub: x.who, kind: "Famous strategy · " + x.market, d: x.blurb, k: "famous strategy research paper academic " + x.market + " " + x.who, h: [], order: 1 });
+    });
     POSTS.forEach(function (b) {
       docs.push({ u: b.href, t: b.title, sub: "", kind: "Blog · " + b.tag + " · " + b.date, d: b.blurb, k: "blog post article " + b.tag, h: [], order: 1 });
     });
@@ -500,6 +575,7 @@
       { u: "/blog/", t: "Blog", sub: "", kind: "Page", d: "Backtest results, trading research and notes, newest first.", k: "blog posts articles news research", h: [], order: 2 },
       { u: "/setups/", t: "All setups", sub: "", kind: "Page", d: "Every setup in one list, filtered by session and side.", k: "setups list browse index", h: [], order: 2 },
       { u: "/contact.html", t: "Contact", sub: "", kind: "Page", d: "Send a question, a correction or a setup idea.", k: "contact email message question feedback idea suggestion correction report problem", h: [], order: 2 },
+      { u: "/famous-strategies/", t: "Famous strategies", sub: "", kind: "Page", d: "Famous, research-backed stock and ETF strategies, one detailed page each.", k: "famous strategies research academic papers momentum value etf stocks list browse index", h: [], order: 2 },
       { u: "/fundamentals/", t: "All fundamentals", sub: "", kind: "Page", d: "Every framework, process and options page in one list.", k: "fundamentals frameworks list browse index", h: [], order: 2 }
     );
     return docs;
@@ -771,6 +847,8 @@
     renderFundamentals();
     renderSetupIndex();
     renderFundIndex();
+    renderStratCards();
+    renderStratIndex();
     renderSearch();
     renderHeroChart();
     renderDisclaimer();

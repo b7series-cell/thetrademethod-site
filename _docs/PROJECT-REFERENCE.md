@@ -2,7 +2,7 @@
 
 Private reference for thetrademethod.com. It lives in `_docs/`, which is never uploaded to the server, so it is not public.
 
-Last updated: 2026-11-16 (Stacked Imbalances page).
+Last updated: 2026-11-17 (Famous Strategies section + Cross-Sectional Momentum page).
 
 Look and feel (colors, type, layout, motion, copy voice) is covered in the separate style guide: `/mnt/project-files/style-guide/thetrademethod-style-guide.md` (Oct 27, 2026). This document does not repeat it.
 
@@ -107,15 +107,15 @@ Counts today: **26 setup pages**, **19 fundamentals pages**, **1 blog post**, pl
 
 ## 5. Current version numbers
 
-Check before bumping; these are the values on `main` as of 2026-11-16.
+Check before bumping; these are the values as of 2026-11-17 (Famous Strategies branch).
 
 | Asset | Current | Next bump |
 |---|---|---|
-| `site.js` (all pages) | `?v=37` | 38 |
+| `site.js` (all pages) | `?v=38` | 39 |
 | `nav.js` (all pages) | `?v=23` | 24 |
-| `apple.css` (all pages) | `?v=23` | 24 |
-| `SEARCH_INDEX_URL` in site.js | `search-index.js?v=16` | 17 |
-| `candle-bg.js` (newest page) | `?v=25` (stacked-imbalances.html) | 26 |
+| `apple.css` (all pages) | `?v=24` | 25 |
+| `SEARCH_INDEX_URL` in site.js | `search-index.js?v=17` | 18 |
+| `candle-bg.js` (newest page) | `?v=26` (famous-strategies/cross-sectional-momentum.html) | 27 |
 | `sw.js` `CACHE_VERSION` | `2026-10-29-1` | only for unversioned file or sw rule changes |
 
 `candle-bg.js` is bumped only on the page that got a new scene, so older pages still load older `?v=` numbers. That's fine. `expected-move-v2.html` and `-v3.html` are 301-redirected and stay on old versions.
@@ -195,6 +195,11 @@ Other Pine files: `cumulative-rvol.pine` (Relative Volume), `let-winners-run-exi
 | Pyramiding Into Winners | /pyramiding.html | SMB [9tVfd-I4VAY](https://www.youtube.com/watch?v=9tVfd-I4VAY) | pyr-anim | 2026-11-14, PR #4 |
 | Stacked Imbalances | /stacked-imbalances.html | Orderflows [q3afc_rvvYg](https://www.youtube.com/watch?v=q3afc_rvvYg) + Futures Flow [y7KuTf4hesY](https://www.youtube.com/watch?v=y7KuTf4hesY) | si-anim | 2026-11-16 (PR #6, second video PR #7). Diagonal 4:1 and horizontal 400% |
 
+### Famous strategies (`/famous-strategies/`)
+- Registry: `STRATEGIES` in `js/site.js` (15 entries, `live: true/false`). Unbuilt ones show as "Coming soon" cards (no link, not in search) on the hub and the homepage band (`#strategies`, `#strat-cards`). Footer and search list only live ones. Nav link "Strategies" hides at 920px and below (`.hide-lg`).
+- Adding the next one: copy `famous-strategies/cross-sectional-momentum.html` + its anim script pattern (`js/xsm-anim.js`), flip `live: true`, add the hub page's JSON-LD item and static card, `EXTRA_PAGES` + `PAGES` in both build scripts, a line under "## Famous strategies" in llms.txt, a candle-bg scene.
+- **Cross-Sectional Momentum** (`/famous-strategies/cross-sectional-momentum.html`, 2026-11-17): Jegadeesh & Titman (1993) + Daniel & Moskowitz (2016) figures; `js/xsm-anim.js` (rank, window, event, crash, rebalance + 5-step stepper).
+
 ### Other pages
 - **Home** `/` (index.html): Opening bell hero, setups and fundamentals grids with links to the hub pages.
 - **/setups/** and **/fundamentals/**: filterable lists (session, side, type), filters kept in the URL.
@@ -234,6 +239,7 @@ Newest first. Dates are when the change was built or shipped.
 
 | Date | Change |
 |---|---|
+| 2026-11-17 | **Famous Strategies** section: /famous-strategies/ hub (15 strategies, 1 live), homepage band, nav link, footer; first page **Cross-Sectional Momentum** (Jegadeesh & Titman 1993). site.js ?v=38, apple.css ?v=24, search-index ?v=17, candle-bg ?v=26 on that page, sitemap 54 URLs. |
 | 2026-11-16 | Stacked Imbalances: second video (Futures Flow) folded in: where the stack sits in the candle, passive orders/trapped traders, large-participant trigger (128 lots), S/R flip. Two new walkthroughs (`where`, `trigger`), si-anim ?v=2, site.js ?v=37, search-index ?v=16. |
 | 2026-11-16 | **Stacked Imbalances** fundamentals page (Orderflows video): diagonal 4:1 imbalances, stacks of 3+, payroll long 3,974/3,973 to 3,994, four outcomes, 3,921–22 short. site.js ?v=36, search-index ?v=15, candle-bg ?v=25. This reference committed to the repo. |
 | 2026-11-15 | This project reference added to `_docs/`. |

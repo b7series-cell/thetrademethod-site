@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cross-Sectional Momentum — buy past winners, short past losers | The Trade Method</title>
+<meta name="description" content="Jegadeesh and Titman's 1993 momentum strategy, animated: rank every stock on its last 3 to 12 months, buy the top tenth and short the bottom tenth, skip the latest stretch, hold 3 to 12 months in overlapping cohorts, what the paper found (1.31% a month for 12/3 in 1965–1989), why half of it fades, and the 2009 momentum crash.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/famous-strategies/cross-sectional-momentum.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Cross-Sectional Momentum — buy past winners, short past losers">
+<meta property="og:description" content="Jegadeesh and Titman's 1993 momentum strategy, animated: rank every stock on its last 3 to 12 months, buy the top tenth and short the bottom tenth, skip the latest stretch, hold 3 to 12 months in overlapping cohorts, what the paper found (1.31% a month for 12/3 in 1965–1989), why half of it fades, and the 2009 momentum crash.">
+<meta property="og:url" content="https://thetrademethod.com/famous-strategies/cross-sectional-momentum.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cross-Sectional Momentum — buy past winners, short past losers">
+<meta name="twitter:description" content="Jegadeesh and Titman's 1993 momentum strategy, animated: rank every stock on its last 3 to 12 months, buy the top tenth and short the bottom tenth, skip the latest stretch, hold 3 to 12 months in overlapping cohorts, what the paper found (1.31% a month for 12/3 in 1965–1989), why half of it fades, and the 2009 momentum crash.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Cross-Sectional Momentum — buy past winners, short past losers",
+ "name": "Cross-Sectional Momentum",
+ "description": "Jegadeesh and Titman's 1993 momentum strategy, animated: rank every stock on its last 3 to 12 months, buy the top tenth and short the bottom tenth, skip the latest stretch, hold 3 to 12 months in overlapping cohorts, what the paper found (1.31% a month for 12/3 in 1965–1989), why half of it fades, and the 2009 momentum crash.",
+ "url": "https://thetrademethod.com/famous-strategies/cross-sectional-momentum.html",
+ "mainEntityOfPage": "https://thetrademethod.com/famous-strategies/cross-sectional-momentum.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-17",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.seven { grid-template-columns:repeat(2,1fr); }
+    .ribbon.seven > div:last-child { grid-column:span 2; }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=24">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the pyramid: five cards, or a stepper once js/pyr-anim.js runs */
+  .xsm-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .xsm-steps .stage, .sheet .xsm-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .xsm-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .xsm-steps.is-stepper .stage, .sheet .xsm-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .xsm-steps.is-stepper .stage .num { display:none; }
+  .sheet .xsm-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .xsm-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .xsm-steps + .four { margin-top:28px; }
+  .xsm-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .xsm-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .xsm-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .xsm-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .xsm-steps { margin-top:24px; }
+  }
+
+  /* fact sheet, timeline, sources */
+  .facts { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--graphite); border-radius:22px; overflow:hidden; margin-top:26px; }
+  .facts div { background:var(--charcoal); padding:16px 18px; }
+  .facts .k { font-family:var(--mono-font); font-size:12px; color:var(--ash); }
+  .facts b { display:block; margin-top:4px; font-size:16px; font-weight:600; line-height:1.3; }
+  .tl { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+  .tl li { background:var(--charcoal); border-radius:20px; padding:16px 16px 18px; border-top:3px solid var(--tc, var(--up)); }
+  .tl .y { font-family:var(--mono-font); font-size:13px; color:var(--tc, var(--up)); font-weight:600; }
+  .tl b { display:block; margin:6px 0 6px; font-size:16px; line-height:1.25; }
+  .tl p { margin:0; color:var(--mute); font-size:14px; }
+  .cites { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .cites li { margin-bottom:10px; }
+  .cites i { color:var(--platinum); }
+  .cites small { display:block; color:var(--ash); font-size:13.5px; margin-top:2px; }
+  @media (max-width:1100px) { .facts { grid-template-columns:repeat(2,1fr); } .tl { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:680px) { .facts, .tl { grid-template-columns:1fr; } .sheet .section-head + .xsm-steps { margin-top:24px; } }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=38" defer></script>
+<script src="/js/xsm-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=26" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="Cross-Sectional Momentum"></div>
+<div class="sheet">
+
+  <a class="back" href="/famous-strategies/">&lsaquo; Famous strategies</a>
+
+  <header class="top" data-candle-bg="cross-sectional-momentum">
+    <div>
+      <p class="kicker">Famous strategies &middot; Stocks &middot; Jegadeesh and Titman, <i>Journal of Finance</i>, 1993</p>
+      <h1>Cross-Sectional <span>Momentum</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Do stocks that have gone up the most keep beating the ones that have gone down the most? Rank every stock on its last 3 to 12 months, buy the top tenth, sell short the bottom tenth, and hold for a few months.
+      <em>Winners keep winning, for a while.</em></p>
+      <div class="counts">
+        <div><b>3&ndash;12 mo</b><small>the lookback that ranks every stock</small></div>
+        <div><b>10%</b><small>the top and bottom tenth you trade</small></div>
+        <div><b>1.49%</b><small>a month, the paper's best version</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon seven" aria-label="Cross-sectional momentum">
+    <div><div class="t">step 1</div><div class="n">Pick the universe</div></div>
+    <div><div class="t">step 2</div><div class="n">Measure past return</div></div>
+    <div><div class="t">step 3</div><div class="n">Rank into tenths</div></div>
+    <div><div class="t">step 4</div><div class="n">Long winners, short losers</div></div>
+    <div><div class="t">step 5</div><div class="n">Hold, then re-rank</div></div>
+  </nav>
+
+  <div class="facts" aria-label="The paper at a glance">
+    <div><span class="k">paper</span><b>"Returns to Buying Winners and Selling Losers"</b></div>
+    <div><span class="k">authors</span><b>Narasimhan Jegadeesh &amp; Sheridan Titman</b></div>
+    <div><span class="k">published</span><b><i>Journal of Finance</i> 48(1), 1993, pp. 65&ndash;91</b></div>
+    <div><span class="k">sample</span><b>NYSE and AMEX stocks, 1965&ndash;1989</b></div>
+    <div><span class="k">signal</span><b>Past 3, 6, 9 or 12-month return</b></div>
+    <div><span class="k">trade</span><b>Long the top decile, short the bottom, equal weight</b></div>
+    <div><span class="k">hold</span><b>3, 6, 9 or 12 months, overlapping</b></div>
+    <div><span class="k">headline</span><b>6-month / 6-month: 12.01% a year, compounded</b></div>
+  </div>
+
+  <div class="section-head" id="rank">
+    <h2>The idea in one picture</h2>
+    <p>Most trading looks at one chart at a time. Cross-sectional momentum looks at every stock at once and asks a single question: which ones have gone up the most, and which have gone down the most, compared with each other?</p>
+  </div>
+  <section class="anim" data-xsm-anim="rank" aria-label="Illustrative made-up returns for 30 stocks: they grow as bars, sort from best to worst, split into ten deciles, the top three are bought and the bottom three are sold short, and the return is winners minus losers.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Rank everything, trade the ends</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Thirty made-up stocks ranked on past return and split into deciles."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>The rule</h3>
+          <ul>
+            <li>At the start of each month, rank every stock in the universe on its return over the past J months (3, 6, 9 or 12 in the paper).</li>
+            <li>Buy the top tenth (the winners) and sell short the bottom tenth (the losers), with every stock in each group getting the same weight.</li>
+            <li>Hold for K months (3, 6, 9 or 12), then the position rolls off. A fresh portfolio is built every month.</li>
+          </ul>
+          <p class="why">There's no chart reading, no stop and no target. The ranking does all the work, which is what makes it testable over decades of data.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Cross-sectional is not the same as trend</h4>
+        <p class="lead">Two kinds of momentum get mixed up all the time.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">cross-sectional</span><b>Better than the others?</b><p>Each stock is ranked against every other stock on the same date. In a crash, the "winners" can be the stocks that fell the least. This page.</p></div>
+          <div class="care"><span class="k">time-series</span><b>Better than its own past?</b><p>Each asset is judged on its own: own it if its own past return is positive. That's trend following (Moskowitz, Ooi and Pedersen, 2012), and the idea behind the 10-month moving average and Dual Momentum pages.</p></div>
+        </div>
+      </div>
+      <blockquote class="qb"><b>Same idea, older name.</b> The paper calls these "relative strength strategies": the same relative strength traders were screening for long before 1993, tested here on every NYSE and AMEX stock over 25 years.</blockquote>
+    </div>
+  </div>
+
+  <div class="section-head" id="clock">
+    <h2>The clock: look back, skip, hold</h2>
+    <p>Every version of the strategy is two numbers. J is how far back you measure. K is how long you hold. The paper tested every pair of 3, 6, 9 and 12 months, and ran each one again with a one-week gap before buying.</p>
+  </div>
+  <section class="anim" data-xsm-anim="window" aria-label="An illustrative timeline: a 12-month formation period, a short skip, a 6-month holding period, then a new cohort every month so six overlap at once, and a 4 by 4 grid of the J and K combinations the paper tested, with 12-month by 3-month at 1.31% a month (1.49% with the skip) and 6 by 6 at 0.95% (1.10% with the skip).">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">J months back, K months held</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Formation, skip and holding periods, with overlapping monthly cohorts."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Overlap smooths the timing luck</h3>
+          <ul>
+            <li>With a 6-month hold, you don't rebuild the whole book every six months. Each month you build a new portfolio and retire the one from six months ago.</li>
+            <li>So you're always holding six slices, each formed in a different month. If one ranking date was unlucky, it's only a sixth of the money.</li>
+            <li>The paper's portfolios work exactly this way: in any month the strategy holds the portfolios picked this month and in the previous K&minus;1 months.</li>
+          </ul>
+          <p class="why">For a single account, a monthly full rebalance is the simpler version. It trades more, but you only have one list to manage.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Why skip the most recent stretch?</h4>
+        <p class="lead">Over very short windows, the pattern flips. Last week's or last month's biggest movers tend to snap back a little, and closing prices bounce between the bid and the ask. Ranking on a window that ends right now mixes that reversal into the signal.</p>
+        <div class="pair">
+          <div><span class="k">Jegadeesh &amp; Titman, 1993</span><b>Skip one week</b><p>Every test was run twice: buying right away, and buying one week after ranking.</p></div>
+          <div><span class="k">later research</span><b>Skip one month</b><p>The common convention since: rank on the return from 12 months ago to 1 month ago ("12&ndash;2" or "12&minus;1").</p></div>
+        </div>
+      </div>
+      <div class="panel calc">
+        <h4>The book with K = 6</h4>
+        <p class="lead">What the overlapping version holds in any one month.</p>
+        <div class="row"><span>Cohorts held at once</span><b>6</b></div>
+        <div class="row"><span>Each cohort's share of the money</span><b>1/6</b></div>
+        <div class="row tot"><span>Replaced every month</span><b>the oldest sixth</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="results">
+    <h2>What the paper found</h2>
+    <p>All sixteen combinations made money in the 1965&ndash;1989 sample. The interesting part is what happens if you don't let go: the paper also followed the portfolio for three years after it was formed.</p>
+  </div>
+  <section class="anim" data-xsm-anim="event" aria-label="Winners minus losers, cumulative return after formation: about plus 9.5 percent after 12 months, then more than half of it given back over the next 24 months to about plus 4 percent at month 36. The path between those points is illustrative.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">A year of drift, then a fade</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Cumulative return of winners minus losers over 36 months after formation."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>The numbers</h3>
+          <ul>
+            <li>Best version: rank on 12 months, hold 3. It made 1.31% a month, or 1.49% a month with the one-week skip.</li>
+            <li>The version the paper studies most, 6 months by 6 months, made a compounded excess return of 12.01% a year.</li>
+            <li>Not a risk story: the winners portfolio didn't have a higher beta than the losers (1.28 against 1.36), so winners minus losers was close to market-neutral.</li>
+          </ul>
+          <p class="why">The paper's reading: prices underreact to company news at first, so the move keeps going for months, then overshoot, which is why part of it comes back in years two and three.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel calc">
+        <h4>From the paper</h4>
+        <p class="lead">Winners minus losers, per month unless stated. NYSE and AMEX, 1965&ndash;1989.</p>
+        <div class="row"><span>12-month rank, 3-month hold</span><b>1.31%</b></div>
+        <div class="row"><span>&hellip; with a one-week skip</span><b>1.49%</b></div>
+        <div class="row"><span>6-month rank, 6-month hold, compounded</span><b>12.01% a year</b></div>
+        <div class="row"><span>Cumulative, 12 months after formation</span><b>&asymp; 9.5%</b></div>
+        <div class="row"><span>Cumulative, 36 months after formation</span><b>&asymp; 4%</b></div>
+        <div class="row tot"><span>Average January</span><b style="color:var(--down)">about &minus;7%</b></div>
+      </div>
+      <blockquote class="qb"><b>The January problem.</b> In the paper, the strategy lost about 7% on average every January, when beaten-down losers bounce. Outside January it did better than its overall average. If you run it, expect January to hurt.</blockquote>
+    </div>
+  </div>
+
+  <div class="section-head" id="crash">
+    <h2>When it breaks: the momentum crash</h2>
+    <p>Momentum's long-run record comes with rare, violent losses. They don't happen in a falling market. They happen when a falling market suddenly turns, and the short side is full of the stocks that bounce hardest.</p>
+  </div>
+  <section class="anim" data-xsm-anim="crash" aria-label="An illustrative market path falls through 2008, then from March to May 2009 the market rises 26 percent, past winners 8 percent and past losers 163 percent, and winners minus losers loses 42.28 percent in March and 45.52 percent in April 2009, per Daniel and Moskowitz.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Spring 2009: the losers rip</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="The 2009 momentum crash."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Why the short side blows up</h3>
+          <ul>
+            <li>After a big decline, the loser decile is packed with the stocks that fell hardest, which are usually the highest-beta names.</li>
+            <li>When the market rebounds, those names rebound the most. Being short them is like being short the market with leverage.</li>
+            <li>It isn't new: Daniel and Moskowitz found the same pattern in 1932, when winners minus losers lost about 61% in July and 74% in August.</li>
+          </ul>
+          <p class="why">This is why the long-only, top-few version on this page is popular with individual traders: it skips the short book that does the damage in a crash, at the cost of carrying market risk.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Two published fixes</h4>
+        <p class="lead">Both scale the position down when the risk is highest, instead of trying to predict the turn.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">Barroso &amp; Santa-Clara, 2015</span><b>Volatility scaling</b><p>Size the momentum portfolio by its own recent volatility: smaller when it's been swinging hard. It improved the risk-adjusted return and largely sidestepped the crashes in their sample.</p></div>
+          <div class="yes"><span class="k">Daniel &amp; Moskowitz, 2016</span><b>Dynamic weighting</b><p>Cut exposure in "panic states": after market declines and when volatility is high. Their dynamic version roughly doubled the Sharpe ratio of the static strategy.</p></div>
+        </div>
+      </div>
+      <div class="panel calc">
+        <h4>The worst months in their data</h4>
+        <p class="lead">Winners minus losers, value-weighted deciles (Daniel &amp; Moskowitz, 2016).</p>
+        <div class="row"><span>July 1932</span><b style="color:var(--down)">&minus;60.98%</b></div>
+        <div class="row"><span>August 1932</span><b style="color:var(--down)">&minus;74.36%</b></div>
+        <div class="row"><span>March 2009</span><b style="color:var(--down)">&minus;42.28%</b></div>
+        <div class="row"><span>April 2009</span><b style="color:var(--down)">&minus;45.52%</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="version">
+    <h2>A version a single account can run</h2>
+    <p>The paper's version holds hundreds of stocks long and short. Most traders run something smaller: rank a list, hold the top few, re-rank every month. Here's how that looks month to month.</p>
+  </div>
+  <section class="anim" data-xsm-anim="rebalance" aria-label="Twelve made-up stocks ranked monthly on 12-to-1-month return, with the top three held: month 2 swaps Stock C for Stock E, month 3 swaps Stock A for Stock G, and month 4 makes no trades.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Hold the top 3, re-rank monthly</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="A monthly ranking of 12 made-up stocks with the top 3 held."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="four">
+    <div style="--tc:#2997ff"><span class="k">rule one</span><h3>Rank, don't pick</h3><p>The list decides what you own. If you override the ranking because you don't like a name, you're no longer running the strategy you tested.</p></div>
+    <div style="--tc:#30d158"><span class="k">rule two</span><h3>Skip the last month</h3><p>Rank on the return from 12 months ago to 1 month ago. Last month's biggest movers tend to snap back.</p></div>
+    <div style="--tc:#ff9f0a"><span class="k">rule three</span><h3>Count the costs</h3><p>Momentum trades a lot. Spreads, commissions and short-term taxes come straight out of the edge, so rebalance on a fixed schedule, not every time the list shifts.</p></div>
+    <div style="--tc:#ff453a"><span class="k">rule four</span><h3>Respect the crash</h3><p>After a big market decline, when volatility is high, run smaller. That's when momentum has historically given back years of gains in a couple of months.</p></div>
+  </div>
+
+  <div class="section-head" id="since">
+    <h2>It didn't go away after it was published</h2>
+    <p>Plenty of anomalies vanish once they're in a journal. Momentum is one of the most tested results in finance, and it kept showing up, out of sample and in other markets.</p>
+  </div>
+  <ol class="tl">
+    <li style="--tc:#30d158"><span class="y">1993</span><b>Jegadeesh &amp; Titman</b><p>Buying winners and selling losers pays, in NYSE and AMEX stocks, 1965&ndash;1989.</p></li>
+    <li style="--tc:#2997ff"><span class="y">1997</span><b>Carhart</b><p>Adds a one-year momentum factor to the Fama-French model to explain mutual fund returns: the four-factor model.</p></li>
+    <li style="--tc:#2997ff"><span class="y">1998</span><b>Rouwenhorst</b><p>The same effect in 12 European stock markets.</p></li>
+    <li style="--tc:#30d158"><span class="y">2001</span><b>Jegadeesh &amp; Titman</b><p>Out of sample: momentum kept working through the 1990s, after the original paper.</p></li>
+    <li style="--tc:#2997ff"><span class="y">2013</span><b>Asness, Moskowitz &amp; Pedersen</b><p>"Value and Momentum Everywhere": momentum in stocks across countries, and in other asset classes too.</p></li>
+    <li style="--tc:#ff453a"><span class="y">2016</span><b>Daniel &amp; Moskowitz</b><p>"Momentum Crashes": the rare, sharp losses, when they happen and how to scale around them.</p></li>
+  </ol>
+
+  <div class="section-head" id="steps">
+    <h2>The strategy, step by step</h2>
+    <p>The whole thing in five steps. Click through them.</p>
+  </div>
+  <div class="xsm-steps" data-xsm-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Pick the universe</h3>
+          <ul>
+            <li>The paper used every NYSE and AMEX stock in its database. For one account, a broad, liquid list works: the S&amp;P 500, or US stocks above a price and volume floor.</li>
+            <li>Decide it once and keep it fixed. Changing the list changes the strategy.</li>
+          </ul>
+          <p class="why">Thin, cheap stocks often land at the extremes of the ranking, and they're the ones you can't trade at the price on the screen.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Measure past return</h3>
+          <ul>
+            <li>For every stock, take the total return over the lookback: 3 to 12 months in the paper, most often 12 months today.</li>
+            <li>Leave out the most recent stretch: one week in the paper, one month in most later research (months t&minus;12 to t&minus;2).</li>
+          </ul>
+          <p class="why">The skip keeps last month's short-term reversal out of a signal that's meant to last months.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Rank into tenths</h3>
+          <ul>
+            <li>Sort from best to worst and cut the list into ten equal groups.</li>
+            <li>The top tenth are the winners, the bottom tenth are the losers. The middle eight tenths aren't traded.</li>
+          </ul>
+          <p class="why">It's all relative: in a bear market, the winners can be stocks that are simply down less than everything else.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Long winners, short losers</h3>
+          <ul>
+            <li>Buy the winners and short the losers, equal dollars on each side and equal weight in each stock.</li>
+            <li>Long-only variant: hold just the top names, and accept that you now carry the market's ups and downs.</li>
+          </ul>
+          <p class="why">The paper's return is winners minus losers. The short side is what makes it market-neutral, and what hurts in a rebound.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Hold, then re-rank</h3>
+          <ul>
+            <li>Hold for the K months you chose (3 to 12 in the paper), then rank again and rebuild.</li>
+            <li>Overlapping monthly slices, or one full monthly rebalance: pick one and stick to the calendar.</li>
+          </ul>
+          <p class="why">The edge was strongest in the first year, and more than half of the first year's gain faded over the next two. Don't marry the winners.</p>
+        </div>
+      </section>
+  </div>
+
+  <div class="section-head" id="related">
+    <h2>Go deeper</h2>
+    <p>Pages on this site that pick up where this one leaves off.</p>
+  </div>
+  <div class="four">
+    <a href="/famous-strategies/" style="--tc:#30d158"><span class="k">famous strategies</span><h3>All famous strategies</h3><p>Post-earnings drift, pairs trading, Dual Momentum, sector rotation and more, as they're added.</p><small>Browse &rsaquo;</small></a>
+    <a href="/six-momentum-trades.html" style="--tc:#2997ff"><span class="k">fundamentals</span><h3>Six Momentum Trades</h3><p>Momentum on the chart instead of the cross-section: breakout, retest, pullback and more.</p><small>Read &rsaquo;</small></a>
+    <a href="/setups/qullamaggie.html" style="--tc:#f4b942"><span class="k">setup</span><h3>Qullamaggie Breakout</h3><p>A trader's way to use a momentum ranking: scan the top performers, then buy their breakouts.</p><small>Read &rsaquo;</small></a>
+    <a href="/dynamic-risk-sizing.html" style="--tc:#ff9f0a"><span class="k">risk</span><h3>Dynamic Risk Sizing</h3><p>Sizing up and down with conditions, the same idea as scaling momentum around a crash.</p><small>Read &rsaquo;</small></a>
+  </div>
+
+  <div class="rule">
+    <div>
+      <h2>Try it on paper first.</h2>
+      <p>Take the S&amp;P 500, rank it on the return from 12 months ago to 1 month ago, and write down the top ten on the first trading day of the month. Do it again next month, and the month after. Track the list against the index for a year before you put a dollar on it, and note every January.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Fix the universe, the lookback, the skip and the rebalance day before you start.</li>
+        <li>Count every swap, so you can see what the turnover costs.</li>
+        <li>Write down what you'll do after a big market decline, before you're in one.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-head" id="sources">
+    <h2>Sources</h2>
+    <p>The papers behind every figure on this page.</p>
+  </div>
+  <ol class="cites">
+    <li>Jegadeesh, N., &amp; Titman, S. (1993). Returns to buying winners and selling losers: Implications for stock market efficiency. <i>Journal of Finance</i>, 48(1), 65&ndash;91.<small>The strategy, the J/K tests, 1.31% / 1.49% a month (12/3), 12.01% a year (6/6), the event-time results, the January losses, and the betas.</small></li>
+    <li>Jegadeesh, N., &amp; Titman, S. (2001). Profitability of momentum strategies: An evaluation of alternative explanations. <i>Journal of Finance</i>, 56(2), 699&ndash;720.<small>Momentum continued out of sample in the 1990s.</small></li>
+    <li>Carhart, M. M. (1997). On persistence in mutual fund performance. <i>Journal of Finance</i>, 52(1), 57&ndash;82.<small>The momentum factor in the four-factor model.</small></li>
+    <li>Rouwenhorst, K. G. (1998). International momentum strategies. <i>Journal of Finance</i>, 53(1), 267&ndash;284.</li>
+    <li>Asness, C. S., Moskowitz, T. J., &amp; Pedersen, L. H. (2013). Value and momentum everywhere. <i>Journal of Finance</i>, 68(3), 929&ndash;985.</li>
+    <li>Moskowitz, T. J., Ooi, Y. H., &amp; Pedersen, L. H. (2012). Time series momentum. <i>Journal of Financial Economics</i>, 104(2), 228&ndash;250.</li>
+    <li>Barroso, P., &amp; Santa-Clara, P. (2015). Momentum has its moments. <i>Journal of Financial Economics</i>, 116(1), 111&ndash;120.</li>
+    <li>Daniel, K., &amp; Moskowitz, T. J. (2016). Momentum crashes. <i>Journal of Financial Economics</i>, 122(2), 221&ndash;247.<small>March&ndash;May 2009 (market +26%, winners +8%, losers +163%), the &minus;42.28% and &minus;45.52% months, 1932, loser betas, and the 14-of-15 worst months.</small></li>
+  </ol>
+
+  <p class="src">Built from Jegadeesh and Titman's 1993 paper and the follow-up research listed above. The figures quoted from the papers are labelled as such on the charts. Every stock, ranking, return and price path in the walkthroughs is made up for illustration, including the market path on the crash chart and the line between the paper's two event-time points. Past results from these studies don't promise future returns, and the long-only, top-few version shown here is a simplification that the original paper didn't test. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>
