@@ -1,0 +1,104 @@
+//@version=6
+// =====================================================================
+// Low-Volatility Rank — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/low-volatility.html
+//
+// Ang, Hodrick, Xing and Zhang (2006) and Frazzini and Pedersen (2014):
+// calmer, lower-beta stocks have earned about as much as wild ones, and
+// far more for the risk taken. The most volatile stocks have done worst.
+//
+//   1. Volatility  Each stock's annualized volatility of daily returns
+//                  over the lookback (252 days by default).
+//   2. Rank        The chart's stock against a list you give it (up to
+//                  19 others), calmest first.
+//   3. Beta        The chart's stock's beta to the benchmark (SPY), over
+//                  the same window.
+//
+// The background turns green while the stock is among the calmest N of
+// the list. Use a daily chart. Marks and alerts only; no orders.
+// =====================================================================
+indicator("Low-Volatility Rank", shorttitle = "Low Vol", overlay = false)
+
+grpS = "Settings"
+len     = input.int(252, "Lookback (trading days)", minval = 20, maxval = 756, group = grpS)
+topN    = input.int(5, "Count as calmest", minval = 1, maxval = 20, group = grpS)
+bench   = input.symbol("AMEX:SPY", "Benchmark for beta", group = grpS)
+showTbl = input.bool(true, "Show the table", group = grpS)
+grpL = "The list to rank"
+s1  = input.symbol("NYSE:KO", "1", group = grpL)
+s2  = input.symbol("NYSE:PG", "2", group = grpL)
+s3  = input.symbol("NYSE:JNJ", "3", group = grpL)
+s4  = input.symbol("NASDAQ:PEP", "4", group = grpL)
+s5  = input.symbol("NYSE:WMT", "5", group = grpL)
+s6  = input.symbol("NYSE:MCD", "6", group = grpL)
+s7  = input.symbol("NYSE:DUK", "7", group = grpL)
+s8  = input.symbol("NYSE:SO", "8", group = grpL)
+s9  = input.symbol("NYSE:VZ", "9", group = grpL)
+s10 = input.symbol("NASDAQ:COST", "10", group = grpL)
+s11 = input.symbol("NASDAQ:AAPL", "11", group = grpL)
+s12 = input.symbol("NASDAQ:MSFT", "12", group = grpL)
+s13 = input.symbol("NASDAQ:NVDA", "13", group = grpL)
+s14 = input.symbol("NASDAQ:TSLA", "14", group = grpL)
+s15 = input.symbol("NASDAQ:AMD", "15", group = grpL)
+s16 = input.symbol("NYSE:CCL", "16", group = grpL)
+s17 = input.symbol("NASDAQ:MRNA", "17", group = grpL)
+s18 = input.symbol("NYSE:XOM", "18", group = grpL)
+s19 = input.symbol("NYSE:JPM", "19", group = grpL)
+
+volOf(string sym) =>
+    request.security(sym, "D", ta.stdev(math.log(close / close[1]), len) * math.sqrt(252) * 100, ignore_invalid_symbol = true)
+
+syms = array.from(syminfo.tickerid, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19)
+n = array.size(syms)
+vols = array.new<float>(n, na)
+for i = 0 to n - 1
+    array.set(vols, i, volOf(array.get(syms, i)))
+
+rankOf(int i) =>
+    v = array.get(vols, i)
+    rk = 1
+    for j = 0 to n - 1
+        w = array.get(vols, j)
+        if j != i and not na(w) and (na(v) or w < v)
+            rk += 1
+    rk
+
+myVol  = array.get(vols, 0)
+myRank = rankOf(0)
+calm   = not na(myVol) and myRank <= topN
+
+// beta of the chart's stock to the benchmark (daily returns)
+r  = math.log(close / close[1])
+bc = request.security(bench, timeframe.period, close, ignore_invalid_symbol = true)
+rb = math.log(bc / bc[1])
+beta = ta.correlation(r, rb, len) * ta.stdev(r, len) / ta.stdev(rb, len)
+
+// median volatility of the list, for the reference line
+med = array.median(vols)
+
+plot(myVol, "Volatility % (annualized)", color = #f4b942, linewidth = 2)
+plot(med, "List median", color = color.new(#8e8e93, 20), linewidth = 1)
+bgcolor(calm ? color.new(#30d158, 90) : na, title = "Among the calmest")
+alertcondition(calm and not calm[1], "Moved into the calmest", "{{ticker}} is now among the calmest stocks on your list")
+alertcondition(not calm and calm[1], "Left the calmest", "{{ticker}} is no longer among the calmest stocks on your list")
+
+var table tb = table.new(position.top_right, 3, 22, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+if showTbl and barstate.islast
+    lc = color.new(#86868b, 0)
+    vc = color.new(#f5f5f7, 0)
+    table.cell(tb, 0, 0, "#", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 0, "Symbol", text_color = lc, text_size = size.small)
+    table.cell(tb, 2, 0, "Vol %", text_color = lc, text_size = size.small)
+    row = 1
+    for p = 1 to n
+        for i = 0 to n - 1
+            if rankOf(i) == p and row <= n
+                v = array.get(vols, i)
+                bg = i == 0 ? color.new(#5b4a1f, 0) : p <= topN ? color.new(#173d24, 0) : p > n - topN ? color.new(#4a1d1b, 0) : color.new(#1d1d1f, 0)
+                table.cell(tb, 0, row, str.tostring(p), text_color = lc, bgcolor = bg, text_size = size.tiny)
+                table.cell(tb, 1, row, i == 0 ? syminfo.ticker + " (chart)" : array.get(syms, i), text_color = vc, bgcolor = bg, text_size = size.tiny)
+                table.cell(tb, 2, row, na(v) ? "n/a" : str.tostring(v, "#"), text_color = vc, bgcolor = bg, text_size = size.tiny)
+                row += 1
+    table.cell(tb, 0, row, "β", text_color = lc, text_size = size.tiny)
+    table.cell(tb, 1, row, "beta to " + bench, text_color = lc, text_size = size.tiny)
+    table.cell(tb, 2, row, na(beta) ? "n/a" : str.tostring(beta, "#.00"), text_color = vc, text_size = size.tiny)

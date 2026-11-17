@@ -70,8 +70,8 @@
     { href: "/famous-strategies/post-earnings-drift.html", title: "Post-Earnings Announcement Drift", who: "Bernard & Thomas, 1989", market: "Stocks", live: true, blurb: "Stocks keep drifting in the direction of an earnings surprise for weeks after the report." },
     { href: "/famous-strategies/pairs-trading.html", title: "Pairs Trading", who: "Gatev, Goetzmann & Rouwenhorst, 2006", market: "Stocks", live: true, blurb: "Trade the spread between two stocks that have moved together, when it stretches too far apart." },
     { href: "/famous-strategies/magic-formula.html", title: "Magic Formula", who: "Joel Greenblatt", market: "Stocks", live: true, blurb: "Rank stocks by earnings yield plus return on capital and hold the top names for a year." },
-    { href: "/famous-strategies/value-and-size.html", title: "Fama-French Value and Size", who: "Fama & French, 1992–93", market: "Stocks", live: false, blurb: "Tilt toward cheap stocks and small stocks." },
-    { href: "/famous-strategies/low-volatility.html", title: "Low-Volatility Anomaly", who: "Ang et al., 2006; Frazzini & Pedersen, 2014", market: "Stocks", live: false, blurb: "Calmer stocks have beaten riskier ones on a risk-adjusted basis." },
+    { href: "/famous-strategies/value-and-size.html", title: "Fama-French Value and Size", who: "Fama & French, 1992–93", market: "Stocks", live: true, blurb: "Tilt toward cheap stocks and small stocks." },
+    { href: "/famous-strategies/low-volatility.html", title: "Low-Volatility Anomaly", who: "Ang et al., 2006; Frazzini & Pedersen, 2014", market: "Stocks", live: true, blurb: "Calmer stocks have beaten riskier ones on a risk-adjusted basis." },
     { href: "/famous-strategies/can-slim.html", title: "CAN SLIM", who: "William O'Neil", market: "Stocks", live: false, blurb: "Growth stocks breaking out of bases on volume." },
     { href: "/famous-strategies/opening-range-breakout.html", title: "Opening Range Breakout", who: "Crabel, 1990; Zarattini & Aziz, 2023–24", market: "Stocks", live: false, blurb: "Trade the break of the first minutes' range, focused on stocks in play." },
     { href: "/famous-strategies/ten-month-sma.html", title: "10-Month Moving Average Timing", who: "Meb Faber, 2007", market: "ETFs", live: false, blurb: "Hold each asset-class ETF only while it is above its 10-month simple moving average." },
@@ -548,7 +548,7 @@
      each page's description and section headings, so a hit on a heading
      links straight to that section. Bump SEARCH_INDEX_URL's ?v= after
      rebuilding the index. */
-  var SEARCH_INDEX_URL = "/js/search-index.js?v=20";
+  var SEARCH_INDEX_URL = "/js/search-index.js?v=21";
   var searchDocs = null, searchIndexState = "";
 
   function searchBase() {

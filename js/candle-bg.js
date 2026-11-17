@@ -945,6 +945,36 @@
       }
     },
 
+    "value-and-size": {
+      story: function (st) {
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { n: 0.5, mk: { t: "June · sort on size and book-to-market", col: SILK, below: true } }); }),
+          rep(4, function (st) { return bar(st, { d: rnd(-0.4, 0.2), n: 0.6 }); }),
+          rep(1, function (st) { level(st, st.price - 0.4, "Small value · bought", GREEN, true); return bar(st, { d: 0.4, n: 0.3, v: 0.8, flash: GREEN, mk: { t: "Small + cheap vs book", col: GREEN } }); }),
+          rep(6, function (st, k) { return bar(st, { d: k % 3 === 2 ? -0.6 : 0.4, n: 0.8 }); }),
+          rep(6, function (st, k) { return bar(st, { d: -0.45, n: 0.8, mk: k === 2 ? { t: "Value lags · stay the course", col: RED } : null }); }),
+          rep(10, function (st, k) { return bar(st, { d: k % 4 === 3 ? -0.5 : 0.6, n: 0.8 }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 0.2, n: 0.4, mk: { t: "Next June · re-sort", col: SILK, below: true } }); }),
+          rep(6, function (st) { return bar(st, { d: rnd(-0.4, 0.5), n: 0.7 }); })
+        ];
+      }
+    },
+
+    "low-volatility": {
+      story: function (st) {
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { n: 0.3, mk: { t: "Calmest stocks · ranked on volatility", col: SILK, below: true } }); }),
+          rep(6, function (st) { return bar(st, { d: 0.25, n: 0.25 }); }),
+          rep(1, function (st) { level(st, st.price - 0.3, "Low vol · held", GREEN, true); return bar(st, { d: 0.3, n: 0.2, v: 0.6, flash: GREEN, mk: { t: "Steady climb, small ranges", col: GREEN } }); }),
+          rep(8, function (st) { return bar(st, { d: 0.3, n: 0.3 }); }),
+          rep(5, function (st, k) { return bar(st, { d: -0.3, n: 0.3, mk: k === 1 ? { t: "Market falls · it loses less", col: RED } : null }); }),
+          rep(10, function (st) { return bar(st, { d: 0.32, n: 0.3 }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 0.1, n: 0.3, mk: { t: "Quarter end · re-rank", col: SILK, below: true } }); }),
+          rep(6, function (st) { return bar(st, { d: rnd(-0.2, 0.35), n: 0.3 }); })
+        ];
+      }
+    },
+
     "pyramiding": {
       story: function (st) {
         var S, hi, lo;
