@@ -24,6 +24,8 @@ const PAGES = [
   "let-winners-run.html", "relative-volume.html", "six-momentum-trades.html",
   "four-pillars.html", "get-better-faster.html", "dynamic-risk-sizing.html", "order-flow.html", "linda-raschke.html", "trading-earnings.html", "seven-trading-traps.html", "auction-market-theory.html", "thesis-to-trade.html", "pyramiding.html", "stacked-imbalances.html",
   "famous-strategies/cross-sectional-momentum.html",
+  "famous-strategies/rsi-2.html",
+  "famous-strategies/sector-rotation.html",
   "famous-strategies/dual-momentum.html",
   "famous-strategies/ten-month-sma.html",
   "famous-strategies/opening-range-breakout.html",

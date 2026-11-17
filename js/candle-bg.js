@@ -1037,6 +1037,37 @@
       }
     },
 
+    "sector-rotation": {
+      story: function (st) {
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { d: 0.4, n: 0.6, mk: { t: "Month-end · rank the ten sectors", col: SILK, below: true } }); }),
+          rep(1, function (st) { level(st, st.price - 0.4, "Top three · held", GREEN, true); return bar(st, { d: 0.6, n: 0.5, flash: GREEN, mk: { t: "Top three · a third each", col: GREEN } }); }),
+          rep(9, function (st, k) { return bar(st, { d: k % 3 === 2 ? -0.4 : 0.55, n: 0.7 }); }),
+          rep(1, function (st) { return bar(st, { d: -0.5, n: 0.5, mk: { t: "A leader slips to #4 · swap it", col: ORANGE } }); }),
+          rep(8, function (st, k) { return bar(st, { d: k % 4 === 3 ? -0.5 : 0.6, n: 0.7 }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 0.2, n: 0.4, mk: { t: "Next month-end · re-rank", col: SILK, below: true } }); }),
+          rep(6, function (st) { return bar(st, { d: rnd(-0.4, 0.5), n: 0.7 }); })
+        ];
+      }
+    },
+
+    "rsi-2": {
+      story: function (st) {
+        var M;
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); M = level(st, st.price - 3, "200-day · uptrend", ORANGE, true); return bar(st, { d: 0.4, n: 0.5, mk: { t: "Above the 200-day · buys only", col: ORANGE, below: true } }); }),
+          rep(6, function (st, k) { return bar(st, { d: k % 3 === 2 ? -0.3 : 0.5, n: 0.5 }); }),
+          rep(2, function (st) { return bar(st, { d: -0.7, n: 0.4 }); }),
+          rep(1, function (st) { level(st, st.price - 0.2, "RSI(2) under 5 · bought", BLUE, true); return bar(st, { d: -0.6, n: 0.4, v: 0.8, flash: BLUE, mk: { t: "RSI(2) 3 · buy near the close", col: BLUE } }); }),
+          rep(2, function (st) { return bar(st, { d: 0.6, n: 0.4 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.7, n: 0.4, flash: GREEN, mk: { t: "Close above the 5-day · out", col: GREEN } }); }),
+          rep(8, function (st, k) { return bar(st, { d: k % 3 === 2 ? -0.4 : 0.5, n: 0.5 }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 0.2, n: 0.4, mk: { t: "Wait for the next dip", col: SILK, below: true } }); }),
+          rep(5, function (st) { return bar(st, { d: rnd(-0.4, 0.5), n: 0.6 }); })
+        ];
+      }
+    },
+
     "pyramiding": {
       story: function (st) {
         var S, hi, lo;

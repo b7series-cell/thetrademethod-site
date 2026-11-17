@@ -1,0 +1,785 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sector Rotation by Momentum (Faber, Moskowitz and Grinblatt), Explained | The Trade Method</title>
+<meta name="description" content="Sector rotation by relative strength: rank ten sectors on trailing return each month and hold the top three. Moskowitz and Grinblatt (1999) found much of stock momentum is industry momentum; Faber (2010) found top sectors beat buy and hold by about 3-6% a year back to the 1920s. With a trend filter for bear markets. Animated walkthroughs plus a free TradingView indicator.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/famous-strategies/sector-rotation.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Sector Rotation by Momentum (Faber, Moskowitz and Grinblatt), Explained">
+<meta property="og:description" content="Sector rotation by relative strength: rank ten sectors on trailing return each month and hold the top three. Moskowitz and Grinblatt (1999) found much of stock momentum is industry momentum; Faber (2010) found top sectors beat buy and hold by about 3-6% a year back to the 1920s. With a trend filter for bear markets. Animated walkthroughs plus a free TradingView indicator.">
+<meta property="og:url" content="https://thetrademethod.com/famous-strategies/sector-rotation.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sector Rotation by Momentum (Faber, Moskowitz and Grinblatt), Explained">
+<meta name="twitter:description" content="Sector rotation by relative strength: rank ten sectors on trailing return each month and hold the top three. Moskowitz and Grinblatt (1999) found much of stock momentum is industry momentum; Faber (2010) found top sectors beat buy and hold by about 3-6% a year back to the 1920s. With a trend filter for bear markets. Animated walkthroughs plus a free TradingView indicator.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Sector Rotation by Momentum (Faber, Moskowitz and Grinblatt), Explained",
+ "name": "Sector Rotation",
+ "description": "Sector rotation by relative strength: rank ten sectors on trailing return each month and hold the top three. Moskowitz and Grinblatt (1999) found much of stock momentum is industry momentum; Faber (2010) found top sectors beat buy and hold by about 3-6% a year back to the 1920s. With a trend filter for bear markets. Animated walkthroughs plus a free TradingView indicator.",
+ "url": "https://thetrademethod.com/famous-strategies/sector-rotation.html",
+ "mainEntityOfPage": "https://thetrademethod.com/famous-strategies/sector-rotation.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-17",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.seven { grid-template-columns:repeat(2,1fr); }
+    .ribbon.seven > div:last-child { grid-column:span 2; }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=24">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the pyramid: five cards, or a stepper once js/pyr-anim.js runs */
+  .fs-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .fs-steps .stage, .sheet .fs-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .fs-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .fs-steps.is-stepper .stage, .sheet .fs-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .fs-steps.is-stepper .stage .num { display:none; }
+  .sheet .fs-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .fs-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .fs-steps + .four { margin-top:28px; }
+  .fs-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .fs-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .fs-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .fs-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .fs-steps { margin-top:24px; }
+  }
+
+  /* fact sheet, timeline, sources */
+  .facts { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--graphite); border-radius:22px; overflow:hidden; margin-top:26px; }
+  .facts div { background:var(--charcoal); padding:16px 18px; }
+  .facts .k { font-family:var(--mono-font); font-size:12px; color:var(--ash); }
+  .facts b { display:block; margin-top:4px; font-size:16px; font-weight:600; line-height:1.3; }
+  .tl { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+  .tl li { background:var(--charcoal); border-radius:20px; padding:16px 16px 18px; border-top:3px solid var(--tc, var(--up)); }
+  .tl .y { font-family:var(--mono-font); font-size:13px; color:var(--tc, var(--up)); font-weight:600; }
+  .tl b { display:block; margin:6px 0 6px; font-size:16px; line-height:1.25; }
+  .tl p { margin:0; color:var(--mute); font-size:14px; }
+  .cites { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .cites li { margin-bottom:10px; }
+  .cites i { color:var(--platinum); }
+  .cites small { display:block; color:var(--ash); font-size:13.5px; margin-top:2px; }
+  @media (max-width:1100px) { .facts { grid-template-columns:repeat(2,1fr); } .tl { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:680px) { .facts, .tl { grid-template-columns:1fr; } .sheet .section-head + .fs-steps { margin-top:24px; } }
+
+  /* the indicator */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-wrap { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:22px; align-items:start; }
+  .ind-mock { background:var(--charcoal); border-radius:22px; padding:14px; }
+  .howto { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#f4b942; font-weight:600; }
+  .code-wrap { background:var(--charcoal); border-radius:22px; margin-top:22px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid #2c2c2e; flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--ash); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--silk); background:#2c2c2e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#3a3a3c; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d1d6; tab-size:4; }
+  @media (max-width:1100px) { .ind-wrap { grid-template-columns:1fr; } }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-mock { padding:8px; } }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=45" defer></script>
+<script src="/js/fs-kit.js?v=1" defer></script>
+<script src="/js/fs-sector-rotation.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=32" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="Sector Rotation"></div>
+<div class="sheet">
+
+  <a class="back" href="/famous-strategies/">&lsaquo; Famous strategies</a>
+
+  <header class="top" data-candle-bg="sector-rotation">
+    <div>
+      <p class="kicker">Famous strategies &middot; ETFs &middot; Moskowitz &amp; Grinblatt 1999 &middot; Faber 2010</p>
+      <h1>Sector <span>Rotation</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Industries go through long runs of leading and lagging. Rank the sectors on what they've returned lately, own the top few, and swap out any that fall behind. No view on the economy needed: the ranking does the rotating.
+      <em>Own the leaders, swap the laggards.</em></p>
+      <div class="counts">
+        <div><b>10</b><small>sectors ranked each month</small></div>
+        <div><b>3</b><small>held, a third each</small></div>
+        <div><b>3&ndash;6%</b><small>a year over holding all ten, in Faber's test</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon seven" aria-label="Sector Rotation">
+    <div><div class="t">step 1</div><div class="n">Month-end</div></div>
+    <div><div class="t">step 2</div><div class="n">Rank ten sectors</div></div>
+    <div><div class="t">step 3</div><div class="n">Hold the top three</div></div>
+    <div><div class="t">step 4</div><div class="n">Swap any that drop out</div></div>
+    <div><div class="t">step 5</div><div class="n">Optional: trend filter</div></div>
+  </nav>
+
+  <div class="facts" aria-label="At a glance">
+    <div><span class="k">research</span><b>Moskowitz &amp; Grinblatt, Do Industries Explain Momentum?, <i>Journal of Finance</i>, 1999</b></div>
+    <div><span class="k">tested by</span><b>Mebane Faber, Relative Strength Strategies for Investing, 2010</b></div>
+    <div><span class="k">data</span><b>Ten US industry groups, back to the 1920s</b></div>
+    <div><span class="k">ranking</span><b>Trailing total return, 1 to 12 months, or an average of several</b></div>
+    <div><span class="k">hold</span><b>The top 1, 2 or 3, equal weights, monthly</b></div>
+    <div><span class="k">result</span><b>About 3&ndash;6% a year over holding all ten, before costs</b></div>
+    <div><span class="k">hit rate</span><b>Beat buy and hold in roughly 70% of years</b></div>
+    <div><span class="k">trend filter</span><b>T-bills when the S&amp;P 500 is below its 10-month average</b></div>
+  </div>
+
+  <div class="section-head" id="rank">
+    <h2>Rank and hold</h2>
+    <p>The whole system is one ranking a month. Faber kept it deliberately plain so anyone could follow it with a list of sector funds.</p>
+  </div>
+  <section class="anim" data-fs-anim="rank" aria-label="Ten made-up sectors sorted by trailing return from plus 24.1% for Technology down to minus 4.3% for Utilities; the top three are held with a third of the money each and the other seven are dimmed.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Ten sectors, top three</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Ten sectors, top three"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>The rule</h3>
+          <ul>
+            <li>At each month-end, work out every sector's trailing total return. Faber's combined score averages the 1, 3, 6, 9 and 12-month returns.</li>
+            <li>Hold the top three sectors, a third of the money in each.</li>
+            <li>Next month-end, rank again. Sell any sector that dropped out of the top three and buy the one that replaced it.</li>
+          </ul>
+          <p class="why">Industries trend for months at a time as money, news and earnings revisions flow into them. Ranking on recent returns rides those trends without having to explain them.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Two ways to rotate</h4>
+        <p class="lead">And which one this is.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">momentum</span><b>Follow the ranking</b><p>Hold whatever has been strongest. This page, and the research behind it.</p></div>
+          <div class="care"><span class="k">business cycle</span><b>Forecast the economy</b><p>Pick sectors by where you think the cycle is heading. Popular, but it needs a forecast, and there's no comparable test behind it.</p></div>
+        </div>
+      </div>
+      <div class="panel calc">
+        <h4>The made-up ranking</h4>
+        <p class="lead">From the walkthrough above.</p>
+        <div class="row"><span>#1 Technology</span><b>+24.1%</b></div>
+        <div class="row"><span>#2 Energy</span><b>+18.6%</b></div>
+        <div class="row"><span>#3 Industrials</span><b>+15.2%</b></div>
+        <div class="row tot"><span>Held in each</span><b>a third</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="rotate">
+    <h2>How it rotates</h2>
+    <p>Trailing returns change slowly, so the top three do too. Most months nothing happens; now and then one leader fades and another takes its place.</p>
+  </div>
+  <section class="anim" data-fs-anim="rotate" aria-label="Ten made-up sectors&#x27; ranks over nine months: Technology starts first and fades to seventh, while Financials and Materials climb into the top three; each entry into the top three is marked as a swap.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Ranks over time</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Ranks over time"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="section-head" id="industries">
+    <h2>Why industries</h2>
+    <p>Moskowitz and Grinblatt asked where stock momentum comes from. Much of it, they found, comes from the industry a stock belongs to.</p>
+  </div>
+  <section class="anim" data-fs-anim="industries" aria-label="Ten made-up stocks over 40 months look unrelated until colored by industry: five in a hot industry rise together and five in a cold industry fall together.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Stocks move with their industry</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Stocks move with their industry"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>What the research found</h3>
+          <ul>
+            <li>Industry momentum: buying stocks in recently winning industries and selling those in losing industries was strongly profitable.</li>
+            <li>Controlling for industry momentum made individual-stock momentum much weaker; the reverse wasn't true.</li>
+            <li>It held after controlling for size, book-to-market, individual stock momentum and microstructure effects.</li>
+          </ul>
+          <p class="why">If much of the momentum effect lives in industries, you can capture a large part of it with ten sector funds instead of hundreds of stocks.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <blockquote class="qb"><b>Beat buy and hold in roughly 70% of years.</b> Faber's 2010 test of the top sectors, back to the 1920s: about 3 to 6 percentage points a year over an equal-weighted mix of all ten, before trading costs and taxes.</blockquote>
+    </div>
+  </div>
+
+  <div class="section-head" id="filter">
+    <h2>The bear-market problem</h2>
+    <p>A ranking always picks something, even when everything is falling. Faber's answer was the same trend filter as his 10-month moving average rule.</p>
+  </div>
+  <section class="anim" data-fs-anim="filter" aria-label="A made-up sector rotation falls with the market in a bear market; with a filter that holds T-bills while the S&amp;P 500 is below its 10-month average, the filtered line steps aside for most of the decline and ends with a smaller worst drawdown.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Adding a trend filter</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Adding a trend filter"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="four">
+    <div style="--tc:#30d158"><span class="k">edge</span><h3>3&ndash;6% a year</h3><p>Top sectors over holding all ten, in Faber's test back to the 1920s, before costs.</p></div>
+    <div style="--tc:#2997ff"><span class="k">consistency</span><h3>~70% of years</h3><p>The share of years the relative strength system beat buy and hold.</p></div>
+    <div style="--tc:#f4b942"><span class="k">with the filter</span><h3>40&ndash;50% drawdowns</h3><p>Instead of 70&ndash;80% without it, while keeping most of the return.</p></div>
+    <div style="--tc:#ff453a"><span class="k">the catch</span><h3>Concentrated</h3><p>Three sectors means big bets on a few groups. Bad stretches can last years.</p></div>
+  </div>
+
+  <ol class="tl">
+    <li style="--tc:#2997ff"><span class="y">1993</span><b>Stock momentum</b><p>Jegadeesh and Titman: winners over the past 3 to 12 months keep winning.</p></li>
+    <li style="--tc:#30d158"><span class="y">1999</span><b>Industry momentum</b><p>Moskowitz and Grinblatt: much of that momentum comes from industries.</p></li>
+    <li style="--tc:#2997ff"><span class="y">1998&ndash;99</span><b>Sector funds</b><p>The Select Sector SPDR ETFs make it easy to hold a whole sector.</p></li>
+    <li style="--tc:#f4b942"><span class="y">2010</span><b>Faber's test</b><p><i>Relative Strength Strategies for Investing</i>: ten industries back to the 1920s, top sectors and a trend filter.</p></li>
+  </ol>
+
+  <div class="section-head" id="steps">
+    <h2>The strategy, step by step</h2>
+    <p>The whole thing in five steps. Click through them.</p>
+  </div>
+  <div class="fs-steps" data-fs-steps data-fs-label="Sector Rotation, step by step">
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Month-end</h3>
+          <ul>
+            <li>On the last trading day, look up each sector's trailing total return.</li>
+            <li>Pick one lookback and stick with it.</li>
+          </ul>
+          <p class="why">One check a month.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Rank</h3>
+          <ul>
+            <li>Sort the sectors from best to worst.</li>
+            <li>No forecasts, no opinions about the economy.</li>
+          </ul>
+          <p class="why">The ranking makes the call.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Hold</h3>
+          <ul>
+            <li>Buy the top three, a third of the money in each.</li>
+            <li>Hold them until the next month-end.</li>
+          </ul>
+          <p class="why">Ride the leaders.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Swap</h3>
+          <ul>
+            <li>Sell any sector that dropped out of the top three.</li>
+            <li>Buy the one that replaced it; leave the rest alone.</li>
+          </ul>
+          <p class="why">Few trades, low costs.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Filter</h3>
+          <ul>
+            <li>Optional: if the S&amp;P 500 closed below its 10-month average, hold T-bills.</li>
+            <li>Back into the top three when it closes above.</li>
+          </ul>
+          <p class="why">Step aside in long bear markets.</p>
+        </div>
+      </section>
+  </div>
+
+  <div class="section-head" id="indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for this strategy (Pine Script v6). It ranks the eleven SPDR sector ETFs on momentum, marks the top three, applies Faber's optional trend filter, and alerts when the top set changes. It marks and alerts. It doesn't place trades.</p>
+  </div>
+  <div class="ind-wrap">
+    <ul class="ind-list">
+      <li class="ind-card">
+        <div class="ind-card-top">
+          <h3 class="ind-name">Sector Rotation Rank</h3>
+          <span class="ind-alerts">alerts</span>
+        </div>
+        <p class="ind-blurb">A ranking table of all eleven sector ETFs, best to worst, with the momentum score and the held sectors marked. The default score is Faber's combined lookback, the average of the 1, 3, 6, 9 and 12-month total returns; you can switch to a single lookback.</p>
+        <p class="ind-blurb">In a pane under the chart: momentum lines for a few big sectors, with the background shaded red when the trend filter says T-bills. Alerts fire once a month when the top set changes, and when the filter turns on or off.</p>
+        <p class="ind-blurb"><span style="color:var(--ash)">Faber tested ten industry groups. The SPDR sector ETFs are the usual stand-ins today, with real estate and communication services added since. Scores use completed months and add dividends back.</span></p>
+        <div class="ind-links">
+          <a class="ind-link ind-link--quiet" href="/pine/sector-rotation.pine" download>Download source (.pine)</a>
+        </div>
+      </li>
+    </ul>
+    <div class="ind-mock"><svg viewBox="0 0 560 330" role="img" aria-label="An illustrative mock of the indicator: momentum lines for four sectors in a lower pane with a red stretch marked T-bills where the trend filter is on, and a table ranking the sectors by momentum with the top three marked as held."><rect width="560" height="330" rx="14" fill="#141416"/><rect x="243.8" y="44.0" width="45.6" height="252.0" rx="0" fill="#ff453a" opacity="0.1"/><line x1="16.0" y1="204.4" x2="352.0" y2="204.4" stroke="#48484a" stroke-width="1" stroke-dasharray="2 3"/><polyline fill="none" stroke="#2997ff" stroke-width="1.8" stroke-linejoin="round" points="16.0,124.2 21.7,117.8 27.4,111.6 33.1,105.4 38.8,99.6 44.5,94.0 50.2,88.8 55.9,84.0 61.6,79.7 67.3,76.0 72.9,72.9 78.6,70.4 84.3,68.5 90.0,67.4 95.7,66.9 101.4,67.2 107.1,68.1 112.8,69.8 118.5,72.1 124.2,75.1 129.9,78.6 135.6,82.8 141.3,87.4 147.0,92.5 152.7,98.0 158.4,103.8 164.1,109.9 169.8,116.1 175.5,122.4 181.2,128.8 186.8,135.1 192.5,141.3 198.2,147.2 203.9,152.9 209.6,158.2 215.3,163.1 221.0,167.5 226.7,171.4 232.4,174.7 238.1,177.4 243.8,179.4 249.5,180.8 255.2,181.4 260.9,181.3 266.6,180.6 272.3,179.1 278.0,177.0 283.7,174.2 289.4,170.8 295.1,166.8 300.7,162.3 306.4,157.3 312.1,151.9 317.8,146.2 323.5,140.2 329.2,134.0 334.9,127.7 340.6,121.3 346.3,115.0 352.0,108.8"/><polyline fill="none" stroke="#ff9f0a" stroke-width="1.8" stroke-linejoin="round" points="16.0,271.8 21.7,268.6 27.4,263.7 33.1,257.1 38.8,249.0 44.5,239.5 50.2,228.8 55.9,217.1 61.6,204.8 67.3,191.9 72.9,178.8 78.6,165.8 84.3,153.1 90.0,141.0 95.7,129.7 101.4,119.5 107.1,110.5 112.8,103.0 118.5,97.0 124.2,92.8 129.9,90.4 135.6,89.9 141.3,91.2 147.0,94.3 152.7,99.3 158.4,105.9 164.1,114.0 169.8,123.5 175.5,134.2 181.2,145.9 186.8,158.3 192.5,171.1 198.2,184.2 203.9,197.2 209.6,209.9 215.3,222.0 221.0,233.3 226.7,243.5 232.4,252.5 238.1,260.0 243.8,265.9 249.5,270.1 255.2,272.5 260.9,273.0 266.6,271.7 272.3,268.5 278.0,263.6 283.7,257.0 289.4,248.8 295.1,239.3 300.7,228.6 306.4,216.9 312.1,204.5 317.8,191.7 323.5,178.6 329.2,165.6 334.9,152.9 340.6,140.8 346.3,129.5 352.0,119.3"/><polyline fill="none" stroke="#30d158" stroke-width="1.8" stroke-linejoin="round" points="16.0,136.4 21.7,134.1 27.4,132.0 33.1,130.1 38.8,128.5 44.5,127.1 50.2,126.0 55.9,125.1 61.6,124.5 67.3,124.2 72.9,124.2 78.6,124.5 84.3,125.0 90.0,125.8 95.7,126.9 101.4,128.3 107.1,129.9 112.8,131.7 118.5,133.8 124.2,136.0 129.9,138.5 135.6,141.1 141.3,143.9 147.0,146.7 152.7,149.7 158.4,152.8 164.1,155.9 169.8,159.0 175.5,162.1 181.2,165.2 186.8,168.2 192.5,171.2 198.2,174.0 203.9,176.8 209.6,179.3 215.3,181.7 221.0,183.9 226.7,185.9 232.4,187.7 238.1,189.2 243.8,190.5 249.5,191.5 255.2,192.3 260.9,192.7 266.6,192.9 272.3,192.8 278.0,192.4 283.7,191.8 289.4,190.8 295.1,189.6 300.7,188.1 306.4,186.4 312.1,184.5 317.8,182.3 323.5,180.0 329.2,177.5 334.9,174.8 340.6,172.0 346.3,169.0 352.0,166.0"/><polyline fill="none" stroke="#bf5af2" stroke-width="1.8" stroke-linejoin="round" points="16.0,119.1 21.7,124.1 27.4,129.8 33.1,136.2 38.8,143.1 44.5,150.4 50.2,158.0 55.9,165.8 61.6,173.7 67.3,181.5 72.9,189.1 78.6,196.5 84.3,203.4 90.0,209.8 95.7,215.6 101.4,220.6 107.1,224.9 112.8,228.3 118.5,230.8 124.2,232.4 129.9,233.0 135.6,232.6 141.3,231.2 147.0,228.9 152.7,225.7 158.4,221.5 164.1,216.6 169.8,211.0 175.5,204.7 181.2,197.9 186.8,190.6 192.5,183.0 198.2,175.2 203.9,167.4 209.6,159.5 215.3,151.9 221.0,144.5 226.7,137.5 232.4,131.0 238.1,125.2 243.8,120.0 249.5,115.6 255.2,112.1 260.9,109.4 266.6,107.7 272.3,107.0 278.0,107.3 283.7,108.5 289.4,110.7 295.1,113.9 300.7,117.9 306.4,122.7 312.1,128.2 317.8,134.4 323.5,141.2 329.2,148.4 334.9,156.0 340.6,163.7 346.3,171.6 352.0,179.4"/><text x="266.6" y="60.0" fill="#ff453a" font-size="10" font-weight="700" text-anchor="middle">T-bills</text><text x="16.0" y="24.0" fill="#86868b" font-size="12" font-weight="600" text-anchor="start">Sectors &#183; momentum, completed months</text><rect x="368.0" y="40.0" width="194.0" height="18.0" rx="0" fill="#141416" opacity="1"/><text x="374.0" y="53.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">#</text><text x="396.0" y="53.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Sector</text><text x="508.0" y="53.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Momentum</text><rect x="368.0" y="59.0" width="194.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="72.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">1</text><text x="396.0" y="72.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">Technology &#9679;</text><text x="508.0" y="72.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">+10.4%</text><rect x="368.0" y="78.0" width="194.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="91.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">2</text><text x="396.0" y="91.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">Communication &#9679;</text><text x="508.0" y="91.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">+8.9%</text><rect x="368.0" y="97.0" width="194.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="110.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">3</text><text x="396.0" y="110.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">Industrials &#9679;</text><text x="508.0" y="110.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">+7.2%</text><rect x="368.0" y="116.0" width="194.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="129.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">4</text><text x="396.0" y="129.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">Financials</text><text x="508.0" y="129.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">+6.2%</text><rect x="368.0" y="135.0" width="194.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="148.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">5</text><text x="396.0" y="148.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">Utilities</text><text x="508.0" y="148.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">+4.8%</text><rect x="368.0" y="154.0" width="194.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="167.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">&#8230;</text><text x="396.0" y="167.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start"></text><text x="508.0" y="167.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start"></text><rect x="368.0" y="173.0" width="194.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="186.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">11</text><text x="396.0" y="186.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">Energy</text><text x="508.0" y="186.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">&#8722;3.1%</text><rect x="368.0" y="192.0" width="194.0" height="18.0" rx="0" fill="#141416" opacity="1"/><text x="374.0" y="205.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start"></text><text x="396.0" y="205.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">Hold the top 3</text><text x="508.0" y="205.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">S&amp;P &gt; 10M</text><text x="546" y="320" fill="#6e6e73" font-size="11" text-anchor="end">Illustrative mock &middot; made-up values</text></svg></div>
+  </div>
+  <div class="panel" style="margin-top:22px">
+    <h4>Add it to TradingView</h4>
+    <ol class="howto">
+      <li>Copy the code below, or download the .pine file.</li>
+      <li>In TradingView, open the Pine Editor at the bottom of a chart, paste it in, and click <b>Add to chart</b>.</li>
+      <li>Any chart works; the ranking is the same on every symbol and timeframe.</li>
+      <li>To get alerted, create an alert on the chart and pick <b>Sectors: top set changed</b>, <b>Sectors: to T-bills</b> or <b>Sectors: back in</b>.</li>
+    </ol>
+  </div>
+  <div class="code-wrap">
+    <div class="code-top">
+      <span>sector-rotation.pine &middot; Pine Script v6</span>
+      <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/sector-rotation.pine" download>Download</a></div>
+    </div>
+    <pre class="pine" tabindex="0"><code>//@version=6
+// =====================================================================
+// Sector Rotation Rank — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/sector-rotation.html
+//
+// Mebane Faber, Relative Strength Strategies for Investing (2010), on
+// the industry momentum documented by Moskowitz &amp; Grinblatt (1999).
+// At each month-end:
+//
+//   1  Rank the sectors on trailing total return (Faber's combined
+//      lookback: the average of the 1-, 3-, 6-, 9- and 12-month returns)
+//   2  Hold the top 3, a third each; replace any that drop out
+//   3  Optional trend filter: if the S&amp;P 500 closed below its 10-month
+//      average, hold T-bills instead
+//
+// The 11 SPDR sector ETFs stand in for Faber's ten industry groups.
+// Works on any chart; the ranking uses completed months only.
+// Marks and alerts only; it places no orders.
+// =====================================================================
+indicator("Sector Rotation Rank", shorttitle = "Sectors", overlay = false)
+
+lbMode = input.string("Combined 1-3-6-9-12", "Lookback", options = ["Combined 1-3-6-9-12", "12 months", "6 months", "3 months", "1 month"])
+topN   = input.int(3, "Hold the top", minval = 1, maxval = 11)
+useTF  = input.bool(true, "Trend filter: T-bills when the S&amp;P 500 is below its 10-month average")
+bench  = input.symbol("AMEX:SPY", "S&amp;P 500 for the filter")
+
+names = array.from("Technology", "Financials", "Energy", "Health care", "Consumer disc.", "Staples", "Industrials", "Materials", "Utilities", "Real estate", "Communication")
+
+// total return momentum from completed months, dividends added back
+mom(string sym) =&gt;
+    t = ticker.modify(sym, adjustment = adjustment.dividends)
+    request.security(t, "M", lbMode == "Combined 1-3-6-9-12" ? ((close[1] / close[2] - 1) + (close[1] / close[4] - 1) + (close[1] / close[7] - 1) + (close[1] / close[10] - 1) + (close[1] / close[13] - 1)) / 5 * 100 : lbMode == "12 months" ? (close[1] / close[13] - 1) * 100 : lbMode == "6 months" ? (close[1] / close[7] - 1) * 100 : lbMode == "3 months" ? (close[1] / close[4] - 1) * 100 : (close[1] / close[2] - 1) * 100, lookahead = barmerge.lookahead_on, ignore_invalid_symbol = true)
+
+m0  = mom("AMEX:XLK")
+m1  = mom("AMEX:XLF")
+m2  = mom("AMEX:XLE")
+m3  = mom("AMEX:XLV")
+m4  = mom("AMEX:XLY")
+m5  = mom("AMEX:XLP")
+m6  = mom("AMEX:XLI")
+m7  = mom("AMEX:XLB")
+m8  = mom("AMEX:XLU")
+m9  = mom("AMEX:XLRE")
+m10 = mom("AMEX:XLC")
+vals = array.from(m0, m1, m2, m3, m4, m5, m6, m7, m8, m9, m10)
+
+bC  = request.security(bench, "M", close[1], lookahead = barmerge.lookahead_on)
+bMa = request.security(bench, "M", ta.sma(close, 10)[1], lookahead = barmerge.lookahead_on)
+riskOff = useTF and not na(bMa) and bC &lt; bMa
+
+// rank: count how many sectors beat each one
+rankOf(int i) =&gt;
+    v = array.get(vals, i)
+    r = 1
+    for j = 0 to array.size(vals) - 1
+        w = array.get(vals, j)
+        if j != i and not na(w) and not na(v) and w &gt; v
+            r += 1
+    na(v) ? 99 : r
+
+// a code for the current top-N set, to spot changes
+code = 0
+for i = 0 to 10
+    if rankOf(i) &lt;= topN
+        code += int(math.pow(2, i))
+// compare once per month, at the first bar of the new month
+var int prevCode = 0
+var bool prevOff = false
+changed = false
+offFlip = false
+if timeframe.change("M")
+    changed := prevCode != 0 and code != 0 and code != prevCode
+    offFlip := riskOff != prevOff
+    prevCode := code
+    prevOff := riskOff
+
+plot(m0, "Technology", color = color.new(#2997ff, 0))
+plot(m2, "Energy", color = color.new(#ff9f0a, 0))
+plot(m3, "Health care", color = color.new(#30d158, 0))
+plot(m1, "Financials", color = color.new(#bf5af2, 0))
+hline(0, "Zero", color = color.new(#48484a, 0), linestyle = hline.style_dotted)
+bgcolor(riskOff ? color.new(#ff453a, 88) : na, title = "Trend filter: T-bills")
+
+alertcondition(changed, "Sectors: top set changed", "Sector rotation: the top sectors changed at month-end. Check the table.")
+alertcondition(offFlip and riskOff, "Sectors: to T-bills", "Sector rotation: the S&amp;P 500 closed below its 10-month average. Trend filter says T-bills.")
+alertcondition(offFlip and not riskOff, "Sectors: back in", "Sector rotation: the S&amp;P 500 closed back above its 10-month average.")
+
+var table tb = table.new(position.top_right, 3, 13, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+if barstate.islast
+    table.cell(tb, 0, 0, "#", text_color = color.new(#86868b, 0), text_size = size.small)
+    table.cell(tb, 1, 0, "Sector", text_color = color.new(#86868b, 0), text_size = size.small)
+    table.cell(tb, 2, 0, "Momentum", text_color = color.new(#86868b, 0), text_size = size.small)
+    row = 1
+    for r = 1 to 11
+        for i = 0 to 10
+            if rankOf(i) == r and row &lt;= 11
+                v = array.get(vals, i)
+                held = r &lt;= topN and not riskOff
+                table.cell(tb, 0, row, str.tostring(r), text_color = held ? color.new(#30d158, 0) : color.new(#86868b, 0), text_size = size.small)
+                table.cell(tb, 1, row, array.get(names, i) + (held ? "  ●" : ""), text_color = held ? color.new(#30d158, 0) : color.new(#f5f5f7, 0), text_size = size.small)
+                table.cell(tb, 2, row, str.tostring(v, "+#.0;-#.0") + "%", text_color = color.new(#f5f5f7, 0), text_size = size.small)
+                row += 1
+    table.cell(tb, 0, 12, "", text_size = size.small)
+    table.cell(tb, 1, 12, riskOff ? "Trend filter: hold T-bills" : "Hold the top " + str.tostring(topN) + ", equal weights", text_color = riskOff ? color.new(#ff453a, 0) : color.new(#30d158, 0), text_size = size.small)
+    table.cell(tb, 2, 12, useTF ? (riskOff ? "S&amp;P &lt; 10M avg" : "S&amp;P &gt; 10M avg") : "", text_color = color.new(#86868b, 0), text_size = size.small)
+</code></pre>
+  </div>
+
+  <div class="section-head" id="related">
+    <h2>Go deeper</h2>
+    <p>Pages on this site that pick up where this one leaves off.</p>
+  </div>
+  <div class="four">
+    <a href="/famous-strategies/cross-sectional-momentum.html" style="--tc:#30d158"><span class="k">famous strategy</span><h3>Cross-Sectional Momentum</h3><p>The stock-level version of the same idea.</p><small>Read &rsaquo;</small></a>
+    <a href="/famous-strategies/ten-month-sma.html" style="--tc:#2997ff"><span class="k">famous strategy</span><h3>10-Month Moving Average</h3><p>The trend filter on its own.</p><small>Read &rsaquo;</small></a>
+    <a href="/famous-strategies/dual-momentum.html" style="--tc:#f4b942"><span class="k">famous strategy</span><h3>Dual Momentum</h3><p>Relative strength between whole markets, with bonds as the exit.</p><small>Read &rsaquo;</small></a>
+    <a href="/famous-strategies/low-volatility.html" style="--tc:#ff9f0a"><span class="k">famous strategy</span><h3>Low-Volatility Anomaly</h3><p>Another way to choose what to own, by risk instead of return.</p><small>Read &rsaquo;</small></a>
+  </div>
+
+  <div class="rule">
+    <div>
+      <h2>Try it on paper first.</h2>
+      <p>On the last trading day of each month, rank the sector ETFs on one lookback and write down the top three. Track them for six months next to SPY, and count how many swaps you made.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Use the same lookback every month.</li>
+        <li>Write the ranking down before the next month starts.</li>
+        <li>Note whether the trend filter would have been on.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-head" id="sources">
+    <h2>Sources</h2>
+    <p>The papers and books behind every figure on this page.</p>
+  </div>
+  <ol class="cites">
+    <li>Moskowitz, T. J. &amp; Grinblatt, M. (1999). Do Industries Explain Momentum? <i>Journal of Finance</i>, 54(4), 1249&ndash;1290.<small>A strong momentum effect in industry returns; individual stock momentum much less profitable after controlling for industry momentum; industry momentum robust to size, book-to-market, individual momentum, cross-sectional dispersion and microstructure effects.</small></li>
+    <li>Faber, M. T. (2010). Relative Strength Strategies for Investing. Cambria Investment Management (SSRN 1585517).<small>Ten US industry groups ranked monthly on trailing total return (1 to 12 months and a combined 1-3-6-9-12 score), holding the top 1 to 3; about 300&ndash;600 basis points a year over buy and hold, beating it in roughly 70% of years; with a 10-month SMA filter on the S&amp;P 500, drawdowns of about 40&ndash;50% instead of 70&ndash;80%. Before taxes, commissions and slippage.</small></li>
+    <li>Jegadeesh, N. &amp; Titman, S. (1993). Returns to Buying Winners and Selling Losers. <i>Journal of Finance</i>, 48(1), 65&ndash;91.</li>
+  </ol>
+
+  <p class="src">Built from the papers listed above. Every return and rank in the walkthroughs is made up for illustration. The cards use the papers' published findings, which are backtests before trading costs and taxes. Past results don't promise future returns. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>
