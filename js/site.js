@@ -75,7 +75,7 @@
     { href: "/famous-strategies/can-slim.html", title: "CAN SLIM", who: "William O'Neil", market: "Stocks", live: true, blurb: "Growth stocks breaking out of bases on volume." },
     { href: "/famous-strategies/opening-range-breakout.html", title: "Opening Range Breakout", who: "Crabel, 1990; Zarattini & Aziz, 2023–24", market: "Stocks", live: true, blurb: "Trade the break of the first minutes' range, focused on stocks in play." },
     { href: "/famous-strategies/ten-month-sma.html", title: "10-Month Moving Average Timing", who: "Meb Faber, 2007", market: "ETFs", live: true, blurb: "Hold each asset-class ETF only while it is above its 10-month simple moving average." },
-    { href: "/famous-strategies/dual-momentum.html", title: "Dual Momentum", who: "Gary Antonacci, 2014", market: "ETFs", live: false, blurb: "Hold the stronger of US or international stocks, and switch to bonds when both trail T-bills." },
+    { href: "/famous-strategies/dual-momentum.html", title: "Dual Momentum", who: "Gary Antonacci, 2014", market: "ETFs", live: true, blurb: "Hold the stronger of US or international stocks, and switch to bonds when both trail T-bills." },
     { href: "/famous-strategies/sector-rotation.html", title: "Sector Rotation", who: "Faber; Moskowitz & Grinblatt, 1999", market: "ETFs", live: false, blurb: "Own the top few sector ETFs by trailing momentum." },
     { href: "/famous-strategies/rsi-2.html", title: "RSI(2)", who: "Larry Connors", market: "ETFs", live: false, blurb: "Buy SPY or QQQ on short-term oversold readings while above the 200-day average." },
     { href: "/famous-strategies/intraday-momentum.html", title: "Intraday Momentum", who: "Gao, Han, Li & Zhou, 2018", market: "ETFs", live: false, blurb: "SPY's first half-hour return tends to predict its last half-hour." },
@@ -548,7 +548,7 @@
      each page's description and section headings, so a hit on a heading
      links straight to that section. Bump SEARCH_INDEX_URL's ?v= after
      rebuilding the index. */
-  var SEARCH_INDEX_URL = "/js/search-index.js?v=22";
+  var SEARCH_INDEX_URL = "/js/search-index.js?v=23";
   var searchDocs = null, searchIndexState = "";
 
   function searchBase() {

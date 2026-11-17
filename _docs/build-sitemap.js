@@ -37,6 +37,7 @@ const EXTRA_PAGES = [
   { loc: "/fundamentals/", priority: "0.9" },
   { loc: "/famous-strategies/", priority: "0.9" },
   { loc: "/famous-strategies/cross-sectional-momentum.html", priority: "0.7" },
+  { loc: "/famous-strategies/dual-momentum.html", priority: "0.7" },
   { loc: "/famous-strategies/ten-month-sma.html", priority: "0.7" },
   { loc: "/famous-strategies/opening-range-breakout.html", priority: "0.7" },
   { loc: "/famous-strategies/can-slim.html", priority: "0.7" },

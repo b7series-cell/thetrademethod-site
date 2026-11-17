@@ -1,0 +1,69 @@
+//@version=6
+// =====================================================================
+// Dual Momentum (GEM) — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/dual-momentum.html
+//
+// Gary Antonacci, Dual Momentum Investing (2014): Global Equities
+// Momentum. Once a month, using the last 12 months:
+//
+//   Relative momentum: pick the stronger of US stocks and non-US stocks
+//   Absolute momentum: if US stocks beat T-bills, hold the pick;
+//                      if not, hold bonds until they do
+//
+// ETFs stand in for the book's indexes: SPY (S&P 500), VEU (all-world
+// ex-US), BIL (T-bills) and AGG (US aggregate bonds). Returns are total
+// returns: dividends and interest are added back, as in the book.
+//
+// Works on any timeframe: the signal uses completed months only.
+// Marks and alerts only; it places no orders.
+// =====================================================================
+indicator("Dual Momentum (GEM)", shorttitle = "GEM", overlay = false)
+
+lb   = input.int(12, "Lookback (months)", minval = 1)
+sUS  = input.symbol("AMEX:SPY", "US stocks")
+sEX  = input.symbol("AMEX:VEU", "Non-US stocks")
+sTB  = input.symbol("AMEX:BIL", "T-bills")
+sBD  = input.symbol("AMEX:AGG", "Bonds")
+
+// the total return over the last lb completed months (no look-ahead)
+ret(string sym) =>
+    t = ticker.modify(sym, adjustment = adjustment.dividends)
+    request.security(t, "M", (close[1] / close[1 + lb] - 1) * 100, lookahead = barmerge.lookahead_on, ignore_invalid_symbol = true)
+rUS = ret(sUS)
+rEX = ret(sEX)
+rTB = ret(sTB)
+rBD = ret(sBD)
+
+ok = not na(rUS) and not na(rEX) and not na(rTB)
+pick = not ok ? 0 : rUS > rTB ? (rUS >= rEX ? 1 : 2) : 3   // 1 US, 2 non-US, 3 bonds
+nameOf(int p) => p == 1 ? "US stocks" : p == 2 ? "Non-US stocks" : p == 3 ? "Bonds" : "n/a"
+colOf(int p) => p == 1 ? color.new(#2997ff, 0) : p == 2 ? color.new(#30d158, 0) : p == 3 ? color.new(#f4b942, 0) : color.new(#86868b, 0)
+
+plot(rUS, "US stocks, 12-month %", color = colOf(1), linewidth = 2)
+plot(rEX, "Non-US stocks, 12-month %", color = colOf(2), linewidth = 2)
+plot(rTB, "T-bills, 12-month %", color = color.new(#86868b, 0), style = plot.style_stepline)
+hline(0, "Zero", color = color.new(#48484a, 0), linestyle = hline.style_dotted)
+bgcolor(pick == 0 ? na : color.new(colOf(pick), 88), title = "Holding")
+
+switched = pick != pick[1] and pick[1] != 0 and pick != 0
+if switched
+    label.new(bar_index, math.max(rUS, rEX), "→ " + nameOf(pick), style = label.style_label_down, color = colOf(pick), textcolor = color.black, size = size.small)
+
+alertcondition(switched, "GEM: switch", "Dual momentum: the holding changed at month-end. Check the indicator.")
+alertcondition(switched and pick == 3, "GEM: to bonds", "Dual momentum: US stocks trail T-bills over 12 months. Hold bonds.")
+
+var table tb = table.new(position.top_right, 2, 6, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+f(float v) => na(v) ? "n/a" : str.tostring(v, "+#.0;-#.0") + "%"
+if barstate.islast
+    table.cell(tb, 0, 0, str.tostring(lb) + "-month return", text_color = color.new(#86868b, 0), text_size = size.small)
+    table.cell(tb, 1, 0, "completed months", text_color = color.new(#86868b, 0), text_size = size.small)
+    table.cell(tb, 0, 1, "US stocks", text_color = colOf(1), text_size = size.small)
+    table.cell(tb, 1, 1, f(rUS), text_color = color.new(#f5f5f7, 0), text_size = size.small)
+    table.cell(tb, 0, 2, "Non-US stocks", text_color = colOf(2), text_size = size.small)
+    table.cell(tb, 1, 2, f(rEX), text_color = color.new(#f5f5f7, 0), text_size = size.small)
+    table.cell(tb, 0, 3, "T-bills", text_color = color.new(#86868b, 0), text_size = size.small)
+    table.cell(tb, 1, 3, f(rTB), text_color = color.new(#f5f5f7, 0), text_size = size.small)
+    table.cell(tb, 0, 4, "Bonds", text_color = colOf(3), text_size = size.small)
+    table.cell(tb, 1, 4, f(rBD), text_color = color.new(#f5f5f7, 0), text_size = size.small)
+    table.cell(tb, 0, 5, "Hold", text_color = color.new(#86868b, 0), text_size = size.small)
+    table.cell(tb, 1, 5, nameOf(pick), text_color = colOf(pick), text_size = size.small)

@@ -1022,6 +1022,21 @@
       }
     },
 
+    "dual-momentum": {
+      story: function (st) {
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { d: 0.5, n: 0.6, mk: { t: "Month-end · US vs non-US, 12 months", col: SILK, below: true } }); }),
+          rep(1, function (st) { level(st, st.price - 0.4, "Holding · the stronger market", GREEN, true); return bar(st, { d: 0.6, n: 0.5, flash: GREEN, mk: { t: "Stronger market · held", col: GREEN } }); }),
+          rep(8, function (st, k) { return bar(st, { d: k % 3 === 2 ? -0.4 : 0.55, n: 0.7 }); }),
+          rep(4, function (st) { return bar(st, { d: -0.7, n: 0.7 }); }),
+          rep(1, function (st) { level(st, st.price, "T-bills beat stocks · to bonds", ORANGE, true); return bar(st, { d: -0.6, n: 0.5, flash: RED, mk: { t: "Stocks trail T-bills · bonds", col: ORANGE } }); }),
+          rep(6, function (st, k) { return bar(st, { d: k < 3 ? -0.5 : 0.4, n: 0.6 }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 0.7, n: 0.5, flash: GREEN, mk: { t: "Trend back · into stocks", col: GREEN, below: true } }); }),
+          rep(6, function (st) { return bar(st, { d: rnd(-0.3, 0.6), n: 0.7 }); })
+        ];
+      }
+    },
+
     "pyramiding": {
       story: function (st) {
         var S, hi, lo;
