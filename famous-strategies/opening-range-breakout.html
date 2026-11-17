@@ -1,0 +1,827 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opening Range Breakout (ORB) on Stocks in Play, Explained | The Trade Method</title>
+<meta name="description" content="The opening range breakout, from Toby Crabel (1990) to Zarattini, Barbon and Aziz (2024): the first 5-minute candle picks the side, a stop order at its high or low, a stop 10% of ATR away, out at the close, and only on stocks in play. 1,637% net in their 2016-2023 backtest against 29% without the filter. Animated walkthroughs plus a free TradingView indicator.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/famous-strategies/opening-range-breakout.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Opening Range Breakout (ORB) on Stocks in Play, Explained">
+<meta property="og:description" content="The opening range breakout, from Toby Crabel (1990) to Zarattini, Barbon and Aziz (2024): the first 5-minute candle picks the side, a stop order at its high or low, a stop 10% of ATR away, out at the close, and only on stocks in play. 1,637% net in their 2016-2023 backtest against 29% without the filter. Animated walkthroughs plus a free TradingView indicator.">
+<meta property="og:url" content="https://thetrademethod.com/famous-strategies/opening-range-breakout.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Opening Range Breakout (ORB) on Stocks in Play, Explained">
+<meta name="twitter:description" content="The opening range breakout, from Toby Crabel (1990) to Zarattini, Barbon and Aziz (2024): the first 5-minute candle picks the side, a stop order at its high or low, a stop 10% of ATR away, out at the close, and only on stocks in play. 1,637% net in their 2016-2023 backtest against 29% without the filter. Animated walkthroughs plus a free TradingView indicator.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Opening Range Breakout (ORB) on Stocks in Play, Explained",
+ "name": "Opening Range Breakout",
+ "description": "The opening range breakout, from Toby Crabel (1990) to Zarattini, Barbon and Aziz (2024): the first 5-minute candle picks the side, a stop order at its high or low, a stop 10% of ATR away, out at the close, and only on stocks in play. 1,637% net in their 2016-2023 backtest against 29% without the filter. Animated walkthroughs plus a free TradingView indicator.",
+ "url": "https://thetrademethod.com/famous-strategies/opening-range-breakout.html",
+ "mainEntityOfPage": "https://thetrademethod.com/famous-strategies/opening-range-breakout.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-17",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.seven { grid-template-columns:repeat(2,1fr); }
+    .ribbon.seven > div:last-child { grid-column:span 2; }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=24">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the pyramid: five cards, or a stepper once js/pyr-anim.js runs */
+  .fs-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .fs-steps .stage, .sheet .fs-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .fs-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .fs-steps.is-stepper .stage, .sheet .fs-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .fs-steps.is-stepper .stage .num { display:none; }
+  .sheet .fs-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .fs-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .fs-steps + .four { margin-top:28px; }
+  .fs-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .fs-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .fs-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .fs-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .fs-steps { margin-top:24px; }
+  }
+
+  /* fact sheet, timeline, sources */
+  .facts { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--graphite); border-radius:22px; overflow:hidden; margin-top:26px; }
+  .facts div { background:var(--charcoal); padding:16px 18px; }
+  .facts .k { font-family:var(--mono-font); font-size:12px; color:var(--ash); }
+  .facts b { display:block; margin-top:4px; font-size:16px; font-weight:600; line-height:1.3; }
+  .tl { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+  .tl li { background:var(--charcoal); border-radius:20px; padding:16px 16px 18px; border-top:3px solid var(--tc, var(--up)); }
+  .tl .y { font-family:var(--mono-font); font-size:13px; color:var(--tc, var(--up)); font-weight:600; }
+  .tl b { display:block; margin:6px 0 6px; font-size:16px; line-height:1.25; }
+  .tl p { margin:0; color:var(--mute); font-size:14px; }
+  .cites { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .cites li { margin-bottom:10px; }
+  .cites i { color:var(--platinum); }
+  .cites small { display:block; color:var(--ash); font-size:13.5px; margin-top:2px; }
+  @media (max-width:1100px) { .facts { grid-template-columns:repeat(2,1fr); } .tl { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:680px) { .facts, .tl { grid-template-columns:1fr; } .sheet .section-head + .fs-steps { margin-top:24px; } }
+
+  /* the indicator */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-wrap { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:22px; align-items:start; }
+  .ind-mock { background:var(--charcoal); border-radius:22px; padding:14px; }
+  .howto { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#f4b942; font-weight:600; }
+  .code-wrap { background:var(--charcoal); border-radius:22px; margin-top:22px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid #2c2c2e; flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--ash); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--silk); background:#2c2c2e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#3a3a3c; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d1d6; tab-size:4; }
+  @media (max-width:1100px) { .ind-wrap { grid-template-columns:1fr; } }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-mock { padding:8px; } }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=43" defer></script>
+<script src="/js/fs-kit.js?v=1" defer></script>
+<script src="/js/fs-opening-range-breakout.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=30" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="Opening Range Breakout"></div>
+<div class="sheet">
+
+  <a class="back" href="/famous-strategies/">&lsaquo; Famous strategies</a>
+
+  <header class="top" data-candle-bg="opening-range-breakout">
+    <div>
+      <p class="kicker">Famous strategies &middot; Stocks &middot; Crabel 1990 &middot; Zarattini, Barbon &amp; Aziz 2024</p>
+      <h1>Opening Range <span>Breakout</span></h1>
+    </div>
+    <div>
+      <p class="thesis">The first minutes of the session are when overnight news gets priced. On a stock with real news, the direction of the first five minutes tends to continue. Trade the break of that first candle, keep the stop tight, and hold to the close, but only on stocks in play.
+      <em>The first five minutes set the day.</em></p>
+      <div class="counts">
+        <div><b>5</b><small>minutes: the range that worked best</small></div>
+        <div><b>1,637%</b><small>net, 2016&ndash;2023, on stocks in play</small></div>
+        <div><b>29%</b><small>the same rules on every stock</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon seven" aria-label="Opening Range Breakout">
+    <div><div class="t">step 1</div><div class="n">Find stocks in play</div></div>
+    <div><div class="t">step 2</div><div class="n">Read the first candle</div></div>
+    <div><div class="t">step 3</div><div class="n">Stop order at its high or low</div></div>
+    <div><div class="t">step 4</div><div class="n">Stop at 10% of ATR</div></div>
+    <div><div class="t">step 5</div><div class="n">Out at the close</div></div>
+  </nav>
+
+  <div class="facts" aria-label="At a glance">
+    <div><span class="k">origin</span><b>Toby Crabel, <i>Day Trading with Short Term Price Patterns and Opening Range Breakout</i>, 1990</b></div>
+    <div><span class="k">tested by</span><b>Zarattini, Barbon &amp; Aziz, 2024; Zarattini &amp; Aziz, 2023 (QQQ)</b></div>
+    <div><span class="k">data</span><b>7,000+ US stocks, 2016&ndash;2023, with commissions</b></div>
+    <div><span class="k">filter</span><b>Relative volume 100%+, top 20 a day</b></div>
+    <div><span class="k">entry</span><b>Stop order at the first 5-minute candle's high (green) or low (red)</b></div>
+    <div><span class="k">stop</span><b>10% of the 14-day ATR, sized to risk 1% of capital</b></div>
+    <div><span class="k">exit</span><b>At the 4:00 pm close; no profit target</b></div>
+    <div><span class="k">headline</span><b>Sharpe 2.81, beta 0.00, worst drawdown 12%</b></div>
+  </div>
+
+  <div class="section-head" id="rules">
+    <h2>Five minutes, one side</h2>
+    <p>Crabel's idea was simple: mark the range of the open and trade whichever way price breaks it. The modern version tested by Zarattini, Barbon and Aziz uses the first 5-minute candle twice: its color picks the side, and its high or low is the entry.</p>
+  </div>
+  <section class="anim" data-fs-anim="candle" aria-label="A made-up stock in play makes a green first 5-minute candle, a buy stop sits at its high of 50.82, the order fills with a stop 21 cents lower (10% of a 2.10 ATR), and the position rides to the 4:00 pm close near 53.40.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">One day, one stock</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="One day, one stock"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>The rule</h3>
+          <ul>
+            <li>At 9:35, look at the first 5-minute candle. Green: longs only today. Red: shorts only. A doji: no trade.</li>
+            <li>Place a stop order to buy at its high (or sell short at its low). If price never gets there, there's no trade.</li>
+            <li>Stop loss 10% of the stock's 14-day ATR from the entry, sized so a stop-out costs 1% of capital. No target: close whatever is left at 4:00 pm.</li>
+          </ul>
+          <p class="why">A tight stop with no target means many small losses and a few days that pay several times the risk. It only adds up on stocks with a reason to trend.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Two tests, one idea</h4>
+        <p class="lead">The same authors ran it twice.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">2024: stocks in play</span><b>1,637% net</b><p>The 20 US stocks with the highest relative volume each day, 2016&ndash;2023. Sharpe 2.81, annual alpha 35.8%.</p></div>
+          <div class="care"><span class="k">2023: QQQ</span><b>1,484% vs 169%</b><p>The Nasdaq-100 ETF, with leverage up to 4x and a 10R target, against 169% for holding QQQ over the same years.</p></div>
+        </div>
+      </div>
+      <div class="panel calc">
+        <h4>The made-up trade</h4>
+        <p class="lead">The walkthrough's numbers.</p>
+        <div class="row"><span>Buy stop (first candle's high)</span><b>$50.82</b></div>
+        <div class="row"><span>14-day ATR</span><b>$2.10</b></div>
+        <div class="row"><span>Stop (10% of ATR below)</span><b>$50.61</b></div>
+        <div class="row"><span>Risk per share</span><b>$0.21</b></div>
+        <div class="row tot"><span>Closed at 4:00 pm</span><b>$53.40, about 12R</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="inplay">
+    <h2>Only stocks in play</h2>
+    <p>A stock in play is one trading far more than usual, usually because of news: earnings, an upgrade, a deal. The paper measured it with relative volume, and that filter turned out to be most of the result.</p>
+  </div>
+  <section class="anim" data-fs-anim="inplay" aria-label="Nine made-up stocks ranked by relative volume, first-5-minute volume against their 14-day average; a 100% line drops the quiet ones, one stock fails the price, volume or ATR filter, and the top four are marked to trade.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Relative volume at 9:35</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Relative volume at 9:35"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Finding stocks in play</h3>
+          <ul>
+            <li>Relative volume: the first 5 minutes' volume divided by the average first-5-minute volume over the last 14 days. It has to be at least 100%.</li>
+            <li>Basic filters: opening price over $5, 14-day average volume of at least 1 million shares, 14-day ATR over $0.50.</li>
+            <li>Rank what's left by relative volume and trade the top 20.</li>
+          </ul>
+          <p class="why">Unusual volume at the open means new information is being priced. Those are the stocks most likely to keep going the way the open points.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <blockquote class="qb"><b>The filter is the strategy.</b> On every stock that passed the basic filters, the same 5-minute rules made 29% in eight years. On the top 20 stocks by relative volume, they made 1,637%.</blockquote>
+      <div class="panel calc">
+        <h4>The paper's setup</h4>
+        <p class="lead">Zarattini, Barbon &amp; Aziz, 2024.</p>
+        <div class="row"><span>Universe</span><b>7,000+ US stocks</b></div>
+        <div class="row"><span>Period</span><b>2016&ndash;2023</b></div>
+        <div class="row"><span>Starting capital</span><b>$25,000</b></div>
+        <div class="row"><span>Commission</span><b>$0.0035 a share</b></div>
+        <div class="row tot"><span>Maximum leverage</span><b>4x</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="results">
+    <h2>What the backtest found</h2>
+    <p>Every number in this chart is from the paper's tables, net of commissions. The bars use a square-root scale so the small results stay visible next to the big one.</p>
+  </div>
+  <section class="anim" data-fs-anim="results" aria-label="Total returns from Zarattini, Barbon and Aziz, 2016 to 2023: 29% for the 5-minute ORB on every stock, 1,637% on the top 20 stocks in play, 272% with a 15-minute range, 21% with 30 minutes, 39% with 60 minutes, against 198% for the S&amp;P 500.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Total return, 2016&ndash;2023</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Total return, 2016-2023"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="four">
+    <div style="--tc:#30d158"><span class="k">5-minute, in play</span><h3>1,637%</h3><p>41.6% a year, Sharpe 2.81, annual alpha 35.8%, beta 0.00, worst drawdown 12%.</p></div>
+    <div style="--tc:#2997ff"><span class="k">15-minute, in play</span><h3>272%</h3><p>17.4% a year, Sharpe 1.43. Waiting for a longer range gave up most of the edge.</p></div>
+    <div style="--tc:#86868b"><span class="k">no filter</span><h3>29%</h3><p>3.2% a year, Sharpe 0.48. The same rules on every stock barely beat cash.</p></div>
+    <div style="--tc:#f4b942"><span class="k">S&amp;P 500</span><h3>198%</h3><p>14.2% a year, Sharpe 0.78, worst drawdown 34%.</p></div>
+  </div>
+
+  <div class="section-head" id="odds">
+    <h2>Living with it</h2>
+    <p>The result comes from a shape most traders find hard to sit through: more losing days than winning ones, and a few trend days that pay for everything.</p>
+  </div>
+  <section class="anim" data-fs-anim="odds" aria-label="Twenty made-up trades in R: thirteen losers capped at 1R or less, seven winners including trend days of 4.1R and 6.8R, and a running total that ends around plus 7R.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Lose often, win bigger</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Lose often, win bigger"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <ol class="tl">
+    <li style="--tc:#2997ff"><span class="y">1990</span><b>Toby Crabel</b><p><i>Day Trading with Short Term Price Patterns and Opening Range Breakout</i>: trading a break of a preset distance from the open.</p></li>
+    <li style="--tc:#2997ff"><span class="y">1990s&ndash;2000s</span><b>Traders' staple</b><p>The opening range becomes a standard intraday level, from 5 minutes to the first hour.</p></li>
+    <li style="--tc:#30d158"><span class="y">2023</span><b>Zarattini &amp; Aziz</b><p>The 5-minute ORB on QQQ: 1,484% against 169% for holding QQQ, 2016&ndash;2023.</p></li>
+    <li style="--tc:#30d158"><span class="y">2024</span><b>Zarattini, Barbon &amp; Aziz</b><p>Stocks in play: 1,637% net on the top 20 by relative volume, and 29% without the filter.</p></li>
+  </ol>
+
+  <div class="section-head" id="steps">
+    <h2>The strategy, step by step</h2>
+    <p>The whole thing in five steps. Click through them.</p>
+  </div>
+  <div class="fs-steps" data-fs-steps data-fs-label="Opening Range Breakout, step by step">
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Scan</h3>
+          <ul>
+            <li>At 9:35, rank stocks by relative volume: first-5-minute volume vs its 14-day average.</li>
+            <li>Keep 100%+, over $5, 1M+ shares a day, ATR over $0.50.</li>
+          </ul>
+          <p class="why">Stocks with news are the ones that trend.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Side</h3>
+          <ul>
+            <li>Green first 5-minute candle: longs only.</li>
+            <li>Red: shorts only. Doji: skip it.</li>
+          </ul>
+          <p class="why">The open's direction is the bet.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Order</h3>
+          <ul>
+            <li>Buy stop at the first candle's high, or sell stop at its low.</li>
+            <li>No break, no trade.</li>
+          </ul>
+          <p class="why">Price has to confirm the direction first.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Stop</h3>
+          <ul>
+            <li>10% of the 14-day ATR from the entry.</li>
+            <li>Size it so a stop-out costs 1% of capital.</li>
+          </ul>
+          <p class="why">A small, fixed loss on every failure.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Close</h3>
+          <ul>
+            <li>No profit target.</li>
+            <li>Close what's left at 4:00 pm. Never hold overnight.</li>
+          </ul>
+          <p class="why">The trend days pay for the rest.</p>
+        </div>
+      </section>
+  </div>
+
+  <div class="section-head" id="indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for this strategy (Pine Script v6). It marks the opening range, checks relative volume and the paper's filters, draws the entry and the 10% ATR stop, and alerts on the break. It marks and alerts. It doesn't place trades.</p>
+  </div>
+  <div class="ind-wrap">
+    <ul class="ind-list">
+      <li class="ind-card">
+        <div class="ind-card-top">
+          <h3 class="ind-name">Opening Range Breakout</h3>
+          <span class="ind-alerts">alerts</span>
+        </div>
+        <p class="ind-blurb">On the chart: the first 5 minutes shaded, the range high and low, and a long or short label when price breaks the side the first candle picked, with that day's relative volume. The stop is drawn 10% of the 14-day ATR from the entry, with labels when it's hit and when the day closes.</p>
+        <p class="ind-blurb">A table with the range, the first candle's color, relative volume against the last 14 days' opening volume, the ATR, the stop distance, whether the stock counts as in play, and the open position.</p>
+        <p class="ind-blurb"><span style="color:var(--ash)">The paper picked the top 20 stocks in play from the whole market each morning. One chart can only check its own stock, so use a relative-volume scanner to find candidates and the indicator to trade them. The range can be set to 15, 30 or 60 minutes.</span></p>
+        <div class="ind-links">
+          <a class="ind-link ind-link--quiet" href="/pine/opening-range-breakout.pine" download>Download source (.pine)</a>
+        </div>
+      </li>
+    </ul>
+    <div class="ind-mock"><svg viewBox="0 0 560 330" role="img" aria-label="An illustrative mock of the indicator: made-up 5-minute candles with the first five minutes shaded, green and red lines at the opening range high and low, a dashed stop 10% of ATR under the entry, an ORB long label with relative volume 412%, and a table showing the range, a green first candle, relative volume, ATR, stop distance, in play yes and a long position."><rect width="560" height="330" rx="14" fill="#141416"/><rect x="16.0" y="44.0" width="4.4" height="252.0" rx="0" fill="#2997ff" opacity="0.12"/><line x1="16.0" y1="262.8" x2="16.0" y2="269.6" stroke="#30d158" stroke-width="1"/><rect x="14.7" y="267.5" width="2.6" height="1.2" rx="0" fill="#30d158" opacity="1"/><line x1="20.4" y1="228.6" x2="20.4" y2="272.9" stroke="#30d158" stroke-width="1"/><rect x="19.1" y="242.4" width="2.6" height="25.1" rx="0" fill="#30d158" opacity="1"/><line x1="24.7" y1="233.3" x2="24.7" y2="252.2" stroke="#30d158" stroke-width="1"/><rect x="23.4" y="234.9" width="2.6" height="7.5" rx="0" fill="#30d158" opacity="1"/><line x1="29.1" y1="202.8" x2="29.1" y2="255.2" stroke="#30d158" stroke-width="1"/><rect x="27.8" y="226.0" width="2.6" height="9.0" rx="0" fill="#30d158" opacity="1"/><line x1="33.5" y1="210.6" x2="33.5" y2="230.4" stroke="#30d158" stroke-width="1"/><rect x="32.2" y="225.9" width="2.6" height="1.2" rx="0" fill="#30d158" opacity="1"/><line x1="37.8" y1="207.0" x2="37.8" y2="232.4" stroke="#30d158" stroke-width="1"/><rect x="36.5" y="219.6" width="2.6" height="6.2" rx="0" fill="#30d158" opacity="1"/><line x1="42.2" y1="215.1" x2="42.2" y2="233.4" stroke="#ff453a" stroke-width="1"/><rect x="40.9" y="219.6" width="2.6" height="10.9" rx="0" fill="#ff453a" opacity="1"/><line x1="46.5" y1="214.7" x2="46.5" y2="254.7" stroke="#30d158" stroke-width="1"/><rect x="45.2" y="220.3" width="2.6" height="10.3" rx="0" fill="#30d158" opacity="1"/><line x1="50.9" y1="187.4" x2="50.9" y2="241.6" stroke="#30d158" stroke-width="1"/><rect x="49.6" y="209.4" width="2.6" height="10.9" rx="0" fill="#30d158" opacity="1"/><line x1="55.3" y1="192.8" x2="55.3" y2="214.7" stroke="#ff453a" stroke-width="1"/><rect x="54.0" y="209.4" width="2.6" height="1.4" rx="0" fill="#ff453a" opacity="1"/><line x1="59.6" y1="195.9" x2="59.6" y2="226.0" stroke="#30d158" stroke-width="1"/><rect x="58.3" y="203.4" width="2.6" height="7.3" rx="0" fill="#30d158" opacity="1"/><line x1="64.0" y1="182.8" x2="64.0" y2="241.4" stroke="#ff453a" stroke-width="1"/><rect x="62.7" y="203.4" width="2.6" height="13.9" rx="0" fill="#ff453a" opacity="1"/><line x1="68.4" y1="193.1" x2="68.4" y2="219.2" stroke="#30d158" stroke-width="1"/><rect x="67.1" y="212.9" width="2.6" height="4.3" rx="0" fill="#30d158" opacity="1"/><line x1="72.7" y1="199.1" x2="72.7" y2="233.1" stroke="#ff453a" stroke-width="1"/><rect x="71.4" y="212.9" width="2.6" height="4.9" rx="0" fill="#ff453a" opacity="1"/><line x1="77.1" y1="203.3" x2="77.1" y2="221.7" stroke="#30d158" stroke-width="1"/><rect x="75.8" y="214.4" width="2.6" height="3.4" rx="0" fill="#30d158" opacity="1"/><line x1="81.5" y1="204.7" x2="81.5" y2="217.1" stroke="#ff453a" stroke-width="1"/><rect x="80.2" y="214.4" width="2.6" height="1.2" rx="0" fill="#ff453a" opacity="1"/><line x1="85.8" y1="190.9" x2="85.8" y2="248.0" stroke="#ff453a" stroke-width="1"/><rect x="84.5" y="215.2" width="2.6" height="10.3" rx="0" fill="#ff453a" opacity="1"/><line x1="90.2" y1="212.1" x2="90.2" y2="231.8" stroke="#30d158" stroke-width="1"/><rect x="88.9" y="223.6" width="2.6" height="1.9" rx="0" fill="#30d158" opacity="1"/><line x1="94.5" y1="205.3" x2="94.5" y2="235.4" stroke="#ff453a" stroke-width="1"/><rect x="93.2" y="223.6" width="2.6" height="1.2" rx="0" fill="#ff453a" opacity="1"/><line x1="98.9" y1="192.9" x2="98.9" y2="245.3" stroke="#30d158" stroke-width="1"/><rect x="97.6" y="215.1" width="2.6" height="8.8" rx="0" fill="#30d158" opacity="1"/><line x1="103.3" y1="203.9" x2="103.3" y2="228.0" stroke="#ff453a" stroke-width="1"/><rect x="102.0" y="215.1" width="2.6" height="3.7" rx="0" fill="#ff453a" opacity="1"/><line x1="107.6" y1="205.2" x2="107.6" y2="233.3" stroke="#ff453a" stroke-width="1"/><rect x="106.3" y="218.8" width="2.6" height="4.7" rx="0" fill="#ff453a" opacity="1"/><line x1="112.0" y1="203.7" x2="112.0" y2="232.3" stroke="#30d158" stroke-width="1"/><rect x="110.7" y="208.4" width="2.6" height="15.1" rx="0" fill="#30d158" opacity="1"/><line x1="116.4" y1="189.5" x2="116.4" y2="214.9" stroke="#ff453a" stroke-width="1"/><rect x="115.1" y="208.4" width="2.6" height="5.5" rx="0" fill="#ff453a" opacity="1"/><line x1="120.7" y1="200.0" x2="120.7" y2="231.1" stroke="#30d158" stroke-width="1"/><rect x="119.4" y="201.3" width="2.6" height="12.6" rx="0" fill="#30d158" opacity="1"/><line x1="125.1" y1="195.2" x2="125.1" y2="215.7" stroke="#ff453a" stroke-width="1"/><rect x="123.8" y="201.3" width="2.6" height="2.8" rx="0" fill="#ff453a" opacity="1"/><line x1="129.5" y1="190.9" x2="129.5" y2="211.6" stroke="#30d158" stroke-width="1"/><rect x="128.2" y="201.1" width="2.6" height="3.0" rx="0" fill="#30d158" opacity="1"/><line x1="133.8" y1="151.2" x2="133.8" y2="207.2" stroke="#30d158" stroke-width="1"/><rect x="132.5" y="182.3" width="2.6" height="18.8" rx="0" fill="#30d158" opacity="1"/><line x1="138.2" y1="172.7" x2="138.2" y2="192.6" stroke="#ff453a" stroke-width="1"/><rect x="136.9" y="182.3" width="2.6" height="5.6" rx="0" fill="#ff453a" opacity="1"/><line x1="142.5" y1="168.3" x2="142.5" y2="194.2" stroke="#30d158" stroke-width="1"/><rect x="141.2" y="182.8" width="2.6" height="5.1" rx="0" fill="#30d158" opacity="1"/><line x1="146.9" y1="154.9" x2="146.9" y2="205.4" stroke="#30d158" stroke-width="1"/><rect x="145.6" y="165.6" width="2.6" height="17.2" rx="0" fill="#30d158" opacity="1"/><line x1="151.3" y1="155.4" x2="151.3" y2="177.8" stroke="#30d158" stroke-width="1"/><rect x="150.0" y="162.4" width="2.6" height="3.2" rx="0" fill="#30d158" opacity="1"/><line x1="155.6" y1="142.1" x2="155.6" y2="169.0" stroke="#ff453a" stroke-width="1"/><rect x="154.3" y="162.4" width="2.6" height="4.3" rx="0" fill="#ff453a" opacity="1"/><line x1="160.0" y1="152.1" x2="160.0" y2="173.0" stroke="#30d158" stroke-width="1"/><rect x="158.7" y="153.8" width="2.6" height="12.9" rx="0" fill="#30d158" opacity="1"/><line x1="164.4" y1="136.5" x2="164.4" y2="172.2" stroke="#ff453a" stroke-width="1"/><rect x="163.1" y="153.8" width="2.6" height="4.5" rx="0" fill="#ff453a" opacity="1"/><line x1="168.7" y1="148.6" x2="168.7" y2="165.8" stroke="#30d158" stroke-width="1"/><rect x="167.4" y="153.9" width="2.6" height="4.4" rx="0" fill="#30d158" opacity="1"/><line x1="173.1" y1="149.8" x2="173.1" y2="169.8" stroke="#ff453a" stroke-width="1"/><rect x="171.8" y="153.9" width="2.6" height="5.3" rx="0" fill="#ff453a" opacity="1"/><line x1="177.5" y1="144.1" x2="177.5" y2="178.9" stroke="#30d158" stroke-width="1"/><rect x="176.2" y="145.3" width="2.6" height="13.9" rx="0" fill="#30d158" opacity="1"/><line x1="181.8" y1="126.5" x2="181.8" y2="167.1" stroke="#ff453a" stroke-width="1"/><rect x="180.5" y="145.3" width="2.6" height="1.8" rx="0" fill="#ff453a" opacity="1"/><line x1="186.2" y1="122.9" x2="186.2" y2="170.0" stroke="#30d158" stroke-width="1"/><rect x="184.9" y="140.5" width="2.6" height="6.6" rx="0" fill="#30d158" opacity="1"/><line x1="190.5" y1="139.0" x2="190.5" y2="146.4" stroke="#30d158" stroke-width="1"/><rect x="189.2" y="139.4" width="2.6" height="1.2" rx="0" fill="#30d158" opacity="1"/><line x1="194.9" y1="116.0" x2="194.9" y2="165.5" stroke="#ff453a" stroke-width="1"/><rect x="193.6" y="139.4" width="2.6" height="7.3" rx="0" fill="#ff453a" opacity="1"/><line x1="199.3" y1="134.5" x2="199.3" y2="167.3" stroke="#30d158" stroke-width="1"/><rect x="198.0" y="143.5" width="2.6" height="3.2" rx="0" fill="#30d158" opacity="1"/><line x1="203.6" y1="130.8" x2="203.6" y2="161.1" stroke="#ff453a" stroke-width="1"/><rect x="202.3" y="143.5" width="2.6" height="1.2" rx="0" fill="#ff453a" opacity="1"/><line x1="208.0" y1="136.3" x2="208.0" y2="148.4" stroke="#30d158" stroke-width="1"/><rect x="206.7" y="142.5" width="2.6" height="1.9" rx="0" fill="#30d158" opacity="1"/><line x1="212.4" y1="133.0" x2="212.4" y2="147.8" stroke="#ff453a" stroke-width="1"/><rect x="211.1" y="142.5" width="2.6" height="2.4" rx="0" fill="#ff453a" opacity="1"/><line x1="216.7" y1="134.0" x2="216.7" y2="165.5" stroke="#30d158" stroke-width="1"/><rect x="215.4" y="142.2" width="2.6" height="2.7" rx="0" fill="#30d158" opacity="1"/><line x1="221.1" y1="131.2" x2="221.1" y2="142.4" stroke="#30d158" stroke-width="1"/><rect x="219.8" y="138.5" width="2.6" height="3.7" rx="0" fill="#30d158" opacity="1"/><line x1="225.5" y1="137.3" x2="225.5" y2="153.6" stroke="#ff453a" stroke-width="1"/><rect x="224.2" y="138.5" width="2.6" height="10.7" rx="0" fill="#ff453a" opacity="1"/><line x1="229.8" y1="119.4" x2="229.8" y2="158.5" stroke="#30d158" stroke-width="1"/><rect x="228.5" y="139.5" width="2.6" height="9.6" rx="0" fill="#30d158" opacity="1"/><line x1="234.2" y1="132.6" x2="234.2" y2="148.4" stroke="#ff453a" stroke-width="1"/><rect x="232.9" y="139.5" width="2.6" height="6.5" rx="0" fill="#ff453a" opacity="1"/><line x1="238.5" y1="125.6" x2="238.5" y2="156.4" stroke="#ff453a" stroke-width="1"/><rect x="237.2" y="146.1" width="2.6" height="1.5" rx="0" fill="#ff453a" opacity="1"/><line x1="242.9" y1="135.6" x2="242.9" y2="149.0" stroke="#30d158" stroke-width="1"/><rect x="241.6" y="140.6" width="2.6" height="7.0" rx="0" fill="#30d158" opacity="1"/><line x1="247.3" y1="139.3" x2="247.3" y2="151.1" stroke="#ff453a" stroke-width="1"/><rect x="246.0" y="140.6" width="2.6" height="6.5" rx="0" fill="#ff453a" opacity="1"/><line x1="251.6" y1="132.1" x2="251.6" y2="154.1" stroke="#ff453a" stroke-width="1"/><rect x="250.3" y="147.1" width="2.6" height="3.7" rx="0" fill="#ff453a" opacity="1"/><line x1="256.0" y1="148.4" x2="256.0" y2="161.0" stroke="#30d158" stroke-width="1"/><rect x="254.7" y="149.3" width="2.6" height="1.5" rx="0" fill="#30d158" opacity="1"/><line x1="260.4" y1="141.5" x2="260.4" y2="170.6" stroke="#30d158" stroke-width="1"/><rect x="259.1" y="146.8" width="2.6" height="2.5" rx="0" fill="#30d158" opacity="1"/><line x1="264.7" y1="144.0" x2="264.7" y2="164.0" stroke="#ff453a" stroke-width="1"/><rect x="263.4" y="146.8" width="2.6" height="5.0" rx="0" fill="#ff453a" opacity="1"/><line x1="269.1" y1="107.3" x2="269.1" y2="164.9" stroke="#30d158" stroke-width="1"/><rect x="267.8" y="131.9" width="2.6" height="19.9" rx="0" fill="#30d158" opacity="1"/><line x1="273.5" y1="106.4" x2="273.5" y2="154.1" stroke="#ff453a" stroke-width="1"/><rect x="272.2" y="131.9" width="2.6" height="9.9" rx="0" fill="#ff453a" opacity="1"/><line x1="277.8" y1="117.6" x2="277.8" y2="154.1" stroke="#30d158" stroke-width="1"/><rect x="276.5" y="124.9" width="2.6" height="16.9" rx="0" fill="#30d158" opacity="1"/><line x1="282.2" y1="117.2" x2="282.2" y2="135.0" stroke="#30d158" stroke-width="1"/><rect x="280.9" y="118.1" width="2.6" height="6.8" rx="0" fill="#30d158" opacity="1"/><line x1="286.5" y1="112.0" x2="286.5" y2="147.8" stroke="#ff453a" stroke-width="1"/><rect x="285.2" y="118.1" width="2.6" height="7.9" rx="0" fill="#ff453a" opacity="1"/><line x1="290.9" y1="83.1" x2="290.9" y2="141.1" stroke="#30d158" stroke-width="1"/><rect x="289.6" y="108.4" width="2.6" height="17.6" rx="0" fill="#30d158" opacity="1"/><line x1="295.3" y1="107.7" x2="295.3" y2="115.1" stroke="#ff453a" stroke-width="1"/><rect x="294.0" y="108.4" width="2.6" height="1.4" rx="0" fill="#ff453a" opacity="1"/><line x1="299.6" y1="95.0" x2="299.6" y2="115.0" stroke="#30d158" stroke-width="1"/><rect x="298.3" y="101.1" width="2.6" height="8.7" rx="0" fill="#30d158" opacity="1"/><line x1="304.0" y1="96.0" x2="304.0" y2="124.1" stroke="#ff453a" stroke-width="1"/><rect x="302.7" y="101.1" width="2.6" height="3.8" rx="0" fill="#ff453a" opacity="1"/><line x1="308.4" y1="98.8" x2="308.4" y2="106.0" stroke="#30d158" stroke-width="1"/><rect x="307.1" y="101.9" width="2.6" height="3.0" rx="0" fill="#30d158" opacity="1"/><line x1="312.7" y1="76.3" x2="312.7" y2="114.6" stroke="#30d158" stroke-width="1"/><rect x="311.4" y="97.3" width="2.6" height="4.5" rx="0" fill="#30d158" opacity="1"/><line x1="317.1" y1="54.1" x2="317.1" y2="108.9" stroke="#30d158" stroke-width="1"/><rect x="315.8" y="82.6" width="2.6" height="14.7" rx="0" fill="#30d158" opacity="1"/><line x1="321.5" y1="59.4" x2="321.5" y2="109.0" stroke="#ff453a" stroke-width="1"/><rect x="320.2" y="82.6" width="2.6" height="9.7" rx="0" fill="#ff453a" opacity="1"/><line x1="325.8" y1="59.8" x2="325.8" y2="112.1" stroke="#30d158" stroke-width="1"/><rect x="324.5" y="80.9" width="2.6" height="11.3" rx="0" fill="#30d158" opacity="1"/><line x1="330.2" y1="64.4" x2="330.2" y2="83.1" stroke="#30d158" stroke-width="1"/><rect x="328.9" y="75.7" width="2.6" height="5.2" rx="0" fill="#30d158" opacity="1"/><line x1="334.5" y1="68.6" x2="334.5" y2="94.5" stroke="#30d158" stroke-width="1"/><rect x="333.2" y="73.1" width="2.6" height="2.6" rx="0" fill="#30d158" opacity="1"/><line x1="338.9" y1="51.4" x2="338.9" y2="102.6" stroke="#ff453a" stroke-width="1"/><rect x="337.6" y="73.1" width="2.6" height="7.1" rx="0" fill="#ff453a" opacity="1"/><line x1="343.3" y1="70.4" x2="343.3" y2="94.3" stroke="#30d158" stroke-width="1"/><rect x="342.0" y="77.7" width="2.6" height="2.6" rx="0" fill="#30d158" opacity="1"/><line x1="347.6" y1="54.2" x2="347.6" y2="92.4" stroke="#30d158" stroke-width="1"/><rect x="346.3" y="72.5" width="2.6" height="5.1" rx="0" fill="#30d158" opacity="1"/><line x1="352.0" y1="46.8" x2="352.0" y2="85.1" stroke="#30d158" stroke-width="1"/><rect x="350.7" y="66.1" width="2.6" height="6.4" rx="0" fill="#30d158" opacity="1"/><line x1="20.4" y1="241.6" x2="352.0" y2="241.6" stroke="#30d158" stroke-width="2"/><line x1="20.4" y1="288.0" x2="352.0" y2="288.0" stroke="#ff453a" stroke-width="2"/><line x1="29.1" y1="255.5" x2="352.0" y2="255.5" stroke="#f4b942" stroke-width="1.4" stroke-dasharray="4 4"/><rect x="25.1" y="259.0" width="64.0" height="30.0" rx="6" fill="#30d158" opacity="0.95"/><text x="57.1" y="272.0" fill="#fff" font-size="10" font-weight="700" text-anchor="middle">ORB long</text><text x="57.1" y="284.0" fill="#fff" font-size="10" font-weight="600" text-anchor="middle">RV 412%</text><text x="352.0" y="236.6" fill="#30d158" font-size="10" font-weight="700" text-anchor="end">range high</text><text x="352.0" y="300.0" fill="#ff453a" font-size="10" font-weight="700" text-anchor="end">range low</text><text x="352.0" y="267.5" fill="#f4b942" font-size="10" font-weight="700" text-anchor="end">stop 10% ATR</text><text x="16.0" y="24.0" fill="#86868b" font-size="12" font-weight="600" text-anchor="start">ORB &#183; 5-minute</text><rect x="368.0" y="40.0" width="184.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="53.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Range (5 min)</text><text x="466.0" y="53.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">50.12 &#8211; 50.82</text><rect x="368.0" y="59.0" width="184.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="72.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">First candle</text><text x="466.0" y="72.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">green: longs only</text><rect x="368.0" y="78.0" width="184.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="91.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Relative volume</text><text x="466.0" y="91.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">412%</text><rect x="368.0" y="97.0" width="184.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="110.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">14-day ATR</text><text x="466.0" y="110.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">2.10</text><rect x="368.0" y="116.0" width="184.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="129.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Stop distance</text><text x="466.0" y="129.0" fill="#f4b942" font-size="11" font-weight="600" text-anchor="start">0.21</text><rect x="368.0" y="135.0" width="184.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="148.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">In play</text><text x="466.0" y="148.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">yes</text><rect x="368.0" y="154.0" width="184.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="167.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Position</text><text x="466.0" y="167.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">long from 50.82</text><text x="546" y="320" fill="#6e6e73" font-size="11" text-anchor="end">Illustrative mock &middot; made-up values</text></svg></div>
+  </div>
+  <div class="panel" style="margin-top:22px">
+    <h4>Add it to TradingView</h4>
+    <ol class="howto">
+      <li>Copy the code below, or download the .pine file.</li>
+      <li>In TradingView, open the Pine Editor at the bottom of a chart, paste it in, and click <b>Add to chart</b>.</li>
+      <li>Use a 1- or 5-minute chart of a US stock with regular trading hours only (extended hours off).</li>
+      <li>To get alerted, create an alert on the chart and pick <b>ORB long</b>, <b>ORB short</b> or <b>ORB stop hit</b>.</li>
+    </ol>
+  </div>
+  <div class="code-wrap">
+    <div class="code-top">
+      <span>opening-range-breakout.pine &middot; Pine Script v6</span>
+      <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/opening-range-breakout.pine" download>Download</a></div>
+    </div>
+    <pre class="pine" tabindex="0"><code>//@version=6
+// =====================================================================
+// Opening Range Breakout — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/opening-range-breakout.html
+//
+// The rules tested by Zarattini, Barbon &amp; Aziz (2024) on US "stocks in
+// play", 2016-2023:
+//
+//   1  The first 5-minute candle sets the side: green = longs only,
+//      red = shorts only, a doji = no trade.
+//   2  Long: stop buy at its high. Short: stop sell at its low.
+//   3  Stop loss 10% of the 14-day ATR from the entry.
+//   4  No target: whatever is left is closed at the 4:00 pm close.
+//   5  Only stocks in play: first-5-minute volume at least 100% of its
+//      14-day average for that window (relative volume), price over $5,
+//      14-day average volume of 1M+ shares, 14-day ATR over $0.50.
+//      (The paper traded the 20 stocks with the highest relative volume.)
+//
+// Use a 1- or 5-minute chart of a US stock, regular hours only.
+// Marks and alerts only; it places no orders.
+// =====================================================================
+indicator("Opening Range Breakout", shorttitle = "ORB", overlay = true, max_labels_count = 200)
+
+orMin    = input.int(5, "Opening range (minutes)", options = [5, 15, 30, 60])
+atrFrac  = input.float(10, "Stop: % of the 14-day ATR", step = 1)
+rvMin    = input.float(100, "In play: relative volume at least (%)", step = 10)
+rvLen    = input.int(14, "Relative volume: days averaged", minval = 2)
+minPx    = input.float(5, "In play: price above ($)")
+minAvgV  = input.float(1000000, "In play: 14-day average volume at least (shares)")
+minAtr   = input.float(0.5, "In play: 14-day ATR above ($)", step = 0.05)
+onlyPlay = input.bool(true, "Signal only on stocks in play")
+
+// daily values from yesterday (no look-ahead)
+atrD  = request.security(syminfo.tickerid, "D", ta.atr(14)[1], lookahead = barmerge.lookahead_on)
+avgVD = request.security(syminfo.tickerid, "D", ta.sma(volume, 14)[1], lookahead = barmerge.lookahead_on)
+
+var float sessStart = na
+var float orH = na
+var float orL = na
+var float orO = na
+var float orC = na
+var float orV = 0.0
+var bool  orDone = false
+var int   dir = 0
+var float relVol = na
+var bool  inPlay = false
+var history = array.new&lt;float&gt;()
+
+var int   pos = 0
+var float entry = na
+var float stopL = na
+var bool  tradedToday = false
+
+newDay = session.isfirstbar_regular
+if newDay
+    sessStart := time
+    orH := high
+    orL := low
+    orO := open
+    orC := close
+    orV := volume
+    orDone := false
+    dir := 0
+    relVol := na
+    inPlay := false
+    pos := 0
+    entry := na
+    stopL := na
+    tradedToday := false
+
+inOR = not na(sessStart) and time &lt; sessStart + orMin * 60000
+if inOR and not newDay
+    orH := math.max(orH, high)
+    orL := math.min(orL, low)
+    orC := close
+    orV += volume
+
+// the first bar after the range: decide the side and whether it's in play
+orJustDone = not inOR and not orDone and not na(sessStart)
+if orJustDone
+    orDone := true
+    dir := orC &gt; orO ? 1 : orC &lt; orO ? -1 : 0
+    n = array.size(history)
+    if n &gt; 0
+        avgOR = array.avg(history)
+        relVol := avgOR &gt; 0 ? orV / avgOR * 100 : na
+    array.push(history, orV)
+    if array.size(history) &gt; rvLen
+        array.shift(history)
+    inPlay := not na(relVol) and relVol &gt;= rvMin and orO &gt; minPx and avgVD &gt;= minAvgV and atrD &gt; minAtr
+
+canTrade = orDone and not tradedToday and dir != 0 and (inPlay or not onlyPlay) and not na(atrD)
+longIn  = canTrade and dir == 1 and high &gt; orH
+shortIn = canTrade and dir == -1 and low &lt; orL
+stopHit = pos != 0 and ((pos == 1 and low &lt;= stopL) or (pos == -1 and high &gt;= stopL))
+if stopHit
+    label.new(bar_index, pos == 1 ? low : high, "stop", style = pos == 1 ? label.style_label_up : label.style_label_down, color = color.new(#ff453a, 10), textcolor = color.white, size = size.tiny)
+    pos := 0
+if longIn
+    entry := math.max(open, orH)
+    stopL := entry - atrD * atrFrac / 100
+    pos := 1
+    tradedToday := true
+    label.new(bar_index, low, "ORB long" + (na(relVol) ? "" : "\nRV " + str.tostring(relVol, "#") + "%"), style = label.style_label_up, color = color.new(#30d158, 10), textcolor = color.white, size = size.small)
+if shortIn
+    entry := math.min(open, orL)
+    stopL := entry + atrD * atrFrac / 100
+    pos := -1
+    tradedToday := true
+    label.new(bar_index, high, "ORB short" + (na(relVol) ? "" : "\nRV " + str.tostring(relVol, "#") + "%"), style = label.style_label_down, color = color.new(#ff453a, 10), textcolor = color.white, size = size.small)
+closeOut = session.islastbar_regular and pos != 0
+if closeOut
+    label.new(bar_index, close, "out at the close", style = label.style_label_left, color = color.new(#86868b, 20), textcolor = color.white, size = size.tiny)
+    pos := 0
+
+plot(orDone ? orH : na, "Range high", color = color.new(#30d158, 0), style = plot.style_linebr, linewidth = 2)
+plot(orDone ? orL : na, "Range low", color = color.new(#ff453a, 0), style = plot.style_linebr, linewidth = 2)
+plot(pos != 0 or stopHit ? stopL : na, "Stop (10% ATR)", color = color.new(#f4b942, 0), style = plot.style_linebr)
+bgcolor(inOR ? color.new(#2997ff, 88) : na, title = "Opening range window")
+
+alertcondition(longIn, "ORB long", "{{ticker}}: broke the opening-range high on a green first candle")
+alertcondition(shortIn, "ORB short", "{{ticker}}: broke the opening-range low on a red first candle")
+alertcondition(stopHit, "ORB stop hit", "{{ticker}}: hit the 10% ATR stop")
+
+var table tb = table.new(position.top_right, 2, 7, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+row(int r, string k, string v, color c) =&gt;
+    table.cell(tb, 0, r, k, text_color = color.new(#86868b, 0), text_size = size.small)
+    table.cell(tb, 1, r, v, text_color = c, text_size = size.small)
+if barstate.islast
+    ink = color.new(#f5f5f7, 0)
+    row(0, "Range (" + str.tostring(orMin) + " min)", orDone ? str.tostring(orL, format.mintick) + " – " + str.tostring(orH, format.mintick) : "forming", ink)
+    row(1, "First candle", not orDone ? "–" : dir == 1 ? "green: longs only" : dir == -1 ? "red: shorts only" : "doji: no trade", dir == 1 ? color.new(#30d158, 0) : dir == -1 ? color.new(#ff453a, 0) : ink)
+    row(2, "Relative volume", na(relVol) ? "n/a" : str.tostring(relVol, "#") + "%", not na(relVol) and relVol &gt;= rvMin ? color.new(#30d158, 0) : ink)
+    row(3, "14-day ATR", na(atrD) ? "n/a" : str.tostring(atrD, "#.00"), ink)
+    row(4, "Stop distance", na(atrD) ? "n/a" : str.tostring(atrD * atrFrac / 100, "#.00"), color.new(#f4b942, 0))
+    row(5, "In play", orDone ? (inPlay ? "yes" : "no") : "–", inPlay ? color.new(#30d158, 0) : color.new(#ff453a, 0))
+    row(6, "Position", pos == 1 ? "long from " + str.tostring(entry, format.mintick) : pos == -1 ? "short from " + str.tostring(entry, format.mintick) : tradedToday ? "done for today" : "flat", ink)
+</code></pre>
+  </div>
+
+  <div class="section-head" id="related">
+    <h2>Go deeper</h2>
+    <p>Pages on this site that pick up where this one leaves off.</p>
+  </div>
+  <div class="four">
+    <a href="/setups/opening-range-break.html" style="--tc:#30d158"><span class="k">setup</span><h3>Opening Range Break</h3><p>The discretionary version of the same idea, step by step.</p><small>Read &rsaquo;</small></a>
+    <a href="/relative-volume.html" style="--tc:#2997ff"><span class="k">fundamentals</span><h3>Relative Volume</h3><p>How to tell a stock in play from a quiet one.</p><small>Read &rsaquo;</small></a>
+    <a href="/setups/gap-give-and-go.html" style="--tc:#f4b942"><span class="k">setup</span><h3>Gap Give and Go</h3><p>Another way to trade a stock in play in the first minutes.</p><small>Read &rsaquo;</small></a>
+    <a href="/famous-strategies/can-slim.html" style="--tc:#ff9f0a"><span class="k">famous strategy</span><h3>CAN SLIM</h3><p>Breakouts on the daily chart instead of the first five minutes.</p><small>Read &rsaquo;</small></a>
+  </div>
+
+  <div class="rule">
+    <div>
+      <h2>Try it on paper first.</h2>
+      <p>Every morning for a month, write down the three stocks with the highest relative volume at 9:35, the color of each first candle, the entry and the stop. Mark each one at the stop or the close, in R, and compare your fills with the levels.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Write the levels down before the break.</li>
+        <li>Never widen the stop.</li>
+        <li>Count your slippage in R: with a stop this tight it adds up fast.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-head" id="sources">
+    <h2>Sources</h2>
+    <p>The papers and books behind every figure on this page.</p>
+  </div>
+  <ol class="cites">
+    <li>Zarattini, C., Barbon, A. &amp; Aziz, A. (2024). A Profitable Day Trading Strategy For The U.S. Equity Market. Swiss Finance Institute Research Paper No. 24-98.<small>US stocks 2016&ndash;2023; the first 5-minute candle's direction; stop orders at its high or low; a stop 10% of the 14-day ATR from entry; exit at the close; 1% risk, 4x maximum leverage, $0.0035 a share commission; relative volume of 100%+ and the top 20; filters of $5, 1M shares and $0.50 ATR. Table results: 1,637% (IRR 41.6%, Sharpe 2.81, hit ratio 48.4%, MDD 12%, alpha 35.8%, beta 0.00); 15, 30 and 60 minutes 272%, 21%, 39%; no filter 29%; S&amp;P 500 198% (Sharpe 0.78, MDD 34%).</small></li>
+    <li>Zarattini, C. &amp; Aziz, A. (2023). Can Day Trading Really Be Profitable? Evidence of Sustainable Long-term Profits from Opening Range Breakout (ORB) Day Trading Strategy vs. Benchmark in the US Stock Market. SSRN 4416622.<small>The 5-minute ORB on QQQ and TQQQ, 2016&ndash;2023: 1,484% against 169% for holding QQQ.</small></li>
+    <li>Crabel, T. (1990). <i>Day Trading with Short Term Price Patterns and Opening Range Breakout</i>. Traders Press.<small>The opening range breakout idea.</small></li>
+  </ol>
+
+  <p class="src">Built from the papers listed above. Every stock, bar and trade in the walkthroughs is made up for illustration. The results chart and the result cards use the paper's published numbers, which are backtests with commissions; real fills on a stop this tight can cost a large share of each trade. Past results don't promise future returns. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

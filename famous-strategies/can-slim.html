@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CAN SLIM (William O&#x27;Neil), Explained | The Trade Method</title>
+<meta name="description" content="William O&#x27;Neil&#x27;s CAN SLIM: seven letters for picking growth leaders (current and annual earnings, something new, supply and demand, leader, institutions, market), bought on breakouts from sound bases and sold at a 7-8% loss with no exceptions. The checklist, the cup with handle, the sell rules, the follow-through day, plus a free TradingView indicator.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/famous-strategies/can-slim.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="CAN SLIM (William O&#x27;Neil), Explained">
+<meta property="og:description" content="William O&#x27;Neil&#x27;s CAN SLIM: seven letters for picking growth leaders (current and annual earnings, something new, supply and demand, leader, institutions, market), bought on breakouts from sound bases and sold at a 7-8% loss with no exceptions. The checklist, the cup with handle, the sell rules, the follow-through day, plus a free TradingView indicator.">
+<meta property="og:url" content="https://thetrademethod.com/famous-strategies/can-slim.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CAN SLIM (William O&#x27;Neil), Explained">
+<meta name="twitter:description" content="William O&#x27;Neil&#x27;s CAN SLIM: seven letters for picking growth leaders (current and annual earnings, something new, supply and demand, leader, institutions, market), bought on breakouts from sound bases and sold at a 7-8% loss with no exceptions. The checklist, the cup with handle, the sell rules, the follow-through day, plus a free TradingView indicator.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "CAN SLIM (William O&#x27;Neil), Explained",
+ "name": "CAN SLIM",
+ "description": "William O&#x27;Neil&#x27;s CAN SLIM: seven letters for picking growth leaders (current and annual earnings, something new, supply and demand, leader, institutions, market), bought on breakouts from sound bases and sold at a 7-8% loss with no exceptions. The checklist, the cup with handle, the sell rules, the follow-through day, plus a free TradingView indicator.",
+ "url": "https://thetrademethod.com/famous-strategies/can-slim.html",
+ "mainEntityOfPage": "https://thetrademethod.com/famous-strategies/can-slim.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-17",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.seven { grid-template-columns:repeat(2,1fr); }
+    .ribbon.seven > div:last-child { grid-column:span 2; }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=24">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the pyramid: five cards, or a stepper once js/pyr-anim.js runs */
+  .fs-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .fs-steps .stage, .sheet .fs-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .fs-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .fs-steps.is-stepper .stage, .sheet .fs-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .fs-steps.is-stepper .stage .num { display:none; }
+  .sheet .fs-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .fs-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .fs-steps + .four { margin-top:28px; }
+  .fs-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .fs-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .fs-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .fs-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .fs-steps { margin-top:24px; }
+  }
+
+  /* fact sheet, timeline, sources */
+  .facts { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--graphite); border-radius:22px; overflow:hidden; margin-top:26px; }
+  .facts div { background:var(--charcoal); padding:16px 18px; }
+  .facts .k { font-family:var(--mono-font); font-size:12px; color:var(--ash); }
+  .facts b { display:block; margin-top:4px; font-size:16px; font-weight:600; line-height:1.3; }
+  .tl { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+  .tl li { background:var(--charcoal); border-radius:20px; padding:16px 16px 18px; border-top:3px solid var(--tc, var(--up)); }
+  .tl .y { font-family:var(--mono-font); font-size:13px; color:var(--tc, var(--up)); font-weight:600; }
+  .tl b { display:block; margin:6px 0 6px; font-size:16px; line-height:1.25; }
+  .tl p { margin:0; color:var(--mute); font-size:14px; }
+  .cites { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .cites li { margin-bottom:10px; }
+  .cites i { color:var(--platinum); }
+  .cites small { display:block; color:var(--ash); font-size:13.5px; margin-top:2px; }
+  @media (max-width:1100px) { .facts { grid-template-columns:repeat(2,1fr); } .tl { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:680px) { .facts, .tl { grid-template-columns:1fr; } .sheet .section-head + .fs-steps { margin-top:24px; } }
+
+  /* the indicator */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-wrap { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:22px; align-items:start; }
+  .ind-mock { background:var(--charcoal); border-radius:22px; padding:14px; }
+  .howto { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#f4b942; font-weight:600; }
+  .code-wrap { background:var(--charcoal); border-radius:22px; margin-top:22px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid #2c2c2e; flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--ash); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--silk); background:#2c2c2e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#3a3a3c; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d1d6; tab-size:4; }
+  @media (max-width:1100px) { .ind-wrap { grid-template-columns:1fr; } }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-mock { padding:8px; } }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=43" defer></script>
+<script src="/js/fs-kit.js?v=1" defer></script>
+<script src="/js/fs-can-slim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=30" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="CAN SLIM"></div>
+<div class="sheet">
+
+  <a class="back" href="/famous-strategies/">&lsaquo; Famous strategies</a>
+
+  <header class="top" data-candle-bg="can-slim">
+    <div>
+      <p class="kicker">Famous strategies &middot; Stocks &middot; William O'Neil, <i>How to Make Money in Stocks</i>, 1988</p>
+      <h1>CAN <span>SLIM</span></h1>
+    </div>
+    <div>
+      <p class="thesis">What did the biggest stock winners have in common before their big moves? O'Neil's answer is seven letters: strong earnings, something new, heavy buying, market leadership and a rising market. Buy the breakout, and cut every loss at 7 to 8%.
+      <em>Buy leaders, cut losers fast.</em></p>
+      <div class="counts">
+        <div><b>7</b><small>letters every stock has to pass</small></div>
+        <div><b>25%</b><small>earnings growth, quarterly and yearly</small></div>
+        <div><b>7&ndash;8%</b><small>the loss that ends every trade</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon seven" aria-label="CAN SLIM">
+    <div><div class="t">step 1</div><div class="n">Check the market</div></div>
+    <div><div class="t">step 2</div><div class="n">Screen the letters</div></div>
+    <div><div class="t">step 3</div><div class="n">Find a sound base</div></div>
+    <div><div class="t">step 4</div><div class="n">Buy the breakout</div></div>
+    <div><div class="t">step 5</div><div class="n">Sell by the rules</div></div>
+  </nav>
+
+  <div class="facts" aria-label="At a glance">
+    <div><span class="k">book</span><b><i>How to Make Money in Stocks</i> (1988, several later editions)</b></div>
+    <div><span class="k">author</span><b>William J. O'Neil, founder of <i>Investor's Business Daily</i></b></div>
+    <div><span class="k">based on</span><b>A study of the biggest US stock winners back to the 1950s</b></div>
+    <div><span class="k">earnings</span><b>Quarterly and annual EPS growth of 25%+, ROE 17%+</b></div>
+    <div><span class="k">leadership</span><b>Relative strength of 80 or more</b></div>
+    <div><span class="k">entry</span><b>Breakout over the pivot on volume 40&ndash;50%+ above normal</b></div>
+    <div><span class="k">exit</span><b>&minus;7&ndash;8% always; most gains taken at 20&ndash;25%</b></div>
+    <div><span class="k">headline</span><b>Three out of four stocks follow the market</b></div>
+  </div>
+
+  <div class="section-head" id="letters">
+    <h2>Seven letters</h2>
+    <p>O'Neil studied the biggest winners in the US market and listed what they had in common just before their big moves. CAN SLIM is that list, turned into a checklist a stock has to pass before you look at its chart.</p>
+  </div>
+  <section class="anim" data-fs-anim="letters" aria-label="A made-up stock run through the seven letters: current earnings up 38%, annual earnings up 29% a year with return on equity of 24%, a new product near highs, volume 70% above average, relative strength 94, rising fund ownership, and a market in an uptrend.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The checklist</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="The checklist"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>The rule</h3>
+          <ul>
+            <li>M first: only buy when the general market is in a confirmed uptrend.</li>
+            <li>Screen for C, A, N, S, L and I: strong and accelerating earnings, something new, real demand, a leading stock in a leading group, and growing ownership by good funds.</li>
+            <li>Buy when a stock that passes breaks out of a sound base on heavy volume, within 5% of the pivot. Sell any position that falls 7 to 8% below your cost, and take most gains at 20 to 25%.</li>
+          </ul>
+          <p class="why">It mixes fundamentals and charts on purpose: the earnings pick the stock, the chart picks the day, and the market picks whether you're buying at all.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Growth, not value</h4>
+        <p class="lead">CAN SLIM buys the opposite of what a value screen looks for.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">CAN SLIM</span><b>Expensive and rising</b><p>High earnings growth, near new highs, strong relative strength. O'Neil: buy stocks that are going up, not bargains.</p></div>
+          <div class="care"><span class="k">value strategies</span><b>Cheap and ignored</b><p>Low prices against earnings or book value, often near lows. See the Magic Formula and Value and Size pages.</p></div>
+        </div>
+      </div>
+      <div class="panel calc">
+        <h4>The made-up checklist</h4>
+        <p class="lead">What the walkthrough's stock showed.</p>
+        <div class="row"><span>C: quarterly EPS vs a year ago</span><b>+38%</b></div>
+        <div class="row"><span>A: 3-year EPS growth, ROE</span><b>29%/yr, 24%</b></div>
+        <div class="row"><span>L: relative strength</span><b>94</b></div>
+        <div class="row"><span>S: breakout volume</span><b>+70%</b></div>
+        <div class="row tot"><span>Letters passed</span><b>7 of 7</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="base">
+    <h2>The buy point</h2>
+    <p>A stock that passes the checklist still has to be bought at the right moment. O'Neil's moment is the breakout from a base, and his favorite base is the cup with handle.</p>
+  </div>
+  <section class="anim" data-fs-anim="base" aria-label="A made-up leader builds a rounded cup over more than seven weeks, drifts down in a light-volume handle, then breaks out over the pivot on volume about 90% above average, with a buy zone from the pivot to 5% above it.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Cup, handle, breakout</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Cup, handle, breakout"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Buying the breakout</h3>
+          <ul>
+            <li>Wait for a base of at least seven weeks: a cup with handle, a double bottom or a flat base.</li>
+            <li>The pivot is the top of the handle (or the base's high). Buy as the stock trades through it.</li>
+            <li>Breakout volume should be at least 40 to 50% above the stock's average. Don't buy more than 5% above the pivot.</li>
+          </ul>
+          <p class="why">Buying near the pivot keeps the 7 to 8% stop below the base. Chase it 10% higher and a normal pullback stops you out.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <blockquote class="qb"><b>Buy high, sell higher.</b> O'Neil's most repeated, and most resisted, idea: the best stocks look expensive when they're ready to move, and the ones near their lows usually have a reason to be there.</blockquote>
+      <div class="panel calc">
+        <h4>The made-up breakout</h4>
+        <p class="lead">Levels from the walkthrough.</p>
+        <div class="row"><span>Pivot (top of the handle)</span><b>$116.20</b></div>
+        <div class="row"><span>Top of the buy zone (+5%)</span><b>$122.01</b></div>
+        <div class="row"><span>Breakout volume vs average</span><b>+90%</b></div>
+        <div class="row tot"><span>Stop if bought at the pivot (&minus;8%)</span><b>$106.90</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="sell">
+    <h2>Selling</h2>
+    <p>O'Neil spent as much of the book on selling as on buying. The loss rule is the part of CAN SLIM that has no exceptions.</p>
+  </div>
+  <section class="anim" data-fs-anim="sell" aria-label="Two made-up breakouts bought at $100: one fails and is sold at $92, an 8% loss; the other rises and most of the gain is taken at about 20%; a note explains the 8-week hold rule for stocks up 20% within three weeks.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Small losses, bigger gains</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Small losses, bigger gains"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="four">
+    <div style="--tc:#ff453a"><span class="k">always</span><h3>Cut at 7&ndash;8%</h3><p>Sell any stock that falls 7 to 8% below what you paid. No averaging down, no waiting for it to come back.</p></div>
+    <div style="--tc:#30d158"><span class="k">usually</span><h3>Take 20&ndash;25%</h3><p>Take most gains when a stock is up 20 to 25%. With the loss rule, that's about 3 to 1.</p></div>
+    <div style="--tc:#f4b942"><span class="k">the exception</span><h3>Hold the monsters</h3><p>A stock that gains 20% within three weeks of breaking out is held at least eight weeks.</p></div>
+    <div style="--tc:#2997ff"><span class="k">the math</span><h3>Why it works</h3><p>Win only a third of the time at +20% and lose at &minus;7%, and you still come out ahead.</p></div>
+  </div>
+
+  <div class="section-head" id="market">
+    <h2>M: the market decides</h2>
+    <p>The last letter overrides the other six. O'Neil read the market's own chart for when to step aside and when to start buying again.</p>
+  </div>
+  <section class="anim" data-fs-anim="market" aria-label="A made-up index has five distribution days, rolls into a correction where breakouts are avoided, then makes a follow-through day on higher volume that starts a confirmed uptrend.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Distribution and the follow-through day</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Distribution and the follow-through day"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <ol class="tl">
+    <li style="--tc:#2997ff"><span class="y">1963</span><b>O'Neil &amp; Co.</b><p>William O'Neil founds his research firm, building a database of stock charts and earnings.</p></li>
+    <li style="--tc:#2997ff"><span class="y">1984</span><b><i>Investor's Business Daily</i></b><p>O'Neil launches the paper, with ratings for earnings and relative strength.</p></li>
+    <li style="--tc:#30d158"><span class="y">1988</span><b><i>How to Make Money in Stocks</i></b><p>The CAN SLIM book; later editions update the study of past winners.</p></li>
+    <li style="--tc:#f4b942"><span class="y">Since</span><b>Screens and students</b><p>AAII's screen tracking ranked a CAN SLIM screen as its top performer for 1998&ndash;2009. Traders such as Mark Minervini built on the same ideas.</p></li>
+  </ol>
+
+  <div class="section-head" id="steps">
+    <h2>The strategy, step by step</h2>
+    <p>The whole thing in five steps. Click through them.</p>
+  </div>
+  <div class="fs-steps" data-fs-steps data-fs-label="CAN SLIM, step by step">
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Market</h3>
+          <ul>
+            <li>Is the general market in a confirmed uptrend? If not, don't buy.</li>
+            <li>Count distribution days; wait for a follow-through day after a correction.</li>
+          </ul>
+          <p class="why">Three out of four stocks follow the market.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Screen</h3>
+          <ul>
+            <li>C and A: quarterly and annual earnings up 25%+, ROE 17%+.</li>
+            <li>N, S, L, I: something new, real demand, relative strength 80+, more good funds buying.</li>
+          </ul>
+          <p class="why">The checklist makes a stock a candidate.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Base</h3>
+          <ul>
+            <li>A base of at least seven weeks: a cup with handle, double bottom or flat base.</li>
+            <li>Mark the pivot: the top of the handle.</li>
+          </ul>
+          <p class="why">The base is where weak holders leave.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Buy</h3>
+          <ul>
+            <li>Through the pivot on volume 40&ndash;50%+ above average.</li>
+            <li>No more than 5% above the pivot.</li>
+          </ul>
+          <p class="why">Close to the pivot keeps the stop below the base.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Sell</h3>
+          <ul>
+            <li>Always at 7&ndash;8% below your cost.</li>
+            <li>Most gains at 20&ndash;25%, unless it gained 20% in three weeks (then hold eight).</li>
+          </ul>
+          <p class="why">The loss rule is the one with no exceptions.</p>
+        </div>
+      </section>
+  </div>
+
+  <div class="section-head" id="indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for this strategy (Pine Script v6). It checks six of the seven letters from TradingView's earnings data and the chart, marks the pivot, the 5% buy zone and an 8% stop, and alerts on a breakout that passes. It marks and alerts. It doesn't place trades.</p>
+  </div>
+  <div class="ind-wrap">
+    <ul class="ind-list">
+      <li class="ind-card">
+        <div class="ind-card-top">
+          <h3 class="ind-name">CAN SLIM Checklist</h3>
+          <span class="ind-alerts">alerts</span>
+        </div>
+        <p class="ind-blurb">A checklist table on your chart: C (quarterly EPS vs a year ago), A (three-year EPS growth and return on equity), N (within 15% of the 52-week high), S (volume vs the 50-day average), L (12-month return vs SPY) and M (SPY above its 50- and 200-day averages). I, institutional ownership, isn't in TradingView's data, so it says to check by hand.</p>
+        <p class="ind-blurb">On the chart: the pivot (the high of the last seven weeks), the top of the buy zone 5% above it, and a breakout label with the score when price closes through the pivot on heavy volume in an uptrending market. The 8% stop is drawn from the entry, with a label if it's hit.</p>
+        <p class="ind-blurb"><span style="color:var(--ash)">L here is the stock against SPY, a simple stand-in for IBD's relative strength rating, which ranks every stock. Every threshold is a setting. Use a daily chart of a stock that reports earnings.</span></p>
+        <div class="ind-links">
+          <a class="ind-link ind-link--quiet" href="/pine/can-slim.pine" download>Download source (.pine)</a>
+        </div>
+      </li>
+    </ul>
+    <div class="ind-mock"><svg viewBox="0 0 560 330" role="img" aria-label="An illustrative mock of the indicator: made-up daily candles forming a cup with handle, a breakout labelled CAN SLIM breakout 6 of 6 plus check I, lines for the pivot, the 5% buy-zone top and an 8% stop, and a checklist table with C, A, N, S, L and M ticked and I marked to check by hand."><rect width="560" height="330" rx="14" fill="#141416"/><line x1="16.0" y1="206.0" x2="16.0" y2="208.5" stroke="#30d158" stroke-width="1"/><rect x="14.4" y="207.2" width="3.2" height="1.2" rx="0" fill="#30d158" opacity="1"/><line x1="21.6" y1="194.7" x2="21.6" y2="209.1" stroke="#30d158" stroke-width="1"/><rect x="20.0" y="198.1" width="3.2" height="9.1" rx="0" fill="#30d158" opacity="1"/><line x1="27.2" y1="198.1" x2="27.2" y2="199.4" stroke="#ff453a" stroke-width="1"/><rect x="25.6" y="198.1" width="3.2" height="1.2" rx="0" fill="#ff453a" opacity="1"/><line x1="32.8" y1="185.4" x2="32.8" y2="203.8" stroke="#30d158" stroke-width="1"/><rect x="31.2" y="188.8" width="3.2" height="9.5" rx="0" fill="#30d158" opacity="1"/><line x1="38.4" y1="167.3" x2="38.4" y2="197.9" stroke="#30d158" stroke-width="1"/><rect x="36.8" y="171.7" width="3.2" height="17.1" rx="0" fill="#30d158" opacity="1"/><line x1="44.0" y1="161.8" x2="44.0" y2="176.9" stroke="#30d158" stroke-width="1"/><rect x="42.4" y="163.6" width="3.2" height="8.1" rx="0" fill="#30d158" opacity="1"/><line x1="49.6" y1="150.2" x2="49.6" y2="166.3" stroke="#30d158" stroke-width="1"/><rect x="48.0" y="155.1" width="3.2" height="8.5" rx="0" fill="#30d158" opacity="1"/><line x1="55.2" y1="147.1" x2="55.2" y2="158.4" stroke="#30d158" stroke-width="1"/><rect x="53.6" y="149.7" width="3.2" height="5.4" rx="0" fill="#30d158" opacity="1"/><line x1="60.8" y1="135.7" x2="60.8" y2="154.7" stroke="#30d158" stroke-width="1"/><rect x="59.2" y="137.4" width="3.2" height="12.3" rx="0" fill="#30d158" opacity="1"/><line x1="66.4" y1="131.7" x2="66.4" y2="148.4" stroke="#ff453a" stroke-width="1"/><rect x="64.8" y="137.4" width="3.2" height="9.2" rx="0" fill="#ff453a" opacity="1"/><line x1="72.0" y1="140.7" x2="72.0" y2="161.0" stroke="#ff453a" stroke-width="1"/><rect x="70.4" y="146.6" width="3.2" height="9.5" rx="0" fill="#ff453a" opacity="1"/><line x1="77.6" y1="147.8" x2="77.6" y2="172.9" stroke="#ff453a" stroke-width="1"/><rect x="76.0" y="156.0" width="3.2" height="13.6" rx="0" fill="#ff453a" opacity="1"/><line x1="83.2" y1="169.1" x2="83.2" y2="180.3" stroke="#ff453a" stroke-width="1"/><rect x="81.6" y="169.6" width="3.2" height="6.3" rx="0" fill="#ff453a" opacity="1"/><line x1="88.8" y1="170.1" x2="88.8" y2="188.8" stroke="#ff453a" stroke-width="1"/><rect x="87.2" y="176.0" width="3.2" height="9.6" rx="0" fill="#ff453a" opacity="1"/><line x1="94.4" y1="185.1" x2="94.4" y2="192.3" stroke="#ff453a" stroke-width="1"/><rect x="92.8" y="185.6" width="3.2" height="5.7" rx="0" fill="#ff453a" opacity="1"/><line x1="100.0" y1="187.9" x2="100.0" y2="199.2" stroke="#ff453a" stroke-width="1"/><rect x="98.4" y="191.3" width="3.2" height="6.3" rx="0" fill="#ff453a" opacity="1"/><line x1="105.6" y1="190.6" x2="105.6" y2="211.6" stroke="#ff453a" stroke-width="1"/><rect x="104.0" y="197.6" width="3.2" height="9.7" rx="0" fill="#ff453a" opacity="1"/><line x1="111.2" y1="205.3" x2="111.2" y2="227.0" stroke="#ff453a" stroke-width="1"/><rect x="109.6" y="207.3" width="3.2" height="13.4" rx="0" fill="#ff453a" opacity="1"/><line x1="116.8" y1="217.9" x2="116.8" y2="238.1" stroke="#ff453a" stroke-width="1"/><rect x="115.2" y="220.7" width="3.2" height="10.2" rx="0" fill="#ff453a" opacity="1"/><line x1="122.4" y1="223.5" x2="122.4" y2="246.2" stroke="#ff453a" stroke-width="1"/><rect x="120.8" y="231.0" width="3.2" height="11.0" rx="0" fill="#ff453a" opacity="1"/><line x1="128.0" y1="236.5" x2="128.0" y2="259.6" stroke="#ff453a" stroke-width="1"/><rect x="126.4" y="242.0" width="3.2" height="11.6" rx="0" fill="#ff453a" opacity="1"/><line x1="133.6" y1="251.7" x2="133.6" y2="257.4" stroke="#ff453a" stroke-width="1"/><rect x="132.0" y="253.6" width="3.2" height="1.4" rx="0" fill="#ff453a" opacity="1"/><line x1="139.2" y1="251.6" x2="139.2" y2="256.3" stroke="#30d158" stroke-width="1"/><rect x="137.6" y="251.7" width="3.2" height="3.3" rx="0" fill="#30d158" opacity="1"/><line x1="144.8" y1="249.8" x2="144.8" y2="255.6" stroke="#ff453a" stroke-width="1"/><rect x="143.2" y="251.7" width="3.2" height="2.9" rx="0" fill="#ff453a" opacity="1"/><line x1="150.4" y1="253.4" x2="150.4" y2="255.4" stroke="#ff453a" stroke-width="1"/><rect x="148.8" y="254.6" width="3.2" height="1.2" rx="0" fill="#ff453a" opacity="1"/><line x1="156.0" y1="247.7" x2="156.0" y2="257.4" stroke="#30d158" stroke-width="1"/><rect x="154.4" y="251.2" width="3.2" height="4.1" rx="0" fill="#30d158" opacity="1"/><line x1="161.6" y1="250.7" x2="161.6" y2="259.4" stroke="#ff453a" stroke-width="1"/><rect x="160.0" y="251.2" width="3.2" height="5.2" rx="0" fill="#ff453a" opacity="1"/><line x1="167.2" y1="255.7" x2="167.2" y2="257.7" stroke="#ff453a" stroke-width="1"/><rect x="165.6" y="256.4" width="3.2" height="1.2" rx="0" fill="#ff453a" opacity="1"/><line x1="172.8" y1="255.2" x2="172.8" y2="262.6" stroke="#ff453a" stroke-width="1"/><rect x="171.2" y="257.3" width="3.2" height="4.7" rx="0" fill="#ff453a" opacity="1"/><line x1="178.4" y1="253.0" x2="178.4" y2="267.4" stroke="#30d158" stroke-width="1"/><rect x="176.8" y="254.3" width="3.2" height="7.7" rx="0" fill="#30d158" opacity="1"/><line x1="184.0" y1="234.5" x2="184.0" y2="254.4" stroke="#30d158" stroke-width="1"/><rect x="182.4" y="241.1" width="3.2" height="13.1" rx="0" fill="#30d158" opacity="1"/><line x1="189.6" y1="228.2" x2="189.6" y2="241.2" stroke="#30d158" stroke-width="1"/><rect x="188.0" y="233.1" width="3.2" height="8.0" rx="0" fill="#30d158" opacity="1"/><line x1="195.2" y1="215.9" x2="195.2" y2="242.1" stroke="#30d158" stroke-width="1"/><rect x="193.6" y="219.2" width="3.2" height="13.9" rx="0" fill="#30d158" opacity="1"/><line x1="200.8" y1="197.5" x2="200.8" y2="222.5" stroke="#30d158" stroke-width="1"/><rect x="199.2" y="204.1" width="3.2" height="15.1" rx="0" fill="#30d158" opacity="1"/><line x1="206.4" y1="195.5" x2="206.4" y2="206.3" stroke="#30d158" stroke-width="1"/><rect x="204.8" y="197.6" width="3.2" height="6.6" rx="0" fill="#30d158" opacity="1"/><line x1="212.0" y1="192.2" x2="212.0" y2="202.0" stroke="#30d158" stroke-width="1"/><rect x="210.4" y="192.8" width="3.2" height="4.8" rx="0" fill="#30d158" opacity="1"/><line x1="217.6" y1="174.7" x2="217.6" y2="197.9" stroke="#30d158" stroke-width="1"/><rect x="216.0" y="175.3" width="3.2" height="17.4" rx="0" fill="#30d158" opacity="1"/><line x1="223.2" y1="161.2" x2="223.2" y2="178.1" stroke="#30d158" stroke-width="1"/><rect x="221.6" y="166.4" width="3.2" height="9.0" rx="0" fill="#30d158" opacity="1"/><line x1="228.8" y1="150.0" x2="228.8" y2="168.1" stroke="#30d158" stroke-width="1"/><rect x="227.2" y="157.0" width="3.2" height="9.3" rx="0" fill="#30d158" opacity="1"/><line x1="234.4" y1="141.0" x2="234.4" y2="163.3" stroke="#30d158" stroke-width="1"/><rect x="232.8" y="147.9" width="3.2" height="9.2" rx="0" fill="#30d158" opacity="1"/><line x1="240.0" y1="138.6" x2="240.0" y2="152.4" stroke="#30d158" stroke-width="1"/><rect x="238.4" y="142.0" width="3.2" height="5.8" rx="0" fill="#30d158" opacity="1"/><line x1="245.6" y1="131.7" x2="245.6" y2="147.2" stroke="#30d158" stroke-width="1"/><rect x="244.0" y="134.4" width="3.2" height="7.6" rx="0" fill="#30d158" opacity="1"/><line x1="251.2" y1="129.1" x2="251.2" y2="136.1" stroke="#30d158" stroke-width="1"/><rect x="249.6" y="131.6" width="3.2" height="2.8" rx="0" fill="#30d158" opacity="1"/><line x1="256.8" y1="129.3" x2="256.8" y2="133.3" stroke="#30d158" stroke-width="1"/><rect x="255.2" y="130.4" width="3.2" height="1.2" rx="0" fill="#30d158" opacity="1"/><line x1="262.4" y1="128.4" x2="262.4" y2="136.4" stroke="#ff453a" stroke-width="1"/><rect x="260.8" y="130.4" width="3.2" height="5.6" rx="0" fill="#ff453a" opacity="1"/><line x1="268.0" y1="128.6" x2="268.0" y2="152.3" stroke="#ff453a" stroke-width="1"/><rect x="266.4" y="136.0" width="3.2" height="13.8" rx="0" fill="#ff453a" opacity="1"/><line x1="273.6" y1="147.8" x2="273.6" y2="151.4" stroke="#30d158" stroke-width="1"/><rect x="272.0" y="148.9" width="3.2" height="1.2" rx="0" fill="#30d158" opacity="1"/><line x1="279.2" y1="148.0" x2="279.2" y2="154.7" stroke="#ff453a" stroke-width="1"/><rect x="277.6" y="148.9" width="3.2" height="5.8" rx="0" fill="#ff453a" opacity="1"/><line x1="284.8" y1="153.8" x2="284.8" y2="155.8" stroke="#30d158" stroke-width="1"/><rect x="283.2" y="154.0" width="3.2" height="1.2" rx="0" fill="#30d158" opacity="1"/><line x1="290.4" y1="148.6" x2="290.4" y2="155.0" stroke="#30d158" stroke-width="1"/><rect x="288.8" y="150.0" width="3.2" height="4.0" rx="0" fill="#30d158" opacity="1"/><line x1="296.0" y1="145.7" x2="296.0" y2="153.0" stroke="#30d158" stroke-width="1"/><rect x="294.4" y="147.1" width="3.2" height="2.9" rx="0" fill="#30d158" opacity="1"/><line x1="301.6" y1="137.7" x2="301.6" y2="149.7" stroke="#30d158" stroke-width="1"/><rect x="300.0" y="139.3" width="3.2" height="7.8" rx="0" fill="#30d158" opacity="1"/><line x1="307.2" y1="92.6" x2="307.2" y2="151.1" stroke="#30d158" stroke-width="1"/><rect x="305.6" y="109.6" width="3.2" height="29.7" rx="0" fill="#30d158" opacity="1"/><line x1="312.8" y1="102.9" x2="312.8" y2="111.9" stroke="#30d158" stroke-width="1"/><rect x="311.2" y="104.2" width="3.2" height="5.4" rx="0" fill="#30d158" opacity="1"/><line x1="318.4" y1="103.3" x2="318.4" y2="104.9" stroke="#ff453a" stroke-width="1"/><rect x="316.8" y="104.2" width="3.2" height="1.2" rx="0" fill="#ff453a" opacity="1"/><line x1="324.0" y1="91.6" x2="324.0" y2="106.9" stroke="#30d158" stroke-width="1"/><rect x="322.4" y="94.4" width="3.2" height="10.1" rx="0" fill="#30d158" opacity="1"/><line x1="329.6" y1="86.1" x2="329.6" y2="95.9" stroke="#30d158" stroke-width="1"/><rect x="328.0" y="89.7" width="3.2" height="4.8" rx="0" fill="#30d158" opacity="1"/><line x1="335.2" y1="88.6" x2="335.2" y2="91.2" stroke="#ff453a" stroke-width="1"/><rect x="333.6" y="89.7" width="3.2" height="1.2" rx="0" fill="#ff453a" opacity="1"/><line x1="340.8" y1="79.4" x2="340.8" y2="91.6" stroke="#30d158" stroke-width="1"/><rect x="339.2" y="84.0" width="3.2" height="5.7" rx="0" fill="#30d158" opacity="1"/><line x1="346.4" y1="71.7" x2="346.4" y2="86.1" stroke="#30d158" stroke-width="1"/><rect x="344.8" y="75.7" width="3.2" height="8.3" rx="0" fill="#30d158" opacity="1"/><line x1="352.0" y1="71.9" x2="352.0" y2="77.2" stroke="#30d158" stroke-width="1"/><rect x="350.4" y="73.2" width="3.2" height="2.5" rx="0" fill="#30d158" opacity="1"/><line x1="217.6" y1="128.0" x2="352.0" y2="128.0" stroke="#2997ff" stroke-width="2"/><line x1="307.2" y1="97.5" x2="352.0" y2="97.5" stroke="#f4b942" stroke-width="1.2" stroke-dasharray="4 4"/><line x1="307.2" y1="159.8" x2="352.0" y2="159.8" stroke="#ff453a" stroke-width="1.4" stroke-dasharray="4 4"/><rect x="255.2" y="131.6" width="104.0" height="32.0" rx="6" fill="#30d158" opacity="0.95"/><text x="307.2" y="144.6" fill="#fff" font-size="10" font-weight="700" text-anchor="middle">CAN SLIM breakout</text><text x="307.2" y="157.6" fill="#fff" font-size="10" font-weight="600" text-anchor="middle">6/6 + check I</text><text x="20.0" y="122.0" fill="#2997ff" font-size="10" font-weight="600" text-anchor="start"></text><text x="352.0" y="123.0" fill="#2997ff" font-size="10" font-weight="700" text-anchor="end">pivot</text><text x="352.0" y="92.5" fill="#f4b942" font-size="10" font-weight="700" text-anchor="end">+5%</text><text x="352.0" y="171.8" fill="#ff453a" font-size="10" font-weight="700" text-anchor="end">stop &#8722;8%</text><text x="16.0" y="24.0" fill="#86868b" font-size="12" font-weight="600" text-anchor="start">CAN SLIM &#183; daily</text><rect x="368.0" y="40.0" width="178.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="53.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">C</text><text x="392.0" y="53.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">EPS vs yr ago 41%</text><text x="532.0" y="53.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">&#10003;</text><rect x="368.0" y="59.0" width="178.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="72.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">A</text><text x="392.0" y="72.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">3-yr 33%/yr, ROE 26%</text><text x="532.0" y="72.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">&#10003;</text><rect x="368.0" y="78.0" width="178.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="91.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">N</text><text x="392.0" y="91.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">within 15% of high</text><text x="532.0" y="91.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">&#10003;</text><rect x="368.0" y="97.0" width="178.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="110.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">S</text><text x="392.0" y="110.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">volume 1.8x avg</text><text x="532.0" y="110.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">&#10003;</text><rect x="368.0" y="116.0" width="178.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="129.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">L</text><text x="392.0" y="129.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">12-mo vs bench +38</text><text x="532.0" y="129.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">&#10003;</text><rect x="368.0" y="135.0" width="178.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="148.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">I</text><text x="392.0" y="148.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">check by hand</text><text x="532.0" y="148.0" fill="#f4b942" font-size="11" font-weight="600" text-anchor="start">?</text><rect x="368.0" y="154.0" width="178.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="167.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">M</text><text x="392.0" y="167.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">bench > 50 & 200 MA</text><text x="532.0" y="167.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">&#10003;</text><rect x="368.0" y="173.0" width="178.0" height="18.0" rx="0" fill="#141416" opacity="1"/><text x="374.0" y="186.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start"></text><text x="392.0" y="186.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">Score 6 of 6 checked</text><text x="532.0" y="186.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start"></text><text x="546" y="320" fill="#6e6e73" font-size="11" text-anchor="end">Illustrative mock &middot; made-up values</text></svg></div>
+  </div>
+  <div class="panel" style="margin-top:22px">
+    <h4>Add it to TradingView</h4>
+    <ol class="howto">
+      <li>Copy the code below, or download the .pine file.</li>
+      <li>In TradingView, open the Pine Editor at the bottom of a chart, paste it in, and click <b>Add to chart</b>.</li>
+      <li>Use a daily chart of a growth stock. Check the I (institutions) row yourself in the stock's fund-ownership data.</li>
+      <li>To get alerted, create an alert on the chart and pick <b>CAN SLIM breakout</b> or <b>Stop hit</b>.</li>
+    </ol>
+  </div>
+  <div class="code-wrap">
+    <div class="code-top">
+      <span>can-slim.pine &middot; Pine Script v6</span>
+      <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/can-slim.pine" download>Download</a></div>
+    </div>
+    <pre class="pine" tabindex="0"><code>//@version=6
+// =====================================================================
+// CAN SLIM Checklist — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/can-slim.html
+//
+// William O'Neil, How to Make Money in Stocks (1988): buy growth leaders
+// breaking out of a sound base, in a rising market, and cut every loss
+// at 7-8%.
+//
+//   C  Latest quarter's EPS up at least 25% from the same quarter a year ago
+//   A  Annual EPS growth of 25%+ over 3 years, and return on equity 17%+
+//   N  Price near a new high (within 15% of the 52-week high)
+//   S  Breakout volume at least 40% above the 50-day average
+//   L  Relative strength: beating the benchmark over 12 months
+//   I  Institutional sponsorship: not in TradingView data, check by hand
+//   M  Market in an uptrend: the benchmark above its 50- and 200-day averages
+//
+// It also draws the pivot (the high of the base), the buy zone up to 5%
+// above it, and a stop 8% under the entry. Daily chart, stocks only.
+// Marks and alerts only; it places no orders.
+// =====================================================================
+indicator("CAN SLIM Checklist", shorttitle = "CAN SLIM", overlay = true, max_lines_count = 100, max_labels_count = 100)
+
+grpF = "Fundamentals"
+cMin   = input.float(25, "C: quarterly EPS growth at least (%)", group = grpF)
+aMin   = input.float(25, "A: annual EPS growth at least (%/yr, 3 years)", group = grpF)
+roeMin = input.float(17, "A: return on equity at least (%)", group = grpF)
+grpT = "Chart"
+baseLen = input.int(35, "Base length for the pivot (bars, 35 = 7 weeks)", minval = 10, group = grpT)
+volMult = input.float(1.4, "S: breakout volume vs 50-day average", step = 0.1, group = grpT)
+nearHi  = input.float(15, "N: within this % of the 52-week high", group = grpT)
+stopPct = input.float(8, "Stop under entry (%)", step = 0.5, group = grpT)
+zonePct = input.float(5, "Buy zone above pivot (%)", step = 0.5, group = grpT)
+bench   = input.symbol("AMEX:SPY", "Benchmark (for L and M)", group = grpT)
+minScore = input.int(5, "Signal only if at least this many letters pass (of 6 checked)", minval = 0, maxval = 6, group = grpT)
+
+// ---------- C and A ----------
+epsQ = request.financial(syminfo.tickerid, "EARNINGS_PER_SHARE_DILUTED", "FQ", ignore_invalid_symbol = true)
+epsY = request.financial(syminfo.tickerid, "EARNINGS_PER_SHARE_DILUTED", "FY", ignore_invalid_symbol = true)
+roe  = request.financial(syminfo.tickerid, "RETURN_ON_EQUITY", "FY", ignore_invalid_symbol = true)
+var qs = array.new&lt;float&gt;()
+var ys = array.new&lt;float&gt;()
+if not na(epsQ) and (array.size(qs) == 0 or epsQ != array.get(qs, array.size(qs) - 1))
+    array.push(qs, epsQ)
+if not na(epsY) and (array.size(ys) == 0 or epsY != array.get(ys, array.size(ys) - 1))
+    array.push(ys, epsY)
+nq = array.size(qs)
+ny = array.size(ys)
+qNow  = nq &gt;= 1 ? array.get(qs, nq - 1) : na
+qAgo  = nq &gt;= 5 ? array.get(qs, nq - 5) : na
+cGrow = not na(qAgo) and qAgo &gt; 0 ? (qNow / qAgo - 1) * 100 : na
+yNow  = ny &gt;= 1 ? array.get(ys, ny - 1) : na
+y3    = ny &gt;= 4 ? array.get(ys, ny - 4) : na
+aGrow = not na(y3) and y3 &gt; 0 and yNow &gt; 0 ? (math.pow(yNow / y3, 1.0 / 3) - 1) * 100 : na
+passC = not na(cGrow) and cGrow &gt;= cMin
+passA = not na(aGrow) and aGrow &gt;= aMin and not na(roe) and roe &gt;= roeMin
+
+// ---------- N, S, L, M ----------
+hi52  = ta.highest(high, 252)
+passN = close &gt;= hi52 * (1 - nearHi / 100)
+avgV  = ta.sma(volume, 50)
+pivot = ta.highest(high, baseLen)[1]
+brk   = close &gt; pivot and close[1] &lt;= pivot[1]
+passS = volume &gt;= avgV * volMult
+bC    = request.security(bench, "D", close, ignore_invalid_symbol = true)
+rs    = (close / close[252] - 1) - (bC / bC[252] - 1)
+passL = not na(rs) and rs &gt; 0
+bMa50  = request.security(bench, "D", ta.sma(close, 50), ignore_invalid_symbol = true)
+bMa200 = request.security(bench, "D", ta.sma(close, 200), ignore_invalid_symbol = true)
+passM = bC &gt; bMa50 and bC &gt; bMa200
+
+score = (passC ? 1 : 0) + (passA ? 1 : 0) + (passN ? 1 : 0) + (passS ? 1 : 0) + (passL ? 1 : 0) + (passM ? 1 : 0)
+signal = brk and passS and passM and score &gt;= minScore
+
+// ---------- trade levels ----------
+var float entry = na
+var float stopL = na
+var line pivL = na
+var line zoneL = na
+var line stopLn = na
+if signal
+    entry := close
+    stopL := close * (1 - stopPct / 100)
+    pivL := line.new(bar_index, pivot, bar_index + 25, pivot, color = color.new(#2997ff, 0), width = 2)
+    zoneL := line.new(bar_index, pivot * (1 + zonePct / 100), bar_index + 25, pivot * (1 + zonePct / 100), color = color.new(#f4b942, 0), style = line.style_dashed)
+    stopLn := line.new(bar_index, stopL, bar_index + 25, stopL, color = color.new(#ff453a, 0), style = line.style_dashed)
+    label.new(bar_index, low, "CAN SLIM breakout\n" + str.tostring(score) + "/6 + check I", style = label.style_label_up, color = color.new(#30d158, 10), textcolor = color.white, size = size.small)
+stopHit = not na(stopL) and close &lt; stopL
+if stopHit
+    label.new(bar_index, high, "-" + str.tostring(stopPct) + "% stop", style = label.style_label_down, color = color.new(#ff453a, 10), textcolor = color.white, size = size.small)
+    entry := na
+    stopL := na
+
+plot(pivot, "Pivot (base high)", color = color.new(#2997ff, 60), style = plot.style_stepline)
+plot(pivot * (1 + zonePct / 100), "Buy zone top", color = color.new(#f4b942, 70), style = plot.style_stepline)
+plot(stopL, "Stop", color = color.new(#ff453a, 0), style = plot.style_linebr)
+barcolor(brk and passS ? #30d158 : na, title = "Breakout on volume")
+
+alertcondition(signal, "CAN SLIM breakout", "{{ticker}}: breakout above the pivot on volume, market in an uptrend")
+alertcondition(stopHit, "Stop hit", "{{ticker}}: closed below the 8% stop")
+
+var table tb = table.new(position.top_right, 3, 8, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+cell(int r, string k, string what, bool ok, bool known) =&gt;
+    table.cell(tb, 0, r, k, text_color = color.new(#f5f5f7, 0), text_size = size.small)
+    table.cell(tb, 1, r, what, text_color = color.new(#86868b, 0), text_size = size.small)
+    table.cell(tb, 2, r, not known ? "?" : ok ? "✓" : "✗", text_color = not known ? color.new(#f4b942, 0) : ok ? color.new(#30d158, 0) : color.new(#ff453a, 0), text_size = size.small)
+if barstate.islast
+    cell(0, "C", na(cGrow) ? "EPS q/q-4: n/a" : "EPS vs yr ago " + str.tostring(cGrow, "#") + "%", passC, not na(cGrow))
+    cell(1, "A", na(aGrow) ? "3-yr EPS: n/a" : "3-yr EPS " + str.tostring(aGrow, "#") + "%/yr, ROE " + str.tostring(roe, "#") + "%", passA, not na(aGrow))
+    cell(2, "N", "within " + str.tostring(nearHi, "#") + "% of 52-wk high", passN, true)
+    cell(3, "S", "volume " + str.tostring(volume / avgV, "#.0") + "x avg", passS, true)
+    cell(4, "L", na(rs) ? "12-mo vs bench: n/a" : "12-mo vs bench " + str.tostring(rs * 100, "#") + " pts", passL, not na(rs))
+    cell(5, "I", "institutions: check by hand", false, false)
+    cell(6, "M", "benchmark above 50 &amp; 200 MA", passM, true)
+    table.cell(tb, 0, 7, "Score", text_color = color.new(#86868b, 0), text_size = size.small)
+    table.cell(tb, 1, 7, str.tostring(score) + " of 6 checked", text_color = color.new(#f5f5f7, 0), text_size = size.small)
+</code></pre>
+  </div>
+
+  <div class="section-head" id="related">
+    <h2>Go deeper</h2>
+    <p>Pages on this site that pick up where this one leaves off.</p>
+  </div>
+  <div class="four">
+    <a href="/setups/cup-and-handle.html" style="--tc:#30d158"><span class="k">setup</span><h3>Cup and Handle</h3><p>O'Neil's favorite base, step by step on the chart.</p><small>Read &rsaquo;</small></a>
+    <a href="/setups/qullamaggie.html" style="--tc:#2997ff"><span class="k">setup</span><h3>Qullamaggie Breakout</h3><p>A modern momentum-breakout trader's take on the same idea.</p><small>Read &rsaquo;</small></a>
+    <a href="/famous-strategies/post-earnings-drift.html" style="--tc:#f4b942"><span class="k">famous strategy</span><h3>Post-Earnings Drift</h3><p>Why big earnings surprises keep pushing prices for weeks: the research behind C.</p><small>Read &rsaquo;</small></a>
+    <a href="/famous-strategies/cross-sectional-momentum.html" style="--tc:#ff9f0a"><span class="k">famous strategy</span><h3>Cross-Sectional Momentum</h3><p>The research behind L: past winners keep winning, for a while.</p><small>Read &rsaquo;</small></a>
+  </div>
+
+  <div class="rule">
+    <div>
+      <h2>Try it on paper first.</h2>
+      <p>Find five stocks that pass the checklist and are building bases. Write down each pivot, the 5% buy zone and the 8% stop before anything happens. Track every breakout for three months, and count how many hit the stop before 20%.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Check M before every buy, not just once.</li>
+        <li>Never move the stop lower.</li>
+        <li>Note how many breakouts failed in a weak market.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-head" id="sources">
+    <h2>Sources</h2>
+    <p>The papers and books behind every figure on this page.</p>
+  </div>
+  <ol class="cites">
+    <li>O'Neil, W. J. (1988). <i>How to Make Money in Stocks: A Winning System in Good Times or Bad</i>. McGraw-Hill, and later editions.<small>The seven letters and their thresholds (25% earnings growth, ROE 17%, relative strength 80), bases of at least seven weeks, the pivot and the 5% buy zone, breakout volume 40&ndash;50% above normal, the 7&ndash;8% loss rule, 20&ndash;25% profits and the 8-week rule, three out of four stocks following the market, distribution days and the follow-through day.</small></li>
+    <li>American Association of Individual Investors (AAII), stock screen performance tracking.<small>The CAN SLIM screen as the top performer of AAII's screens for 1998&ndash;2009, as reported in summaries of AAII's results.</small></li>
+  </ol>
+
+  <p class="src">Built from William O'Neil's book and the sources listed above. Every company, chart, price and checklist value in the walkthroughs is made up for illustration. CAN SLIM is a practitioner's method, not an academic study, and the book's results come from the author's own research. The indicator checks a simplified version of six letters. Past results don't promise future returns. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

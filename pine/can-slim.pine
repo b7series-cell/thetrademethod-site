@@ -1,0 +1,116 @@
+//@version=6
+// =====================================================================
+// CAN SLIM Checklist — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/can-slim.html
+//
+// William O'Neil, How to Make Money in Stocks (1988): buy growth leaders
+// breaking out of a sound base, in a rising market, and cut every loss
+// at 7-8%.
+//
+//   C  Latest quarter's EPS up at least 25% from the same quarter a year ago
+//   A  Annual EPS growth of 25%+ over 3 years, and return on equity 17%+
+//   N  Price near a new high (within 15% of the 52-week high)
+//   S  Breakout volume at least 40% above the 50-day average
+//   L  Relative strength: beating the benchmark over 12 months
+//   I  Institutional sponsorship: not in TradingView data, check by hand
+//   M  Market in an uptrend: the benchmark above its 50- and 200-day averages
+//
+// It also draws the pivot (the high of the base), the buy zone up to 5%
+// above it, and a stop 8% under the entry. Daily chart, stocks only.
+// Marks and alerts only; it places no orders.
+// =====================================================================
+indicator("CAN SLIM Checklist", shorttitle = "CAN SLIM", overlay = true, max_lines_count = 100, max_labels_count = 100)
+
+grpF = "Fundamentals"
+cMin   = input.float(25, "C: quarterly EPS growth at least (%)", group = grpF)
+aMin   = input.float(25, "A: annual EPS growth at least (%/yr, 3 years)", group = grpF)
+roeMin = input.float(17, "A: return on equity at least (%)", group = grpF)
+grpT = "Chart"
+baseLen = input.int(35, "Base length for the pivot (bars, 35 = 7 weeks)", minval = 10, group = grpT)
+volMult = input.float(1.4, "S: breakout volume vs 50-day average", step = 0.1, group = grpT)
+nearHi  = input.float(15, "N: within this % of the 52-week high", group = grpT)
+stopPct = input.float(8, "Stop under entry (%)", step = 0.5, group = grpT)
+zonePct = input.float(5, "Buy zone above pivot (%)", step = 0.5, group = grpT)
+bench   = input.symbol("AMEX:SPY", "Benchmark (for L and M)", group = grpT)
+minScore = input.int(5, "Signal only if at least this many letters pass (of 6 checked)", minval = 0, maxval = 6, group = grpT)
+
+// ---------- C and A ----------
+epsQ = request.financial(syminfo.tickerid, "EARNINGS_PER_SHARE_DILUTED", "FQ", ignore_invalid_symbol = true)
+epsY = request.financial(syminfo.tickerid, "EARNINGS_PER_SHARE_DILUTED", "FY", ignore_invalid_symbol = true)
+roe  = request.financial(syminfo.tickerid, "RETURN_ON_EQUITY", "FY", ignore_invalid_symbol = true)
+var qs = array.new<float>()
+var ys = array.new<float>()
+if not na(epsQ) and (array.size(qs) == 0 or epsQ != array.get(qs, array.size(qs) - 1))
+    array.push(qs, epsQ)
+if not na(epsY) and (array.size(ys) == 0 or epsY != array.get(ys, array.size(ys) - 1))
+    array.push(ys, epsY)
+nq = array.size(qs)
+ny = array.size(ys)
+qNow  = nq >= 1 ? array.get(qs, nq - 1) : na
+qAgo  = nq >= 5 ? array.get(qs, nq - 5) : na
+cGrow = not na(qAgo) and qAgo > 0 ? (qNow / qAgo - 1) * 100 : na
+yNow  = ny >= 1 ? array.get(ys, ny - 1) : na
+y3    = ny >= 4 ? array.get(ys, ny - 4) : na
+aGrow = not na(y3) and y3 > 0 and yNow > 0 ? (math.pow(yNow / y3, 1.0 / 3) - 1) * 100 : na
+passC = not na(cGrow) and cGrow >= cMin
+passA = not na(aGrow) and aGrow >= aMin and not na(roe) and roe >= roeMin
+
+// ---------- N, S, L, M ----------
+hi52  = ta.highest(high, 252)
+passN = close >= hi52 * (1 - nearHi / 100)
+avgV  = ta.sma(volume, 50)
+pivot = ta.highest(high, baseLen)[1]
+brk   = close > pivot and close[1] <= pivot[1]
+passS = volume >= avgV * volMult
+bC    = request.security(bench, "D", close, ignore_invalid_symbol = true)
+rs    = (close / close[252] - 1) - (bC / bC[252] - 1)
+passL = not na(rs) and rs > 0
+bMa50  = request.security(bench, "D", ta.sma(close, 50), ignore_invalid_symbol = true)
+bMa200 = request.security(bench, "D", ta.sma(close, 200), ignore_invalid_symbol = true)
+passM = bC > bMa50 and bC > bMa200
+
+score = (passC ? 1 : 0) + (passA ? 1 : 0) + (passN ? 1 : 0) + (passS ? 1 : 0) + (passL ? 1 : 0) + (passM ? 1 : 0)
+signal = brk and passS and passM and score >= minScore
+
+// ---------- trade levels ----------
+var float entry = na
+var float stopL = na
+var line pivL = na
+var line zoneL = na
+var line stopLn = na
+if signal
+    entry := close
+    stopL := close * (1 - stopPct / 100)
+    pivL := line.new(bar_index, pivot, bar_index + 25, pivot, color = color.new(#2997ff, 0), width = 2)
+    zoneL := line.new(bar_index, pivot * (1 + zonePct / 100), bar_index + 25, pivot * (1 + zonePct / 100), color = color.new(#f4b942, 0), style = line.style_dashed)
+    stopLn := line.new(bar_index, stopL, bar_index + 25, stopL, color = color.new(#ff453a, 0), style = line.style_dashed)
+    label.new(bar_index, low, "CAN SLIM breakout\n" + str.tostring(score) + "/6 + check I", style = label.style_label_up, color = color.new(#30d158, 10), textcolor = color.white, size = size.small)
+stopHit = not na(stopL) and close < stopL
+if stopHit
+    label.new(bar_index, high, "-" + str.tostring(stopPct) + "% stop", style = label.style_label_down, color = color.new(#ff453a, 10), textcolor = color.white, size = size.small)
+    entry := na
+    stopL := na
+
+plot(pivot, "Pivot (base high)", color = color.new(#2997ff, 60), style = plot.style_stepline)
+plot(pivot * (1 + zonePct / 100), "Buy zone top", color = color.new(#f4b942, 70), style = plot.style_stepline)
+plot(stopL, "Stop", color = color.new(#ff453a, 0), style = plot.style_linebr)
+barcolor(brk and passS ? #30d158 : na, title = "Breakout on volume")
+
+alertcondition(signal, "CAN SLIM breakout", "{{ticker}}: breakout above the pivot on volume, market in an uptrend")
+alertcondition(stopHit, "Stop hit", "{{ticker}}: closed below the 8% stop")
+
+var table tb = table.new(position.top_right, 3, 8, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+cell(int r, string k, string what, bool ok, bool known) =>
+    table.cell(tb, 0, r, k, text_color = color.new(#f5f5f7, 0), text_size = size.small)
+    table.cell(tb, 1, r, what, text_color = color.new(#86868b, 0), text_size = size.small)
+    table.cell(tb, 2, r, not known ? "?" : ok ? "✓" : "✗", text_color = not known ? color.new(#f4b942, 0) : ok ? color.new(#30d158, 0) : color.new(#ff453a, 0), text_size = size.small)
+if barstate.islast
+    cell(0, "C", na(cGrow) ? "EPS q/q-4: n/a" : "EPS vs yr ago " + str.tostring(cGrow, "#") + "%", passC, not na(cGrow))
+    cell(1, "A", na(aGrow) ? "3-yr EPS: n/a" : "3-yr EPS " + str.tostring(aGrow, "#") + "%/yr, ROE " + str.tostring(roe, "#") + "%", passA, not na(aGrow))
+    cell(2, "N", "within " + str.tostring(nearHi, "#") + "% of 52-wk high", passN, true)
+    cell(3, "S", "volume " + str.tostring(volume / avgV, "#.0") + "x avg", passS, true)
+    cell(4, "L", na(rs) ? "12-mo vs bench: n/a" : "12-mo vs bench " + str.tostring(rs * 100, "#") + " pts", passL, not na(rs))
+    cell(5, "I", "institutions: check by hand", false, false)
+    cell(6, "M", "benchmark above 50 & 200 MA", passM, true)
+    table.cell(tb, 0, 7, "Score", text_color = color.new(#86868b, 0), text_size = size.small)
+    table.cell(tb, 1, 7, str.tostring(score) + " of 6 checked", text_color = color.new(#f5f5f7, 0), text_size = size.small)
