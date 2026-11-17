@@ -1,0 +1,793 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Low-Volatility Anomaly and Betting Against Beta, Explained | The Trade Method</title>
+<meta name="description" content="The low-volatility anomaly (Ang, Hodrick, Xing and Zhang, 2006; Frazzini and Pedersen, 2014): calm, low-beta stocks have earned about as much as wild ones, and far more per unit of risk. The flat beta line, the noisiest stocks&#x27; poor returns, betting against beta, why it lasts, plus a free TradingView indicator.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/famous-strategies/low-volatility.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="The Low-Volatility Anomaly and Betting Against Beta, Explained">
+<meta property="og:description" content="The low-volatility anomaly (Ang, Hodrick, Xing and Zhang, 2006; Frazzini and Pedersen, 2014): calm, low-beta stocks have earned about as much as wild ones, and far more per unit of risk. The flat beta line, the noisiest stocks&#x27; poor returns, betting against beta, why it lasts, plus a free TradingView indicator.">
+<meta property="og:url" content="https://thetrademethod.com/famous-strategies/low-volatility.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Low-Volatility Anomaly and Betting Against Beta, Explained">
+<meta name="twitter:description" content="The low-volatility anomaly (Ang, Hodrick, Xing and Zhang, 2006; Frazzini and Pedersen, 2014): calm, low-beta stocks have earned about as much as wild ones, and far more per unit of risk. The flat beta line, the noisiest stocks&#x27; poor returns, betting against beta, why it lasts, plus a free TradingView indicator.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "The Low-Volatility Anomaly and Betting Against Beta, Explained",
+ "name": "Low-Volatility Anomaly",
+ "description": "The low-volatility anomaly (Ang, Hodrick, Xing and Zhang, 2006; Frazzini and Pedersen, 2014): calm, low-beta stocks have earned about as much as wild ones, and far more per unit of risk. The flat beta line, the noisiest stocks&#x27; poor returns, betting against beta, why it lasts, plus a free TradingView indicator.",
+ "url": "https://thetrademethod.com/famous-strategies/low-volatility.html",
+ "mainEntityOfPage": "https://thetrademethod.com/famous-strategies/low-volatility.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-17",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.seven { grid-template-columns:repeat(2,1fr); }
+    .ribbon.seven > div:last-child { grid-column:span 2; }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=24">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the pyramid: five cards, or a stepper once js/pyr-anim.js runs */
+  .fs-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .fs-steps .stage, .sheet .fs-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .fs-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .fs-steps.is-stepper .stage, .sheet .fs-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .fs-steps.is-stepper .stage .num { display:none; }
+  .sheet .fs-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .fs-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .fs-steps + .four { margin-top:28px; }
+  .fs-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .fs-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .fs-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .fs-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .fs-steps { margin-top:24px; }
+  }
+
+  /* fact sheet, timeline, sources */
+  .facts { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--graphite); border-radius:22px; overflow:hidden; margin-top:26px; }
+  .facts div { background:var(--charcoal); padding:16px 18px; }
+  .facts .k { font-family:var(--mono-font); font-size:12px; color:var(--ash); }
+  .facts b { display:block; margin-top:4px; font-size:16px; font-weight:600; line-height:1.3; }
+  .tl { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+  .tl li { background:var(--charcoal); border-radius:20px; padding:16px 16px 18px; border-top:3px solid var(--tc, var(--up)); }
+  .tl .y { font-family:var(--mono-font); font-size:13px; color:var(--tc, var(--up)); font-weight:600; }
+  .tl b { display:block; margin:6px 0 6px; font-size:16px; line-height:1.25; }
+  .tl p { margin:0; color:var(--mute); font-size:14px; }
+  .cites { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .cites li { margin-bottom:10px; }
+  .cites i { color:var(--platinum); }
+  .cites small { display:block; color:var(--ash); font-size:13.5px; margin-top:2px; }
+  @media (max-width:1100px) { .facts { grid-template-columns:repeat(2,1fr); } .tl { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:680px) { .facts, .tl { grid-template-columns:1fr; } .sheet .section-head + .fs-steps { margin-top:24px; } }
+
+  /* the indicator */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-wrap { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:22px; align-items:start; }
+  .ind-mock { background:var(--charcoal); border-radius:22px; padding:14px; }
+  .howto { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#f4b942; font-weight:600; }
+  .code-wrap { background:var(--charcoal); border-radius:22px; margin-top:22px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid #2c2c2e; flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--ash); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--silk); background:#2c2c2e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#3a3a3c; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d1d6; tab-size:4; }
+  @media (max-width:1100px) { .ind-wrap { grid-template-columns:1fr; } }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-mock { padding:8px; } }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=42" defer></script>
+<script src="/js/fs-kit.js?v=1" defer></script>
+<script src="/js/fs-low-volatility.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=29" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="Low-Volatility Anomaly"></div>
+<div class="sheet">
+
+  <a class="back" href="/famous-strategies/">&lsaquo; Famous strategies</a>
+
+  <header class="top" data-candle-bg="low-volatility">
+    <div>
+      <p class="kicker">Famous strategies &middot; Stocks &middot; Ang, Hodrick, Xing and Zhang, 2006; Frazzini and Pedersen, 2014</p>
+      <h1>Low-Volatility <span>Anomaly</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Shouldn't riskier stocks pay more? In the data, the calmest stocks earned about as much as the wildest, and the noisiest did worst of all. Own the calm ones, rebalance on a schedule, and accept lagging in roaring rallies.
+      <em>Less risk, not less return.</em></p>
+      <div class="counts">
+        <div><b>0.70 vs 0.28</b><small>Sharpe ratio, lowest vs highest beta</small></div>
+        <div><b>&minus;1.06%</b><small>a month: noisiest fifth minus calmest</small></div>
+        <div><b>0.78</b><small>BAB Sharpe ratio, 1926&ndash;2012</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon seven" aria-label="Low-Volatility Anomaly">
+    <div><div class="t">step 1</div><div class="n">Measure volatility</div></div>
+    <div><div class="t">step 2</div><div class="n">Rank calm to wild</div></div>
+    <div><div class="t">step 3</div><div class="n">Hold the calmest</div></div>
+    <div><div class="t">step 4</div><div class="n">Rebalance on schedule</div></div>
+    <div><div class="t">step 5</div><div class="n">Expect to lag rallies</div></div>
+  </nav>
+
+  <div class="facts" aria-label="At a glance">
+    <div><span class="k">papers</span><b>"The Cross-Section of Volatility and Expected Returns"; "Betting Against Beta"</b></div>
+    <div><span class="k">authors</span><b>Ang, Hodrick, Xing &amp; Zhang; Frazzini &amp; Pedersen</b></div>
+    <div><span class="k">published</span><b><i>Journal of Finance</i> 61(1), 2006; <i>Journal of Financial Economics</i> 111(1), 2014</b></div>
+    <div><span class="k">sample</span><b>US stocks; BAB from 1926 to 2012</b></div>
+    <div><span class="k">signal</span><b>Past volatility or beta</b></div>
+    <div><span class="k">trade</span><b>Own low-risk stocks; or long low beta, short high beta, beta-neutral</b></div>
+    <div><span class="k">rebalance</span><b>Monthly in the papers</b></div>
+    <div><span class="k">headline</span><b>BAB: 0.70% a month, Sharpe ratio 0.78</b></div>
+  </div>
+
+  <div class="section-head" id="line">
+    <h2>The line that should slope up</h2>
+    <p>Every finance course draws the same picture: more risk, more expected return. The low-volatility anomaly is what happens when you check that picture against the data.</p>
+  </div>
+  <section class="anim" data-fs-anim="line" aria-label="Frazzini and Pedersen&#x27;s ten beta groups: average excess returns of 0.91% a month for the lowest beta and 0.97% for the highest, nearly flat; CAPM alpha falling from 0.52% to minus 0.10%, and Sharpe ratio from 0.70 to 0.28.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Flat, not rising</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Flat, not rising"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>The rule</h3>
+          <ul>
+            <li>Measure each stock's risk over the past year: its volatility (how much it swings) or its beta (how much it moves with the market).</li>
+            <li>Rank the list from calmest to wildest, and own the calmest group, spread across many names and sectors.</li>
+            <li>Re-rank on a fixed schedule, monthly or quarterly, and trade as little as possible in between.</li>
+          </ul>
+          <p class="why">The long-short research version also shorts the wildest stocks and uses leverage to make the two sides match in beta. A single account usually just owns the calm side.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Volatility or beta?</h4>
+        <p class="lead">Two ways to measure "calm", and they mostly agree.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">volatility</span><b>How much it swings</b><p>The standard deviation of returns. Easy to compute for any stock or list.</p></div>
+          <div class="yes"><span class="k">beta</span><b>How much it moves with the market</b><p>The papers' measure for betting against beta. High-beta stocks amplify the market's moves.</p></div>
+        </div>
+      </div>
+      <div class="panel calc">
+        <h4>The beta deciles, 1926&ndash;2012</h4>
+        <p class="lead">Lowest vs highest beta group (Frazzini and Pedersen).</p>
+        <div class="row"><span>Excess return</span><b>0.91% vs 0.97% a month</b></div>
+        <div class="row"><span>CAPM alpha</span><b>+0.52% vs &minus;0.10%</b></div>
+        <div class="row tot"><span>Sharpe ratio</span><b>0.70 vs 0.28</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="ivol">
+    <h2>The noisiest stocks did worst</h2>
+    <p>Ang, Hodrick, Xing and Zhang looked at a different kind of risk: the swings that belong to the company alone, not to the market. The stocks with the most of it had strikingly bad returns.</p>
+  </div>
+  <section class="anim" data-fs-anim="ivol" aria-label="Two made-up stocks&#x27; daily residual returns over a month, one calm and one jumpy; then the paper&#x27;s result: the noisiest fifth of stocks earned 1.06% a month less than the calmest fifth, or 1.31% after adjusting for the Fama-French factors.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Idiosyncratic volatility</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Idiosyncratic volatility"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>What the 2006 paper found</h3>
+          <ul>
+            <li>Idiosyncratic volatility: the daily swings left over after the market, size and value factors, measured over the past month.</li>
+            <li>Sorted into five groups and held for a month, the noisiest fifth earned 1.06% a month less than the calmest. After the Fama-French factors, 1.31% less.</li>
+            <li>Exposure to market-wide volatility, which they also studied, didn't explain it.</li>
+          </ul>
+          <p class="why">If high volatility were a risk investors had to be paid for, the noisiest stocks would earn more. They earned less.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <blockquote class="qb"><b>From the abstract:</b> "stocks with high idiosyncratic volatility relative to the Fama and French (1993) model have abysmally low average returns."</blockquote>
+      <div class="panel">
+        <h4>Two papers, one pattern</h4>
+        <p class="lead">Different risk measures, the same conclusion.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">Ang et al. 2006</span><b>Own-company noise</b><p>The noisiest fifth trailed by about 1% a month.</p></div>
+          <div class="yes"><span class="k">Frazzini &amp; Pedersen 2014</span><b>Market beta</b><p>High-beta stocks had the lowest alphas and Sharpe ratios.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="bab">
+    <h2>Betting against beta</h2>
+    <p>Frazzini and Pedersen turned the pattern into a market-neutral factor: lever up the calm stocks, scale down the wild ones, and hold both so the market cancels out.</p>
+  </div>
+  <section class="anim" data-fs-anim="bab" aria-label="A low-beta basket bought with about $1.40 and a high-beta basket shorted with about $0.70, each reaching a beta of 1; the betting-against-beta factor earned 0.70% a month with a Sharpe ratio of 0.78 from 1926 to 2012, 0.55% after size, value and momentum, and did badly when borrowing got tight.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Long $1.40, short $0.70</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Long $1.40, short $0.70"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="four">
+    <div style="--tc:#30d158"><span class="k">return</span><h3>0.70% a month</h3><p>BAB's average excess return in US stocks, 1926&ndash;2012, with a Sharpe ratio of 0.78.</p></div>
+    <div style="--tc:#2997ff"><span class="k">after factors</span><h3>0.55% a month</h3><p>Still left after the market, size, value and momentum factors.</p></div>
+    <div style="--tc:#f4b942"><span class="k">the mechanics</span><h3>Long ~$1.40, short ~$0.70</h3><p>The average position needed to make both sides a beta of 1.</p></div>
+    <div style="--tc:#ff453a"><span class="k">the risk</span><h3>Funding squeezes</h3><p>BAB did badly when borrowing got harder, measured by the TED spread.</p></div>
+  </div>
+
+  <div class="section-head" id="why">
+    <h2>Why it lasts, and what it costs</h2>
+    <p>An anomaly this old needs a reason to survive. The research gives three, and every one of them is about how investors are constrained or judged, not about a mistake that will be fixed tomorrow.</p>
+  </div>
+  <section class="anim" data-fs-anim="why" aria-label="Three explanation cards: leverage limits, benchmarks and lottery-ticket buying; then a made-up low-volatility portfolio lagging the market in a rally and losing less in a fall.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Three reasons, and the price</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Three reasons, and the price"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <ol class="tl">
+    <li style="--tc:#2997ff"><span class="y">1972</span><b>Black, Jensen &amp; Scholes</b><p>Early tests find the line between beta and return flatter than the theory says.</p></li>
+    <li style="--tc:#30d158"><span class="y">2006</span><b>Ang, Hodrick, Xing &amp; Zhang</b><p>The noisiest stocks have "abysmally low" returns.</p></li>
+    <li style="--tc:#2997ff"><span class="y">2011</span><b>Baker, Bradley &amp; Wurgler</b><p>Benchmarked fund managers have reasons to avoid low-beta stocks.</p></li>
+    <li style="--tc:#30d158"><span class="y">2014</span><b>Frazzini &amp; Pedersen</b><p>Betting against beta works in US stocks since 1926, and in other markets.</p></li>
+    <li style="--tc:#ff9f0a"><span class="y">Since</span><b>Low-vol funds</b><p>Low-volatility and minimum-variance ETFs make the tilt easy to own, and more crowded.</p></li>
+  </ol>
+
+  <div class="section-head" id="steps">
+    <h2>The strategy, step by step</h2>
+    <p>The whole thing in five steps. Click through them.</p>
+  </div>
+  <div class="fs-steps" data-fs-steps data-fs-label="Low-Volatility Anomaly, step by step">
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Measure</h3>
+          <ul>
+            <li>Each stock's volatility of daily returns over the past year, or its beta to the market.</li>
+            <li>Use the same window for every stock.</li>
+          </ul>
+          <p class="why">Past risk is a good guide to future risk, much better than past returns are to future returns.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Rank</h3>
+          <ul>
+            <li>Sort the list from calmest to wildest.</li>
+            <li>Bigger lists give the effect more room to show up.</li>
+          </ul>
+          <p class="why">It's a ranking, like momentum and value.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Hold</h3>
+          <ul>
+            <li>Own the calmest group, a third or a fifth of the list.</li>
+            <li>Spread it over many names; calm stocks bunch in a few sectors.</li>
+          </ul>
+          <p class="why">Watch for too much in utilities and staples at once.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Rebalance</h3>
+          <ul>
+            <li>Re-rank monthly or quarterly.</li>
+            <li>Trade only the names that move out of the group.</li>
+          </ul>
+          <p class="why">Low turnover keeps costs down.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Expect</h3>
+          <ul>
+            <li>It will lag in strong rallies, sometimes for years.</li>
+            <li>It should lose less in falls.</li>
+          </ul>
+          <p class="why">The lagging is why the edge is still there.</p>
+        </div>
+      </section>
+  </div>
+
+  <div class="section-head" id="indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for this strategy (Pine Script v6). It ranks the chart's stock against a list of up to 19 others on volatility over the past year, shows its beta to SPY, and alerts when it moves into or out of the calmest group. It marks and alerts. It doesn't place trades.</p>
+  </div>
+  <div class="ind-wrap">
+    <ul class="ind-list">
+      <li class="ind-card">
+        <div class="ind-card-top">
+          <h3 class="ind-name">Low-Volatility Rank</h3>
+          <span class="ind-alerts">alerts</span>
+        </div>
+        <p class="ind-blurb">A pane under your chart with the stock's annualized volatility (gold) against the median of your list (gray). The background turns green while the stock ranks among the calmest N of the list.</p>
+        <p class="ind-blurb">A table ranks the whole list from calmest to wildest: the calmest N in green, the wildest N in red, the chart's stock highlighted, and its beta to the benchmark at the bottom. It ships with 19 large US stocks, from utilities to chip makers.</p>
+        <p class="ind-blurb"><span style="color:var(--ash)">Volatility is the standard deviation of daily log returns over the lookback, annualized. Every number is a setting: the lookback, how many count as calm, the benchmark and the list.</span></p>
+        <div class="ind-links">
+          <a class="ind-link ind-link--quiet" href="/pine/low-volatility.pine" download>Download source (.pine)</a>
+        </div>
+      </li>
+    </ul>
+    <div class="ind-mock"><svg viewBox="0 0 560 330" role="img" aria-label="An illustrative mock of the indicator: a pane with the stock's annualized volatility in gold below the list median in gray, green backgrounds while it ranks among the five calmest, and a table ranking twenty stocks from calmest to wildest with this stock third, plus its beta to SPY."><rect width="560" height="330" rx="14" fill="#141416"/><rect x="16.0" y="40.0" width="112.9" height="256.0" rx="0" fill="#30d158" opacity="0.13"/><rect x="174.1" y="40.0" width="177.9" height="256.0" rx="0" fill="#30d158" opacity="0.13"/><line x1="16.0" y1="296.0" x2="352.0" y2="296.0" stroke="#2c2c2e" stroke-width="1"/><text x="356.0" y="300.0" fill="#6e6e73" font-size="10" font-weight="600" text-anchor="start">10%</text><line x1="16.0" y1="191.0" x2="352.0" y2="191.0" stroke="#2c2c2e" stroke-width="1"/><text x="356.0" y="195.0" fill="#6e6e73" font-size="10" font-weight="600" text-anchor="start">20%</text><line x1="16.0" y1="86.0" x2="352.0" y2="86.0" stroke="#2c2c2e" stroke-width="1"/><text x="356.0" y="90.0" fill="#6e6e73" font-size="10" font-weight="600" text-anchor="start">30%</text><polyline fill="none" stroke="#8e8e93" stroke-width="1.4" stroke-linejoin="round" points="16.0,150.4 18.8,150.3 21.6,154.0 24.5,147.3 27.3,154.5 30.1,154.5 32.9,152.7 35.8,153.3 38.6,151.0 41.4,154.6 44.2,155.3 47.1,153.4 49.9,154.0 52.7,150.7 55.5,155.0 58.4,144.3 61.2,147.6 64.0,153.4 66.8,152.1 69.6,150.9 72.5,150.7 75.3,153.8 78.1,144.6 80.9,142.8 83.8,149.4 86.6,149.2 89.4,154.2 92.2,154.0 95.1,151.0 97.9,152.0 100.7,144.9 103.5,153.3 106.4,155.0 109.2,143.3 112.0,148.6 114.8,153.5 117.6,148.5 120.5,155.0 123.3,148.6 126.1,143.0 128.9,144.4 131.8,104.5 134.6,110.0 137.4,108.7 140.2,111.2 143.1,103.6 145.9,106.6 148.7,103.5 151.5,109.1 154.4,110.5 157.2,103.1 160.0,100.9 162.8,102.6 165.6,103.1 168.5,103.0 171.3,146.0 174.1,152.4 176.9,148.8 179.8,150.8 182.6,154.9 185.4,154.9 188.2,151.8 191.1,152.0 193.9,146.6 196.7,143.2 199.5,149.7 202.4,143.5 205.2,142.9 208.0,143.3 210.8,150.7 213.6,152.5 216.5,152.4 219.3,152.8 222.1,152.7 224.9,147.4 227.8,144.0 230.6,144.7 233.4,149.3 236.2,147.1 239.1,145.2 241.9,154.2 244.7,147.0 247.5,143.8 250.4,145.4 253.2,145.8 256.0,149.3 258.8,153.1 261.6,145.4 264.5,151.1 267.3,145.2 270.1,143.1 272.9,150.3 275.8,150.2 278.6,143.4 281.4,146.2 284.2,153.2 287.1,153.7 289.9,153.4 292.7,143.9 295.5,145.1 298.4,153.5 301.2,144.9 304.0,142.9 306.8,147.0 309.6,150.9 312.5,148.4 315.3,153.6 318.1,155.1 320.9,143.1 323.8,147.1 326.6,148.7 329.4,143.5 332.2,149.8 335.1,144.3 337.9,144.9 340.7,152.6 343.5,152.1 346.4,151.6 349.2,152.3 352.0,147.9"/><polyline fill="none" stroke="#f4b942" stroke-width="2.4" stroke-linejoin="round" points="16.0,215.7 18.8,219.3 21.6,208.8 24.5,221.0 27.3,211.2 30.1,214.8 32.9,221.3 35.8,211.8 38.6,221.7 41.4,213.4 44.2,221.0 47.1,220.6 49.9,213.6 52.7,205.1 55.5,219.9 58.4,217.8 61.2,209.3 64.0,202.6 66.8,210.4 69.6,214.2 72.5,202.0 75.3,221.5 78.1,204.5 80.9,216.4 83.8,219.5 86.6,220.0 89.4,216.0 92.2,205.4 95.1,218.7 97.9,210.3 100.7,209.1 103.5,214.7 106.4,211.0 109.2,221.2 112.0,221.2 114.8,218.2 117.6,208.2 120.5,213.5 123.3,215.9 126.1,210.2 128.9,213.0 131.8,184.7 134.6,174.3 137.4,176.3 140.2,185.9 143.1,178.9 145.9,180.0 148.7,172.6 151.5,175.7 154.4,185.0 157.2,170.4 160.0,188.5 162.8,182.2 165.6,175.1 168.5,187.8 171.3,212.2 174.1,221.7 176.9,208.5 179.8,206.4 182.6,210.5 185.4,204.1 188.2,215.9 191.1,207.9 193.9,210.0 196.7,210.3 199.5,212.9 202.4,204.9 205.2,202.7 208.0,212.5 210.8,208.6 213.6,221.2 216.5,207.8 219.3,208.9 222.1,201.6 224.9,205.2 227.8,216.5 230.6,214.4 233.4,208.5 236.2,222.0 239.1,212.8 241.9,219.0 244.7,220.0 247.5,221.3 250.4,206.4 253.2,219.8 256.0,217.3 258.8,214.3 261.6,204.2 264.5,220.8 267.3,213.1 270.1,211.0 272.9,203.9 275.8,205.3 278.6,204.4 281.4,216.7 284.2,213.8 287.1,215.0 289.9,203.9 292.7,202.4 295.5,219.3 298.4,218.8 301.2,217.6 304.0,217.6 306.8,212.3 309.6,210.1 312.5,217.0 315.3,222.4 318.1,213.7 320.9,214.7 323.8,210.6 326.6,202.5 329.4,208.0 332.2,211.7 335.1,209.5 337.9,208.3 340.7,221.4 343.5,203.6 346.4,206.1 349.2,204.1 352.0,205.7"/><text x="27.3" y="229.2" fill="#f4b942" font-size="11" font-weight="700" text-anchor="start">this stock's volatility</text><text x="27.3" y="146.5" fill="#8e8e93" font-size="11" font-weight="600" text-anchor="start">list median</text><text x="16.0" y="24.0" fill="#86868b" font-size="12" font-weight="600" text-anchor="start">Low Vol &#183; daily &#183; 252-day window</text><rect x="380.0" y="34.0" width="164.0" height="17.0" rx="0" fill="#141416" opacity="1"/><text x="386.0" y="47.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">#</text><text x="410.0" y="47.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Symbol</text><text x="510.0" y="47.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Vol %</text><rect x="380.0" y="52.0" width="164.0" height="17.0" rx="0" fill="#173d24" opacity="1"/><text x="386.0" y="65.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">1</text><text x="410.0" y="65.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">Stock A</text><text x="510.0" y="65.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">13</text><rect x="380.0" y="70.0" width="164.0" height="17.0" rx="0" fill="#173d24" opacity="1"/><text x="386.0" y="83.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">2</text><text x="410.0" y="83.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">Stock B</text><text x="510.0" y="83.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">15</text><rect x="380.0" y="88.0" width="164.0" height="17.0" rx="0" fill="#5b4a1f" opacity="1"/><text x="386.0" y="101.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">3</text><text x="410.0" y="101.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">This stock</text><text x="510.0" y="101.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">18</text><rect x="380.0" y="106.0" width="164.0" height="17.0" rx="0" fill="#173d24" opacity="1"/><text x="386.0" y="119.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">4</text><text x="410.0" y="119.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">Stock D</text><text x="510.0" y="119.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">19</text><rect x="380.0" y="124.0" width="164.0" height="17.0" rx="0" fill="#173d24" opacity="1"/><text x="386.0" y="137.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">5</text><text x="410.0" y="137.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">Stock E</text><text x="510.0" y="137.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">20</text><rect x="380.0" y="142.0" width="164.0" height="17.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="386.0" y="155.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">6</text><text x="410.0" y="155.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">Stock F</text><text x="510.0" y="155.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">22</text><rect x="380.0" y="160.0" width="164.0" height="17.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="386.0" y="173.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">&#8230;</text><text x="410.0" y="173.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start"></text><text x="510.0" y="173.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start"></text><rect x="380.0" y="178.0" width="164.0" height="17.0" rx="0" fill="#4a1d1b" opacity="1"/><text x="386.0" y="191.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">18</text><text x="410.0" y="191.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">Stock R</text><text x="510.0" y="191.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">52</text><rect x="380.0" y="196.0" width="164.0" height="17.0" rx="0" fill="#4a1d1b" opacity="1"/><text x="386.0" y="209.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">19</text><text x="410.0" y="209.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">Stock S</text><text x="510.0" y="209.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">61</text><rect x="380.0" y="214.0" width="164.0" height="17.0" rx="0" fill="#4a1d1b" opacity="1"/><text x="386.0" y="227.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">20</text><text x="410.0" y="227.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">Stock T</text><text x="510.0" y="227.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">74</text><rect x="380.0" y="232.0" width="164.0" height="17.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="386.0" y="245.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">&#946;</text><text x="410.0" y="245.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">beta to SPY</text><text x="510.0" y="245.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">0.58</text><text x="546" y="320" fill="#6e6e73" font-size="11" text-anchor="end">Illustrative mock &middot; made-up values</text></svg></div>
+  </div>
+  <div class="panel" style="margin-top:22px">
+    <h4>Add it to TradingView</h4>
+    <ol class="howto">
+      <li>Copy the code below, or download the .pine file.</li>
+      <li>In TradingView, open the Pine Editor at the bottom of a chart, paste it in, and click <b>Add to chart</b>.</li>
+      <li>Use a daily chart of a US stock. Replace the list in the settings with your own universe.</li>
+      <li>To get alerted, create an alert on the chart and pick <b>Moved into the calmest</b> or <b>Left the calmest</b>.</li>
+    </ol>
+  </div>
+  <div class="code-wrap">
+    <div class="code-top">
+      <span>low-volatility.pine &middot; Pine Script v6</span>
+      <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/low-volatility.pine" download>Download</a></div>
+    </div>
+    <pre class="pine" tabindex="0"><code>//@version=6
+// =====================================================================
+// Low-Volatility Rank — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/low-volatility.html
+//
+// Ang, Hodrick, Xing and Zhang (2006) and Frazzini and Pedersen (2014):
+// calmer, lower-beta stocks have earned about as much as wild ones, and
+// far more for the risk taken. The most volatile stocks have done worst.
+//
+//   1. Volatility  Each stock's annualized volatility of daily returns
+//                  over the lookback (252 days by default).
+//   2. Rank        The chart's stock against a list you give it (up to
+//                  19 others), calmest first.
+//   3. Beta        The chart's stock's beta to the benchmark (SPY), over
+//                  the same window.
+//
+// The background turns green while the stock is among the calmest N of
+// the list. Use a daily chart. Marks and alerts only; no orders.
+// =====================================================================
+indicator("Low-Volatility Rank", shorttitle = "Low Vol", overlay = false)
+
+grpS = "Settings"
+len     = input.int(252, "Lookback (trading days)", minval = 20, maxval = 756, group = grpS)
+topN    = input.int(5, "Count as calmest", minval = 1, maxval = 20, group = grpS)
+bench   = input.symbol("AMEX:SPY", "Benchmark for beta", group = grpS)
+showTbl = input.bool(true, "Show the table", group = grpS)
+grpL = "The list to rank"
+s1  = input.symbol("NYSE:KO", "1", group = grpL)
+s2  = input.symbol("NYSE:PG", "2", group = grpL)
+s3  = input.symbol("NYSE:JNJ", "3", group = grpL)
+s4  = input.symbol("NASDAQ:PEP", "4", group = grpL)
+s5  = input.symbol("NYSE:WMT", "5", group = grpL)
+s6  = input.symbol("NYSE:MCD", "6", group = grpL)
+s7  = input.symbol("NYSE:DUK", "7", group = grpL)
+s8  = input.symbol("NYSE:SO", "8", group = grpL)
+s9  = input.symbol("NYSE:VZ", "9", group = grpL)
+s10 = input.symbol("NASDAQ:COST", "10", group = grpL)
+s11 = input.symbol("NASDAQ:AAPL", "11", group = grpL)
+s12 = input.symbol("NASDAQ:MSFT", "12", group = grpL)
+s13 = input.symbol("NASDAQ:NVDA", "13", group = grpL)
+s14 = input.symbol("NASDAQ:TSLA", "14", group = grpL)
+s15 = input.symbol("NASDAQ:AMD", "15", group = grpL)
+s16 = input.symbol("NYSE:CCL", "16", group = grpL)
+s17 = input.symbol("NASDAQ:MRNA", "17", group = grpL)
+s18 = input.symbol("NYSE:XOM", "18", group = grpL)
+s19 = input.symbol("NYSE:JPM", "19", group = grpL)
+
+volOf(string sym) =&gt;
+    request.security(sym, "D", ta.stdev(math.log(close / close[1]), len) * math.sqrt(252) * 100, ignore_invalid_symbol = true)
+
+syms = array.from(syminfo.tickerid, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19)
+n = array.size(syms)
+vols = array.new&lt;float&gt;(n, na)
+for i = 0 to n - 1
+    array.set(vols, i, volOf(array.get(syms, i)))
+
+rankOf(int i) =&gt;
+    v = array.get(vols, i)
+    rk = 1
+    for j = 0 to n - 1
+        w = array.get(vols, j)
+        if j != i and not na(w) and (na(v) or w &lt; v)
+            rk += 1
+    rk
+
+myVol  = array.get(vols, 0)
+myRank = rankOf(0)
+calm   = not na(myVol) and myRank &lt;= topN
+
+// beta of the chart's stock to the benchmark (daily returns)
+r  = math.log(close / close[1])
+bc = request.security(bench, timeframe.period, close, ignore_invalid_symbol = true)
+rb = math.log(bc / bc[1])
+beta = ta.correlation(r, rb, len) * ta.stdev(r, len) / ta.stdev(rb, len)
+
+// median volatility of the list, for the reference line
+med = array.median(vols)
+
+plot(myVol, "Volatility % (annualized)", color = #f4b942, linewidth = 2)
+plot(med, "List median", color = color.new(#8e8e93, 20), linewidth = 1)
+bgcolor(calm ? color.new(#30d158, 90) : na, title = "Among the calmest")
+alertcondition(calm and not calm[1], "Moved into the calmest", "{{ticker}} is now among the calmest stocks on your list")
+alertcondition(not calm and calm[1], "Left the calmest", "{{ticker}} is no longer among the calmest stocks on your list")
+
+var table tb = table.new(position.top_right, 3, 22, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+if showTbl and barstate.islast
+    lc = color.new(#86868b, 0)
+    vc = color.new(#f5f5f7, 0)
+    table.cell(tb, 0, 0, "#", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 0, "Symbol", text_color = lc, text_size = size.small)
+    table.cell(tb, 2, 0, "Vol %", text_color = lc, text_size = size.small)
+    row = 1
+    for p = 1 to n
+        for i = 0 to n - 1
+            if rankOf(i) == p and row &lt;= n
+                v = array.get(vols, i)
+                bg = i == 0 ? color.new(#5b4a1f, 0) : p &lt;= topN ? color.new(#173d24, 0) : p &gt; n - topN ? color.new(#4a1d1b, 0) : color.new(#1d1d1f, 0)
+                table.cell(tb, 0, row, str.tostring(p), text_color = lc, bgcolor = bg, text_size = size.tiny)
+                table.cell(tb, 1, row, i == 0 ? syminfo.ticker + " (chart)" : array.get(syms, i), text_color = vc, bgcolor = bg, text_size = size.tiny)
+                table.cell(tb, 2, row, na(v) ? "n/a" : str.tostring(v, "#"), text_color = vc, bgcolor = bg, text_size = size.tiny)
+                row += 1
+    table.cell(tb, 0, row, "β", text_color = lc, text_size = size.tiny)
+    table.cell(tb, 1, row, "beta to " + bench, text_color = lc, text_size = size.tiny)
+    table.cell(tb, 2, row, na(beta) ? "n/a" : str.tostring(beta, "#.00"), text_color = vc, text_size = size.tiny)
+</code></pre>
+  </div>
+
+  <div class="section-head" id="related">
+    <h2>Go deeper</h2>
+    <p>Pages on this site that pick up where this one leaves off.</p>
+  </div>
+  <div class="four">
+    <a href="/famous-strategies/value-and-size.html" style="--tc:#30d158"><span class="k">famous strategy</span><h3>Value and Size</h3><p>The same paper series that found beta's line flat in 1963&ndash;1990.</p><small>Read &rsaquo;</small></a>
+    <a href="/famous-strategies/cross-sectional-momentum.html" style="--tc:#2997ff"><span class="k">famous strategy</span><h3>Cross-Sectional Momentum</h3><p>Another ranking strategy, with very different crash risk.</p><small>Read &rsaquo;</small></a>
+    <a href="/dynamic-risk-sizing.html" style="--tc:#f4b942"><span class="k">risk</span><h3>Dynamic Risk Sizing</h3><p>Volatility as a sizing tool, not just a stock filter.</p><small>Read &rsaquo;</small></a>
+    <a href="/famous-strategies/pairs-trading.html" style="--tc:#ff9f0a"><span class="k">famous strategy</span><h3>Pairs Trading</h3><p>Another market-neutral idea built on two legs.</p><small>Read &rsaquo;</small></a>
+  </div>
+
+  <div class="rule">
+    <div>
+      <h2>Try it on paper first.</h2>
+      <p>Take 30 large stocks, rank them on one-year volatility, and write down the calmest ten. Track them against the S&amp;P 500 for a year, re-ranking each quarter. Note how they did in the months the market fell, and the months it ripped.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Fix the list, the window and the rebalance dates first.</li>
+        <li>Check sector weights each quarter.</li>
+        <li>Write down what you'll do if it lags a hot market for a year.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-head" id="sources">
+    <h2>Sources</h2>
+    <p>The papers and books behind every figure on this page.</p>
+  </div>
+  <ol class="cites">
+    <li>Ang, A., Hodrick, R. J., Xing, Y., &amp; Zhang, X. (2006). The cross-section of volatility and expected returns. <i>Journal of Finance</i>, 61(1), 259&ndash;299.<small>Idiosyncratic volatility from the past month of daily residuals, the quintile spread of &minus;1.06% a month raw and &minus;1.31% Fama-French alpha, "abysmally low", and the aggregate volatility test.</small></li>
+    <li>Frazzini, A., &amp; Pedersen, L. H. (2014). Betting against beta. <i>Journal of Financial Economics</i>, 111(1), 1&ndash;25.<small>US stocks 1926&ndash;2012, beta deciles (excess return 0.91% vs 0.97%, CAPM alpha 0.52% vs &minus;0.10%, Sharpe 0.70 vs 0.28), BAB construction (about $1.40 long, $0.70 short), 0.70% a month, Sharpe 0.78, 0.55% four-factor alpha, and the TED spread result.</small></li>
+    <li>Baker, M., Bradley, B., &amp; Wurgler, J. (2011). Benchmarks as limits to arbitrage: Understanding the low-volatility anomaly. <i>Financial Analysts Journal</i>, 67(1), 40&ndash;54.</li>
+    <li>Black, F., Jensen, M. C., &amp; Scholes, M. (1972). The capital asset pricing model: Some empirical tests. In M. C. Jensen (Ed.), <i>Studies in the Theory of Capital Markets</i>. Praeger.</li>
+  </ol>
+
+  <p class="src">Built from the papers listed above. The figures quoted from them are labelled as such on the charts. Every stock, return series and portfolio path in the walkthroughs is made up for illustration. The indicator ranks a list you choose on past volatility, a simple version of what the papers test. Past results from these studies don't promise future returns. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

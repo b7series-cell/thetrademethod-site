@@ -1,0 +1,101 @@
+//@version=6
+// =====================================================================
+// Value and Size Box — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/value-and-size.html
+//
+// Fama and French (1992, 1993): two easy numbers, size (market value)
+// and book-to-market (book value of equity / market value), captured
+// most of the differences in average stock returns. Small stocks and
+// high book-to-market ("value") stocks earned more on average.
+//
+// A chart can't sort the whole market, so this sorts a list you give it
+// (the chart's stock plus up to 11 others) the way the three-factor model
+// does: small or big (split at the median size), and growth, neutral or
+// value (split at the 30th and 70th percentiles of book-to-market). It
+// shows which of the six boxes the chart's stock lands in.
+// Book value is the latest quarter; marks only, it places no orders.
+// =====================================================================
+indicator("Value and Size Box", shorttitle = "Value/Size", overlay = false)
+
+grpL = "The list to sort"
+s1  = input.symbol("NYSE:XOM", "1", group = grpL)
+s2  = input.symbol("NASDAQ:AAPL", "2", group = grpL)
+s3  = input.symbol("NYSE:F", "3", group = grpL)
+s4  = input.symbol("NASDAQ:NVDA", "4", group = grpL)
+s5  = input.symbol("NYSE:PFE", "5", group = grpL)
+s6  = input.symbol("NASDAQ:COST", "6", group = grpL)
+s7  = input.symbol("NYSE:VZ", "7", group = grpL)
+s8  = input.symbol("NYSE:NKE", "8", group = grpL)
+s9  = input.symbol("NYSE:MOS", "9", group = grpL)
+s10 = input.symbol("NASDAQ:ETSY", "10", group = grpL)
+s11 = input.symbol("NYSE:CMC", "11", group = grpL)
+showTbl = input.bool(true, "Show the table")
+
+bm(string sym) =>
+    bvps = request.financial(sym, "BOOK_VALUE_PER_SHARE", "FQ", ignore_invalid_symbol = true)
+    sh   = request.financial(sym, "TOTAL_SHARES_OUTSTANDING", "FQ", ignore_invalid_symbol = true)
+    px   = request.security(sym, "D", close, ignore_invalid_symbol = true)
+    b = not na(bvps) and px > 0 ? bvps / px : na
+    m = not na(sh) and not na(px) ? sh * px : na
+    [b, m]
+
+syms = array.from(syminfo.tickerid, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11)
+n = array.size(syms)
+bms  = array.new<float>(n, na)
+caps = array.new<float>(n, na)
+for i = 0 to n - 1
+    [b, m] = bm(array.get(syms, i))
+    array.set(bms, i, b)
+    array.set(caps, i, m)
+
+// breakpoints across the list (ignoring missing data)
+pctl(array<float> a, float p) =>
+    c = array.new<float>()
+    for v in a
+        if not na(v)
+            array.push(c, v)
+    array.size(c) > 0 ? array.percentile_linear_interpolation(c, p) : na
+
+capMed = pctl(caps, 50)
+bm30 = pctl(bms, 30)
+bm70 = pctl(bms, 70)
+
+sizeOf(float m) => na(m) or na(capMed) ? "n/a" : m <= capMed ? "Small" : "Big"
+styleOf(float b) => na(b) or na(bm30) ? "n/a" : b >= bm70 ? "Value" : b <= bm30 ? "Growth" : "Neutral"
+
+myBM  = array.get(bms, 0)
+myCap = array.get(caps, 0)
+mySize  = sizeOf(myCap)
+myStyle = styleOf(myBM)
+isSV = mySize == "Small" and myStyle == "Value"
+
+plot(myBM, "Book-to-market", color = #f4b942, linewidth = 2, style = plot.style_stepline)
+plot(bm70, "Value line (70th pct of list)", color = color.new(#30d158, 30), linewidth = 1)
+plot(bm30, "Growth line (30th pct of list)", color = color.new(#ff453a, 30), linewidth = 1)
+bgcolor(isSV ? color.new(#30d158, 90) : na, title = "Small value")
+alertcondition(isSV and not isSV[1], "Moved into small value", "{{ticker}} is now in the small-value box of your list")
+
+var table tb = table.new(position.top_right, 4, 4, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+if showTbl and barstate.islast
+    lc = color.new(#86868b, 0)
+    vc = color.new(#f5f5f7, 0)
+    hl = color.new(#5b4a1f, 0)
+    table.cell(tb, 0, 0, syminfo.ticker, text_color = vc, text_size = size.small)
+    table.cell(tb, 1, 0, "Growth", text_color = lc, text_size = size.small)
+    table.cell(tb, 2, 0, "Neutral", text_color = lc, text_size = size.small)
+    table.cell(tb, 3, 0, "Value", text_color = lc, text_size = size.small)
+    rows = array.from("Small", "Big")
+    cols = array.from("Growth", "Neutral", "Value")
+    for r = 0 to 1
+        table.cell(tb, 0, r + 1, array.get(rows, r), text_color = lc, text_size = size.small)
+        for c = 0 to 2
+            cnt = 0
+            for i = 0 to n - 1
+                if sizeOf(array.get(caps, i)) == array.get(rows, r) and styleOf(array.get(bms, i)) == array.get(cols, c)
+                    cnt += 1
+            me = mySize == array.get(rows, r) and myStyle == array.get(cols, c)
+            table.cell(tb, c + 1, r + 1, (me ? "● " : "") + str.tostring(cnt), text_color = vc, bgcolor = me ? hl : color.new(#1d1d1f, 0), text_size = size.small)
+    table.cell(tb, 0, 3, "B/M", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 3, na(myBM) ? "n/a" : str.tostring(myBM, "#.00"), text_color = vc, text_size = size.small)
+    table.cell(tb, 2, 3, "Size", text_color = lc, text_size = size.small)
+    table.cell(tb, 3, 3, na(myCap) ? "n/a" : str.tostring(myCap / 1e9, "#.0") + "B", text_color = vc, text_size = size.small)
