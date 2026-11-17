@@ -1,0 +1,79 @@
+//@version=6
+// =====================================================================
+// RSI(2) Pullback — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/rsi-2.html
+//
+// Larry Connors & Cesar Alvarez, Short Term Trading Strategies That Work
+// (2008). On a daily chart of an index ETF such as SPY or QQQ:
+//
+//   Trend:  only buy above the 200-day simple moving average
+//   Entry:  the 2-period RSI closes at or below 5 (Connors tested 0-10)
+//   Exit:   the close moves above the 5-day simple moving average
+//   Stops:  Connors used none; a time limit is offered as a setting
+//
+// Shorts (below the 200-day, RSI(2) at or above 95) are optional.
+// Marks and alerts only; it places no orders.
+// =====================================================================
+indicator("RSI(2) Pullback", shorttitle = "RSI(2)", overlay = true, max_labels_count = 200)
+
+buyLvl   = input.float(5, "Buy when RSI(2) is at or below", minval = 0, maxval = 50)
+shortLvl = input.float(95, "Short when RSI(2) is at or above", minval = 50, maxval = 100)
+doShort  = input.bool(false, "Also mark shorts (below the 200-day)")
+maxDays  = input.int(0, "Time stop: exit after this many days (0 = off)", minval = 0)
+
+r2    = ta.rsi(close, 2)
+ma200 = ta.sma(close, 200)
+ma5   = ta.sma(close, 5)
+upTrend = close > ma200
+
+var int pos = 0
+var float entry = na
+var int held = 0
+
+longSig  = pos == 0 and upTrend and r2 <= buyLvl
+shortSig = doShort and pos == 0 and not upTrend and r2 >= shortLvl
+exitLong  = pos == 1 and (close > ma5 or (maxDays > 0 and held >= maxDays))
+exitShort = pos == -1 and (close < ma5 or (maxDays > 0 and held >= maxDays))
+
+if exitLong or exitShort
+    pct = pos == 1 ? (close / entry - 1) * 100 : (entry / close - 1) * 100
+    label.new(bar_index, pos == 1 ? high : low, "exit " + str.tostring(pct, "+#.0;-#.0") + "%", style = pos == 1 ? label.style_label_down : label.style_label_up, color = pct >= 0 ? color.new(#30d158, 20) : color.new(#ff453a, 20), textcolor = color.white, size = size.tiny)
+    pos := 0
+    entry := na
+    held := 0
+if longSig
+    pos := 1
+    entry := close
+    held := 0
+    label.new(bar_index, low, "RSI(2) " + str.tostring(r2, "#.0") + "\nbuy", style = label.style_label_up, color = color.new(#2997ff, 10), textcolor = color.white, size = size.small)
+if shortSig
+    pos := -1
+    entry := close
+    held := 0
+    label.new(bar_index, high, "RSI(2) " + str.tostring(r2, "#.0") + "\nshort", style = label.style_label_down, color = color.new(#ff453a, 10), textcolor = color.white, size = size.small)
+if pos != 0 and not longSig and not shortSig
+    held += 1
+
+plot(ma200, "200-day SMA", color = color.new(#f4b942, 0), linewidth = 2)
+plot(ma5, "5-day SMA (exit)", color = color.new(#86868b, 0))
+bgcolor(pos == 1 ? color.new(#2997ff, 90) : pos == -1 ? color.new(#ff453a, 90) : na, title = "In a trade")
+
+alertcondition(longSig, "RSI(2) buy", "{{ticker}}: above the 200-day and RSI(2) at or below the buy level. Connors buys near the close.")
+alertcondition(exitLong, "RSI(2) exit long", "{{ticker}}: closed above the 5-day average. Exit.")
+alertcondition(shortSig, "RSI(2) short", "{{ticker}}: below the 200-day and RSI(2) at or above the short level.")
+alertcondition(exitShort, "RSI(2) exit short", "{{ticker}}: closed below the 5-day average. Cover.")
+
+var table tb = table.new(position.top_right, 2, 5, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+if barstate.islast
+    ink = color.new(#f5f5f7, 0)
+    dim = color.new(#86868b, 0)
+    table.cell(tb, 0, 0, "RSI(2)", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 0, str.tostring(r2, "#.0"), text_color = r2 <= buyLvl ? color.new(#2997ff, 0) : r2 >= shortLvl ? color.new(#ff453a, 0) : ink, text_size = size.small)
+    table.cell(tb, 0, 1, "Trend (200-day)", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 1, upTrend ? "above: buys only" : "below: no buys", text_color = upTrend ? color.new(#30d158, 0) : color.new(#ff453a, 0), text_size = size.small)
+    table.cell(tb, 0, 2, "Exit line (5-day)", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 2, str.tostring(ma5, format.mintick), text_color = ink, text_size = size.small)
+    table.cell(tb, 0, 3, "Position", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 3, pos == 1 ? "long from " + str.tostring(entry, format.mintick) : pos == -1 ? "short from " + str.tostring(entry, format.mintick) : "flat", text_color = ink, text_size = size.small)
+    table.cell(tb, 0, 4, "Days held", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 4, pos != 0 ? str.tostring(held) : "–", text_color = ink, text_size = size.small)
