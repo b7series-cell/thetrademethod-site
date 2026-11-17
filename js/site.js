@@ -170,9 +170,90 @@
         '<button type="button" class="gnav-search" aria-label="Search the site" aria-haspopup="dialog" aria-expanded="false" title="Search (press /)">' +
           '<svg width="15" height="15" viewBox="0 0 18 18" aria-hidden="true"><circle cx="7.5" cy="7.5" r="5.75" fill="none" stroke="currentColor" stroke-width="1.7"/><line x1="11.8" y1="11.8" x2="16.5" y2="16.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>' +
         '<span class="gnav-ctas"><a class="gnav-cta" href="' + REVIEW_URL + '" target="_blank" rel="noopener">Trade Review</a>' +
-        '<a class="gnav-cta gnav-cta-alt" href="' + VOLENDAR_URL + '" target="_blank" rel="noopener">Volendar</a>' +
-        '<a class="gnav-cta gnav-cta-alt" href="' + BACKTEST_URL + '" target="_blank" rel="noopener" aria-label="Backtest Board">Backtest<span class="cta-long"> Board</span></a></span>' +
+        '<a class="gnav-cta gnav-cta-alt gnav-cta-opt" href="' + VOLENDAR_URL + '" target="_blank" rel="noopener">Volendar</a>' +
+        '<a class="gnav-cta gnav-cta-alt gnav-cta-opt" href="' + BACKTEST_URL + '" target="_blank" rel="noopener" aria-label="Backtest Board">Backtest<span class="cta-long"> Board</span></a></span>' +
+        '<button type="button" class="gnav-burger" aria-label="Menu" aria-expanded="false" aria-controls="gmenu"><span></span><span></span></button>' +
       "</div></nav>";
+  }
+
+  /* ---------- phone menu (the hamburger, 760px and below) ----------
+     The panel lives outside .gnav: its backdrop-filter would otherwise
+     pin a fixed child to the 44px bar instead of the screen. */
+  function renderMenu() {
+    var btn = document.querySelector(".gnav-burger");
+    if (!btn) return;
+    var p = here();
+    function cur(test) { return test ? ' aria-current="page"' : ""; }
+    function ext(href, label) {
+      return '<a href="' + href + '" target="_blank" rel="noopener">' + label +
+        '<svg class="gmenu-ext" width="11" height="11" viewBox="0 0 12 12" aria-hidden="true"><path d="M4 2h6v6M10 2 2.5 9.5" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>';
+    }
+    var panel = document.createElement("div");
+    panel.className = "gmenu";
+    panel.id = "gmenu";
+    panel.hidden = true;
+    panel.innerHTML =
+      '<nav class="gmenu-in" aria-label="Menu">' +
+        '<button type="button" class="gmenu-search">' +
+          '<svg width="16" height="16" viewBox="0 0 18 18" aria-hidden="true"><circle cx="7.5" cy="7.5" r="5.75" fill="none" stroke="currentColor" stroke-width="1.7"/><line x1="11.8" y1="11.8" x2="16.5" y2="16.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>' +
+          'Search the site</button>' +
+        '<ul class="gmenu-main">' +
+          '<li><a href="/"' + cur(p === "/" || p === "/index.html") + '>Home</a></li>' +
+          '<li><a href="/setups/"' + cur(p.indexOf("/setups/") === 0) + '>Setups</a></li>' +
+          '<li><a href="/fundamentals/"' + cur(p.indexOf("/fundamentals/") === 0) + '>Fundamentals</a></li>' +
+          '<li><a href="/famous-strategies/"' + cur(p.indexOf("/famous-strategies/") === 0) + '>Famous Strategies</a></li>' +
+          '<li><a href="/blog/"' + cur(p.indexOf("/blog/") === 0) + '>Blog</a></li>' +
+        "</ul>" +
+        '<ul class="gmenu-sub">' +
+          '<li><a href="/#sessions">Sessions</a></li>' +
+          '<li><a href="/#day">Trading day</a></li>' +
+          '<li><a href="/#inside">Inside a page</a></li>' +
+          '<li><a href="/contact.html"' + cur(p.indexOf("/contact") === 0) + '>Contact</a></li>' +
+        "</ul>" +
+        '<p class="gmenu-h">Tools</p>' +
+        '<ul class="gmenu-tools">' +
+          "<li>" + ext(REVIEW_URL, "Trade Review") + "</li>" +
+          "<li>" + ext(VOLENDAR_URL, "Volendar") + "</li>" +
+          "<li>" + ext(BACKTEST_URL, "Backtest Board") + "</li>" +
+        "</ul>" +
+      "</nav>";
+    document.body.appendChild(panel);
+
+    var root = document.documentElement;
+    function isOpen() { return !panel.hidden; }
+    function open() {
+      panel.hidden = false;
+      root.classList.add("gmenu-open");
+      btn.setAttribute("aria-expanded", "true");
+      btn.setAttribute("aria-label", "Close menu");
+    }
+    function close(keepFocus) {
+      if (!isOpen()) return;
+      panel.hidden = true;
+      root.classList.remove("gmenu-open");
+      btn.setAttribute("aria-expanded", "false");
+      btn.setAttribute("aria-label", "Menu");
+      if (keepFocus) btn.focus();
+    }
+    btn.addEventListener("click", function () { if (isOpen()) close(); else open(); });
+    panel.addEventListener("click", function (e) {
+      if (e.target === panel) { close(); return; }              // tap on the dimmed area
+      var a = e.target.closest ? e.target.closest("a") : null;
+      if (a) close();                                              // also covers /#anchors on the homepage
+    });
+    panel.querySelector(".gmenu-search").addEventListener("click", function () {
+      close();
+      var s = document.querySelector(".gnav-search");
+      if (s) s.click();
+    });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && isOpen()) close(true); });
+    /* rotating a tablet or widening the window past the breakpoint */
+    var mq = window.matchMedia ? window.matchMedia("(min-width: 761px)") : null;
+    if (mq) {
+      var onMq = function (m) { if (m.matches) close(); };
+      if (mq.addEventListener) mq.addEventListener("change", onMq); else if (mq.addListener) mq.addListener(onMq);
+    }
+    window.addEventListener("pageshow", function (e) { if (e.persisted) close(); });
   }
 
   /* ---------- local nav ---------- */
@@ -836,6 +917,7 @@
 
   function boot() {
     renderGnav();
+    renderMenu();
     renderLnav();
     renderFooter();
     renderPromo();
