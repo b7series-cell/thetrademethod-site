@@ -1,0 +1,769 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Intraday Momentum: the First Half-Hour Predicts the Last | The Trade Method</title>
+<meta name="description" content="Gao, Han, Li and Zhou (2018): on SPY, the return from the previous close to 10:00 am predicts the direction of the last half-hour of the day. Long or short from 3:30 to 4:00 pm: 6.67% a year vs -1.11% for always long, 1993-2013, before costs, with an honest look at recent results. Animated walkthroughs plus a free TradingView indicator.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/famous-strategies/intraday-momentum.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Intraday Momentum: the First Half-Hour Predicts the Last">
+<meta property="og:description" content="Gao, Han, Li and Zhou (2018): on SPY, the return from the previous close to 10:00 am predicts the direction of the last half-hour of the day. Long or short from 3:30 to 4:00 pm: 6.67% a year vs -1.11% for always long, 1993-2013, before costs, with an honest look at recent results. Animated walkthroughs plus a free TradingView indicator.">
+<meta property="og:url" content="https://thetrademethod.com/famous-strategies/intraday-momentum.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Intraday Momentum: the First Half-Hour Predicts the Last">
+<meta name="twitter:description" content="Gao, Han, Li and Zhou (2018): on SPY, the return from the previous close to 10:00 am predicts the direction of the last half-hour of the day. Long or short from 3:30 to 4:00 pm: 6.67% a year vs -1.11% for always long, 1993-2013, before costs, with an honest look at recent results. Animated walkthroughs plus a free TradingView indicator.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Intraday Momentum: the First Half-Hour Predicts the Last",
+ "name": "Intraday Momentum",
+ "description": "Gao, Han, Li and Zhou (2018): on SPY, the return from the previous close to 10:00 am predicts the direction of the last half-hour of the day. Long or short from 3:30 to 4:00 pm: 6.67% a year vs -1.11% for always long, 1993-2013, before costs, with an honest look at recent results. Animated walkthroughs plus a free TradingView indicator.",
+ "url": "https://thetrademethod.com/famous-strategies/intraday-momentum.html",
+ "mainEntityOfPage": "https://thetrademethod.com/famous-strategies/intraday-momentum.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-17",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.seven { grid-template-columns:repeat(2,1fr); }
+    .ribbon.seven > div:last-child { grid-column:span 2; }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=24">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the pyramid: five cards, or a stepper once js/pyr-anim.js runs */
+  .fs-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .fs-steps .stage, .sheet .fs-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .fs-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .fs-steps.is-stepper .stage, .sheet .fs-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .fs-steps.is-stepper .stage .num { display:none; }
+  .sheet .fs-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .fs-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .fs-steps + .four { margin-top:28px; }
+  .fs-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .fs-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .fs-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .fs-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .fs-steps { margin-top:24px; }
+  }
+
+  /* fact sheet, timeline, sources */
+  .facts { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--graphite); border-radius:22px; overflow:hidden; margin-top:26px; }
+  .facts div { background:var(--charcoal); padding:16px 18px; }
+  .facts .k { font-family:var(--mono-font); font-size:12px; color:var(--ash); }
+  .facts b { display:block; margin-top:4px; font-size:16px; font-weight:600; line-height:1.3; }
+  .tl { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+  .tl li { background:var(--charcoal); border-radius:20px; padding:16px 16px 18px; border-top:3px solid var(--tc, var(--up)); }
+  .tl .y { font-family:var(--mono-font); font-size:13px; color:var(--tc, var(--up)); font-weight:600; }
+  .tl b { display:block; margin:6px 0 6px; font-size:16px; line-height:1.25; }
+  .tl p { margin:0; color:var(--mute); font-size:14px; }
+  .cites { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .cites li { margin-bottom:10px; }
+  .cites i { color:var(--platinum); }
+  .cites small { display:block; color:var(--ash); font-size:13.5px; margin-top:2px; }
+  @media (max-width:1100px) { .facts { grid-template-columns:repeat(2,1fr); } .tl { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:680px) { .facts, .tl { grid-template-columns:1fr; } .sheet .section-head + .fs-steps { margin-top:24px; } }
+
+  /* the indicator */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-wrap { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:22px; align-items:start; }
+  .ind-mock { background:var(--charcoal); border-radius:22px; padding:14px; }
+  .howto { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#f4b942; font-weight:600; }
+  .code-wrap { background:var(--charcoal); border-radius:22px; margin-top:22px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid #2c2c2e; flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--ash); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--silk); background:#2c2c2e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#3a3a3c; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d1d6; tab-size:4; }
+  @media (max-width:1100px) { .ind-wrap { grid-template-columns:1fr; } }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-mock { padding:8px; } }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=45" defer></script>
+<script src="/js/fs-kit.js?v=1" defer></script>
+<script src="/js/fs-intraday-momentum.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=33" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="Intraday Momentum"></div>
+<div class="sheet">
+
+  <a class="back" href="/famous-strategies/">&lsaquo; Famous strategies</a>
+
+  <header class="top" data-candle-bg="intraday-momentum">
+    <div>
+      <p class="kicker">Famous strategies &middot; ETFs &middot; Gao, Han, Li &amp; Zhou, <i>Journal of Financial Economics</i>, 2018</p>
+      <h1>Intraday <span>Momentum</span></h1>
+    </div>
+    <div>
+      <p class="thesis">On the S&amp;P 500, the two ends of the trading day are linked. The return from yesterday's close to 10:00 am tends to point the way the last half-hour goes. Trade 30 minutes a day, in that direction.
+      <em>The open points, the close follows.</em></p>
+      <div class="counts">
+        <div><b>30</b><small>minutes in the market each day</small></div>
+        <div><b>54.37%</b><small>of days called right, 1993&ndash;2013</small></div>
+        <div><b>1.6%</b><small>R-squared: a small, daily edge</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon seven" aria-label="Intraday Momentum">
+    <div><div class="t">step 1</div><div class="n">Measure close to 10:00</div></div>
+    <div><div class="t">step 2</div><div class="n">Wait</div></div>
+    <div><div class="t">step 3</div><div class="n">3:30: long or short</div></div>
+    <div><div class="t">step 4</div><div class="n">Out at the close</div></div>
+    <div><div class="t">step 5</div><div class="n">Keep costs tiny</div></div>
+  </nav>
+
+  <div class="facts" aria-label="At a glance">
+    <div><span class="k">paper</span><b>Market Intraday Momentum, <i>Journal of Financial Economics</i>, 2018</b></div>
+    <div><span class="k">authors</span><b>Lei Gao, Yufeng Han, Sophia Zhengzi Li and Guofu Zhou</b></div>
+    <div><span class="k">data</span><b>SPY, February 1993 to December 2013, half-hour returns</b></div>
+    <div><span class="k">signal</span><b>Previous 4:00 pm close to 10:00 am today</b></div>
+    <div><span class="k">trade</span><b>3:30 to 4:00 pm, in the signal's direction</b></div>
+    <div><span class="k">timing rule</span><b>6.67% a year, Sharpe 1.08, right on 54.37% of days</b></div>
+    <div><span class="k">always long</span><b>&minus;1.11% a year, Sharpe &minus;0.18, 50.42%</b></div>
+    <div><span class="k">stronger on</span><b>Volatile, high-volume, recession and macro-news days</b></div>
+  </div>
+
+  <div class="section-head" id="halves">
+    <h2>Two ends of the day</h2>
+    <p>The authors cut every SPY trading day into thirteen half-hours and asked which ones predict which. Only one link stood out: the first half-hour and the last.</p>
+  </div>
+  <section class="anim" data-fs-anim="halves" aria-label="A made-up S&amp;P 500 fund day as thirteen 30-minute bars; the first half-hour, measured from yesterday&#x27;s close, is up and the last half-hour, 3:30 to 4:00 pm, is also up; the eleven half-hours in between show no pattern.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The first and the last</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="The first and the last"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>The rule</h3>
+          <ul>
+            <li>Measure the first half-hour return: from yesterday's 4:00 pm close to 10:00 am today, overnight gap included.</li>
+            <li>At 3:30 pm, buy SPY if that return was positive, or sell it short if it was negative.</li>
+            <li>Close the position at the 4:00 pm close. One 30-minute trade a day, never held overnight.</li>
+          </ul>
+          <p class="why">Big traders who rebalance once a day, and traders who get information late, both tend to act near the close in the direction the day's news pointed in the morning.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Why the close</h4>
+        <p class="lead">The paper's two explanations.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">rebalancing</span><b>Infrequent trades</b><p>Some funds and hedgers rebalance once a day, near the close, in the direction the market has moved.</p></div>
+          <div class="care"><span class="k">late information</span><b>Late-informed traders</b><p>Traders who react slowly to the morning's news push the price the same way in the last half-hour.</p></div>
+        </div>
+      </div>
+      <div class="panel calc">
+        <h4>The SPY timing rule</h4>
+        <p class="lead">1993&ndash;2013, before costs.</p>
+        <div class="row"><span>Return a year</span><b>6.67%</b></div>
+        <div class="row"><span>Volatility</span><b>6.19%</b></div>
+        <div class="row"><span>Sharpe ratio</span><b>1.08</b></div>
+        <div class="row tot"><span>Days called right</span><b>54.37%</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="trade">
+    <h2>Trading it</h2>
+    <p>There is no chart reading. The first half-hour sets the side, the clock sets the entry and the exit.</p>
+  </div>
+  <section class="anim" data-fs-anim="trade" aria-label="Two made-up days: on the first the first half-hour is up and the fund is bought at 3:30 pm and sold at the close; on the second it gaps down, the first half-hour is negative and the fund is shorted at 3:30 and covered at the close.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Two days, two trades</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Two days, two trades"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="section-head" id="noise">
+    <h2>A small edge</h2>
+    <p>The pattern is real in the data, and it's weak on any single day. That matters for how it's traded.</p>
+  </div>
+  <section class="anim" data-fs-anim="noise" aria-label="A scatter of made-up days, first half-hour return against last half-hour return, with a slight upward tilt and wide scatter; the paper&#x27;s R-squared of 1.6%, 2.6% with the 3:00 to 3:30 pm half-hour added.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Mostly noise, slightly tilted</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Mostly noise, slightly tilted"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>When it was stronger</h3>
+          <ul>
+            <li>On more volatile days and higher-volume days.</li>
+            <li>In recessions, and on days with major economic news releases.</li>
+            <li>It showed up in ten other heavily traded US and international ETFs, not just SPY.</li>
+          </ul>
+          <p class="why">Those are the days when more information arrives in the morning, and more of it is still being acted on at the close.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <blockquote class="qb"><b>Repeated daily, small edges add up.</b> An R-squared of 1.6% means the first half-hour explains very little of any one afternoon. The paper's result comes from taking the trade on every one of about 5,000 days.</blockquote>
+    </div>
+  </div>
+
+  <div class="section-head" id="results">
+    <h2>The published numbers, and since</h2>
+    <p>The paper's results are before trading costs. We also ran this page's indicator on recent SPY data, and it's worth seeing both.</p>
+  </div>
+  <section class="anim" data-fs-anim="results" aria-label="From the paper, SPY last half-hour 1993 to 2013: the timing rule returned 6.67% a year against minus 1.11% for always long, with volatility of 6.19% against 6.21%, a Sharpe ratio of 1.08 against minus 0.18, and the right direction on 54.37% of days against 50.42%.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Timing rule vs always long</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Timing rule vs always long"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="four">
+    <div style="--tc:#f4b942"><span class="k">1993&ndash;2013</span><h3>6.67% a year</h3><p>From 30 minutes a day, with a Sharpe ratio of 1.08, before costs.</p></div>
+    <div style="--tc:#86868b"><span class="k">always long</span><h3>&minus;1.11% a year</h3><p>Simply holding SPY in every last half-hour lost money over the same years.</p></div>
+    <div style="--tc:#2997ff"><span class="k">the fit</span><h3>R&sup2; 1.6%</h3><p>2.6% with the 3:00&ndash;3:30 pm half-hour added. Weak per day.</p></div>
+    <div style="--tc:#ff453a"><span class="k">our recent run</span><h3>47.8% right</h3><p>SPY 30-minute bars, the last 464 trading days: about zero on average, before costs.</p></div>
+  </div>
+
+  <ol class="tl">
+    <li style="--tc:#2997ff"><span class="y">1993</span><b>SPY</b><p>The first S&amp;P 500 ETF lists, and its intraday data starts the paper's sample.</p></li>
+    <li style="--tc:#2997ff"><span class="y">2014</span><b>Working paper</b><p>Gao, Han, Li and Zhou circulate the first half-hour result.</p></li>
+    <li style="--tc:#30d158"><span class="y">2018</span><b><i>Journal of Financial Economics</i></b><p>Market Intraday Momentum is published.</p></li>
+    <li style="--tc:#f4b942"><span class="y">Since</span><b>More tests</b><p>Later studies look at other markets and at whether the effect has shrunk.</p></li>
+  </ol>
+
+  <div class="section-head" id="steps">
+    <h2>The strategy, step by step</h2>
+    <p>The whole thing in five steps. Click through them.</p>
+  </div>
+  <div class="fs-steps" data-fs-steps data-fs-label="Intraday Momentum, step by step">
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Measure</h3>
+          <ul>
+            <li>At 10:00 am, compare SPY with yesterday's 4:00 pm close.</li>
+            <li>Up or down: that's the side for today.</li>
+          </ul>
+          <p class="why">The overnight gap counts.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Wait</h3>
+          <ul>
+            <li>Do nothing for the rest of the day.</li>
+            <li>The middle half-hours showed no pattern.</li>
+          </ul>
+          <p class="why">The trade is at the other end.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Enter</h3>
+          <ul>
+            <li>At 3:30 pm: long if the first half-hour was up, short if down.</li>
+            <li>Optional: require 3:00&ndash;3:30 pm to agree.</li>
+          </ul>
+          <p class="why">Thirty minutes of exposure.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Exit</h3>
+          <ul>
+            <li>Close at 4:00 pm.</li>
+            <li>Never hold overnight.</li>
+          </ul>
+          <p class="why">The edge is only the last half-hour.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Costs</h3>
+          <ul>
+            <li>Use the most liquid fund and the cheapest execution you have.</li>
+            <li>Track your fills against the 3:30 and 4:00 prices.</li>
+          </ul>
+          <p class="why">A 30-minute edge is easily eaten by costs.</p>
+        </div>
+      </section>
+  </div>
+
+  <div class="section-head" id="indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for this strategy (Pine Script v6). It measures the first half-hour from yesterday's close, marks the 3:30 pm long or short, labels each day's result at the close, and keeps a running hit rate. It marks and alerts. It doesn't place trades.</p>
+  </div>
+  <div class="ind-wrap">
+    <ul class="ind-list">
+      <li class="ind-card">
+        <div class="ind-card-top">
+          <h3 class="ind-name">Intraday Momentum</h3>
+          <span class="ind-alerts">alerts</span>
+        </div>
+        <p class="ind-blurb">On the chart: the first and last half-hours shaded, a long or short label at 3:30 pm with the first half-hour's return, and a label at the close with the last half-hour's result in the trade's direction.</p>
+        <p class="ind-blurb">A table with today's first half-hour, the 3:30 call, and for every day on the chart: the number of days, the share called right and the average result. An option requires the 3:00&ndash;3:30 pm half-hour to agree, which the paper found adds to the prediction.</p>
+        <p class="ind-blurb"><span style="color:var(--ash)">On the last 464 days of SPY 30-minute bars, our run called 47.8% right, with an average near zero, before costs. The paper's 54.37% covers 1993&ndash;2013. Check it on your own data before trading it.</span></p>
+        <div class="ind-links">
+          <a class="ind-link ind-link--quiet" href="/pine/intraday-momentum.pine" download>Download source (.pine)</a>
+        </div>
+      </li>
+    </ul>
+    <div class="ind-mock"><svg viewBox="0 0 560 330" role="img" aria-label="An illustrative mock of the indicator: three made-up days of 30-minute candles with the first half-hour shaded blue and the last half-hour shaded gold, long or short labels at 3:30 pm, and a table with the first half-hour return, the 3:30 call, and the hit rate and average result over the days on the chart."><rect width="560" height="330" rx="14" fill="#141416"/><rect x="13.0" y="44.0" width="7.0" height="252.0" rx="0" fill="#2997ff" opacity="0.12"/><rect x="119.1" y="44.0" width="7.0" height="252.0" rx="0" fill="#f4b942" opacity="0.16"/><rect x="127.9" y="44.0" width="7.0" height="252.0" rx="0" fill="#2997ff" opacity="0.12"/><rect x="234.1" y="44.0" width="7.0" height="252.0" rx="0" fill="#f4b942" opacity="0.16"/><rect x="242.9" y="44.0" width="7.0" height="252.0" rx="0" fill="#2997ff" opacity="0.12"/><rect x="349.0" y="44.0" width="7.0" height="252.0" rx="0" fill="#f4b942" opacity="0.16"/><line x1="16.0" y1="84.4" x2="16.0" y2="102.5" stroke="#30d158" stroke-width="1"/><rect x="14.2" y="93.5" width="3.6" height="1.2" rx="0" fill="#30d158" opacity="1"/><line x1="24.8" y1="92.6" x2="24.8" y2="103.2" stroke="#ff453a" stroke-width="1"/><rect x="23.0" y="93.5" width="3.6" height="8.5" rx="0" fill="#ff453a" opacity="1"/><line x1="33.7" y1="78.3" x2="33.7" y2="113.6" stroke="#30d158" stroke-width="1"/><rect x="31.9" y="91.5" width="3.6" height="10.5" rx="0" fill="#30d158" opacity="1"/><line x1="42.5" y1="80.5" x2="42.5" y2="108.0" stroke="#ff453a" stroke-width="1"/><rect x="40.7" y="91.5" width="3.6" height="11.5" rx="0" fill="#ff453a" opacity="1"/><line x1="51.4" y1="88.9" x2="51.4" y2="111.0" stroke="#30d158" stroke-width="1"/><rect x="49.6" y="96.9" width="3.6" height="6.1" rx="0" fill="#30d158" opacity="1"/><line x1="60.2" y1="91.2" x2="60.2" y2="98.8" stroke="#ff453a" stroke-width="1"/><rect x="58.4" y="96.9" width="3.6" height="1.2" rx="0" fill="#ff453a" opacity="1"/><line x1="69.1" y1="90.0" x2="69.1" y2="115.9" stroke="#ff453a" stroke-width="1"/><rect x="67.3" y="97.2" width="3.6" height="12.0" rx="0" fill="#ff453a" opacity="1"/><line x1="77.9" y1="95.2" x2="77.9" y2="121.7" stroke="#30d158" stroke-width="1"/><rect x="76.1" y="104.2" width="3.6" height="5.0" rx="0" fill="#30d158" opacity="1"/><line x1="86.7" y1="87.9" x2="86.7" y2="126.4" stroke="#ff453a" stroke-width="1"/><rect x="84.9" y="104.2" width="3.6" height="12.8" rx="0" fill="#ff453a" opacity="1"/><line x1="95.6" y1="110.0" x2="95.6" y2="120.0" stroke="#30d158" stroke-width="1"/><rect x="93.8" y="114.8" width="3.6" height="2.2" rx="0" fill="#30d158" opacity="1"/><line x1="104.4" y1="114.3" x2="104.4" y2="126.9" stroke="#ff453a" stroke-width="1"/><rect x="102.6" y="114.8" width="3.6" height="11.6" rx="0" fill="#ff453a" opacity="1"/><line x1="113.3" y1="119.0" x2="113.3" y2="142.3" stroke="#ff453a" stroke-width="1"/><rect x="111.5" y="126.4" width="3.6" height="10.8" rx="0" fill="#ff453a" opacity="1"/><line x1="122.1" y1="131.3" x2="122.1" y2="146.7" stroke="#30d158" stroke-width="1"/><rect x="120.3" y="135.4" width="3.6" height="1.9" rx="0" fill="#30d158" opacity="1"/><line x1="130.9" y1="112.1" x2="130.9" y2="218.0" stroke="#ff453a" stroke-width="1"/><rect x="129.1" y="135.4" width="3.6" height="57.9" rx="0" fill="#ff453a" opacity="1"/><line x1="139.8" y1="188.4" x2="139.8" y2="211.8" stroke="#ff453a" stroke-width="1"/><rect x="138.0" y="193.2" width="3.6" height="18.1" rx="0" fill="#ff453a" opacity="1"/><line x1="148.6" y1="205.5" x2="148.6" y2="228.1" stroke="#ff453a" stroke-width="1"/><rect x="146.8" y="211.3" width="3.6" height="14.3" rx="0" fill="#ff453a" opacity="1"/><line x1="157.5" y1="219.4" x2="157.5" y2="235.8" stroke="#30d158" stroke-width="1"/><rect x="155.7" y="224.6" width="3.6" height="1.2" rx="0" fill="#30d158" opacity="1"/><line x1="166.3" y1="199.6" x2="166.3" y2="227.8" stroke="#30d158" stroke-width="1"/><rect x="164.5" y="211.4" width="3.6" height="13.2" rx="0" fill="#30d158" opacity="1"/><line x1="175.2" y1="202.4" x2="175.2" y2="220.2" stroke="#ff453a" stroke-width="1"/><rect x="173.4" y="211.4" width="3.6" height="1.2" rx="0" fill="#ff453a" opacity="1"/><line x1="184.0" y1="201.9" x2="184.0" y2="232.8" stroke="#ff453a" stroke-width="1"/><rect x="182.2" y="212.3" width="3.6" height="7.7" rx="0" fill="#ff453a" opacity="1"/><line x1="192.8" y1="191.9" x2="192.8" y2="234.3" stroke="#30d158" stroke-width="1"/><rect x="191.0" y="205.7" width="3.6" height="14.3" rx="0" fill="#30d158" opacity="1"/><line x1="201.7" y1="197.9" x2="201.7" y2="248.4" stroke="#ff453a" stroke-width="1"/><rect x="199.9" y="205.7" width="3.6" height="21.0" rx="0" fill="#ff453a" opacity="1"/><line x1="210.5" y1="202.1" x2="210.5" y2="229.2" stroke="#30d158" stroke-width="1"/><rect x="208.7" y="216.9" width="3.6" height="9.8" rx="0" fill="#30d158" opacity="1"/><line x1="219.4" y1="204.4" x2="219.4" y2="240.5" stroke="#ff453a" stroke-width="1"/><rect x="217.6" y="216.9" width="3.6" height="11.8" rx="0" fill="#ff453a" opacity="1"/><line x1="228.2" y1="219.5" x2="228.2" y2="256.6" stroke="#ff453a" stroke-width="1"/><rect x="226.4" y="228.7" width="3.6" height="17.3" rx="0" fill="#ff453a" opacity="1"/><line x1="237.1" y1="236.0" x2="237.1" y2="283.3" stroke="#ff453a" stroke-width="1"/><rect x="235.3" y="246.0" width="3.6" height="18.3" rx="0" fill="#ff453a" opacity="1"/><line x1="245.9" y1="197.0" x2="245.9" y2="296.3" stroke="#30d158" stroke-width="1"/><rect x="244.1" y="216.2" width="3.6" height="48.1" rx="0" fill="#30d158" opacity="1"/><line x1="254.7" y1="192.5" x2="254.7" y2="233.5" stroke="#30d158" stroke-width="1"/><rect x="252.9" y="199.4" width="3.6" height="16.8" rx="0" fill="#30d158" opacity="1"/><line x1="263.6" y1="186.9" x2="263.6" y2="213.2" stroke="#ff453a" stroke-width="1"/><rect x="261.8" y="199.4" width="3.6" height="7.4" rx="0" fill="#ff453a" opacity="1"/><line x1="272.4" y1="190.9" x2="272.4" y2="219.9" stroke="#30d158" stroke-width="1"/><rect x="270.6" y="199.0" width="3.6" height="7.9" rx="0" fill="#30d158" opacity="1"/><line x1="281.3" y1="177.7" x2="281.3" y2="206.5" stroke="#30d158" stroke-width="1"/><rect x="279.5" y="188.9" width="3.6" height="10.0" rx="0" fill="#30d158" opacity="1"/><line x1="290.1" y1="186.8" x2="290.1" y2="192.1" stroke="#ff453a" stroke-width="1"/><rect x="288.3" y="188.9" width="3.6" height="1.2" rx="0" fill="#ff453a" opacity="1"/><line x1="298.9" y1="173.1" x2="298.9" y2="191.3" stroke="#30d158" stroke-width="1"/><rect x="297.1" y="182.5" width="3.6" height="6.6" rx="0" fill="#30d158" opacity="1"/><line x1="307.8" y1="167.4" x2="307.8" y2="198.8" stroke="#ff453a" stroke-width="1"/><rect x="306.0" y="182.5" width="3.6" height="11.9" rx="0" fill="#ff453a" opacity="1"/><line x1="316.6" y1="179.1" x2="316.6" y2="211.5" stroke="#ff453a" stroke-width="1"/><rect x="314.8" y="194.3" width="3.6" height="12.0" rx="0" fill="#ff453a" opacity="1"/><line x1="325.5" y1="193.5" x2="325.5" y2="222.2" stroke="#ff453a" stroke-width="1"/><rect x="323.7" y="206.3" width="3.6" height="6.4" rx="0" fill="#ff453a" opacity="1"/><line x1="334.3" y1="192.8" x2="334.3" y2="221.3" stroke="#30d158" stroke-width="1"/><rect x="332.5" y="201.1" width="3.6" height="11.6" rx="0" fill="#30d158" opacity="1"/><line x1="343.2" y1="192.2" x2="343.2" y2="207.4" stroke="#30d158" stroke-width="1"/><rect x="341.4" y="199.1" width="3.6" height="2.0" rx="0" fill="#30d158" opacity="1"/><line x1="352.0" y1="195.7" x2="352.0" y2="203.7" stroke="#ff453a" stroke-width="1"/><rect x="350.2" y="199.1" width="3.6" height="2.3" rx="0" fill="#ff453a" opacity="1"/><rect x="89.3" y="155.2" width="48.0" height="18.0" rx="4" fill="#30d158" opacity="0.95"/><text x="113.3" y="167.2" fill="#fff" font-size="8.5" font-weight="700" text-anchor="middle">long 3:30</text><rect x="204.2" y="212.0" width="48.0" height="18.0" rx="4" fill="#ff453a" opacity="0.95"/><text x="228.2" y="224.0" fill="#fff" font-size="8.5" font-weight="700" text-anchor="middle">short 3:30</text><rect x="319.2" y="217.1" width="48.0" height="18.0" rx="4" fill="#30d158" opacity="0.95"/><text x="343.2" y="229.1" fill="#fff" font-size="8.5" font-weight="700" text-anchor="middle">long 3:30</text><text x="16.0" y="24.0" fill="#86868b" font-size="12" font-weight="600" text-anchor="start">Intraday momentum &#183; 30-minute</text><rect x="368.0" y="40.0" width="218.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="53.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">First half-hour (r1)</text><text x="492.0" y="53.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">+0.42%</text><rect x="368.0" y="59.0" width="218.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="72.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">At 3:30 pm</text><text x="492.0" y="72.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">long into the close</text><rect x="368.0" y="78.0" width="218.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="91.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Days on this chart</text><text x="492.0" y="91.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">464</text><rect x="368.0" y="97.0" width="218.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="110.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Right direction</text><text x="492.0" y="110.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">47.8%</text><rect x="368.0" y="116.0" width="218.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="129.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Average last half-hour</text><text x="492.0" y="129.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">&#8722;0.004%</text><text x="546" y="320" fill="#6e6e73" font-size="11" text-anchor="end">Illustrative mock &middot; made-up values</text></svg></div>
+  </div>
+  <div class="panel" style="margin-top:22px">
+    <h4>Add it to TradingView</h4>
+    <ol class="howto">
+      <li>Copy the code below, or download the .pine file.</li>
+      <li>In TradingView, open the Pine Editor at the bottom of a chart, paste it in, and click <b>Add to chart</b>.</li>
+      <li>Use a 1-, 5-, 15- or 30-minute chart of SPY with regular trading hours only (extended hours off).</li>
+      <li>To get alerted, create an alert on the chart and pick <b>Intraday momentum: long</b> or <b>Intraday momentum: short</b>.</li>
+    </ol>
+  </div>
+  <div class="code-wrap">
+    <div class="code-top">
+      <span>intraday-momentum.pine &middot; Pine Script v6</span>
+      <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/intraday-momentum.pine" download>Download</a></div>
+    </div>
+    <pre class="pine" tabindex="0"><code>//@version=6
+// =====================================================================
+// Intraday Momentum (first half-hour -&gt; last half-hour) — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/intraday-momentum.html
+//
+// Gao, Han, Li &amp; Zhou, Market Intraday Momentum (Journal of Financial
+// Economics, 2018), on SPY 1993-2013:
+//
+//   r1   = return from yesterday's 4:00 pm close to 10:00 am today
+//   Rule = at 3:30 pm, go long if r1 &gt; 0, short if r1 &lt; 0;
+//          close at the 4:00 pm close
+//
+// Optional: also require the 12th half-hour (3:00-3:30 pm) to point the
+// same way; the paper found it adds to the prediction.
+// Use a 1-, 5-, 15- or 30-minute chart of SPY, regular hours only.
+// Marks and alerts only; it places no orders.
+// =====================================================================
+indicator("Intraday Momentum", shorttitle = "IntradayMom", overlay = true, max_labels_count = 300)
+
+useR12 = input.bool(false, "Also require 3:00-3:30 pm to agree")
+tz = "America/New_York"
+
+hC = hour(time_close, tz)
+mC = minute(time_close, tz)
+hO = hour(time, tz)
+mO = minute(time, tz)
+
+var float prevClose = na
+var float p10 = na
+var float p15 = na
+var float r1 = na
+var float r12 = na
+var int   side = 0
+var float entry = na
+var int   n = 0
+var int   wins = 0
+var float sum = 0.0
+
+if session.isfirstbar_regular
+    p10 := na
+    p15 := na
+    r1 := na
+    r12 := na
+    side := 0
+// the 10:00 am price: the close of the bar that ends at 10:00
+if hC == 10 and mC == 0
+    p10 := close
+    r1 := not na(prevClose) ? (p10 / prevClose - 1) * 100 : na
+if hC == 15 and mC == 0
+    p15 := close
+// the 3:30 pm decision: on the bar that ends at 3:30
+sig = hC == 15 and mC == 30 and not na(r1) and r1 != 0
+if sig
+    r12 := not na(p15) ? (close / p15 - 1) * 100 : na
+    agree = not useR12 or (not na(r12) and math.sign(r12) == math.sign(r1))
+    side := agree ? (r1 &gt; 0 ? 1 : -1) : 0
+    entry := close
+    if side != 0
+        label.new(bar_index, side == 1 ? low : high, (side == 1 ? "long" : "short") + " 3:30\nr1 " + str.tostring(r1, "+#.00;-#.00") + "%", style = side == 1 ? label.style_label_up : label.style_label_down, color = side == 1 ? color.new(#30d158, 10) : color.new(#ff453a, 10), textcolor = color.white, size = size.small)
+done = session.islastbar_regular and side != 0
+if done
+    r13 = (close / entry - 1) * 100 * side
+    n += 1
+    wins += r13 &gt; 0 ? 1 : 0
+    sum += r13
+    label.new(bar_index, close, str.tostring(r13, "+#.00;-#.00") + "%", style = label.style_label_left, color = r13 &gt; 0 ? color.new(#30d158, 30) : color.new(#ff453a, 30), textcolor = color.white, size = size.tiny)
+    side := 0
+if session.islastbar_regular
+    prevClose := close
+
+bgcolor(hO == 9 ? color.new(#2997ff, 90) : na, title = "First half-hour")
+bgcolor(hO == 15 and mO &gt;= 30 ? color.new(#f4b942, 88) : na, title = "Last half-hour")
+
+alertcondition(sig and side == 1, "Intraday momentum: long", "{{ticker}}: first half-hour was up. Long into the close.")
+alertcondition(sig and side == -1, "Intraday momentum: short", "{{ticker}}: first half-hour was down. Short into the close.")
+
+var table tb = table.new(position.top_right, 2, 5, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+if barstate.islast
+    ink = color.new(#f5f5f7, 0)
+    dim = color.new(#86868b, 0)
+    table.cell(tb, 0, 0, "First half-hour (r1)", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 0, na(r1) ? "after 10:00" : str.tostring(r1, "+#.00;-#.00") + "%", text_color = na(r1) ? ink : r1 &gt; 0 ? color.new(#30d158, 0) : color.new(#ff453a, 0), text_size = size.small)
+    table.cell(tb, 0, 1, "At 3:30 pm", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 1, na(r1) ? "–" : r1 &gt; 0 ? "long into the close" : "short into the close", text_color = ink, text_size = size.small)
+    table.cell(tb, 0, 2, "Days on this chart", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 2, str.tostring(n), text_color = ink, text_size = size.small)
+    table.cell(tb, 0, 3, "Right direction", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 3, n &gt; 0 ? str.tostring(wins * 100.0 / n, "#.0") + "%" : "–", text_color = ink, text_size = size.small)
+    table.cell(tb, 0, 4, "Average last half-hour", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 4, n &gt; 0 ? str.tostring(sum / n, "+#.000;-#.000") + "%" : "–", text_color = ink, text_size = size.small)
+</code></pre>
+  </div>
+
+  <div class="section-head" id="related">
+    <h2>Go deeper</h2>
+    <p>Pages on this site that pick up where this one leaves off.</p>
+  </div>
+  <div class="four">
+    <a href="/famous-strategies/opening-range-breakout.html" style="--tc:#30d158"><span class="k">famous strategy</span><h3>Opening Range Breakout</h3><p>Another way to trade what the first minutes say.</p><small>Read &rsaquo;</small></a>
+    <a href="/famous-strategies/rsi-2.html" style="--tc:#2997ff"><span class="k">famous strategy</span><h3>RSI(2)</h3><p>A short-term ETF strategy that bets on reversal instead.</p><small>Read &rsaquo;</small></a>
+    <a href="/setups/fashionably-late.html" style="--tc:#f4b942"><span class="k">setup</span><h3>Fashionably Late</h3><p>A discretionary intraday setup on the same index.</p><small>Read &rsaquo;</small></a>
+    <a href="/famous-strategies/ten-month-sma.html" style="--tc:#ff9f0a"><span class="k">famous strategy</span><h3>10-Month Moving Average</h3><p>The opposite time scale: one check a month.</p><small>Read &rsaquo;</small></a>
+  </div>
+
+  <div class="rule">
+    <div>
+      <h2>Try it on paper first.</h2>
+      <p>For a month, write down SPY's change from yesterday's close at 10:00 am, the 3:30 pm price and the 4:00 pm close. Count how often the last half-hour went the first half-hour's way, and what a realistic fill would have cost you.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Write the side down at 10:00, before you know the afternoon.</li>
+        <li>Use the actual 3:30 and 4:00 prints.</li>
+        <li>Subtract your commission and half the spread twice.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-head" id="sources">
+    <h2>Sources</h2>
+    <p>The papers and books behind every figure on this page.</p>
+  </div>
+  <ol class="cites">
+    <li>Gao, L., Han, Y., Li, S. Z. &amp; Zhou, G. (2018). Market Intraday Momentum. <i>Journal of Financial Economics</i>, 129(2), 394&ndash;414.<small>SPY, February 1993 to December 2013: the first half-hour return (previous close to 10:00 am) predicts the last half-hour return, R&sup2; 1.6%, 2.6% with the twelfth half-hour; timing strategy 6.67% a year, standard deviation 6.19%, Sharpe 1.08, success rate 54.37%, against always long &minus;1.11%, 6.21%, &minus;0.18, 50.42%; stronger on volatile, high-volume, recession and macro-news days; present in ten other ETFs.</small></li>
+    <li>Bogousslavsky, V. (2016). Infrequent Rebalancing, Return Autocorrelation, and Seasonality. <i>Journal of Finance</i>, 71(6), 2967&ndash;3006.<small>The infrequent-rebalancing explanation the paper draws on.</small></li>
+  </ol>
+
+  <p class="src">Built from the paper and the sources listed above. Every bar and dot in the walkthroughs is made up for illustration. The results chart uses the paper's published numbers, which are before trading costs. The 464-day figures are from our own TradingView run of the indicator on this page, not from a published study. Past results don't promise future returns. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

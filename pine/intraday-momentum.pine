@@ -1,0 +1,90 @@
+//@version=6
+// =====================================================================
+// Intraday Momentum (first half-hour -> last half-hour) — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/intraday-momentum.html
+//
+// Gao, Han, Li & Zhou, Market Intraday Momentum (Journal of Financial
+// Economics, 2018), on SPY 1993-2013:
+//
+//   r1   = return from yesterday's 4:00 pm close to 10:00 am today
+//   Rule = at 3:30 pm, go long if r1 > 0, short if r1 < 0;
+//          close at the 4:00 pm close
+//
+// Optional: also require the 12th half-hour (3:00-3:30 pm) to point the
+// same way; the paper found it adds to the prediction.
+// Use a 1-, 5-, 15- or 30-minute chart of SPY, regular hours only.
+// Marks and alerts only; it places no orders.
+// =====================================================================
+indicator("Intraday Momentum", shorttitle = "IntradayMom", overlay = true, max_labels_count = 300)
+
+useR12 = input.bool(false, "Also require 3:00-3:30 pm to agree")
+tz = "America/New_York"
+
+hC = hour(time_close, tz)
+mC = minute(time_close, tz)
+hO = hour(time, tz)
+mO = minute(time, tz)
+
+var float prevClose = na
+var float p10 = na
+var float p15 = na
+var float r1 = na
+var float r12 = na
+var int   side = 0
+var float entry = na
+var int   n = 0
+var int   wins = 0
+var float sum = 0.0
+
+if session.isfirstbar_regular
+    p10 := na
+    p15 := na
+    r1 := na
+    r12 := na
+    side := 0
+// the 10:00 am price: the close of the bar that ends at 10:00
+if hC == 10 and mC == 0
+    p10 := close
+    r1 := not na(prevClose) ? (p10 / prevClose - 1) * 100 : na
+if hC == 15 and mC == 0
+    p15 := close
+// the 3:30 pm decision: on the bar that ends at 3:30
+sig = hC == 15 and mC == 30 and not na(r1) and r1 != 0
+if sig
+    r12 := not na(p15) ? (close / p15 - 1) * 100 : na
+    agree = not useR12 or (not na(r12) and math.sign(r12) == math.sign(r1))
+    side := agree ? (r1 > 0 ? 1 : -1) : 0
+    entry := close
+    if side != 0
+        label.new(bar_index, side == 1 ? low : high, (side == 1 ? "long" : "short") + " 3:30\nr1 " + str.tostring(r1, "+#.00;-#.00") + "%", style = side == 1 ? label.style_label_up : label.style_label_down, color = side == 1 ? color.new(#30d158, 10) : color.new(#ff453a, 10), textcolor = color.white, size = size.small)
+done = session.islastbar_regular and side != 0
+if done
+    r13 = (close / entry - 1) * 100 * side
+    n += 1
+    wins += r13 > 0 ? 1 : 0
+    sum += r13
+    label.new(bar_index, close, str.tostring(r13, "+#.00;-#.00") + "%", style = label.style_label_left, color = r13 > 0 ? color.new(#30d158, 30) : color.new(#ff453a, 30), textcolor = color.white, size = size.tiny)
+    side := 0
+if session.islastbar_regular
+    prevClose := close
+
+bgcolor(hO == 9 ? color.new(#2997ff, 90) : na, title = "First half-hour")
+bgcolor(hO == 15 and mO >= 30 ? color.new(#f4b942, 88) : na, title = "Last half-hour")
+
+alertcondition(sig and side == 1, "Intraday momentum: long", "{{ticker}}: first half-hour was up. Long into the close.")
+alertcondition(sig and side == -1, "Intraday momentum: short", "{{ticker}}: first half-hour was down. Short into the close.")
+
+var table tb = table.new(position.top_right, 2, 5, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+if barstate.islast
+    ink = color.new(#f5f5f7, 0)
+    dim = color.new(#86868b, 0)
+    table.cell(tb, 0, 0, "First half-hour (r1)", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 0, na(r1) ? "after 10:00" : str.tostring(r1, "+#.00;-#.00") + "%", text_color = na(r1) ? ink : r1 > 0 ? color.new(#30d158, 0) : color.new(#ff453a, 0), text_size = size.small)
+    table.cell(tb, 0, 1, "At 3:30 pm", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 1, na(r1) ? "–" : r1 > 0 ? "long into the close" : "short into the close", text_color = ink, text_size = size.small)
+    table.cell(tb, 0, 2, "Days on this chart", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 2, str.tostring(n), text_color = ink, text_size = size.small)
+    table.cell(tb, 0, 3, "Right direction", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 3, n > 0 ? str.tostring(wins * 100.0 / n, "#.0") + "%" : "–", text_color = ink, text_size = size.small)
+    table.cell(tb, 0, 4, "Average last half-hour", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 4, n > 0 ? str.tostring(sum / n, "+#.000;-#.000") + "%" : "–", text_color = ink, text_size = size.small)

@@ -78,7 +78,7 @@
     { href: "/famous-strategies/dual-momentum.html", title: "Dual Momentum", who: "Gary Antonacci, 2014", market: "ETFs", live: true, blurb: "Hold the stronger of US or international stocks, and switch to bonds when both trail T-bills." },
     { href: "/famous-strategies/sector-rotation.html", title: "Sector Rotation", who: "Faber; Moskowitz & Grinblatt, 1999", market: "ETFs", live: true, blurb: "Own the top few sector ETFs by trailing momentum." },
     { href: "/famous-strategies/rsi-2.html", title: "RSI(2)", who: "Larry Connors", market: "ETFs", live: true, blurb: "Buy SPY or QQQ on short-term oversold readings while above the 200-day average." },
-    { href: "/famous-strategies/intraday-momentum.html", title: "Intraday Momentum", who: "Gao, Han, Li & Zhou, 2018", market: "ETFs", live: false, blurb: "SPY's first half-hour return tends to predict its last half-hour." },
+    { href: "/famous-strategies/intraday-momentum.html", title: "Intraday Momentum", who: "Gao, Han, Li & Zhou, 2018", market: "ETFs", live: true, blurb: "SPY's first half-hour return tends to predict its last half-hour." },
     { href: "/famous-strategies/turn-of-the-month.html", title: "Turn of the Month", who: "Lakonishok & Smidt, 1988", market: "ETFs", live: false, blurb: "Index returns cluster around the last and first few trading days of the month." },
     { href: "/famous-strategies/overnight-effect.html", title: "Overnight Effect", who: "Cooper, Cliff & Gulen, 2008", market: "ETFs", live: false, blurb: "Most of the index's long-run gain has come between the close and the open, not during the day." }
   ];
