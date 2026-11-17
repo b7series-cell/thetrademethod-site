@@ -1,0 +1,74 @@
+//@version=6
+// =====================================================================
+// Turn of the Month — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/turn-of-the-month.html
+//
+// Lakonishok & Smidt (1988); McConnell & Xu (2008): US stock returns
+// have been concentrated in four trading days around each month-end:
+// the last trading day of the month and the first three of the next.
+//
+//   Buy at the close of the day BEFORE the last trading day
+//   Sell at the close of the third trading day of the new month
+//
+// The last trading day is worked out from the calendar (weekends only;
+// market holidays aren't known to the script, so check those by hand).
+// Daily chart of SPY or another broad index fund.
+// Marks and alerts only; it places no orders.
+// =====================================================================
+indicator("Turn of the Month", shorttitle = "TOM", overlay = true, max_labels_count = 300)
+
+firstDays = input.int(3, "Trading days held into the new month", minval = 1, maxval = 10)
+tz = "America/New_York"
+DAY = 86400000
+
+nextWd(int t) =>
+    d = dayofweek(t, tz)
+    t + (d == dayofweek.friday ? 3 : d == dayofweek.saturday ? 2 : 1) * DAY
+
+var int tdm = 0
+tdm := timeframe.change("M") ? 1 : tdm + 1
+
+n1 = nextWd(time)
+n2 = nextWd(n1)
+isLast  = month(n1, tz) != month(time, tz)
+isEntry = not isLast and month(n2, tz) != month(time, tz)
+inTOM   = isLast or tdm <= firstDays
+isExit  = tdm == firstDays
+
+// average daily return in and out of the window, on this chart's history
+r = (close / close[1] - 1) * 100
+var float sumT = 0.0
+var int nT = 0
+var float sumO = 0.0
+var int nO = 0
+if not na(r) and timeframe.isdaily
+    if inTOM
+        sumT += r
+        nT += 1
+    else
+        sumO += r
+        nO += 1
+
+bgcolor(inTOM ? color.new(#30d158, 85) : na, title = "Turn-of-the-month days")
+if isEntry and timeframe.isdaily
+    label.new(bar_index, low, "buy at close", style = label.style_label_up, color = color.new(#2997ff, 15), textcolor = color.white, size = size.tiny)
+if isExit and timeframe.isdaily
+    label.new(bar_index, high, "sell at close", style = label.style_label_down, color = color.new(#f4b942, 15), textcolor = color.black, size = size.tiny)
+
+alertcondition(isEntry, "TOM: buy at the close", "{{ticker}}: tomorrow is the month's last trading day. Turn of the month: buy at today's close.")
+alertcondition(isExit, "TOM: sell at the close", "{{ticker}}: third trading day of the month. Turn of the month: sell at today's close.")
+
+var table tb = table.new(position.top_right, 2, 5, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+if barstate.islast
+    ink = color.new(#f5f5f7, 0)
+    dim = color.new(#86868b, 0)
+    table.cell(tb, 0, 0, "Today", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 0, isEntry ? "buy at the close" : isLast ? "last trading day: hold" : tdm <= firstDays ? "day " + str.tostring(tdm) + " of the month: hold" : "outside the window", text_color = inTOM or isEntry ? color.new(#30d158, 0) : ink, text_size = size.small)
+    table.cell(tb, 0, 1, "Avg day, turn of month", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 1, nT > 0 ? str.tostring(sumT / nT, "+#.000;-#.000") + "%" : "daily chart", text_color = color.new(#30d158, 0), text_size = size.small)
+    table.cell(tb, 0, 2, "Avg day, rest of month", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 2, nO > 0 ? str.tostring(sumO / nO, "+#.000;-#.000") + "%" : "daily chart", text_color = ink, text_size = size.small)
+    table.cell(tb, 0, 3, "Days counted", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 3, str.tostring(nT) + " in / " + str.tostring(nO) + " out", text_color = ink, text_size = size.small)
+    table.cell(tb, 0, 4, "Holidays", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 4, "not known: check by hand", text_color = color.new(#f4b942, 0), text_size = size.small)

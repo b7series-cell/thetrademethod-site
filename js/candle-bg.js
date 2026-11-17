@@ -1068,6 +1068,49 @@
       }
     },
 
+    "intraday-momentum": {
+      story: function (st) {
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); level(st, st.price, "Yesterday's close", GRAY, true); return bar(st, { d: 1.2, n: 0.5, v: 0.9, mk: { t: "First half-hour · up from the close", col: BLUE, below: true } }); }),
+          rep(10, function (st) { return bar(st, { d: rnd(-0.4, 0.4), n: 0.6 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.2, n: 0.4, flash: GREEN, mk: { t: "3:30 pm · long into the close", col: GREEN } }); }),
+          rep(1, function (st) { return bar(st, { d: 0.8, n: 0.4, v: 0.9, mk: { t: "4:00 pm · out", col: SILK, below: true } }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: -1.1, n: 0.5, v: 0.8, mk: { t: "Next day · down first: short at 3:30", col: RED, below: true } }); }),
+          rep(8, function (st) { return bar(st, { d: rnd(-0.4, 0.35), n: 0.6 }); })
+        ];
+      }
+    },
+
+    "turn-of-the-month": {
+      story: function (st) {
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { n: 0.5 }); }),
+          rep(9, function (st) { return bar(st, { d: rnd(-0.35, 0.35), n: 0.6 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.1, n: 0.4, flash: BLUE, mk: { t: "Day before the last · buy at the close", col: BLUE, below: true } }); }),
+          rep(1, function (st) { return bar(st, { d: 0.6, n: 0.4, mk: { t: "Last trading day", col: GREEN } }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 0.5, n: 0.4, v: 0.9, mk: { t: "New month · day 1", col: GREEN, below: true } }); }),
+          rep(1, function (st) { return bar(st, { d: 0.4, n: 0.4 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.3, n: 0.4, flash: ORANGE, mk: { t: "Day 3 · sell at the close", col: ORANGE } }); }),
+          rep(9, function (st) { return bar(st, { d: rnd(-0.35, 0.35), n: 0.6 }); })
+        ];
+      }
+    },
+
+    "overnight-effect": {
+      story: function (st) {
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { n: 0.5 }); }),
+          rep(7, function (st) { return bar(st, { d: rnd(-0.35, 0.3), n: 0.6 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.1, n: 0.4, flash: BLUE, mk: { t: "4:00 pm · buy at the close", col: BLUE } }); }),
+          rep(1, function (st) { divider(st); return bar(st, { open: st.price + 0.9, d: 0.1, n: 0.4, v: 0.9, flash: GREEN, mk: { t: "Gap up overnight · sell at the open", col: GREEN, below: true } }); }),
+          rep(7, function (st) { return bar(st, { d: rnd(-0.35, 0.3), n: 0.6 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.1, n: 0.4, flash: BLUE, mk: { t: "Close · buy again", col: BLUE } }); }),
+          rep(1, function (st) { divider(st); return bar(st, { open: st.price + 0.6, d: -0.1, n: 0.4, v: 0.9, flash: GREEN, mk: { t: "Open · out, flat all day", col: SILK, below: true } }); }),
+          rep(7, function (st) { return bar(st, { d: rnd(-0.35, 0.3), n: 0.6 }); })
+        ];
+      }
+    },
+
     "pyramiding": {
       story: function (st) {
         var S, hi, lo;

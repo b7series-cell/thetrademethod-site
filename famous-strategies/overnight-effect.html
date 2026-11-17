@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Overnight Effect: Why Stock Returns Come at Night | The Trade Method</title>
+<meta name="description" content="The overnight effect: most of the US stock market&#x27;s gain has come between the close and the next open, not during the trading day. Cliff, Cooper and Gulen (2008), 1993-2006: S&amp;P 500 stocks averaged 0.028-0.048% a night and -0.028 to 0.002% a day. The numbers, the costs, and a free TradingView indicator.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/famous-strategies/overnight-effect.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="The Overnight Effect: Why Stock Returns Come at Night">
+<meta property="og:description" content="The overnight effect: most of the US stock market&#x27;s gain has come between the close and the next open, not during the trading day. Cliff, Cooper and Gulen (2008), 1993-2006: S&amp;P 500 stocks averaged 0.028-0.048% a night and -0.028 to 0.002% a day. The numbers, the costs, and a free TradingView indicator.">
+<meta property="og:url" content="https://thetrademethod.com/famous-strategies/overnight-effect.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Overnight Effect: Why Stock Returns Come at Night">
+<meta name="twitter:description" content="The overnight effect: most of the US stock market&#x27;s gain has come between the close and the next open, not during the trading day. Cliff, Cooper and Gulen (2008), 1993-2006: S&amp;P 500 stocks averaged 0.028-0.048% a night and -0.028 to 0.002% a day. The numbers, the costs, and a free TradingView indicator.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "The Overnight Effect: Why Stock Returns Come at Night",
+ "name": "Overnight Effect",
+ "description": "The overnight effect: most of the US stock market&#x27;s gain has come between the close and the next open, not during the trading day. Cliff, Cooper and Gulen (2008), 1993-2006: S&amp;P 500 stocks averaged 0.028-0.048% a night and -0.028 to 0.002% a day. The numbers, the costs, and a free TradingView indicator.",
+ "url": "https://thetrademethod.com/famous-strategies/overnight-effect.html",
+ "mainEntityOfPage": "https://thetrademethod.com/famous-strategies/overnight-effect.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-17",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.seven { grid-template-columns:repeat(2,1fr); }
+    .ribbon.seven > div:last-child { grid-column:span 2; }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=24">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the pyramid: five cards, or a stepper once js/pyr-anim.js runs */
+  .fs-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .fs-steps .stage, .sheet .fs-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .fs-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .fs-steps.is-stepper .stage, .sheet .fs-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .fs-steps.is-stepper .stage .num { display:none; }
+  .sheet .fs-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .fs-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .fs-steps + .four { margin-top:28px; }
+  .fs-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .fs-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .fs-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .fs-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .fs-steps { margin-top:24px; }
+  }
+
+  /* fact sheet, timeline, sources */
+  .facts { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--graphite); border-radius:22px; overflow:hidden; margin-top:26px; }
+  .facts div { background:var(--charcoal); padding:16px 18px; }
+  .facts .k { font-family:var(--mono-font); font-size:12px; color:var(--ash); }
+  .facts b { display:block; margin-top:4px; font-size:16px; font-weight:600; line-height:1.3; }
+  .tl { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+  .tl li { background:var(--charcoal); border-radius:20px; padding:16px 16px 18px; border-top:3px solid var(--tc, var(--up)); }
+  .tl .y { font-family:var(--mono-font); font-size:13px; color:var(--tc, var(--up)); font-weight:600; }
+  .tl b { display:block; margin:6px 0 6px; font-size:16px; line-height:1.25; }
+  .tl p { margin:0; color:var(--mute); font-size:14px; }
+  .cites { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .cites li { margin-bottom:10px; }
+  .cites i { color:var(--platinum); }
+  .cites small { display:block; color:var(--ash); font-size:13.5px; margin-top:2px; }
+  @media (max-width:1100px) { .facts { grid-template-columns:repeat(2,1fr); } .tl { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:680px) { .facts, .tl { grid-template-columns:1fr; } .sheet .section-head + .fs-steps { margin-top:24px; } }
+
+  /* the indicator */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-wrap { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:22px; align-items:start; }
+  .ind-mock { background:var(--charcoal); border-radius:22px; padding:14px; }
+  .howto { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#f4b942; font-weight:600; }
+  .code-wrap { background:var(--charcoal); border-radius:22px; margin-top:22px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid #2c2c2e; flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--ash); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--silk); background:#2c2c2e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#3a3a3c; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d1d6; tab-size:4; }
+  @media (max-width:1100px) { .ind-wrap { grid-template-columns:1fr; } }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-mock { padding:8px; } }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=46" defer></script>
+<script src="/js/fs-kit.js?v=1" defer></script>
+<script src="/js/fs-overnight-effect.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=35" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="Overnight Effect"></div>
+<div class="sheet">
+
+  <a class="back" href="/famous-strategies/">&lsaquo; Famous strategies</a>
+
+  <header class="top" data-candle-bg="overnight-effect">
+    <div>
+      <p class="kicker">Famous strategies &middot; ETFs &middot; Cliff, Cooper &amp; Gulen 2008</p>
+      <h1>The Overnight <span>Effect</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Split each trading day into two halves: the night, from the 4 pm close to the next morning's open, and the day, from the open to the close. Since the 1990s, the US market's gain has come almost entirely from the night.
+      <em>Earned while the market was shut.</em></p>
+      <div class="counts">
+        <div><b>0.028&ndash;0.048%</b><small>average night, S&amp;P 500 stocks, 1993&ndash;2006</small></div>
+        <div><b>&minus;0.028&ndash;0.002%</b><small>average day, same stocks</small></div>
+        <div><b>14 of 14</b><small>big ETFs where nights beat days</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon seven" aria-label="Overnight Effect">
+    <div><div class="t">step 1</div><div class="n">Buy at the close</div></div>
+    <div><div class="t">step 2</div><div class="n">Hold overnight</div></div>
+    <div><div class="t">step 3</div><div class="n">Sell at the open</div></div>
+    <div><div class="t">step 4</div><div class="n">Flat all day</div></div>
+    <div><div class="t">step 5</div><div class="n">Costs decide it</div></div>
+  </nav>
+
+  <div class="facts" aria-label="At a glance">
+    <div><span class="k">studied by</span><b>Cliff, Cooper &amp; Gulen, working paper, 2008</b></div>
+    <div><span class="k">sample</span><b>Intraday prices, 1993&ndash;2006</b></div>
+    <div><span class="k">night</span><b>4:00 pm close to the 9:30 am open</b></div>
+    <div><span class="k">S&amp;P 500 stocks</span><b>0.028% to 0.048% a night, &minus;0.028% to 0.002% a day</b></div>
+    <div><span class="k">SPY</span><b>Nights beat days by 0.068% a day</b></div>
+    <div><span class="k">14 big ETFs</span><b>Nights beat days in all 14; days negative in 12</b></div>
+    <div><span class="k">QQQQ, 1999&ndash;2006</span><b>Kelly &amp; Clark: +23.7% vs &minus;23.3% risk premium</b></div>
+    <div><span class="k">what it costs</span><b>About 252 round trips a year</b></div>
+  </div>
+
+  <div class="section-head" id="split">
+    <h2>Two halves of every day</h2>
+    <p>Every daily candle hides two returns: the gap from yesterday's close to today's open, and the move from the open to the close.</p>
+  </div>
+  <section class="anim" data-fs-anim="split" aria-label="Eight made-up daily candles of an index fund. Dashed links from each close to the next open show the overnight returns, mostly up; the candle bodies show the intraday returns, mixed. Totals: the nights added up to a gain, the days gave a little back.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Night and day</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Night and day"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>The rule</h3>
+          <ul>
+            <li>Buy a broad index fund such as SPY at the close, 4:00 pm New York time.</li>
+            <li>Hold it overnight, while the exchanges are shut.</li>
+            <li>Sell at the next morning's open, 9:30 am, and stay flat until the close. Repeat every trading day.</li>
+          </ul>
+          <p class="why">If the market's return really arrives overnight, owning only the nights keeps that return and sits out the day's swings.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>How to use it</h4>
+        <p class="lead">Two ways traders apply it.</p>
+        <div class="pair">
+          <div class="care"><span class="k">on its own</span><b>Every night, flat every day</b><p>About 252 round trips a year. Only works if each costs less than the average night earns.</p></div>
+          <div class="yes"><span class="k">as timing</span><b>When to buy and sell</b><p>Already buying or selling an index fund? Buying near the close and selling near the open leans on the pattern.</p></div>
+        </div>
+      </div>
+      <div class="panel calc">
+        <h4>Cliff, Cooper &amp; Gulen, 1993&ndash;2006</h4>
+        <p class="lead">Average return per night or day, and the gap for SPY.</p>
+        <div class="row"><span>S&amp;P 500 stocks, night</span><b>0.028&ndash;0.048%</b></div>
+        <div class="row"><span>S&amp;P 500 stocks, day</span><b>&minus;0.028&ndash;0.002%</b></div>
+        <div class="row"><span>SPY, night minus day</span><b>0.068%</b></div>
+        <div class="row tot"><span>QQQQ, night minus day</span><b>0.18%</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="paper">
+    <h2>What the research found</h2>
+    <p>Using intraday prices from 1993 to 2006, the study split the day at the bell. The difference was large, and it showed up in nearly everything they tested.</p>
+  </div>
+  <section class="anim" data-fs-anim="paper" aria-label="Cliff, Cooper and Gulen&#x27;s averages, 1993 to 2006: S&amp;amp;P 500 stocks returned 0.028% to 0.048% a night and minus 0.028% to 0.002% a day. Night minus day per day: QQQQ 0.18%, SPY 0.068%, DIA 0.061%. Across 14 ETFs, the day&#x27;s return was negative in 12.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">1993&ndash;2006</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="1993&amp;ndash;2006"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="section-head" id="spy">
+    <h2>On SPY since 1993</h2>
+    <p>We ran this page's indicator on SPY's daily history to see whether the split held after the paper's sample ended.</p>
+  </div>
+  <section class="anim" data-fs-anim="spy" aria-label="Our run of the indicator on SPY daily bars since 1993, price only: 100 dollars held only overnight grew to about 1,359; held only during the day, to about 124. Average night +0.033%, average day +0.007%; nights up 55.0% of the time, days 52.4%. Kelly and Clark, QQQQ 1999 to 2006: +23.7% close to open, minus 23.3% open to close.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Night and day on SPY</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Night and day on SPY"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="section-head" id="costs">
+    <h2>The catch: a trade every day</h2>
+    <p>The pattern is strong. Trading it means a buy and a sell every day, and the average night is small next to what each round trip can cost.</p>
+  </div>
+  <section class="anim" data-fs-anim="costs" aria-label="Arithmetic on our SPY run: the average night of +0.033% minus a cost per round trip, from 0 to 0.06%. The line crosses zero at 0.033%, about 3 cents on a 100 dollar share; above that the average night loses money.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">After costs</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="After costs"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="four">
+    <div style="--tc:#30d158"><span class="k">the research</span><h3>0.028&ndash;0.048% a night</h3><p>S&amp;P 500 stocks, 1993&ndash;2006, against &minus;0.028% to 0.002% a day.</p></div>
+    <div style="--tc:#2997ff"><span class="k">14 big ETFs</span><h3>14 of 14</h3><p>Nights beat days in every one; days were negative in 12.</p></div>
+    <div style="--tc:#f4b942"><span class="k">our SPY run</span><h3>$1,359 vs $124</h3><p>$100 held only overnight vs only by day, SPY since 1993, price only.</p></div>
+    <div style="--tc:#ff453a"><span class="k">the catch</span><h3>252 round trips</h3><p>A year. Break-even near 0.033% a round trip on our run, before tax.</p></div>
+  </div>
+
+  <ol class="tl">
+    <li style="--tc:#2997ff"><span class="y">2008</span><b>Cliff, Cooper &amp; Gulen</b><p>1993&ndash;2006: the market's return came at night; the day earned about nothing. Not explained by earnings announcements.</p></li>
+    <li style="--tc:#2997ff"><span class="y">2011</span><b>Kelly &amp; Clark</b><p>Index ETFs: QQQQ's close-to-open premium +23.7% against &minus;23.3% open to close, 1999&ndash;2006.</p></li>
+    <li style="--tc:#30d158"><span class="y">2019</span><b>Lou, Polk &amp; Skouras</b><p>Across 14 trading strategies, profits tend to arrive in one half of the day, often with the opposite sign in the other.</p></li>
+    <li style="--tc:#f4b942"><span class="y">2023</span><b>Bondarenko &amp; Muravyev</b><p>Around-the-clock S&amp;P 500 futures: the average return arrived in about four hours around the European open.</p></li>
+  </ol>
+
+  <div class="section-head" id="steps">
+    <h2>The strategy, step by step</h2>
+    <p>The whole thing in five steps. Click through them.</p>
+  </div>
+  <div class="fs-steps" data-fs-steps data-fs-label="Overnight Effect, step by step">
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Close</h3>
+          <ul>
+            <li>Buy a broad index fund at the close.</li>
+            <li>A market-on-close order fills at the closing price.</li>
+          </ul>
+          <p class="why">The night starts at 4 pm.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Night</h3>
+          <ul>
+            <li>Hold while the exchanges are shut.</li>
+            <li>This is where the research found the return.</li>
+          </ul>
+          <p class="why">News lands overnight.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Open</h3>
+          <ul>
+            <li>Sell at the next morning's open.</li>
+            <li>A market-on-open order fills at the opening price.</li>
+          </ul>
+          <p class="why">The night ends at 9:30 am.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Day</h3>
+          <ul>
+            <li>No position from the open to the close.</li>
+            <li>On average the day has earned about nothing.</li>
+          </ul>
+          <p class="why">Sit out the session.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Repeat</h3>
+          <ul>
+            <li>Every trading day.</li>
+            <li>Track every fill and cost.</li>
+          </ul>
+          <p class="why">Costs decide if it pays.</p>
+        </div>
+      </section>
+  </div>
+
+  <div class="section-head" id="indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for this strategy (Pine Script v6). It splits each daily bar into its overnight and intraday halves, draws what owning only each half would have done, and on intraday charts marks the session's last and first bars with alerts. It marks and alerts. It doesn't place trades.</p>
+  </div>
+  <div class="ind-wrap">
+    <ul class="ind-list">
+      <li class="ind-card">
+        <div class="ind-card-top">
+          <h3 class="ind-name">Overnight Effect</h3>
+          <span class="ind-alerts">alerts</span>
+        </div>
+        <p class="ind-blurb">In its own pane: a green growth-of-100 line for owning only the nights (close to the next open) and a gold one for owning only the days (open to close), from the start year you choose.</p>
+        <p class="ind-blurb">A table with the average night and day, what 100 grew to in each half, how often each was up, and the days counted. On SPY's daily history since 1993, our run showed +0.033% a night and +0.007% a day, and 100 growing to about 1,359 overnight against 124 by day, price only.</p>
+        <p class="ind-blurb"><span style="color:var(--ash)">On an intraday chart it marks the last bar of each session (buy at the close) and the first (sell at the open), with alerts for both. Prices are price only, so ex-dividend drops land in the overnight half.</span></p>
+        <div class="ind-links">
+          <a class="ind-link ind-link--quiet" href="/pine/overnight-effect.pine" download>Download source (.pine)</a>
+        </div>
+      </li>
+    </ul>
+    <div class="ind-mock"><svg viewBox="0 0 560 330" role="img" aria-label="An illustrative mock of the indicator in its own pane: two made-up growth lines starting at 100, a green one for holding only overnight that climbs and a gold one for holding only during the day that stays near flat, and a table of the average night and day returns from our SPY run."><rect width="560" height="330" rx="14" fill="#141416"/><rect x="16.0" y="197.2" width="336.0" height="1.0" rx="0" fill="#86868b" opacity="0.5"/><polyline points="16.0,197.2 18.8,198.5 21.6,194.7 24.4,192.7 27.2,198.2 30.0,204.0 32.8,209.3 35.6,209.1 38.4,213.5 41.2,210.1 44.0,207.5 46.8,198.6 49.6,191.6 52.4,195.7 55.2,197.3 58.0,200.9 60.8,197.3 63.6,195.1 66.4,200.6 69.2,196.3 72.0,197.8 74.8,197.1 77.6,191.0 80.4,193.6 83.2,191.8 86.0,186.7 88.8,177.6 91.6,177.5 94.4,181.5 97.2,187.4 100.0,181.8 102.8,174.3 105.6,169.8 108.4,167.0 111.2,160.0 114.0,159.0 116.8,164.6 119.6,160.8 122.4,154.1 125.2,154.4 128.0,160.7 130.8,164.6 133.6,170.2 136.4,174.7 139.2,175.0 142.0,180.2 144.8,178.0 147.6,171.4 150.4,173.5 153.2,174.3 156.0,165.5 158.8,169.2 161.6,172.1 164.4,169.2 167.2,175.7 170.0,176.3 172.8,167.6 175.6,165.8 178.4,161.5 181.2,153.6 184.0,146.0 186.8,146.3 189.6,151.3 192.4,156.9 195.2,160.1 198.0,161.2 200.8,167.8 203.6,172.8 206.4,178.9 209.2,175.6 212.0,178.1 214.8,178.8 217.6,171.8 220.4,170.9 223.2,176.0 226.0,177.1 228.8,170.4 231.6,176.6 234.4,174.6 237.2,172.5 240.0,170.6 242.8,163.3 245.6,165.6 248.4,169.5 251.2,167.5 254.0,168.8 256.8,162.3 259.6,155.1 262.4,148.5 265.2,151.4 268.0,152.3 270.8,158.5 273.6,160.9 276.4,152.0 279.2,143.4 282.0,134.5 284.8,137.6 287.6,141.1 290.4,137.5 293.2,130.4 296.0,126.4 298.8,131.7 301.6,123.5 304.4,117.8 307.2,121.6 310.0,122.9 312.8,113.5 315.6,113.6 318.4,108.3 321.2,113.1 324.0,104.7 326.8,109.2 329.6,99.6 332.4,100.5 335.2,105.2 338.0,95.8 340.8,93.7 343.6,93.3 346.4,86.2 349.2,88.9 352.0,91.7" fill="none" stroke="#30d158" stroke-width="2"/><polyline points="16.0,197.2 18.8,205.3 21.6,215.2 24.4,218.2 27.2,217.9 30.0,219.3 32.8,228.7 35.6,221.0 38.4,227.3 41.2,216.8 44.0,219.1 46.8,229.5 49.6,234.2 52.4,242.9 55.2,235.5 58.0,233.5 60.8,236.3 63.6,246.2 66.4,252.8 69.2,254.3 72.0,252.2 74.8,256.6 77.6,252.0 80.4,250.2 83.2,241.6 86.0,246.3 88.8,254.8 91.6,248.9 94.4,249.0 97.2,245.1 100.0,243.3 102.8,247.4 105.6,245.2 108.4,246.0 111.2,235.8 114.0,231.9 116.8,227.2 119.6,215.7 122.4,220.5 125.2,216.5 128.0,217.3 130.8,226.0 133.6,219.7 136.4,225.4 139.2,216.7 142.0,217.8 144.8,208.8 147.6,200.1 150.4,202.0 153.2,192.8 156.0,200.9 158.8,207.1 161.6,207.3 164.4,212.8 167.2,214.5 170.0,212.9 172.8,208.3 175.6,205.4 178.4,215.7 181.2,209.1 184.0,202.0 186.8,204.2 189.6,201.0 192.4,211.0 195.2,218.8 198.0,229.0 200.8,236.9 203.6,239.9 206.4,231.2 209.2,239.2 212.0,242.5 214.8,251.0 217.6,239.7 220.4,240.0 223.2,248.9 226.0,254.1 228.8,261.6 231.6,251.4 234.4,259.3 237.2,269.8 240.0,259.0 242.8,254.5 245.6,257.3 248.4,251.1 251.2,244.6 254.0,250.8 256.8,239.7 259.6,232.6 262.4,227.0 265.2,226.4 268.0,237.2 270.8,242.1 273.6,237.6 276.4,238.7 279.2,227.4 282.0,230.4 284.8,236.5 287.6,243.2 290.4,233.9 293.2,234.3 296.0,227.3 298.8,223.4 301.6,216.8 304.4,217.2 307.2,210.3 310.0,203.2 312.8,205.5 315.6,194.9 318.4,202.5 321.2,210.6 324.0,203.3 326.8,195.5 329.6,191.7 332.4,190.4 335.2,201.8 338.0,198.1 340.8,187.8 343.6,178.8 346.4,185.6 349.2,190.4 352.0,188.2" fill="none" stroke="#f4b942" stroke-width="2"/><text x="16.0" y="24.0" fill="#86868b" font-size="12" font-weight="600" text-anchor="start">Overnight &#183; daily &#183; separate pane</text><text x="348.0" y="83.7" fill="#30d158" font-size="9" font-weight="700" text-anchor="end">overnight only</text><text x="348.0" y="204.2" fill="#f4b942" font-size="9" font-weight="700" text-anchor="end">intraday only</text><rect x="368.0" y="40.0" width="246.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="53.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Avg night (close to open)</text><text x="514.0" y="53.0" fill="#30d158" font-size="11" font-weight="600" text-anchor="start">+0.033%</text><rect x="368.0" y="59.0" width="246.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="72.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Avg day (open to close)</text><text x="514.0" y="72.0" fill="#f4b942" font-size="11" font-weight="600" text-anchor="start">+0.007%</text><rect x="368.0" y="78.0" width="246.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="91.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">100 grew to, night / day</text><text x="514.0" y="91.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">1359 / 124</text><rect x="368.0" y="97.0" width="246.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="110.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Up nights / up days</text><text x="514.0" y="110.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">55.0% / 52.4%</text><rect x="368.0" y="116.0" width="246.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="374.0" y="129.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Days counted</text><text x="514.0" y="129.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">8508 since 1993</text><text x="546" y="320" fill="#6e6e73" font-size="11" text-anchor="end">Illustrative mock &middot; made-up values</text></svg></div>
+  </div>
+  <div class="panel" style="margin-top:22px">
+    <h4>Add it to TradingView</h4>
+    <ol class="howto">
+      <li>Copy the code below, or download the .pine file.</li>
+      <li>In TradingView, open the Pine Editor at the bottom of a chart, paste it in, and click <b>Add to chart</b>.</li>
+      <li>Use a daily chart of SPY, QQQ or another index fund for the split and the table.</li>
+      <li>For alerts, switch to an intraday chart and create an alert on <b>Overnight: buy at the close</b> or <b>Overnight: sell at the open</b>.</li>
+    </ol>
+  </div>
+  <div class="code-wrap">
+    <div class="code-top">
+      <span>overnight-effect.pine &middot; Pine Script v6</span>
+      <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/overnight-effect.pine" download>Download</a></div>
+    </div>
+    <pre class="pine" tabindex="0"><code>//@version=6
+// =====================================================================
+// Overnight Effect — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/overnight-effect.html
+//
+// Cliff, Cooper &amp; Gulen (2008): from 1993 to 2006, US stock returns
+// came overnight (close to next open); the trading day itself earned
+// about nothing on average.
+//
+// Splits each daily bar into two halves:
+//   overnight  = yesterday's close to today's open
+//   intraday   = today's open to today's close
+// and draws a growth-of-100 line for owning only each half.
+//
+// Daily chart (any stock or ETF) for the split and the table.
+// On an intraday chart it marks the last bar of the session (buy at
+// the close) and the first bar (sell at the open), with alerts.
+// Price only: ex-dividend drops land in the overnight half.
+// Marks and alerts only; it places no orders.
+// =====================================================================
+indicator("Overnight Effect", shorttitle = "Overnight", overlay = false)
+
+startYear = input.int(1993, "Count from year", minval = 1900, maxval = 2100)
+
+isD = timeframe.isdaily
+on = isD and year &gt;= startYear and not na(close[1])
+
+rNight = (open / close[1] - 1) * 100
+rDay   = (close / open - 1) * 100
+
+var float eqNight = 100.0
+var float eqDay   = 100.0
+var float sumN = 0.0
+var float sumD = 0.0
+var int   n = 0
+var int   upN = 0
+var int   upD = 0
+if on
+    eqNight *= 1 + rNight / 100
+    eqDay   *= 1 + rDay / 100
+    sumN += rNight
+    sumD += rDay
+    n += 1
+    upN += rNight &gt; 0 ? 1 : 0
+    upD += rDay &gt; 0 ? 1 : 0
+
+plot(on ? eqNight : na, "Overnight only (close to open)", color = color.new(#30d158, 0), linewidth = 2)
+plot(on ? eqDay : na, "Intraday only (open to close)", color = color.new(#f4b942, 0), linewidth = 2)
+hline(100, "Start", color = color.new(#86868b, 60), linestyle = hline.style_dashed)
+
+// intraday charts: session edges
+buyBar  = timeframe.isintraday and session.islastbar_regular
+sellBar = timeframe.isintraday and session.isfirstbar_regular
+plotshape(buyBar, "Buy at the close", shape.triangleup, location.bottom, color.new(#2997ff, 0), size = size.tiny)
+plotshape(sellBar, "Sell at the open", shape.triangledown, location.top, color.new(#f4b942, 0), size = size.tiny)
+alertcondition(buyBar, "Overnight: buy at the close", "{{ticker}}: last bar of the session. Overnight effect: buy at the close.")
+alertcondition(sellBar, "Overnight: sell at the open", "{{ticker}}: first bar of the session. Overnight effect: sell at the open.")
+
+var table tb = table.new(position.top_left, 2, 5, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+if barstate.islast
+    ink = color.new(#f5f5f7, 0)
+    dim = color.new(#86868b, 0)
+    fmt = "+#.000;-#.000"
+    table.cell(tb, 0, 0, "Avg night (close to open)", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 0, n &gt; 0 ? str.tostring(sumN / n, fmt) + "%" : "daily chart", text_color = color.new(#30d158, 0), text_size = size.small)
+    table.cell(tb, 0, 1, "Avg day (open to close)", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 1, n &gt; 0 ? str.tostring(sumD / n, fmt) + "%" : "daily chart", text_color = color.new(#f4b942, 0), text_size = size.small)
+    table.cell(tb, 0, 2, "100 grew to, night / day", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 2, n &gt; 0 ? str.tostring(eqNight, "#") + " / " + str.tostring(eqDay, "#") : "-", text_color = ink, text_size = size.small)
+    table.cell(tb, 0, 3, "Up nights / up days", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 3, n &gt; 0 ? str.tostring(100.0 * upN / n, "#.0") + "% / " + str.tostring(100.0 * upD / n, "#.0") + "%" : "-", text_color = ink, text_size = size.small)
+    table.cell(tb, 0, 4, "Days counted", text_color = dim, text_size = size.small)
+    table.cell(tb, 1, 4, str.tostring(n) + " since " + str.tostring(startYear), text_color = ink, text_size = size.small)
+</code></pre>
+  </div>
+
+  <div class="section-head" id="related">
+    <h2>Go deeper</h2>
+    <p>Pages on this site that pick up where this one leaves off.</p>
+  </div>
+  <div class="four">
+    <a href="/famous-strategies/intraday-momentum.html" style="--tc:#30d158"><span class="k">famous strategy</span><h3>Intraday Momentum</h3><p>The other side of the clock: what the first half-hour says about the last.</p><small>Read &rsaquo;</small></a>
+    <a href="/famous-strategies/turn-of-the-month.html" style="--tc:#2997ff"><span class="k">famous strategy</span><h3>Turn of the Month</h3><p>Another calendar pattern: four days a month.</p><small>Read &rsaquo;</small></a>
+    <a href="/famous-strategies/rsi-2.html" style="--tc:#f4b942"><span class="k">famous strategy</span><h3>RSI(2)</h3><p>A short-hold index fund strategy with fewer trades.</p><small>Read &rsaquo;</small></a>
+    <a href="/famous-strategies/opening-range-breakout.html" style="--tc:#ff9f0a"><span class="k">famous strategy</span><h3>Opening Range Breakout</h3><p>Trading the open the overnight holder sells into.</p><small>Read &rsaquo;</small></a>
+  </div>
+
+  <div class="rule">
+    <div>
+      <h2>Try it on paper first.</h2>
+      <p>Put the indicator on a daily SPY chart, then for a month write down the closing price each day and the next morning's opening price. Price your own spread and commissions per round trip and see what's left of the average night.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Record real closing and opening prints.</li>
+        <li>Count every round trip's cost.</li>
+        <li>Compare with simply holding SPY.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-head" id="sources">
+    <h2>Sources</h2>
+    <p>The papers and books behind every figure on this page.</p>
+  </div>
+  <ol class="cites">
+    <li>Cliff, M., Cooper, M. J. &amp; Gulen, H. (2008). Return Differences between Trading and Non-Trading Hours: Like Night and Day. Working paper, SSRN 1004081.<small>Intraday data, 1993&ndash;2006: S&amp;P 500 stocks averaged 0.028% to 0.048% from the close to the open and &minus;0.028% to 0.002% from the open to the close, depending on the averaging; night minus day 0.18% for QQQQ, 0.068% for SPY and 0.061% for DIA; across 14 high-volume ETFs nights beat days in all 14 and days were negative in 12; overnight returns less volatile; also in equity index futures; not determined by earnings announcements.</small></li>
+    <li>Kelly, M. A. &amp; Clark, S. P. (2011). Returns in Trading versus Non-Trading Hours: The Difference Is Day and Night. <i>Journal of Asset Management</i>, 12(2), 132&ndash;145.<small>Broad index ETFs; for QQQQ, 1999&ndash;2006, a geometric average close-to-open risk premium of +23.7% against &minus;23.3% open to close, with lower volatility overnight.</small></li>
+    <li>Lou, D., Polk, C. &amp; Skouras, S. (2019). A Tug of War: Overnight versus Intraday Expected Returns. <i>Journal of Financial Economics</i>, 134(1), 192&ndash;213.</li>
+    <li>Bondarenko, O. &amp; Muravyev, D. (2023). Market Return Around the Clock: A Puzzle. <i>Journal of Financial and Quantitative Analysis</i>, 58(3).</li>
+  </ol>
+
+  <p class="src">Built from the papers listed above. The candles in the first walkthrough are made up for illustration. The research bars use the published numbers. The SPY figures are from our own TradingView run of the indicator on this page, daily bars since 1993, price only, not from a published study, and the cost chart is simple arithmetic on that run. Past results don't promise future returns. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>
