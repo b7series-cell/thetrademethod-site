@@ -167,7 +167,6 @@
         '<a class="hide-lg" href="/famous-strategies/"' + (here().indexOf("/famous-strategies/") === 0 ? ' aria-current="page"' : "") + '>Strategies</a>' +
         '<a class="hide-md" href="/blog/"' + (here().indexOf("/blog/") === 0 ? ' aria-current="page"' : "") + '>Blog</a>' +
         '<a class="hide-sm" href="/#inside">Inside a page</a>' +
-        '<a class="hide-sm hide-xs" href="/#tape">Live tape</a>' +
         '<button type="button" class="gnav-search" aria-label="Search the site" aria-haspopup="dialog" aria-expanded="false" title="Search (press /)">' +
           '<svg width="15" height="15" viewBox="0 0 18 18" aria-hidden="true"><circle cx="7.5" cy="7.5" r="5.75" fill="none" stroke="currentColor" stroke-width="1.7"/><line x1="11.8" y1="11.8" x2="16.5" y2="16.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></button>' +
         '<span class="gnav-ctas"><a class="gnav-cta" href="' + REVIEW_URL + '" target="_blank" rel="noopener">Trade Review</a>' +
