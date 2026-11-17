@@ -600,7 +600,7 @@
         s += txt(x(7), y(21796.5) + 30 * FS, nar ? "higher low" : "retest holds · higher low", C.gold, 11.5, "middle", 700, at(7));
         var e2 = at(8);
         s += tri(x(8) - dx * 0.8, y(21804.25), true, C.up, 10 * FS, e2);
-        s += txt(x(8), y(21813) - 12 * FS, "buy the hold", C.up, 12, "middle", 700, e2);
+        s += txt(x(8) + dx * 0.3, y(21813) - 12 * FS, "buy the hold", C.up, 12, "end", 700, e2);
       }
       return s;
     }
