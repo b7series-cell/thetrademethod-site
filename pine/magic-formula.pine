@@ -1,0 +1,117 @@
+//@version=6
+// =====================================================================
+// Magic Formula Rank — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/magic-formula.html
+//
+// Joel Greenblatt, The Little Book That Beats the Market (2005): buy good
+// companies (high return on capital) at bargain prices (high earnings
+// yield). Rank every stock on each, add the two ranks, buy the lowest
+// totals.
+//
+//   Earnings yield     EBIT / enterprise value
+//   Return on capital  EBIT / (net working capital + net fixed assets)
+//
+// A chart can't rank the whole market, so this ranks a list you give it
+// (up to 7 symbols plus the chart's own stock) from TradingView's
+// fundamental data, and shows where the chart's stock lands. EBIT is
+// trailing twelve months; the balance sheet is the latest quarter.
+// Cash is left in working capital (TradingView has no "excess cash"),
+// so it's a close version of the book's formula, not an exact one.
+// Marks and alerts only; it places no orders.
+// =====================================================================
+indicator("Magic Formula Rank", shorttitle = "Magic Formula", overlay = false)
+
+// ---------------- inputs ----------------
+grpL = "The list to rank"
+s1 = input.symbol("NASDAQ:AAPL", "1", group = grpL)
+s2 = input.symbol("NASDAQ:MSFT", "2", group = grpL)
+s3 = input.symbol("NYSE:JNJ", "3", group = grpL)
+s4 = input.symbol("NYSE:HD", "4", group = grpL)
+s5 = input.symbol("NYSE:MO", "5", group = grpL)
+s6 = input.symbol("NASDAQ:CSCO", "6", group = grpL)
+s7 = input.symbol("NYSE:KO", "7", group = grpL)
+topN    = input.int(3, "Count as top", minval = 1, maxval = 8)
+showTbl = input.bool(true, "Show the table")
+
+// ---------------- the two numbers ----------------
+mf(string sym) =>
+    ebit = request.financial(sym, "EBIT", "TTM", ignore_invalid_symbol = true)
+    ev   = request.financial(sym, "ENTERPRISE_VALUE", "FQ", ignore_invalid_symbol = true)
+    ca   = request.financial(sym, "TOTAL_CURRENT_ASSETS", "FQ", ignore_invalid_symbol = true)
+    cl   = request.financial(sym, "TOTAL_CURRENT_LIABILITIES", "FQ", ignore_invalid_symbol = true)
+    ppe  = request.financial(sym, "PPE_TOTAL_NET", "FQ", ignore_invalid_symbol = true)
+    nwc  = math.max(nz(ca) - nz(cl), 0)
+    cap  = nwc + nz(ppe)
+    ey   = not na(ebit) and ev > 0 ? ebit / ev * 100 : na
+    roc  = not na(ebit) and cap > 0 ? ebit / cap * 100 : na
+    [ey, roc]
+
+syms = array.from(syminfo.tickerid, s1, s2, s3, s4, s5, s6, s7)
+n = array.size(syms)
+eys  = array.new<float>(n, na)
+rocs = array.new<float>(n, na)
+for i = 0 to n - 1
+    [e, r] = mf(array.get(syms, i))
+    array.set(eys, i, e)
+    array.set(rocs, i, r)
+
+// rank: 1 = best (highest). Missing data ranks last.
+rankOf(array<float> a, int i) =>
+    v = array.get(a, i)
+    rk = 1
+    for j = 0 to array.size(a) - 1
+        w = array.get(a, j)
+        if j != i and not na(w) and (na(v) or w > v)
+            rk += 1
+    rk
+
+combo = array.new<int>(n, 0)
+for i = 0 to n - 1
+    array.set(combo, i, rankOf(eys, i) + rankOf(rocs, i))
+
+// final place on the combined score (lower is better, ties share a place)
+placeOf(int i) =>
+    c = array.get(combo, i)
+    p = 1
+    for j = 0 to n - 1
+        if j != i and array.get(combo, j) < c
+            p += 1
+    p
+
+myPlace = placeOf(0)
+inTop = myPlace <= topN
+myEY  = array.get(eys, 0)
+myROC = array.get(rocs, 0)
+
+// ---------------- plots ----------------
+plot(myEY, "Earnings yield %", color = #f4b942, linewidth = 2, style = plot.style_stepline)
+plot(myROC, "Return on capital %", color = #2997ff, linewidth = 2, style = plot.style_stepline)
+hline(0, "Zero", color = color.new(#8e8e93, 50), linestyle = hline.style_dashed)
+bgcolor(inTop ? color.new(#30d158, 90) : na, title = "In the top of the list")
+alertcondition(inTop and not inTop[1], "Moved into the top", "{{ticker}} moved into the top of your Magic Formula list")
+alertcondition(not inTop and inTop[1], "Dropped out of the top", "{{ticker}} dropped out of the top of your Magic Formula list")
+
+var table tb = table.new(position.top_right, 4, 10, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+if showTbl and barstate.islast
+    lc = color.new(#86868b, 0)
+    vc = color.new(#f5f5f7, 0)
+    table.cell(tb, 0, 0, "#", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 0, "Symbol", text_color = lc, text_size = size.small)
+    table.cell(tb, 2, 0, "Earn. yield", text_color = lc, text_size = size.small)
+    table.cell(tb, 3, 0, "ROC", text_color = lc, text_size = size.small)
+    // sort indexes by place
+    idx = array.new<int>()
+    for p = 1 to n
+        for i = 0 to n - 1
+            if placeOf(i) == p and not array.includes(idx, i)
+                array.push(idx, i)
+    for k = 0 to array.size(idx) - 1
+        i = array.get(idx, k)
+        top = k < topN
+        bg = i == 0 ? color.new(#5b4a1f, 0) : top ? color.new(#173d24, 0) : color.new(#1d1d1f, 0)
+        e = array.get(eys, i)
+        r = array.get(rocs, i)
+        table.cell(tb, 0, k + 1, str.tostring(placeOf(i)), text_color = lc, bgcolor = bg, text_size = size.small)
+        table.cell(tb, 1, k + 1, i == 0 ? syminfo.ticker + " (chart)" : array.get(syms, i), text_color = vc, bgcolor = bg, text_size = size.small)
+        table.cell(tb, 2, k + 1, na(e) ? "n/a" : str.tostring(e, "#.0") + "%", text_color = vc, bgcolor = bg, text_size = size.small)
+        table.cell(tb, 3, k + 1, na(r) ? "n/a" : str.tostring(r, "#") + "%", text_color = vc, bgcolor = bg, text_size = size.small)

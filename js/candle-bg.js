@@ -912,6 +912,39 @@
       }
     },
 
+    "pairs-trading": {
+      story: function (st) {
+        var M;
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); M = level(st, st.price, "Mean · the pair's normal gap", SILK, true); return bar(st, { n: 0.5, mk: { t: "Spread A − B · formation year", col: SILK, below: true } }); }),
+          rep(8, function (st, k) { return bar(st, { d: k % 2 ? -0.5 : 0.5, n: 0.6 }); }),
+          rep(5, function (st) { return bar(st, { d: 0.75, n: 0.5 }); }),
+          rep(1, function (st) { level(st, st.price, "+2σ · open", RED, true); return bar(st, { d: 0.4, n: 0.3, v: 0.9, flash: RED, mk: { t: "+2σ · short A, buy B", col: RED } }); }),
+          rep(7, function (st) { return bar(st, { d: -0.6, n: 0.6 }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: -0.4, n: 0.3, v: 0.8, flash: GREEN, mk: { t: "Prices cross · close both", col: GREEN, below: true } }); }),
+          rep(6, function (st, k) { return bar(st, { d: k % 2 ? 0.45 : -0.45, n: 0.7 }); }),
+          rep(4, function (st) { return bar(st, { d: -0.7, n: 0.5 }); }),
+          rep(1, function (st) { return bar(st, { d: -0.3, n: 0.3, v: 0.8, flash: GREEN, mk: { t: "−2σ · buy A, short B", col: GREEN, below: true } }); }),
+          rep(6, function (st) { return bar(st, { d: 0.55, n: 0.6 }); })
+        ];
+      }
+    },
+
+    "magic-formula": {
+      story: function (st) {
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { n: 0.5, mk: { t: "Rank · earnings yield + return on capital", col: SILK, below: true } }); }),
+          rep(3, function (st) { return bar(st, { d: rnd(-0.4, 0.3), n: 0.6 }); }),
+          rep(1, function (st) { level(st, st.price - 0.5, "Bought · top of the list", GREEN, true); return bar(st, { d: 0.5, n: 0.3, v: 0.8, flash: GREEN, mk: { t: "Good + cheap · buy 5–7", col: GREEN } }); }),
+          rep(9, function (st, k) { return bar(st, { d: k % 3 === 2 ? -0.7 : 0.45, n: 0.7 }); }),
+          rep(5, function (st, k) { return bar(st, { d: k === 2 ? -0.4 : -0.6, n: 0.7, mk: k === 1 ? { t: "A losing year · stay with it", col: RED } : null }); }),
+          rep(9, function (st, k) { return bar(st, { d: k % 4 === 3 ? -0.5 : 0.65, n: 0.7 }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 0.2, n: 0.4, mk: { t: "One year · sell, re-rank, replace", col: SILK, below: true } }); }),
+          rep(6, function (st) { return bar(st, { d: rnd(-0.4, 0.5), n: 0.7 }); })
+        ];
+      }
+    },
+
     "pyramiding": {
       story: function (st) {
         var S, hi, lo;

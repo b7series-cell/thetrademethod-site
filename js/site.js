@@ -68,8 +68,8 @@
   var STRATEGIES = [
     { href: "/famous-strategies/cross-sectional-momentum.html", title: "Cross-Sectional Momentum", who: "Jegadeesh & Titman, 1993", market: "Stocks", live: true, blurb: "Rank every stock on its last 3 to 12 months, buy the top tenth, short the bottom tenth, hold for months and rebalance on a schedule." },
     { href: "/famous-strategies/post-earnings-drift.html", title: "Post-Earnings Announcement Drift", who: "Bernard & Thomas, 1989", market: "Stocks", live: true, blurb: "Stocks keep drifting in the direction of an earnings surprise for weeks after the report." },
-    { href: "/famous-strategies/pairs-trading.html", title: "Pairs Trading", who: "Gatev, Goetzmann & Rouwenhorst, 2006", market: "Stocks", live: false, blurb: "Trade the spread between two stocks that have moved together, when it stretches too far apart." },
-    { href: "/famous-strategies/magic-formula.html", title: "Magic Formula", who: "Joel Greenblatt", market: "Stocks", live: false, blurb: "Rank stocks by earnings yield plus return on capital and hold the top names for a year." },
+    { href: "/famous-strategies/pairs-trading.html", title: "Pairs Trading", who: "Gatev, Goetzmann & Rouwenhorst, 2006", market: "Stocks", live: true, blurb: "Trade the spread between two stocks that have moved together, when it stretches too far apart." },
+    { href: "/famous-strategies/magic-formula.html", title: "Magic Formula", who: "Joel Greenblatt", market: "Stocks", live: true, blurb: "Rank stocks by earnings yield plus return on capital and hold the top names for a year." },
     { href: "/famous-strategies/value-and-size.html", title: "Fama-French Value and Size", who: "Fama & French, 1992–93", market: "Stocks", live: false, blurb: "Tilt toward cheap stocks and small stocks." },
     { href: "/famous-strategies/low-volatility.html", title: "Low-Volatility Anomaly", who: "Ang et al., 2006; Frazzini & Pedersen, 2014", market: "Stocks", live: false, blurb: "Calmer stocks have beaten riskier ones on a risk-adjusted basis." },
     { href: "/famous-strategies/can-slim.html", title: "CAN SLIM", who: "William O'Neil", market: "Stocks", live: false, blurb: "Growth stocks breaking out of bases on volume." },
@@ -548,7 +548,7 @@
      each page's description and section headings, so a hit on a heading
      links straight to that section. Bump SEARCH_INDEX_URL's ?v= after
      rebuilding the index. */
-  var SEARCH_INDEX_URL = "/js/search-index.js?v=19";
+  var SEARCH_INDEX_URL = "/js/search-index.js?v=20";
   var searchDocs = null, searchIndexState = "";
 
   function searchBase() {

@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pairs Trading (Gatev, Goetzmann &amp; Rouwenhorst), Explained | The Trade Method</title>
+<meta name="description" content="Pairs trading (Gatev, Goetzmann and Rouwenhorst, 2006): match stocks whose prices moved together for a year, and when they split by two standard deviations, short the leader and buy the laggard until they cross. The rule, the paper&#x27;s returns and costs, the risks, plus a free TradingView indicator.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/famous-strategies/pairs-trading.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Pairs Trading (Gatev, Goetzmann &amp; Rouwenhorst), Explained">
+<meta property="og:description" content="Pairs trading (Gatev, Goetzmann and Rouwenhorst, 2006): match stocks whose prices moved together for a year, and when they split by two standard deviations, short the leader and buy the laggard until they cross. The rule, the paper&#x27;s returns and costs, the risks, plus a free TradingView indicator.">
+<meta property="og:url" content="https://thetrademethod.com/famous-strategies/pairs-trading.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pairs Trading (Gatev, Goetzmann &amp; Rouwenhorst), Explained">
+<meta name="twitter:description" content="Pairs trading (Gatev, Goetzmann and Rouwenhorst, 2006): match stocks whose prices moved together for a year, and when they split by two standard deviations, short the leader and buy the laggard until they cross. The rule, the paper&#x27;s returns and costs, the risks, plus a free TradingView indicator.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Pairs Trading (Gatev, Goetzmann &amp; Rouwenhorst), Explained",
+ "name": "Pairs Trading",
+ "description": "Pairs trading (Gatev, Goetzmann and Rouwenhorst, 2006): match stocks whose prices moved together for a year, and when they split by two standard deviations, short the leader and buy the laggard until they cross. The rule, the paper&#x27;s returns and costs, the risks, plus a free TradingView indicator.",
+ "url": "https://thetrademethod.com/famous-strategies/pairs-trading.html",
+ "mainEntityOfPage": "https://thetrademethod.com/famous-strategies/pairs-trading.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-17",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.seven { grid-template-columns:repeat(2,1fr); }
+    .ribbon.seven > div:last-child { grid-column:span 2; }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=24">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the pyramid: five cards, or a stepper once js/pyr-anim.js runs */
+  .fs-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .fs-steps .stage, .sheet .fs-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .fs-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .fs-steps.is-stepper .stage, .sheet .fs-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .fs-steps.is-stepper .stage .num { display:none; }
+  .sheet .fs-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .fs-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .fs-steps + .four { margin-top:28px; }
+  .fs-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .fs-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .fs-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .fs-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .fs-steps { margin-top:24px; }
+  }
+
+  /* fact sheet, timeline, sources */
+  .facts { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; background:var(--graphite); border-radius:22px; overflow:hidden; margin-top:26px; }
+  .facts div { background:var(--charcoal); padding:16px 18px; }
+  .facts .k { font-family:var(--mono-font); font-size:12px; color:var(--ash); }
+  .facts b { display:block; margin-top:4px; font-size:16px; font-weight:600; line-height:1.3; }
+  .tl { list-style:none; margin:0; padding:0; display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+  .tl li { background:var(--charcoal); border-radius:20px; padding:16px 16px 18px; border-top:3px solid var(--tc, var(--up)); }
+  .tl .y { font-family:var(--mono-font); font-size:13px; color:var(--tc, var(--up)); font-weight:600; }
+  .tl b { display:block; margin:6px 0 6px; font-size:16px; line-height:1.25; }
+  .tl p { margin:0; color:var(--mute); font-size:14px; }
+  .cites { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .cites li { margin-bottom:10px; }
+  .cites i { color:var(--platinum); }
+  .cites small { display:block; color:var(--ash); font-size:13.5px; margin-top:2px; }
+  @media (max-width:1100px) { .facts { grid-template-columns:repeat(2,1fr); } .tl { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:680px) { .facts, .tl { grid-template-columns:1fr; } .sheet .section-head + .fs-steps { margin-top:24px; } }
+
+  /* the indicator */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-wrap { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.15fr); gap:22px; align-items:start; }
+  .ind-mock { background:var(--charcoal); border-radius:22px; padding:14px; }
+  .howto { margin:0; padding-left:20px; color:var(--silk); font-size:15px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#f4b942; font-weight:600; }
+  .code-wrap { background:var(--charcoal); border-radius:22px; margin-top:22px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:12px 16px; border-bottom:1px solid #2c2c2e; flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--ash); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--silk); background:#2c2c2e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#3a3a3c; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d1d6; tab-size:4; }
+  @media (max-width:1100px) { .ind-wrap { grid-template-columns:1fr; } }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-mock { padding:8px; } }
+</style>
+<script src="/js/nav.js?v=23" defer></script>
+<script src="/js/site.js?v=41" defer></script>
+<script src="/js/fs-kit.js?v=1" defer></script>
+<script src="/js/fs-pairs-trading.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=28" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="Pairs Trading"></div>
+<div class="sheet">
+
+  <a class="back" href="/famous-strategies/">&lsaquo; Famous strategies</a>
+
+  <header class="top" data-candle-bg="pairs-trading">
+    <div>
+      <p class="kicker">Famous strategies &middot; Stocks &middot; Gatev, Goetzmann and Rouwenhorst, <i>Review of Financial Studies</i>, 2006</p>
+      <h1>Pairs <span>Trading</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Two stocks have moved together for a year. When one suddenly runs ahead of the other, does the gap close again? Short the one that ran, buy the one that lagged, and close both when their prices cross.
+      <em>Bet on the gap, not the market.</em></p>
+      <div class="counts">
+        <div><b>12 + 6</b><small>months to form the pairs, then to trade them</small></div>
+        <div><b>2&sigma;</b><small>the gap that opens a trade</small></div>
+        <div><b>~11%</b><small>a year, the paper's best version</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon seven" aria-label="Pairs Trading">
+    <div><div class="t">step 1</div><div class="n">Normalize prices</div></div>
+    <div><div class="t">step 2</div><div class="n">Find the closest partner</div></div>
+    <div><div class="t">step 3</div><div class="n">Watch the gap</div></div>
+    <div><div class="t">step 4</div><div class="n">Open at two sigma</div></div>
+    <div><div class="t">step 5</div><div class="n">Close at the cross</div></div>
+  </nav>
+
+  <div class="facts" aria-label="At a glance">
+    <div><span class="k">paper</span><b>"Pairs Trading: Performance of a Relative-Value Arbitrage Rule"</b></div>
+    <div><span class="k">authors</span><b>Evan Gatev, William Goetzmann &amp; K. Geert Rouwenhorst</b></div>
+    <div><span class="k">published</span><b><i>Review of Financial Studies</i> 19(3), 2006, pp. 797&ndash;827</b></div>
+    <div><span class="k">sample</span><b>Liquid US stocks, 1962&ndash;2002</b></div>
+    <div><span class="k">signal</span><b>Gap of 2 standard deviations between normalized prices</b></div>
+    <div><span class="k">trade</span><b>Short the leader, buy the laggard, a dollar each</b></div>
+    <div><span class="k">exit</span><b>Prices cross, or the 6-month period ends</b></div>
+    <div><span class="k">headline</span><b>Up to about 11% a year above the risk-free rate</b></div>
+  </div>
+
+  <div class="section-head" id="match">
+    <h2>Finding the pairs</h2>
+    <p>The paper doesn't pick pairs by industry or story. It lets twelve months of prices decide: every stock is matched with the one whose price line stayed closest to its own.</p>
+  </div>
+  <section class="anim" data-fs-anim="match" aria-label="Made-up normalized prices for Stock A and four candidates over twelve months: the squared gap to each candidate is added up, and Stock B, with the smallest total distance, becomes A&#x27;s partner.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The closest partner</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="The closest partner"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>The rule</h3>
+          <ul>
+            <li>Formation: take twelve months of daily total returns for every stock and start each line at $1.</li>
+            <li>Match each stock with the partner whose line has the smallest sum of squared gaps from its own. Rank all pairs by that distance and keep the closest 5 or 20.</li>
+            <li>Trading: for the next six months, open a pair when the gap reaches two standard deviations (of the gap in the formation year), and close it when the prices cross. Anything still open after six months is closed.</li>
+          </ul>
+          <p class="why">A new formation and trading cycle starts every month, so at any time six overlapping portfolios are running. The paper reports their average.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Distance, not correlation</h4>
+        <p class="lead">Two common ways to pick pairs, and the one the paper used.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">the paper</span><b>Smallest distance</b><p>The sum of squared gaps between normalized prices. Simple, and it picks stocks that actually traded at the same level.</p></div>
+          <div class="care"><span class="k">later research</span><b>Cointegration</b><p>A statistical test that the spread itself tends to revert. More complex, and the subject of a lot of later work.</p></div>
+        </div>
+      </div>
+      <div class="panel calc">
+        <h4>A pair, in dollars</h4>
+        <p class="lead">The paper's position is a dollar long and a dollar short.</p>
+        <div class="row"><span>Short Stock A (the leader)</span><b>&minus;$10,000</b></div>
+        <div class="row"><span>Buy Stock B (the laggard)</span><b>+$10,000</b></div>
+        <div class="row tot"><span>Net market exposure</span><b>about $0</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="trade">
+    <h2>Opening and closing a trade</h2>
+    <p>Once the pair is fixed, there's only one number to watch: how far apart the two prices are, compared with how far apart they usually were.</p>
+  </div>
+  <section class="anim" data-fs-anim="trade" aria-label="A made-up six-month trading period: Stock A runs two standard deviations ahead of Stock B, the trade shorts A and buys B, and closes when the prices cross; a second trade opens when A falls two standard deviations behind and is closed at the end of the period without crossing.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Open at 2&sigma;, close at the cross</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Open at 2&amp;sigma;, close at the cross"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>What can happen to an open pair</h3>
+          <ul>
+            <li>The gap closes and the prices cross: close both legs for a profit. This is the trade the rule is built for.</li>
+            <li>The gap never closes within the six months: the position is closed at the end, at a gain or a loss.</li>
+            <li>One stock is delisted, merged or acquired: the paper closed the pair at the last price or delisting return. These are the trades that hurt.</li>
+          </ul>
+          <p class="why">The rule never cuts a loser because the gap widened. Wider gaps are, by the rule's logic, better entries. That's the strategy's main risk.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <blockquote class="qb"><b>Wait a day.</b> The paper's base case trades the day <i>after</i> the gap hits two standard deviations, not on the same close. Signals on the same close are partly bid-ask bounce: the price you see isn't one you could have traded.</blockquote>
+      <div class="panel calc">
+        <h4>The paper's portfolios</h4>
+        <p class="lead">Average pairs traded per six-month period.</p>
+        <div class="row"><span>Top 5</span><b>4.81 pairs</b></div>
+        <div class="row"><span>Top 20</span><b>19.3 pairs</b></div>
+        <div class="row"><span>Round trips per pair</span><b>about 2</b></div>
+        <div class="row tot"><span>Average time open</span><b>about 3.75 months</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="results">
+    <h2>What the paper found</h2>
+    <p>Forty years of US stocks, a new cycle every month, and every rule fixed in advance. The returns were steady, and most of them survived the authors' own attempts to explain them away.</p>
+  </div>
+  <section class="anim" data-fs-anim="results" aria-label="Average monthly excess returns from the paper: same-day signals earned 1.31% for the top 5 pairs and 1.44% for the top 20; waiting one day cut them to about 0.75% and 0.90%; costs were estimated at about 1.6% per pair round trip.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The paper's returns</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="The paper&#x27;s returns"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="four">
+    <div style="--tc:#2997ff"><span class="k">returns</span><h3>Up to ~11% a year</h3><p>Above the risk-free rate, for the base case that waits a day before trading.</p></div>
+    <div style="--tc:#30d158"><span class="k">risk</span><h3>Close to market neutral</h3><p>Market betas were near zero, and the returns weren't explained by the usual risk factors.</p></div>
+    <div style="--tc:#f4b942"><span class="k">costs</span><h3>About 1.6% a round trip</h3><p>The paper's estimate per pair. Profits stayed significant after it, but it's a big share of the edge.</p></div>
+    <div style="--tc:#ff453a"><span class="k">decline</span><h3>Smaller after the 1980s</h3><p>Returns fell in the later part of the sample as more hedge funds traded the same idea.</p></div>
+  </div>
+
+  <div class="section-head" id="neutral">
+    <h2>Market neutral is not risk free</h2>
+    <p>Being long one stock and short its twin takes the market out of the trade. It leaves the risk that the two stop being twins.</p>
+  </div>
+  <section class="anim" data-fs-anim="neutral" aria-label="A made-up market drop of about 20% against a pairs book that barely moves, a made-up dip where one pair breaks apart, and a note that profits shrank after the late 1980s.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">When the market falls</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="When the market falls"></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <ol class="tl">
+    <li style="--tc:#2997ff"><span class="y">1980s</span><b>Morgan Stanley</b><p>A quantitative group led by Nunzio Tartaglia trades pairs, according to the paper's own history of the idea.</p></li>
+    <li style="--tc:#30d158"><span class="y">1999</span><b>Working paper</b><p>Gatev, Goetzmann and Rouwenhorst first circulate the study.</p></li>
+    <li style="--tc:#30d158"><span class="y">2006</span><b>Review of Financial Studies</b><p>The published paper: 1962&ndash;2002, top 5 and top 20 pairs, up to 11% a year.</p></li>
+    <li style="--tc:#ff453a"><span class="y">Later</span><b>More competition</b><p>The edge in the simple version shrinks as more traders run it. Later studies test cointegration and other ways to pick pairs.</p></li>
+  </ol>
+
+  <div class="section-head" id="steps">
+    <h2>The strategy, step by step</h2>
+    <p>The whole thing in five steps. Click through them.</p>
+  </div>
+  <div class="fs-steps" data-fs-steps data-fs-label="Pairs Trading, step by step">
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Form</h3>
+          <ul>
+            <li>Twelve months of daily total returns for every stock you can trade.</li>
+            <li>Start every line at $1.</li>
+          </ul>
+          <p class="why">Now a $20 stock and a $200 stock can be compared.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Match</h3>
+          <ul>
+            <li>For each stock, the partner with the smallest sum of squared gaps.</li>
+            <li>Rank all pairs and keep the closest 5 or 20.</li>
+          </ul>
+          <p class="why">The price history picks the pairs, not a story.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Watch</h3>
+          <ul>
+            <li>For the next six months, track the gap between the two lines.</li>
+            <li>Measure it in the standard deviations it had during the formation year.</li>
+          </ul>
+          <p class="why">One number per pair.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Open</h3>
+          <ul>
+            <li>At two standard deviations, short the one that ran and buy the one that lagged, a dollar of each.</li>
+            <li>The paper trades the day after the signal.</li>
+          </ul>
+          <p class="why">You're betting on the gap, not the market.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Close</h3>
+          <ul>
+            <li>When the prices cross, close both legs.</li>
+            <li>If they haven't crossed when the six months end, close anyway.</li>
+          </ul>
+          <p class="why">Then the next month's pairs take over.</p>
+        </div>
+      </section>
+  </div>
+
+  <div class="section-head" id="indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for this strategy (Pine Script v6). Put it on one stock and give it the partner: it tracks the gap between the two as a z-score, marks when it reaches two standard deviations and when it comes back, and alerts on both. It marks and alerts. It doesn't place trades.</p>
+  </div>
+  <div class="ind-wrap">
+    <ul class="ind-list">
+      <li class="ind-card">
+        <div class="ind-card-top">
+          <h3 class="ind-name">Pairs Trading Spread</h3>
+          <span class="ind-alerts">alerts</span>
+        </div>
+        <p class="ind-blurb">A pane under your chart with the pair's z-score: the log of this stock's price divided by the partner's, compared with its average over the formation window (252 days by default), in standard deviations. Lines at +2 and &minus;2 are the open levels.</p>
+        <p class="ind-blurb">At +2 a red marker says short this stock and buy the partner; at &minus;2 a green one says the reverse. The trade stays shaded until the z-score crosses back through 0 (a white dot) or the maximum holding time runs out (an orange cross). A table shows the partner, their correlation, the z-score and the position.</p>
+        <p class="ind-blurb"><span style="color:var(--ash)">It's the common practical version, a rolling z-score of the price ratio, not the paper's fixed 12-month formation and 6-month trading periods. Every number is a setting: the partner, the window, the open and close levels, and the maximum hold.</span></p>
+        <div class="ind-links">
+          <a class="ind-link ind-link--quiet" href="/pine/pairs-trading.pine" download>Download source (.pine)</a>
+        </div>
+      </li>
+    </ul>
+    <div class="ind-mock"><svg viewBox="0 0 560 330" role="img" aria-label="An illustrative mock of the indicator: a pane with the pair's z-score in blue between lines at plus and minus 2, a red-shaded trade opened at plus 2 (short A, buy B) and closed when the z-score crossed zero, a green-shaded trade opened at minus 2, and a table showing the partner, correlation, z-score and position."><rect width="560" height="330" rx="14" fill="#141416"/><rect x="105.5" y="40.0" width="52.3" height="256.0" rx="0" fill="#ff453a" opacity="0.13"/><rect x="237.2" y="40.0" width="79.4" height="256.0" rx="0" fill="#30d158" opacity="0.13"/><line x1="16.0" y1="168.0" x2="352.0" y2="168.0" stroke="#8e8e93" stroke-width="1" stroke-dasharray="4 4"/><line x1="16.0" y1="82.7" x2="352.0" y2="82.7" stroke="#ff453a" stroke-width="1"/><line x1="16.0" y1="253.3" x2="352.0" y2="253.3" stroke="#30d158" stroke-width="1"/><polyline fill="none" stroke="#2997ff" stroke-width="2" stroke-linejoin="round" points="16.0,167.8 17.7,171.4 19.4,168.4 21.1,173.6 22.8,176.5 24.4,172.9 26.1,166.5 27.8,169.9 29.5,171.9 31.2,181.8 32.9,178.5 34.6,184.1 36.3,187.2 37.9,189.8 39.6,189.6 41.3,180.2 43.0,183.3 44.7,185.1 46.4,186.8 48.1,197.6 49.8,197.4 51.5,194.0 53.1,194.0 54.8,193.6 56.5,194.8 58.2,208.5 59.9,196.1 61.6,190.7 63.3,188.8 65.0,189.4 66.7,180.5 68.3,182.0 70.0,164.6 71.7,161.2 73.4,161.7 75.1,161.1 76.8,147.4 78.5,148.1 80.2,138.9 81.8,135.1 83.5,135.9 85.2,132.9 86.9,125.7 88.6,123.8 90.3,123.6 92.0,116.9 93.7,104.7 95.4,112.2 97.0,107.7 98.7,94.4 100.4,95.3 102.1,87.0 103.8,83.5 105.5,81.1 107.2,66.6 108.9,74.5 110.6,74.9 112.2,81.8 113.9,78.9 115.6,88.1 117.3,90.6 119.0,88.3 120.7,98.5 122.4,98.5 124.1,96.9 125.7,113.0 127.4,117.3 129.1,118.4 130.8,113.9 132.5,119.9 134.2,129.4 135.9,131.1 137.6,136.5 139.3,135.3 140.9,144.9 142.6,137.9 144.3,138.0 146.0,140.3 147.7,146.8 149.4,146.4 151.1,164.0 152.8,163.0 154.5,155.7 156.1,161.8 157.8,170.5 159.5,165.5 161.2,172.3 162.9,171.1 164.6,181.1 166.3,184.5 168.0,182.5 169.6,189.1 171.3,187.2 173.0,180.2 174.7,191.8 176.4,198.6 178.1,199.9 179.8,199.9 181.5,192.3 183.2,200.7 184.8,203.6 186.5,208.5 188.2,196.8 189.9,207.2 191.6,212.4 193.3,216.6 195.0,218.5 196.7,218.7 198.4,212.7 200.0,222.7 201.7,226.3 203.4,220.8 205.1,225.9 206.8,215.8 208.5,230.7 210.2,225.9 211.9,223.5 213.5,230.5 215.2,223.1 216.9,232.3 218.6,237.4 220.3,236.2 222.0,243.4 223.7,238.9 225.4,243.0 227.1,234.6 228.7,236.9 230.4,243.4 232.1,252.0 233.8,250.0 235.5,251.6 237.2,253.6 238.9,254.6 240.6,246.2 242.3,258.8 243.9,261.6 245.6,249.6 247.3,256.6 249.0,251.5 250.7,261.9 252.4,255.7 254.1,257.3 255.8,253.0 257.4,251.5 259.1,253.1 260.8,257.0 262.5,253.0 264.2,240.6 265.9,238.0 267.6,235.4 269.3,242.2 271.0,235.1 272.6,230.6 274.3,230.8 276.0,226.0 277.7,228.2 279.4,224.0 281.1,221.3 282.8,225.5 284.5,213.2 286.2,210.5 287.8,221.8 289.5,205.8 291.2,203.7 292.9,206.0 294.6,213.4 296.3,197.1 298.0,205.9 299.7,189.8 301.3,191.3 303.0,197.5 304.7,192.7 306.4,182.4 308.1,180.3 309.8,174.5 311.5,168.5 313.2,176.3 314.9,176.5 316.5,159.2 318.2,170.1 319.9,153.7 321.6,164.5 323.3,152.9 325.0,152.4 326.7,150.1 328.4,154.2 330.1,148.3 331.7,157.8 333.4,149.6 335.1,154.0 336.8,144.5 338.5,145.4 340.2,149.1 341.9,147.4 343.6,154.2 345.2,153.1 346.9,143.6 348.6,144.4 350.3,137.7 352.0,140.7"/><polyline fill="none" stroke="#f4b942" stroke-width="2.4" stroke-linejoin="round" points="100.4,95.3 102.1,87.0 103.8,83.5 105.5,81.1 107.2,66.6 108.9,74.5 110.6,74.9"/><polyline fill="none" stroke="#f4b942" stroke-width="2.4" stroke-linejoin="round" points="232.1,252.0 233.8,250.0 235.5,251.6 237.2,253.6 238.9,254.6 240.6,246.2 242.3,258.8"/><path d="M105.5 30 l-6 -10 h12z" fill="#ff453a"/><path d="M237.2 304 l-6 10 h12z" fill="#30d158"/><circle cx="157.8" cy="170.5" r="4" fill="#f5f5f7"/><circle cx="316.5" cy="159.2" r="4" fill="#f5f5f7"/><text x="16.0" y="24.0" fill="#86868b" font-size="12" font-weight="600" text-anchor="start">Pairs Z &#183; PEP vs KO &#183; daily</text><text x="356.0" y="86.7" fill="#ff453a" font-size="10" font-weight="600" text-anchor="start">+2</text><text x="356.0" y="257.3" fill="#30d158" font-size="10" font-weight="600" text-anchor="start">&#8722;2</text><text x="131.7" y="57.1" fill="#ff453a" font-size="10.5" font-weight="700" text-anchor="middle">short A, buy B</text><text x="276.9" y="286.9" fill="#30d158" font-size="10.5" font-weight="700" text-anchor="middle">buy A, short B</text><rect x="378.0" y="40.0" width="172.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="384.0" y="53.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Partner (B)</text><text x="476.0" y="53.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">NYSE:KO</text><rect x="378.0" y="59.0" width="172.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="384.0" y="72.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Correlation</text><text x="476.0" y="72.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">0.82</text><rect x="378.0" y="78.0" width="172.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="384.0" y="91.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Z-score now</text><text x="476.0" y="91.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">0.61</text><rect x="378.0" y="97.0" width="172.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="384.0" y="110.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Position</text><text x="476.0" y="110.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">flat</text><rect x="378.0" y="116.0" width="172.0" height="18.0" rx="0" fill="#1d1d1f" opacity="1"/><text x="384.0" y="129.0" fill="#86868b" font-size="11" font-weight="600" text-anchor="start">Days held</text><text x="476.0" y="129.0" fill="#f5f5f7" font-size="11" font-weight="600" text-anchor="start">-</text><text x="546" y="320" fill="#6e6e73" font-size="11" text-anchor="end">Illustrative mock &middot; made-up values</text></svg></div>
+  </div>
+  <div class="panel" style="margin-top:22px">
+    <h4>Add it to TradingView</h4>
+    <ol class="howto">
+      <li>Copy the code below, or download the .pine file.</li>
+      <li>In TradingView, open the Pine Editor at the bottom of a chart, paste it in, and click <b>Add to chart</b>.</li>
+      <li>Open a daily chart of one stock, then in the indicator's settings pick its partner (it ships with KO, for a PEP chart).</li>
+      <li>To get alerted, create an alert on the chart and pick <b>Open: short A, buy B</b>, <b>Open: buy A, short B</b> or <b>Close the pair</b>.</li>
+    </ol>
+  </div>
+  <div class="code-wrap">
+    <div class="code-top">
+      <span>pairs-trading.pine &middot; Pine Script v6</span>
+      <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/pairs-trading.pine" download>Download</a></div>
+    </div>
+    <pre class="pine" tabindex="0"><code>//@version=6
+// =====================================================================
+// Pairs Trading Spread — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/pairs-trading.html
+//
+// Gatev, Goetzmann and Rouwenhorst (2006): find two stocks whose prices
+// have moved together, and when they split apart by two standard
+// deviations, buy the cheap one and short the rich one. Close when the
+// prices cross again.
+//
+//   1. Pair       The chart's symbol (A) against a partner you choose (B).
+//   2. Spread     The log of A's price divided by B's price.
+//   3. Z-score    How far the spread is from its average over the
+//                 formation window, in standard deviations.
+//   4. Signals    Opens at +/-2 (short the rich leg, buy the cheap one),
+//                 closes when the z-score crosses back through 0, or
+//                 after the maximum holding time.
+//
+// This is the common practical version (a rolling z-score of the price
+// ratio), not the paper's fixed formation / trading periods. Use a daily
+// chart. Marks and alerts only; it places no orders.
+// =====================================================================
+indicator("Pairs Trading Spread", shorttitle = "Pairs Z", overlay = false)
+
+// ---------------- inputs ----------------
+symB    = input.symbol("NYSE:KO", "Partner stock (B)")
+lenF    = input.int(252, "Formation window (bars)", minval = 20, maxval = 1000, tooltip = "252 trading days is about the paper's 12-month formation period.")
+zOpen   = input.float(2.0, "Open at |z| of", minval = 0.5, step = 0.1)
+zClose  = input.float(0.0, "Close when z crosses", step = 0.1, tooltip = "0 = the spread is back at its average: the prices have crossed.")
+maxHold = input.int(126, "Maximum holding (bars)", minval = 5, tooltip = "126 trading days is about the paper's 6-month trading period.")
+showTbl = input.bool(true, "Show the table")
+
+// ---------------- spread ----------------
+cB = request.security(symB, timeframe.period, close, ignore_invalid_symbol = true)
+spread = math.log(close) - math.log(cB)
+mu = ta.sma(spread, lenF)
+sd = ta.stdev(spread, lenF)
+z  = sd &gt; 0 ? (spread - mu) / sd : na
+corr = ta.correlation(close, cB, lenF)
+
+// ---------------- position ----------------
+var int pos = 0          // 1 = long A / short B, -1 = short A / long B
+var int openBar = na
+openShort = pos == 0 and z &gt;= zOpen
+openLong  = pos == 0 and z &lt;= -zOpen
+if openShort
+    pos := -1
+    openBar := bar_index
+else if openLong
+    pos := 1
+    openBar := bar_index
+held = pos != 0 ? bar_index - openBar : 0
+converged = pos == -1 and z &lt;= zClose and not openShort or pos == 1 and z &gt;= -zClose and not openLong
+timedOut  = pos != 0 and held &gt;= maxHold and not converged
+closeNow  = pos != 0 and (converged or timedOut) and not (openShort or openLong)
+wasPos = pos
+if closeNow
+    pos := 0
+    openBar := na
+
+// ---------------- plots ----------------
+hline(0, "Mean", color = color.new(#8e8e93, 40), linestyle = hline.style_dashed)
+hline(zOpen, "Open (short A)", color = color.new(#ff453a, 50))
+hline(-zOpen, "Open (buy A)", color = color.new(#30d158, 50))
+zCol = math.abs(z) &gt;= zOpen ? #f4b942 : #2997ff
+plot(z, "Z-score", color = zCol, linewidth = 2)
+bgcolor(pos == -1 or closeNow and wasPos == -1 ? color.new(#ff453a, 88) : pos == 1 or closeNow and wasPos == 1 ? color.new(#30d158, 88) : na, title = "Open trade")
+plotshape(openShort, "Open: short A, buy B", shape.triangledown, location.top, #ff453a, size = size.small)
+plotshape(openLong, "Open: buy A, short B", shape.triangleup, location.bottom, #30d158, size = size.small)
+plotshape(closeNow and converged, "Close: converged", shape.circle, location.absolute, #f5f5f7, size = size.tiny)
+plotshape(closeNow and timedOut, "Close: time ran out", shape.xcross, location.absolute, #ff9f0a, size = size.tiny)
+
+alertcondition(openShort, "Open: short A, buy B", "{{ticker}} pair: spread above the open level, short A and buy B")
+alertcondition(openLong, "Open: buy A, short B", "{{ticker}} pair: spread below the open level, buy A and short B")
+alertcondition(closeNow, "Close the pair", "{{ticker}} pair: spread back to the mean (or time ran out), close both legs")
+
+var table tb = table.new(position.top_right, 2, 5, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+if showTbl and barstate.islast
+    lc = color.new(#86868b, 0)
+    vc = color.new(#f5f5f7, 0)
+    table.cell(tb, 0, 0, "Partner (B)", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 0, symB, text_color = vc, text_size = size.small)
+    table.cell(tb, 0, 1, "Correlation", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 1, na(corr) ? "n/a" : str.tostring(corr, "#.00"), text_color = vc, text_size = size.small)
+    table.cell(tb, 0, 2, "Z-score now", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 2, na(z) ? "n/a" : str.tostring(z, "#.00"), text_color = na(z) ? vc : math.abs(z) &gt;= zOpen ? color.new(#f4b942, 0) : vc, text_size = size.small)
+    table.cell(tb, 0, 3, "Position", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 3, pos == -1 ? "short A, long B" : pos == 1 ? "long A, short B" : "flat", text_color = vc, text_size = size.small)
+    table.cell(tb, 0, 4, "Days held", text_color = lc, text_size = size.small)
+    table.cell(tb, 1, 4, pos != 0 ? str.tostring(held) : "-", text_color = vc, text_size = size.small)
+</code></pre>
+  </div>
+
+  <div class="section-head" id="related">
+    <h2>Go deeper</h2>
+    <p>Pages on this site that pick up where this one leaves off.</p>
+  </div>
+  <div class="four">
+    <a href="/famous-strategies/cross-sectional-momentum.html" style="--tc:#30d158"><span class="k">famous strategy</span><h3>Cross-Sectional Momentum</h3><p>The opposite bet: buy what has run and short what has lagged.</p><small>Read &rsaquo;</small></a>
+    <a href="/famous-strategies/post-earnings-drift.html" style="--tc:#2997ff"><span class="k">famous strategy</span><h3>Post-Earnings Drift</h3><p>Another long-short stock strategy, built on earnings surprises instead of price gaps.</p><small>Read &rsaquo;</small></a>
+    <a href="/auction-market-theory.html" style="--tc:#f4b942"><span class="k">fundamentals</span><h3>Auction Market Theory</h3><p>Mean reversion on one chart: wall to wall inside balance.</p><small>Read &rsaquo;</small></a>
+    <a href="/dynamic-risk-sizing.html" style="--tc:#ff9f0a"><span class="k">risk</span><h3>Dynamic Risk Sizing</h3><p>How much to put on each pair when the edge is small and steady.</p><small>Read &rsaquo;</small></a>
+  </div>
+
+  <div class="rule">
+    <div>
+      <h2>Try it on paper first.</h2>
+      <p>Pick five pairs of similar large stocks (two soda makers, two railroads, two home-improvement chains). Add the indicator to each and write down every open and close signal for three months, with the prices the day after. Count the ones that never crossed.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Fix the window and the open level before you start.</li>
+        <li>Note the borrow cost of every short leg.</li>
+        <li>Write down what you'll do if one of the pair gets news.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section-head" id="sources">
+    <h2>Sources</h2>
+    <p>The papers and books behind every figure on this page.</p>
+  </div>
+  <ol class="cites">
+    <li>Gatev, E., Goetzmann, W. N., &amp; Rouwenhorst, K. G. (2006). Pairs trading: Performance of a relative-value arbitrage rule. <i>Review of Financial Studies</i>, 19(3), 797&ndash;827.<small>The rule (12-month formation, smallest sum of squared deviations, open at two standard deviations, close at the crossing, 6-month trading period), 1962&ndash;2002, 1.31% / 1.44% a month same day and about 0.75% / 0.90% waiting one day, up to 11% a year, the cost estimate, the pair counts and holding time, the near-zero betas, and the smaller returns later in the sample.</small></li>
+  </ol>
+
+  <p class="src">Built from Gatev, Goetzmann and Rouwenhorst's 2006 paper. The figures quoted from the paper are labelled as such on the charts. Every stock, price path, gap and portfolio line in the walkthroughs is made up for illustration. The indicator uses a rolling z-score of the price ratio, a common practical version that the paper didn't test. Short selling has its own costs and risks, including borrow fees and recalls. Past results from this study don't promise future returns. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>
