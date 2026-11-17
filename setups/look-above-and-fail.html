@@ -1,0 +1,1192 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Look Above and Fail — the value area failed-auction scalp | The Trade Method</title>
+<meta name="description" content="Look above and fail, a prop trader's balance-day scalp: let the developing volume profile build for 30 minutes, trade only at the value area high and low, wait for aggressive orders to push past an edge, then fade the fast reclaim back inside. Stop past the big trades, partial at POC, target the other side of value.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/look-above-and-fail.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Look Above and Fail — the value area failed-auction scalp">
+<meta property="og:description" content="Look above and fail, a prop trader's balance-day scalp: let the developing volume profile build for 30 minutes, trade only at the value area high and low, wait for aggressive orders to push past an edge, then fade the fast reclaim back inside. Stop past the big trades, partial at POC, target the other side of value.">
+<meta property="og:url" content="https://thetrademethod.com/setups/look-above-and-fail.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Look Above and Fail — the value area failed-auction scalp">
+<meta name="twitter:description" content="Look above and fail, a prop trader's balance-day scalp: let the developing volume profile build for 30 minutes, trade only at the value area high and low, wait for aggressive orders to push past an edge, then fade the fast reclaim back inside. Stop past the big trades, partial at POC, target the other side of value.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Look Above and Fail — the value area failed-auction scalp",
+ "name": "Look Above and Fail",
+ "description": "Look above and fail, a prop trader's balance-day scalp: let the developing volume profile build for 30 minutes, trade only at the value area high and low, wait for aggressive orders to push past an edge, then fade the fast reclaim back inside. Stop past the big trades, partial at POC, target the other side of value.",
+ "url": "https://thetrademethod.com/setups/look-above-and-fail.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/look-above-and-fail.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-17",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+
+  /* hero link to the indicator */
+  .get-ind { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:#08131f; background:#64d2ff;
+             text-decoration:none; border-radius:9999px; padding:9px 18px; }
+  .get-ind:hover { background:#8cdfff; }
+
+  /* ---------- indicator ---------- */
+  .ind-sec { margin-top:56px; scroll-margin-top:110px; }
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .code-wrap { background:var(--panel); border:1px solid var(--line); border-radius:12px; margin-top:16px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--faint); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#1b2a3e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#26394f; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d9e3; tab-size:4; }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-sec { margin-top:44px; } }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=25">
+<script src="/js/nav.js?v=24" defer></script>
+<script src="/js/site.js?v=49" defer></script>
+<script src="/js/laf-anim.js?v=1" defer></script>
+<style>
+  /* steps across the page, the two panels side by side under them (same as hitchhiker-scalp.html) */
+  .laf-main { grid-template-columns:1fr; gap:22px; }
+  .laf-stages { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .sheet .laf-stages .stage, .sheet .laf-stages .stage:first-child { padding:26px 24px; background:var(--charcoal); align-content:start; }
+  .laf-side { display:grid; grid-template-columns:1fr 1.4fr; gap:16px; align-items:stretch; }
+  .laf-side .panel + .panel { margin-top:0; }
+  .laf-side .timing { grid-template-columns:1fr 1fr; }
+  @media (max-width:1100px) { .laf-stages { grid-template-columns:1fr 1fr; } .laf-side { grid-template-columns:1fr; } }
+  @media (max-width:680px) { .laf-stages { grid-template-columns:1fr; } }
+  /* the stepper (js/laf-anim.js builds it from the six steps) */
+  .laf-stages.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#f5f5f7; }
+  .gs-bar { display:grid; grid-template-columns:repeat(6,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:8.333%; right:8.333%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .laf-stages.is-stepper .stage, .sheet .laf-stages.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .laf-stages.is-stepper .stage .num { display:none; }
+  .sheet .laf-stages.is-stepper .stage[hidden] { display:none; }
+  .sheet .laf-stages.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .laf-stages.is-stepper { padding:20px 12px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:34px; height:34px; font-size:14px; }
+    .gs-line { top:16px; }
+    .gs-bar { margin-bottom:20px; }
+  }
+  /* video (same as hitchhiker-scalp.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+  .watch { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:var(--ink); text-decoration:none;
+           background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); border-radius:9999px; padding:7px 14px 7px 10px; }
+  .watch:hover { background:rgba(255,255,255,0.14); }
+  .watch i { width:0; height:0; border-left:9px solid #ff453a; border-top:6px solid transparent; border-bottom:6px solid transparent; margin-left:4px; }
+
+  .h1-laf { color:#64d2ff; }
+  .ribbon .n { font-size:14px; }
+
+  /* tiles */
+  .vs { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .vs div { background:var(--panel); border:1px solid var(--line); border-top:3px solid #64d2ff; border-radius:11px; padding:16px 17px; }
+  .vs .sc { font-family:var(--mono); font-size:13px; color:#64d2ff; font-weight:700; display:block; margin-bottom:6px; }
+  .vs h3 { margin:0 0 6px; font-size:16px; }
+  .vs p { margin:0; font-size:14px; color:var(--dim); }
+
+  /* the checks and outputs (same look as hitchhiker-scalp.html) */
+  .chk-out { margin-top:14px; border-radius:11px; padding:14px 16px; border:1px solid var(--line); background:var(--panel2); }
+  .chk-out b { display:block; font-size:24px; font-weight:800; letter-spacing:-0.02em; margin-bottom:4px; }
+  .chk-out p { margin:0; font-size:14px; color:var(--dim); }
+  .chk-out.is-a { border-color:#22855a; } .chk-out.is-a b { color:var(--up); }
+  .chk-out.is-b { border-color:#7a5a12; } .chk-out.is-b b { color:var(--gold); }
+  .chk-out.is-no { border-color:#5e2a30; } .chk-out.is-no b { color:var(--down); }
+
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in.four { grid-template-columns:repeat(4,1fr); }
+  .calc-in label { font-size:12px; color:var(--faint); display:block; }
+  .calc-in input, .calc-in select { width:100%; margin-top:4px; background:var(--panel2); color:var(--ink); border:1px solid var(--line); border-radius:8px;
+                   padding:8px 10px; font-family:var(--mono); font-size:15px; }
+  .calc-in input:focus, .calc-in select:focus { outline:2px solid var(--blue); outline-offset:1px; }
+  .calc-in input[type=range] { padding:0; accent-color:#30d158; background:none; border:0; }
+  .calc-in output { font-family:var(--mono); color:var(--ink); font-size:14px; float:right; }
+  .laf-book .calc-in { grid-template-columns:1fr 1fr auto; align-items:end; }
+  .laf-book .warn { margin-top:16px; }
+  .laf-book .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; }
+  .laf-book .reset:hover { background:#3a3a3c; }
+  .laf-two svg, .laf-dev svg { border-radius:14px; }
+  .laf-dev .calc-in { grid-template-columns:1fr; }
+  .laf-two .reset, .laf-dev .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; margin-top:12px; }
+  .h1-laf { color:#ff6fb5; }
+  .counts div { border-left-color:#ff6fb5; }
+  .vs.laf-vs div { border-top-color:#ff6fb5; } .vs.laf-vs .sc { color:#ff6fb5; }
+  .size-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .size-grid div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .size-grid b { display:block; font-family:var(--mono); font-size:20px; color:var(--gold); margin-bottom:4px; }
+  .size-grid p { margin:0; color:var(--dim); font-size:13.4px; }
+  @media (max-width:680px) { .size-grid { grid-template-columns:1fr; } }
+
+  /* case table + quotes (same as hitchhiker-scalp.html) */
+  .quote { margin:16px 0 0; padding:14px 18px; border-left:3px solid #64d2ff; background:var(--panel); border-radius:0 11px 11px 0; font-size:16px; }
+  .quote small { display:block; color:var(--faint); font-size:12.5px; margin-top:4px; }
+  .howto { margin:0; padding-left:20px; color:var(--ink); font-size:14.5px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#64d2ff; font-weight:600; }
+  .two-note { margin:14px 0 0; color:var(--dim); font-size:14px; max-width:86ch; }
+  .vcase td.txt { min-width:200px; }
+
+  /* the animation redraws for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .ribbon + .anim { margin-top:8px; }
+  @media (max-width:1100px) {
+    .vs { grid-template-columns:1fr 1fr; }
+    .calc-in.four { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:680px) {
+    /* breathing room around the walkthrough and the charts on small screens (project rule: not packed tight on phones) */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .counts { flex-wrap:wrap; gap:16px 22px; }
+    .vs { grid-template-columns:1fr; }
+    .calc-in, .calc-in.four, .laf-book .calc-in { grid-template-columns:1fr 1fr; }
+    .laf-book .calc-in .reset { grid-column:1 / -1; justify-self:start; }
+    .section-head { margin-top:52px; }
+    .laf-two, .laf-dev, .laf-plan { margin-top:28px; }
+    .risk + .risk, .panel + .risk { margin-top:28px; }
+    .vcase th, .vcase td { padding:9px 8px; }
+    .laf-side .filters, .laf-side .timing { grid-template-columns:1fr !important; }
+  }
+  /* the case table scrolls inside itself on a phone, never the page */
+  .tscroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .tscroll table { min-width:720px; }
+</style>
+
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=37" defer></script>
+
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/setups/">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="look-above-and-fail">
+    <div>
+      <p class="kicker">A prop trader's balance-day scalp &middot; NQ and ES, 2-minute, long or short</p>
+      <h1>Look Above <span class="h1-laf">and Fail</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Markets range more than they trend, and in a range the money is made at the edges. Let the day's volume profile build for 30 minutes,
+      mark the value area high and low, and wait. When aggressive buyers push over the high, or sellers under the low, <em>and price comes right back inside</em>,
+      they're trapped. Trade the reclaim to the point of control, then the other side of value.</p>
+      <div class="counts">
+        <div><b>VAH &middot; VAL</b><small>the only two places he does business</small></div>
+        <div><b>30 min</b><small>let the profile develop first</small></div>
+        <div><b>2R</b><small>planned on every trade</small></div>
+      </div>
+      <a class="get-ind" href="#indicator">Get the TradingView indicator &rsaquo;</a>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">1 &middot; location</div><div class="n">The value area high and low</div></div>
+    <div><div class="t">2 &middot; wait</div><div class="n">Nothing in the middle</div></div>
+    <div><div class="t">3 &middot; aggression</div><div class="n">Big trades past the edge</div></div>
+    <div><div class="t">4 &middot; the fail</div><div class="n">Trapped, back inside: enter</div></div>
+    <div><div class="t">5 &middot; the stop</div><div class="n">Past the big trades, or half the poke</div></div>
+    <div><div class="t">6 &middot; targets</div><div class="n">POC, then the other side</div></div>
+  </nav>
+
+  <section class="anim" data-laf-anim aria-label="Animated walkthrough of a look above and fail short on 2-minute bars">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">8 / 8</p>
+        <h2 class="anim-title">Watch one look above and fail, start to finish</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 640" role="img" aria-label="Illustrative 2-minute chart of a made-up NQ session from 9:30. The developing value area jumps around in the first 30 minutes, then settles with VAH 25,170, POC 25,151 and VAL 25,138. At 10:22 price pushes over VAH to 25,186.50 with big trades at the offer, including 75 lots at 25,184, and a buy-side delta imbalance. Two bars later it is back under VAH: short 25,169.75, stop 25,184.75, 15 points of risk. Price reaches POC on the next bar, 1.25R, and the value area low the bar after, 2.12R."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main laf-main">
+    <div class="laf-stages" data-laf-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Mark the extreme points</h3>
+          <ul>
+            <li>A developing volume profile of New York's regular hours, 9:30 to 4:00, where the bulk of NQ and ES volume trades.</li>
+            <li>Give it 30 minutes. Then mark the value area high and low (70% of the volume) and the point of control.</li>
+            <li>Before 10:00, use the previous day's regular-hours profile instead.</li>
+          </ul>
+          <p class="why">Little volume has traded past the value area edges. That's where buyers who get aggressive either get paid or quickly get trapped.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Wait for price to test one</h3>
+          <ul>
+            <li>Inside value is noise. Trading the middle gets you chopped up and burns mental capital.</li>
+            <li>Sit on the sideline until price trades at the value area high or low.</li>
+            <li>A setup taken outside your system that loses puts you in a make-it-back mindset.</li>
+          </ul>
+          <p class="why">The hardest step, and a psychological one: you've defined the locations, now just wait.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>See who gets aggressive past it</h3>
+          <ul>
+            <li>Under the value area low, sellers push: big trades at the bid, a sell-side imbalance on the delta profile. Over the high, the mirror.</li>
+            <li>He uses big trades and the delta profile. The footprint or time and sales work too.</li>
+            <li>A print at the bid isn't proof of a new seller. You never know intent: read the orders and the reaction together.</li>
+          </ul>
+          <p class="why">Market orders consume limit orders. Whoever is aggressive creates the momentum you trade.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Trapped: enter on the way back in</h3>
+          <ul>
+            <li>If the breakdown were real, price would never return to value. Back inside means those sellers are trapped.</li>
+            <li>Aggressive: a market order as it reclaims the edge. Don't wait for the candle to close.</li>
+            <li>Conservative: let it reclaim, then buy a retest that holds as a higher low while big bids get absorbed.</li>
+          </ul>
+          <p class="why">Their stops are buy orders. Covering adds fuel the other way, which is why good ones go fast.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Stop past the big trades</h3>
+          <ul>
+            <li>Just past the big prints that made the move: if those traders get back to profit, the idea is likely wrong.</li>
+            <li>If the poke ran too far for the risk-reward, risk about 50% of it instead of the whole swing.</li>
+            <li>Plan it before the trade: target, value area range, stop, and at least 2R.</li>
+          </ul>
+          <p class="why">A tighter stop than the swing high saves points on the losers and gets better R on the winners.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>POC, then the other side</h3>
+          <ul>
+            <li>The point of control, about 1 to 1.4R, is the first place to take some off and move the stop to break even.</li>
+            <li>The final target is the other side of balance: the opposite value area edge.</li>
+            <li>Past it, trail the stop as it makes new highs (lows). On choppy days, take it all at the other side.</li>
+          </ul>
+          <p class="why">Beginners: make the POC partial a rule, not an option, until your own data says otherwise.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="laf-side">
+      <div class="panel">
+        <h4>How long it takes</h4>
+        <p class="lead">On 2-minute bars, which filter some of the one-minute noise. It's his preference.</p>
+        <div class="timing">
+          <div><b>Morning</b><p>The New York morning has the momentum. A clean one usually works in about five minutes.</p></div>
+          <div><b>Lunch and afternoon</b><p>Slower and smaller prints. The setup still counts, but he might hold 30 minutes or more and trail it.</p></div>
+          <div><b>NQ vs ES</b><p>ES is naturally slower: 500 stocks against 100.</p></div>
+          <div><b>Win rate</b><p>About 65% this year at 2R, he says. It moves with the market environment.</p></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>When it's off</h4>
+        <p class="lead">It's made for balanced markets.</p>
+        <div class="filters kills" style="grid-template-columns:repeat(2,1fr); margin-top:14px;">
+    <div class="filter" style="background:var(--panel2)"><h3>A trending day</h3><p>Thin volume pockets on the profile instead of thick clusters building in a range. Value keeps moving.</p><p class="kill">Not a balance: no trade.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>News coming</h3><p>Within 5 to 10 minutes of a scheduled release, liquidity gets pulled off the book and you get weird spikes.</p><p class="kill">Even if it looks perfect: stay out.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>Three times wrong</h3><p>Stopped out three times in the same range (two, when it's volatile). A stop alone isn't a reason to skip the next valid one.</p><p class="kill">The market says you're wrong today. Done with that range.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>In the middle</h3><p>Anywhere between the value area edges, and anything before 10:00 off today's still-forming profile.</p><p class="kill">Not a location: sit on your hands.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The first 30 minutes</h2>
+    <p>He uses a developing profile because he scalps and wants information as close to real time as possible. But a fresh profile's edges shift a lot early on: it's chaos, the flea market. Drag through the same session and watch them settle.</p>
+  </div>
+  <div class="panel laf-dev" data-laf-dev>
+    <div class="calc-in">
+      <label>Time <output data-show>10:18</output><input name="t" type="range" min="1" max="25" step="1" value="25" aria-label="Bars into the session"></label>
+    </div>
+    <svg viewBox="0 0 1180 380" role="img" aria-label="The walkthrough session from 9:30, with the developing value area high, low and point of control drawn as they were at each 2-minute bar, the prior day's value area, and the volume profile as of the selected time."></svg>
+    <div class="chk-out laf-dout" aria-live="polite"></div>
+  </div>
+  <div class="risk" style="margin-top:20px">
+    <div class="panel">
+      <h4>If you trade before 10:00</h4>
+      <ul style="margin:0; padding-left:18px; font-size:14px">
+        <li style="margin-bottom:6px">Use the previous day's regular-hours profile: its value area high and low are the extreme points.</li>
+        <li style="margin-bottom:6px">Note where New York opens against it. Inside yesterday's value is range compression, like an inside day: expect chop.</li>
+        <li>Then watch how price reacts at yesterday's edges, with the same steps three to six.</li>
+      </ul>
+    </div>
+    <div class="warn">
+      <h4>New to this? Sit out the first 30 minutes</h4>
+      <p>That's his advice for anyone starting out. The walkthrough's day had a false breakout and a false breakdown before 10:00. They could have been trades, but the framework wasn't there yet.</p>
+      <p class="big">No special anchor: a plain developing RTH profile.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Aggressive or conservative?</h2>
+    <p>Same location, same push under the value area low. The difference is velocity: how hard it went out and how fast it came back. There's no indicator for it. You learn it from screen time.</p>
+  </div>
+  <div class="panel laf-two" data-laf-two>
+    <svg viewBox="0 0 1180 380" role="img" aria-label="Two illustrative long setups at a value area low of 21,800. Left: sellers flush to 21,786 with big bids, and the next bar snaps back over 21,800 in its first moments: market buy 21,800.25 on the reclaim. Right: the same flush, then price creeps back in over three bars, comes back to retest the value area low, holds at 21,796.50 above the first low while bids print, and the buy comes on the hold."></svg>
+    <button type="button" class="reset" data-play>Play again</button>
+  </div>
+  <div class="vs laf-vs" style="margin-top:20px">
+    <div><span class="sc">AGGRESSIVE</span><h3>Fast flip: market order on the reclaim</h3><p>A strong push out, then right back in. Enter as it crosses back over the edge. Waiting for the candle to close can cost you the whole risk-reward. He takes this one far more often.</p></div>
+    <div><span class="sc">CONSERVATIVE</span><h3>Slow creep: wait for the retest to hold</h3><p>It reclaims, comes back to the edge, and holds as a higher low while more sell orders hit the bid and price won't go down. That's absorption: a passive buyer sitting there.</p></div>
+    <div><span class="sc">THE TRADE-OFF</span><h3>Speed costs you a false start or two</h3><p>The aggressive entry can be a retest rejection that rolls over. The conservative one waits for proof and can miss the fast ones. He often starts aggressive with part of the size and adds when the edge holds.</p></div>
+  </div>
+  <p class="two-note">In his engulfing analogy for beginners: the down candle had huge sell orders. If it were a true breakdown, it would never have been engulfed back into value.</p>
+
+  <div class="section-head">
+    <h2>Plan the trade before you take it</h2>
+    <p>Target, value area range, stop, at least 2R. Type the levels; the defaults are the walkthrough's short. The stop buffer, the dollar risk and the 1.4R line are only examples.</p>
+  </div>
+  <div class="risk laf-plan">
+    <div class="panel" data-laf-calc>
+      <div class="calc-in four">
+        <label>Side<select name="side"><option value="short">Short</option><option value="long">Long</option></select></label>
+        <label>Stop<select name="stop"><option value="big">Big trades</option><option value="half">Half the poke</option><option value="ext">The extreme</option></select></label>
+        <label>Value area high<input name="vah" type="number" inputmode="decimal" step="0.25" value="25170"></label>
+        <label>Value area low<input name="val" type="number" inputmode="decimal" step="0.25" value="25138"></label>
+        <label>Point of control<input name="poc" type="number" inputmode="decimal" step="0.25" value="25151"></label>
+        <label>Extreme of the poke<input name="ext" type="number" inputmode="decimal" step="0.25" value="25186.5"></label>
+        <label>Big trades at<input name="big" type="number" inputmode="decimal" step="0.25" value="25184"></label>
+        <label>Stop buffer (ticks)<input name="buf" type="number" inputmode="numeric" step="1" min="0" value="3"></label>
+        <label>Tick size<input name="tick" type="number" inputmode="decimal" step="0.01" min="0" value="0.25"></label>
+        <label>Point value ($)<input name="pv" type="number" inputmode="decimal" step="1" min="0" value="20"></label>
+        <label>Risk ($)<input name="risk" type="number" inputmode="decimal" step="50" min="0" value="600"></label>
+        <label>VIX<input name="vix" type="number" inputmode="decimal" step="0.1" min="0" value="16.5"></label>
+      </div>
+      <div class="chk-out laf-cout" aria-live="polite"></div>
+      <div class="calc laf-ccalc" aria-live="polite" style="margin-top:14px"></div>
+    </div>
+    <div class="warn">
+      <h4>Size for the volatility</h4>
+      <p>You can't size the same in every market. Use the range (ATR) to set the stop, then the stop to set the size.</p>
+      <div class="size-grid" style="margin:12px 0">
+        <div><b>15&ndash;17</b><p>NQ points of stop on a normal day at all-time highs, for 30, 40, 50-point targets.</p></div>
+        <div><b>30+</b><p>Points of stop when one-minute candles run 100 points. Bigger targets too, so 2 NQ becomes micros.</p></div>
+        <div><b>VIX 18&ndash;20</b><p>A soft rule: above it, trade micros in a prop account and expect bigger swings.</p></div>
+      </div>
+      <p class="big">At least 2R. Below that, he doesn't think it lasts.</p>
+      <p>Starting out, don't force 2R: throw on a few micros, target POC (about 1 to 1.4R), go to break even, and collect your own data. Then aim for the other side.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Accumulation, distribution and the trap</h2>
+    <p>Balance is buyers and sellers agreeing on a fair price for an hour or two (months, in a stock). Then one side wins. Up out of it is accumulation, like a bull flag; down out of it is distribution. The look above and fail bets that the side that just tried, lost.</p>
+  </div>
+  <div class="vs laf-vs">
+    <div><span class="sc">01</span><h3>Aggressive orders go out</h3><p>Sellers hit the bid under the value area low. Big trades show it; the delta profile shows it, including orders split into small pieces or iceberg-style limits that never trip a big-trade filter.</p></div>
+    <div><span class="sc">02</span><h3>Price can't stay there</h3><p>A true breakdown wouldn't come back to the point of balance. Back inside, buyers couldn't (or sellers couldn't) sustain value beyond the edge.</p></div>
+    <div><span class="sc">03</span><h3>Their stops become fuel</h3><p>A short's stop is a buy. Forced covering adds momentum toward the other side, like a fund covering a short squeeze, only in miniature.</p></div>
+  </div>
+
+  <div class="section-head">
+    <h2>The examples from the video</h2>
+    <p>One morning NQ short and one slow ES afternoon short on the real chart, plus the whiteboard long. He took both chart trades and says the clips are his.</p>
+  </div>
+  <div class="tscroll">
+    <table class="vcase">
+      <thead><tr><th>Example</th><th>The look</th><th>The fail and the entry</th><th>Stop and exit</th></tr></thead>
+      <tbody>
+        <tr><th>NQ, 2-minute, just after 10:00<br><small>aggressive, high velocity</small></th>
+          <td class="txt">A bell-shaped developing profile, a false breakout and a false breakdown before 10:00. At the value area high, buyers push out with big trades at the offer and a big buy-side imbalance on the delta profile just above.</td>
+          <td class="txt">It stalls, then flips back under fast. Short on the way back in.</td>
+          <td class="txt">Stop just past the 75-lot print at the offer, also the swing high, rather than the high itself. The value area low came within about two minutes. A choppy day with little follow-through, so out full at the other side.</td></tr>
+        <tr><th>ES, 2-minute, after 12 PM<br><small>conservative, low velocity</small></th>
+          <td class="txt">A clear range. Attempts above the value area high, but buyers can't sustain it. No big trades at that time of day; the delta profile shows a negative imbalance where sellers stepped back in.</td>
+          <td class="txt">A second look above that fails quickly: market order as it opens back inside value (a rejection wick there would have been an entry too).</td>
+          <td class="txt">Stop just past the large imbalance level. About 2.6R to POC and about 4R to the other side. Took some off at POC, trailed above a level that kept rejecting (VWAP was near), and got trailed out. 30 minutes or more.</td></tr>
+        <tr><th>Whiteboard long<br><small>the model</small></th>
+          <td class="txt">Sellers break the value area low after a long balance: big trades at the bid, a negative delta imbalance.</td>
+          <td class="txt">A quick flip back over: market order on the reclaim. Or wait for the retest to hold as a higher low.</td>
+          <td class="txt">Stop at the low, at 50% of a deep poke, or just past the big bids. Partial at POC, target the value area high.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="quote">&ldquo;The most money is made at the extreme points.&rdquo;<small>Yush, in the video.</small></p>
+
+  <div class="section-head">
+    <h2>How you trade it</h2>
+    <p>The whole setup, in order.</p>
+  </div>
+  <div class="panel">
+    <ol class="howto">
+      <li><b>Check the day:</b> balance, not trend (thick volume clusters, not thin pockets). No scheduled news in the next 5 to 10 minutes.</li>
+      <li><b>Let the profile develop</b> for 30 minutes on a regular-hours developing profile. Before then, use yesterday's.</li>
+      <li><b>Mark the value area high, low and POC.</b> Only the edges are trades. Wait for price to get there.</li>
+      <li><b>Watch who gets aggressive past the edge:</b> big trades, a delta imbalance. Then whether they get trapped.</li>
+      <li><b>Enter on the way back in:</b> a market order on a fast reclaim, or the retest that holds on a slow one.</li>
+      <li><b>Stop just past the big trades</b> (or half the poke). Plan for at least 2R to the other side, or pass.</li>
+      <li><b>Take some at POC,</b> move to break even, and target the other side of value. Trail past it on a trend; take it all on a choppy day.</li>
+      <li><b>Three stops in the same range:</b> done with it. Wait for a new range.</li>
+    </ol>
+  </div>
+
+  <section class="ind-sec" id="indicator" aria-label="TradingView indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for the setup (Pine Script v6), for intraday charts. It builds the developing regular-hours profile, draws the value area high, low and POC,
+    and marks the look above and fail (and look below and fail) with the stop and both targets. It marks and alerts. It does not place trades.</p>
+    <ul class="ind-list">
+      <li class="ind-card">
+        <div class="ind-card-top">
+          <h3 class="ind-name">Look Above and Fail</h3>
+          <span class="ind-alerts">alerts</span>
+        </div>
+        <p class="ind-blurb">The profile is built from the chart's own bars from 9:30 New York time: each bar's volume is spread evenly over its range in rows, and the value area is the usual 70%
+        grown out from the POC. Before 10:00 it uses yesterday's finished value area. A look above counts when a bar trades a few ticks over the value area high with an aggression check
+        (signed volume from lower time frame bars, or a volume spike). The fail is the first trade back under it within a few bars: that's the aggressive entry, marked at the edge.
+        The conservative entry is a later retest of the edge that closes back inside with a lower high. Stop past the extreme (or half the poke), partial at POC, target the other side.
+        It skips trades under 2R to the other side, after three stops in a day, near the news times you type in, and when the POC has run more than half the value area in the last 30 minutes.</p>
+        <p class="ind-blurb" style="color:var(--dim)">Pine can't see big trades or a true delta profile, so the aggression check is a stand-in: judge the prints yourself. A profile from bars is coarser
+        than your platform's tick profile; the levels can differ by a row or two. Row size, the poke, the windows and every filter are settings. The thresholds are ours, not the video's.</p>
+        <div class="ind-links">
+          <a class="ind-link ind-link--quiet" href="/pine/look-above-and-fail.pine" download>Download source (.pine)</a>
+        </div>
+      </li>
+    </ul>
+    <div class="code-wrap">
+      <div class="code-top">
+        <span>look-above-and-fail.pine &middot; Pine Script v6</span>
+        <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/look-above-and-fail.pine" download>Download</a></div>
+      </div>
+      <pre class="pine" tabindex="0"><code>//@version=6
+// =====================================================================
+// Look Above and Fail — thetrademethod.com
+//
+// A balance-day scalp at the value area edges (look above and fail /
+// look below and fail), for intraday futures charts (NQ, ES; 1 to 5
+// minutes, 2-minute in the video):
+//
+//   1. Location    A developing volume profile of New York's regular
+//                  hours (9:30-16:00). The value area high and low (70%
+//                  of the volume) are the extreme points. For the first
+//                  30 minutes the previous day's value area is used.
+//   2. Wait        Nothing happens in the middle.
+//   3. Aggression  Price trades past an edge with an aggression check:
+//                  positive (negative) signed volume of lower time
+//                  frame bars, or a volume spike. Pine can't see big
+//                  trades or a delta profile, so this is a stand-in.
+//   4. The fail    The first trade back inside within N bars is the
+//                  aggressive entry, marked at the edge. A later retest
+//                  of the edge that closes back inside without a new
+//                  extreme is the conservative entry.
+//   5. The stop    Past the extreme of the poke, or half the poke.
+//   6. Targets     POC (partial, then break even), then the other side
+//                  of value. Trades under the minimum R to the other
+//                  side are skipped.
+//
+//   Filters: start after the first 30 minutes, a last-entry time, a
+//   daily stop count (three strikes), news blackout times, and a trend
+//   check (POC migration).
+//
+//   The profile is built from the chart's bars: each bar's volume is
+//   spread evenly over its range in rows. That's coarser than a tick
+//   profile, so levels can differ from your platform's by a row or two.
+//   It marks and alerts. It does not place trades.
+// =====================================================================
+indicator("Look Above and Fail [TTM]", shorttitle = "LAAF", overlay = true, max_lines_count = 400, max_labels_count = 400)
+
+// ---------------------------------------------------------------- inputs
+grpP = "Profile"
+sessIn   = input.session("0930-1600", "Regular hours (New York)", group = grpP)
+rowPts   = input.float(2.0, "Row size (points)", minval = 0.0, step = 0.25, group = grpP, tooltip = "Price per profile row. 2 for NQ, 0.5 for ES is a fair start. 0 = auto (about 1/40 of the 14-day average daily range).")
+vaPct    = input.float(70, "Value area %", minval = 50, maxval = 95, group = grpP)
+waitMin  = input.int(30, "Let it develop (minutes)", minval = 0, maxval = 120, group = grpP, tooltip = "Before this, signals use the previous day's value area.")
+
+grpS = "Signals"
+pokeTk   = input.int(4, "Poke past the edge (ticks)", minval = 1, group = grpS)
+failBars = input.int(4, "Back inside within (bars)", minval = 1, maxval = 20, group = grpS, tooltip = "Bars after the poke starts in which a trade back inside counts as the fail.")
+modeIn   = input.string("Both", "Entries", options = ["Aggressive", "Conservative", "Both"], group = grpS)
+retestTk = input.int(4, "Retest: within (ticks) of the edge", minval = 0, group = grpS)
+retestN  = input.int(10, "Retest: within (bars) of the fail", minval = 1, group = grpS)
+useAgg   = input.bool(true, "Require an aggression check", group = grpS)
+ltfIn    = input.timeframe("1", "Delta from (lower time frame)", group = grpS)
+deltaPct = input.float(15, "Delta at least (% of volume)", minval = 0, maxval = 100, group = grpS)
+spikeX   = input.float(1.5, "Or volume at least (x 20-bar average)", minval = 1, step = 0.1, group = grpS)
+
+grpR = "Risk and targets"
+stopMode = input.string("Past the extreme", "Stop", options = ["Past the extreme", "Half the poke"], group = grpR)
+bufTk    = input.int(2, "Stop buffer (ticks)", minval = 0, group = grpR)
+minR     = input.float(2.0, "Minimum R to the other side", minval = 0, step = 0.1, group = grpR)
+partPct  = input.float(50, "Partial at POC (%)", minval = 0, maxval = 100, group = grpR)
+beAfter  = input.bool(true, "Stop to break even after POC", group = grpR)
+
+grpF = "Filters"
+lastIn   = input.session("1000-1530", "Entries allowed (New York)", group = grpF)
+maxLoss  = input.int(3, "Stop after this many losses in a day", minval = 1, group = grpF)
+newsIn   = input.string("", "News times (HHMM, comma separated)", group = grpF, tooltip = "e.g. 0830,1000,1400. No entries this many minutes either side.")
+newsMin  = input.int(10, "News blackout (minutes)", minval = 0, group = grpF)
+useTrend = input.bool(true, "Skip when value is migrating", group = grpF)
+trendMin = input.int(30, "Migration window (minutes)", minval = 2, group = grpF)
+trendPct = input.float(50, "POC moved more than (% of value area)", minval = 0, group = grpF)
+
+grpV = "Display"
+showVA   = input.bool(true, "Value area lines", group = grpV)
+showPD   = input.bool(true, "Previous day's value area (first 30 minutes)", group = grpV)
+showTrd  = input.bool(true, "Stop and target lines", group = grpV)
+showTbl  = input.bool(true, "Panel", group = grpV)
+colEdge  = input.color(color.rgb(255, 111, 181), "VAH / VAL", group = grpV)
+colPoc   = input.color(color.rgb(244, 185, 66), "POC", group = grpV)
+
+// ---------------------------------------------------------------- helpers
+TZ = "America/New_York"
+tick = syminfo.mintick
+inSess = not na(time(timeframe.period, sessIn, TZ))
+newSess = inSess and not inSess[1]
+minsIn(sess) =&gt; not na(time(timeframe.period, sess, TZ))
+
+dailyRange = request.security(syminfo.tickerid, "D", ta.sma(high - low, 14)[1], lookahead = barmerge.lookahead_on)
+rowSize = rowPts &gt; 0 ? rowPts : math.max(tick, math.round_to_mintick(nz(dailyRange, 40 * tick) / 40))
+
+// delta stand-in: lower time frame bars' volume signed by their direction
+ltfV = request.security_lower_tf(syminfo.tickerid, ltfIn, volume)
+ltfD = request.security_lower_tf(syminfo.tickerid, ltfIn, close &gt; open ? 1.0 : close &lt; open ? -1.0 : 0.0)
+float dlt = 0.0
+if ltfV.size() &gt; 0 and ltfV.size() == ltfD.size()
+    for [i, v] in ltfV
+        dlt += nz(v) * ltfD.get(i)
+else
+    dlt := close &gt; open ? volume : close &lt; open ? -volume : 0.0
+volAvg = ta.sma(volume, 20)
+aggUp = not useAgg or (volume &gt; 0 and nz(dlt) &gt;= deltaPct / 100 * volume) or volume &gt;= spikeX * nz(volAvg, volume)
+aggDn = not useAgg or (volume &gt; 0 and -nz(dlt) &gt;= deltaPct / 100 * volume) or volume &gt;= spikeX * nz(volAvg, volume)
+
+// news times "0830,1000" -&gt; minutes of day
+var array&lt;int&gt; newsT = array.new&lt;int&gt;()
+if barstate.isfirst and str.length(newsIn) &gt; 0
+    for s in str.split(newsIn, ",")
+        t = str.tonumber(str.trim(s))
+        if not na(t)
+            newsT.push(int(math.floor(t / 100)) * 60 + int(t % 100))
+nyMin = hour(time, TZ) * 60 + minute(time, TZ)
+inNews() =&gt;
+    bool hit = false
+    if newsT.size() &gt; 0
+        for t in newsT
+            if math.abs(nyMin - t) &lt;= newsMin
+                hit := true
+    hit
+
+// ---------------------------------------------------------------- the developing profile
+var map&lt;int, float&gt; prof = map.new&lt;int, float&gt;()
+var int sessStart = na
+var float vah = na
+var float val = na
+var float poc = na
+var float pdVah = na
+var float pdVal = na
+var float pdPoc = na
+
+if newSess
+    pdVah := vah
+    pdVal := val
+    pdPoc := poc
+    prof.clear()
+    sessStart := time
+    vah := na
+    val := na
+    poc := na
+
+if inSess and volume &gt; 0
+    int lo = int(math.floor(low / rowSize))
+    int hi = int(math.floor((high - tick / 2) / rowSize))
+    int n = math.max(1, hi - lo + 1)
+    float share = volume / n
+    for k = lo to math.max(lo, hi)
+        prof.put(k, nz(prof.get(k)) + share)
+    // POC and value area
+    keys = prof.keys()
+    float tot = 0.0
+    int pk = na
+    float pv = -1.0
+    int kmin = na
+    int kmax = na
+    for k in keys
+        v = prof.get(k)
+        tot += v
+        if v &gt; pv
+            pv := v
+            pk := k
+        kmin := na(kmin) ? k : math.min(kmin, k)
+        kmax := na(kmax) ? k : math.max(kmax, k)
+    int a = pk
+    int b = pk
+    float acc = pv
+    while acc &lt; vaPct / 100 * tot and (a &gt; kmin or b &lt; kmax)
+        float up = b &lt; kmax ? nz(prof.get(b + 1)) : -1.0
+        float dn = a &gt; kmin ? nz(prof.get(a - 1)) : -1.0
+        if up &gt;= dn
+            b += 1
+            acc += math.max(up, 0)
+        else
+            a -= 1
+            acc += math.max(dn, 0)
+    poc := pk * rowSize + rowSize / 2
+    vah := (b + 1) * rowSize
+    val := a * rowSize
+
+developed = inSess and not na(sessStart) and (time - sessStart) &gt;= waitMin * 60000
+// the levels signals use: today's after the wait, yesterday's before
+useToday = developed
+eVah = useToday ? vah : pdVah
+eVal = useToday ? val : pdVal
+ePoc = useToday ? poc : pdPoc
+
+// POC migration (trend check)
+var float[] pocHist = array.new&lt;float&gt;()
+var int[] pocTime = array.new&lt;int&gt;()
+if newSess
+    pocHist.clear()
+    pocTime.clear()
+if inSess and not na(poc)
+    pocHist.push(poc)
+    pocTime.push(time)
+    while pocTime.size() &gt; 0 and time - pocTime.first() &gt; trendMin * 60000
+        pocHist.shift()
+        pocTime.shift()
+migrating = useTrend and developed and pocHist.size() &gt; 1 and not na(vah) and (vah - val) &gt; 0 and math.abs(poc - pocHist.first()) &gt; trendPct / 100 * (vah - val)
+
+// ---------------------------------------------------------------- state
+var int lossesToday = 0
+if newSess
+    lossesToday := 0
+
+// a poke: 1 = look above (short side), -1 = look below (long side)
+var int pokeDir = 0
+var int pokeBar = na
+var float pokeExt = na
+var bool pokeAgg = false
+var float pokeEdge = na
+// after a fail, waiting for a retest (conservative)
+var int failDir = 0
+var int failBar = na
+var float failExt = na
+var float failEdge = na
+// the open trade
+var int tDir = 0
+var float tEntry = na
+var float tStop = na
+var float tPoc = na
+var float tOther = na
+var float tRisk = na
+var bool tHalf = false
+var line lStop = na
+var line lPoc = na
+var line lOther = na
+// stats
+var int nTrades = 0
+var int nWins = 0
+var float sumR = 0.0
+
+okTime = minsIn(lastIn) and inSess
+canEnter = okTime and tDir == 0 and lossesToday &lt; maxLoss and not inNews() and not migrating and not na(eVah) and not na(eVal) and eVah &gt; eVal
+
+// manage the open trade first (stop checked before targets: worst case)
+float closedR = na
+if tDir != 0
+    bool hitStop = tDir == 1 ? low &lt;= tStop : high &gt;= tStop
+    bool hitPoc = not tHalf and (tDir == 1 ? high &gt;= tPoc : low &lt;= tPoc)
+    bool hitOther = tDir == 1 ? high &gt;= tOther : low &lt;= tOther
+    float rPoc = math.abs(tPoc - tEntry) / tRisk
+    float rOther = math.abs(tOther - tEntry) / tRisk
+    float part = partPct / 100
+    if hitStop
+        float rStop = (tStop - tEntry) * tDir / tRisk
+        closedR := tHalf ? part * rPoc + (1 - part) * rStop : rStop
+    else
+        if hitPoc
+            tHalf := true
+            if beAfter
+                tStop := tEntry
+                if showTrd and not na(lStop)
+                    lStop.set_y1(tEntry)
+                    lStop.set_y2(tEntry)
+        if hitOther
+            closedR := (tHalf ? part * rPoc : 0.0) + (tHalf ? 1 - part : 1.0) * rOther
+        else if not inSess
+            float rNow = (close - tEntry) * tDir / tRisk
+            closedR := tHalf ? part * rPoc + (1 - part) * rNow : rNow
+    if showTrd and not na(lStop)
+        lStop.set_x2(bar_index)
+        lPoc.set_x2(bar_index)
+        lOther.set_x2(bar_index)
+if not na(closedR)
+    nTrades += 1
+    sumR += closedR
+    if closedR &gt; 0
+        nWins += 1
+    if closedR &lt; 0
+        lossesToday += 1
+    tDir := 0
+
+planTrade(int dir, float entry, float ext, float edge) =&gt;
+    // dir = -1 short (stop above), +1 long (stop below)
+    float half = edge + (ext - edge) / 2
+    float base = stopMode == "Past the extreme" ? ext : half
+    float stop = dir == -1 ? base + bufTk * tick : base - bufTk * tick
+    float risk = math.abs(entry - stop)
+    float other = dir == -1 ? eVal : eVah
+    float rr = risk &gt; 0 ? (other - entry) * dir / risk : 0.0
+    [risk &gt; 0 and rr &gt;= minR, stop, risk, other, rr]
+
+// --- new pokes
+if canEnter and pokeDir == 0
+    if high &gt;= eVah + pokeTk * tick
+        pokeDir := 1
+        pokeBar := bar_index
+        pokeExt := high
+        pokeAgg := aggUp
+        pokeEdge := eVah
+    else if low &lt;= eVal - pokeTk * tick
+        pokeDir := -1
+        pokeBar := bar_index
+        pokeExt := low
+        pokeAgg := aggDn
+        pokeEdge := eVal
+
+int nDir = 0
+float nEntry = na
+float nStop = na
+float nRisk = na
+float nOther = na
+bool sigAggShort = false
+bool sigAggLong = false
+bool sigConShort = false
+bool sigConLong = false
+float sigR = na
+
+if pokeDir != 0
+    // keep the extreme and the aggression check up to date
+    if bar_index &gt; pokeBar
+        pokeExt := pokeDir == 1 ? math.max(pokeExt, high) : math.min(pokeExt, low)
+        pokeAgg := pokeAgg or (pokeDir == 1 ? (close &gt; pokeEdge and aggUp) : (close &lt; pokeEdge and aggDn))
+    bool back = pokeDir == 1 ? (bar_index &gt; pokeBar ? low &lt; pokeEdge : close &lt; pokeEdge) : (bar_index &gt; pokeBar ? high &gt; pokeEdge : close &gt; pokeEdge)
+    if back and pokeAgg
+        if modeIn != "Conservative" and canEnter
+            float entry = pokeDir == 1 ? pokeEdge - tick : pokeEdge + tick
+            [ok, stp, rsk, oth, rr] = planTrade(-pokeDir, entry, pokeExt, pokeEdge)
+            if ok
+                nDir := -pokeDir
+                nEntry := entry
+                nStop := stp
+                nRisk := rsk
+                nOther := oth
+                sigR := rr
+                if pokeDir == 1
+                    sigAggShort := true
+                else
+                    sigAggLong := true
+        if nDir == 0 and modeIn != "Aggressive"
+            failDir := pokeDir
+            failBar := bar_index
+            failExt := pokeExt
+            failEdge := pokeEdge
+        pokeDir := 0
+    else if bar_index - pokeBar &gt;= failBars or (back and not pokeAgg)
+        pokeDir := 0
+
+// --- conservative: the retest of the edge holds
+if failDir != 0 and bar_index &gt; failBar
+    bool newExt = failDir == 1 ? high &gt; failExt : low &lt; failExt
+    bool touched = failDir == 1 ? high &gt;= failEdge - retestTk * tick : low &lt;= failEdge + retestTk * tick
+    bool held = failDir == 1 ? close &lt; failEdge : close &gt; failEdge
+    if newExt or bar_index - failBar &gt; retestN or tDir != 0 or nDir != 0
+        failDir := 0
+    else if touched and held and canEnter
+        [ok, stp, rsk, oth, rr] = planTrade(-failDir, close, failExt, failEdge)
+        if ok
+            nDir := -failDir
+            nEntry := close
+            nStop := stp
+            nRisk := rsk
+            nOther := oth
+            sigR := rr
+            if failDir == 1
+                sigConShort := true
+            else
+                sigConLong := true
+        failDir := 0
+
+// open the new trade
+if nDir != 0
+    tDir := nDir
+    tEntry := nEntry
+    tStop := nStop
+    tPoc := ePoc
+    tOther := nOther
+    tRisk := nRisk
+    tHalf := false
+    if showTrd
+        lStop := line.new(bar_index, nStop, bar_index + 1, nStop, color = color.rgb(255, 69, 58), style = line.style_dashed, width = 2)
+        lPoc := line.new(bar_index, ePoc, bar_index + 1, ePoc, color = colPoc, style = line.style_dotted, width = 2)
+        lOther := line.new(bar_index, nOther, bar_index + 1, nOther, color = color.rgb(34, 211, 238), style = line.style_dotted, width = 2)
+
+// ---------------------------------------------------------------- drawing
+pVah = plot(showVA and inSess and developed ? vah : na, "Value area high", colEdge, 2, plot.style_linebr)
+pVal = plot(showVA and inSess and developed ? val : na, "Value area low", colEdge, 2, plot.style_linebr)
+plot(showVA and inSess and developed ? poc : na, "POC", colPoc, 1, plot.style_linebr)
+plot(showPD and inSess and not developed ? pdVah : na, "Previous VAH", color.new(color.rgb(191, 90, 242), 0), 1, plot.style_linebr)
+plot(showPD and inSess and not developed ? pdVal : na, "Previous VAL", color.new(color.rgb(191, 90, 242), 0), 1, plot.style_linebr)
+fill(pVah, pVal, color.new(colEdge, 94), "Value area")
+
+plotshape(sigAggShort, "Look above and fail (aggressive)", shape.triangledown, location.abovebar, color.rgb(255, 69, 58), size = size.small, text = "LAF")
+plotshape(sigConShort, "Look above and fail (conservative)", shape.triangledown, location.abovebar, color.rgb(255, 159, 10), size = size.small, text = "LAF c")
+plotshape(sigAggLong, "Look below and fail (aggressive)", shape.triangleup, location.belowbar, color.rgb(48, 209, 88), size = size.small, text = "LBF")
+plotshape(sigConLong, "Look below and fail (conservative)", shape.triangleup, location.belowbar, color.rgb(255, 159, 10), size = size.small, text = "LBF c")
+bgcolor(inSess and not developed ? color.new(color.gray, 94) : na, title = "First 30 minutes")
+
+// ---------------------------------------------------------------- alerts
+alertcondition(sigAggShort, "Look above and fail: short", "Look above and fail: back under the value area high. Short.")
+alertcondition(sigAggLong, "Look below and fail: long", "Look below and fail: back over the value area low. Long.")
+alertcondition(sigConShort, "Look above and fail: retest short", "Retest of the value area high held. Conservative short.")
+alertcondition(sigConLong, "Look below and fail: retest long", "Retest of the value area low held. Conservative long.")
+alertcondition(pokeDir == 1 and pokeBar == bar_index, "Look above", "Price is trading over the value area high.")
+alertcondition(pokeDir == -1 and pokeBar == bar_index, "Look below", "Price is trading under the value area low.")
+if sigAggShort or sigConShort or sigAggLong or sigConLong
+    alert((sigAggShort or sigConShort ? "Look above and fail short" : "Look below and fail long") + " on " + syminfo.ticker + ". Entry " + str.tostring(tEntry, format.mintick) + ", stop " + str.tostring(tStop, format.mintick) + ", POC " + str.tostring(tPoc, format.mintick) + ", other side " + str.tostring(tOther, format.mintick) + " (" + str.tostring(sigR, "#.##") + "R).", alert.freq_once_per_bar)
+
+// ---------------------------------------------------------------- panel
+var table tb = table.new(position.top_right, 2, 7, bgcolor = color.new(#1d1d1f, 8), border_width = 0, frame_color = color.new(#3a3a3c, 0), frame_width = 1)
+if showTbl and barstate.islast
+    string state = not inSess ? "Session closed" : not developed ? "First " + str.tostring(waitMin) + " min · yesterday's levels" : migrating ? "Value migrating · skip" : lossesToday &gt;= maxLoss ? "Three strikes · done" : tDir != 0 ? (tDir == 1 ? "In a long" : "In a short") : pokeDir == 1 ? "Look above · watching" : pokeDir == -1 ? "Look below · watching" : (close &gt; eVah or close &lt; eVal) ? "Outside value" : "Inside value · wait"
+    table.cell(tb, 0, 0, "Look Above and Fail", text_color = color.white, text_size = size.small, text_halign = text.align_left)
+    table.cell(tb, 1, 0, state, text_color = color.rgb(209, 209, 214), text_size = size.small, text_halign = text.align_right)
+    table.cell(tb, 0, 1, "VAH", text_color = colEdge, text_size = size.small, text_halign = text.align_left)
+    table.cell(tb, 1, 1, str.tostring(eVah, format.mintick), text_color = color.white, text_size = size.small, text_halign = text.align_right)
+    table.cell(tb, 0, 2, "POC", text_color = colPoc, text_size = size.small, text_halign = text.align_left)
+    table.cell(tb, 1, 2, str.tostring(ePoc, format.mintick), text_color = color.white, text_size = size.small, text_halign = text.align_right)
+    table.cell(tb, 0, 3, "VAL", text_color = colEdge, text_size = size.small, text_halign = text.align_left)
+    table.cell(tb, 1, 3, str.tostring(eVal, format.mintick), text_color = color.white, text_size = size.small, text_halign = text.align_right)
+    table.cell(tb, 0, 4, "Losses today", text_color = color.rgb(209, 209, 214), text_size = size.small, text_halign = text.align_left)
+    table.cell(tb, 1, 4, str.tostring(lossesToday) + " / " + str.tostring(maxLoss), text_color = color.white, text_size = size.small, text_halign = text.align_right)
+    table.cell(tb, 0, 5, "Trades · wins", text_color = color.rgb(209, 209, 214), text_size = size.small, text_halign = text.align_left)
+    table.cell(tb, 1, 5, str.tostring(nTrades) + " · " + str.tostring(nWins), text_color = color.white, text_size = size.small, text_halign = text.align_right)
+    table.cell(tb, 0, 6, "Average R", text_color = color.rgb(209, 209, 214), text_size = size.small, text_halign = text.align_left)
+    table.cell(tb, 1, 6, nTrades &gt; 0 ? str.tostring(sumR / nTrades, "#.##") : "-", text_color = color.white, text_size = size.small, text_halign = text.align_right)</code></pre>
+    </div>
+  </section>
+
+  <section class="video" id="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/CGjT1Yi46S8" title="Look above and fail, a prop trader's full strategy breakdown (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Yush, a prop trader the channel says has nearly $2 million in verified payouts this year, explains the look above and fail on a whiteboard, then trades it on real NQ and ES charts with big trades and a delta profile: an aggressive morning short, a slow afternoon one, sizing, and when he won't trade it.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=CGjT1Yi46S8" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Breakouts from balance usually fail. Be there when they do.</h2>
+      <p>Value is where buyers and sellers agree. When one side pushes past the edge with size and can't hold it, the other side of value is the target and their stops are the fuel.
+      The location is mapped before the trade, the risk sits just past the traders who got caught, and the plan asks for 2R.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Developing RTH profile, after the first 30 minutes.</li>
+        <li>Only at the value area high or low. Wait.</li>
+        <li>Aggression past the edge, then back inside: enter.</li>
+        <li>Stop past the big trades; POC, then the other side.</li>
+        <li>Balanced days only. No news. Three strikes per range.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">From an IQ Capital video interview with Yush, a prop futures trader, on his look above and fail / look below and fail model. The rules, the times, the sizing notes and the examples are as told in the video; the sponsor segments are left out. The payout and win-rate figures are his and the channel's, not verified here. The indicator's thresholds and settings are ours.
+  The walkthrough, the stepper chart, the first-30-minutes chart, the aggressive and conservative sketches and the calculator's default numbers are illustrative, made-up bars, not any market's actual prints.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+<script>
+  /* copy the Pine code */
+  (function () {
+    var b = document.querySelector("[data-copy]"), code = document.querySelector("pre.pine code");
+    if (!b || !code) return;
+    b.addEventListener("click", function () {
+      var t = code.textContent;
+      function done(ok) { b.textContent = ok ? "Copied" : "Select and copy"; setTimeout(function () { b.textContent = "Copy code"; }, 1800); }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { done(true); }, function () { done(false); });
+      else done(false);
+    });
+  })();
+</script>
+
+</body>
+</html>

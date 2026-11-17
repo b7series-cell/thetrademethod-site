@@ -493,6 +493,25 @@ const SETUPS = [
     ]
   }
 
+  ,{
+    slug:    "look-above-and-fail",
+    href:    "/setups/look-above-and-fail.html",
+    nav:     "Look Above and Fail",
+    title:   "Look Above and Fail — The Value Area Failed-Auction Scalp",
+    thesis:  "Markets range more than they trend, and in a range the money is made at the edges. After the first 30 minutes, mark the developing value area high and low and wait. When aggressive buyers push over the high (sellers under the low) and price comes right back inside, they're trapped: trade the reclaim, stop past the big trades, partial at POC, target the other side of value.",
+    session: "After 10:00 · 2-minute, NQ and ES",
+    group:   "day",
+    side:    "both",
+    stages:  6,
+    filters: 4,
+    status:  "live",
+    indicators: [
+      { name: "Look Above and Fail",
+        blurb: "Builds the developing regular-hours profile, draws the value area high, low and POC, and marks the fast reclaim after a poke past an edge, with the stop, the POC partial and the other-side target.",
+        url: "", file: "/pine/look-above-and-fail.pine", alerts: true }
+    ]
+  }
+
   /* -------------------------------------------------------------------
      Copy this block for the next setup. Keep the trailing comma on the
      entry above when you do. Leave `indicators` as an empty array if a
