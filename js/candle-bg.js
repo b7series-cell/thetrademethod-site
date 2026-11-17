@@ -1096,6 +1096,21 @@
       }
     },
 
+    "overnight-effect": {
+      story: function (st) {
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { n: 0.5 }); }),
+          rep(7, function (st) { return bar(st, { d: rnd(-0.35, 0.3), n: 0.6 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.1, n: 0.4, flash: BLUE, mk: { t: "4:00 pm · buy at the close", col: BLUE } }); }),
+          rep(1, function (st) { divider(st); return bar(st, { open: st.price + 0.9, d: 0.1, n: 0.4, v: 0.9, flash: GREEN, mk: { t: "Gap up overnight · sell at the open", col: GREEN, below: true } }); }),
+          rep(7, function (st) { return bar(st, { d: rnd(-0.35, 0.3), n: 0.6 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.1, n: 0.4, flash: BLUE, mk: { t: "Close · buy again", col: BLUE } }); }),
+          rep(1, function (st) { divider(st); return bar(st, { open: st.price + 0.6, d: -0.1, n: 0.4, v: 0.9, flash: GREEN, mk: { t: "Open · out, flat all day", col: SILK, below: true } }); }),
+          rep(7, function (st) { return bar(st, { d: rnd(-0.35, 0.3), n: 0.6 }); })
+        ];
+      }
+    },
+
     "pyramiding": {
       story: function (st) {
         var S, hi, lo;

@@ -37,6 +37,7 @@ const EXTRA_PAGES = [
   { loc: "/fundamentals/", priority: "0.9" },
   { loc: "/famous-strategies/", priority: "0.9" },
   { loc: "/famous-strategies/cross-sectional-momentum.html", priority: "0.7" },
+  { loc: "/famous-strategies/overnight-effect.html", priority: "0.7" },
   { loc: "/famous-strategies/turn-of-the-month.html", priority: "0.7" },
   { loc: "/famous-strategies/intraday-momentum.html", priority: "0.7" },
   { loc: "/famous-strategies/rsi-2.html", priority: "0.7" },

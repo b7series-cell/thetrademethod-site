@@ -110,7 +110,7 @@
 
   /* 3 · a made-up year */
   function tradeSpec() {
-    var r = rng(9), D = [], i, m;
+    var r = rng(38), D = [], i, m;
     for (m = 0; m < 12; m++) for (i = 0; i < 21; i++) {
       var tom = i === 20 || i < 3;
       D.push({ tom: tom, ret: (tom ? 0.0015 : -0.0001) + (r() - 0.5) * 0.022, m: m });
@@ -122,7 +122,7 @@
       { at: 0, title: "A made-up year", text: "A made-up year of daily returns for an index fund, built so the turn-of-the-month days average a little more, the way the history did, with plenty of noise." },
       { at: 3.4, title: "In four days a month", text: "The strategy is in the fund only on the green days: from the close before the last trading day to the close of the third. The rest of the time it holds cash." },
       { at: 6.8, title: "About a fifth of the time", text: "That's roughly 48 days a year in the market. It skips most of the market's swings, good and bad, and most of its risk." },
-      { at: 10, title: "The result", text: "In this made-up year, the gold line holds the fund only on turn-of-the-month days; the grey line holds it every day. In real years, the market's other days sometimes carry big gains it misses." }
+      { at: 10, title: "The result", text: "In this made-up year, the gold line holds the fund only on turn-of-the-month days and ends about level with the grey line, which holds it every day. Real years vary: in some, the other days carry big gains it misses." }
     ];
     return {
       stages: ST, end: 13.6, size: sizeStd,
@@ -149,7 +149,7 @@
         s += note2(g, ["A year", "Made-up returns,", "lots of noise."], C.ink, win(T, 0.3, 3.4));
         s += note2(g, ["Green days", "Owned only on the", "turn of the month."], C.up, win(T, 3.6, 6.8));
         s += note2(g, ["A fifth", "About 48 days", "a year in."], C.up, win(T, 7, 10));
-        s += note2(g, ["Made up", "Real years vary;", "big rallies get missed."], C.gold, fade(T, 10.2, 0.4));
+        s += note2(g, ["Made up", "Same gain, a fifth", "of the time. Real years vary."], C.gold, fade(T, 10.2, 0.4));
         return s + stamp(L, "Illustrative · made-up returns");
       }
     };
