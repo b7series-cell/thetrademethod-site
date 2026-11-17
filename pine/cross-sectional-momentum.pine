@@ -1,0 +1,130 @@
+//@version=6
+// =====================================================================
+// Cross-Sectional Momentum Rank — thetrademethod.com
+// https://thetrademethod.com/famous-strategies/cross-sectional-momentum.html
+//
+// Jegadeesh and Titman (1993): rank every stock on its past 3-12 month
+// return, buy the top, sell the bottom, hold, then re-rank. A single
+// chart can't rank the whole market, so this ranks a list you choose.
+//
+//   1. Measure   Each stock's return from L months ago to S months ago,
+//                on completed monthly closes. Default 12 to 1: the last
+//                year, skipping the most recent month (later research's
+//                "12-2" convention; the original paper skipped a week).
+//   2. Rank      The chart's stock against every stock in your list,
+//                best to worst.
+//   3. Hold      Green background while the chart's stock is in the top
+//                N of the list, red while it's in the bottom N.
+//   4. Re-rank   The table on the right is the full ranking today:
+//                the top N are the "hold" list, the bottom N the losers.
+//
+// Pane: the chart stock's momentum (gold), the benchmark's (blue), and
+// the list's median (gray). Alerts when the stock enters or leaves the
+// top N. Use a daily or weekly chart. Marks and alerts only; it places
+// no orders. Up to 38 symbols in the list (TradingView's request limit).
+// =====================================================================
+indicator("Cross-Sectional Momentum Rank", shorttitle = "XS Momentum", overlay = false, precision = 1)
+
+// ---------------- inputs ----------------
+grpM = "Momentum"
+lookback = input.int(12, "Measure from (months ago)", minval = 2, maxval = 36, group = grpM)
+skip     = input.int(1, "...to (months ago)", minval = 0, maxval = 6, group = grpM, tooltip = "1 skips the most recent completed month, the usual convention. 0 ranks right up to the last monthly close.")
+topN     = input.int(3, "Hold the top", minval = 1, maxval = 19, group = grpM, tooltip = "How many names count as winners (and, from the other end, losers).")
+
+grpU = "Universe"
+bench    = input.symbol("AMEX:SPY", "Benchmark", group = grpU)
+listIn   = input.text_area("NASDAQ:AAPL,NASDAQ:MSFT,NASDAQ:NVDA,NASDAQ:AMZN,NASDAQ:GOOGL,NASDAQ:META,NASDAQ:AVGO,NASDAQ:TSLA,NYSE:BRK.B,NYSE:JPM,NYSE:LLY,NYSE:V,NYSE:UNH,NYSE:XOM,NYSE:MA,NYSE:JNJ,NYSE:PG,NYSE:HD,NASDAQ:COST,NYSE:ABBV,NYSE:MRK,NYSE:CVX,NYSE:KO,NASDAQ:PEP,NASDAQ:ADBE,NYSE:CRM,NASDAQ:NFLX,NASDAQ:AMD,NASDAQ:WMT,NYSE:BAC", "Symbols to rank (comma separated)", group = grpU)
+
+grpD = "Display"
+showTable = input.bool(true, "Show the ranking table", group = grpD)
+tablePos  = input.string("Right", "Table position", options = ["Right", "Left"], group = grpD)
+maxRows   = input.int(40, "Rows in the table", minval = 6, maxval = 40, group = grpD)
+
+// ---------------- momentum on completed monthly closes ----------------
+mom() => close[1 + skip] / close[1 + lookback] - 1
+
+selfMom  = request.security(syminfo.tickerid, "1M", mom(), lookahead = barmerge.lookahead_off) * 100
+benchMom = request.security(bench, "1M", mom(), lookahead = barmerge.lookahead_off, ignore_invalid_symbol = true) * 100
+
+raw = str.split(str.replace_all(str.replace_all(listIn, "\n", ","), " ", ""), ",")
+syms = array.new<string>()
+for s in raw
+    if str.length(s) > 0 and array.size(syms) < 38
+        array.push(syms, s)
+
+rets  = array.new<float>()
+names = array.new<string>()
+for s in syms
+    r = request.security(s, "1M", mom(), lookahead = barmerge.lookahead_off, ignore_invalid_symbol = true) * 100
+    if not na(r)
+        array.push(rets, r)
+        array.push(names, s)
+
+// ---------------- the chart stock's rank in the list ----------------
+selfTicker = syminfo.ticker
+inList = false
+for s in names
+    parts = str.split(s, ":")
+    if array.get(parts, array.size(parts) - 1) == selfTicker
+        inList := true
+n = array.size(rets) + (inList ? 0 : 1)
+better = 0
+for r in rets
+    if not na(selfMom) and r > selfMom
+        better += 1
+rank = na(selfMom) ? na : better + 1
+isTop = not na(rank) and rank <= topN
+isBot = not na(rank) and rank > n - topN
+median = array.size(rets) > 0 ? array.median(rets) : na
+
+// ---------------- pane ----------------
+hline(0, "Zero", color = color.new(color.gray, 50), linestyle = hline.style_dashed)
+bgcolor(isTop ? color.new(color.green, 85) : isBot ? color.new(color.red, 85) : na, title = "Top / bottom of the list")
+plot(median, "List median", color = color.new(color.gray, 20), linewidth = 1)
+plot(benchMom, "Benchmark", color = color.new(color.blue, 0), linewidth = 1)
+plot(selfMom, "This stock", color = color.new(#f4b942, 0), linewidth = 2)
+
+enter = isTop and not isTop[1]
+leave = not isTop and isTop[1]
+plotshape(enter, "Enters the top", shape.triangleup, location.bottom, color.green, size = size.tiny)
+plotshape(leave, "Leaves the top", shape.triangledown, location.top, color.red, size = size.tiny)
+alertcondition(enter, "Enters the top N", "{{ticker}} moved into the top of the momentum ranking")
+alertcondition(leave, "Leaves the top N", "{{ticker}} dropped out of the top of the momentum ranking")
+
+// ---------------- the ranking table ----------------
+var table tb = table.new(tablePos == "Right" ? position.top_right : position.top_left, 4, 42, bgcolor = color.new(#1d1d1f, 0), border_width = 1, border_color = color.new(#2c2c2e, 0))
+if showTable and barstate.islast
+    table.clear(tb, 0, 0, 3, 41)
+    hdr = color.new(#86868b, 0)
+    table.cell(tb, 0, 0, "#", text_color = hdr, text_size = size.small)
+    table.cell(tb, 1, 0, "Symbol", text_color = hdr, text_size = size.small)
+    table.cell(tb, 2, 0, str.tostring(lookback) + "-" + str.tostring(skip) + " mo", text_color = hdr, text_size = size.small)
+    table.cell(tb, 3, 0, "", text_color = hdr, text_size = size.small)
+    // all rows: the list plus the chart stock if it isn't in it
+    allR = array.copy(rets)
+    allN = array.copy(names)
+    if not inList and not na(selfMom)
+        array.push(allR, selfMom)
+        array.push(allN, syminfo.tickerid)
+    idx = array.sort_indices(allR, order.descending)
+    total = array.size(idx)
+    shown = math.min(total, maxRows)
+    for k = 0 to shown - 1
+        if k >= total
+            break
+        // show the top rows, then jump to the bottom rows if the list is long
+        pos = total > maxRows and k >= shown / 2 ? total - (shown - k) : k
+        i = array.get(idx, pos)
+        nm = array.get(allN, i)
+        parts = str.split(nm, ":")
+        tk = array.get(parts, array.size(parts) - 1)
+        rv = array.get(allR, i)
+        top = pos < topN
+        bot = pos >= total - topN
+        mine = tk == selfTicker
+        bg = mine ? color.new(#f4b942, 70) : top ? color.new(color.green, 75) : bot ? color.new(color.red, 75) : color.new(#1d1d1f, 0)
+        tc = color.new(#f5f5f7, 0)
+        table.cell(tb, 0, k + 1, str.tostring(pos + 1), text_color = hdr, bgcolor = bg, text_size = size.small)
+        table.cell(tb, 1, k + 1, tk, text_color = tc, bgcolor = bg, text_size = size.small, text_halign = text.align_left)
+        table.cell(tb, 2, k + 1, (rv >= 0 ? "+" : "") + str.tostring(rv, "#.0") + "%", text_color = rv >= 0 ? color.new(#30d158, 0) : color.new(#ff453a, 0), bgcolor = bg, text_size = size.small, text_halign = text.align_right)
+        table.cell(tb, 3, k + 1, top ? "hold" : bot ? "loser" : "", text_color = top ? color.new(#30d158, 0) : color.new(#ff453a, 0), bgcolor = bg, text_size = size.small)
