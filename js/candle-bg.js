@@ -1081,6 +1081,21 @@
       }
     },
 
+    "turn-of-the-month": {
+      story: function (st) {
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { n: 0.5 }); }),
+          rep(9, function (st) { return bar(st, { d: rnd(-0.35, 0.35), n: 0.6 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.1, n: 0.4, flash: BLUE, mk: { t: "Day before the last · buy at the close", col: BLUE, below: true } }); }),
+          rep(1, function (st) { return bar(st, { d: 0.6, n: 0.4, mk: { t: "Last trading day", col: GREEN } }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 0.5, n: 0.4, v: 0.9, mk: { t: "New month · day 1", col: GREEN, below: true } }); }),
+          rep(1, function (st) { return bar(st, { d: 0.4, n: 0.4 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.3, n: 0.4, flash: ORANGE, mk: { t: "Day 3 · sell at the close", col: ORANGE } }); }),
+          rep(9, function (st) { return bar(st, { d: rnd(-0.35, 0.35), n: 0.6 }); })
+        ];
+      }
+    },
+
     "pyramiding": {
       story: function (st) {
         var S, hi, lo;
