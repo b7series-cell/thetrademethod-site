@@ -879,6 +879,23 @@
 
     /* Pyramiding: a 1R breakout, then each add smaller (0.5R, 0.25R) off a consolidation,
        with the stop stepping up behind every add */
+    /* Cross-sectional momentum: a past winner ranks top decile, a skipped month, then held while it keeps outrunning the pack */
+    "cross-sectional-momentum": {
+      story: function (st) {
+        var R;
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); R = null; return bar(st, { n: 0.6, mk: { t: "Formation · 12 months of returns", col: SILK, below: true } }); }),
+          rep(14, function (st, k) { return bar(st, { d: k % 4 === 3 ? -0.7 : 0.75, n: 0.7 }); }),
+          rep(1, function (st) { R = level(st, st.price - 0.4, "Rank: top decile", GREEN, true); return bar(st, { d: 0.6, n: 0.3, v: 0.8, flash: GREEN, mk: { t: "Past winner · top 10%", col: GREEN } }); }),
+          rep(3, function (st, k) { return bar(st, { d: rnd(-0.35, 0.2), n: 0.5, mk: k === 1 ? { t: "Skip a month", col: SILK, below: true } : null }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 0.9, n: 0.3, v: 0.8, flash: GREEN, mk: { t: "Bought · hold 3–12 months", col: GREEN } }); }),
+          rep(12, function (st, k) { return bar(st, { d: k % 5 === 4 ? -0.8 : 0.85, n: 0.7 }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 0.3, n: 0.4, mk: { t: "Rebalance · re-rank everything", col: SILK, below: true } }); }),
+          rep(6, function (st) { return bar(st, { d: rnd(-0.6, 0.5), n: 0.8 }); })
+        ];
+      }
+    },
+
     "pyramiding": {
       story: function (st) {
         var S, hi, lo;
