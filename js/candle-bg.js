@@ -1182,6 +1182,37 @@
       }
     },
 
+    /* Micro range: balance, a breakout that is only price, the range after the range, plan A (absorbed flush) then plan B (the break) (alternates long / short) */
+    "micro-range": {
+      profile: true,
+      story: function (st) {
+        var dir = st.dir = -(st.dir || -1), C, H, Lo, edge, MH, ML, m;
+        return [
+          rep(1, function (st) {
+            closeLevels(st); C = st.price;
+            H = level(st, C + 3.2, "Value area high", PURPLE, dir > 0); Lo = level(st, C - 3.2, "Value area low", PURPLE, dir < 0);
+            edge = dir > 0 ? H.y : Lo.y;
+            return bar(st, { to: C, n: 1.1, v: 0.5, mk: { t: "Balance \u00b7 value", col: SILK, below: true } });
+          }),
+          rep(9, function (st, k) { return bar(st, { to: k % 6 < 3 ? H.y - 0.8 : Lo.y + 0.8, pull: 0.35, n: 1.0, cap: H.y, flo: Lo.y, v: rnd(0.4, 0.65) }); }),
+          rep(1, function (st) { var c = dir > 0 ? GREEN : RED; return bar(st, { to: edge + 3.4 * dir, pull: 1, n: 0.3, v: 1, pierce: true, flash: c, mk: { t: "First breakout \u00b7 price, not value", col: c, below: dir < 0 } }); }),
+          rep(1, function (st) { return bar(st, { d: -1.2 * dir, n: 0.3, v: 0.7 }); }),
+          rep(1, function (st) {
+            m = st.price;
+            MH = level(st, m + 1.2, "Micro range high", ORANGE, dir > 0); ML = level(st, m - 1.2, "Micro range low", ORANGE, dir < 0);
+            return bar(st, { to: m, n: 0.6, v: 0.55, mk: { t: "Micro range \u00b7 the range after the range", col: ORANGE, below: dir > 0 } });
+          }),
+          rep(6, function (st, k) { return bar(st, { to: k % 4 < 2 ? MH.y - 0.4 : ML.y + 0.4, pull: 0.4, n: 0.7, cap: MH.y, flo: ML.y, v: rnd(0.35, 0.55) }); }),
+          rep(1, function (st) { var c = dir > 0 ? RED : GREEN; return bar(st, { to: (dir > 0 ? ML.y : MH.y) - 1.0 * dir, pull: 1, n: 0.2, v: 0.95, pierce: true, flash: c, mk: { t: dir > 0 ? "Sellers flush \u00b7 absorbed" : "Buyers squeeze \u00b7 absorbed", col: c, below: dir > 0 } }); }),
+          rep(1, function (st) { var c = dir > 0 ? GREEN : RED; return bar(st, { to: m + 0.4 * dir, pull: 1, n: 0.2, v: 0.9, flash: c, mk: { t: dir > 0 ? "Plan A \u00b7 buy the reclaim" : "Plan A \u00b7 sell the reclaim", col: c, below: dir > 0 } }); }),
+          rep(2, function (st) { return bar(st, { to: (dir > 0 ? MH.y : ML.y) - 0.3 * dir, pull: 0.6, n: 0.4, v: 0.6 }); }),
+          rep(1, function (st) { var c = dir > 0 ? BLUE : RED; return bar(st, { d: 2.2 * dir, n: 0.3, v: 1, pierce: true, flash: c, mk: { t: "Plan B \u00b7 the break out of value", col: c, below: dir < 0 } }); }),
+          rep(5, function (st) { return bar(st, { d: 0.8 * dir, n: 0.5, v: 0.7 }); }),
+          rep(4, function (st) { return bar(st, { d: 0.1 * dir, n: 0.9, v: 0.45 }); })
+        ];
+      }
+    },
+
     "level-radar": {
       story: function (st) {
         var H, N, D;

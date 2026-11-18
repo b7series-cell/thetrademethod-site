@@ -512,6 +512,21 @@ const SETUPS = [
     ]
   }
 
+  ,{
+    slug:    "micro-range",
+    href:    "/setups/micro-range.html",
+    nav:     "Micro Range",
+    title:   "Micro Range — Trade the Range After the Range",
+    thesis:  "Price isn't value. Map the regime first: one time framing up or down on the weekly and daily means momentum is allowed; anything else is balance, where you fade failed auctions at the value edges. Never buy the first breakout. Wait for the micro range, the range after the range, then buy the absorbed flush back into it (plan A) or aggressive buying out of it (plan B), with the risk split between them.",
+    session: "Cash open · weekly/daily map, 1-minute ES and NQ",
+    group:   "day",
+    side:    "both",
+    stages:  6,
+    filters: 4,
+    status:  "live",
+    indicators: []
+  }
+
   /* -------------------------------------------------------------------
      Copy this block for the next setup. Keep the trailing comma on the
      entry above when you do. Leave `indicators` as an empty array if a
