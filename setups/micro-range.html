@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Micro Range — the range after the range, a regime-first breakout filter | The Trade Method</title>
+<meta name="description" content="The micro range, from institutional trader Imre Gams on Chart Fanatics: map the regime with one time framing on the weekly and daily, filter with the Fed's dual mandate, mark the value zones, skip the first breakout (price, not value), wait for the range after the range, then buy the absorbed flush back in (plan A) or aggressive buying out of it (plan B). Plus the failed auction in balance, two flavors.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/micro-range.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Micro Range — the range after the range, a regime-first breakout filter">
+<meta property="og:description" content="The micro range, from institutional trader Imre Gams on Chart Fanatics: map the regime with one time framing on the weekly and daily, filter with the Fed's dual mandate, mark the value zones, skip the first breakout (price, not value), wait for the range after the range, then buy the absorbed flush back in (plan A) or aggressive buying out of it (plan B). Plus the failed auction in balance, two flavors.">
+<meta property="og:url" content="https://thetrademethod.com/setups/micro-range.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Micro Range — the range after the range, a regime-first breakout filter">
+<meta name="twitter:description" content="The micro range, from institutional trader Imre Gams on Chart Fanatics: map the regime with one time framing on the weekly and daily, filter with the Fed's dual mandate, mark the value zones, skip the first breakout (price, not value), wait for the range after the range, then buy the absorbed flush back in (plan A) or aggressive buying out of it (plan B). Plus the failed auction in balance, two flavors.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Micro Range — the range after the range, a regime-first breakout filter",
+ "name": "Micro Range",
+ "description": "The micro range, from institutional trader Imre Gams on Chart Fanatics: map the regime with one time framing on the weekly and daily, filter with the Fed's dual mandate, mark the value zones, skip the first breakout (price, not value), wait for the range after the range, then buy the absorbed flush back in (plan A) or aggressive buying out of it (plan B). Plus the failed auction in balance, two flavors.",
+ "url": "https://thetrademethod.com/setups/micro-range.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/micro-range.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-18",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+
+  /* hero link to the indicator */
+  .get-ind { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:#08131f; background:#64d2ff;
+             text-decoration:none; border-radius:9999px; padding:9px 18px; }
+  .get-ind:hover { background:#8cdfff; }
+
+  /* ---------- indicator ---------- */
+  .ind-sec { margin-top:56px; scroll-margin-top:110px; }
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .code-wrap { background:var(--panel); border:1px solid var(--line); border-radius:12px; margin-top:16px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--faint); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#1b2a3e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#26394f; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d9e3; tab-size:4; }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-sec { margin-top:44px; } }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=25">
+<script src="/js/nav.js?v=25" defer></script>
+<script src="/js/site.js?v=50" defer></script>
+<script src="/js/mr-anim.js?v=1" defer></script>
+<style>
+  /* steps across the page, the two panels side by side under them (same as hitchhiker-scalp.html) */
+  .mr-main { grid-template-columns:1fr; gap:22px; }
+  .mr-stages { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .sheet .mr-stages .stage, .sheet .mr-stages .stage:first-child { padding:26px 24px; background:var(--charcoal); align-content:start; }
+  .mr-side { display:grid; grid-template-columns:1fr 1.4fr; gap:16px; align-items:stretch; }
+  .mr-side .panel + .panel { margin-top:0; }
+  .mr-side .timing { grid-template-columns:1fr 1fr; }
+  @media (max-width:1100px) { .mr-stages { grid-template-columns:1fr 1fr; } .mr-side { grid-template-columns:1fr; } }
+  @media (max-width:680px) { .mr-stages { grid-template-columns:1fr; } }
+  /* the stepper (js/mr-anim.js builds it from the six steps) */
+  .mr-stages.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#f5f5f7; }
+  .gs-bar { display:grid; grid-template-columns:repeat(6,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:8.333%; right:8.333%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .mr-stages.is-stepper .stage, .sheet .mr-stages.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .mr-stages.is-stepper .stage .num { display:none; }
+  .sheet .mr-stages.is-stepper .stage[hidden] { display:none; }
+  .sheet .mr-stages.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .mr-stages.is-stepper { padding:20px 12px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:34px; height:34px; font-size:14px; }
+    .gs-line { top:16px; }
+    .gs-bar { margin-bottom:20px; }
+  }
+  /* video (same as hitchhiker-scalp.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+  .watch { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:var(--ink); text-decoration:none;
+           background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); border-radius:9999px; padding:7px 14px 7px 10px; }
+  .watch:hover { background:rgba(255,255,255,0.14); }
+  .watch i { width:0; height:0; border-left:9px solid #ff453a; border-top:6px solid transparent; border-bottom:6px solid transparent; margin-left:4px; }
+
+  .h1-mr { color:#64d2ff; }
+  .ribbon .n { font-size:14px; }
+
+  /* tiles */
+  .vs { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .vs div { background:var(--panel); border:1px solid var(--line); border-top:3px solid #64d2ff; border-radius:11px; padding:16px 17px; }
+  .vs .sc { font-family:var(--mono); font-size:13px; color:#64d2ff; font-weight:700; display:block; margin-bottom:6px; }
+  .vs h3 { margin:0 0 6px; font-size:16px; }
+  .vs p { margin:0; font-size:14px; color:var(--dim); }
+
+  /* the checks and outputs (same look as hitchhiker-scalp.html) */
+  .chk-out { margin-top:14px; border-radius:11px; padding:14px 16px; border:1px solid var(--line); background:var(--panel2); }
+  .chk-out b { display:block; font-size:24px; font-weight:800; letter-spacing:-0.02em; margin-bottom:4px; }
+  .chk-out p { margin:0; font-size:14px; color:var(--dim); }
+  .chk-out.is-a { border-color:#22855a; } .chk-out.is-a b { color:var(--up); }
+  .chk-out.is-b { border-color:#7a5a12; } .chk-out.is-b b { color:var(--gold); }
+  .chk-out.is-no { border-color:#5e2a30; } .chk-out.is-no b { color:var(--down); }
+
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in.four { grid-template-columns:repeat(4,1fr); }
+  .calc-in label { font-size:12px; color:var(--faint); display:block; }
+  .calc-in input, .calc-in select { width:100%; margin-top:4px; background:var(--panel2); color:var(--ink); border:1px solid var(--line); border-radius:8px;
+                   padding:8px 10px; font-family:var(--mono); font-size:15px; }
+  .calc-in input:focus, .calc-in select:focus { outline:2px solid var(--blue); outline-offset:1px; }
+  .calc-in input[type=range] { padding:0; accent-color:#30d158; background:none; border:0; }
+  .calc-in output { font-family:var(--mono); color:var(--ink); font-size:14px; float:right; }
+  .mr-book .calc-in { grid-template-columns:1fr 1fr auto; align-items:end; }
+  .mr-book .warn { margin-top:16px; }
+  .mr-book .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; }
+  .mr-book .reset:hover { background:#3a3a3c; }
+  .mr-two svg, .mr-dev svg { border-radius:14px; }
+  .mr-dev .calc-in { grid-template-columns:1fr; }
+  .mr-two .reset, .mr-dev .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; margin-top:12px; }
+  .h1-mr { color:#bf5af2; }
+  .counts div { border-left-color:#bf5af2; }
+  .vs.mr-vs div { border-top-color:#bf5af2; } .vs.mr-vs .sc { color:#bf5af2; }
+  .size-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .size-grid div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .size-grid b { display:block; font-family:var(--mono); font-size:20px; color:var(--gold); margin-bottom:4px; }
+  .size-grid p { margin:0; color:var(--dim); font-size:13.4px; }
+  @media (max-width:680px) { .size-grid { grid-template-columns:1fr; } }
+
+  /* case table + quotes (same as hitchhiker-scalp.html) */
+  .quote { margin:16px 0 0; padding:14px 18px; border-left:3px solid #64d2ff; background:var(--panel); border-radius:0 11px 11px 0; font-size:16px; }
+  .quote small { display:block; color:var(--faint); font-size:12.5px; margin-top:4px; }
+  .howto { margin:0; padding-left:20px; color:var(--ink); font-size:14.5px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#64d2ff; font-weight:600; }
+  .two-note { margin:14px 0 0; color:var(--dim); font-size:14px; max-width:86ch; }
+  .vcase td.txt { min-width:200px; }
+
+  /* the animation redraws for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .ribbon + .anim { margin-top:8px; }
+  @media (max-width:1100px) {
+    .vs { grid-template-columns:1fr 1fr; }
+    .calc-in.four { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:680px) {
+    /* breathing room around the walkthrough and the charts on small screens (project rule: not packed tight on phones) */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .counts { flex-wrap:wrap; gap:16px 22px; }
+    .vs { grid-template-columns:1fr; }
+    .calc-in, .calc-in.four, .mr-book .calc-in { grid-template-columns:1fr 1fr; }
+    .mr-book .calc-in .reset { grid-column:1 / -1; justify-self:start; }
+    .section-head { margin-top:52px; }
+    .mr-two, .mr-dev, .mr-plan { margin-top:28px; }
+    .risk + .risk, .panel + .risk { margin-top:28px; }
+    .vcase th, .vcase td { padding:9px 8px; }
+    .mr-side .filters, .mr-side .timing { grid-template-columns:1fr !important; }
+  }
+  /* the case table scrolls inside itself on a phone, never the page */
+  .tscroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .tscroll table { min-width:720px; }
+</style>
+
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=38" defer></script>
+
+<style>
+  /* micro range page extras */
+  .mr-value svg, .mr-otf svg, .mr-two svg { border-radius:14px; }
+  .mr-value .reset, .mr-two .reset, .pre button { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; }
+  .mr-value .reset, .mr-two .reset { margin-top:12px; }
+  .mr-value .reset:hover, .mr-two .reset:hover, .pre button:hover { background:#3a3a3c; }
+  .pre { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; }
+  .mr-otf .calc-in { grid-template-columns:repeat(6,1fr); }
+  .mr-otf .calc-in label b { color:var(--dim); font-weight:600; }
+  .mr-side .timing b.big { font-family:var(--mono); font-size:22px; color:#bf5af2; }
+  .mr-plan .size-grid b { font-family:var(--sans); font-size:16px; }
+  .regime { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .regime div { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .regime div.up { border-top:3px solid var(--up); } .regime div.dn { border-top:3px solid var(--down); } .regime div.bal { border-top:3px solid var(--gold); }
+  .regime h3 { margin:0 0 6px; font-size:17px; } .regime p { margin:0 0 8px; font-size:14px; color:var(--dim); }
+  .regime .do { margin:0; font-size:13.4px; font-weight:600; color:var(--ink); }
+  @media (max-width:1100px) { .mr-otf .calc-in { grid-template-columns:repeat(3,1fr); } .regime { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .mr-otf .calc-in { grid-template-columns:repeat(3,1fr); }
+    .mr-value, .mr-otf, .mr-two { margin-top:28px; }
+    .pre { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .pre::-webkit-scrollbar { display:none; }
+    .pre button { flex:0 0 auto; }
+    .mr-side .timing, .mr-side .filters { grid-template-columns:1fr !important; }
+  }
+</style>
+
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/setups/">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="micro-range">
+    <div>
+      <p class="kicker">An institutional trader's breakout filter &middot; ES and NQ, weekly map, 1-minute triggers, long or short</p>
+      <h1>Micro <span class="h1-mr">Range</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Price isn't value. A burst through the top of a range is only price until buyers and sellers agree to do business up there.
+      So map the regime first, never buy the first breakout, and wait for <em>the range after the range</em>: then buy the absorbed flush back into it,
+      or aggressive buying out of it, with the risk split between the two.</p>
+      <div class="counts">
+        <div><b>~70%</b><small>of the time the market is in balance</small></div>
+        <div><b>HH &middot; HL &middot; HC</b><small>his strict one time framing rule</small></div>
+        <div><b>A + B</b><small>two entries, one risk budget</small></div>
+      </div>
+      <a class="watch" href="#video"><i></i>Watch the video</a>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">1 &middot; regime</div><div class="n">One time framing, or balance?</div></div>
+    <div><div class="t">2 &middot; macro</div><div class="n">What the Fed has to do next</div></div>
+    <div><div class="t">3 &middot; zones</div><div class="n">Value, nodes, control zones</div></div>
+    <div><div class="t">4 &middot; wait</div><div class="n">Skip the first breakout</div></div>
+    <div><div class="t">5 &middot; enter</div><div class="n">Plan A flush, plan B break</div></div>
+    <div><div class="t">6 &middot; manage</div><div class="n">Trampoline, then the wall</div></div>
+  </nav>
+
+  <section class="anim" data-mr-anim aria-label="Animated walkthrough of a micro range long on 1-minute bars">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">8 / 8</p>
+        <h2 class="anim-title">Watch one micro range, start to finish</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 640" role="img" aria-label="Illustrative 1-minute chart of a made-up ES session. The weekly and daily are one time framing up. The morning balances with a value area of 7,389 to 7,397. Price bursts over the value area high to 7,413, which is only price, so no trade. It then builds a micro range from 7,403.50 to 7,410 above the old value. Sellers flush under the micro range low to 7,400.50, get absorbed, and price reclaims: plan A buys 7,403.75 with a stop at 7,400.25. Aggressive buying then breaks the micro range high: plan B buys 7,410.25 with a stop at 7,407.25. A pullback into the old micro range top is absorbed at 7,410.75, and price runs to the next zone at 7,426 to 7,431, where passive sellers absorb the buyers. Out at 7,428."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main mr-main">
+    <div class="mr-stages" data-mr-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Map the regime first</h3>
+          <ul>
+            <li>On the weekly and daily, check one time framing: a higher high, a higher low <em>and</em> a higher close (up), or the mirror (down).</li>
+            <li>One time framing means one side controls the auction: momentum and breakouts are allowed. Anything else is balance.</li>
+            <li>In balance, don't trade momentum. Fade failed auctions at the value edges instead.</li>
+          </ul>
+          <p class="why">Most day traders, he says, have won or lost the session before the first trade. It comes down to the prep.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Filter it with the fundamentals</h3>
+          <ul>
+            <li>Every number (CPI, PCE, NFP, GDP, a headline) through one lens: does it push the Fed to cut or to hike? The mandate is inflation and employment.</li>
+            <li>Accommodative money flows into growth and risk. Restrictive money rotates out. Don't stand in front of the first.</li>
+            <li>A release matters when the actual is far from what was expected. Don't trade its immediate aftermath; use it for direction and conviction.</li>
+          </ul>
+          <p class="why">Every institution analyzes the fundamentals. None of them are looking at one-minute fair value gaps.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Mark the zones</h3>
+          <ul>
+            <li>Start with the developing weekly profile: value area, point of control, high and low volume nodes. Mark areas, not exact lines.</li>
+            <li>Then the cash session profiles (merge overlapping days into a composite) and the overnight. Where the zones line up across time frames, they matter.</li>
+            <li>Note where you open against yesterday's value. Inside it, expect a fight: you need acceptance outside a control zone first.</li>
+          </ul>
+          <p class="why">Most liquidity sits in the middle of a range, at the point of control, not above the highs.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Skip the first breakout</h3>
+          <ul>
+            <li>A burst out of the range is price, not value. Breakouts are the fat tails: most of the time the market is in balance and they fail.</li>
+            <li>Wait for the micro range: price going sideways beyond the old value. Business being done up there is acceptance.</li>
+            <li>Never front-run a breakout unless you're doing it from value.</li>
+          </ul>
+          <p class="why">Who builds value? Not retail. A range forming past the old one is institutional participation.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Plan A, then plan B</h3>
+          <ul>
+            <li>Plan A, the best price: aggressive sellers flush under the micro range low and get absorbed, big buyers fire, price reclaims. Buy the reclaim.</li>
+            <li>Plan B: aggressive buying breaks the micro range high. This is the breakout to trust, because it comes out of value.</li>
+            <li>Stops sit behind the aggressive traders on your side. Split one risk budget between A and B; don't add risk.</li>
+          </ul>
+          <p class="why">Shorts are the mirror: an absorbed squeeze over the micro range high, or aggressive selling under its low.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Ride it until the buyers run out</h3>
+          <ul>
+            <li>In an imbalance, old value should be a trampoline. A pullback into it that gets absorbed is the same setup again.</li>
+            <li>Target the next zone up. Get out where buyers keep lifting the offer and passive sellers keep filling them.</li>
+            <li>If the market slices back through old value or a low volume node and doesn't turn, the other time frame isn't there. Out.</li>
+          </ul>
+          <p class="why">Institutions take profit into strength. Someone has to buy from them up there: don't be the last one.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="mr-side">
+      <div class="panel">
+        <h4>How often it trends</h4>
+        <p class="lead">The bell curve he draws for most markets.</p>
+        <div class="timing">
+          <div><b class="big">68&ndash;70%</b><p>of the time the market is balanced. That middle of the curve is where breakout traders get chopped up.</p></div>
+          <div><b class="big">~6 days</b><p>a month of real imbalance, out of about 21 or 22 trading days. They tend to cluster back to back.</p></div>
+          <div><b>The clue</b><p>What the market is doing relative to fair value: value building away from the old range.</p></div>
+          <div><b>Your P&amp;L</b><p>A few trend days make a big share of it, which is why you have to be ready when they come.</p></div>
+        </div>
+<svg viewBox="0 0 400 130" role="img" aria-label="A bell curve: the middle, about 68 to 70 percent, is balance; the two tails, about 30 percent, are imbalance." style="margin-top:14px">
+            <path d="M0,109.5 L8,109.3 L16,108.9 L24,108.4 L32,107.7 L40,106.8 L48,105.5 L56,103.9 L64,101.9 L72,99.3 L80,96.2 L88,92.4 L96,88.0 L104,82.9 L112,77.1 L120,70.9 L128,64.1 L136,57.2 L144,50.1 L152,43.3 L160,36.9 L168,31.2 L176,26.5 L184,22.9 L192,20.7 L200,20.0 L208,20.7 L216,22.9 L224,26.5 L232,31.2 L240,36.9 L248,43.3 L256,50.1 L264,57.2 L272,64.1 L280,70.9 L288,77.1 L296,82.9 L304,88.0 L312,92.4 L320,96.2 L328,99.3 L336,101.9 L344,103.9 L352,105.5 L360,106.8 L368,107.7 L376,108.4 L384,108.9 L392,109.3 L400,109.5 L400,110 L0,110 Z" fill="#e0505a" fill-opacity="0.22"/>
+            <path d="M138,110 L138,55.4 L142,51.9 L146,48.4 L150,45.0 L154,41.7 L158,38.5 L162,35.4 L166,32.6 L170,29.9 L174,27.6 L178,25.5 L182,23.7 L186,22.3 L190,21.2 L194,20.4 L198,20.0 L202,20.0 L206,20.4 L210,21.2 L214,22.3 L218,23.7 L222,25.5 L226,27.6 L230,29.9 L234,32.6 L238,35.4 L242,38.5 L246,41.7 L250,45.0 L254,48.4 L258,51.9 L262,55.4 L262,110 Z" fill="#bf5af2" fill-opacity="0.55"/>
+            <text x="200" y="86" fill="#f5f5f7" font-size="15" font-weight="700" text-anchor="middle">balance</text>
+            <text x="200" y="104" fill="#d1d1d6" font-size="12" text-anchor="middle">~70%</text>
+            <text x="60" y="88" fill="#ff453a" font-size="12" font-weight="700" text-anchor="middle">imbalance</text>
+            <text x="340" y="88" fill="#ff453a" font-size="12" font-weight="700" text-anchor="middle">imbalance</text>
+            <text x="200" y="127" fill="#6e6e73" font-size="11" text-anchor="middle">breakouts live in the tails</text>
+          </svg>
+      </div>
+
+      <div class="panel">
+        <h4>When it's off</h4>
+        <p class="lead">The trade only exists out of value, with the regime on your side.</p>
+        <div class="filters kills" style="grid-template-columns:repeat(2,1fr); margin-top:14px;">
+    <div class="filter" style="background:var(--panel2)"><h3>No one time framing</h3><p>The weekly and daily are mixed: sweeping highs, sweeping lows, inside bars. That's balance.</p><p class="kill">No momentum trades. Fade the value edges instead.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>The first breakout</h3><p>A spike out of the range with no value built beyond it. News candles are the classic case.</p><p class="kill">Price, not value: no trade.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>Front-running</h3><p>Buying from the middle because a big seller is advertising a level above, hoping it gets lifted.</p><p class="kill">Only from value. Otherwise wait.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>Right on the number</h3><p>The minutes after a big release, or holding a day trade into one.</p><p class="kill">Let it print. Use it for direction, not the entry.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Price is not value</h2>
+    <p>All the market does is negotiate fair value. A news candle can rip, but if buyers and sellers don't keep doing business up there, it's given straight back. A trend, to him, is value migrating: one balancing range after another, each a little higher.</p>
+  </div>
+  <div class="panel mr-value" data-mr-value>
+    <svg viewBox="0 0 1180 360" role="img" aria-label="Two illustrative charts. Left: a balance, then a big news candle up, then price falls straight back into the same value area. Value never moved. Right: three balancing ranges, each higher than the last: value migrating, which is a trend."></svg>
+    <button type="button" class="reset" data-play>Play again</button>
+  </div>
+  <div class="vs mr-vs" style="margin-top:20px">
+    <div><span class="sc">BALANCE</span><h3>Value is a magnet</h3><p>Buyers at the low, sellers at the high, the point of control in the middle where the most business is done. Pokes outside the value area get violently rejected.</p></div>
+    <div><span class="sc">IMBALANCE</span><h3>Value is a trampoline</h3><p>Business is done, the market goes looking for a new fair price. Old value should launch price, not pull it back. Low volume nodes are air pockets the other time frame defends.</p></div>
+    <div><span class="sc">THE SHIFT</span><h3>Buyers raise their bids</h3><p>Higher lows inside the range, the passive offers thinning above, patience turning into urgency before a catalyst. Then the lid comes off.</p></div>
+  </div>
+
+  <div class="section-head">
+    <h2>One time framing: check your map</h2>
+    <p>His rule is stricter than the textbook one. Up needs a higher high, a higher low <em>and</em> a higher close than the last bar; down is the mirror. He applies it to the weekly and the daily before every session. Try the presets or type your own bars.</p>
+  </div>
+  <div class="panel mr-otf" data-mr-otf>
+    <div class="pre" role="group" aria-label="Examples">
+      <button type="button" data-pre="up">One time framing up</button>
+      <button type="button" data-pre="down">One time framing down</button>
+      <button type="button" data-pre="old">No higher close</button>
+      <button type="button" data-pre="inside">Inside bar</button>
+      <button type="button" data-pre="outside">Outside bar</button>
+    </div>
+    <div class="calc-in">
+      <label><b>Last</b> high<input name="ph" type="number" inputmode="decimal" step="0.25"></label>
+      <label><b>Last</b> low<input name="pl" type="number" inputmode="decimal" step="0.25"></label>
+      <label><b>Last</b> close<input name="pc" type="number" inputmode="decimal" step="0.25"></label>
+      <label><b>This</b> high<input name="h" type="number" inputmode="decimal" step="0.25"></label>
+      <label><b>This</b> low<input name="l" type="number" inputmode="decimal" step="0.25"></label>
+      <label><b>This</b> close<input name="c" type="number" inputmode="decimal" step="0.25"></label>
+    </div>
+    <svg viewBox="0 0 1180 320" role="img" aria-label="The last bar and this bar, with the last bar's high, low and close carried across, and a check for each of the three conditions."></svg>
+    <div class="chk-out mr-oout" aria-live="polite"></div>
+  </div>
+  <div class="regime" style="margin-top:20px">
+    <div class="up"><h3>One time framing up</h3><p>Buyers are firmly in control. Even a day that gaps down and looks scary counts if it holds the last low and closes higher.</p><p class="do">Trade: momentum, breakouts out of value. Not reversals.</p></div>
+    <div class="bal"><h3>Balance</h3><p>Neither. Candles sweep highs and lows and look like they'll break out, then don't. The choppy stuff people complain about online: the thing that happens 70% of the time.</p><p class="do">Trade: the failed auction at the value edges.</p></div>
+    <div class="dn"><h3>One time framing down</h3><p>Sellers in control. Buying the bottom for a pullback into the middle of the range is a low expected value play.</p><p class="do">Trade: momentum shorts. Watch for it reaching the edge of a bigger structure.</p></div>
+  </div>
+
+  <div class="section-head">
+    <h2>In balance: the failed auction, two flavors</h2>
+    <p>His bread and butter when the map says balance. Same idea underneath both: the market isn't done doing business in this range, so a push outside it rotates back through value. The location is what makes it work.</p>
+  </div>
+  <div class="panel mr-two" data-mr-two>
+    <svg viewBox="0 0 1180 400" role="img" aria-label="Two illustrative failed auctions in a balance with a value area high, point of control and value area low. Left, the V-shape reversal: aggressive sellers push under the value area low with big red trades, then price shoots back with big buyers; buy at market on the reclaim, stop under the aggressive buyers, target the point of control then the value area high. Right, the slow burn: price tries to build value above the value area high, fails back inside, forms a micro range under the high, and the short comes at the top of that micro range on aggressive selling (plan A) or on aggressive selling below it (plan B), targeting the value area low."></svg>
+    <button type="button" class="reset" data-play>Play again</button>
+  </div>
+  <div class="vs mr-vs" style="margin-top:20px">
+    <div><span class="sc">V-SHAPE</span><h3>The trap snaps shut</h3><p>Big red sell bubbles under the value area low, then a long wick back in with violent buyers. Cross the spread: buy at market as it reclaims, not with a limit. The aggressive buyers are your shield for the stop.</p></div>
+    <div><span class="sc">SLOW BURN</span><h3>Value fails outside</h3><p>No big bubbles. Price tries to build value over the high, can't, and breaks back in. Wait for value to build lower: a micro range under the high. Sell its top on aggressive selling (A), or aggressive selling under it (B).</p></div>
+    <div><span class="sc">TARGETS</span><h3>Point of control, then the other side</h3><p>The point of control is the intermediate target: scale out, trim, move the stop to entry. Then the opposite edge of value. Other time frame traders stepped in and said: not yet.</p></div>
+  </div>
+
+  <div class="section-head">
+    <h2>Plan the split</h2>
+    <p>He doesn't add risk when plan B fires after plan A. He splits the risk he was always going to take between them. Type the levels; the defaults are the walkthrough's long. The dollar risk and the point value (ES, $50) are only examples.</p>
+  </div>
+  <div class="risk mr-plan">
+    <div class="panel" data-mr-calc>
+      <div class="calc-in four">
+        <label>Side<select name="side"><option value="long">Long</option><option value="short">Short</option></select></label>
+        <label>Micro range high<input name="hi" type="number" inputmode="decimal" step="0.25" value="7410"></label>
+        <label>Micro range low<input name="lo" type="number" inputmode="decimal" step="0.25" value="7403.5"></label>
+        <label>Aggressive traders at<input name="agg" type="number" inputmode="decimal" step="0.25" value="7400.5"></label>
+        <label>Plan B stop<input name="bstop" type="number" inputmode="decimal" step="0.25" value="7407.25"></label>
+        <label>Target zone<input name="tgt" type="number" inputmode="decimal" step="0.25" value="7428"></label>
+        <label>Stop buffer (ticks)<input name="buf" type="number" inputmode="numeric" step="1" min="0" value="1"></label>
+        <label>Tick size<input name="tick" type="number" inputmode="decimal" step="0.01" min="0" value="0.25"></label>
+        <label>Point value ($)<input name="pv" type="number" inputmode="decimal" step="1" min="0" value="50"></label>
+        <label>Total risk ($)<input name="risk" type="number" inputmode="decimal" step="50" min="0" value="800"></label>
+      </div>
+      <div class="chk-out mr-cout" aria-live="polite"></div>
+      <div class="calc mr-ccalc" aria-live="polite" style="margin-top:14px"></div>
+    </div>
+    <div class="warn">
+      <h4>A challenging day? Size down or sit out</h4>
+      <p>On the day in the video the map was mixed: a big FOMC sell-off, bullish data the morning after, the weekly one time framing down, and the open inside yesterday's value. He called it challenging before the bell, traded one or two contracts, took small scalps and passed on the rest.</p>
+      <div class="size-grid" style="margin:12px 0">
+        <div><b>Mixed map</b><p>Be a two-way trader with conditions for each side written down before the open.</p></div>
+        <div><b>Inside value</b><p>Opening inside yesterday's value: wait for acceptance outside a control zone.</p></div>
+        <div><b>Options</b><p>His usual answer to a whippy day: a structure that doesn't get stopped out by noise.</p></div>
+      </div>
+      <p style="margin:0 0 6px"><b>What he needed to see that morning</b></p>
+      <ul style="margin:0 0 12px; padding-left:18px; font-size:14px">
+        <li style="margin-bottom:5px">To short: acceptance below yesterday's cash value area low, plus trapped buyers above in the order flow.</li>
+        <li>To buy: acceptance building above the control zone, ideally a micro range there, for a rotation to the next zone.</li>
+      </ul>
+      <p style="margin:0 0 6px"><b>What he passed on</b></p>
+      <ul style="margin:0 0 12px; padding-left:18px; font-size:14px">
+        <li style="margin-bottom:5px">Shorting the fast drop into the control zone: too quick, and buyers had stepped in there before. Absorption risk was too high.</li>
+        <li>Buying ahead of a big seller advertising above: that's front-running a breakout without value under it.</li>
+      </ul>
+      <p class="big">Plan A's stop goes to entry once plan B fills.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Who is on the other side</h2>
+    <p>Retail traders are very good at buying the exact high and selling the exact low. It isn't a conspiracy. Their idea of what the market is doing is the opposite of what the biggest players need it to do.</p>
+  </div>
+  <div class="vs mr-vs">
+    <div><span class="sc">DAY TIME FRAME</span><h3>Day traders, algos, CTAs</h3><p>Intraday to daily horizons, small momentum funds, trend-following commodity trading advisors. They want price to hit X before Y today.</p></div>
+    <div><span class="sc">OTHER TIME FRAME</span><h3>Hedge, pension and mutual funds</h3><p>Months to years. They can't buy a billion at market: they need stable prices and ranges to fill over days or weeks. Balance is a feature, not a bug.</p></div>
+    <div><span class="sc">EXIT LIQUIDITY</span><h3>They sell into strength</h3><p>A big holder takes profit while the market rips, with passive offers absorbing every buyer, and lets them think they're winning. When the last buyer is exhausted, the rotation comes.</p></div>
+  </div>
+  <p class="quote">&ldquo;You never want to front-run a breakout unless you're doing it from value.&rdquo;<small>Imre Gams, trading the session in the video.</small></p>
+
+  <div class="section-head">
+    <h2>The session from the video</h2>
+    <p>ES on July 30, the morning after the Fed held rates. He traded it live with one or two contracts of his own money, and says himself that the points weren't the point.</p>
+  </div>
+  <div class="tscroll">
+    <table class="vcase">
+      <thead><tr><th>Moment</th><th>What he saw</th><th>What he did</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><th>Pre-market<br><small>the map</small></th>
+          <td class="txt">Bullish data at 8:30 (GDP below expectations, PCE), but the Fed's vote was 9 to 3 with three members wanting a hike, and better-than-even odds of one in September. Weekly one time framing down for two weeks, below the value of a multi-week balance. A heavy-volume down day that could have trapped sellers.</td>
+          <td class="txt">Called it mixed and challenging. Two-way plan: short only with acceptance below yesterday's cash value area low (about 7,392); long only with acceptance above the 7,405&ndash;7,409 control zone, toward 7,425&ndash;7,435.</td>
+          <td class="txt">Zones lined up across the weekly, cash and overnight profiles.</td></tr>
+        <tr><th>Just after 9:30<br><small>absorbed sellers</small></th>
+          <td class="txt">A fight at the control zone, then sellers pressing lower into where they'd been trapped before, getting absorbed.</td>
+          <td class="txt">Bought the reclaim of 7,405, filled at 7,405.25, two contracts.</td>
+          <td class="txt">Out at the prior highs around 7,412 for a handful of points.</td></tr>
+        <tr><th>About 9:45<br><small>the micro range</small></th>
+          <td class="txt">A micro range building on the heatmap, a big seller advertising at 7,430 that kept moving. A failed retest of the range top, then a reclaim.</td>
+          <td class="txt">Bought the reclaim for a quick scalp toward the seller.</td>
+          <td class="txt">Out around 7,429, the top of the range.</td></tr>
+        <tr><th>Before 10:00<br><small>off prior value</small></th>
+          <td class="txt">A pullback into prior value around 7,425&ndash;7,426 and a new micro range.</td>
+          <td class="txt">One contract on the break, stop moved to entry.</td>
+          <td class="txt">Stopped at entry. Then a pennant inside the micro range, one more contract on the pop, closed at 10:00 for a small gain.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="two-note">Prices are as he read them on the live chart; the fills are his. He also ran open options trades from the day before, so the P&amp;L he showed isn't only these.</p>
+
+  <div class="section-head">
+    <h2>How you trade it</h2>
+    <p>The whole thing, in order.</p>
+  </div>
+  <div class="panel">
+    <ol class="howto">
+      <li><b>Map the regime</b> on the weekly and daily: strict one time framing up, down, or balance.</li>
+      <li><b>Read the macro</b> through the Fed's two jobs, inflation and employment. Note any releases and what's expected.</li>
+      <li><b>Mark the zones:</b> weekly profile, cash session profiles (composite if they overlap), overnight. Keep the ones that line up.</li>
+      <li><b>Balance:</b> trade the failed auction at the value edges, V-shape or slow burn, to the point of control and the other side.</li>
+      <li><b>Imbalance:</b> skip the first breakout. Wait for the micro range to form beyond the old value.</li>
+      <li><b>Plan A:</b> the flush that gets absorbed, buy the reclaim, stop behind the aggressive buyers. <b>Plan B:</b> aggressive buying out of the micro range, stop back inside.</li>
+      <li><b>Split one risk budget</b> between A and B. Stop to entry on A once B fills.</li>
+      <li><b>Manage:</b> old value should hold as a trampoline. Out at the next zone where buyers stop getting paid.</li>
+    </ol>
+  </div>
+
+  <section class="video" id="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/8N-sK8ThGG8" title="Imre Gams on balance, imbalance and the micro range (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Imre Gams, an institutional trader with over 11 years of professional trading, on Chart Fanatics: auction market theory on a whiteboard, one time framing, the failed auction and the micro range, then his full pre-market prep and a live ES session the morning after the Fed.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=8N-sK8ThGG8" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Don't buy the breakout. Buy the range after it.</h2>
+      <p>Most of the time the market is in balance and breakouts fail. A breakout is worth trusting when value has been built beyond the old range, the bigger time frames are one time framing your way, and the fundamentals aren't fighting you.
+      Then the micro range gives you two entries and a stop behind the traders on your side.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Regime first: strict one time framing on the weekly and daily.</li>
+        <li>Macro through the Fed's inflation and employment lens.</li>
+        <li>Zones that line up across time frames.</li>
+        <li>No first breakouts. Wait for the micro range.</li>
+        <li>Plan A, plan B, one risk budget. Out at the wall.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">From a Chart Fanatics episode with Imre Gams on auction market theory, regime and his two setups, followed by his pre-market preparation and a live ES session. The rules, the statistics (balance 68&ndash;70% of the time, about six trend days a month) and the session details are as told in the video; the sponsor segments are left out. The terms one time framing, other time frame and day time frame come from the auction market theory tradition he credits to others.
+  The walkthrough, the stepper charts, the price and value sketch, the failed auction sketches, the one time framing presets and the calculator's default numbers are illustrative, made-up bars, not any market's actual prints.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>
