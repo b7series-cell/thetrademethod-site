@@ -2,7 +2,7 @@
 
 Private reference for thetrademethod.com. It lives in `_docs/`, which is never uploaded to the server, so it is not public.
 
-Last updated: 2026-11-17 (Famous Strategies section + Cross-Sectional Momentum page).
+Last updated: 2026-11-18 (Seven Cheat Codes fundamentals page).
 
 Look and feel (colors, type, layout, motion, copy voice) is covered in the separate style guide: `/mnt/project-files/style-guide/thetrademethod-style-guide.md` (Oct 27, 2026). This document does not repeat it.
 
@@ -107,15 +107,15 @@ Counts today: **26 setup pages**, **19 fundamentals pages**, **1 blog post**, pl
 
 ## 5. Current version numbers
 
-Check before bumping; these are the values as of 2026-11-17 (Famous Strategies branch).
+Check before bumping; these are the values as of 2026-11-18 (Seven Cheat Codes page).
 
 | Asset | Current | Next bump |
 |---|---|---|
-| `site.js` (all pages) | `?v=50` | 51 |
+| `site.js` (all pages) | `?v=51` | 52 |
 | `nav.js` (all pages) | `?v=25` | 26 |
 | `apple.css` (all pages) | `?v=25` | 26 |
-| `SEARCH_INDEX_URL` in site.js | `search-index.js?v=28` | 29 |
-| `candle-bg.js` (newest page) | `?v=38` (setups/micro-range.html) | 39 |
+| `SEARCH_INDEX_URL` in site.js | `search-index.js?v=29` | 30 |
+| `candle-bg.js` (newest page) | `?v=39` (seven-cheat-codes.html) | 40 |
 | `sw.js` `CACHE_VERSION` | `2026-10-29-1` | only for unversioned file or sw rule changes |
 
 `candle-bg.js` is bumped only on the page that got a new scene, so older pages still load older `?v=` numbers. That's fine. `expected-move-v2.html` and `-v3.html` are 301-redirected and stay on old versions.
@@ -172,7 +172,7 @@ Other Pine files: `cumulative-rvol.pine` (Relative Volume), `let-winners-run-exi
 
 ---
 
-## 8. Fundamentals pages (21)
+## 8. Fundamentals pages (22)
 
 | Page | URL | Source | Animation files | Notes |
 |---|---|---|---|---|
@@ -197,6 +197,7 @@ Other Pine files: `cumulative-rvol.pine` (Relative Volume), `let-winners-run-exi
 | Pyramiding Into Winners | /pyramiding.html | SMB [9tVfd-I4VAY](https://www.youtube.com/watch?v=9tVfd-I4VAY) | pyr-anim | 2026-11-14, PR #4 |
 | Stacked Imbalances | /stacked-imbalances.html | Orderflows [q3afc_rvvYg](https://www.youtube.com/watch?v=q3afc_rvvYg) + Futures Flow [y7KuTf4hesY](https://www.youtube.com/watch?v=y7KuTf4hesY) | si-anim | 2026-11-16 (PR #6, second video PR #7). Diagonal 4:1 and horizontal 400% |
 | Level Radar | /level-radar.html | The Good, The Bad And The Bitcoin [imowh_-iclQ](https://www.youtube.com/watch?v=imowh_-iclQ) + his Level Radar [GBB] Pine | lrad-anim | 2026-11-17. Touch odds for PDH/PDL/PDC/ONH/ONL/OPEN/ORH/ORL/HOD/LOD; his script shown in full at /pine/level-radar.pine |
+| Seven Cheat Codes | /seven-cheat-codes.html | Scarface Trades [TMeHzNiDcBk](https://www.youtube.com/watch?v=TMeHzNiDcBk) | scc-anim | 2026-11-18. Seven rules + three scalping setups (pre-market high/low retest, one candle rule, 5-min opening range); quiz, size calculator, 5-step stepper; dollar figures are the video's claims |
 
 ### Famous strategies (`/famous-strategies/`)
 - Registry: `STRATEGIES` in `js/site.js` (15 entries, `live: true/false`). Unbuilt ones show as "Coming soon" cards (no link, not in search) on the hub and the homepage band (`#strategies`, `#strat-cards`). Footer and search list only live ones. Nav link "Strategies" hides at 920px and below (`.hide-lg`).
@@ -242,6 +243,7 @@ Newest first. Dates are when the change was built or shipped.
 
 | Date | Change |
 |---|---|
+| 2026-11-18 | **Seven Cheat Codes** fundamentals page built (PR pending): Scarface Trades' "Trading is a Video Game, Here are the Cheat Codes" (TMeHzNiDcBk): proven edge (3 scalping setups), market structure + which-trade quiz, combine time frames ($670 for $2,070 on made-up 190.55/191.05/189.00), scalps work within 5 minutes, start small (size calculator), A+ days only (chop vs trend), daily practice; 5-step stepper. js/scc-anim.js, no Pine. site.js ?v=51 on all pages, search-index ?v=29 (67 pages), candle-bg ?v=39 on that page, sitemap 72 URLs, fundamentals hub 22, fs_build SITEV 51. |
 | 2026-11-18 | **Micro Range** setup page (Chart Fanatics with Imre Gams, 8N-sK8ThGG8): map the regime with strict one time framing on the weekly/daily, Fed dual-mandate filter, value zones from weekly/cash/overnight profiles, skip the first breakout (price, not value), wait for the micro range, plan A (absorbed flush, buy the reclaim) and plan B (aggressive break) with one risk budget split; failed auction in balance (V-shape, slow burn); his live ES session the morning after FOMC. js/mr-anim.js (walkthrough with value area computed from the bars, 6-step stepper with per-step charts, price vs value, one time framing checker, two-flavor sketch, plan A/B split calculator). No Pine. nav.js ?v=25 and site.js ?v=50 on all pages, search-index ?v=28, candle-bg ?v=38 on that page, sitemap 71 URLs, setups hub 28. |
 | 2026-11-17 | **Look Above and Fail** setup page (IQ Capital interview with Yush, CGjT1Yi46S8): developing RTH volume profile after 30 minutes, trade only at VAH/VAL, aggression past the edge then the fast reclaim (aggressive) or held retest (conservative), stop past the big trades or half the poke, partial at POC, target the other side; filters for trend days, news, three strikes. js/laf-anim.js (walkthrough with value area computed from the bars, 6-step stepper, first-30-minutes slider, aggressive vs conservative sketch, trade planner), /pine/look-above-and-fail.pine. nav.js ?v=24 and site.js ?v=49 on all pages, search-index ?v=27, candle-bg ?v=37 on that page, sitemap 70 URLs, setups hub 27. |
 | 2026-11-17 | **Level Radar** fundamentals page (The Good, The Bad And The Bitcoin video + his Level Radar [GBB] Pine, Bryant supplied): the ten levels with touch odds, how the odds are worked out (10-session range, square-root time scaling, pace 0.5-2x, 15-year futures table + last 20 sessions), a room-left calculator, time decay, targets/filter/timing. js/lrad-anim.js, his script at /pine/level-radar.pine with copy button. site.js ?v=48 on all pages, search-index ?v=26, candle-bg ?v=36 on that page, sitemap 69 URLs. |

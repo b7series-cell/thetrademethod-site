@@ -1,0 +1,805 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Seven Cheat Codes — the simple rules of a profitable scalper | The Trade Method</title>
+<meta name="description" content="Scarface Trades' seven trading cheat codes: a strategy with a proven edge (pre-market high and low retests, the one candle rule, the 5-minute opening range), market structure, combining time frames for the entry, scalps that work right away, starting small and scaling up, trading only A+ conditions, and practicing every day.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/seven-cheat-codes.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Seven Cheat Codes — the simple rules of a profitable scalper">
+<meta property="og:description" content="Scarface Trades' seven trading cheat codes: a strategy with a proven edge (pre-market high and low retests, the one candle rule, the 5-minute opening range), market structure, combining time frames for the entry, scalps that work right away, starting small and scaling up, trading only A+ conditions, and practicing every day.">
+<meta property="og:url" content="https://thetrademethod.com/seven-cheat-codes.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Seven Cheat Codes — the simple rules of a profitable scalper">
+<meta name="twitter:description" content="Scarface Trades' seven trading cheat codes: a strategy with a proven edge (pre-market high and low retests, the one candle rule, the 5-minute opening range), market structure, combining time frames for the entry, scalps that work right away, starting small and scaling up, trading only A+ conditions, and practicing every day.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Seven Cheat Codes — the simple rules of a profitable scalper",
+ "name": "Seven Cheat Codes",
+ "description": "Scarface Trades' seven trading cheat codes: a strategy with a proven edge (pre-market high and low retests, the one candle rule, the 5-minute opening range), market structure, combining time frames for the entry, scalps that work right away, starting small and scaling up, trading only A+ conditions, and practicing every day.",
+ "url": "https://thetrademethod.com/seven-cheat-codes.html",
+ "mainEntityOfPage": "https://thetrademethod.com/seven-cheat-codes.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-18",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.seven { grid-template-columns:repeat(2,1fr); }
+    .ribbon.seven > div:last-child { grid-column:span 2; }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=25">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* a trading day: five cards, or a stepper once js/scc-anim.js runs */
+  .scc-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .scc-steps .stage, .sheet .scc-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .scc-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .scc-steps.is-stepper .stage, .sheet .scc-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .scc-steps.is-stepper .stage .num { display:none; }
+  .sheet .scc-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .scc-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .scc-steps + .four { margin-top:28px; }
+  .scc-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .scc-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .scc-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .scc-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .scc-steps { margin-top:24px; }
+  }
+
+  @media (min-width:1101px) { .ribbon.seven { grid-template-columns:repeat(7,1fr); } }
+
+  /* the quiz */
+  .quiz .pair { margin-top:0; }
+  .quiz figure { margin:0; background:var(--raised); border-radius:18px; padding:8px; }
+  .quiz .picks { display:flex; flex-wrap:wrap; gap:10px; margin:16px 0 0; }
+  .quiz .picks .pill[aria-pressed="true"] { outline:2px solid #f4b942; outline-offset:2px; }
+  .quiz-out { margin:14px 0 0; color:var(--silk); font-size:15px; min-height:1.5em; }
+  .quiz-out b { color:var(--gold, #f4b942); }
+
+  /* calculator */
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in label { font-size:12px; color:var(--ash); display:block; }
+  .calc-in input { width:100%; margin-top:4px; background:var(--raised); color:var(--silk); border:1px solid #3a3a3c; border-radius:10px;
+                   padding:9px 11px; font:inherit; font-size:15px; font-variant-numeric:tabular-nums; }
+  .calc-in input:focus { outline:2px solid #2997ff; outline-offset:1px; }
+  .presets { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 12px; }
+  .presets .pill { font-size:13px; padding:6px 14px; }
+
+  /* the seven codes as a list of cards */
+  .codes { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:0 0 8px; }
+  .codes a { display:block; background:var(--charcoal); border-radius:18px; padding:14px 16px; color:inherit; text-decoration:none; border-top:3px solid var(--tc, #f4b942); }
+  .codes a:hover b { text-decoration:underline; }
+  .codes .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, #f4b942); }
+  .codes b { display:block; margin-top:4px; font-size:16px; }
+  @media (max-width:1100px) { .codes { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:680px) {
+    .calc-in { grid-template-columns:1fr 1fr; }
+    .codes { grid-template-columns:1fr 1fr; gap:10px; }
+    .codes a { padding:12px 13px; }
+    .codes b { font-size:15px; }
+    .quiz figure { padding:4px; }
+  }
+</style>
+<script src="/js/nav.js?v=25" defer></script>
+<script src="/js/site.js?v=51" defer></script>
+<script src="/js/scc-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=39" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="seven-cheat-codes">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; from Scarface Trades' "Trading is a Video Game, Here are the Cheat Codes"</p>
+      <h1>Seven <span>Cheat Codes</span></h1>
+    </div>
+    <div>
+      <p class="thesis">What actually separates a profitable scalper from one who keeps losing? Not a secret indicator. Seven simple rules that build on each other: a setup with an edge, the trend, the right entry, a fast exit when it's wrong, small size, good days only, and daily practice.
+      <em>Simple, but not easy.</em></p>
+      <div class="counts">
+        <div><b>7</b><small>rules, each built on the one before</small></div>
+        <div><b>3</b><small>scalping setups he trades daily</small></div>
+        <div><b>5 min</b><small>to know if a scalp is working</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon seven" aria-label="The seven cheat codes">
+    <div><div class="t">code 1</div><div class="n">A proven edge</div></div>
+    <div><div class="t">code 2</div><div class="n">Market structure</div></div>
+    <div><div class="t">code 3</div><div class="n">Combine time frames</div></div>
+    <div><div class="t">code 4</div><div class="n">It should work right away</div></div>
+    <div><div class="t">code 5</div><div class="n">Start small, scale up</div></div>
+    <div><div class="t">code 6</div><div class="n">Only A+ conditions</div></div>
+    <div><div class="t">code 7</div><div class="n">Practice every day</div></div>
+  </nav>
+
+  <div class="section-head" id="why">
+    <h2>Why most traders fail</h2>
+    <p>The two biggest reasons are human emotions and losing too often or too big. You can have a few good green days, and one big red day takes the whole week's profit. In the video he says he lost over $30,000 in his first years and nearly quit. The seven rules below are what he says turned it around, and they're meant to be learned in order, because each one builds on the last.</p>
+  </div>
+  <div class="codes">
+    <a href="#edge" style="--tc:#f4b942"><span class="k">cheat code 1</span><b>Find a strategy with a proven edge</b></a>
+    <a href="#structure" style="--tc:#30d158"><span class="k">cheat code 2</span><b>Master market structure</b></a>
+    <a href="#timeframes" style="--tc:#ff453a"><span class="k">cheat code 3</span><b>Combine time frames to enter</b></a>
+    <a href="#fast" style="--tc:#2997ff"><span class="k">cheat code 4</span><b>Scalps should work right away</b></a>
+    <a href="#size" style="--tc:#64d2ff"><span class="k">cheat code 5</span><b>Start small, scale up slowly</b></a>
+    <a href="#conditions" style="--tc:#ff9f0a"><span class="k">cheat code 6</span><b>Only trade A+ conditions</b></a>
+    <a href="#practice" style="--tc:#bf5af2"><span class="k">cheat code 7</span><b>Practice daily, compound slowly</b></a>
+    <a href="#steps" style="--tc:#8e8e93"><span class="k">all seven</span><b>A trading day, step by step</b></a>
+  </div>
+
+  <div class="section-head" id="edge">
+    <h2>Cheat code 1: a strategy with a proven edge</h2>
+    <p>You can work on psychology and mindset all you want. You won't be profitable until you have a strategy that works. These are the three scalping setups he trades every day, and none of them is complicated.</p>
+  </div>
+  <section class="anim" data-scc-anim="edge" aria-label="Illustrative made-up 1-minute bars of three setups. First, the pre-market high and low from 4:00 to 9:30, a break below the pre-market low that isn't chased, a pullback into the old support, now resistance, and a short off a weak candle there with a stop just above it, followed by a low-of-day move. Second, the one candle rule: in an uptrend the last down-close candle is marked, price comes back into it, holds, and a long is taken with the stop under the candle, aiming for 2R. Third, the 5-minute opening range: the high and low of the first five minutes, a break above, a retest of the level, and a long on strong price action.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Three setups, all retests</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up bars of the pre-market low retest, the one candle rule and the 5-minute opening range retest."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>The three setups</h3>
+          <ul>
+            <li><b>Pre-market high and low.</b> Mark the high and low from 4:00 to 9:30 a.m. Eastern. Wait for a break, don't take the breakout itself, and enter on the retest: old support turned resistance (or the other way round), with a weak or strong candle at the level.</li>
+            <li><b>The one candle rule.</b> In an uptrend, down-close candles should support price. Mark the last down-close candle. When price comes back to it and holds, buyers step in: long, looking for 2R or the high of the day. In a downtrend, the last up-close candles do the same job from above.</li>
+            <li><b>The 5-minute opening range.</b> Mark the high and low of the first five minutes after the open. Wait for a break, then the retest, and enter on strong price action for the continuation.</li>
+          </ul>
+          <p class="why">All three have the same shape: a level, a break, and an entry on the retest instead of the break. That's what gives you a small stop and a bigger target.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Simplicity is what pays</h4>
+        <p class="lead">Whatever you trade can work: ICT, smart money concepts, supply and demand, price action. The thing that sinks beginners is making it complicated. He says the only times he saw results were when he simplified.</p>
+        <div class="pair">
+          <div class="care"><span class="k">the trap</span><b>Chasing the break</b><p>The breakout candle is where a lot of retail traders get faked out. You'd be buying the top of a move with a wide stop.</p></div>
+          <div class="yes"><span class="k">the edge</span><b>Waiting for the retest</b><p>The pullback into the level is the low-risk, high-reward entry. If it never comes back, there's no trade.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="structure">
+    <h2>Cheat code 2: master market structure</h2>
+    <p>Being a scalper or a day trader doesn't mean you can ignore the trend. You're looking for quick moves and to be done early, but you still need to know what condition the market is in. And it only moves three ways.</p>
+  </div>
+  <section class="anim" data-scc-anim="structure" aria-label="Illustrative drawings of the three ways a market moves: an uptrend with higher lows, a downtrend with lower highs, and a range with equal highs and equal lows. The uptrend and downtrend get a check mark and the range is crossed out.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Up, down or sideways</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative drawings of an uptrend, a downtrend and a range."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="panel quiz" data-scc-quiz id="quiz">
+    <h4>Test yourself: which trade is higher probability?</h4>
+    <p class="lead">Both are the same setup, the one candle rule. In each, the down-close candle is marked (gold), price broke above it, and now it's coming back for the retest. Pick one, then watch what happened.</p>
+    <div class="pair">
+      <figure data-opt="1"><svg viewBox="0 0 560 320" role="img" aria-label="Option 1: made-up bars with a low, a higher low, a marked down-close candle, a push higher and price coming back into the candle to make another higher low."></svg></figure>
+      <figure data-opt="2"><svg viewBox="0 0 560 320" role="img" aria-label="Option 2: made-up bars with a high, a lower high, equal lows, a marked down-close candle, a push up to an equal high and price coming back into the candle."></svg></figure>
+    </div>
+    <div class="picks" role="group" aria-label="Your pick">
+      <button type="button" class="pill" data-pick="1" aria-pressed="false">Option 1</button>
+      <button type="button" class="pill" data-pick="2" aria-pressed="false">Option 2</button>
+    </div>
+    <p class="quiz-out" data-quiz-out aria-live="polite"></p>
+  </div>
+
+  <div class="main" style="margin-top:28px">
+    <div>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Same setup, different structure</h3>
+          <ul>
+            <li><b>Uptrend:</b> a low, then higher lows. Every low is higher than the last. Look for price to continue up.</li>
+            <li><b>Downtrend:</b> a high, then lower highs. Look for continuation down, and yes, you can make money with the stock going down.</li>
+            <li><b>Range:</b> equal highs and equal lows, no clear direction. He trades the trends and avoids the range, because that's where traders using these setups blow their accounts.</li>
+          </ul>
+          <p class="why">You can trade the same strategy, but without understanding how the stock is moving, you'll keep losing with it.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <blockquote class="qb">"You can trade the same strategy, but without understanding how the stock moves in terms of structure, <b>you will continue to lose.</b>" &mdash; Scarface Trades</blockquote>
+    </div>
+  </div>
+
+  <div class="section-head" id="timeframes">
+    <h2>Cheat code 3: combine time frames to enter</h2>
+    <p>Even when scalping, he combines time frames for the entry. The higher time frame gives the direction. The lower time frame is just the place to get the best risk to reward. Here's his live example, redrawn on made-up bars.</p>
+  </div>
+  <section class="anim" data-scc-anim="mtf" aria-label="Illustrative made-up bars. Left, a daily chart with a high, a higher low, a lower high and a break below the last higher low, then more lower highs: bearish. Right, a 1-minute chart: the 5-minute high and low are marked, price pushes straight down without retesting the 5-minute low, the last up-close candles on the way down are marked, price comes back up to them and prints a weak candle, and a short at 190.55 with a stop at 191.05 above that candle targets the 189 whole number, about 3 to 1.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Daily for direction, 1-minute for the entry</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up bars of a bearish daily chart and a 1-minute short off the last up-close candles."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>The order he does it in</h3>
+          <ul>
+            <li><b>Daily first.</b> Read the structure: here, a high and a higher low, then a break below that higher low and lower highs. The stock is bearish.</li>
+            <li><b>Then the plan on the 1-minute.</b> Let the first five minutes play out and mark the 5-minute high and low. Because the daily is bearish, only the short side counts.</li>
+            <li><b>Use whichever setup shows up.</b> No retest of the 5-minute low? Then the next setup: in a downtrend, the last up-close candles should hold price for a move down.</li>
+            <li><b>Enter on the retest.</b> Weak price action at those candles is the short. The stop is a break back above the candle you entered on. The target is the next whole number.</li>
+          </ul>
+          <p class="why">The only reason to be confident in a trade like this is that the time frames line up. If the higher time frame is bearish, the lower time frame is just where you get the best entry.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel calc">
+        <h4>The example on made-up prices</h4>
+        <p class="lead">The prices are made up so the numbers line up with the video's trade: about $670 of risk for about $2,070.</p>
+        <div class="row"><span>Short at the weak candle</span><b>190.55</b></div>
+        <div class="row"><span>Stop: a break back above that candle</span><b>191.05 &middot; $0.50</b></div>
+        <div class="row"><span>Target: the $189 whole number</span><b>189.00 &middot; $1.55</b></div>
+        <div class="row"><span>1,340 shares</span><b>&minus;$670 / +$2,077</b></div>
+        <div class="row tot"><span>Risk to reward</span><b>about 3 to 1</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="fast">
+    <h2>Cheat code 4: 90% of scalps should work right away</h2>
+    <p>If you've done the first three steps correctly, most of your trades should be working within minutes of the entry. So five minutes in, you already know: it's working, or the thesis is wrong and you get out.</p>
+  </div>
+  <section class="anim" data-scc-anim="fast" aria-label="Illustrative made-up 1-minute bars of two trades. First, a long on a break and retest of the pre-market high that goes nowhere for five minutes and is closed for a 1,650 dollar loss, with faded bars showing it would have chopped for an hour and then hit the stop. Second, a short on a retest of the previous day's low that reaches the low of the day within minutes, then a second short on a retest of the 5-minute low, and a continuation, about a 12,000 dollar trade in the video.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Five minutes tells you</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up bars of a losing trade cut in five minutes and a winning trade that works right away."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Don't sit in consolidation</h3>
+          <ul>
+            <li>A loser: a break and retest of the pre-market high. Within five minutes he knew the thesis was wrong and got out, a $1,650 loss in the video. Staying would have meant sitting in it for at least another hour for it to not work out.</li>
+            <li>A winner: a previous-day low retest. Sellers stepped in, he entered on weak price action, and within a couple of minutes it was back at the low of the day, then gave a 5-minute low retest for more. About a $12,000 trade.</li>
+          </ul>
+          <p class="why">This works for scalps because the setups are built on a level and a quick reaction. A trade that needs an hour to start working usually isn't the trade you planned.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The five-minute check</h4>
+        <div class="pair">
+          <div class="yes"><span class="k">working</span><b>Moving your way, fast</b><p>Price leaves the level right away. Hold it and manage it to the target.</p></div>
+          <div class="care"><span class="k">not working</span><b>Sitting at the level</b><p>Chop, no follow-through. The thesis is wrong. Take the small loss and move on.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="size">
+    <h2>Cheat code 5: start small and scale up slowly</h2>
+    <p>He says he was taking the exact same trades four years ago for about $100 a day as he takes now for about $10,000 a day. The setups didn't change. The size did, and the size only went up because the experience did.</p>
+  </div>
+  <div class="main">
+    <div>
+      <div class="panel" data-scc-calc>
+        <h4>Same trade, any size</h4>
+        <p class="lead">The chart doesn't care how many shares you have. Pick how much you're willing to lose and the shares follow. Start with the code 3 example.</p>
+        <div class="calc-in">
+          <label>Entry<input name="entry" type="number" inputmode="decimal" step="0.01" value="190.55"></label>
+          <label>Stop<input name="stop" type="number" inputmode="decimal" step="0.01" value="191.05"></label>
+          <label>Target<input name="target" type="number" inputmode="decimal" step="0.01" value="189.00"></label>
+          <label>Risk ($)<input name="risk" type="number" inputmode="decimal" step="1" min="0" value="670"></label>
+        </div>
+        <div class="presets">
+          <button type="button" class="pill" data-preset="190.55,191.05,189.00,10">Starting out: $10</button>
+          <button type="button" class="pill" data-preset="190.55,191.05,189.00,100">A bit more: $100</button>
+          <button type="button" class="pill" data-preset="190.55,191.05,189.00,670">The video's trade: $670</button>
+        </div>
+        <div class="calc" aria-live="polite">
+          <div class="row"><span>Risk per share</span><b data-out="per">–</b></div>
+          <div class="row"><span>Position</span><b data-out="shares">–</b></div>
+          <div class="row"><span>If the stop is hit</span><b data-out="loss">–</b></div>
+          <div class="row"><span>If the target is hit</span><b data-out="win">–</b></div>
+          <div class="row tot"><span>Reward to risk</span><b data-out="rr">–</b></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>The money comes later</h3>
+          <ul>
+            <li>In the beginning, the job is controlling your emotions and perfecting your execution. If that's right, the money comes in the long run.</li>
+            <li>Trading isn't a get-rich-quick system. Raise the size slowly, over a long period, as the experience builds.</li>
+            <li>He shows a $78,000 week in the video and says it only happened because he started small and increased from there. He also has a separate video on starting with as little as $10.</li>
+          </ul>
+          <p class="why">Small size makes the first four codes cheap to learn. A mistake at $10 of risk is a lesson. The same mistake at full size is a red week.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="section-head" id="conditions">
+    <h2>Cheat code 6: only trade your A+ conditions</h2>
+    <p>Out of a month of trading days, he says maybe 10 to 15 (and that's high) are A+ conditions. The rest are B+ or B&minus; days. It's fine not to trade every day: on the good days the trades are easier to execute, easier to hold and easier to follow. On choppy days you keep losing.</p>
+  </div>
+  <section class="anim" data-scc-anim="days" aria-label="Illustrative made-up 1-minute bars of two days. A choppy day where every try at the high and the low rejects, with three 5-minute high retest trades of minus 500, minus 1,200 and plus 600 dollars, for a day of minus 1,100. A trend day with a move, a retest, a move, with a pre-market high retest for plus 700 and a one candle rule trade for plus 400, a day of plus 1,100.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The choppy day vs the trend day</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up bars of a choppy day and a trend day traded with the same setups."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Your edge is built for certain conditions</h3>
+          <ul>
+            <li>On the choppy day, the 5-minute high retest kept coming back, so it kept getting taken: &minus;$500, &minus;$1,200, then +$600.</li>
+            <li>That last win feels like you did the right thing by taking it. You didn't. The day is still &minus;$1,100.</li>
+            <li>On the trend day, the same trader takes two trades, the pre-market high retest (+$700) and the one candle rule at 2R (+$400), and wins both.</li>
+          </ul>
+          <p class="why">Unlike what most people think, it's better not to trade every day and to trade the good, consistent days.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>How to tell the days apart</h4>
+        <div class="pair">
+          <div class="care"><span class="k">B day &middot; sit out</span><b>Every break rejects</b><p>Tries at the high fail, tries at the low fail, and price keeps coming back to the same level. A lot of range.</p></div>
+          <div class="yes"><span class="k">A+ day &middot; trade</span><b>Move, retest, move</b><p>A clear trend: a move, a retest, another move. The retests are the setups.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="practice">
+    <h2>Cheat code 7: practice every day, compound slowly</h2>
+    <p>The one he calls most important. When traders follow the rules and their results start going up, they stop doing what made them profitable in the first place.</p>
+  </div>
+  <div class="four">
+    <div style="--tc:#bf5af2"><span class="k">the trap</span><h3>Success changes habits</h3><p>Results improve, and the routine that produced them quietly gets dropped.</p></div>
+    <div style="--tc:#bf5af2"><span class="k">the fix</span><h3>Practice every day</h3><p>Compound your skills and your account slowly, together.</p></div>
+    <div style="--tc:#30d158"><span class="k">the goal</span><h3>Consistency, not speed</h3><p>It's not about who gets there first. It's who gets there consistently, with the right knowledge.</p></div>
+    <div style="--tc:#2997ff"><span class="k">the pace</span><h3>One thing at a time</h3><p>Don't try to learn everything at once. The codes build on each other, in order.</p><small>A skill that can help you for the rest of your life is worth learning slowly.</small></div>
+  </div>
+
+  <div class="section-head" id="steps">
+    <h2>A trading day with all seven, step by step</h2>
+    <p>How the codes fit together in one morning. Click through them.</p>
+  </div>
+  <div class="scc-steps" data-scc-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Is today an A+ day?</h3>
+          <ul>
+            <li>Look at how price is moving: a clean trend, or a lot of range with every break rejecting?</li>
+            <li>Choppy? You don't have to trade. Not every day is a trading day.</li>
+          </ul>
+          <p class="why">Cheat code 6. Your setups were built for trending conditions.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Read the daily</h3>
+          <ul>
+            <li>Higher lows: bullish, look for longs. Lower highs, or a broken higher low: bearish, look for shorts.</li>
+            <li>Equal highs and lows: a range. Avoid it.</li>
+          </ul>
+          <p class="why">Cheat codes 2 and 3. The higher time frame picks the side.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Mark your levels</h3>
+          <ul>
+            <li>The pre-market high and low (4:00 to 9:30 a.m. Eastern).</li>
+            <li>The 5-minute high and low, once the first five minutes are done.</li>
+            <li>The last down-close candle in an uptrend, or the last up-close candles in a downtrend.</li>
+          </ul>
+          <p class="why">Cheat code 1. Three setups, all of them a level you mark before the trade.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Enter on the retest</h3>
+          <ul>
+            <li>Don't chase the break. Wait for the pullback to the level, in the direction of the daily.</li>
+            <li>Enter on weak price action for a short, strong price action for a long.</li>
+            <li>Stop just past the candle you entered on, with a size you can afford to be wrong with.</li>
+          </ul>
+          <p class="why">Cheat codes 3 and 5. A small stop, a clear target, a small size while you learn.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Watch the clock, then stop</h3>
+          <ul>
+            <li>Five minutes in, it should be working. If it isn't, the thesis is wrong: get out small.</li>
+            <li>He trades the first hour of the day and is done.</li>
+            <li>Then do it again tomorrow, the same way.</li>
+          </ul>
+          <p class="why">Cheat codes 4 and 7. Quick losers, and the same routine every day.</p>
+        </div>
+      </section>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/TMeHzNiDcBk" title="Trading is a Video Game, Here are the Cheat Codes (Full Course) (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Scarface Trades on the seven rules he says made him profitable, with real market examples.</p>
+      <ol>
+        <li><b>0:00</b>Why most traders fail</li>
+        <li><b>0:34</b>A strategy with a proven edge</li>
+        <li><b>2:02</b>Pre-market high and low</li>
+        <li><b>4:18</b>The 5-minute opening range</li>
+        <li><b>5:42</b>Market structure</li>
+        <li><b>8:45</b>Combining time frames</li>
+        <li><b>12:04</b>Scalps should work right away</li>
+        <li><b>13:47</b>Start small and scale up</li>
+        <li><b>14:52</b>Only A+ conditions</li>
+        <li><b>17:45</b>Practice every day</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=TMeHzNiDcBk" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Pick one code you're breaking.</h2>
+      <p>Look at your last ten losing trades. How many were against the daily trend, in a range, on a choppy day, chased on the break instead of the retest, or held long after five minutes of nothing? Most traders find the same one or two codes behind most of the losses. Fix that one first.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Trade a setup with a proven edge, and keep it simple.</li>
+        <li>Trade with the structure: higher lows or lower highs, not a range.</li>
+        <li>Daily for the direction, 1-minute for the entry.</li>
+        <li>Enter on the retest, not the break.</li>
+        <li>Not working in five minutes? Get out.</li>
+        <li>Small size first. Scale up with experience.</li>
+        <li>A+ days only. Practice every day.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from Scarface Trades' video "Trading is a Video Game, Here are the Cheat Codes (Full Course)": the three scalping setups (pre-market high and low, the one candle rule, the 5-minute opening range), market structure and the "which trade is higher probability" question, combining the daily and the 1-minute, scalps that work right away, starting small and scaling up, trading only A+ conditions, and daily practice. The video counts the A+ conditions rule as number seven in one place and the practice rule as number seven in another; this page numbers them six and seven. The dollar figures (a $30,000 early loss, a $78,000 week, $670 risked for about $2,070, a $1,650 loss, a $12,000 trade, and the choppy and trend day trades) are the video's own claims and are not verified here. Course and sponsor mentions are left out. Every bar and price in the walkthroughs, the quiz and the stepper is made up for illustration; the 190.55 / 191.05 / 189.00 prices and the 1,340 shares were chosen to match the video's $670 and $2,070. It's shared for education, not as trading advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

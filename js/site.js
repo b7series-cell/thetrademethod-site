@@ -59,6 +59,7 @@
     { href: "/pyramiding.html", title: "Pyramiding Into Winners", kind: "Process · 5 steps", blurb: "Add to a winner and risk less than when you started: the first entry is 1R, every add is smaller (0.5R, 0.25R, down to 0.1R) and moves the stop in your favor, and each add has to be a new valid setup." },
     { href: "/stacked-imbalances.html", title: "Stacked Imbalances", kind: "Process · 5 steps", blurb: "What a stacked imbalance is and how to trade it: imbalances at about 4 to 1, three or more in a row make a level, where it sits in the candle shows who won or who got trapped, and price often comes back to it for a small-stop trade." },
     { href: "/level-radar.html", title: "Level Radar", kind: "Indicator · 10 levels", blurb: "Put a percent on every key intraday level: the chance price touches yesterday's high, low or close, the overnight high or low, the open or the opening range before the close, from the distance, the room left today and the past. Use it for targets, as a filter and for timing." },
+    { href: "/seven-cheat-codes.html", title: "Seven Cheat Codes", kind: "Rules · 7 cheat codes", blurb: "Scarface Trades' seven rules for scalping: a setup with a proven edge (pre-market high and low retests, the one candle rule, the 5-minute opening range), trade with the structure, combine time frames for the entry, scalps should work right away, start small, trade only A+ days, and practice daily." },
     { href: "/covered-calls.html",      title: "Covered Calls",                  kind: "Options · 4 outcomes",      blurb: "Own the stock, sell a call against it, keep the premium. The four outcomes, the cap on your upside, and how to place the order." },
     { href: "/expected-move.html",      title: "Expected Move",                  kind: "Options · calculator",      blurb: "A dashboard for the range the options market prices: enter the chain, get the upper and lower move on a chart, and see if it's wide or narrow for the stock." }
   ];
@@ -630,7 +631,7 @@
      each page's description and section headings, so a hit on a heading
      links straight to that section. Bump SEARCH_INDEX_URL's ?v= after
      rebuilding the index. */
-  var SEARCH_INDEX_URL = "/js/search-index.js?v=28";
+  var SEARCH_INDEX_URL = "/js/search-index.js?v=29";
   var searchDocs = null, searchIndexState = "";
 
   function searchBase() {

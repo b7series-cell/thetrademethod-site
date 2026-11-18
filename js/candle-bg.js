@@ -1213,6 +1213,28 @@
       }
     },
 
+    /* Seven cheat codes: mark the pre-market level, don't chase the break, take the retest, it works within minutes, done for the day (alternates long / short) */
+    "seven-cheat-codes": {
+      story: function (st) {
+        var dir = st.dir = -(st.dir || -1), P;
+        return [
+          rep(1, function (st) {
+            closeLevels(st); session(st);
+            P = level(st, st.price + 1.4 * dir, dir > 0 ? "Pre-market high" : "Pre-market low", ORANGE, true);
+            return bar(st, { n: 0.5, mk: { t: "Mark the level first", col: SILK, below: dir > 0 } });
+          }),
+          rep(6, function (st) { return bar(st, { to: P.y - 0.9 * dir, pull: 0.3, n: 0.7, cap: dir > 0 ? P.y - 0.2 : null, flo: dir < 0 ? P.y + 0.2 : null }); }),
+          rep(1, function (st) { return bar(st, { d: 2.0 * dir, n: 0.3, v: 0.9, pierce: true, mk: { t: "Don't chase the break", col: RED, below: dir < 0 } }); }),
+          rep(2, function (st) { return bar(st, { d: 0.5 * dir, n: 0.4 }); }),
+          rep(4, function (st, k) { return bar(st, { to: P.y + 0.3 * dir, pull: 0.4, n: 0.5, flo: dir > 0 ? P.y + 0.05 : null, cap: dir < 0 ? P.y - 0.05 : null, mk: k === 3 ? { t: "The retest", col: SILK, below: dir > 0 } : null }); }),
+          rep(1, function (st) { var c = dir > 0 ? GREEN : RED; P.label = (dir > 0 ? "Pre-market high" : "Pre-market low") + " \u00b7 retest held"; return bar(st, { d: 1.6 * dir, n: 0.2, v: 0.85, flash: c, mk: { t: dir > 0 ? "Long \u00b7 stop past the candle" : "Short \u00b7 stop past the candle", col: c, below: dir < 0 } }); }),
+          rep(4, function (st, k) { return bar(st, { d: 0.9 * dir, n: 0.4, mk: k === 2 ? { t: "Working within minutes", col: dir > 0 ? GREEN : RED, below: dir < 0 } : null }); }),
+          rep(1, function (st) { return bar(st, { d: 0.2 * dir, n: 0.4, mk: { t: "Done for the day", col: SILK, below: dir > 0 } }); }),
+          rep(5, function (st) { return bar(st, { d: rnd(-0.3, 0.3), n: 0.7 }); })
+        ];
+      }
+    },
+
     "level-radar": {
       story: function (st) {
         var H, N, D;
