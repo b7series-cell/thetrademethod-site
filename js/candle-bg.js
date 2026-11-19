@@ -1213,6 +1213,32 @@
       }
     },
 
+    /* Fibonacci OTE: an impulse, the fib on it, the pullback into 0.618–0.786, filled at 0.702, half off at the old high (alternates long / short) */
+    "fib-ote": {
+      story: function (st) {
+        var dir = st.dir = -(st.dir || -1), GOLD = "244,185,66", S, E, F;
+        function fib(r) { return E - r * (E - S); }
+        return [
+          rep(1, function (st) { closeLevels(st); S = st.price - 0.4 * dir; return bar(st, { d: -0.3 * dir, n: 0.3, mk: { t: "Swing \u00b7 the 1", col: SILK, below: dir > 0 } }); }),
+          rep(6, function (st, k) { var c = dir > 0 ? GREEN : RED; return bar(st, { d: 1.5 * dir, n: 0.3, v: 0.8, lw: dir > 0 ? 0.3 : 1, uw: dir < 0 ? 0.3 : 1, mk: k === 2 ? { t: "Impulse \u00b7 one colour", col: c, below: dir < 0 } : null }); }),
+          rep(1, function (st) {
+            E = dir > 0 ? recentHigh(st, 7) : recentLow(st, 7);
+            level(st, fib(0.5), "0.5 \u00b7 premium | discount", SILK);
+            level(st, fib(0.618), "0.618 \u00b7 OTE", GOLD);
+            F = level(st, fib(0.702), dir > 0 ? "0.702 \u00b7 buy limit" : "0.702 \u00b7 sell limit", GOLD, true);
+            level(st, fib(0.786), "0.786 \u00b7 OTE", GOLD);
+            return bar(st, { d: -0.9 * dir, n: 0.3, mk: { t: "Fib on the impulse \u00b7 wait", col: SILK, below: dir < 0 } });
+          }),
+          rep(4, function (st) { return bar(st, { to: F.y + 0.6 * dir, pull: 0.45, n: 0.4, flo: dir > 0 ? fib(0.786) : null, cap: dir < 0 ? fib(0.786) : null }); }),
+          rep(1, function (st) { return bar(st, { to: F.y + 0.2 * dir, pull: 0.8, n: 0.15, lo: dir > 0 ? F.y - 0.25 : null, hi: dir < 0 ? F.y + 0.25 : null, flo: dir > 0 ? fib(0.786) : null, cap: dir < 0 ? fib(0.786) : null, mk: { t: "Filled at 0.702", col: GOLD, below: dir > 0 } }); }),
+          rep(1, function (st) { var c = dir > 0 ? GREEN : RED; F.label = (dir > 0 ? "0.702 \u00b7 long" : "0.702 \u00b7 short") + " \u00b7 stop past the swing"; return bar(st, { d: 1.4 * dir, n: 0.2, v: 0.85, flash: c }); }),
+          rep(5, function (st) { return bar(st, { d: 1.0 * dir, n: 0.5 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.6 * dir, n: 0.3, mk: { t: "Half off at the old " + (dir > 0 ? "high" : "low") + " \u00b7 stop to entry", col: BLUE, below: dir < 0 } }); }),
+          rep(6, function (st) { return bar(st, { d: 0.7 * dir, n: 0.6 }); })
+        ];
+      }
+    },
+
     /* Seven cheat codes: mark the pre-market level, don't chase the break, take the retest, it works within minutes, done for the day (alternates long / short) */
     "seven-cheat-codes": {
       story: function (st) {

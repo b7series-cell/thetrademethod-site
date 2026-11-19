@@ -527,6 +527,21 @@ const SETUPS = [
     indicators: []
   }
 
+  ,{
+    slug:    "fib-ote",
+    href:    "/setups/fib-ote.html",
+    nav:     "Fibonacci OTE",
+    title:   "Fibonacci OTE — Buy the Pullback in the Optimal Trade Entry",
+    thesis:  "Price moves in waves, so don't buy the impulse. In a clean trend, draw the Fibonacci retracement on the latest impulse and let the pullback come to you: a limit at 0.702, the middle of ICT's Optimal Trade Entry (0.618 to 0.786), in discount for a buy and premium for a sell. Stop past the swing, half off at the old high, the rest at the next higher time frame level, and only with room to get there.",
+    session: "Any session · 1-hour, 5-minute entries",
+    group:   "day",
+    side:    "both",
+    stages:  6,
+    filters: 4,
+    status:  "live",
+    indicators: []
+  }
+
   /* -------------------------------------------------------------------
      Copy this block for the next setup. Keep the trailing comma on the
      entry above when you do. Leave `indicators` as an empty array if a
