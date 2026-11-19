@@ -1,0 +1,770 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fibonacci OTE — buy the pullback at 0.702, the optimal trade entry | The Trade Method</title>
+<meta name="description" content="The Fibonacci retracement and ICT's Optimal Trade Entry as one entry model, from Com Lucro Trader: draw the fib on the latest impulse, skip pullbacks under 0.382, buy in discount and sell in premium, set a limit at 0.702 inside the 0.618 to 0.786 OTE with the stop past the swing, half off at the old high and the rest at the next higher time frame level. Plus strategy two: a double bottom or top at a major level, then a limit at 0.618 of the break.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/fib-ote.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Fibonacci OTE — buy the pullback at 0.702, the optimal trade entry">
+<meta property="og:description" content="The Fibonacci retracement and ICT's Optimal Trade Entry as one entry model, from Com Lucro Trader: draw the fib on the latest impulse, skip pullbacks under 0.382, buy in discount and sell in premium, set a limit at 0.702 inside the 0.618 to 0.786 OTE with the stop past the swing, half off at the old high and the rest at the next higher time frame level. Plus strategy two: a double bottom or top at a major level, then a limit at 0.618 of the break.">
+<meta property="og:url" content="https://thetrademethod.com/setups/fib-ote.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fibonacci OTE — buy the pullback at 0.702, the optimal trade entry">
+<meta name="twitter:description" content="The Fibonacci retracement and ICT's Optimal Trade Entry as one entry model, from Com Lucro Trader: draw the fib on the latest impulse, skip pullbacks under 0.382, buy in discount and sell in premium, set a limit at 0.702 inside the 0.618 to 0.786 OTE with the stop past the swing, half off at the old high and the rest at the next higher time frame level. Plus strategy two: a double bottom or top at a major level, then a limit at 0.618 of the break.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Fibonacci OTE — buy the pullback at 0.702, the optimal trade entry",
+ "name": "Fibonacci OTE",
+ "description": "The Fibonacci retracement and ICT's Optimal Trade Entry as one entry model, from Com Lucro Trader: draw the fib on the latest impulse, skip pullbacks under 0.382, buy in discount and sell in premium, set a limit at 0.702 inside the 0.618 to 0.786 OTE with the stop past the swing, half off at the old high and the rest at the next higher time frame level. Plus strategy two: a double bottom or top at a major level, then a limit at 0.618 of the break.",
+ "url": "https://thetrademethod.com/setups/fib-ote.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/fib-ote.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-19",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+
+  /* hero link to the indicator */
+  .get-ind { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:#08131f; background:#64d2ff;
+             text-decoration:none; border-radius:9999px; padding:9px 18px; }
+  .get-ind:hover { background:#8cdfff; }
+
+  /* ---------- indicator ---------- */
+  .ind-sec { margin-top:56px; scroll-margin-top:110px; }
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .code-wrap { background:var(--panel); border:1px solid var(--line); border-radius:12px; margin-top:16px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--faint); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#1b2a3e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#26394f; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d9e3; tab-size:4; }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-sec { margin-top:44px; } }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=25">
+<script src="/js/nav.js?v=26" defer></script>
+<script src="/js/site.js?v=52" defer></script>
+<script src="/js/ote-anim.js?v=1" defer></script>
+<style>
+  /* steps across the page, the two panels side by side under them (same as hitchhiker-scalp.html) */
+  .ote-main { grid-template-columns:1fr; gap:22px; }
+  .ote-stages { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .sheet .ote-stages .stage, .sheet .ote-stages .stage:first-child { padding:26px 24px; background:var(--charcoal); align-content:start; }
+  .ote-side { display:grid; grid-template-columns:1fr 1.4fr; gap:16px; align-items:stretch; }
+  .ote-side .panel + .panel { margin-top:0; }
+  .ote-side .timing { grid-template-columns:1fr 1fr; }
+  @media (max-width:1100px) { .ote-stages { grid-template-columns:1fr 1fr; } .ote-side { grid-template-columns:1fr; } }
+  @media (max-width:680px) { .ote-stages { grid-template-columns:1fr; } }
+  /* the stepper (js/ote-anim.js builds it from the six steps) */
+  .ote-stages.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#f5f5f7; }
+  .gs-bar { display:grid; grid-template-columns:repeat(6,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:8.333%; right:8.333%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .ote-stages.is-stepper .stage, .sheet .ote-stages.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .ote-stages.is-stepper .stage .num { display:none; }
+  .sheet .ote-stages.is-stepper .stage[hidden] { display:none; }
+  .sheet .ote-stages.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .ote-stages.is-stepper { padding:20px 12px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:34px; height:34px; font-size:14px; }
+    .gs-line { top:16px; }
+    .gs-bar { margin-bottom:20px; }
+  }
+  /* video (same as hitchhiker-scalp.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+  .watch { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:var(--ink); text-decoration:none;
+           background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); border-radius:9999px; padding:7px 14px 7px 10px; }
+  .watch:hover { background:rgba(255,255,255,0.14); }
+  .watch i { width:0; height:0; border-left:9px solid #ff453a; border-top:6px solid transparent; border-bottom:6px solid transparent; margin-left:4px; }
+
+  .h1-ote { color:#64d2ff; }
+  .ribbon .n { font-size:14px; }
+
+  /* tiles */
+  .vs { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .vs div { background:var(--panel); border:1px solid var(--line); border-top:3px solid #64d2ff; border-radius:11px; padding:16px 17px; }
+  .vs .sc { font-family:var(--mono); font-size:13px; color:#64d2ff; font-weight:700; display:block; margin-bottom:6px; }
+  .vs h3 { margin:0 0 6px; font-size:16px; }
+  .vs p { margin:0; font-size:14px; color:var(--dim); }
+
+  /* the checks and outputs (same look as hitchhiker-scalp.html) */
+  .chk-out { margin-top:14px; border-radius:11px; padding:14px 16px; border:1px solid var(--line); background:var(--panel2); }
+  .chk-out b { display:block; font-size:24px; font-weight:800; letter-spacing:-0.02em; margin-bottom:4px; }
+  .chk-out p { margin:0; font-size:14px; color:var(--dim); }
+  .chk-out.is-a { border-color:#22855a; } .chk-out.is-a b { color:var(--up); }
+  .chk-out.is-b { border-color:#7a5a12; } .chk-out.is-b b { color:var(--gold); }
+  .chk-out.is-no { border-color:#5e2a30; } .chk-out.is-no b { color:var(--down); }
+
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in.four { grid-template-columns:repeat(4,1fr); }
+  .calc-in label { font-size:12px; color:var(--faint); display:block; }
+  .calc-in input, .calc-in select { width:100%; margin-top:4px; background:var(--panel2); color:var(--ink); border:1px solid var(--line); border-radius:8px;
+                   padding:8px 10px; font-family:var(--mono); font-size:15px; }
+  .calc-in input:focus, .calc-in select:focus { outline:2px solid var(--blue); outline-offset:1px; }
+  .calc-in input[type=range] { padding:0; accent-color:#30d158; background:none; border:0; }
+  .calc-in output { font-family:var(--mono); color:var(--ink); font-size:14px; float:right; }
+  .ote-book .calc-in { grid-template-columns:1fr 1fr auto; align-items:end; }
+  .ote-book .warn { margin-top:16px; }
+  .ote-book .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; }
+  .ote-book .reset:hover { background:#3a3a3c; }
+  .ote-two svg, .ote-dev svg { border-radius:14px; }
+  .ote-dev .calc-in { grid-template-columns:1fr; }
+  .ote-two .reset, .ote-dev .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; margin-top:12px; }
+  .h1-ote { color:#bf5af2; }
+  .counts div { border-left-color:#bf5af2; }
+  .vs.ote-vs div { border-top-color:#bf5af2; } .vs.ote-vs .sc { color:#bf5af2; }
+  .size-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .size-grid div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .size-grid b { display:block; font-family:var(--mono); font-size:20px; color:var(--gold); margin-bottom:4px; }
+  .size-grid p { margin:0; color:var(--dim); font-size:13.4px; }
+  @media (max-width:680px) { .size-grid { grid-template-columns:1fr; } }
+
+  /* case table + quotes (same as hitchhiker-scalp.html) */
+  .quote { margin:16px 0 0; padding:14px 18px; border-left:3px solid #64d2ff; background:var(--panel); border-radius:0 11px 11px 0; font-size:16px; }
+  .quote small { display:block; color:var(--faint); font-size:12.5px; margin-top:4px; }
+  .howto { margin:0; padding-left:20px; color:var(--ink); font-size:14.5px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#64d2ff; font-weight:600; }
+  .two-note { margin:14px 0 0; color:var(--dim); font-size:14px; max-width:86ch; }
+  .vcase td.txt { min-width:200px; }
+
+  /* the animation redraws for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .ribbon + .anim { margin-top:8px; }
+  @media (max-width:1100px) {
+    .vs { grid-template-columns:1fr 1fr; }
+    .calc-in.four { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:680px) {
+    /* breathing room around the walkthrough and the charts on small screens (project rule: not packed tight on phones) */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .counts { flex-wrap:wrap; gap:16px 22px; }
+    .vs { grid-template-columns:1fr; }
+    .calc-in, .calc-in.four, .ote-book .calc-in { grid-template-columns:1fr 1fr; }
+    .ote-book .calc-in .reset { grid-column:1 / -1; justify-self:start; }
+    .section-head { margin-top:52px; }
+    .ote-two, .ote-dev, .ote-plan { margin-top:28px; }
+    .risk + .risk, .panel + .risk { margin-top:28px; }
+    .vcase th, .vcase td { padding:9px 8px; }
+    .ote-side .filters, .ote-side .timing { grid-template-columns:1fr !important; }
+  }
+  /* the case table scrolls inside itself on a phone, never the page */
+  .tscroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .tscroll table { min-width:720px; }
+</style>
+
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=40" defer></script>
+
+<style>
+  /* fibonacci OTE page extras (gold, for the golden ratio) */
+  .h1-ote { color:#f4b942; }
+  .thesis em { color:#f4b942; }
+  .counts div { border-left-color:#f4b942; }
+  .vs.ote-vs div { border-top-color:#f4b942; } .vs.ote-vs .sc { color:#f4b942; }
+  .quote { border-left-color:#f4b942; }
+  .howto b { color:#f4b942; }
+  .ote-depth svg, .ote-two svg { border-radius:14px; }
+  .ote-two .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; margin-top:12px; }
+  .ote-two .reset:hover, .pre button:hover { background:#3a3a3c; }
+  .pre { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; align-items:center; }
+  .pre button { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; }
+  .pre button[aria-pressed="true"] { background:#f4b942; color:#000; }
+  .pre .sep { width:1px; height:22px; background:#3a3a3c; margin:0 4px; }
+  .depth-in { display:flex; align-items:center; gap:14px; margin:0 0 14px; }
+  .depth-in label { font-size:13px; color:var(--faint); white-space:nowrap; }
+  .depth-in input[type=range] { flex:1; accent-color:#f4b942; }
+  .depth-in output { font-family:var(--mono); font-size:16px; font-weight:700; color:#f4b942; min-width:56px; text-align:right; }
+  .ote-side .timing b.big { font-family:var(--mono); font-size:22px; color:#f4b942; }
+  .lvl-table td:first-child { font-weight:700; color:#f4b942; }
+  .ote-plan .size-grid b { font-family:var(--mono); font-size:18px; }
+  @media (max-width:680px) {
+    .ote-depth, .ote-two { margin-top:28px; }
+    .pre { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .pre::-webkit-scrollbar { display:none; }
+    .pre button { flex:0 0 auto; }
+    .depth-in { flex-wrap:wrap; gap:8px 12px; }
+    .depth-in input[type=range] { flex-basis:100%; order:3; }
+  }
+</style>
+
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/setups/">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="fib-ote">
+    <div>
+      <p class="kicker">A price action and smart money entry model &middot; gold and forex, 1-hour and 5-minute, long or short</p>
+      <h1>Fibonacci <span class="h1-ote">OTE</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Price moves in waves: an impulse, then a pullback. Don't buy the impulse. Draw the Fibonacci retracement on it and let the pullback
+      come to you, deep in discount, into the <em>Optimal Trade Entry</em> between 0.618 and 0.786. One limit order at 0.702, the stop past the swing,
+      half off at the old high.</p>
+      <div class="counts">
+        <div><b>0.618&ndash;0.786</b><small>the OTE zone, on classic fib levels</small></div>
+        <div><b>0.702</b><small>where the limit order sits</small></div>
+        <div><b>0.382</b><small>the least pullback that counts</small></div>
+      </div>
+      <a class="watch" href="#video"><i></i>Watch the video</a>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">1 &middot; trend</div><div class="n">A clean trend, or no trade</div></div>
+    <div><div class="t">2 &middot; fib</div><div class="n">1 on the swing, 0 on the end</div></div>
+    <div><div class="t">3 &middot; room</div><div class="n">Space to the higher time frame</div></div>
+    <div><div class="t">4 &middot; order</div><div class="n">Limit at 0.702, inside the OTE</div></div>
+    <div><div class="t">5 &middot; stop</div><div class="n">Past the swing that started it</div></div>
+    <div><div class="t">6 &middot; manage</div><div class="n">Half at the old high, stop to entry</div></div>
+  </nav>
+
+  <section class="anim" data-ote-anim aria-label="Animated walkthrough of a Fibonacci OTE long on 1-hour gold bars">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">8 / 8</p>
+        <h2 class="anim-title">Watch one OTE trade, start to finish</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 640" role="img" aria-label="Illustrative 1-hour chart of made-up gold prices. A downtrend makes a low at 4,006, then a lower high at 4,036, then a drop that stops at 4,010 without a new low. An impulse breaks above 4,036 and runs to 4,060. The Fibonacci retracement goes from 4,010 (the 1) to 4,060 (the 0): premium above 4,035, discount below, the OTE from 4,020.70 to 4,029.10. The nearest 4-hour supply is 4,090 to 4,096, so there is room. A buy limit at the 0.702 level, 4,024.90, with a stop at 4,008. The pullback fills it, bottoming at 4,022.40. Half comes off at 4,057, a few points under the old high, and the stop moves to entry. The rest comes off at 4,090. A new impulse runs to 4,104 and a new buy limit goes at 4,046.72, but the pullback stops at 4,072.50 and the order never fills."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main ote-main">
+    <div class="ote-stages" data-ote-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Find a clean trend</h3>
+          <ul>
+            <li>Mark the impulses (big candles of one colour) and the pullbacks (mixed colours, small bodies, wicks).</li>
+            <li>Uptrend: only buys. Downtrend: only sells.</li>
+            <li>Choppy or unclear? Close the chart and look at another one. This works best in clean trends.</li>
+          </ul>
+          <p class="why">Shallow pullbacks mean a strong trend; deeper ones mean it's tiring. Most trends start strong, fade, and turn.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Draw the fib on the latest impulse</h3>
+          <ul>
+            <li>From the start of the move to the end. Bullish: 1 on the swing low, 0 on the swing high. Bearish: the other way round.</li>
+            <li>If price keeps going, move the 0 with it. The tool measures the pullback; it doesn't call the top.</li>
+            <li>A pullback that doesn't reach 0.382 is noise. Treat it as one leg and redraw.</li>
+          </ul>
+          <p class="why">Premium is always the top half of the range, discount the bottom half, whichever way the numbers run.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Check the room</h3>
+          <ul>
+            <li>Switch up a time frame. Is price already inside, or close to, a higher time frame supply zone (or demand, for a short)?</li>
+            <li>That zone can turn price and stop you out. Only take it with enough distance between the entry and that zone.</li>
+          </ul>
+          <p class="why">The second target is that next higher time frame level, so the room is your reward.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Set a limit at 0.702</h3>
+          <ul>
+            <li>Buy limit (sell limit for a short) at 0.702, the middle of the OTE, between 0.618 and 0.786.</li>
+            <li>Let price come to you. If it never reaches the zone, there's no trade, and that's fine.</li>
+          </ul>
+          <p class="why">Deep pullbacks are common in trends. Entering there gets you in earlier and at a better price than waiting for more signals.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Stop past the swing</h3>
+          <ul>
+            <li>Below the swing low that started the impulse for a long; above the swing high for a short.</li>
+            <li>A break of that swing invalidates the trend you were buying.</li>
+          </ul>
+          <p class="why">The deeper the entry, the closer it is to that swing: a smaller stop for the same target.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Half off, then let it run</h3>
+          <ul>
+            <li>First target a little short of the recent high: conservative, with a strong chance of being hit. Close half.</li>
+            <li>Move the stop to break even. The rest is a free trade.</li>
+            <li>Second target: the next important level ahead of price on the higher time frame.</li>
+          </ul>
+          <p class="why">Banking half early pays for the patience the second half needs.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="ote-side">
+      <div class="panel">
+        <h4>The levels that matter</h4>
+        <p class="lead">Written as decimals, the same numbers as the percentages (0.618 is 61.8%).</p>
+        <div class="timing">
+          <div><b class="big">0.382</b><p>The floor for a real pullback. Less than this is noise. 0.382 to 0.5 is where strong trends pull back, but the reward to risk is poor.</p></div>
+          <div><b class="big">0.5</b><p>The middle of the range: premium above, discount below. Buy in discount, sell in premium.</p></div>
+          <div><b class="big">0.5&ndash;0.618</b><p>The Golden Zone. 0.618 is the golden ratio, and price often reacts here.</p></div>
+          <div><b class="big">0.618&ndash;0.786</b><p>The OTE, with 0.702 in the middle. 0.786 alone gives the best ratio but misses many winners.</p></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>When it's off</h4>
+        <p class="lead">No trend, no room or no pullback means no trade.</p>
+        <div class="filters kills" style="grid-template-columns:repeat(2,1fr); margin-top:14px;">
+    <div class="filter" style="background:var(--panel2)"><h3>No clean trend</h3><p>Choppy, overlapping candles, no clear impulse and pullback.</p><p class="kill">Close the chart. Find another market.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>No room</h3><p>Price is inside or right under a higher time frame supply zone (demand, for a short).</p><p class="kill">Skip it: that zone can turn it on you.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>A shallow pullback</h3><p>Price turns before 0.618. The order never fills.</p><p class="kill">No trade. Wait for the next impulse.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>Chasing</h3><p>Buying after the move, or inside 0.382 to 0.5, with the stop still under the swing.</p><p class="kill">Poor reward to risk. Wait for the pullback.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>How deep should you buy?</h2>
+    <p>The stop stays under the swing low and the first target is the old high, so every level deeper you buy shrinks the risk and grows the reward. The catch: the deeper the level, the more often price turns before it gets there. Drag the slider, try the presets, or flip it to a bearish fib: the numbers flip, premium and discount never trade places.</p>
+  </div>
+  <div class="panel ote-depth" data-ote-depth>
+    <div class="pre" role="group" aria-label="Presets">
+      <button type="button" data-dir="1" aria-pressed="true">Bullish</button>
+      <button type="button" data-dir="-1" aria-pressed="false">Bearish</button>
+      <span class="sep" aria-hidden="true"></span>
+      <button type="button" data-r="0.382">0.382</button>
+      <button type="button" data-r="0.5">0.5</button>
+      <button type="button" data-r="0.618">0.618</button>
+      <button type="button" data-r="0.702">0.702</button>
+      <button type="button" data-r="0.786">0.786</button>
+    </div>
+    <div class="depth-in">
+      <label for="ote-depth">Pullback depth</label>
+      <input id="ote-depth" name="depth" type="range" min="0.2" max="1.05" step="0.001" value="0.702">
+      <output class="ote-dval">0.702</output>
+    </div>
+    <svg viewBox="0 0 1180 360" role="img" aria-label="A swing from 4,010 to 4,060 with the Fibonacci levels, premium above 0.5 and discount below, the OTE shaded, and an entry at the chosen depth with its stop and its reward to the old high."></svg>
+    <div class="chk-out ote-dout" aria-live="polite"></div>
+  </div>
+  <div class="vs ote-vs" style="margin-top:20px">
+    <div><span class="sc">WHY IT WORKS</span><h3>Everyone's watching</h3><p>Not because markets obey nature. So many traders watch the same levels that orders pile up there, and price reacts because people expect it to. A self-fulfilling prophecy.</p></div>
+    <div><span class="sc">THE RANGE</span><h3>Fixed after a real pullback</h3><p>While price keeps pushing, the range keeps moving with it. In the ComLucro framework it's only fixed once price pulls back at least to 0.382. Then the higher low and the next higher high can be marked.</p></div>
+    <div><span class="sc">THE DECISION</span><h3>Break of structure or change of character</h3><p>Range set, pullback formed, then the market decides. Above the old high is a break of structure: the trend goes on. Lower instead, and a change of character may be forming.</p></div>
+  </div>
+
+  <div class="section-head">
+    <h2>ICT's OTE, and the levels used here</h2>
+    <p>The Optimal Trade Entry comes from ICT and the smart money crowd. It isn't a new tool: it's the same retracement, narrowed to the part of the range where price is cheapest for a buyer (discount) or dearest for a seller (premium).</p>
+  </div>
+  <div class="tscroll">
+    <table class="lvl-table">
+      <thead><tr><th>Version</th><th>Zone start</th><th>Midpoint</th><th>Zone end</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>ICT, original</td><td>0.62</td><td>0.705</td><td>0.79</td><td class="txt">The teaching the concept comes from.</td></tr>
+        <tr><td>ComLucro, used on this page</td><td>0.618</td><td>0.702</td><td>0.786</td><td class="txt">Confluence: the classic Fibonacci levels are watched by traders of every method, so more eyes are on the same place at the same time.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="two-note">Bullish: 0 on the swing high, 1 on the swing low. Bearish: 0 on the swing low, 1 on the swing high. The video writes every level as a decimal from the start so the plain retracement and the OTE speak the same language.</p>
+
+  <div class="section-head">
+    <h2>Strategy two: a major level, a double top, then the fib</h2>
+    <p>The same retracement, used to get a better price after a confirmation. Find a major level, drop one time frame to see sellers (or buyers) actually step in, and once the pattern confirms, don't chase it: wait for the pullback to 0.618 of the break.</p>
+  </div>
+  <div class="panel ote-two" data-ote-two>
+    <svg viewBox="0 0 1180 420" role="img" aria-label="Two illustrative charts. Left, a 1-hour euro dollar chart with a level at 1.0850 to 1.0860 that has held as support, then as resistance, broke lower and is being retested from below. Right, the 5-minute chart at that level: a double top at 1.0858 and 1.0857, a neckline at 1.0838 that breaks, a bearish impulse down to 1.0826, a Fibonacci retracement from 1.0858 to 1.0826, a sell limit at 0.618 (1.0846) that fills, a stop above the swing high at 1.0861, and a target at the next level, 1.0790."></svg>
+    <button type="button" class="reset" data-play>Play again</button>
+  </div>
+  <div class="vs ote-vs" style="margin-top:20px">
+    <div><span class="sc">THE LEVEL</span><h3>Major market structure</h3><p>Rejected price more than once, acted as both support and resistance, and was respected recently. Those levels give some of the best entries, but the level alone isn't the trade.</p></div>
+    <div><span class="sc">THE CONFIRMATION</span><h3>Double bottom or top, one time frame down</h3><p>Two tests that fail to break through: buyers (or sellers) are defending it. It only counts once price breaks the neckline. No break, no trade.</p></div>
+    <div><span class="sc">THE ENTRY</span><h3>Late after the break? Wait</h3><p>By the time the neckline breaks, the stop past the swing would be huge. Fib the break, set a limit at 0.618 of the OTE, stop past the swing, target the next level.</p></div>
+  </div>
+  <p class="quote">&ldquo;More confirmation does not always mean a safer trade.&rdquo;<small>Com Lucro Trader, on strategy one. Often it just means you got in late.</small></p>
+
+  <div class="section-head">
+    <h2>Plan the trade</h2>
+    <p>Type the swing the impulse started from and where it ended; the fib levels, the entry, the stop and the size come out. The defaults are the walkthrough's gold long. The dollar risk and the point value ($10 per 1.00 move, a micro gold contract) are only examples.</p>
+  </div>
+  <div class="risk ote-plan">
+    <div class="panel" data-ote-calc>
+      <div class="calc-in four">
+        <label>Side<select name="side"><option value="long">Long</option><option value="short">Short</option></select></label>
+        <label>Impulse start (the 1)<input name="start" type="number" inputmode="decimal" step="0.01" value="4010"></label>
+        <label>Impulse end (the 0)<input name="end" type="number" inputmode="decimal" step="0.01" value="4060"></label>
+        <label>Entry level<select name="lvl"><option value="0.618">0.618</option><option value="0.702" selected>0.702</option><option value="0.786">0.786</option></select></label>
+        <label>Stop past the swing by<input name="buf" type="number" inputmode="decimal" step="0.01" min="0" value="2"></label>
+        <label>TP1 (half)<input name="tp1" type="number" inputmode="decimal" step="0.01" value="4057"></label>
+        <label>TP2 (the rest)<input name="tp2" type="number" inputmode="decimal" step="0.01" value="4090"></label>
+        <label>Point value ($ per 1.00)<input name="pv" type="number" inputmode="decimal" step="1" min="0" value="10"></label>
+        <label>Risk ($)<input name="risk" type="number" inputmode="decimal" step="50" min="0" value="500"></label>
+      </div>
+      <div class="chk-out ote-cout" aria-live="polite"></div>
+      <div class="calc ote-ccalc" aria-live="polite" style="margin-top:14px"></div>
+    </div>
+    <div class="warn">
+      <h4>Missed fills are part of the plan</h4>
+      <p>A limit at 0.702 means some of the best moves leave without you. In the video's second gold setup the pullback never reached 0.618, the order never filled, and the answer was simply to wait for the next one.</p>
+      <div class="size-grid" style="margin:12px 0">
+        <div><b>0.618</b><p>More fills, a wider stop, a smaller reward to the old high.</p></div>
+        <div><b>0.702</b><p>The middle of the OTE: the strategy's limit order.</p></div>
+        <div><b>0.786</b><p>The best ratio, the most missed trades.</p></div>
+      </div>
+      <p style="margin:0 0 6px"><b>Before the order goes in</b></p>
+      <ul style="margin:0 0 12px; padding-left:18px; font-size:14px">
+        <li style="margin-bottom:5px">Is the trend clean, and is this the latest impulse?</li>
+        <li style="margin-bottom:5px">Did the last pullback reach 0.382, so the range is real?</li>
+        <li>Is there room to the next higher time frame zone?</li>
+      </ul>
+      <p class="big">If TP1 never comes, the loss is 1R. After it, the worst case is break even.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The examples from the video</h2>
+    <p>Both are real charts in the video, walked forward bar by bar. The prices aren't read out, so this table keeps to what happened.</p>
+  </div>
+  <div class="tscroll">
+    <table class="vcase">
+      <thead><tr><th>Chart</th><th>What he saw</th><th>What he did</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><th>Gold, 1-hour<br><small>strategy one</small></th>
+          <td class="txt">A downtrend whose latest move failed to make a lower low, then broke above the previous structure: direction shifted bullish.</td>
+          <td class="txt">Fib on the latest impulse, buy limit in the OTE, stop below the swing low, first target a few pips under the recent high, the longer target at the next major turning point.</td>
+          <td class="txt">Filled and hit the target. A winner.</td></tr>
+        <tr><th>Gold, 1-hour<br><small>the next impulse</small></th>
+          <td class="txt">Another impulse broke structure to the upside.</td>
+          <td class="txt">Fib redrawn on the new impulse, a new buy limit.</td>
+          <td class="txt">Price never reached 0.618. Not filled, no trade.</td></tr>
+        <tr><th>Euro dollar, 1-hour &rarr; 5-minute<br><small>strategy two</small></th>
+          <td class="txt">A level price had reacted to many times as support and resistance broke lower, then price pulled back into it. On the 5-minute, a double top.</td>
+          <td class="txt">Waited for the neckline break, then fibbed the bearish impulse and set a sell limit at 0.618, stop above the swing high, target the next level.</td>
+          <td class="txt">The break confirmed the pattern; the setup is shown as the plan, with the target the next important level.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-head">
+    <h2>How you trade it</h2>
+    <p>Both strategies, in order.</p>
+  </div>
+  <div class="panel">
+    <ol class="howto">
+      <li><b>Trend:</b> mark the impulses and pullbacks. Clean uptrend, buys only; clean downtrend, sells only; choppy, next chart.</li>
+      <li><b>Fib:</b> on the latest impulse, start to end. Bullish, 1 on the swing low and 0 on the high. Move the 0 while price keeps going; a pullback under 0.382 is noise.</li>
+      <li><b>Room:</b> check the higher time frame. Skip it if price is in, or close to, a supply zone (demand, for shorts).</li>
+      <li><b>Order:</b> a limit at 0.702, inside the 0.618 to 0.786 OTE, in discount for a buy, premium for a sell.</li>
+      <li><b>Stop:</b> past the swing that started the impulse.</li>
+      <li><b>Manage:</b> half off a little short of the recent high, stop to break even, the rest at the next higher time frame level.</li>
+      <li><b>Strategy two:</b> a major level, a double bottom or top one time frame down, the neckline break, then a limit at 0.618 of the break. Stop past the swing, target the next level.</li>
+    </ol>
+  </div>
+
+  <section class="video" id="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/3LBsIDSdTEw" title="Fibonacci Retracement + OTE: The Entry Strategy Professional Traders Use (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Com Lucro Trader on why price moves in waves, which Fibonacci levels matter, premium and discount, ICT's Optimal Trade Entry, and two complete strategies on gold and euro dollar charts.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=3LBsIDSdTEw" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Don't chase the impulse. Let the pullback come to you.</h2>
+      <p>The Fibonacci retracement tells you where a pullback may end; the OTE narrows it to the cheapest part of the range for a buyer, or the dearest for a seller.
+      In a clean trend, with room to the next big level, one limit order in that zone and a stop past the swing is the whole trade.</p>
+    </div>
+    <div>
+      <ul>
+        <li>A clean trend, or a different chart.</li>
+        <li>Fib the latest impulse; under 0.382 is noise.</li>
+        <li>Buy in discount, sell in premium.</li>
+        <li>Limit at 0.702, stop past the swing.</li>
+        <li>Half at the old high, the rest at the next level.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">From Com Lucro Trader's video on the Fibonacci retracement and the Optimal Trade Entry. The rules, the levels (the ComLucro 0.618, 0.702 and 0.786 in place of ICT's 0.62, 0.705 and 0.79) and the chart examples are as told in the video; the channel and membership plugs are left out. The OTE, premium and discount come from ICT's teaching.
+  The walkthrough, the stepper charts, the depth slider, the strategy two sketch and the calculator's default numbers are illustrative, made-up bars, not any market's actual prints.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>
