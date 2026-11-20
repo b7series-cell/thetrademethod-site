@@ -1261,6 +1261,30 @@
       }
     },
 
+    /* Eight trading rules: a slump, get out, trade smaller, one good trade, book green days, then a setup brings it back */
+    "eight-trading-rules": {
+      story: function (st) {
+        var E;
+        return [
+          rep(1, function (st) {
+            closeLevels(st); session(st);
+            E = level(st, st.price + 0.4, "Where the slump started", GRAY, true);
+            return bar(st, { n: 0.5, mk: { t: "The slump", col: SILK } });
+          }),
+          rep(7, function (st) { return bar(st, { d: -0.75, n: 1.3, cap: E.y }); }),
+          rep(1, function (st) { return bar(st, { d: -1.6, n: 0.4, v: 0.9, flash: RED, mk: { t: "Sizing up to make it back", col: RED, below: true } }); }),
+          rep(1, function (st) { return bar(st, { d: 0.2, n: 0.3, mk: { t: "When in doubt, get out", col: ORANGE } }); }),
+          rep(3, function (st, k) { return bar(st, { d: rnd(-0.05, 0.25), n: 0.35, uw: 0.4, lw: 0.4, v: 0.25, mk: k === 0 ? { t: "Trade smaller", col: BLUE, below: true } : null }); }),
+          rep(1, function (st) { return bar(st, { d: 0.6, n: 0.15, uw: 0.5, lw: 0.4, v: 0.4, flash: GREEN, mk: { t: "One good trade", col: GREEN, below: true } }); }),
+          rep(4, function (st, k) { return bar(st, { d: 0.35, n: 0.3, uw: 0.5, lw: 0.5, v: 0.3, mk: k === 2 ? { t: "Book a green day", col: GREEN, below: true } : null }); }),
+          rep(1, function (st) { return bar(st, { d: 2.4, n: 0.3, v: 1, flash: GREEN, mk: { t: "Then a setup shows up", col: GREEN, below: true } }); }),
+          rep(3, function (st) { return bar(st, { to: E.y + 1.2, pull: 0.55, n: 0.4 }); }),
+          rep(1, function (st) { E.label = "Back above even"; E.col = GREEN; return bar(st, { d: 0.4, n: 0.4 }); }),
+          rep(4, function (st) { return bar(st, { d: rnd(-0.3, 0.4), n: 0.7 }); })
+        ];
+      }
+    },
+
     "level-radar": {
       story: function (st) {
         var H, N, D;

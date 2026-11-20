@@ -71,6 +71,7 @@ const EXTRA_PAGES = [
   { loc: "/stacked-imbalances.html", priority: "0.7" },
   { loc: "/level-radar.html", priority: "0.7" },
   { loc: "/seven-cheat-codes.html", priority: "0.7" },
+  { loc: "/eight-trading-rules.html", priority: "0.7" },
   { loc: "/covered-calls.html", priority: "0.7" },
   { loc: "/expected-move.html", priority: "0.7" },
   { loc: "/blog/", priority: "0.8" },
