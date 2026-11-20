@@ -542,6 +542,21 @@ const SETUPS = [
     indicators: []
   }
 
+  ,{
+    slug:    "ready-aim-fire",
+    href:    "/setups/ready-aim-fire.html",
+    nav:     "Ready, Aim, Fire",
+    title:   "Ready, Aim, Fire — Trend, Level, then an Order Flow Trigger",
+    thesis:  "Three pieces, and every trade needs all three. Ready: read the higher time frame, trend or balance. Aim: wait for price to reach a level from yesterday's profile, the overnight range, VWAP or a composite high volume node. Fire: only when order flow on the 5-minute shows one side putting in the effort without getting paid, then a rejection. Stop past the fight, target the next level, 1:1 or better.",
+    session: "NY open · daily/15-minute map, 5-minute NQ and ES",
+    group:   "day",
+    side:    "both",
+    stages:  6,
+    filters: 4,
+    status:  "live",
+    indicators: []
+  }
+
   /* -------------------------------------------------------------------
      Copy this block for the next setup. Keep the trailing comma on the
      entry above when you do. Leave `indicators` as an empty array if a
