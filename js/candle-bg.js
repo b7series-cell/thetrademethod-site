@@ -1262,6 +1262,30 @@
     },
 
     /* Eight trading rules: a slump, get out, trade smaller, one good trade, book green days, then a setup brings it back */
+    /* Ready, aim, fire: the level, the break, big trades on the retest with no reward, fire on the rejection, out at the next level (alternates long / short) */
+    "ready-aim-fire": {
+      profile: true,
+      story: function (st) {
+        var d = st.dir = -(st.dir || -1), C, K, NX;
+        return [
+          rep(1, function (st) {
+            closeLevels(st); C = st.price;
+            K = level(st, C + 2.4 * d, d > 0 ? "Overnight high \u00b7 the level" : "Overnight low \u00b7 the level", ORANGE, true);
+            NX = level(st, C + 10 * d, d > 0 ? "Prior day high \u00b7 next level" : "Prior day low \u00b7 next level", BLUE);
+            return bar(st, { to: C, n: 0.8, v: 0.45, mk: { t: d > 0 ? "Ready \u00b7 higher time frame up" : "Ready \u00b7 higher time frame down", col: SILK, below: d > 0 } });
+          }),
+          rep(6, function (st, k) { return bar(st, { to: K.y - 0.9 * d, pull: 0.35, n: 0.8, cap: d > 0 ? K.y : null, flo: d < 0 ? K.y : null, v: rnd(0.3, 0.5), mk: k === 2 ? { t: "Aim \u00b7 wait at the level", col: ORANGE, below: d > 0 } : null }); }),
+          rep(1, function (st) { return bar(st, { d: 2.8 * d, n: 0.3, v: 1, pierce: true, flash: d > 0 ? GREEN : RED }); }),
+          rep(1, function (st) { return bar(st, { d: 0.7 * d, n: 0.3, v: 0.8 }); }),
+          rep(1, function (st) { var c = d > 0 ? RED : GREEN; return bar(st, { to: K.y - 0.5 * d, pull: 1, n: 0.2, v: 0.95, flash: c, mk: { t: d > 0 ? "Big sellers on the retest \u00b7 no reward" : "Big buyers on the retest \u00b7 no reward", col: c, below: d > 0 } }); }),
+          rep(1, function (st) { var c = d > 0 ? GREEN : RED; K.label = (d > 0 ? "Overnight high" : "Overnight low") + " \u00b7 held"; return bar(st, { to: K.y + 1.5 * d, pull: 1, n: 0.2, v: 0.9, flash: c, mk: { t: d > 0 ? "Fire \u00b7 long the failed retest" : "Fire \u00b7 short the failed retest", col: c, below: d < 0 } }); }),
+          rep(6, function (st) { return bar(st, { d: 1.0 * d, n: 0.5, v: 0.6 }); }),
+          rep(1, function (st) { NX.label = (d > 0 ? "Prior day high" : "Prior day low") + " \u00b7 out"; return bar(st, { to: NX.y, pull: 0.9, n: 0.2, v: 0.6, mk: { t: "Target \u00b7 the next area of interest", col: BLUE, below: d > 0 } }); }),
+          rep(4, function (st) { return bar(st, { d: -0.3 * d, n: 0.8, v: 0.4 }); })
+        ];
+      }
+    },
+
     "eight-trading-rules": {
       story: function (st) {
         var E;

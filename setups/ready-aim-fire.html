@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ready, Aim, Fire — trend, level, then an order flow trigger | The Trade Method</title>
+<meta name="description" content="Zach Boydgen's three-step order flow strategy, from an IQ Capital interview: ready (the higher time frame regime, trend or balance), aim (yesterday's value area high, POC and value area low, the prior day high and low, the overnight high and low, VWAP and composite high volume nodes), fire (on the 5-minute, big trades putting in effort without reward at the level, then a rejection). Stop past the fight with room, target the next area of interest, and only at 1:1 or better.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/ready-aim-fire.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Ready, Aim, Fire — trend, level, then an order flow trigger">
+<meta property="og:description" content="Zach Boydgen's three-step order flow strategy, from an IQ Capital interview: ready (the higher time frame regime, trend or balance), aim (yesterday's value area high, POC and value area low, the prior day high and low, the overnight high and low, VWAP and composite high volume nodes), fire (on the 5-minute, big trades putting in effort without reward at the level, then a rejection). Stop past the fight with room, target the next area of interest, and only at 1:1 or better.">
+<meta property="og:url" content="https://thetrademethod.com/setups/ready-aim-fire.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ready, Aim, Fire — trend, level, then an order flow trigger">
+<meta name="twitter:description" content="Zach Boydgen's three-step order flow strategy, from an IQ Capital interview: ready (the higher time frame regime, trend or balance), aim (yesterday's value area high, POC and value area low, the prior day high and low, the overnight high and low, VWAP and composite high volume nodes), fire (on the 5-minute, big trades putting in effort without reward at the level, then a rejection). Stop past the fight with room, target the next area of interest, and only at 1:1 or better.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Ready, Aim, Fire — trend, level, then an order flow trigger",
+ "name": "Ready, Aim, Fire",
+ "description": "Zach Boydgen's three-step order flow strategy, from an IQ Capital interview: ready (the higher time frame regime, trend or balance), aim (yesterday's value area high, POC and value area low, the prior day high and low, the overnight high and low, VWAP and composite high volume nodes), fire (on the 5-minute, big trades putting in effort without reward at the level, then a rejection). Stop past the fight with room, target the next area of interest, and only at 1:1 or better.",
+ "url": "https://thetrademethod.com/setups/ready-aim-fire.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/ready-aim-fire.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-20",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+
+  /* hero link to the indicator */
+  .get-ind { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:#08131f; background:#64d2ff;
+             text-decoration:none; border-radius:9999px; padding:9px 18px; }
+  .get-ind:hover { background:#8cdfff; }
+
+  /* ---------- indicator ---------- */
+  .ind-sec { margin-top:56px; scroll-margin-top:110px; }
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .code-wrap { background:var(--panel); border:1px solid var(--line); border-radius:12px; margin-top:16px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--faint); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#1b2a3e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#26394f; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d9e3; tab-size:4; }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-sec { margin-top:44px; } }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=25">
+<script src="/js/nav.js?v=27" defer></script>
+<script src="/js/site.js?v=54" defer></script>
+<script src="/js/rf-anim.js?v=1" defer></script>
+<style>
+  /* steps across the page, the two panels side by side under them (same as hitchhiker-scalp.html) */
+  .rf-main { grid-template-columns:1fr; gap:22px; }
+  .rf-stages { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .sheet .rf-stages .stage, .sheet .rf-stages .stage:first-child { padding:26px 24px; background:var(--charcoal); align-content:start; }
+  .rf-side { display:grid; grid-template-columns:1fr 1.4fr; gap:16px; align-items:stretch; }
+  .rf-side .panel + .panel { margin-top:0; }
+  .rf-side .timing { grid-template-columns:1fr 1fr; }
+  @media (max-width:1100px) { .rf-stages { grid-template-columns:1fr 1fr; } .rf-side { grid-template-columns:1fr; } }
+  @media (max-width:680px) { .rf-stages { grid-template-columns:1fr; } }
+  /* the stepper (js/rf-anim.js builds it from the six steps) */
+  .rf-stages.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#f5f5f7; }
+  .gs-bar { display:grid; grid-template-columns:repeat(6,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:8.333%; right:8.333%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .rf-stages.is-stepper .stage, .sheet .rf-stages.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .rf-stages.is-stepper .stage .num { display:none; }
+  .sheet .rf-stages.is-stepper .stage[hidden] { display:none; }
+  .sheet .rf-stages.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .rf-stages.is-stepper { padding:20px 12px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:34px; height:34px; font-size:14px; }
+    .gs-line { top:16px; }
+    .gs-bar { margin-bottom:20px; }
+  }
+  /* video (same as hitchhiker-scalp.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+  .watch { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:var(--ink); text-decoration:none;
+           background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); border-radius:9999px; padding:7px 14px 7px 10px; }
+  .watch:hover { background:rgba(255,255,255,0.14); }
+  .watch i { width:0; height:0; border-left:9px solid #ff453a; border-top:6px solid transparent; border-bottom:6px solid transparent; margin-left:4px; }
+
+  .h1-rf { color:#64d2ff; }
+  .ribbon .n { font-size:14px; }
+
+  /* tiles */
+  .vs { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .vs div { background:var(--panel); border:1px solid var(--line); border-top:3px solid #64d2ff; border-radius:11px; padding:16px 17px; }
+  .vs .sc { font-family:var(--mono); font-size:13px; color:#64d2ff; font-weight:700; display:block; margin-bottom:6px; }
+  .vs h3 { margin:0 0 6px; font-size:16px; }
+  .vs p { margin:0; font-size:14px; color:var(--dim); }
+
+  /* the checks and outputs (same look as hitchhiker-scalp.html) */
+  .chk-out { margin-top:14px; border-radius:11px; padding:14px 16px; border:1px solid var(--line); background:var(--panel2); }
+  .chk-out b { display:block; font-size:24px; font-weight:800; letter-spacing:-0.02em; margin-bottom:4px; }
+  .chk-out p { margin:0; font-size:14px; color:var(--dim); }
+  .chk-out.is-a { border-color:#22855a; } .chk-out.is-a b { color:var(--up); }
+  .chk-out.is-b { border-color:#7a5a12; } .chk-out.is-b b { color:var(--gold); }
+  .chk-out.is-no { border-color:#5e2a30; } .chk-out.is-no b { color:var(--down); }
+
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in.four { grid-template-columns:repeat(4,1fr); }
+  .calc-in label { font-size:12px; color:var(--faint); display:block; }
+  .calc-in input, .calc-in select { width:100%; margin-top:4px; background:var(--panel2); color:var(--ink); border:1px solid var(--line); border-radius:8px;
+                   padding:8px 10px; font-family:var(--mono); font-size:15px; }
+  .calc-in input:focus, .calc-in select:focus { outline:2px solid var(--blue); outline-offset:1px; }
+  .calc-in input[type=range] { padding:0; accent-color:#30d158; background:none; border:0; }
+  .calc-in output { font-family:var(--mono); color:var(--ink); font-size:14px; float:right; }
+  .rf-book .calc-in { grid-template-columns:1fr 1fr auto; align-items:end; }
+  .rf-book .warn { margin-top:16px; }
+  .rf-book .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; }
+  .rf-book .reset:hover { background:#3a3a3c; }
+  .rf-two svg, .rf-dev svg { border-radius:14px; }
+  .rf-dev .calc-in { grid-template-columns:1fr; }
+  .rf-two .reset, .rf-dev .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; margin-top:12px; }
+  .h1-rf { color:#bf5af2; }
+  .counts div { border-left-color:#bf5af2; }
+  .vs.rf-vs div { border-top-color:#bf5af2; } .vs.rf-vs .sc { color:#bf5af2; }
+  .size-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .size-grid div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .size-grid b { display:block; font-family:var(--mono); font-size:20px; color:var(--gold); margin-bottom:4px; }
+  .size-grid p { margin:0; color:var(--dim); font-size:13.4px; }
+  @media (max-width:680px) { .size-grid { grid-template-columns:1fr; } }
+
+  /* case table + quotes (same as hitchhiker-scalp.html) */
+  .quote { margin:16px 0 0; padding:14px 18px; border-left:3px solid #64d2ff; background:var(--panel); border-radius:0 11px 11px 0; font-size:16px; }
+  .quote small { display:block; color:var(--faint); font-size:12.5px; margin-top:4px; }
+  .howto { margin:0; padding-left:20px; color:var(--ink); font-size:14.5px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#64d2ff; font-weight:600; }
+  .two-note { margin:14px 0 0; color:var(--dim); font-size:14px; max-width:86ch; }
+  .vcase td.txt { min-width:200px; }
+
+  /* the animation redraws for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .ribbon + .anim { margin-top:8px; }
+  @media (max-width:1100px) {
+    .vs { grid-template-columns:1fr 1fr; }
+    .calc-in.four { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:680px) {
+    /* breathing room around the walkthrough and the charts on small screens (project rule: not packed tight on phones) */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .counts { flex-wrap:wrap; gap:16px 22px; }
+    .vs { grid-template-columns:1fr; }
+    .calc-in, .calc-in.four, .rf-book .calc-in { grid-template-columns:1fr 1fr; }
+    .rf-book .calc-in .reset { grid-column:1 / -1; justify-self:start; }
+    .section-head { margin-top:52px; }
+    .rf-two, .rf-dev, .rf-plan { margin-top:28px; }
+    .risk + .risk, .panel + .risk { margin-top:28px; }
+    .vcase th, .vcase td { padding:9px 8px; }
+    .rf-side .filters, .rf-side .timing { grid-template-columns:1fr !important; }
+  }
+  /* the case table scrolls inside itself on a phone, never the page */
+  .tscroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .tscroll table { min-width:720px; }
+</style>
+
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=42" defer></script>
+
+<style>
+  /* ready, aim, fire page extras (orange, for the trigger) */
+  .h1-rf { color:#ff9f0a; }
+  .thesis em { color:#ff9f0a; }
+  .counts div { border-left-color:#ff9f0a; }
+  .vs.rf-vs div { border-top-color:#ff9f0a; } .vs.rf-vs .sc { color:#ff9f0a; }
+  .quote { border-left-color:#ff9f0a; }
+  .howto b { color:#ff9f0a; }
+  .rf-two svg, .rf-check svg { border-radius:14px; }
+  .rf-two .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; margin-top:12px; }
+  .rf-two .reset:hover, .pre button:hover { background:#3a3a3c; }
+  .pre { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; align-items:center; }
+  .pre button { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; }
+  .pre button[aria-pressed="true"] { background:#ff9f0a; color:#000; }
+  .rf-two-note { margin:12px 0 0; color:var(--dim); font-size:14px; max-width:90ch; }
+  .rf-check .calc-in { grid-template-columns:repeat(4,1fr); }
+  .rf-check .rr-in { grid-column:1 / -1; }
+  .rf-check .rr-in output { font-size:16px; font-weight:700; color:#ff9f0a; }
+  .rf-check input[type=range] { accent-color:#ff9f0a; }
+  .lamps { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:4px 0 0; }
+  .lamps div { display:flex; align-items:center; gap:9px; background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:10px 12px; font-size:14px; font-weight:600; }
+  .rf-lamp { width:12px; height:12px; border-radius:50%; flex:0 0 12px; background:#3a3a3c; }
+  .rf-lamp.is-ok { background:var(--up); box-shadow:0 0 0 4px rgba(48,209,88,0.18); }
+  .rf-lamp.is-warn { background:var(--gold); box-shadow:0 0 0 4px rgba(244,185,66,0.18); }
+  .rf-lamp.is-no { background:var(--down); box-shadow:0 0 0 4px rgba(224,80,90,0.18); }
+  .lvl-table td:first-child { font-weight:700; color:#ff9f0a; }
+  .rf-plan .calc-in { grid-template-columns:repeat(4,1fr); }
+  .rf-ribbon-note { color:var(--faint); font-size:13px; }
+  @media (max-width:1100px) { .rf-check .calc-in, .rf-plan .calc-in { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:680px) {
+    .rf-check, .rf-two, .rf-plan { margin-top:28px; }
+    .pre { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .pre::-webkit-scrollbar { display:none; }
+    .pre button { flex:0 0 auto; }
+    .lamps { grid-template-columns:1fr 1fr; }
+    .rf-check .calc-in, .rf-plan .calc-in { grid-template-columns:1fr 1fr; }
+  }
+</style>
+
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/setups/">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="ready-aim-fire">
+    <div>
+      <p class="kicker">An auction market theory and order flow day trade &middot; NQ and ES futures, daily and 15-minute map, 5-minute trigger, long or short</p>
+      <h1>Ready, Aim, <span class="h1-rf">Fire</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Three pieces, and every trade needs all three. <em>Ready:</em> read the higher time frame, trend or balance. <em>Aim:</em> wait for price to reach a level
+      from yesterday's profile, the overnight session or the composite. <em>Fire:</em> only when order flow shows one side putting in the effort and not getting paid for it.
+      Stop past the fight, target the next level, 1:1 or better.</p>
+      <div class="counts">
+        <div><b>3</b><small>pieces: context, location, trigger</small></div>
+        <div><b>1:1</b><small>the least reward to the next level</small></div>
+        <div><b>~50 ticks</b><small>a starting stop on NQ, past the fight</small></div>
+      </div>
+      <a class="watch" href="#video"><i></i>Watch the video</a>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">1 &middot; ready</div><div class="n">Trend or balance, daily first</div></div>
+    <div><div class="t">2 &middot; aim</div><div class="n">Yesterday, overnight, composite</div></div>
+    <div><div class="t">3 &middot; wait</div><div class="n">Price at a level, ideally stacked</div></div>
+    <div><div class="t">4 &middot; fire</div><div class="n">Effort, no reward, rejection</div></div>
+    <div><div class="t">5 &middot; stop</div><div class="n">Past the fight, with room</div></div>
+    <div><div class="t">6 &middot; target</div><div class="n">The next area of interest</div></div>
+  </nav>
+
+  <section class="anim" data-rf-anim aria-label="Animated walkthrough of a Ready, Aim, Fire short on 5-minute NQ bars">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">8 / 8</p>
+        <h2 class="anim-title">Watch one trade, ready to fire</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 660" role="img" aria-label="Illustrative 5-minute chart of made-up NQ prices drawn as volume profile candles. The daily chart has pulled back off its highs and the last two days are a small balance. Yesterday's value area high is 28,455, its point of control 28,380, its value area low 28,320 and its low 28,000. The overnight high is 28,412 and the overnight low 28,250. Pre-market pokes over yesterday's point of control and fails. The 9:30 bar sells through the value area low, the next through the overnight low: no trade. The 9:40 bar retests above 28,250 with big buy trades of 549, 310 and 220 lots and stalls at 28,284, then closes back under. A short at 28,238 with a stop at 28,297. Each candle's point of control steps lower, a bounce to 28,232 fails, and the trade covers at 28,005, near the prior day low and a composite high volume node: plus 233 points, 3.9R."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main rf-main">
+    <div class="rf-stages" data-rf-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Ready: read the higher time frame</h3>
+          <ul>
+            <li>Start on the daily (or monthly, weekly, daily for pure price action). Higher highs and higher lows? Lower lows and lower highs? Or sweeping back and forth?</li>
+            <li>Trending: trade with it and be careful against it. Balanced: fade the extremes and be careful with breakouts.</li>
+            <li>Check the news: an FOMC week, or a quiet Monday? Before big news, expect more chop.</li>
+          </ul>
+          <p class="why">Not a hard bias, a lean. Constantly shorting a market that breaks the prior day high day after day is how you struggle.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Aim: mark the levels before the open</h3>
+          <ul>
+            <li>From yesterday's full session profile (session changeover to 4 PM): value area high, point of control, value area low. Plus the prior day high and low.</li>
+            <li>The overnight high and low: changeover to 9:30. Today's session VWAP.</li>
+            <li>Big high volume nodes on a composite profile (a year of daily bars is a fair start), and the big GEX walls as secondary levels.</li>
+          </ul>
+          <p class="why">Static levels from yesterday and the overnight, not the developing profile: easier to read order flow against a level already on the chart.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Wait for price to reach a level</h3>
+          <ul>
+            <li>In a trend: a pullback to a level, then trade it in the trend's direction. In balance: the edges, back toward the other side.</li>
+            <li>Best when several levels stack: the POC, VWAP and a composite node at one price.</li>
+            <li>Between levels, you're in the middle of the move. Don't get involved because the market is moving.</li>
+          </ul>
+          <p class="why">The levels are interchangeable. What matters is that price is somewhere traders have reacted before.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Fire: effort without reward, then rejection</h3>
+          <ul>
+            <li>On a 5-minute chart of volume profile candles with big trades: who is putting in effort, and are they being rewarded?</li>
+            <li>A short: buyers push back over the level with size, volume piles up there, price goes nowhere and comes back under.</li>
+            <li>Fire on the break back through (aggressive) or after the candle closes (conservative). A market order, not a limit.</li>
+          </ul>
+          <p class="why">No trigger, no trade. A level with no execution trigger is buying or selling blind, and that gets you smoked.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Stop past the fight, with room</h3>
+          <ul>
+            <li>Past the high the sellers defended (the low the buyers defended, for a long), not pinned right on it.</li>
+            <li>Leave room for a wick or one more test. A starting point on NQ: about 50 ticks, wider in fast markets, tighter in slow ones.</li>
+          </ul>
+          <p class="why">Back through that level, you're dead wrong: the side you bet on lost the fight.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Target the next area of interest</h3>
+          <ul>
+            <li>The next level in the trade's direction: a prior day high or low, the next high volume node, a GEX wall. In balance, the other side of the range.</li>
+            <li>At least 1:1 to the next or the second level. If you can't find it, no trade.</li>
+            <li>Then leave it: no moving the stop, no jumping to break even, no adding.</li>
+          </ul>
+          <p class="why">At coin-flip odds a 1:1 breaks even. Beating 50% by a little, at a little over 1:1, is the whole edge.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="rf-side">
+      <div class="panel">
+        <h4>Two playbooks, one model</h4>
+        <p class="lead">Ready decides which one today is.</p>
+        <div class="timing">
+          <div><b>Trend</b><p>Higher highs and lows (or lower). Wait for a pullback to a level, then trade with the trend: break and retest, or the break if it's aggressive.</p></div>
+          <div><b>Balance</b><p>Ranging, sweeping highs and lows. Fade the edges back toward the other side. A clean break out of balance is the natural loss.</p></div>
+          <div><b>Aggressive</b><p>Sell mid-candle as price breaks back under the level after the buyers failed.</p></div>
+          <div><b>Conservative</b><p>Wait for the candle to close back under, then sell. Fewer fills, cleaner reads.</p></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>When it's off</h4>
+        <p class="lead">Any one missing piece means no trade.</p>
+        <div class="filters kills" style="grid-template-columns:repeat(2,1fr); margin-top:14px;">
+    <div class="filter" style="background:var(--panel2)"><h3>Against the regime</h3><p>Shorting a market that breaks higher day over day, or buying the break of a range that held for a month.</p><p class="kill">Be cautious, or pass.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>No level</h3><p>A good read in the middle of nowhere. Price isn't anywhere traders have reacted before.</p><p class="kill">Wait for a level.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>No trigger</h3><p>A slow grind, no big trades, little volume at the level. It may still move without you.</p><p class="kill">Sit on your hands.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>Under 1:1</h3><p>A big wick forces a wide stop and the next two levels are close.</p><p class="kill">Valid, but not tradable.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The levels on the chart</h2>
+    <p>Everything is levels based: the market moves from one level to the next, and if it breaks one, it heads for the next. The objective ones are marked the same way every day; the composite nodes are drawn as wide zones by eye.</p>
+  </div>
+  <div class="tscroll">
+    <table class="lvl-table">
+      <thead><tr><th>Level</th><th>Where it comes from</th><th>Kind</th><th>How it's used</th></tr></thead>
+      <tbody>
+        <tr><td>Prior day VAH, POC, VAL</td><td class="txt">Yesterday's full session volume profile, from the session changeover through the 4 PM close. The value area holds 70% of the volume.</td><td class="txt">Objective</td><td class="txt">The main areas of interest. Static all day.</td></tr>
+        <tr><td>Prior day high and low</td><td class="txt">Yesterday's range.</td><td class="txt">Objective</td><td class="txt">Frames where we traded; often the next target.</td></tr>
+        <tr><td>Overnight high and low</td><td class="txt">The changeover to 9:30 Eastern (Globex, Asia and London).</td><td class="txt">Objective</td><td class="txt">Where pre-market traded. The overnight low was the winning trade in the video.</td></tr>
+        <tr><td>Session VWAP</td><td class="txt">Today's volume weighted average price, anchored to the session, standard settings.</td><td class="txt">Objective</td><td class="txt">The one developing level used.</td></tr>
+        <tr><td>Composite high volume nodes</td><td class="txt">A visible range profile, or a set number of days (about 15 on the 15-minute chart; a year of daily bars to start).</td><td class="txt">Discretionary</td><td class="txt">Where buyers and sellers agreed on price before: fade them in balance, target them when price is exploring.</td></tr>
+        <tr><td>GEX walls</td><td class="txt">Naive gamma exposure on SPX and NDX: the major call wall, put wall.</td><td class="txt">Secondary</td><td class="txt">Another area of interest, best when it lines up with the others.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="vs rf-vs" style="margin-top:20px">
+    <div><span class="sc">THE LENS</span><h3>Balance, imbalance, balance</h3><p>Auction market theory from top to bottom: price rotates in balance, breaks out to explore, and settles into the next area of balance. High volume nodes are where it settled before.</p></div>
+    <div><span class="sc">WHY STATIC</span><h3>Yesterday's levels, not today's</h3><p>Watching a developing value area high migrate higher and trading off it all day is harder. Levels already on the chart leave the eyes free for the order flow.</p></div>
+    <div><span class="sc">STACKED</span><h3>More than one at a price</h3><p>A pullback to yesterday's POC with VWAP and a composite node at the same price is the best kind of location. One level can be enough; none never is.</p></div>
+  </div>
+
+  <div class="section-head">
+    <h2>Is it a trade?</h2>
+    <p>Set the day and the moment. All three pieces have to agree, and the reward to the next level has to be at least 1:1.</p>
+  </div>
+  <div class="panel rf-check" data-rf-check>
+    <div class="calc-in">
+      <label>Higher time frame<select name="ctx"><option value="down" selected>Downtrend</option><option value="up">Uptrend</option><option value="bal">Balance</option></select></label>
+      <label>Your trade<select name="side"><option value="short" selected>Short</option><option value="long">Long</option></select></label>
+      <label>Location<select name="loc"><option value="stack" selected>At stacked levels</option><option value="one">At one key level</option><option value="middle">Between levels</option></select></label>
+      <label>Order flow<select name="trig"><option value="yes" selected>Big trades, no reward, rejection</option><option value="slow">Slow grind, little volume</option><option value="none">Nothing yet, just the level</option></select></label>
+      <label class="rr-in">Reward to the next (or second) level <output class="rf-rrv">1.50 : 1</output><input name="rr" type="range" min="0.25" max="5" step="0.05" value="1.5"></label>
+    </div>
+    <div class="lamps" aria-hidden="true">
+      <div><span class="rf-lamp" data-lamp></span>Ready</div>
+      <div><span class="rf-lamp" data-lamp></span>Aim</div>
+      <div><span class="rf-lamp" data-lamp></span>Fire</div>
+      <div><span class="rf-lamp" data-lamp></span>1:1 or better</div>
+    </div>
+    <div class="chk-out rf-out" aria-live="polite"></div>
+  </div>
+
+  <div class="section-head">
+    <h2>A winner, and a loser</h2>
+    <p>Both from the video's chart, redrawn on made-up bars. The same read at the same kind of level: once it works, once it doesn't. The model gives you a reasonable place to structure risk, not a prediction.</p>
+  </div>
+  <div class="panel rf-two" data-rf-two>
+    <div class="pre" role="group" aria-label="Pick a trade">
+      <button type="button" data-case="win" aria-pressed="true">The winner: the overnight low</button>
+      <button type="button" data-case="loss" aria-pressed="false">The loser: yesterday's POC</button>
+    </div>
+    <svg viewBox="0 0 1180 420" role="img" aria-label="Two illustrative 5-minute scripts. The winner: price breaks the overnight low, buyers retest it with 549, 310 and 220 lot trades and fail, a short at 28,238 with a stop at 28,297, and value steps lower. The loser: two days earlier, price rallies into yesterday's point of control at 28,380, big buyers are rejected, a short at 28,366 with a stop at 28,412, then price drifts higher and takes the stop for a 1R loss."></svg>
+    <p class="rf-two-note" aria-live="polite"></p>
+    <button type="button" class="reset" data-play>Play again</button>
+  </div>
+  <p class="quote">&ldquo;We are not mind readers here.&rdquo;<small>Zach, on what the model can and can't do. The aim is odds a little better than a coin flip.</small></p>
+
+  <div class="section-head">
+    <h2>Plan the trade</h2>
+    <p>Type the entry, the stop past the fight and the next two levels. The defaults are the walkthrough's short. The dollar risk is only an example; MNQ is $2 a point, NQ $20, MES $5, ES $50.</p>
+  </div>
+  <div class="risk rf-plan">
+    <div class="panel" data-rf-calc>
+      <div class="calc-in">
+        <label>Side<select name="side"><option value="short">Short</option><option value="long">Long</option></select></label>
+        <label>Entry<input name="entry" type="number" inputmode="decimal" step="0.25" value="28238"></label>
+        <label>Stop<input name="stop" type="number" inputmode="decimal" step="0.25" value="28297"></label>
+        <label>Next level<input name="t1" type="number" inputmode="decimal" step="0.25" value="28120"></label>
+        <label>Second level<input name="t2" type="number" inputmode="decimal" step="0.25" value="28005"></label>
+        <label>Contract<select name="ct"><option value="2">MNQ ($2/pt)</option><option value="20">NQ ($20/pt)</option><option value="5">MES ($5/pt)</option><option value="50">ES ($50/pt)</option></select></label>
+        <label>Risk ($)<input name="risk" type="number" inputmode="decimal" step="50" min="0" value="500"></label>
+      </div>
+      <div class="chk-out rf-cout" aria-live="polite"></div>
+      <div class="calc rf-ccalc" aria-live="polite" style="margin-top:14px"></div>
+    </div>
+    <div class="warn">
+      <h4>Hold the trade</h4>
+      <p>The hard part isn't the model. It's waiting for all three pieces, then holding the trade to the target or the stop. After a loss on a good entry, the common mistakes are chasing the next one and going on tilt.</p>
+      <div class="size-grid" style="margin:12px 0">
+        <div><b>~50%+</b><p>His win rate, kept modest: a little over half.</p></div>
+        <div><b>~1:1+</b><p>His average reward to risk: a little over one.</p></div>
+        <div><b>0&ndash;few</b><p>Good entries a day. Some days, none.</p></div>
+      </div>
+      <p style="margin:0 0 6px"><b>Once you're in</b></p>
+      <ul style="margin:0 0 12px; padding-left:18px; font-size:14px">
+        <li style="margin-bottom:5px">Don't move the stop, and don't move it to break even.</li>
+        <li style="margin-bottom:5px">Don't add, don't close early because you're nervous.</li>
+        <li>He sometimes closes early in profit on the order flow, and isn't sure it helps. Beginners do better not touching it.</li>
+      </ul>
+      <p class="big">Choppy weeks: higher win rate, smaller wins. Trending weeks: more stops, bigger winners.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The examples from the video</h2>
+    <p>Real NQ charts in the video (MNQ on the execution chart). Only the prices he reads out are given here.</p>
+  </div>
+  <div class="tscroll">
+    <table class="vcase">
+      <thead><tr><th>Chart</th><th>What he saw</th><th>What he did</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><th>Friday, the open<br><small>the first push</small></th>
+          <td class="txt">Off the highs on the daily, a small balance the last few days. Pre-market tested yesterday's POC; the open sold off hard through it, toward the overnight low.</td>
+          <td class="txt">Nothing. Aggressive and early, with no retest and nothing to read at the level yet.</td>
+          <td class="txt">No trade.</td></tr>
+        <tr><th>Friday, the overnight low<br><small>around 28,250</small></th>
+          <td class="txt">A break of the overnight low, then a retest above it: a 549 lot and other big buyers, heavy volume above the level, the candle's POC lower.</td>
+          <td class="txt">Short as it broke back under (or after the close). Stop above the retest high, wide, with room for another test. Target the prior day low near the 28,000 evens.</td>
+          <td class="txt">A winner. Value kept migrating lower.</td></tr>
+        <tr><th>A couple of days earlier<br><small>yesterday's POC</small></th>
+          <td class="txt">Price pulled back up to the prior day POC right after the open. Buyers with size failed, a rejection, sellers even rewarded for a moment.</td>
+          <td class="txt">Short, targeting the overnight low.</td>
+          <td class="txt">It drifted higher and took the stop. A clear, normal loss.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-head">
+    <h2>How you trade it</h2>
+    <p>Start to finish, for a session into the New York open.</p>
+  </div>
+  <div class="panel">
+    <ol class="howto">
+      <li><b>Ready:</b> daily structure: trending up, down, or balanced? Lean with it. Check the news calendar.</li>
+      <li><b>Aim:</b> on the 15-minute, mark yesterday's value area high, POC and value area low, the prior day high and low, the overnight high and low, VWAP, composite high volume nodes and the big GEX walls.</li>
+      <li><b>Wait:</b> for price to reach a level, ideally several stacked. In a trend, a pullback to it; in balance, an edge.</li>
+      <li><b>Fire:</b> on the 5-minute, watch the big trades and each candle's profile. Effort from one side, no reward, a rejection: market order on the break back through, or after the close.</li>
+      <li><b>Stop:</b> past the high (or low) the other side defended, with room for a wick. About 50 ticks on NQ to start.</li>
+      <li><b>Target:</b> the next area of interest, at least 1:1, or the second one. Under 1:1 to both, skip it.</li>
+      <li><b>Manage:</b> hands off. Hold it to the target or the stop.</li>
+    </ol>
+  </div>
+
+  <section class="video" id="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/AqBhPl7C9r0" title="5th-Place World Cup Trader Reveals His &quot;Dead Simple&quot; Orderflow Strategy (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>IQ Capital's interview with Zach, fifth in the Q3 2026 Futures World Cup Trading Championship: ready, aim, fire on the whiteboard, then a winning and a losing NQ trade on his charts.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=AqBhPl7C9r0" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Context, location, trigger. All three, every time.</h2>
+      <p>The trend without a level puts you in the middle of the move. A level without a trigger is a blind bet. A trigger against the trend fights the big money.
+      Line all three up, structure the risk at 1:1 or better, and hold it.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Ready: trend or balance, from the daily.</li>
+        <li>Aim: yesterday, overnight, composite.</li>
+        <li>Fire: effort, no reward, rejection.</li>
+        <li>Stop past the fight, with room.</li>
+        <li>Next level, 1:1 or better, hands off.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">From IQ Capital's interview with Zach Boydgen on his Ready, Aim, Fire order flow strategy. The rules, the levels and the chart examples are as told in the video; the sponsor segments and the firm's offers are left out. The win rate and reward to risk are his own modest estimates, not audited figures.
+  The walkthrough, the stepper charts, the winner and loser scripts and the planner's default numbers are illustrative, made-up bars, not any market's actual prints.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>
