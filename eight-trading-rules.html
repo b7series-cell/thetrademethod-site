@@ -1,0 +1,991 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eight Trading Rules — how to get profitable again after a slump | The Trade Method</title>
+<meta name="description" content="SMB Capital's eight trading rules to get profitable again after a slump: lower your size and risk, be more selective, shorten your time frame, don't do it alone, one good trade, a daily report card on your entries, keep your heart rate low, and write your solution down and send it. Plus how Shark trades out of a slump.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/eight-trading-rules.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Eight Trading Rules — how to get profitable again after a slump">
+<meta property="og:description" content="SMB Capital's eight trading rules to get profitable again after a slump: lower your size and risk, be more selective, shorten your time frame, don't do it alone, one good trade, a daily report card on your entries, keep your heart rate low, and write your solution down and send it. Plus how Shark trades out of a slump.">
+<meta property="og:url" content="https://thetrademethod.com/eight-trading-rules.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Eight Trading Rules — how to get profitable again after a slump">
+<meta name="twitter:description" content="SMB Capital's eight trading rules to get profitable again after a slump: lower your size and risk, be more selective, shorten your time frame, don't do it alone, one good trade, a daily report card on your entries, keep your heart rate low, and write your solution down and send it. Plus how Shark trades out of a slump.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Eight Trading Rules — how to get profitable again after a slump",
+ "name": "Eight Trading Rules",
+ "description": "SMB Capital's eight trading rules to get profitable again after a slump: lower your size and risk, be more selective, shorten your time frame, don't do it alone, one good trade, a daily report card on your entries, keep your heart rate low, and write your solution down and send it. Plus how Shark trades out of a slump.",
+ "url": "https://thetrademethod.com/eight-trading-rules.html",
+ "mainEntityOfPage": "https://thetrademethod.com/eight-trading-rules.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-20",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.eight { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=25">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the way back: five cards, or a stepper once js/etr-anim.js runs */
+  .etr-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .etr-steps .stage, .sheet .etr-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .etr-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .etr-steps.is-stepper .stage, .sheet .etr-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .etr-steps.is-stepper .stage .num { display:none; }
+  .sheet .etr-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .etr-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .etr-steps + .four { margin-top:28px; }
+  .etr-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .etr-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .etr-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .etr-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .etr-steps { margin-top:24px; }
+  }
+
+  @media (min-width:1101px) { .ribbon.eight { grid-template-columns:repeat(8,1fr); } }
+
+  /* calculator */
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in label { font-size:12px; color:var(--ash); display:block; }
+  .calc-in input { width:100%; margin-top:4px; background:var(--raised); color:var(--silk); border:1px solid #3a3a3c; border-radius:10px;
+                   padding:9px 11px; font:inherit; font-size:15px; font-variant-numeric:tabular-nums; }
+  .calc-in input:focus { outline:2px solid #2997ff; outline-offset:1px; }
+  .presets { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 12px; }
+  .presets .pill { font-size:13px; padding:6px 14px; }
+
+  /* the seven codes as a list of cards */
+  .codes { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:0 0 8px; }
+  .codes a { display:block; background:var(--charcoal); border-radius:18px; padding:14px 16px; color:inherit; text-decoration:none; border-top:3px solid var(--tc, #f4b942); }
+  .codes a:hover b { text-decoration:underline; }
+  .codes .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, #f4b942); }
+  .codes b { display:block; margin-top:4px; font-size:16px; }
+  @media (max-width:1100px) { .codes { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:680px) {
+    .calc-in { grid-template-columns:1fr 1fr; }
+    .codes { grid-template-columns:1fr 1fr; gap:10px; }
+    .codes a { padding:12px 13px; }
+    .codes b { font-size:15px; }
+    .quiz figure { padding:4px; }
+  }
+
+  .sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+  /* which rules fit your slump */
+  .diag { display:grid; grid-template-columns:1.1fr 1fr; gap:24px; align-items:start; }
+  .diag fieldset { border:0; margin:0; padding:0; display:grid; gap:8px; }
+  .diag label { display:flex; gap:10px; align-items:flex-start; background:var(--raised); border-radius:14px; padding:11px 14px; font-size:15px; color:var(--silk); cursor:pointer; }
+  .diag input { margin-top:3px; accent-color:#f4b942; width:17px; height:17px; flex:0 0 auto; }
+  .diag-out { background:var(--raised); border-radius:18px; padding:16px 18px; color:var(--silk); font-size:15px; min-height:120px; }
+  .diag-out p { margin:0 0 8px; }
+  .diag-out ol { margin:0 0 10px; padding-left:20px; }
+  .diag-out li { margin-bottom:4px; }
+  .diag-foot { color:var(--mute); font-size:14px; }
+  .diag-out a { color:#2997ff; }
+  @media (min-width:1101px) { .diag-out { position:sticky; top:90px; } }
+
+  /* report card */
+  .card-rows { display:grid; gap:8px; margin-bottom:14px; }
+  .card-row { display:flex; justify-content:space-between; align-items:center; gap:12px; background:var(--raised); border-radius:12px; padding:8px 12px; font-size:15px; }
+  .card-row select { background:#1d1d1f; color:var(--silk); border:1px solid #3a3a3c; border-radius:9px; padding:7px 10px; font:inherit; font-size:14px; }
+  .card-out { display:flex; gap:14px; align-items:center; color:var(--silk); font-size:14.5px; }
+  .card-grade { flex:0 0 auto; width:54px; height:54px; border-radius:14px; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:800; background:#2c2c2e; }
+  .g-A { color:#30d158; } .g-B { color:#f4b942; } .g-C, .g-D { color:#ff9f0a; } .g-F { color:#ff453a; }
+
+  /* the plan template */
+  .plan { margin:0; padding:16px 18px; background:var(--raised); border-radius:18px; font-family:var(--mono-font); font-size:13.5px; color:var(--silk); white-space:pre-wrap; line-height:1.6; }
+
+  @media (max-width:1100px) { .diag { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .diag label { font-size:14.5px; padding:10px 12px; }
+    .card-row { font-size:14.5px; }
+  }
+</style>
+<script src="/js/nav.js?v=26" defer></script>
+<script src="/js/site.js?v=53" defer></script>
+<script src="/js/etr-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=41" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+
+  <header class="top" data-candle-bg="eight-trading-rules">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; from SMB Capital's "These 8 Trading Rules Can Make You Profitable"</p>
+      <h1>Eight <span>Trading Rules</span></h1>
+    </div>
+    <div>
+      <p class="thesis">You used to be profitable and now you're in a slump. What do you do? Mike Bellafiore of SMB Capital was asked that by one of the firm's own traders, and his answer was eight rules that all do the same thing:
+      <em>make the game easier.</em></p>
+      <div class="counts">
+        <div><b>8</b><small>rules to get profitable again</small></div>
+        <div><b>1</b><small>issue worked on at a time</small></div>
+        <div><b>2</b><small>people who see your written plan</small></div>
+      </div>
+    </div>
+  </header>
+
+  <nav class="ribbon eight" aria-label="The eight trading rules">
+    <div><div class="t">rule 1</div><div class="n">Lower size and risk</div></div>
+    <div><div class="t">rule 2</div><div class="n">Be more selective</div></div>
+    <div><div class="t">rule 3</div><div class="n">Shorter time frame</div></div>
+    <div><div class="t">rule 4</div><div class="n">Don't do it alone</div></div>
+    <div><div class="t">rule 5</div><div class="n">One good trade</div></div>
+    <div><div class="t">rule 6</div><div class="n">Daily report card</div></div>
+    <div><div class="t">rule 7</div><div class="n">Keep heart rate low</div></div>
+    <div><div class="t">rule 8</div><div class="n">Write it down, send it</div></div>
+  </nav>
+
+  <div class="section-head" id="process">
+    <h2>Struggling is normal. Not changing isn't.</h2>
+    <p>Jeff Holden, SMB's head of trader development, asked Mike Bellafiore to join a call with a firm trader who had been profitable and was now in a slump. They listened, asked questions, and found what was causing the underperformance. Then Mike gave the eight rules on this page. The firm's message to struggling traders is two-sided, and both sides matter.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">0</div>
+        <div>
+          <h3>What a slump is, and isn't</h3>
+          <ul>
+            <li><b>It's inevitable.</b> There's nothing wrong with you. Every trader goes through it, and will go through it again. It feels terrible at the time.</li>
+            <li><b>It isn't okay to stay the same.</b> SMB doesn't just tell a struggling trader everything is fine. It won't be, unless they change.</li>
+            <li><b>The fix is a plan.</b> Solutions with effective best practices, and a plan to execute them.</li>
+          </ul>
+          <p class="why">Nobody is owed a profitable month. The video plays Nick Saban's "you're entitled to nothing" speech to make the point: talent without discipline, execution and focus gets you nothing.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Two things can be true</h4>
+        <div class="pair">
+          <div class="yes"><span class="k">okay</span><b>Struggling</b><p>It's part of the process for everyone, at every level, including the firm's best traders.</p></div>
+          <div class="care"><span class="k">not okay</span><b>Struggling and not changing</b><p>Underperforming and doing the same things tomorrow. That's the part you control.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <blockquote class="qb">"Nothing is acceptable but <b>your best.</b>" &mdash; Nick Saban, played in the video</blockquote>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="rules">
+    <h2>The eight rules</h2>
+    <p>Mike's advice in one line: make the game easier. Each rule takes something hard out of the day, so the trader can get back to doing what used to work.</p>
+  </div>
+  <div class="codes">
+    <a href="#rule1" style="--tc:#f4b942"><span class="k">rule 1</span><b>Lower your size and risk</b></a>
+    <a href="#rule2" style="--tc:#30d158"><span class="k">rule 2</span><b>Be more selective</b></a>
+    <a href="#rule3" style="--tc:#2997ff"><span class="k">rule 3</span><b>Shorten your time frame</b></a>
+    <a href="#rule4" style="--tc:#64d2ff"><span class="k">rule 4</span><b>Don't do this alone</b></a>
+    <a href="#rule5" style="--tc:#bf5af2"><span class="k">rule 5</span><b>One good trade</b></a>
+    <a href="#rule6" style="--tc:#ff9f0a"><span class="k">rule 6</span><b>A daily report card on entries</b></a>
+    <a href="#rule7" style="--tc:#ff453a"><span class="k">rule 7</span><b>Keep your heart rate low</b></a>
+    <a href="#rule8" style="--tc:#8e8e93"><span class="k">rule 8</span><b>Write your solution down, send it</b></a>
+  </div>
+
+  <div class="panel" data-etr-diag id="diagnose" style="margin-top:28px">
+    <h4>Which rules fit your slump?</h4>
+    <p class="lead">Tick anything that sounds like your last couple of weeks. The rules that match show up on the right.</p>
+    <div class="diag">
+      <fieldset>
+        <legend class="sr-only">What sounds like you</legend>
+        <label><input type="checkbox" data-rules="1"> My losses are bigger than they used to be</label>
+        <label><input type="checkbox" data-rules="2"> I'm taking trades I'd normally pass on</label>
+        <label><input type="checkbox" data-rules="3"> My trades sit for hours and drift around</label>
+        <label><input type="checkbox" data-rules="4"> Nobody really knows how I'm doing</label>
+        <label><input type="checkbox" data-rules="5,1"> I'm trying to make it all back today</label>
+        <label><input type="checkbox" data-rules="6"> I'm getting in late, or chasing</label>
+        <label><input type="checkbox" data-rules="7"> I feel anxious and rushed at the screen</label>
+        <label><input type="checkbox" data-rules="8"> I keep talking about fixes, but nothing changes</label>
+        <label><input type="checkbox" data-rules="market"> The market changed and my setup stopped working</label>
+      </fieldset>
+      <div class="diag-out" data-diag-out aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="section-head" id="shark">
+    <h2>How Shark trades out of a slump</h2>
+    <p>Before the rules, the video hands over to Shark, one of SMB's most successful traders over the last ten years. He's had to deal with large losses and slumps many times, and says it's also what builds a trader's resilience. Here's his routine, on a made-up month.</p>
+  </div>
+  <section class="anim" data-etr-anim="slump" aria-label="Illustrative made-up month of 21 trading days. An account P&amp;L line falls through a run of red days, with size doubled on days 9 and 10 for the two biggest losses, down to minus 11,400 dollars. A gold line marks when in doubt, get out, and a journal note follows. Then 8 days at half size, mostly small green days. Then three big green days at normal size bring the account back above even, to plus 410 dollars.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The slump, and the way out</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up month of account P&amp;L through a slump and back."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">S</div>
+        <div>
+          <h3>Shark's routine</h3>
+          <ul>
+            <li><b>When in doubt, get out.</b> If you're frozen in a position, get out and reassess. You can always get back in.</li>
+            <li><b>Step away.</b> A one-minute walk around the office or outside. Not being attached to the trade makes for a much better decision.</li>
+            <li><b>Take a personal inventory.</b> Keep a journal and ask why it's happening. A good setup you sized up on that didn't work? Or you're not seeing things well, or the market doesn't suit your style?</li>
+            <li><b>Trade smaller.</b> The urge is to trade bigger and make it back. He admits it can still take him two or three large losses before he trades smaller.</li>
+            <li><b>Book a green day.</b> Then a couple more. Things turn around faster than you'd think, and then a setup comes along that puts the account back in the green.</li>
+          </ul>
+          <p class="why">Social media makes it look like everyone makes money every day. It isn't the truth. Everyone goes through tough times.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The trading coach's version</h4>
+        <p class="lead">The video also quotes Dr. Brett Steenbarger: slumps are common even for seasoned professionals. His three steps line up with Shark's.</p>
+        <div class="timing" style="grid-template-columns:1fr">
+          <div><b>1. Diagnose it early</b><p>Notice the slump before it becomes serious. The journal is how you notice.</p></div>
+          <div><b>2. Reduce risk exposure</b><p>Cut size before the losses get big, not after.</p></div>
+          <div><b>3. Put corrective measures in place</b><p>A specific change, not just waiting for it to pass.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="voices">
+    <h2>What well-known traders say about getting back to making money</h2>
+    <p>The video runs through a list of famous traders' advice for a rough patch. The wording below is the video's summary of each, not a direct quote.</p>
+  </div>
+  <div class="four">
+    <div style="--tc:#f4b942"><span class="k">Mark Douglas</span><h3>Focus on your process</h3><p>Not the money. The things you do on every trade.</p></div>
+    <div style="--tc:#f4b942"><span class="k">Mike Bellafiore</span><h3>Study your past trades</h3><p>What do you do well, and what don't you? Maybe you're taking your lesser trades and not enough of your best ones.</p></div>
+    <div style="--tc:#30d158"><span class="k">Paul Tudor Jones</span><h3>Step back, cut losses</h3><p>Get smaller and get out of the way of the damage.</p></div>
+    <div style="--tc:#30d158"><span class="k">Jesse Livermore</span><h3>Wait for clear opportunities</h3><p>Patience. The obvious trade will come.</p></div>
+    <div style="--tc:#2997ff"><span class="k">Ray Dalio</span><h3>Radical transparency</h3><p>Feedback, and being brutally honest with yourself about your recent trading.</p></div>
+    <div style="--tc:#2997ff"><span class="k">Ed Seykota</span><h3>Manage your emotions</h3><p>Check whether your emotions are leading you to poor decisions.</p></div>
+    <div style="--tc:#bf5af2"><span class="k">Dr. Brett Steenbarger</span><h3>Develop new routines</h3><p>Take a break, then come back with better best practices.</p></div>
+    <div style="--tc:#bf5af2"><span class="k">The common thread</span><h3>Simplify and slow down</h3><p>Every one of them is a way of making the game easier for a while.</p></div>
+  </div>
+
+  <div class="section-head" id="market">
+    <h2>First, rule out the market</h2>
+    <p>At SMB, when a trader slips into a period of underperformance, the first conversation is often about adjusting to a new market. That wasn't the problem here, and it's worth checking before you change anything else.</p>
+  </div>
+  <div class="main">
+    <div>
+      <div class="panel">
+        <div class="pair" style="margin-top:0">
+          <div class="care"><span class="k">when it is the market</span><b>2022: the Fed raises rates</b><p>Buying pullbacks didn't work as well as it had in 2020, 2021 and early 2022. The fix there is adjusting to the new market, like getting on board the AI trend.</p></div>
+          <div class="yes"><span class="k">when it isn't</span><b>This trader</b><p>Not the market and not the strategy. After listening and asking questions, it came down to entries and sizing.</p></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <section class="stage">
+        <div class="num">?</div>
+        <div>
+          <h3>Find the real issue</h3>
+          <ul>
+            <li>Did the market change, so your setup works less often than it used to?</li>
+            <li>Is the strategy itself broken?</li>
+            <li>Or is it you: late entries, too much size, the wrong trades, a tired head?</li>
+          </ul>
+          <p class="why">Changing strategies when the problem is your entries throws away the part that was working. Name the issue first.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="section-head" id="rule1">
+    <h2>Rule 1: lower your size and risk</h2>
+    <p>The first rule, and the one that makes the other seven possible. Same trades, smaller size: the mistakes cost less while you fix them.</p>
+  </div>
+  <section class="anim" data-etr-anim="size" aria-label="Illustrative running P&amp;L of 12 made-up trades, four winners and eight losers, drawn twice: an orange line risking 1,000 dollars a trade and a blue line risking 500 dollars. From the best point to the worst, the orange line gives back 4,500 dollars and the blue line 2,250 dollars.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Same trades, half the hole</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative running P&amp;L of the same trades at two sizes."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Size down until it's fixed</h3>
+          <ul>
+            <li>Cut the size per trade and the total you're willing to lose in a day.</li>
+            <li>Keep it there until the issue you found is fixed, not until you've made the money back.</li>
+            <li>Go back up in steps, after a run of green days.</li>
+          </ul>
+          <p class="why">This trader's issues were entries and sizing. Lower size is half of the fix by itself.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The trap it stops</h4>
+        <div class="pair">
+          <div class="care"><span class="k">the urge</span><b>Size up to get it back</b><p>Natural, and the fastest way to turn a slump into a hole. Shark says even he still does it sometimes.</p></div>
+          <div class="yes"><span class="k">the rule</span><b>Size down, book green</b><p>Smaller losses, a calmer head, and green days that rebuild confidence.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="rule2">
+    <h2>Rule 2: be more selective</h2>
+    <p>Focus on the trades that fall into your lap: the obvious ones you don't have to talk yourself into.</p>
+  </div>
+  <section class="anim" data-etr-anim="select" aria-label="Illustrative made-up 1-minute bars of one morning. Four forced trades in the chop lose 300, lose 450, make 150 and lose 300 dollars, minus 900 together. Two trades that fall into your lap, a clean break and a clean continuation, make 800 and 650 dollars. All six trades total plus 550 dollars; the two lap trades alone total plus 1,450 dollars.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Forced trades vs trades that fall into your lap</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up morning with forced trades and two obvious trades."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Only the obvious ones</h3>
+          <ul>
+            <li>If you have to argue yourself into it, it isn't one.</li>
+            <li>Your best setup, in the right conditions, at a clear level. Everything else waits until you're back.</li>
+            <li>Fewer trades also means fewer decisions under pressure, which helps rule 7.</li>
+          </ul>
+          <p class="why">Studying your past trades usually shows the same thing: the lesser trades cost you, and the really good ones carry you.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <blockquote class="qb">Be more selective: <b>focus on trades that fall into your lap.</b> &mdash; rule 2, as Mike gives it in the video</blockquote>
+    </div>
+  </div>
+
+  <div class="section-head" id="rule3">
+    <h2>Rule 3: shorten your time frame</h2>
+    <p>The longer your time frame, the more intervening factors and randomness can come in. For most active traders, and for this one, a shorter time frame generally leads to more consistent results.</p>
+  </div>
+  <section class="anim" data-etr-anim="time" aria-label="Illustrative chart of where a made-up long can be by how long it is held. Nine random paths start at the entry with a green dashed edge line that rises in the first few minutes. A shaded cone around it stays narrow over the first 10 minutes and widens through the day, with orange markers for a headline, the market turning, lunch chop, a sector move and the close.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The longer the hold, the wider the outcomes</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up paths widening with hold time."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Less time, less noise</h3>
+          <ul>
+            <li>Your setup's edge mostly shows up early, right after the entry.</li>
+            <li>Every extra hour lets in things your setup didn't plan for: a headline, the market turning, chop, a sector move.</li>
+            <li>While you're rebuilding, trade the part of the move your edge explains, and let the rest go.</li>
+          </ul>
+          <p class="why">This is for active, skilled traders working their way back. A swing trader with a working process doesn't need to become a scalper.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>What "shorter" can mean</h4>
+        <ul class="plain">
+          <li>Hold minutes instead of hours.</li>
+          <li>Take the first target, not the runner, for a while.</li>
+          <li>Trade the morning session and stop.</li>
+          <li>Drop a lower time frame for the entry if you've been entering off the higher one.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="rule4">
+    <h2>Rule 4: don't do this alone</h2>
+    <p>Tell a teammate. Ask them to help you be accountable, and share the experience with people who understand it.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Only traders understand</h3>
+          <ul>
+            <li>Nobody understands what it feels like to be a losing trader, an underperforming trader, a trader in drawdown, the way other traders do.</li>
+            <li>Who else works really hard all day and goes home having lost money? Just traders.</li>
+            <li>Support from a teammate helps you feel better, and you feel like you belong with others. Leaning on someone, feeling their empathy and just sharing how you feel helps you get through a period.</li>
+          </ul>
+          <p class="why">At SMB, Jeff Holden, Mike, team leaders and senior traders all mentor. Outside a firm, find one or two traders you trust.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="four" style="grid-template-columns:1fr 1fr">
+        <div style="--tc:#64d2ff"><span class="k">accountability</span><h3>Someone checks</h3><p>A teammate who knows your rules and asks if you followed them.</p></div>
+        <div style="--tc:#64d2ff"><span class="k">support</span><h3>Someone gets it</h3><p>Sharing how you feel takes the weight off a red week.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="rule5">
+    <h2>Rule 5: one good trade</h2>
+    <p>The mantra you want to be whispering to yourself. The self-talk you want in your head.</p>
+  </div>
+  <div class="main">
+    <div>
+      <blockquote class="qb" style="font-size:22px">"One good trade, one good trade, one good trade." <br><b>Just make a good trade.</b></blockquote>
+    </div>
+    <div>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Shrink the goal to one trade</h3>
+          <ul>
+            <li>Not "make back the week". Not even "have a green day". Make the next trade a good one.</li>
+            <li>A good trade is about the process: the right setup, the right entry, the right size. Not whether it made money.</li>
+            <li>String enough of them together and the green days take care of themselves.</li>
+          </ul>
+          <p class="why">It also answers Mark Douglas's advice from the list above: focus on your process.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <div class="section-head" id="rule6">
+    <h2>Rule 6: a daily report card on good entries</h2>
+    <p>Once they found the issue, they targeted it. This trader's entries were sloppy: getting in a little late, chasing. So the work was one daily report card on one thing, done intensively, until it got better.</p>
+  </div>
+  <section class="anim" data-etr-anim="entry" aria-label="Illustrative made-up 1-minute bars basing under a 50.00 level, then breaking it. The stop is 49.85 and the target 50.85 for all three entries. On time at 50.05 risks 20 cents for 80 cents, 4 to 1, grade A. A bit late at 50.35 risks 50 cents for 50 cents, 1 to 1, grade B. Chased at 50.70 risks 85 cents for 15 cents, grade F, and the pullback to 50.42 shakes it out.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">On time, a bit late, chased</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up bars with three entries on the same break, graded."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>One issue, every day</h3>
+          <ul>
+            <li>Pick the one thing that's hurting you most. Here, entries.</li>
+            <li>Grade it on every trade, every day. Review the trades and check you got in at the right times.</li>
+            <li>Get that one thing better before you move on to anything else.</li>
+          </ul>
+          <p class="why">Jeff Holden said he'd follow up with a video on exactly how SMB's desk does a daily report card, with a template many of their traders use.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel" data-etr-card>
+        <h4>Try it: today's report card</h4>
+        <p class="lead">Grade each entry you took today. On time scores 2, a bit late 1, chased 0.</p>
+        <div class="card-rows" data-card-rows></div>
+        <div class="card-out" data-card-out aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="rule7">
+    <h2>Rule 7: keep track of your heart rate, and keep it low</h2>
+    <p>This trader was feeling some anxiety, wasn't seeing the screens well, and was having judgment issues. Dr. Brett Steenbarger has written about using technology to measure your heart rate in real time. When it's low, you make good decisions. When it's up, you don't.</p>
+  </div>
+  <section class="anim" data-etr-anim="heart" aria-label="Illustrative made-up heart rate from 9:30 to 11:30. It sits in a green calm range in the low 70s, jumps over 100 after a loss, and three poor decisions are marked up there: a revenge entry, a moved stop and a double-down. A walk brings it back down into the calm range, where two good decisions are marked: waiting for an A trade and one good trade.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Your heart rate and your decisions</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative made-up heart rate with decisions marked."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">7</div>
+        <div>
+          <h3>Measure it in real time</h3>
+          <ul>
+            <li>With fast data going by, you have to keep your heart rate down to make good decisions.</li>
+            <li>Wear a device that shows it live, and know your calm range.</li>
+            <li>Above it? Treat it like a stop: no new trades until you're back down. Walk, breathe, then look again.</li>
+          </ul>
+          <p class="why">They suggested it to the trader, who was excited to use it in real time. Mike gives Dr. Steenbarger the credit for the idea.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>A simple heart rate rule</h4>
+        <div class="pair">
+          <div class="yes"><span class="k">in range</span><b>Trade your plan</b><p>Seeing the screen well. Take the A trades.</p></div>
+          <div class="care"><span class="k">over range</span><b>Hands off</b><p>No new entries, no moving stops. Step away until it comes down.</p></div>
+        </div>
+        <p class="lead" style="margin:12px 0 0">Your calm range is yours. Measure it on a quiet morning first. The numbers in the walkthrough are made up.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="rule8">
+    <h2>Rule 8: put your solution together and send it</h2>
+    <p>The last rule: they challenged the trader to write up the solution, with effective best practices, and send it to Jeff and to Mike.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">8</div>
+        <div>
+          <h3>From talk to a plan</h3>
+          <ul>
+            <li>Writing it down forces you to get all your thoughts on paper.</li>
+            <li>You commit to the best practices and a plan to execute them, where others can see it.</li>
+            <li>A lot of the time people just talk about solutions, or just listen. This is the step that actually puts the best practices into motion.</li>
+          </ul>
+          <p class="why">Send it to a mentor or a teammate from rule 4. Their seeing it is what makes it real.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>A plan you could send tonight</h4>
+        <p class="lead">An example built from the eight rules. Change it to fit your own issue.</p>
+<pre class="plan">The issue: sloppy entries (late, chasing).
+1. Half size until 5 green days in a row.
+2. Only my A setup. No trade I have to argue for.
+3. Hold for the first target only.
+4. Check in with ___ at 4:00 every day.
+5. One good trade at a time.
+6. Report card on entries after every session.
+7. Heart rate over my calm range = no new trades.
+Review this plan in two weeks.</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="steps">
+    <h2>The way back, step by step</h2>
+    <p>How the eight rules, Shark's routine and the famous traders' advice fit together when you're in a slump. Click through them.</p>
+  </div>
+  <div class="etr-steps" data-etr-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Stop the bleeding</h3>
+          <ul>
+            <li>Frozen in a position? Get out. You can always get back in.</li>
+            <li>Take a break, even a one-minute walk, and reassess away from the screen.</li>
+          </ul>
+          <p class="why">Shark's "when in doubt, get out", and Paul Tudor Jones's step back and cut your losses.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Find the real issue</h3>
+          <ul>
+            <li>Journal it. Is it the market, the strategy, your entries, your size, your head?</li>
+            <li>Be brutally honest. Ask someone who'll tell you.</li>
+          </ul>
+          <p class="why">For the trader in the video: not the market, not the strategy. Entries and sizing.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Make the game easier</h3>
+          <ul>
+            <li>Lower your size and risk (rule 1).</li>
+            <li>Only the trades that fall into your lap (rule 2).</li>
+            <li>A shorter time frame (rule 3).</li>
+          </ul>
+          <p class="why">Smaller, fewer, shorter. Each one takes something hard out of the day.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Work on one thing</h3>
+          <ul>
+            <li>One good trade at a time (rule 5).</li>
+            <li>A daily report card on the one issue (rule 6).</li>
+            <li>Watch your heart rate and keep it in range (rule 7).</li>
+          </ul>
+          <p class="why">Get that one thing better before moving on to anything else.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Write it, send it, book green</h3>
+          <ul>
+            <li>Write the plan and send it to a mentor or teammate (rules 4 and 8).</li>
+            <li>Book a green day, then a couple more. Raise size in steps after that.</li>
+          </ul>
+          <p class="why">A plan other people can see, executed one good trade at a time.</p>
+        </div>
+      </section>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/t0hfAljyEPA" title="These 8 Trading Rules Can Make You Profitable (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Mike Bellafiore of SMB Capital on the eight rules he gave a firm trader in a slump, with Shark on how he handles large losses.</p>
+      <ol>
+        <li><b>0:00</b>A trader in a slump</li>
+        <li><b>0:57</b>Struggle is part of the process</li>
+        <li><b>2:30</b>You're entitled to nothing</li>
+        <li><b>4:25</b>Make the game easier</li>
+        <li><b>4:58</b>Shark on slumps and large losses</li>
+        <li><b>7:03</b>What famous traders say</li>
+        <li><b>8:53</b>Adjusting to a new market</li>
+        <li><b>9:44</b>Rules 1 to 3</li>
+        <li><b>10:29</b>Rule 4: don't do this alone</li>
+        <li><b>11:33</b>Rules 5 and 6</li>
+        <li><b>12:46</b>Rule 7: heart rate</li>
+        <li><b>14:03</b>Rule 8: write it and send it</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=t0hfAljyEPA" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Make the game easier.</h2>
+      <p>A slump isn't a sign that something is wrong with you. Staying in it without changing anything is the only real mistake. Find the one issue, make the game smaller while you fix it, write the plan down, and let someone else see it.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Lower your size and risk.</li>
+        <li>Be more selective: trades that fall into your lap.</li>
+        <li>Shorten your time frame.</li>
+        <li>Don't do this alone.</li>
+        <li>One good trade.</li>
+        <li>A daily report card on one issue.</li>
+        <li>Keep your heart rate low.</li>
+        <li>Write your solution down and send it.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from SMB Capital's video "These 8 Trading Rules Can Make You Profitable" with Mike Bellafiore: the call with a firm trader in a slump, struggle as part of the process, Shark on large losses and slumps (when in doubt get out, a personal inventory, trade smaller, book a green day), Dr. Brett Steenbarger on slumps, the famous traders' advice as the video summarizes it, adjusting to a new market, and the eight rules. Every bar, price, trade, heart rate and dollar figure in the walkthroughs, the report card and the sample plan is made up to show the idea. The video's recruiting segment is left out. Not financial advice.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>
