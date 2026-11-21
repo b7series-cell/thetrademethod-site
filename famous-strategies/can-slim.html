@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/famous-strategies/can-slim.html",
  "mainEntityOfPage": "https://thetrademethod.com/famous-strategies/can-slim.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-11-17",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -197,6 +197,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <style>
   /* ---------- page-only rules (after apple.css so they win) ---------- */
   .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
@@ -343,7 +344,7 @@
   @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-mock { padding:8px; } }
 </style>
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=56" defer></script>
+<script src="/js/site.js?v=58" defer></script>
 <script src="/js/fs-kit.js?v=1" defer></script>
 <script src="/js/fs-can-slim.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
@@ -360,7 +361,7 @@
   <header class="top" data-candle-bg="can-slim">
     <div>
       <p class="kicker">Famous strategies &middot; Stocks &middot; William O'Neil, <i>How to Make Money in Stocks</i>, 1988</p>
-      <h1>CAN <span>SLIM</span></h1>
+      <h1>CAN <span>SLIM</span></h1><!--tested-chip--><a class="tested-chip v-mixed" href="#tested"><i aria-hidden="true"></i>Tested: <b>Slightly better than random</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">What did the biggest stock winners have in common before their big moves? O'Neil's answer is seven letters: strong earnings, something new, heavy buying, market leadership and a rising market. Buy the breakout, and cut every loss at 7 to 8%.
@@ -607,6 +608,24 @@
         </div>
       </section>
   </div>
+
+  <!--tested:start-->
+  <section class="tested v-mixed" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>Slightly better than random</span></div>
+    <h2 id="tested-h">A little better than random entries</h2>
+    <p class="tested-lead">The price and volume rules on the whole market made +1.3% a trade. Random entries on the same days with the same exits made +0.4 to +1.1%.</p>
+    <ul class="tested-stats">
+      <li><b>2,474</b><span>trades, price and volume rules</span></li>
+      <li><b class="pos">+1.3%</b><span>a trade</span></li>
+      <li><b>+0.4 to +1.1%</b><span>random entries</span></li>
+      <li><b class="pos">+1.7%</b><span>with the earnings letters (140 trades)</span></li>
+    </ul>
+    <ul class="tested-notes">
+      <li>Adding C, A and ROE of 17% or more from SEC filings lifted it to +1.7% a trade, but on only 140 trades.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> Every US stock that traded from Nov 2021 to Nov 2026, delisted ones included, so there's no survivorship bias. Company figures from SEC filings, used only from the day they were filed. 0.5 bp a side on SPY, QQQ and ETFs, 5 bp a side on single stocks. Stock returns are price only; ETF returns include dividends. Five years is short for a monthly strategy, and 2022 to 2026 was a strong large-cap market that is hard for any timing rule to beat. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="section-head" id="indicator">
     <h2 class="ind-heading">The indicator</h2>

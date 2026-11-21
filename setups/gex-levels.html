@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/gex-levels.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/gex-levels.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-10-10",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -225,8 +225,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=56" defer></script>
+<script src="/js/site.js?v=58" defer></script>
 <script src="/js/gex-anim.js?v=2" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
 <script src="/js/live-kit.js?v=3" defer></script>
@@ -245,7 +246,7 @@
   <header class="top" data-candle-bg="gex-levels">
     <div>
       <p class="kicker">Options positioning &middot; call wall, put wall, gamma flip &middot; long or short</p>
-      <h1>GEX <span>Levels</span></h1>
+      <h1>GEX <span>Levels</span></h1><!--tested-chip--><a class="tested-chip v-mixed" href="#tested"><i aria-hidden="true"></i>Tested: <b>Levels matter, trades broke even</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">Options dealers hedge, and their hedging leaves fingerprints at a few prices every morning.
@@ -570,6 +571,36 @@
     <aside class="live-side" aria-live="polite"></aside>
   </section>
 
+
+  <!--tested:start-->
+  <section class="tested v-mixed" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>Levels matter, trades broke even</span></div>
+    <h2 id="tested-h">Price reacts to the walls, but trading them broke even</h2>
+    <p class="tested-lead">Every wall signal did better at the real gamma walls than at fake ones, so the levels carry information. Traded mechanically, they came out at about break-even. There are only six weeks of levels so far.</p>
+    <ul class="tested-stats">
+      <li><b>2,831</b><span>signals, 43 tickers</span></li>
+      <li><b>&minus;0.02R</b><span>average, all signals</span></li>
+      <li><b>&minus;0.11R</b><span>same rules on fake levels</span></li>
+      <li><b class="pos">+0.14R</b><span>best signal: put wall breakdown</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Signal</th><th scope="col">Trades</th><th scope="col">Real levels</th><th scope="col">Fake levels (avg)</th></tr></thead>
+      <tbody>
+        <tr><td>Put wall breakdown (short)</td><td>492</td><td>+0.14R</td><td>0.00R</td></tr>
+        <tr><td>Call wall rejection (short)</td><td>451</td><td>+0.02R</td><td>&minus;0.08R</td></tr>
+        <tr><td>Put wall hold (long)</td><td>685</td><td>&minus;0.06R</td><td>&minus;0.23R</td></tr>
+        <tr><td>Flip reclaim (long)</td><td>277</td><td>&minus;0.08R</td><td>&ndash;</td></tr>
+        <tr><td>Flip retest hold (long)</td><td>203</td><td>&minus;0.32R</td><td>&ndash;</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tested-notes">
+      <li>The put wall breakdown isn't proven: fake levels ranged up to +0.18R, and it lost in 2 of the 7 weeks.</li>
+      <li>The warning about fading below the flip didn't show here: wall fades did the same above and below it.</li>
+      <li>This is a first look. It gets re-run as more daily levels build up.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> Recorded GEX levels for 43 tickers, Oct 8 to Nov 17 2026, on 2-minute bars. Each bar uses that day's newest levels, never yesterday's. Enter at the signal close, stop past the level, target the next level, skip anything under 1R, flat at 4:00. Fake levels: each day's levels shifted together by a random 0.5 to 2%. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="section-head">
     <h2 class="ind-heading">Indicator for this setup</h2>

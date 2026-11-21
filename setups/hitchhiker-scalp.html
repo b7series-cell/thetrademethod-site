@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/hitchhiker-scalp.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/hitchhiker-scalp.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-11-04",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -225,8 +225,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=56" defer></script>
+<script src="/js/site.js?v=58" defer></script>
 <script src="/js/hh-anim.js?v=1" defer></script>
 <style>
   /* steps across the page, the two panels side by side under them */
@@ -400,7 +401,7 @@
   <header class="top" data-candle-bg="hitchhiker-scalp">
     <div>
       <p class="kicker">SMB Capital's hitchhiker, adapted &middot; 2-minute scalp, long or short</p>
-      <h1>The Hitchhiker <span class="h1-hh">Scalp</span></h1>
+      <h1>The Hitchhiker <span class="h1-hh">Scalp</span></h1><!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Break-even</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">You can be right about the direction and still lose money, because you chased. Let the stock show you the momentum first, then
@@ -695,6 +696,24 @@
       <li><b>Take about 70% into momentum</b> in small pieces, and trail the last 30% on the prior 2-minute bar.</li>
     </ol>
   </div>
+
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>Break-even</span></div>
+    <h2 id="tested-h">Break-even over 2,291 trades</h2>
+    <p class="tested-lead">The first pullback to the 9 EMA on the 2-minute chart, with the 70/30 exit, roughly paid for its costs and no more.</p>
+    <ul class="tested-stats">
+      <li><b>2,291</b><span>trades, 2-minute</span></li>
+      <li><b>40%</b><span>win rate</span></li>
+      <li><b>1.03</b><span>profit factor</span></li>
+      <li><b>+0.01R</b><span>average per trade</span></li>
+    </ul>
+    <ul class="tested-notes">
+      <li>The test can't pick stocks in play the way the page asks, so it ran on the same 12 tickers every day.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> 5 years of price history, Nov 2021 to Nov 2026, on SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA). Rules coded from this page at its default settings. Fills at the bar close, the stop wins when stop and target are hit in the same bar, 0.5 bp a side for the spread, results in R capped at +10R. Trades before June 2024 are the training half, after it the holdout. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="section-head" id="indicator">
     <h2 class="ind-heading">The indicator</h2>

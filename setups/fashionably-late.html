@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/fashionably-late.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/fashionably-late.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-10-10",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -225,8 +225,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=56" defer></script>
+<script src="/js/site.js?v=58" defer></script>
 <script src="/js/fl-anim.js?v=2" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
 <script src="/js/live-kit.js?v=2" defer></script>
@@ -262,7 +263,7 @@
   <header class="top" data-candle-bg="fashionably-late">
     <div>
       <p class="kicker">Momentum scalp &middot; 9 EMA &times; VWAP &middot; two intraday windows</p>
-      <h1>Fashionably <span>Late</span></h1>
+      <h1>Fashionably <span>Late</span></h1><!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>No edge after costs</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">You don't buy the bottom. <em>You wait for the market to prove the bottom
@@ -639,6 +640,33 @@
       <a class="more" href="https://www.youtube.com/watch?v=zm4ehSDIr0k" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
     </div>
   </section>
+
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>No edge after costs</span></div>
+    <h2 id="tested-h">A small edge before costs, gone after them</h2>
+    <p class="tested-lead">Before costs it made about +0.06R a trade on SPY. Spread and commission take more than that, and on other timeframes and on single stocks it was flat.</p>
+    <ul class="tested-stats">
+      <li><b>848</b><span>trades, SPY 5-minute</span></li>
+      <li><b>28%</b><span>win rate</span></li>
+      <li><b class="neg">&minus;0.18R</b><span>average after 1 bp a side</span></li>
+      <li><b>+0.06R</b><span>average before costs</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Test</th><th scope="col">Avg R</th></tr></thead>
+      <tbody>
+        <tr><td>SPY 1-minute</td><td>&minus;0.09R</td></tr>
+        <tr><td>SPY 5 / 15 / 30-minute</td><td>+0.01 / +0.02 / &minus;0.01R</td></tr>
+        <tr><td>QQQ 5 / 15-minute</td><td>&minus;0.01 / +0.01R</td></tr>
+        <tr><td>10 stocks 5 / 15 / 30-minute</td><td>&minus;0.03 / &minus;0.02 / +0.02R</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tested-notes">
+      <li>Tested on 5-minute and slower bars. The page teaches it on the 2-minute chart, which the test couldn't use, and faster charts only make costs a bigger share of each trade.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> TradingView Deep Backtesting with the bar magnifier on, 2020 to 2026, 1 bp a side or a 1-cent spread, plus a multi-ticker run on 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA). +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="section-head">
     <h2 class="ind-heading">Indicator for this setup</h2>

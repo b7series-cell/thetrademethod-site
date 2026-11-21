@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Do trading setups work? Our test results | The Trade Method</title>
+<meta name="description" content="We coded 41 setups, fundamentals and famous strategies from this site and backtested them on five years of price data, with costs and a random-entry benchmark. One setup beat random entries. Every result, losing ones included.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/tested-results.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Do trading setups work? Our test results">
+<meta property="og:description" content="We coded 41 setups, fundamentals and famous strategies from this site and backtested them on five years of price data, with costs and a random-entry benchmark. One setup beat random entries. Every result, losing ones included.">
+<meta property="og:url" content="https://thetrademethod.com/tested-results.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Do trading setups work? Our test results">
+<meta name="twitter:description" content="We coded 41 setups, fundamentals and famous strategies from this site and backtested them on five years of price data, with costs and a random-entry benchmark. One setup beat random entries. Every result, losing ones included.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Do trading setups work? Our test results",
+ "description": "We coded 41 setups, fundamentals and famous strategies from this site and backtested them on five years of price data, with costs and a random-entry benchmark. One setup beat random entries. Every result, losing ones included.",
+ "url": "https://thetrademethod.com/tested-results.html",
+ "mainEntityOfPage": "https://thetrademethod.com/tested-results.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-21",
+ "inLanguage": "en",
+ "author": {"@type": "Organization", "name": "The Trade Method", "url": "https://thetrademethod.com/"},
+ "publisher": {"@type": "Organization", "name": "The Trade Method", "logo": {"@type": "ImageObject", "url": "https://thetrademethod.com/assets/apple-touch-icon.png"}}
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
+<style>
+  .top { display:grid; }
+  .top h1 span { color:#30d158; }
+  .counts { display:flex; flex-wrap:wrap; }
+  .counts b, .counts small { display:block; }
+  .tr-intro { margin-top:56px; }
+  .tr-intro h2 { margin:0 0 16px; font-size:clamp(28px,3.2vw,38px); font-weight:700; letter-spacing:-0.02em; }
+  .tr-how { margin-top:56px; color:#a1a1a6; font-size:16px; line-height:1.55; max-width:80ch; }
+  .tr-how h2 { color:#f5f5f7; margin:0 0 12px; font-size:clamp(26px,3vw,34px); font-weight:700; letter-spacing:-0.02em; }
+  @media (max-width:760px) { .sheet { padding:32px 16px 64px; } .counts { gap:18px; } }
+</style>
+<script src="/js/nav.js?v=29" defer></script>
+<script src="/js/site.js?v=58" defer></script>
+</head>
+<body>
+
+<div data-gnav></div>
+<div class="sheet">
+
+  <a class="back" href="/">&lsaquo; Home</a>
+
+  <header class="top">
+    <div>
+      <p class="kicker">Our own backtests &middot; losing results included</p>
+      <h1>Tested <span>results</span></h1>
+    </div>
+    <div>
+      <p class="thesis">We took the rules on this site, coded them exactly, and ran them on five years of price data with real
+      costs. Then we asked the question that matters: did they beat random entries with the same stop and target? <em>One setup did.</em></p>
+      <div class="counts">
+        <div><b>41</b><small>pages tested</small></div>
+        <div><b>1</b><small>beat random entries</small></div>
+        <div><b>27</b><small>no edge after costs</small></div>
+      </div>
+      <ul class="tr-tally"><li><span class="tested-chip sm v-edge" style="margin:0"><i aria-hidden="true"></i>Beat random: <b>1</b></span></li><li><span class="tested-chip sm v-mixed" style="margin:0"><i aria-hidden="true"></i>Mixed: <b>9</b></span></li><li><span class="tested-chip sm v-none" style="margin:0"><i aria-hidden="true"></i>No edge: <b>27</b></span></li><li><span class="tested-chip sm v-thin" style="margin:0"><i aria-hidden="true"></i>Not enough data: <b>3</b></span></li><li><span class="tested-chip sm v-info" style="margin:0"><i aria-hidden="true"></i>Accuracy check: <b>1</b></span></li></ul>
+    </div>
+  </header>
+
+  <section class="tr-intro" aria-label="What the tests taught us">
+    <h2>What the tests taught us</h2>
+    <ul class="tr-lessons">
+      <li><b>Beat random, not zero</b><p>Long trend rules on big stocks in a bull market make money almost no matter where you enter. A setup only earns its keep if it beats random entries with the same exits.</p></li>
+      <li><b>Costs eat fast charts</b><p>On 1 to 5-minute bars, a cent of spread is a big share of a tight stop. Several setups were positive before costs and negative after.</p></li>
+      <li><b>Look inside the bar</b><p>3-Candle CRT looked like +0.21R until the test checked what happened inside each bar. Then it lost. Coarse bars flatter tight stops.</p></li>
+      <li><b>Win rate isn't edge</b><p>Volume S/R Rejection won 62% of its trades and still lost a fifth of its risk on each one.</p></li>
+    </ul>
+  </section>
+
+  <section class="tr-group" aria-label="Setups">
+    <h2>Setups</h2>
+    <p>Day trading and swing setups, coded from each page's rules or indicator.</p>
+    <ul class="tr-list">
+      <li><a class="tr-row v-edge" href="/setups/qullamaggie.html#tested"><h3>Qullamaggie Breakout</h3><span class="tested-chip sm v-edge"><i aria-hidden="true"></i><b>Beat random entries</b></span><p>The one setup that beat random entries</p></a></li>
+      <li><a class="tr-row v-mixed" href="/setups/energy-in-the-tank.html#tested"><h3>Energy in the Tank</h3><span class="tested-chip sm v-mixed"><i aria-hidden="true"></i><b>The exit works, not the signal</b></span><p>Profitable, but the squeeze signal isn't why</p></a></li>
+      <li><a class="tr-row v-mixed" href="/setups/gex-levels.html#tested"><h3>GEX Levels</h3><span class="tested-chip sm v-mixed"><i aria-hidden="true"></i><b>Levels matter, trades broke even</b></span><p>Price reacts to the walls, but trading them broke even</p></a></li>
+      <li><a class="tr-row v-thin" href="/setups/knock-twice.html#tested"><h3>Knock Twice</h3><span class="tested-chip sm v-thin"><i aria-hidden="true"></i><b>Too few trades</b></span><p>Too few trades to judge</p></a></li>
+      <li><a class="tr-row v-thin" href="/setups/liquidity-refill.html#tested"><h3>Liquidity Refill</h3><span class="tested-chip sm v-thin"><i aria-hidden="true"></i><b>Can't be tested on bars</b></span><p>Looked great, but the bars can't show the trigger</p></a></li>
+      <li><a class="tr-row v-none" href="/setups/cup-and-handle.html#tested"><h3>Cup and Handle</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>No better than random</b></span><p>Slightly positive, but random stocks did as well</p></a></li>
+      <li><a class="tr-row v-none" href="/setups/zero-lag-pullback.html#tested"><h3>Zero Lag Pullback</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>No edge vs random</b></span><p>Break-even, and random entries did as well</p></a></li>
+      <li><a class="tr-row v-none" href="/setups/fib-ote.html#tested"><h3>Fibonacci OTE</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>No edge vs random</b></span><p>No better than a random entry on the same impulse</p></a></li>
+      <li><a class="tr-row v-none" href="/setups/look-above-and-fail.html#tested"><h3>Look Above and Fail</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>Fake levels did as well</b></span><p>Fake value areas made as much as the real ones</p></a></li>
+      <li><a class="tr-row v-none" href="/setups/three-candle-crt.html#tested"><h3>3-Candle CRT</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>No edge</b></span><p>Near zero on every timeframe</p></a></li>
+      <li><a class="tr-row v-none" href="/setups/fashionably-late.html#tested"><h3>Fashionably Late</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>No edge after costs</b></span><p>A small edge before costs, gone after them</p></a></li>
+      <li><a class="tr-row v-none" href="/setups/pmh-break.html#tested"><h3>PMH Break</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>No edge</b></span><p>Slightly negative over five years</p></a></li>
+      <li><a class="tr-row v-none" href="/setups/hitchhiker-scalp.html#tested"><h3>Hitchhiker Scalp</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>Break-even</b></span><p>Break-even over 2,291 trades</p></a></li>
+      <li><a class="tr-row v-none" href="/setups/volume-profile-system.html#tested"><h3>Volume Profile System</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>No edge</b></span><p>All three setups land at break-even or worse</p></a></li>
+      <li><a class="tr-row v-none" href="/setups/volume-sr-rejection.html#tested"><h3>Volume S/R Rejection</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>Loses</b></span><p>Wins 62% of the time and still loses</p></a></li>
+      <li><a class="tr-row v-none" href="/setups/vwap-reversal.html#tested"><h3>VWAP Reversal</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>No edge</b></span><p>Break-even over 11,000 trades</p></a></li>
+      <li><a class="tr-row v-none" href="/setups/market-memory.html#tested"><h3>Market Memory</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>Loses</b></span><p>Lost a tenth of its risk per trade</p></a></li>
+      <li><a class="tr-row v-none" href="/setups/atr-band-hybrid.html#tested"><h3>ATR Hybrid Scalp</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>Loses</b></span><p>Lost on the index ETFs</p></a></li>
+      <li><a class="tr-row v-none" href="/setups/opening-range-break.html#tested"><h3>Opening Range Break</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>Loses</b></span><p>Lost on 8 of 10 stocks</p></a></li>
+      <li><a class="tr-row v-none" href="/setups/macd-continuation-scalp.html#tested"><h3>MACD Continuation Scalp</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>Loses</b></span><p>Lost on 7 of 10 stocks</p></a></li>
+      <li><a class="tr-row v-none" href="/setups/nine-ema-continuation.html#tested"><h3>9 EMA Continuation</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>Loses</b></span><p>A small loss on a mechanical version</p></a></li>
+      <li><a class="tr-row v-none" href="/setups/qqe-mod.html#tested"><h3>QQE Mod + EMA 50</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>Break-even</b></span><p>Wins almost half the time, and breaks even</p></a></li>
+    </ul>
+  </section>
+  <section class="tr-group" aria-label="Fundamentals">
+    <h2>Fundamentals</h2>
+    <p>Filters, exits and tools from the fundamentals pages, tested on top of a setup.</p>
+    <ul class="tr-list">
+      <li><a class="tr-row v-info" href="/level-radar.html#tested"><h3>Level Radar</h3><span class="tested-chip sm v-info"><i aria-hidden="true"></i><b>Accurate on SPY/QQQ</b></span><p>Well calibrated on index ETFs, too hopeful on single stocks</p></a></li>
+      <li><a class="tr-row v-none" href="/seven-trading-traps.html#tested"><h3>Seven Trading Traps</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>Regime filter: no help</b></span><p>The QQQ regime filter, tested on a setup</p></a></li>
+      <li><a class="tr-row v-none" href="/relative-volume.html#tested"><h3>Relative Volume</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>RVOL filter: no help</b></span><p>An RVOL filter, tested on a setup</p></a></li>
+      <li><a class="tr-row v-none" href="/let-winners-run.html#tested"><h3>Let Winners Run</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>ATR trail lagged</b></span><p>The ATR trail, tested as an exit</p></a></li>
+    </ul>
+  </section>
+  <section class="tr-group" aria-label="Famous strategies">
+    <h2>Famous strategies</h2>
+    <p>Published systems and academic factors, tested on every US stock that traded, delisted ones included.</p>
+    <ul class="tr-list">
+      <li><a class="tr-row v-mixed" href="/famous-strategies/opening-range-breakout.html#tested"><h3>Opening Range Breakout</h3><span class="tested-chip sm v-mixed"><i aria-hidden="true"></i><b>Small edge on QQQ</b></span><p>A small edge on QQQ, losses on single stocks</p></a></li>
+      <li><a class="tr-row v-mixed" href="/famous-strategies/can-slim.html#tested"><h3>CAN SLIM</h3><span class="tested-chip sm v-mixed"><i aria-hidden="true"></i><b>Slightly better than random</b></span><p>A little better than random entries</p></a></li>
+      <li><a class="tr-row v-mixed" href="/famous-strategies/magic-formula.html#tested"><h3>Magic Formula</h3><span class="tested-chip sm v-mixed"><i aria-hidden="true"></i><b>Beat the average stock, not SPY</b></span><p>Beat the average stock, but not the S&amp;P 500</p></a></li>
+      <li><a class="tr-row v-mixed" href="/famous-strategies/value-and-size.html#tested"><h3>Value and Size</h3><span class="tested-chip sm v-mixed"><i aria-hidden="true"></i><b>Value positive, size flat</b></span><p>Value worked, small caps didn't</p></a></li>
+      <li><a class="tr-row v-mixed" href="/famous-strategies/low-volatility.html#tested"><h3>Low-Volatility</h3><span class="tested-chip sm v-mixed"><i aria-hidden="true"></i><b>Lower risk, lower return</b></span><p>Smaller drops, smaller gains</p></a></li>
+      <li><a class="tr-row v-mixed" href="/famous-strategies/ten-month-sma.html#tested"><h3>10-Month SMA</h3><span class="tested-chip sm v-mixed"><i aria-hidden="true"></i><b>Smaller drops, trails holding</b></span><p>Cut the drops, and the gains with them</p></a></li>
+      <li><a class="tr-row v-mixed" href="/famous-strategies/overnight-effect.html#tested"><h3>Overnight Effect</h3><span class="tested-chip sm v-mixed"><i aria-hidden="true"></i><b>Trails holding</b></span><p>Nights beat days before costs, and both trail holding</p></a></li>
+      <li><a class="tr-row v-thin" href="/famous-strategies/rsi-2.html#tested"><h3>RSI(2)</h3><span class="tested-chip sm v-thin"><i aria-hidden="true"></i><b>Too few trades</b></span><p>Works as described, but too rare to judge</p></a></li>
+      <li><a class="tr-row v-none" href="/famous-strategies/dual-momentum.html#tested"><h3>Dual Momentum</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>Trails holding SPY</b></span><p>Trailed simply holding SPY</p></a></li>
+      <li><a class="tr-row v-none" href="/famous-strategies/sector-rotation.html#tested"><h3>Sector Rotation</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>Within noise</b></span><p>About the same as holding every sector</p></a></li>
+      <li><a class="tr-row v-none" href="/famous-strategies/cross-sectional-momentum.html#tested"><h3>Cross-Sectional Momentum</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>Trails the market</b></span><p>Positive, but no better than holding the market</p></a></li>
+      <li><a class="tr-row v-none" href="/famous-strategies/post-earnings-drift.html#tested"><h3>Post-Earnings Drift</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>Weak</b></span><p>A weak drift, positive about half the time</p></a></li>
+      <li><a class="tr-row v-none" href="/famous-strategies/pairs-trading.html#tested"><h3>Pairs Trading</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>No edge</b></span><p>Lost a little on each pair trade</p></a></li>
+      <li><a class="tr-row v-none" href="/famous-strategies/intraday-momentum.html#tested"><h3>Intraday Momentum</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>No edge</b></span><p>The first half hour didn't predict the last</p></a></li>
+      <li><a class="tr-row v-none" href="/famous-strategies/turn-of-the-month.html#tested"><h3>Turn of the Month</h3><span class="tested-chip sm v-none"><i aria-hidden="true"></i><b>No edge here</b></span><p>The turn of the month wasn't special in these years</p></a></li>
+    </ul>
+  </section>
+
+  <section class="tr-how" aria-label="How we tested">
+    <h2>How we tested</h2>
+    <p>Setups ran on SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA), mostly on five years of
+    1-minute to daily bars from Nov 2021 to Nov 2026, with a few earlier TradingView runs back to 2010. Each rule set was coded from the
+    page or its indicator at default settings. Fills at the bar close, the stop wins when stop and target hit in the same bar, and 0.5 to
+    1 bp a side covers the spread. Results are in R, capped at +10R a trade, and split into a training half (before June 2024) and a
+    holdout half. Wherever we could, the same exits ran on random entries, or the same rules on fake levels, as a benchmark.</p>
+    <p>Famous strategies ran on every US stock that traded in those five years, delisted ones included, with company figures from SEC
+    filings used only from the day they were filed.</p>
+    <p>The limits: the 10 stocks were picked with hindsight, five years is short, and some setups (order flow, catalysts, tape) can't be
+    tested from bars. Each page lists its own caveats. Past results don't promise future ones, and nothing here is trading advice.</p>
+  </section>
+
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

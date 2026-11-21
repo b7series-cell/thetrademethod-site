@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/knock-twice.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/knock-twice.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-10-14",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -225,8 +225,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=56" defer></script>
+<script src="/js/site.js?v=58" defer></script>
 <script src="/js/kt-anim.js?v=1" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
 <script src="/js/live-kit.js?v=3" defer></script>
@@ -273,7 +274,7 @@
   <header class="top" data-candle-bg="knock-twice">
     <div>
       <p class="kicker">Break of structure &middot; retest of the old level &middot; 5-minute</p>
-      <h1>Knock <span>Twice</span></h1>
+      <h1>Knock <span>Twice</span></h1><!--tested-chip--><a class="tested-chip v-thin" href="#tested"><i aria-hidden="true"></i>Tested: <b>Too few trades</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">The first break of an old high is a question, not an answer. <em>The trade is the knock: price comes back,
@@ -523,6 +524,22 @@
     </div>
     <aside class="live-side" aria-live="polite"></aside>
   </section>
+
+  <!--tested:start-->
+  <section class="tested v-thin" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>Too few trades</span></div>
+    <h2 id="tested-h">Too few trades to judge</h2>
+    <p class="tested-lead">The rules are strict, so only 33 trades turned up in a 3.5-month test on 10 stocks. Its one-tick stops also got distorted by overnight gaps.</p>
+    <ul class="tested-stats">
+      <li><b>33</b><span>trades, 5-minute</span></li>
+      <li><b>Not judged</b><span>too small a sample</span></li>
+    </ul>
+    <ul class="tested-notes">
+      <li>A five-year run is still to do.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> TradingView backtest of the 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA) together on 5-minute bars, Aug to Nov 2026 (the last 5,000 bars, so about 3.5 months). Rules coded from this page, 0.5 bp a side for the spread. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="section-head">
     <h2 class="ind-heading">Indicators for this setup</h2>

@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/relative-volume.html",
  "mainEntityOfPage": "https://thetrademethod.com/relative-volume.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-10-10",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -196,6 +196,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <style>
   /* ---------- page-only rules (after apple.css so they win) ---------- */
   .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
@@ -259,7 +260,7 @@
   }
 </style>
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=56" defer></script>
+<script src="/js/site.js?v=58" defer></script>
 <script src="/js/rvol-anim.js?v=2" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=2" defer></script>
@@ -275,7 +276,7 @@
   <header class="top" data-candle-bg="relative-volume">
     <div>
       <p class="kicker">Trading fundamentals &middot; not a setup, the participation check behind every breakout</p>
-      <h1>Relative <span>Volume</span></h1>
+      <h1>Relative <span>Volume</span></h1><!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>RVOL filter: no help</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">Price tells you what happened. <em>RVOL tells you how much participation is behind it.</em> The question
@@ -622,6 +623,23 @@
       <a class="more" href="https://www.youtube.com/watch?v=CvRwUoDZiog" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
     </div>
   </section>
+
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>RVOL filter: no help</span></div>
+    <h2 id="tested-h">An RVOL filter, tested on a setup</h2>
+    <p class="tested-lead">We required cumulative RVOL of at least 1.0 at the signal on the Zero Lag Pullback (on top of a market-regime filter). It made the result worse, on a small sample.</p>
+    <ul class="tested-stats">
+      <li><b>44</b><span>trades left, SPY 5-minute</span></li>
+      <li><b>&minus;0.02R</b><span>regime filter only</span></li>
+      <li><b class="neg">&minus;0.18R</b><span>regime + RVOL &ge; 1</span></li>
+    </ul>
+    <ul class="tested-notes">
+      <li>44 trades is too few to say much. RVOL is a filter for picking stocks in play, and this test couldn't pick stocks.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> TradingView Deep Backtesting with the bar magnifier on, 2020 to 2026, 1 bp a side or a 1-cent spread, plus a multi-ticker run on 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA). +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="section-head">
     <h2 class="ind-heading">Indicator for this page</h2>

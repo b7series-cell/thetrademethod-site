@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/zero-lag-pullback.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/zero-lag-pullback.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-10-10",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -225,8 +225,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=56" defer></script>
+<script src="/js/site.js?v=58" defer></script>
 <script src="/js/zl-anim.js?v=2" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
 <script src="/js/live-kit.js?v=3" defer></script>
@@ -262,7 +263,7 @@
   <header class="top" data-candle-bg="zero-lag-pullback">
     <div>
       <p class="kicker">Trend pullback &middot; zero-lag EMA 50 &amp; 100 &middot; volume confirmation</p>
-      <h1>Zero Lag <span>Pullback</span></h1>
+      <h1>Zero Lag <span>Pullback</span></h1><!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>No edge vs random</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">The cross only tells you the trend may have turned. <em>The trade is the pullback that closes between
@@ -621,6 +622,37 @@
       <a class="more" href="https://www.youtube.com/watch?v=BxrBkkarQzQ" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
     </div>
   </section>
+
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>No edge vs random</span></div>
+    <h2 id="tested-h">Break-even, and random entries did as well</h2>
+    <p class="tested-lead">On the 5-minute chart it's about break-even. On slower charts the long side makes money, but random long entries in the same uptrend, with the same stop and 2R target, made just as much.</p>
+    <ul class="tested-stats">
+      <li><b>446</b><span>trades, SPY 5-minute</span></li>
+      <li><b>35%</b><span>win rate</span></li>
+      <li><b>+0.01R</b><span>average per trade</span></li>
+      <li><b>+0.44R vs +0.47R</b><span>4-hour longs vs random longs</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Test</th><th scope="col">Trades</th><th scope="col">Avg R</th></tr></thead>
+      <tbody>
+        <tr><td>SPY 5-minute, both sides</td><td>446</td><td>+0.01R</td></tr>
+        <tr><td>QQQ 5-minute, both sides</td><td>511</td><td>+0.03R</td></tr>
+        <tr><td>NVDA / TSLA / AMD 5-minute</td><td>~530 each</td><td>&minus;0.15 / &minus;0.05 / +0.05R</td></tr>
+        <tr><td>10 stocks, 4-hour, longs</td><td>355</td><td>+0.44R (random +0.47R)</td></tr>
+        <tr><td>10 stocks, daily, longs</td><td>222</td><td>+0.35R (random +0.15R, &plusmn;0.2R by seed)</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tested-notes">
+      <li>Shorts lost on every slower chart (&minus;0.25R on 4-hour and daily).</li>
+      <li>Going flat at 4:00 made it worse (&minus;0.07R): it cuts the winners. Overnight gaps caused 10 to 14R losses on single stocks.</li>
+      <li>A market-regime filter and an RVOL filter didn't help.</li>
+      <li>The long-side profit comes from being long these stocks in a bull market, not from the pullback and volume trigger.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> TradingView Deep Backtesting with the bar magnifier on, 2020 to 2026, 1 bp a side or a 1-cent spread, plus a multi-ticker run on 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA). +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="section-head">
     <h2 class="ind-heading">Indicators for this setup</h2>

@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/famous-strategies/post-earnings-drift.html",
  "mainEntityOfPage": "https://thetrademethod.com/famous-strategies/post-earnings-drift.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-11-17",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -197,6 +197,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <style>
   /* ---------- page-only rules (after apple.css so they win) ---------- */
   .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
@@ -343,7 +344,7 @@
   @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-mock { padding:8px; } }
 </style>
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=56" defer></script>
+<script src="/js/site.js?v=58" defer></script>
 <script src="/js/fs-kit.js?v=1" defer></script>
 <script src="/js/fs-post-earnings-drift.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
@@ -360,7 +361,7 @@
   <header class="top" data-candle-bg="post-earnings-drift">
     <div>
       <p class="kicker">Famous strategies &middot; Stocks &middot; Bernard and Thomas, <i>Journal of Accounting Research</i>, 1989</p>
-      <h1>Post-Earnings <span>Drift</span></h1>
+      <h1>Post-Earnings <span>Drift</span></h1><!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Weak</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">Does a stock that blows out its earnings keep going after the first day? Score every company's surprise against its own history, buy the biggest beats, short the biggest misses, and hold for about a quarter.
@@ -654,6 +655,22 @@
         </div>
       </section>
   </div>
+
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>Weak</span></div>
+    <h2 id="tested-h">A weak drift, positive about half the time</h2>
+    <p class="tested-lead">The biggest earnings surprises beat the biggest misses by about 1% over the next 60 days, and that held in only 11 of 20 quarters.</p>
+    <ul class="tested-stats">
+      <li><b>+1.0%</b><span>per 60 days, top minus bottom tenth</span></li>
+      <li><b>11 of 20</b><span>quarters positive</span></li>
+    </ul>
+    <ul class="tested-notes">
+      <li>The surprise was measured from the 10-Q filing date, which comes after the press release, so some of the drift had already happened. Consensus estimates weren't available.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> Every US stock that traded from Nov 2021 to Nov 2026, delisted ones included, so there's no survivorship bias. Company figures from SEC filings, used only from the day they were filed. 0.5 bp a side on SPY, QQQ and ETFs, 5 bp a side on single stocks. Stock returns are price only; ETF returns include dividends. Five years is short for a monthly strategy, and 2022 to 2026 was a strong large-cap market that is hard for any timing rule to beat. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="section-head" id="indicator">
     <h2 class="ind-heading">The indicator</h2>

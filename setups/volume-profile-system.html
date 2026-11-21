@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/volume-profile-system.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/volume-profile-system.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-10-10",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -229,8 +229,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=56" defer></script>
+<script src="/js/site.js?v=58" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
 <script src="/js/live-kit.js?v=2" defer></script>
 <script src="/js/examples/vp.js?v=1" defer></script><script src="/js/example-kit.js?v=1" defer></script><script src="/js/vp-live.js?v=6" defer></script>
@@ -266,7 +267,7 @@
   <header class="top" data-candle-bg="volume-profile-system">
     <div>
       <p class="kicker">Volume profile &middot; point of control, value area, breakout &middot; long or short</p>
-      <h1>Volume Profile <span>System</span></h1>
+      <h1>Volume Profile <span>System</span></h1><!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>No edge</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">One tool, read three different ways depending on how the prior session closed:
@@ -574,6 +575,29 @@
       <a class="more" href="https://www.youtube.com/watch?v=Xa2fB097ajs" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
     </div>
   </section>
+
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>No edge</span></div>
+    <h2 id="tested-h">All three setups land at break-even or worse</h2>
+    <p class="tested-lead">Almost 15,000 trades across the prior-close bounce, the value-area reversal and the value-area breakout, and none of them made money.</p>
+    <ul class="tested-stats">
+      <li><b>14,779</b><span>trades, 5-minute</span></li>
+      <li><b>38%</b><span>win rate</span></li>
+      <li><b>0.98</b><span>profit factor</span></li>
+      <li><b>&minus;0.01R</b><span>average per trade</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Setup</th><th scope="col">Avg R</th></tr></thead>
+      <tbody>
+        <tr><td>Prior-close bounce</td><td>&minus;0.09R</td></tr>
+        <tr><td>Value-area breakout</td><td>+0.01R</td></tr>
+        <tr><td>Value-area reversal</td><td>0.00R</td></tr>
+      </tbody>
+    </table></div>
+    <p class="tested-how"><b>How we tested.</b> 5 years of price history, Nov 2021 to Nov 2026, on SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA). Rules coded from this page at its default settings. Fills at the bar close, the stop wins when stop and target are hit in the same bar, 0.5 bp a side for the spread, results in R capped at +10R. Trades before June 2024 are the training half, after it the holdout. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="section-head">
     <h2 class="ind-heading">Indicator for this setup</h2>

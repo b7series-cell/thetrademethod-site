@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/energy-in-the-tank.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/energy-in-the-tank.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-10-10",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -207,8 +207,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=56" defer></script>
+<script src="/js/site.js?v=58" defer></script>
 <script src="/js/anim-kit.js?v=2" defer></script>
 <script src="/js/eit-anim.js?v=1" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
@@ -246,7 +247,7 @@
   <header class="top" data-candle-bg="energy-in-the-tank">
     <div>
       <p class="kicker">Volatility cycle &middot; multi-timeframe squeeze + volume &middot; daily or higher</p>
-      <h1>Energy in the <span>Tank</span></h1>
+      <h1>Energy in the <span>Tank</span></h1><!--tested-chip--><a class="tested-chip v-mixed" href="#tested"><i aria-hidden="true"></i>Tested: <b>The exit works, not the signal</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">Volatility moves in cycles &mdash; compression builds energy, expansion spends it.
@@ -612,6 +613,37 @@
       <a class="more" href="https://www.youtube.com/watch?v=pyS_jw8ygJo" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
     </div>
   </section>
+
+  <!--tested:start-->
+  <section class="tested v-mixed" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>The exit works, not the signal</span></div>
+    <h2 id="tested-h">Profitable, but the squeeze signal isn't why</h2>
+    <p class="tested-lead">On 13 large caps it made money, mostly from a handful of multi-year holds. A plain 20-day breakout with the same exits did better than the squeeze and volume signal.</p>
+    <ul class="tested-stats">
+      <li><b>126</b><span>trades, 13 large caps, daily</span></li>
+      <li><b>22%</b><span>win rate</span></li>
+      <li><b class="pos">+2.3%</b><span>a trade 2020&ndash;26, capped at +50%</span></li>
+      <li><b class="pos">+3.5%</b><span>plain 20-day breakout, same exits</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Version</th><th scope="col">Trades</th><th scope="col">Win %</th><th scope="col">Avg a trade</th></tr></thead>
+      <tbody>
+        <tr><td>Setup exits, capped at +50%, 2010&ndash;19</td><td>71</td><td>25%</td><td>+3.9%</td></tr>
+        <tr><td>Setup exits, capped at +50%, 2020&ndash;26</td><td>55</td><td>18%</td><td>+2.3%</td></tr>
+        <tr><td>Plain 20-day breakout, same exits, 2020&ndash;26</td><td>167</td><td>17%</td><td>+3.5%</td></tr>
+        <tr><td>Setup + ATR trail (Let Winners Run)</td><td>166</td><td>45%</td><td>+0.36%</td></tr>
+        <tr><td>Setup exits, 13 sector and index ETFs</td><td>69</td><td>6%</td><td>+3.7%</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tested-notes">
+      <li>Uncapped, the average trade was +36%, but that's NVDA, TSLA and AVGO held for years. Capping each trade shows the everyday result.</li>
+      <li>The setup's own exit, holding until a daily close back under the breakout, beat an ATR trail by a wide margin.</li>
+      <li>On ETFs, 4 winners carried the whole result and only 4 of the 13 were positive.</li>
+      <li>The 13 stocks are today's winners, picked with hindsight. It needs a run on an unbiased stock list before it can be trusted.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> TradingView backtest of 13 large caps together on daily bars, 2010 to 2026, 1 bp a side, fixed position size. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="rule">
     <div>

@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/level-radar.html",
  "mainEntityOfPage": "https://thetrademethod.com/level-radar.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-11-17",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -197,6 +197,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <style>
   /* ---------- page-only rules (after apple.css so they win) ---------- */
   .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
@@ -360,7 +361,7 @@
   }
 </style>
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=56" defer></script>
+<script src="/js/site.js?v=58" defer></script>
 <script src="/js/lrad-anim.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=36" defer></script>
@@ -376,7 +377,7 @@
   <header class="top" data-candle-bg="level-radar">
     <div>
       <p class="kicker">Trading fundamentals &middot; from The Good, The Bad And The Bitcoin's "I Stopped Guessing Where Price Goes Today"</p>
-      <h1>Level <span>Radar</span></h1>
+      <h1>Level <span>Radar</span></h1><!--tested-chip--><a class="tested-chip v-info" href="#tested"><i aria-hidden="true"></i>Tested: <b>Accurate on SPY/QQQ</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">Every day trader watches the same levels: yesterday's high, low and close, the overnight high and low, today's open, the opening range. A line can't tell you how likely price is to get there with the time that's left. Level Radar puts a number on it.
@@ -666,6 +667,35 @@
   </div>
 
   <section class="ind-sec" id="indicator" aria-label="TradingView indicator">
+  <!--tested:start-->
+  <section class="tested v-info" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>Accurate on SPY/QQQ</span></div>
+    <h2 id="tested-h">Well calibrated on index ETFs, too hopeful on single stocks</h2>
+    <p class="tested-lead">We checked whether its odds come true. On SPY and QQQ a level marked 60 to 70% got touched about 62% of the time. On single stocks the odds ran 8 to 11 points too high in the middle range.</p>
+    <ul class="tested-stats">
+      <li><b class="pos">+29%</b><span>better than a flat forecast (Brier score), SPY/QQQ</span></li>
+      <li><b>1&ndash;3 pts</b><span>typical miss, SPY/QQQ</span></li>
+      <li><b class="neg">8&ndash;11 pts</b><span>too optimistic, single stocks</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Radar said</th><th scope="col">SPY/QQQ touched</th><th scope="col">10 stocks touched</th></tr></thead>
+      <tbody>
+        <tr><td>10&ndash;20%</td><td>15.2%</td><td>7.9%</td></tr>
+        <tr><td>40&ndash;50%</td><td>42.7%</td><td>34.5%</td></tr>
+        <tr><td>60&ndash;70%</td><td>62.1%</td><td>55.6%</td></tr>
+        <tr><td>80&ndash;90%</td><td>84.7%</td><td>80.6%</td></tr>
+        <tr><td>90&ndash;100%</td><td>94.6%</td><td>93.5%</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tested-notes">
+      <li>Yesterday's high and low got touched less than forecast (about 40% against 48%). The overnight high and low and the opening range ran about 6 points optimistic.</li>
+      <li>Its built-in history is index futures, which is why it fits SPY and QQQ better than single stocks.</li>
+      <li>It's a good map of what's likely today. It isn't a trade signal on its own.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> The script's odds model coded from its Pine, run on 5-minute bars of SPY, QQQ and 10 large-cap stocks, 2021 to 2026, and scored like its own scoreboard. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
+
     <div class="section-head" style="margin-top:56px">
       <h2 class="ind-heading">The indicator</h2>
       <p class="ind-note">Level Radar [GBB] by The Good, The Bad And The Bitcoin, free and open source on TradingView (Pine Script v6). It draws the levels and their odds, the panel and the scoreboard, and alerts on touches. It doesn't place trades. A NinjaTrader version is linked from the video.</p>

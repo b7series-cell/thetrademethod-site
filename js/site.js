@@ -92,6 +92,57 @@
     { href: "/blog/introducing-backtest-board.html", title: "Do TradingView indicators beat random entries?", date: "2026-10-31", tag: "Backtesting", blurb: "No. Introducing Backtest Board: 45 TradingView indicators, 28 markets, 10 timeframes and 23,608 backtests; after costs, none clearly beats random entries." }
   ];
 
+  /* TESTED-START: written by _docs/build_tested.py from _docs/tested_data.py; edit there.
+     href -> [verdict, chip text]. Feeds the card chips and the Tested filter. */
+  var TESTED = {
+    "/setups/qullamaggie.html": ["edge", "Beat random entries"],
+    "/setups/energy-in-the-tank.html": ["mixed", "The exit works, not the signal"],
+    "/setups/cup-and-handle.html": ["none", "No better than random"],
+    "/setups/zero-lag-pullback.html": ["none", "No edge vs random"],
+    "/setups/fib-ote.html": ["none", "No edge vs random"],
+    "/setups/look-above-and-fail.html": ["none", "Fake levels did as well"],
+    "/setups/three-candle-crt.html": ["none", "No edge"],
+    "/setups/fashionably-late.html": ["none", "No edge after costs"],
+    "/setups/pmh-break.html": ["none", "No edge"],
+    "/setups/hitchhiker-scalp.html": ["none", "Break-even"],
+    "/setups/volume-profile-system.html": ["none", "No edge"],
+    "/setups/volume-sr-rejection.html": ["none", "Loses"],
+    "/setups/vwap-reversal.html": ["none", "No edge"],
+    "/setups/market-memory.html": ["none", "Loses"],
+    "/setups/atr-band-hybrid.html": ["none", "Loses"],
+    "/setups/opening-range-break.html": ["none", "Loses"],
+    "/setups/macd-continuation-scalp.html": ["none", "Loses"],
+    "/setups/nine-ema-continuation.html": ["none", "Loses"],
+    "/setups/qqe-mod.html": ["none", "Break-even"],
+    "/setups/knock-twice.html": ["thin", "Too few trades"],
+    "/setups/liquidity-refill.html": ["thin", "Can't be tested on bars"],
+    "/setups/gex-levels.html": ["mixed", "Levels matter, trades broke even"],
+    "/level-radar.html": ["info", "Accurate on SPY/QQQ"],
+    "/seven-trading-traps.html": ["none", "Regime filter: no help"],
+    "/relative-volume.html": ["none", "RVOL filter: no help"],
+    "/let-winners-run.html": ["none", "ATR trail lagged"],
+    "/famous-strategies/opening-range-breakout.html": ["mixed", "Small edge on QQQ"],
+    "/famous-strategies/can-slim.html": ["mixed", "Slightly better than random"],
+    "/famous-strategies/magic-formula.html": ["mixed", "Beat the average stock, not SPY"],
+    "/famous-strategies/value-and-size.html": ["mixed", "Value positive, size flat"],
+    "/famous-strategies/low-volatility.html": ["mixed", "Lower risk, lower return"],
+    "/famous-strategies/ten-month-sma.html": ["mixed", "Smaller drops, trails holding"],
+    "/famous-strategies/dual-momentum.html": ["none", "Trails holding SPY"],
+    "/famous-strategies/sector-rotation.html": ["none", "Within noise"],
+    "/famous-strategies/cross-sectional-momentum.html": ["none", "Trails the market"],
+    "/famous-strategies/post-earnings-drift.html": ["none", "Weak"],
+    "/famous-strategies/pairs-trading.html": ["none", "No edge"],
+    "/famous-strategies/rsi-2.html": ["thin", "Too few trades"],
+    "/famous-strategies/intraday-momentum.html": ["none", "No edge"],
+    "/famous-strategies/turn-of-the-month.html": ["none", "No edge here"],
+    "/famous-strategies/overnight-effect.html": ["mixed", "Trails holding"]
+  };
+  /* TESTED-END */
+  function testedChip(href) {
+    var t = TESTED[href];
+    return t ? '<span class="tested-chip sm v-' + t[0] + '"><i aria-hidden="true"></i>Tested: <b>' + esc(t[1]) + "</b></span>" : "";
+  }
+
   var GROUPS = {
     open:  { name: "The opening drive",         short: "Opening drive", desc: "Built around the open, when range, volume, and premarket levels decide the first move.", swatch: "#2e3642" },
     day:   { name: "All session",               short: "All session",   desc: "Work any time the market is open, built on VWAP, MACD, ATR bands, and yesterday's levels.", swatch: "#c8d8e0" },
@@ -297,6 +348,7 @@
       '<h4 style="margin-top:18px">Famous strategies</h4>' +
       STRAT_LIVE.map(function (x) { return '<a href="' + esc(x.href) + '">' + esc(x.title) + "</a>"; }).join("") +
       '<a href="/famous-strategies/">All strategies</a>' +
+      '<h4 style="margin-top:18px">Tested</h4><a href="/tested-results.html">Our test results</a>' +
       '<h4 style="margin-top:18px">Blog</h4>' +
       POSTS.slice(0, 3).map(function (b) { return '<a href="' + esc(b.href) + '">' + esc(b.title) + "</a>"; }).join("") +
       '<a href="/blog/">All posts</a>' + "</div>";
@@ -475,13 +527,14 @@
     if (!grid || !bar) return;
     var P = hubParams();
     var pick = function (k, ok) { var v = P.get(k); return ok.indexOf(v) !== -1 ? v : "all"; };
-    var state = { session: pick("session", ["open", "day", "swing"]), side: pick("side", ["long", "short", "both"]), q: P.get("q") || "" };
+    var state = { session: pick("session", ["open", "day", "swing"]), side: pick("side", ["long", "short", "both"]), tested: pick("tested", ["yes", "edge"]), q: P.get("q") || "" };
     bar.innerHTML =
       '<label class="hub-search"><span class="sr">Search setups</span><input type="search" placeholder="Search setups, e.g. VWAP" value="' + esc(state.q) + '" autocomplete="off"></label>' +
       chipRow("Session", "session", [["all", "All"], ["open", GROUPS.open.short], ["day", GROUPS.day.short], ["swing", GROUPS.swing.short]], state.session) +
       chipRow("Side", "side", [["all", "All"]].concat([["long", "Long only"], ["short", "Short only"], ["both", "Long or short"]].filter(function (o) {
         return live.some(function (s) { return s.side === o[0]; });
-      })), state.side);
+      })), state.side) +
+      chipRow("Tested", "tested", [["all", "All"], ["yes", "Tested"], ["edge", "Beat random"]], state.tested);
     var count = document.getElementById("setup-count");
     var empty = document.getElementById("setup-empty");
     var order = newest ? [newest].concat(live.slice(0, -1)) : live;
@@ -489,13 +542,14 @@
       var list = order.filter(function (s) {
         return (state.session === "all" || groupOf(s) === state.session) &&
                (state.side === "all" || s.side === state.side) &&
+               (state.tested === "all" || (TESTED[s.href] && (state.tested === "yes" || TESTED[s.href][0] === "edge"))) &&
                matches(state.q, [s.nav, s.title, s.thesis, s.session].join(" "));
       });
       grid.innerHTML = list.map(function (s) {
         var ind = fileIndicators(s);
         return '<a class="gcard" href="' + esc(s.href) + '">' +
           '<div class="top"><span>' + (s === newest ? '<span class="new">New</span> · ' : "") + '<span class="grp">' + esc(GROUPS[groupOf(s)].short) + " · </span>" + sideText(s.side) + '</span><span class="tnum">' + esc(s.session) + "</span></div>" +
-          "<h3>" + esc(s.nav) + "</h3><p>" + esc(s.thesis) + "</p>" +
+          "<h3>" + esc(s.nav) + "</h3><p>" + esc(s.thesis) + "</p>" + testedChip(s.href) +
           '<div class="foot"><span>' + s.stages + " stages · " + s.filters + " filters" + (ind ? " · " + ind + " indicator" + (ind > 1 ? "s" : "") : "") +
           '</span><span class="more">Learn more &rsaquo;</span></div></a>';
       }).join("");
@@ -528,7 +582,7 @@
         return (state.type === "all" || fundKind(f) === state.type) && matches(state.q, [f.title, f.kind, f.blurb].join(" "));
       });
       grid.innerHTML = list.map(function (f) {
-        return '<a class="fcard" href="' + esc(f.href) + '"><span class="k">' + esc(f.kind) + "</span><h3>" + esc(f.title) + "</h3><p>" + esc(f.blurb) + '</p><span class="more">Read &rsaquo;</span></a>';
+        return '<a class="fcard" href="' + esc(f.href) + '"><span class="k">' + esc(f.kind) + "</span><h3>" + esc(f.title) + "</h3><p>" + esc(f.blurb) + "</p>" + testedChip(f.href) + '<span class="more">Read &rsaquo;</span></a>';
       }).join("");
       if (count) count.textContent = list.length === FUNDAMENTALS.length ? "All " + FUNDAMENTALS.length + " pages" : list.length + " of " + FUNDAMENTALS.length + " pages";
       if (empty) empty.hidden = list.length > 0;
@@ -540,7 +594,7 @@
 
   /* ---------- famous strategies: homepage band (#strat-cards) and hub (/famous-strategies/) ---------- */
   function stratCard(x) {
-    var inner = '<span class="k">' + esc(x.market) + " &middot; " + esc(x.who) + "</span><h3>" + esc(x.title) + "</h3><p>" + esc(x.blurb) + "</p>";
+    var inner = '<span class="k">' + esc(x.market) + " &middot; " + esc(x.who) + "</span><h3>" + esc(x.title) + "</h3><p>" + esc(x.blurb) + "</p>" + (x.live ? testedChip(x.href) : "");
     return x.live
       ? '<a class="scard" href="' + esc(x.href) + '">' + inner + '<span class="more">Read &rsaquo;</span></a>'
       : '<div class="scard is-soon" aria-disabled="true">' + inner + '<span class="soon">Coming soon</span></div>';
@@ -632,7 +686,7 @@
      each page's description and section headings, so a hit on a heading
      links straight to that section. Bump SEARCH_INDEX_URL's ?v= after
      rebuilding the index. */
-  var SEARCH_INDEX_URL = "/js/search-index.js?v=34";
+  var SEARCH_INDEX_URL = "/js/search-index.js?v=36";
   var searchDocs = null, searchIndexState = "";
 
   function searchBase() {

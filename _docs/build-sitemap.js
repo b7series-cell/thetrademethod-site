@@ -51,6 +51,7 @@ const EXTRA_PAGES = [
   { loc: "/famous-strategies/magic-formula.html", priority: "0.7" },
   { loc: "/famous-strategies/pairs-trading.html", priority: "0.7" },
   { loc: "/famous-strategies/post-earnings-drift.html", priority: "0.7" },
+  { loc: "/tested-results.html", priority: "0.8" },
   { loc: "/edge.html", priority: "0.6" },
   { loc: "/mistakes.html", priority: "0.6" },
   { loc: "/price-action-rules.html", priority: "0.6" },
