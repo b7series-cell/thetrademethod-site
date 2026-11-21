@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/opening-range-break.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/opening-range-break.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-10-10",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -207,8 +207,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <script src="/js/nav.js?v=28" defer></script>
-<script src="/js/site.js?v=55" defer></script>
+<script src="/js/site.js?v=57" defer></script>
 <script src="/js/anim-kit.js?v=2" defer></script>
 <script src="/js/orb-anim.js?v=1" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
@@ -246,7 +247,7 @@
   <header class="top" data-candle-bg="opening-range-break">
     <div>
       <p class="kicker">Opening range breakout &middot; first 15&ndash;30 minutes &middot; long or short</p>
-      <h1>Opening Range <span>Break</span></h1>
+      <h1>Opening Range <span>Break</span></h1><!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Loses</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">The first 15 to 30 minutes prints a range while big players build positions.
@@ -616,6 +617,26 @@
       <a class="more" href="https://www.youtube.com/watch?v=KFqSicS7HOo" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
     </div>
   </section>
+
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>Loses</span></div>
+    <h2 id="tested-h">Lost on 8 of 10 stocks</h2>
+    <p class="tested-lead">A 15-minute range, a break on 1.5 times average volume and a one-ATR target lost money over a short, recent sample.</p>
+    <ul class="tested-stats">
+      <li><b>249</b><span>trades, 5-minute</span></li>
+      <li><b>36%</b><span>win rate</span></li>
+      <li><b>0.76</b><span>profit factor</span></li>
+      <li><b class="neg">&minus;0.15R</b><span>average per trade</span></li>
+    </ul>
+    <ul class="tested-notes">
+      <li>Only 2 of the 10 stocks were positive.</li>
+      <li>The sample is about 3.5 months, so it's a first look, not a verdict.</li>
+      <li>The page's higher-time-frame story can't be coded, so it's left out.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> TradingView backtest of the 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA) together on 5-minute bars, Aug to Nov 2026 (the last 5,000 bars, so about 3.5 months). Rules coded from this page, 0.5 bp a side for the spread. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="rule">
     <div>

@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/look-above-and-fail.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/look-above-and-fail.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-11-17",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -256,8 +256,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <script src="/js/nav.js?v=28" defer></script>
-<script src="/js/site.js?v=55" defer></script>
+<script src="/js/site.js?v=57" defer></script>
 <script src="/js/laf-anim.js?v=1" defer></script>
 <style>
   /* steps across the page, the two panels side by side under them (same as hitchhiker-scalp.html) */
@@ -420,7 +421,7 @@
   <header class="top" data-candle-bg="look-above-and-fail">
     <div>
       <p class="kicker">A prop trader's balance-day scalp &middot; NQ and ES, 2-minute, long or short</p>
-      <h1>Look Above <span class="h1-laf">and Fail</span></h1>
+      <h1>Look Above <span class="h1-laf">and Fail</span></h1><!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Fake levels did as well</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">Markets range more than they trend, and in a range the money is made at the edges. Let the day's volume profile build for 30 minutes,
@@ -695,6 +696,33 @@
       <li><b>Three stops in the same range:</b> done with it. Wait for a new range.</li>
     </ol>
   </div>
+
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>Fake levels did as well</span></div>
+    <h2 id="tested-h">Fake value areas made as much as the real ones</h2>
+    <p class="tested-lead">On 5-minute bars it looked profitable. Then the same rules ran on fake value-area edges, moved in or out by a quarter of the range, and made the same. On 1-minute bars, the most realistic test, it lost on SPY and QQQ.</p>
+    <ul class="tested-stats">
+      <li><b>30,489</b><span>trades, 10 stocks, 5-minute</span></li>
+      <li><b>+0.21R</b><span>real value area, 5-minute</span></li>
+      <li><b class="neg">+0.26R</b><span>fake edges moved in 25%</span></li>
+      <li><b class="neg">&minus;0.07R</b><span>SPY/QQQ, 1-minute</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Bars</th><th scope="col">SPY / QQQ</th><th scope="col">10 stocks</th></tr></thead>
+      <tbody>
+        <tr><td>1-minute</td><td>&minus;0.07R (9,436)</td><td>0.00R (40,155)</td></tr>
+        <tr><td>2-minute</td><td>+0.02R (8,740)</td><td>+0.07R (36,193)</td></tr>
+        <tr><td>5-minute</td><td>+0.20R (7,167)</td><td>+0.22R (30,489)</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tested-notes">
+      <li>The profit comes from bar size, not the value area: the entry fills inside the edge partway through a bar, and the trade is only managed from the next bar. Coarser bars flatter that.</li>
+      <li>It's built for NQ and ES futures. SPY and QQQ stood in for them. A fair test needs tick data on the futures.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA), Nov 2021 to Nov 2026, on 1, 2 and 5-minute bars. Rules from this page's indicator at its defaults, 0.5 bp a side. Fake edges: the same rules with the value area high and low moved out or in by 25% or 50% of its width. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <section class="ind-sec" id="indicator" aria-label="TradingView indicator">
     <h2 class="ind-heading">The indicator</h2>

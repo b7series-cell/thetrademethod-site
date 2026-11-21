@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/qullamaggie.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/qullamaggie.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-10-20",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -225,8 +225,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <script src="/js/nav.js?v=28" defer></script>
-<script src="/js/site.js?v=55" defer></script>
+<script src="/js/site.js?v=57" defer></script>
 <script src="/js/qm-anim.js?v=1" defer></script>
 <style>
   /* steps across the page, the two panels side by side under them */
@@ -341,7 +342,7 @@
   <header class="top" data-candle-bg="qullamaggie">
     <div>
       <p class="kicker">Momentum swing trade &middot; daily chart, 5-minute entry &middot; Kristjan Kullam&auml;gi</p>
-      <h1>Qulla<span>maggie</span></h1>
+      <h1>Qulla<span>maggie</span></h1><!--tested-chip--><a class="tested-chip v-edge" href="#tested"><i aria-hidden="true"></i>Tested: <b>Beat random entries</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">Find the stocks that have already moved the most. Wait for one to rest in a tight, orderly base on top of its 10 and 20-day
@@ -576,6 +577,37 @@
       <tr><th>Market</th><td class="txt" colspan="2">Only in a rising market (index 10-day over the 20-day)</td><td class="txt">Any market</td></tr>
     </tbody>
   </table>
+
+  <!--tested:start-->
+  <section class="tested v-edge" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>Beat random entries</span></div>
+    <h2 id="tested-h">The one setup that beat random entries</h2>
+    <p class="tested-lead">Of every setup on this site we could code, this is the only one that clearly did better than random entries with the same exits. It still loses on most trades: the profit comes from a few big trend trades.</p>
+    <ul class="tested-stats">
+      <li><b>158</b><span>trades, daily + 5-minute ORH</span></li>
+      <li><b>35%</b><span>win rate</span></li>
+      <li><b class="pos">+0.63R</b><span>average per trade</span></li>
+      <li><b class="neg">&minus;0.21R</b><span>random entries, same exits</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Entry</th><th scope="col">Trail</th><th scope="col">Trades</th><th scope="col">Avg R</th></tr></thead>
+      <tbody>
+        <tr><td>1-minute opening range</td><td>10-day</td><td>176</td><td>+0.62R</td></tr>
+        <tr><td>5-minute opening range</td><td>10-day</td><td>158</td><td>+0.62R</td></tr>
+        <tr><td>15-minute opening range</td><td>20-day</td><td>110</td><td>+0.84R</td></tr>
+        <tr><td>30-minute opening range</td><td>20-day</td><td>97</td><td>+1.00R</td></tr>
+        <tr><td>Daily close</td><td>20-day</td><td>82</td><td>+0.87R</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tested-notes">
+      <li>Positive in both halves: +0.47R before June 2024, +0.75R after, and on 11 of the 11 tickers that traded.</li>
+      <li>Each filter adds to it. A plain opening-range break on any day made +0.03R; add the uptrend, the tight base and the 30% prior move and it climbs to +0.63R.</li>
+      <li>The catch: it lost in 2022 (&minus;0.73R) and so far in 2026 (&minus;0.39R). The median trade is a 1R loss, and the top 5 trades made 46 of the 99R.</li>
+      <li>The real setup scans the whole market for the top 1 to 2% of movers. This test only had 12 hand-picked tickers, which flatters it. A whole-market run is next.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> 5 years of price history, Nov 2021 to Nov 2026, on SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA). Rules coded from this page at its default settings. Fills at the bar close, the stop wins when stop and target are hit in the same bar, 0.5 bp a side for the spread, results in R capped at +10R. Trades before June 2024 are the training half, after it the holdout. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="rule">
     <div>

@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/pmh-break.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/pmh-break.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-10-10",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -251,8 +251,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <script src="/js/nav.js?v=28" defer></script>
-<script src="/js/site.js?v=55" defer></script>
+<script src="/js/site.js?v=57" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
 <script src="/js/live-kit.js?v=2" defer></script>
 <script src="/js/examples/pmh.js?v=1" defer></script><script src="/js/example-kit.js?v=1" defer></script>
@@ -289,7 +290,7 @@
   <header class="top" data-candle-bg="pmh-break">
     <div>
       <p class="kicker">Opening drive playbook · 2-minute chart · first 25 minutes</p>
-      <h1>PMH <span>Break</span></h1>
+      <h1>PMH <span>Break</span></h1><!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>No edge</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">There is one trade here, and it is the break of the premarket high.
@@ -711,6 +712,21 @@
       <a class="more" href="https://www.youtube.com/watch?v=CAAIzHsKsYM" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
     </div>
   </section>
+
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>No edge</span></div>
+    <h2 id="tested-h">Slightly negative over five years</h2>
+    <p class="tested-lead">With premarket highs on 2-minute bars, the opening-drive break above the premarket high lost a little on average.</p>
+    <ul class="tested-stats">
+      <li><b>188</b><span>trades, 2-minute</span></li>
+      <li><b>37%</b><span>win rate</span></li>
+      <li><b>0.94</b><span>profit factor</span></li>
+      <li><b class="neg">&minus;0.03R</b><span>average per trade</span></li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> 5 years of price history, Nov 2021 to Nov 2026, on SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA). Rules coded from this page at its default settings. Fills at the bar close, the stop wins when stop and target are hit in the same bar, 0.5 bp a side for the spread, results in R capped at +10R. Trades before June 2024 are the training half, after it the holdout. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="section-head">
     <h2 class="ind-heading">Indicator for this setup</h2>

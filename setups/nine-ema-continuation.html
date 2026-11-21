@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/nine-ema-continuation.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/nine-ema-continuation.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-10-10",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -207,8 +207,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <script src="/js/nav.js?v=28" defer></script>
-<script src="/js/site.js?v=55" defer></script>
+<script src="/js/site.js?v=57" defer></script>
 <script src="/js/anim-kit.js?v=2" defer></script>
 <script src="/js/ema9-anim.js?v=1" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
@@ -245,7 +246,7 @@
   <header class="top" data-candle-bg="nine-ema-continuation">
     <div>
       <p class="kicker">9 EMA continuation &middot; off a breakout on volume &middot; long-biased</p>
-      <h1>9 EMA <span>Continuation</span></h1>
+      <h1>9 EMA <span>Continuation</span></h1><!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Loses</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">A stock breaks out on real volume. <em>You don't chase it &mdash; you wait for the
@@ -595,6 +596,24 @@
       <a class="more" href="https://www.youtube.com/watch?v=LDavMu7hxcM" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
     </div>
   </section>
+
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>Loses</span></div>
+    <h2 id="tested-h">A small loss on a mechanical version</h2>
+    <p class="tested-lead">A breakout on volume, then the first close back above the 9 EMA after the first touch, half off at 2R and the rest trailed on the 9 EMA.</p>
+    <ul class="tested-stats">
+      <li><b>552</b><span>trades, 5-minute</span></li>
+      <li><b>30%</b><span>win rate</span></li>
+      <li><b>0.87</b><span>profit factor</span></li>
+      <li><b class="neg">&minus;0.06R</b><span>average per trade</span></li>
+    </ul>
+    <ul class="tested-notes">
+      <li>4 of the 10 stocks were positive. About 3.5 months of data.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> TradingView backtest of the 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA) together on 5-minute bars, Aug to Nov 2026 (the last 5,000 bars, so about 3.5 months). Rules coded from this page, 0.5 bp a side for the spread. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="rule">
     <div>

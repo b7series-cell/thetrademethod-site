@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/let-winners-run.html",
  "mainEntityOfPage": "https://thetrademethod.com/let-winners-run.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-10-10",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -196,8 +196,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <script src="/js/nav.js?v=28" defer></script>
-<script src="/js/site.js?v=55" defer></script>
+<script src="/js/site.js?v=57" defer></script>
 <script src="/js/lwr-anim.js?v=2" defer></script>
 <script src="/js/anim-kit.js?v=2" defer></script>
 <script src="/js/lwrside-anim.js?v=1" defer></script>
@@ -232,7 +233,7 @@
   <header class="top" data-candle-bg="let-winners-run">
     <div>
       <p class="kicker">Trading fundamentals &middot; not a setup, three exit rules that let a winning trade keep paying</p>
-      <h1>Let Winners <span>Run</span></h1>
+      <h1>Let Winners <span>Run</span></h1><!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>ATR trail lagged</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">Most traders already cut their losers fine. <em>They lose money by cutting their winners short,</em> selling at
@@ -591,6 +592,24 @@
       <a class="more" href="https://www.youtube.com/watch?v=hZZUEBCb5eE" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
     </div>
   </section>
+
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>ATR trail lagged</span></div>
+    <h2 id="tested-h">The ATR trail, tested as an exit</h2>
+    <p class="tested-lead">On the Energy in the Tank breakout, rule 2's ATR trail took small wins often. Holding until a daily close back under the breakout made far more per trade.</p>
+    <ul class="tested-stats">
+      <li><b>166</b><span>trades, 13 large caps, daily</span></li>
+      <li><b>45%</b><span>win rate with the trail</span></li>
+      <li><b>+0.36%</b><span>a trade with the ATR trail</span></li>
+      <li><b class="pos">+2.3 to +3.9%</b><span>a trade with the setup's own exit</span></li>
+    </ul>
+    <ul class="tested-notes">
+      <li>It fits Linda Raschke's point that a trailing stop is rarely the best exit for a trend trade.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> TradingView backtest of 13 large caps on daily bars, 2010 to 2026, 1 bp a side. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="section-head">
     <h2 class="ind-heading">Indicator for these exits</h2>
