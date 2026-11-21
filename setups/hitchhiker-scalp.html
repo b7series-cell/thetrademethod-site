@@ -712,7 +712,8 @@
       average volume as a percent of the move's. A bar that takes out the prior bar's high (or low, short) marks the entry a tick past it; if the pullback
       ran heavier than the move it marks &ldquo;Skip&rdquo; instead. The stop is a 2-minute close past the 21 EMA, tightened to the most recent low (high) once the move's
       extreme is taken out. Each new high in profit trims two 5% pieces up to 70%, then the last 30% is out on a break of the prior bar. Only the first
-      pullback after a move is taken. Every number is a setting.</p>
+      pullback after a move is taken. Anything still open is closed on the last bar of the regular session, so a scalp is never held overnight.
+      Two optional switches under Session: entries in the first hour only, and strong moves only (2.5&times; normal volume). Every number is a setting.</p>
       <p class="ind-blurb" style="color:var(--dim)">Two things stay with you: whether the stock is really in play (news, earnings, a theme, a key level) and what
       the market is doing. The panel shows RVOL as a hint. The 60% and 100% volume lines are ours, not the video's.</p>
       <div class="ind-links">
@@ -749,6 +750,10 @@
 //                    bars that push to new highs (lows). The last 30% is
 //                    trailed on the prior bar: out when a bar breaks the
 //                    prior bar's low (long) or high (short).
+//   7. The session   It's a scalp: anything still open is closed on the
+//                    last regular-session bar, never held overnight.
+//                    Optional: entries in the first hour only, and a
+//                    strong-volume filter on the move (2.5x normal).
 //
 // "In play" (news, earnings, a theme, a key level) and the market's
 // direction are still your call; the panel shows RVOL as a hint.
@@ -782,6 +787,13 @@ trimPiece  = input.float(5, "Each piece (%)", minval = 1, maxval = 100, group = 
 piecesBar  = input.int(2, "Pieces per new-high bar", minval = 1, group = grpX)
 tighten    = input.bool(true, "Tighten to the most recent low/high on a new extreme", group = grpX)
 
+grpT = "Session"
+flatClose  = input.bool(true, "Flat at the close (no overnight holds)", group = grpT)
+firstHour  = input.bool(false, "Entries in the first hour only", group = grpT)
+winMins    = input.int(60, "First hour: minutes after the open", minval = 5, maxval = 390, group = grpT)
+strongVol  = input.bool(false, "Strong moves only: move volume at least (x normal)", inline = "sv", group = grpT)
+strongX    = input.float(2.5, "", minval = 1.0, step = 0.1, inline = "sv", group = grpT)
+
 grpV = "Display"
 showEma    = input.bool(true, "Show the 9 and 21 EMAs", group = grpV)
 showTrims  = input.bool(true, "Mark each trim", group = grpV)
@@ -807,11 +819,19 @@ upBars  = math.sum(close &gt; open ? 1 : 0, moveBars)
 dnBars  = math.sum(close &lt; open ? 1 : 0, moveBars)
 mVol    = ta.sma(volume, moveBars)
 mNorm   = volNorm[moveBars]
-volOk   = mNorm &gt; 0 and mVol &gt;= moveVolX * mNorm
+volOk   = mNorm &gt; 0 and mVol &gt;= (strongVol ? math.max(moveVolX, strongX) : moveVolX) * mNorm
 moveUp   = allowLong  and net &gt;=  moveAtr * atr and upBars &gt;= moveBars - 2 and volOk and close - e9 &gt;= extAtr * atr
 moveDown = allowShort and net &lt;= -moveAtr * atr and dnBars &gt;= moveBars - 2 and volOk and e9 - close &gt;= extAtr * atr
 hhMove  = ta.highest(high, moveBars)
 llMove  = ta.lowest(low, moveBars)
+
+// the session: regular-hours bars in New York time, the entry window, the last bar
+inRTH     = not timeframe.isintraday or not na(time(timeframe.period, "0930-1600:23456", "America/New_York"))
+winEnd    = 9 * 60 + 30 + winMins
+nyMins    = hour(time, "America/New_York") * 60 + minute(time, "America/New_York")
+inWindow  = inRTH and (not firstHour or not timeframe.isintraday or nyMins &lt; winEnd)
+lastBar   = timeframe.isintraday and session.islastbar_regular
+newDay    = timeframe.isintraday and session.isfirstbar_regular
 
 // ---------------- state ----------------
 // 0 idle · 1 move in, waiting for the pullback · 2 at the 9 EMA, waiting for the turn · 3 in the trade
@@ -847,7 +867,12 @@ bool aExit  = false
 // only a move that started after it counts, so the 2nd, 3rd... pullback is never taken.
 int  mdir     = moveUp ? 1 : moveDown ? -1 : 0
 bool fresh    = na(lastEnd) or bar_index - moveBars &gt;= lastEnd
-bool startNew = state &lt;= 2 and mdir != 0 and fresh and (state == 0 or mdir != dir)
+bool startNew = state &lt;= 2 and mdir != 0 and fresh and (state == 0 or mdir != dir) and inWindow and not (flatClose and lastBar)
+
+// a setup still hunting when the window shuts (or the day ends) is dropped
+if (state == 1 or state == 2) and not startNew and (not inWindow or (flatClose and (lastBar or newDay)))
+    state   := 0
+    lastEnd := bar_index
 
 if startNew
     state    := 1
@@ -912,8 +937,12 @@ else if state == 1 or state == 2
 else if state == 3
     float exitPx = na
     string why = ""
+    // 0. a trade that somehow reached a new day (data gap): out at the open
+    if flatClose and newDay
+        exitPx := open
+        why    := "New day · out at the open"
     // 1. the stop: a close past the 21 EMA
-    if dir == 1 ? close &lt; e21 : close &gt; e21
+    if na(exitPx) and (dir == 1 ? close &lt; e21 : close &gt; e21)
         exitPx := close
         why    := "Close past the 21"
     // 2. the tightened stop
@@ -924,6 +953,10 @@ else if state == 3
     if na(exitPx) and runner and (dir == 1 ? low &lt; low[1] : high &gt; high[1])
         exitPx := dir == 1 ? math.min(open, low[1] - tick) : math.max(open, high[1] + tick)
         why    := "Prior bar broken"
+    // 4. the close: a scalp is never held overnight
+    if na(exitPx) and flatClose and lastBar
+        exitPx := close
+        why    := "Flat at the close"
     if na(exitPx)
         bool newBest = dir == 1 ? high &gt; best : low &lt; best
         if newBest
@@ -989,8 +1022,7 @@ alertcondition(aEntry, "Hitchhiker: entry", "The pullback turned at the 9 EMA: e
 alertcondition(aSkip,  "Hitchhiker: skip (heavy volume)", "The pullback came in on heavier volume than the move: skip it")
 alertcondition(aTight, "Hitchhiker: tighten", "New extreme past the move: stop to the most recent low/high")
 alertcondition(aTrim,  "Hitchhiker: trim", "New extreme in profit: trim a piece")
-alertcondition(aExit,  "Hitchhiker: exit", "Stop, tight stop or prior bar broken: out")
-</code></pre>
+alertcondition(aExit,  "Hitchhiker: exit", "Stop, tight stop, prior bar broken or the close: out")</code></pre>
   </div>
 
   <section class="video" id="video" aria-label="Video">
