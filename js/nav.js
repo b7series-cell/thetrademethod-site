@@ -557,6 +557,21 @@ const SETUPS = [
     indicators: []
   }
 
+  ,{
+    slug:    "ict-made-simple",
+    href:    "/setups/ict-made-simple.html",
+    nav:     "ICT Made Simple",
+    title:   "ICT Made Simple — the Whole Framework on Two Time Frames",
+    thesis:  "Strip ICT down to what moves the needle. Map it on the high time frame: an obvious trend, a close through the swing, the range from the significant low to high and its 0.5, an order block, breaker or fair value gap in the discount, and the draw on liquidity. When price reaches that POI, zoom in and enter on the low time frame breaker. Stop under the turn, target external range liquidity.",
+    session: "Any market · two time frames, weekly/daily to 1-hour/5-minute",
+    group:   "swing",
+    side:    "both",
+    stages:  6,
+    filters: 4,
+    status:  "live",
+    indicators: []
+  }
+
   /* -------------------------------------------------------------------
      Copy this block for the next setup. Keep the trailing comma on the
      entry above when you do. Leave `indicators` as an empty array if a
