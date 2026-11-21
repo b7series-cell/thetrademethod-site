@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ICT Made Simple — the whole framework on two time frames | The Trade Method</title>
+<meta name="description" content="Trader Mayne's whole ICT framework as one setup: trend (obvious higher highs and higher lows, three candle swings), structure (a close through the swing is a market structure break), the range (significant low to high of the current leg, the 0.5, premium and discount, the 0.618 to 0.786 OTE), three points of interest (order blocks, breakers, fair value gaps), and external and internal range liquidity. Then two time frames: at the high time frame POI, zoom in and enter on the low time frame breaker, stop under the turn, target external range liquidity.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/ict-made-simple.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="ICT Made Simple — the whole framework on two time frames">
+<meta property="og:description" content="Trader Mayne's whole ICT framework as one setup: trend (obvious higher highs and higher lows, three candle swings), structure (a close through the swing is a market structure break), the range (significant low to high of the current leg, the 0.5, premium and discount, the 0.618 to 0.786 OTE), three points of interest (order blocks, breakers, fair value gaps), and external and internal range liquidity. Then two time frames: at the high time frame POI, zoom in and enter on the low time frame breaker, stop under the turn, target external range liquidity.">
+<meta property="og:url" content="https://thetrademethod.com/setups/ict-made-simple.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ICT Made Simple — the whole framework on two time frames">
+<meta name="twitter:description" content="Trader Mayne's whole ICT framework as one setup: trend (obvious higher highs and higher lows, three candle swings), structure (a close through the swing is a market structure break), the range (significant low to high of the current leg, the 0.5, premium and discount, the 0.618 to 0.786 OTE), three points of interest (order blocks, breakers, fair value gaps), and external and internal range liquidity. Then two time frames: at the high time frame POI, zoom in and enter on the low time frame breaker, stop under the turn, target external range liquidity.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "ICT Made Simple — the whole framework on two time frames",
+ "name": "ICT Made Simple",
+ "description": "Trader Mayne's whole ICT framework as one setup: trend (obvious higher highs and higher lows, three candle swings), structure (a close through the swing is a market structure break), the range (significant low to high of the current leg, the 0.5, premium and discount, the 0.618 to 0.786 OTE), three points of interest (order blocks, breakers, fair value gaps), and external and internal range liquidity. Then two time frames: at the high time frame POI, zoom in and enter on the low time frame breaker, stop under the turn, target external range liquidity.",
+ "url": "https://thetrademethod.com/setups/ict-made-simple.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/ict-made-simple.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-21",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+
+  /* hero link to the indicator */
+  .get-ind { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:#08131f; background:#64d2ff;
+             text-decoration:none; border-radius:9999px; padding:9px 18px; }
+  .get-ind:hover { background:#8cdfff; }
+
+  /* ---------- indicator ---------- */
+  .ind-sec { margin-top:56px; scroll-margin-top:110px; }
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .code-wrap { background:var(--panel); border:1px solid var(--line); border-radius:12px; margin-top:16px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--faint); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#1b2a3e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#26394f; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d9e3; tab-size:4; }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-sec { margin-top:44px; } }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=25">
+<script src="/js/nav.js?v=29" defer></script>
+<script src="/js/site.js?v=58" defer></script>
+<script src="/js/ict-anim.js?v=1" defer></script>
+<style>
+  /* steps across the page, the two panels side by side under them (same as hitchhiker-scalp.html) */
+  .ict-main { grid-template-columns:1fr; gap:22px; }
+  .ict-stages { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .sheet .ict-stages .stage, .sheet .ict-stages .stage:first-child { padding:26px 24px; background:var(--charcoal); align-content:start; }
+  .ict-side { display:grid; grid-template-columns:1fr 1.4fr; gap:16px; align-items:stretch; }
+  .ict-side .panel + .panel { margin-top:0; }
+  .ict-side .timing { grid-template-columns:1fr 1fr; }
+  @media (max-width:1100px) { .ict-stages { grid-template-columns:1fr 1fr; } .ict-side { grid-template-columns:1fr; } }
+  @media (max-width:680px) { .ict-stages { grid-template-columns:1fr; } }
+  /* the stepper (js/ict-anim.js builds it from the six steps) */
+  .ict-stages.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#f5f5f7; }
+  .gs-bar { display:grid; grid-template-columns:repeat(6,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:8.333%; right:8.333%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .ict-stages.is-stepper .stage, .sheet .ict-stages.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .ict-stages.is-stepper .stage .num { display:none; }
+  .sheet .ict-stages.is-stepper .stage[hidden] { display:none; }
+  .sheet .ict-stages.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .ict-stages.is-stepper { padding:20px 12px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:34px; height:34px; font-size:14px; }
+    .gs-line { top:16px; }
+    .gs-bar { margin-bottom:20px; }
+  }
+  /* video (same as hitchhiker-scalp.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+  .watch { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:var(--ink); text-decoration:none;
+           background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); border-radius:9999px; padding:7px 14px 7px 10px; }
+  .watch:hover { background:rgba(255,255,255,0.14); }
+  .watch i { width:0; height:0; border-left:9px solid #ff453a; border-top:6px solid transparent; border-bottom:6px solid transparent; margin-left:4px; }
+
+  .h1-ict { color:#64d2ff; }
+  .ribbon .n { font-size:14px; }
+
+  /* tiles */
+  .vs { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .vs div { background:var(--panel); border:1px solid var(--line); border-top:3px solid #64d2ff; border-radius:11px; padding:16px 17px; }
+  .vs .sc { font-family:var(--mono); font-size:13px; color:#64d2ff; font-weight:700; display:block; margin-bottom:6px; }
+  .vs h3 { margin:0 0 6px; font-size:16px; }
+  .vs p { margin:0; font-size:14px; color:var(--dim); }
+
+  /* the checks and outputs (same look as hitchhiker-scalp.html) */
+  .chk-out { margin-top:14px; border-radius:11px; padding:14px 16px; border:1px solid var(--line); background:var(--panel2); }
+  .chk-out b { display:block; font-size:24px; font-weight:800; letter-spacing:-0.02em; margin-bottom:4px; }
+  .chk-out p { margin:0; font-size:14px; color:var(--dim); }
+  .chk-out.is-a { border-color:#22855a; } .chk-out.is-a b { color:var(--up); }
+  .chk-out.is-b { border-color:#7a5a12; } .chk-out.is-b b { color:var(--gold); }
+  .chk-out.is-no { border-color:#5e2a30; } .chk-out.is-no b { color:var(--down); }
+
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in.four { grid-template-columns:repeat(4,1fr); }
+  .calc-in label { font-size:12px; color:var(--faint); display:block; }
+  .calc-in input, .calc-in select { width:100%; margin-top:4px; background:var(--panel2); color:var(--ink); border:1px solid var(--line); border-radius:8px;
+                   padding:8px 10px; font-family:var(--mono); font-size:15px; }
+  .calc-in input:focus, .calc-in select:focus { outline:2px solid var(--blue); outline-offset:1px; }
+  .calc-in input[type=range] { padding:0; accent-color:#30d158; background:none; border:0; }
+  .calc-in output { font-family:var(--mono); color:var(--ink); font-size:14px; float:right; }
+  .ict-book .calc-in { grid-template-columns:1fr 1fr auto; align-items:end; }
+  .ict-book .warn { margin-top:16px; }
+  .ict-book .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; }
+  .ict-book .reset:hover { background:#3a3a3c; }
+  .ict-two svg, .ict-dev svg { border-radius:14px; }
+  .ict-dev .calc-in { grid-template-columns:1fr; }
+  .ict-two .reset, .ict-dev .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; margin-top:12px; }
+  .h1-ict { color:#bf5af2; }
+  .counts div { border-left-color:#bf5af2; }
+  .vs.ict-vs div { border-top-color:#bf5af2; } .vs.ict-vs .sc { color:#bf5af2; }
+  .size-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .size-grid div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .size-grid b { display:block; font-family:var(--mono); font-size:20px; color:var(--gold); margin-bottom:4px; }
+  .size-grid p { margin:0; color:var(--dim); font-size:13.4px; }
+  @media (max-width:680px) { .size-grid { grid-template-columns:1fr; } }
+
+  /* case table + quotes (same as hitchhiker-scalp.html) */
+  .quote { margin:16px 0 0; padding:14px 18px; border-left:3px solid #64d2ff; background:var(--panel); border-radius:0 11px 11px 0; font-size:16px; }
+  .quote small { display:block; color:var(--faint); font-size:12.5px; margin-top:4px; }
+  .howto { margin:0; padding-left:20px; color:var(--ink); font-size:14.5px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#64d2ff; font-weight:600; }
+  .two-note { margin:14px 0 0; color:var(--dim); font-size:14px; max-width:86ch; }
+  .vcase td.txt { min-width:200px; }
+
+  /* the animation redraws for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .ribbon + .anim { margin-top:8px; }
+  @media (max-width:1100px) {
+    .vs { grid-template-columns:1fr 1fr; }
+    .calc-in.four { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:680px) {
+    /* breathing room around the walkthrough and the charts on small screens (project rule: not packed tight on phones) */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .counts { flex-wrap:wrap; gap:16px 22px; }
+    .vs { grid-template-columns:1fr; }
+    .calc-in, .calc-in.four, .ict-book .calc-in { grid-template-columns:1fr 1fr; }
+    .ict-book .calc-in .reset { grid-column:1 / -1; justify-self:start; }
+    .section-head { margin-top:52px; }
+    .ict-two, .ict-dev, .ict-plan { margin-top:28px; }
+    .risk + .risk, .panel + .risk { margin-top:28px; }
+    .vcase th, .vcase td { padding:9px 8px; }
+    .ict-side .filters, .ict-side .timing { grid-template-columns:1fr !important; }
+  }
+  /* the case table scrolls inside itself on a phone, never the page */
+  .tscroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .tscroll table { min-width:720px; }
+</style>
+
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=43" defer></script>
+
+<style>
+  /* ICT made simple page extras (blue, for the map) */
+  .h1-ict { color:#2997ff; }
+  .thesis em { color:#2997ff; }
+  .counts div { border-left-color:#2997ff; }
+  .vs.ict-vs div { border-top-color:#2997ff; } .vs.ict-vs .sc { color:#2997ff; }
+  .quote { border-left-color:#2997ff; }
+  .howto b { color:#2997ff; }
+  .ict-two svg, .ict-check svg { border-radius:14px; }
+  .ict-two .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; margin-top:12px; }
+  .ict-two .reset:hover, .pre button:hover { background:#3a3a3c; }
+  .pre { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; align-items:center; }
+  .pre button { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; }
+  .pre button[aria-pressed="true"] { background:#2997ff; color:#000; }
+  .ict-two-note { margin:12px 0 0; color:var(--dim); font-size:14px; max-width:90ch; }
+  .ict-check .calc-in { grid-template-columns:repeat(5,1fr); }
+  .ict-check .rr-in { grid-column:1 / -1; }
+  .ict-check .rr-in output { font-size:15px; font-weight:700; color:#2997ff; }
+  .ict-check input[type=range] { accent-color:#2997ff; }
+  .lamps { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin:4px 0 0; }
+  .lamps div { display:flex; align-items:center; gap:9px; background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:10px 12px; font-size:14px; font-weight:600; }
+  .ict-lamp { width:12px; height:12px; border-radius:50%; flex:0 0 12px; background:#3a3a3c; }
+  .ict-lamp.is-ok { background:var(--up); box-shadow:0 0 0 4px rgba(48,209,88,0.18); }
+  .ict-lamp.is-warn { background:var(--gold); box-shadow:0 0 0 4px rgba(244,185,66,0.18); }
+  .ict-lamp.is-no { background:var(--down); box-shadow:0 0 0 4px rgba(224,80,90,0.18); }
+  .lvl-table td:first-child { font-weight:700; color:#2997ff; }
+  .ict-plan .calc-in { grid-template-columns:repeat(4,1fr); }
+  .tf-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+  .tf-grid div { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:14px 15px; }
+  .tf-grid b { display:block; font-family:var(--mono); font-size:16px; color:#2997ff; margin-bottom:4px; }
+  .tf-grid p { margin:0; color:var(--dim); font-size:13.4px; }
+  .pc { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .pc > div { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 18px; }
+  .pc h3 { margin:0 0 8px; font-size:17px; }
+  .pc ul { margin:0; padding-left:18px; font-size:14px; color:var(--ink); }
+  .pc li { margin-bottom:6px; }
+  .pc .pro h3 { color:var(--up); } .pc .con h3 { color:var(--gold); }
+  @media (max-width:1100px) {
+    .ict-check .calc-in, .ict-plan .calc-in { grid-template-columns:repeat(2,1fr); }
+    .lamps { grid-template-columns:repeat(3,1fr); }
+    .tf-grid { grid-template-columns:repeat(3,1fr); }
+  }
+  @media (max-width:680px) {
+    .ict-check, .ict-two, .ict-plan { margin-top:28px; }
+    .pre { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .pre::-webkit-scrollbar { display:none; }
+    .pre button { flex:0 0 auto; }
+    .lamps { grid-template-columns:1fr 1fr; }
+    .ict-plan .calc-in { grid-template-columns:1fr 1fr; }
+    .ict-check .calc-in { grid-template-columns:1fr; }
+    .tf-grid, .pc { grid-template-columns:1fr; }
+    .tf-grid, .pc, .vs { gap:14px; }
+    .quote { margin-top:28px; }
+    .ict-side { gap:22px; }
+  }
+</style>
+
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/setups/">&lsaquo; All setups</a>
+
+  <header class="top" data-candle-bg="ict-made-simple">
+    <div>
+      <p class="kicker">An ICT price action swing or day trade &middot; any market, two time frames (weekly to daily, down to 1-hour to 5-minute), long or short</p>
+      <h1>ICT Made <span class="h1-ict">Simple</span></h1>
+    </div>
+    <div>
+      <p class="thesis">Strip ICT down to what moves the needle. <em>Map it</em> on the high time frame: the trend, the structure break, the range and its 0.5, a point of interest in the discount (or premium), and the draw on liquidity.
+      <em>Then zoom in:</em> when price reaches that POI, wait for the low time frame to flip back in line and enter on its breaker. Stop under the turn, target external range liquidity.</p>
+      <div class="counts">
+        <div><b>6</b><small>pieces: trend to the trigger</small></div>
+        <div><b>2</b><small>time frames, at least</small></div>
+        <div><b>3</b><small>POIs: order block, breaker, FVG</small></div>
+      </div>
+      <a class="watch" href="#video"><i></i>Watch the video</a>
+    </div>
+  </header>
+
+  <nav class="ribbon">
+    <div><div class="t">1 &middot; trend</div><div class="n">Obvious highs and lows, or sideways</div></div>
+    <div><div class="t">2 &middot; structure</div><div class="n">A close through the swing: MSB</div></div>
+    <div><div class="t">3 &middot; range</div><div class="n">The leg, its 0.5, premium and discount</div></div>
+    <div><div class="t">4 &middot; POI</div><div class="n">Order block, breaker, fair value gap</div></div>
+    <div><div class="t">5 &middot; liquidity</div><div class="n">External, internal, the draw</div></div>
+    <div><div class="t">6 &middot; zoom in</div><div class="n">The low time frame breaker</div></div>
+  </nav>
+
+  <section class="anim" data-ict-anim aria-label="Animated walkthrough of the ICT framework on made-up weekly and daily bars">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">8 / 8</p>
+        <h2 class="anim-title">Watch one trade, map to trigger</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 690" role="img" aria-label="Illustrative weekly and daily charts of made-up Bitcoin prices. The weekly makes higher highs and higher lows, each swing a three candle pattern, and closes through the 86,000 and 104,000 swing highs: market structure breaks. The range runs from the 80,000 low to the 112,000 high, with the 0.5 at 96,000 and the optimal trade entry from 92,224 to 86,848. A fair value gap from 90,000 to 94,000 and an order block from 80,000 to 86,000 sit in the discount. Price pulls back into the gap. Buying there with a stop at 79,500 would be 1.6R to the range high. Zoomed in, the daily is in a downtrend. A low at 91,600, a high at 94,600, the low taken at 90,600, then a close over 94,600: a market structure shift and a bullish breaker. Long at 94,000 with a stop at 90,200, out at 112,000 for 4.7R."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+
+  <div class="main ict-main">
+    <div class="ict-stages" data-ict-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Trend: up, down, or sideways</h3>
+          <ul>
+            <li>Uptrend: higher highs and higher lows. Downtrend: lower highs and lower lows. It should be obvious. If you can't tell, it's sideways.</li>
+            <li>Mark the turning points with three candle swings: a swing high has a lower candle on each side, a swing low a higher candle on each side.</li>
+            <li>The best long in an uptrend is as close to the next higher low as you can get; the best short in a downtrend, the next lower high.</li>
+          </ul>
+          <p class="why">Buy in the middle of the move and you sit through the drawdown before the trend carries on.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Structure: a break, or a shift</h3>
+          <ul>
+            <li>A market structure break (MSB): a candle body closes through the last swing high (low, in a downtrend). A wick doesn't count. The trend continues.</li>
+            <li>A market structure shift (MSS): instead of a new high, price breaks the last higher low. The trend may be turning.</li>
+            <li>After a bullish MSB, the next pullback is expected to make a higher low. Don't turn bearish on it.</li>
+          </ul>
+          <p class="why">Structure just describes the trend, one confirmed swing at a time.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Range: the current leg, low to high</h3>
+          <ul>
+            <li>From the significant low before the break to the significant high after it: the obvious ones, with a clear reaction off each.</li>
+            <li>A Fibonacci tool set to 0, 0.5 and 1. Above the 0.5 is premium (expensive: sell). Below is discount (cheap: buy).</li>
+            <li>Optional: 0.618 to 0.786 is ICT's optimal trade entry, with the 0.705 sweet spot in the middle. A new MSB starts a new range.</li>
+          </ul>
+          <p class="why">The deeper the discount, the closer the invalidation (the range low), and the better the reward to risk.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Points of interest: only three</h3>
+          <ul>
+            <li>Order block: the down move before the move up that broke structure (the up move before a break down). Often the deep pullback that continues the trend.</li>
+            <li>Breaker: an order block that failed and flipped, support to resistance or back. Often the reversal.</li>
+            <li>Fair value gap: three candles, top of candle one to bottom of candle three, where price only went one way. Often the shallow pullback in a strong trend.</li>
+          </ul>
+          <p class="why">Several at one spot? A good sign. Can't pick? Take the one in the discount for a long, the premium for a short.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Liquidity: external and internal</h3>
+          <ul>
+            <li>External range liquidity (ERL): outside the range, at the range high, the range low and older swings beyond them.</li>
+            <li>Internal range liquidity (IRL): inside the range, mostly the order blocks, breakers and fair value gaps.</li>
+            <li>The draw on liquidity: ask what just got taken. External? The next draw is internal. Internal? The next draw is external.</li>
+          </ul>
+          <p class="why">Liquidity is just orders. Buyers show up at demand inside the range; they sell to the stops and breakout shorts above the old high.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Zoom in: the breaker entry</h3>
+          <ul>
+            <li>Map on the high time frame. Only when price reaches the POI, drop to the low time frame. It'll be trending against you: that's the pullback.</li>
+            <li>Wait for a low to form, a high, then that low taken out. A close through the high that took it is the MSS; the up candles before the drop are the bullish breaker.</li>
+            <li>Enter at the breaker, stop under the low before the turn, target external range liquidity. Take a chunk off before it if you like.</li>
+          </ul>
+          <p class="why">Same idea, much tighter stop. Stopped out but the range low holds? You can try again deeper in the discount.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="ict-side">
+      <div class="panel">
+        <h4>Two ways to take it</h4>
+        <p class="lead">Both start from the same high time frame map.</p>
+        <div class="timing">
+          <div><b>High time frame only</b><p>Limit at the POI, stop past the range low (high), target the range high (low). Simple, but the stop is wide and the R can be thin.</p></div>
+          <div><b>Zoomed in</b><p>At the POI, wait for the low time frame breaker. A tighter stop, a bigger R, and room to try more than once.</p></div>
+          <div><b>OB, breaker or FVG?</b><p>Deep pullback: order block. Shallow, strong trend: fair value gap. Trend turning: breaker.</p></div>
+          <div><b>Draw on liquidity</b><p>Your daily bias. Just took external? Internal is next. Just took internal? External is next.</p></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>When it's off</h4>
+        <p class="lead">One missing piece means no trade.</p>
+        <div class="filters kills" style="grid-template-columns:repeat(2,1fr); margin-top:14px;">
+    <div class="filter" style="background:var(--panel2)"><h3>No obvious trend</h3><p>You can't call it higher highs or lower lows at a glance. It's sideways, and the framework needs a trend.</p><p class="kill">Wait for one.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>No POI</h3><p>The pullback stops in the middle of nowhere, with no order block, breaker or gap. Or it never pulls back at all.</p><p class="kill">No trade for you.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>No low time frame flip</h3><p>Price is at the POI but the low time frame keeps trending against you, or nukes straight through.</p><p class="kill">Keep waiting.</p></div>
+    <div class="filter" style="background:var(--panel2)"><h3>Range broken</h3><p>Price goes through the range low (high, for a short). No more higher lows: the trend has shifted.</p><p class="kill">Idea's wrong. Redraw.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The three points of interest</h2>
+    <p>ICT and the rest of the internet teach dozens of these. They're all supply and demand, renamed. Three are enough. Each has a bullish and a bearish version.</p>
+  </div>
+  <div class="tscroll">
+    <table class="lvl-table">
+      <thead><tr><th>POI</th><th>Bullish</th><th>Bearish</th><th>Usually</th></tr></thead>
+      <tbody>
+        <tr><td>Order block (OB)</td><td class="txt">The down candle or down move before a move up that breaks structure. Combine consecutive down candles if you like: three red weeklies are one red three-week candle.</td><td class="txt">The up candle or up move before a move down that breaks structure.</td><td class="txt">Continuation, on a deep pullback.</td></tr>
+        <tr><td>Breaker block (BB)</td><td class="txt">A bearish order block that fails: price blasts through it instead of rejecting, and it becomes support.</td><td class="txt">A bullish order block that fails and becomes resistance.</td><td class="txt">Reversal, at tops and bottoms, with a market structure shift. Not always.</td></tr>
+        <tr><td>Fair value gap (FVG)</td><td class="txt">Three candles with a big middle one: from the top of candle one to the bottom of candle three, price only traded up.</td><td class="txt">From the bottom of candle one to the top of candle three, price only traded down.</td><td class="txt">Shallow pullbacks in a strong trend.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="vs ict-vs" style="margin-top:20px">
+    <div><span class="sc">TIEBREAKER</span><h3>Discount for longs, premium for shorts</h3><p>An FVG above the 0.5 and an order block below it? In an uptrend, the one in the discount is the preferred one. Price won't always go that deep for you.</p></div>
+    <div><span class="sc">STACKED</span><h3>An OB, a breaker and an FVG together</h3><p>When they pile up at one price, it's a strong sign you've found a high probability area for the turn.</p></div>
+    <div><span class="sc">NOT A SIGNAL</span><h3>An area, not an entry</h3><p>A POI is where the higher low (or lower high) is most likely to form. Price may never reach it, or may nuke right through.</p></div>
+  </div>
+
+  <div class="section-head">
+    <h2>Is it a trade?</h2>
+    <p>Set the high time frame, the moment and the low time frame. Every lamp should be green, or close to it.</p>
+  </div>
+  <div class="panel ict-check" data-ict-check>
+    <div class="calc-in">
+      <label>High time frame trend<select name="trend"><option value="up" selected>Uptrend</option><option value="down">Downtrend</option><option value="side">No obvious trend</option></select></label>
+      <label>Your trade<select name="side"><option value="long" selected>Long</option><option value="short">Short</option></select></label>
+      <label>Liquidity just taken<select name="took"><option value="int" selected>Internal: tagging the POI</option><option value="ext">External: just broke the swing</option></select></label>
+      <label>Point of interest<select name="poi"><option value="fvg" selected>Fair value gap</option><option value="ob">Order block</option><option value="bb">Breaker</option><option value="none">None here</option></select></label>
+      <label>Low time frame<select name="ltf"><option value="mss" selected>Flipped: MSS + breaker</option><option value="against">Still moving against you</option><option value="htf">Not using it: HTF entry</option></select></label>
+      <label class="rr-in">How much of the leg has price retraced? <output class="ict-retv">66%</output><input name="ret" type="range" min="0" max="110" step="1" value="66"></label>
+    </div>
+    <div class="lamps" aria-hidden="true">
+      <div><span class="ict-lamp" data-lamp></span>Trend</div>
+      <div><span class="ict-lamp" data-lamp></span>Draw</div>
+      <div><span class="ict-lamp" data-lamp></span>Location</div>
+      <div><span class="ict-lamp" data-lamp></span>POI</div>
+      <div><span class="ict-lamp" data-lamp></span>Trigger</div>
+    </div>
+    <div class="chk-out ict-out" aria-live="polite"></div>
+  </div>
+
+  <div class="section-head">
+    <h2>On the low time frame</h2>
+    <p>Three scripts on made-up daily bars inside a weekly POI: the long from the walkthrough, the same thing upside down for a short, and the version where the first try gets stopped.</p>
+  </div>
+  <div class="panel ict-two" data-ict-two>
+    <div class="pre" role="group" aria-label="Pick a script">
+      <button type="button" data-case="long" aria-pressed="true">Long: discount FVG</button>
+      <button type="button" data-case="short" aria-pressed="false">Short: premium FVG</button>
+      <button type="button" data-case="retry" aria-pressed="false">Stopped, then again</button>
+    </div>
+    <svg viewBox="0 0 1180 430" role="img" aria-label="Three illustrative daily scripts. The long: a downtrend into the weekly fair value gap, a low taken, a close through the high that took it, a long at the bullish breaker with the stop under the low. The short: the same shape upside down, a rally into a premium fair value gap ending with a bearish breaker. The retry: the first breaker long at the gap is stopped for minus 1R, price falls deeper to the order block while the range low holds, and a second breaker long works."></svg>
+    <p class="ict-two-note" aria-live="polite"></p>
+    <button type="button" class="reset" data-play>Play again</button>
+  </div>
+  <p class="quote">&ldquo;You're not going to catch every trade.&rdquo;<small>Trader Mayne, on the setups that never pull back far enough. When the stars do line up at the POI, take it.</small></p>
+
+  <div class="section-head">
+    <h2>Pick your two time frames</h2>
+    <p>Run the whole framework on the high time frame. Use the low time frame only to time the turn. Any pair works as long as there are two. These are the ones he uses.</p>
+  </div>
+  <div class="tf-grid">
+    <div><b>Monthly &rarr; weekly</b><p>Or the 3-day. The biggest swings.</p></div>
+    <div><b>Weekly &rarr; daily</b><p>Or the 12-hour. Both video trades.</p></div>
+    <div><b>Daily &rarr; 4H / 1H</b><p>Or the 12-hour down to the 4-hour.</p></div>
+    <div><b>4H &rarr; 15m</b><p>Day trading into an intraday POI.</p></div>
+    <div><b>1H &rarr; 5m</b><p>The lowest pair he takes it.</p></div>
+  </div>
+
+  <div class="section-head">
+    <h2>Plan the trade</h2>
+    <p>Type the range, the POI and both versions of the stop. The defaults are the walkthrough's long. Size is in units of whatever you trade: the dollar risk divided by the stop distance.</p>
+  </div>
+  <div class="risk ict-plan">
+    <div class="panel" data-ict-calc>
+      <div class="calc-in">
+        <label>Side<select name="side"><option value="long">Long</option><option value="short">Short</option></select></label>
+        <label>Range low<input name="lo" type="number" inputmode="decimal" step="any" value="80000"></label>
+        <label>Range high<input name="hi" type="number" inputmode="decimal" step="any" value="112000"></label>
+        <label>POI entry (HTF)<input name="poi" type="number" inputmode="decimal" step="any" value="92000"></label>
+        <label>HTF stop<input name="hstop" type="number" inputmode="decimal" step="any" value="79500"></label>
+        <label>Breaker entry (LTF)<input name="entry" type="number" inputmode="decimal" step="any" value="94000"></label>
+        <label>LTF stop<input name="stop" type="number" inputmode="decimal" step="any" value="90200"></label>
+        <label>Risk ($)<input name="risk" type="number" inputmode="decimal" step="50" min="0" value="500"></label>
+      </div>
+      <div class="chk-out ict-cout" aria-live="polite"></div>
+      <div class="calc ict-ccalc" aria-live="polite" style="margin-top:14px"></div>
+    </div>
+    <div class="warn">
+      <h4>Pros and cons, from the video</h4>
+      <p>Simple, mechanical, and it works on any time frame and any market: crypto, equities, commodities, FX. It also isn't magic.</p>
+      <div class="size-grid" style="margin:12px 0">
+        <div><b>~2R</b><p>The aim. 1.5R to external liquidity isn't bad.</p></div>
+        <div><b>3 TFs</b><p>Weekly, daily and hourly all agreeing beats two.</p></div>
+        <div><b>Reps</b><p>Easy in hindsight. Pattern recognition takes screen time.</p></div>
+      </div>
+      <ul style="margin:0 0 12px; padding-left:18px; font-size:14px">
+        <li style="margin-bottom:5px">Levels and ranges get invalidated. Sometimes the pullback never comes.</li>
+        <li style="margin-bottom:5px">Start with trades in line with the high time frame trend; counter-trend moves to internal liquidity are valid, but later.</li>
+        <li>When you reach a high probability area and the trigger shows up, trust the work and take it.</li>
+      </ul>
+      <p class="big">Nothing works 100% of the time. The map finds the area; the trigger decides.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The examples from the video</h2>
+    <p>Real weekly and daily Bitcoin charts in the video, both trades he says he called live. Only what he reads out is given here.</p>
+  </div>
+  <div class="tscroll">
+    <table class="vcase">
+      <thead><tr><th>Chart</th><th>The map</th><th>The trigger</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><th>Bitcoin, the long<br><small>weekly &rarr; daily</small></th>
+          <td class="txt">Uptrend, a fresh MSB that took external liquidity, a new range, and a fair value gap in the discount. A weekly-only entry with the stop under the swing low was a modest R.</td>
+          <td class="txt">On the daily, a downtrend into the gap. A low formed, got taken, and the high that took it broke: a breaker. Long there, stop under the low, a Tuesday.</td>
+          <td class="txt">About 2.7R to the range high alone, then the run to an all-time high.</td></tr>
+        <tr><th>Bitcoin, the short<br><small>weekly &rarr; daily</small></th>
+          <td class="txt">Downtrend, a fresh low, the range drawn high to low. A fair value gap and an order block both in the premium: no way to know which one would hold.</td>
+          <td class="txt">On the daily, an uptrend, with the crowd calling the bottom. In the FVG, a low formed, price pushed to a high, then broke the low: a bearish breaker. Short, stop over the high.</td>
+          <td class="txt">Around a 4R trade, down toward external range liquidity.</td></tr>
+        <tr><th>The OTE, as a flex<br><small>weekly Bitcoin legs</small></th>
+          <td class="txt">Bitcoin bull markets that started with a pullback into the 0.618 to 0.786 band of the prior leg, drawn significant low to high.</td>
+          <td class="txt">Shown as a flex for the OTE, not a trade. It could just as easily have dug lower.</td>
+          <td class="txt">A high probability area, not a guarantee.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-head">
+    <h2>How you trade it</h2>
+    <p>Start to finish, on whatever pair of time frames you trade.</p>
+  </div>
+  <div class="panel">
+    <ol class="howto">
+      <li><b>Trend:</b> on the high time frame, is it obviously making higher highs and higher lows, or lower highs and lower lows? If not, wait.</li>
+      <li><b>Structure:</b> wait for a body to close through the last swing (an MSB). Now the pullback is a pullback.</li>
+      <li><b>Range:</b> once the new high forms, pull the fib from the significant low to it. Note the 0.5 and, if you like, 0.618 to 0.786.</li>
+      <li><b>POI:</b> find the order block, breaker or fair value gap in the leg that broke structure. Prefer the one in the discount (premium for shorts).</li>
+      <li><b>Liquidity:</b> external was just taken, so the draw is the POI (internal). From there, it's external again: the range high.</li>
+      <li><b>Zoom in:</b> when price reaches the POI, drop to the low time frame. Wait for a low, a high, that low taken, then a close through the high: enter at the breaker.</li>
+      <li><b>Stop and target:</b> stop under the low before the turn, target external range liquidity, take a chunk off before it if you like. Stopped but the range holds? Look for the next one deeper.</li>
+    </ol>
+  </div>
+
+  <section class="video" id="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/T837nD2xfE0" title="ICT Made Easy: The Entire Framework, Fully Explained (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Trader Mayne's bootcamp finale: the whole whiteboard series in one video, trend to the entry, then a long and a short on weekly and daily Bitcoin.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=T837nD2xfE0" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <div class="rule">
+    <div>
+      <h2>Map it high. Time it low.</h2>
+      <p>The high time frame tells you where the higher low should form and where price is drawn next. The low time frame tells you when it actually turned.
+      Wait for both, enter on the breaker, and let it run to the liquidity outside the range.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Trend: obvious, or sideways.</li>
+        <li>Structure: a close through the swing.</li>
+        <li>Range: low to high, the 0.5, discount.</li>
+        <li>POI: order block, breaker, FVG.</li>
+        <li>Draw: internal, then external.</li>
+        <li>Zoom in: low taken, high broken, breaker.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">From Trader Mayne's "ICT Made Easy: The Entire Framework, Fully Explained" (episode 30 of his trading bootcamp). The rules, the time frame pairs and the chart examples are as told in the video; the prop firm and channel plugs are left out. The R multiples of his examples are his own readings off the chart.
+  The walkthrough, the stepper charts, the low time frame scripts and the planner's default numbers are illustrative, made-up bars, not any market's actual prints.</p>
+</div>
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>

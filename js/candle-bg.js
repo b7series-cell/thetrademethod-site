@@ -1286,6 +1286,37 @@
       }
     },
 
+    /* ICT made simple: trend, a structure break through the old high (ERL), the range and its 0.5, the pullback
+       into the discount FVG (IRL), zoom in for the breaker, out at the range high (alternates long / short) */
+    "ict-made-simple": {
+      story: function (st) {
+        var d = st.dir = -(st.dir || -1), X, Q, F, R0;
+        return [
+          rep(1, function (st) { closeLevels(st); R0 = st.price - 0.3 * d; return bar(st, { d: 0.3 * d, n: 0.3, mk: { t: d > 0 ? "Trend \u00b7 higher highs, higher lows" : "Trend \u00b7 lower highs, lower lows", col: SILK, below: d > 0 } }); }),
+          rep(3, function (st) { return bar(st, { d: 1.1 * d, n: 0.4 }); }),
+          rep(1, function (st) { X = level(st, (d > 0 ? recentHigh(st, 3) : recentLow(st, 3)) + 0.1 * d, d > 0 ? "Swing high \u00b7 ERL" : "Swing low \u00b7 ERL", BLUE, true); return bar(st, { d: -0.8 * d, n: 0.3 }); }),
+          rep(2, function (st) { return bar(st, { d: -0.6 * d, n: 0.3 }); }),
+          rep(1, function (st) { R0 = d > 0 ? recentLow(st, 3) : recentHigh(st, 3); return bar(st, { d: 1.0 * d, n: 0.3 }); }),
+          rep(1, function (st) { var c = d > 0 ? GREEN : RED; F = st.price + 0.6 * d; return bar(st, { d: 2.6 * d, n: 0.2, v: 0.95, lw: d > 0 ? 0.3 : 1, uw: d < 0 ? 0.3 : 1, flash: c }); }),
+          rep(1, function (st) { X.label = (d > 0 ? "Old high" : "Old low") + " \u00b7 closed through"; return bar(st, { d: 1.4 * d, n: 0.2, v: 0.8, pierce: true, mk: { t: "MSB \u00b7 a close through the swing", col: d > 0 ? GREEN : RED, below: d < 0 } }); }),
+          rep(2, function (st) { return bar(st, { d: 0.9 * d, n: 0.3 }); }),
+          rep(1, function (st) {
+            var hi = d > 0 ? recentHigh(st, 3) : recentLow(st, 3);
+            level(st, hi, d > 0 ? "Range high \u00b7 ERL" : "Range low \u00b7 ERL", SILK);
+            level(st, (hi + R0) / 2, d > 0 ? "0.5 \u00b7 premium above, discount below" : "0.5 \u00b7 discount below, premium above", SILK);
+            Q = level(st, F, d > 0 ? "FVG in discount \u00b7 IRL" : "FVG in premium \u00b7 IRL", ORANGE, true);
+            return bar(st, { d: -0.7 * d, n: 0.3, mk: { t: "Range: the leg, low to high", col: SILK, below: d < 0 } });
+          }),
+          rep(4, function (st) { return bar(st, { to: Q.y + 0.4 * d, pull: 0.45, n: 0.4, flo: d > 0 ? Q.y - 0.6 : null, cap: d < 0 ? Q.y + 0.6 : null }); }),
+          rep(1, function (st) { return bar(st, { to: Q.y - 0.3 * d, pull: 0.9, n: 0.15, flo: d > 0 ? Q.y - 0.9 : null, cap: d < 0 ? Q.y + 0.9 : null, mk: { t: "Zoom in \u00b7 low time frame against you", col: SILK, below: d > 0 } }); }),
+          rep(1, function (st) { var c = d > 0 ? GREEN : RED; Q.label = d > 0 ? "FVG \u00b7 breaker long" : "FVG \u00b7 breaker short"; return bar(st, { d: 1.6 * d, n: 0.2, v: 0.85, flash: c, mk: { t: "MSS + breaker \u00b7 " + (d > 0 ? "long, stop past the low" : "short, stop past the high"), col: c, below: d < 0 } }); }),
+          rep(5, function (st) { return bar(st, { d: 1.0 * d, n: 0.5 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.8 * d, n: 0.3, mk: { t: "Out at external range liquidity", col: BLUE, below: d < 0 } }); }),
+          rep(4, function (st) { return bar(st, { d: rnd(-0.3, 0.3), n: 0.7 }); })
+        ];
+      }
+    },
+
     "eight-trading-rules": {
       story: function (st) {
         var E;
