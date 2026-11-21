@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/fib-ote.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/fib-ote.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-11-20",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -256,8 +256,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <script src="/js/nav.js?v=28" defer></script>
-<script src="/js/site.js?v=55" defer></script>
+<script src="/js/site.js?v=57" defer></script>
 <script src="/js/ote-anim.js?v=1" defer></script>
 <style>
   /* steps across the page, the two panels side by side under them (same as hitchhiker-scalp.html) */
@@ -452,7 +453,7 @@
   <header class="top" data-candle-bg="fib-ote">
     <div>
       <p class="kicker">A price action and smart money entry model &middot; gold and forex, 1-hour and 5-minute, long or short</p>
-      <h1>Fibonacci <span class="h1-ote">OTE</span></h1>
+      <h1>Fibonacci <span class="h1-ote">OTE</span></h1><!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>No edge vs random</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">Price moves in waves: an impulse, then a pullback. Don't buy the impulse. Draw the Fibonacci retracement on it and let the pullback
@@ -732,6 +733,37 @@
       <li><b>Strategy two:</b> a major level, a double bottom or top one time frame down, the neckline break, then a limit at 0.618 of the break. Stop past the swing, target the next level.</li>
     </ol>
   </div>
+
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>No edge vs random</span></div>
+    <h2 id="tested-h">No better than a random entry on the same impulse</h2>
+    <p class="tested-lead">On the 1-hour chart, the timeframe it's taught on, the 0.702 limit made almost exactly what a random entry made while the same impulse was armed, with the same stop and targets.</p>
+    <ul class="tested-stats">
+      <li><b>856</b><span>trades, 1-hour</span></li>
+      <li><b>34%</b><span>win rate</span></li>
+      <li><b>+0.02R</b><span>average per trade</span></li>
+      <li><b>+0.01R</b><span>random entries, same stop and targets</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Version</th><th scope="col">Trades</th><th scope="col">Avg R</th></tr></thead>
+      <tbody>
+        <tr><td>Site default, limit at 0.702</td><td>856</td><td>+0.02R</td></tr>
+        <tr><td>Limit at 0.618</td><td>947</td><td>+0.03R</td></tr>
+        <tr><td>Limit at 0.786</td><td>750</td><td>+0.05R</td></tr>
+        <tr><td>Longs only, 0.786</td><td>359</td><td>+0.21R (random longs +0.05R)</td></tr>
+        <tr><td>Shorts, any version</td><td>&ndash;</td><td>&minus;0.08 to &minus;0.11R</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tested-notes">
+      <li>SPY and QQQ lost (&minus;0.08R). Five of the 12 tickers were negative, NVDA worst at &minus;0.34R.</li>
+      <li>By year: &minus;0.24, &minus;0.06, +0.01, +0.14, &minus;0.08 and +0.17R. No steady pattern.</li>
+      <li>The long side at 0.786 sits about 0.16R above random. That's possible, not proven, and it's the same pattern as other long-only trend rules on hand-picked winners in a bull market.</li>
+      <li>One change from the indicator: an open trade keeps its own direction instead of flipping on an opposite break.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> 5 years of price history, Nov 2021 to Nov 2026, on SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA). Rules coded from this page at its default settings. Fills at the bar close, the stop wins when stop and target are hit in the same bar, 0.5 bp a side for the spread, results in R capped at +10R. Trades before June 2024 are the training half, after it the holdout. Trades managed on 5-minute bars inside each hour. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <section class="ind-sec" id="indicator" aria-label="TradingView indicator">
     <h2 class="ind-heading">The indicator</h2>

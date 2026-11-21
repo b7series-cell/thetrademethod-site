@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/famous-strategies/opening-range-breakout.html",
  "mainEntityOfPage": "https://thetrademethod.com/famous-strategies/opening-range-breakout.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-11-17",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -197,6 +197,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <style>
   /* ---------- page-only rules (after apple.css so they win) ---------- */
   .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
@@ -343,7 +344,7 @@
   @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-mock { padding:8px; } }
 </style>
 <script src="/js/nav.js?v=28" defer></script>
-<script src="/js/site.js?v=55" defer></script>
+<script src="/js/site.js?v=57" defer></script>
 <script src="/js/fs-kit.js?v=1" defer></script>
 <script src="/js/fs-opening-range-breakout.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
@@ -360,7 +361,7 @@
   <header class="top" data-candle-bg="opening-range-breakout">
     <div>
       <p class="kicker">Famous strategies &middot; Stocks &middot; Crabel 1990 &middot; Zarattini, Barbon &amp; Aziz 2024</p>
-      <h1>Opening Range <span>Breakout</span></h1>
+      <h1>Opening Range <span>Breakout</span></h1><!--tested-chip--><a class="tested-chip v-mixed" href="#tested"><i aria-hidden="true"></i>Tested: <b>Small edge on QQQ</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">The first minutes of the session are when overnight news gets priced. On a stock with real news, the direction of the first five minutes tends to continue. Trade the break of that first candle, keep the stop tight, and hold to the close, but only on stocks in play.
@@ -608,6 +609,36 @@
         </div>
       </section>
   </div>
+
+  <!--tested:start-->
+  <section class="tested v-mixed" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>Small edge on QQQ</span></div>
+    <h2 id="tested-h">A small edge on QQQ, losses on single stocks</h2>
+    <p class="tested-lead">On QQQ with 1-minute bars it beat random-direction entries by about 0.14R a trade. On the 10 stocks and on SPY it lost.</p>
+    <ul class="tested-stats">
+      <li><b>1,158</b><span>trades, QQQ 1-minute</span></li>
+      <li><b class="pos">+0.07R</b><span>average per trade</span></li>
+      <li><b class="neg">&minus;0.07R</b><span>random direction, same exits</span></li>
+      <li><b class="neg">&minus;0.12R</b><span>SPY</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Test</th><th scope="col">Avg R</th></tr></thead>
+      <tbody>
+        <tr><td>QQQ, 1-minute bars</td><td>+0.07R</td></tr>
+        <tr><td>QQQ before / after June 2024</td><td>+0.01R / +0.12R</td></tr>
+        <tr><td>QQQ, 5-minute bars</td><td>&minus;0.22R</td></tr>
+        <tr><td>10 stocks, in-play days</td><td>&minus;0.20R</td></tr>
+        <tr><td>10 stocks, all days</td><td>&minus;0.14R</td></tr>
+        <tr><td>SPY</td><td>&minus;0.12R</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tested-notes">
+      <li>Bar size matters: the stop is 10% of ATR, which is too tight for 5-minute candles.</li>
+      <li>The paper scanned 7,000 stocks for the 20 most in play each day. This test only had 10 stocks, SPY and QQQ.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> Every US stock that traded from Nov 2021 to Nov 2026, delisted ones included, so there's no survivorship bias. Company figures from SEC filings, used only from the day they were filed. 0.5 bp a side on SPY, QQQ and ETFs, 5 bp a side on single stocks. Stock returns are price only; ETF returns include dividends. Five years is short for a monthly strategy, and 2022 to 2026 was a strong large-cap market that is hard for any timing rule to beat. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="section-head" id="indicator">
     <h2 class="ind-heading">The indicator</h2>

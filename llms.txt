@@ -84,6 +84,10 @@ Educational content only, not financial advice. Times are US Eastern; examples u
 - [The Turn-of-the-Month Effect in Stocks, Explained](https://thetrademethod.com/famous-strategies/turn-of-the-month.html): The turn-of-the-month effect: US stock returns have clustered in four trading days, the last of each month and the first three of the next. McConnell and Xu (2008): 0.15% a day on those days vs -0.001% on the rest, 1926-2005, in 31 of 35 countries. How to trade it with an index fund, plus a free TradingView indicator.
 - [The Overnight Effect: Why Stock Returns Come at Night](https://thetrademethod.com/famous-strategies/overnight-effect.html): The overnight effect: most of the US stock market's gain has come between the close and the next open, not during the trading day. Cliff, Cooper and Gulen (2008), 1993-2006: S&P 500 stocks averaged 0.028-0.048% a night and -0.028 to 0.002% a day. The numbers, the costs, and a free TradingView indicator.
 
+## Test results
+
+- [Tested results: do trading setups work?](https://thetrademethod.com/tested-results.html): our own backtests of 41 setups, fundamentals and famous strategies from this site, coded from each page's rules and run on five years of price data (Nov 2021 to Nov 2026) with costs and a random-entry benchmark. Only the Qullamaggie Breakout beat random entries (+0.63R a trade vs -0.21R); most setups broke even or lost after costs, and none of the 15 famous strategies beat holding SPY. Each tested page has a "We tested it" section with its numbers and caveats.
+
 ## Blog
 
 - [Blog](https://thetrademethod.com/blog/): backtest results, trading research and notes, newest first.

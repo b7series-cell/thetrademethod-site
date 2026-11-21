@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/famous-strategies/sector-rotation.html",
  "mainEntityOfPage": "https://thetrademethod.com/famous-strategies/sector-rotation.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-11-17",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -197,6 +197,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <style>
   /* ---------- page-only rules (after apple.css so they win) ---------- */
   .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
@@ -343,7 +344,7 @@
   @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-mock { padding:8px; } }
 </style>
 <script src="/js/nav.js?v=28" defer></script>
-<script src="/js/site.js?v=55" defer></script>
+<script src="/js/site.js?v=57" defer></script>
 <script src="/js/fs-kit.js?v=1" defer></script>
 <script src="/js/fs-sector-rotation.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
@@ -360,7 +361,7 @@
   <header class="top" data-candle-bg="sector-rotation">
     <div>
       <p class="kicker">Famous strategies &middot; ETFs &middot; Moskowitz &amp; Grinblatt 1999 &middot; Faber 2010</p>
-      <h1>Sector <span>Rotation</span></h1>
+      <h1>Sector <span>Rotation</span></h1><!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Within noise</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">Industries go through long runs of leading and lagging. Rank the sectors on what they've returned lately, own the top few, and swap out any that fall behind. No view on the economy needed: the ranking does the rotating.
@@ -598,6 +599,19 @@
         </div>
       </section>
   </div>
+
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>Within noise</span></div>
+    <h2 id="tested-h">About the same as holding every sector</h2>
+    <p class="tested-lead">Holding the top 3 of the 11 sector SPDRs beat an equal mix of all of them by about a point a year, which is within the noise for five years of monthly results.</p>
+    <ul class="tested-stats">
+      <li><b>+15.6%</b><span>a year, top 3</span></li>
+      <li><b>+14.5%</b><span>a year, all 11 sectors</span></li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> Every US stock that traded from Nov 2021 to Nov 2026, delisted ones included, so there's no survivorship bias. Company figures from SEC filings, used only from the day they were filed. 0.5 bp a side on SPY, QQQ and ETFs, 5 bp a side on single stocks. Stock returns are price only; ETF returns include dividends. Five years is short for a monthly strategy, and 2022 to 2026 was a strong large-cap market that is hard for any timing rule to beat. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="section-head" id="indicator">
     <h2 class="ind-heading">The indicator</h2>

@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/cup-and-handle.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/cup-and-handle.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-10-10",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -207,8 +207,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <script src="/js/nav.js?v=28" defer></script>
-<script src="/js/site.js?v=55" defer></script>
+<script src="/js/site.js?v=57" defer></script>
 <script src="/js/cup-anim.js?v=1" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
 <script src="/js/live-kit.js?v=2" defer></script>
@@ -245,7 +246,7 @@
   <header class="top" data-candle-bg="cup-and-handle">
     <div>
       <p class="kicker">Cup and handle &middot; swing continuation, multi-day hold &middot; long only</p>
-      <h1>Cup and <span>Handle</span></h1>
+      <h1>Cup and <span>Handle</span></h1><!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>No better than random</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">A great-looking chart is worthless without a plan behind it. <em>Plan the trade,
@@ -568,6 +569,36 @@
       <a class="more" href="https://www.youtube.com/watch?v=mExyCQrddTU" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
     </div>
   </section>
+
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>No better than random</span></div>
+    <h2 id="tested-h">Slightly positive, but random stocks did as well</h2>
+    <p class="tested-lead">Run on every liquid US stock over five years, it made a small profit. Random stocks in an uptrend, bought on the same days with the same stop and targets, made about the same.</p>
+    <ul class="tested-stats">
+      <li><b>226</b><span>trades, whole US market, daily</span></li>
+      <li><b>39%</b><span>win rate</span></li>
+      <li><b class="pos">+0.16R</b><span>average per trade</span></li>
+      <li><b>+0.11R</b><span>random uptrend stocks (+0.07 to +0.20)</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Version</th><th scope="col">Trades</th><th scope="col">Avg R</th></tr></thead>
+      <tbody>
+        <tr><td>Site rules</td><td>226</td><td>+0.16R</td></tr>
+        <tr><td>Before June 2024 / after</td><td>&ndash;</td><td>+0.38R / &minus;0.01R</td></tr>
+        <tr><td>Without the base-volume filter</td><td>547</td><td>&minus;0.02R</td></tr>
+        <tr><td>Without all four filters</td><td>1,358</td><td>&minus;0.02R</td></tr>
+        <tr><td>Second target at the full measured move</td><td>226</td><td>+0.19R</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tested-notes">
+      <li>All of the profit came before mid-2024. Since then it's flat.</li>
+      <li>The volume taper into the base is the filter that matters. Without it the setup loses.</li>
+      <li>On intraday charts the exact rules found almost no trades, and a scaled-down version didn't beat random entries.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> Every US common stock over $10 trading at least $20M a day, delisted ones included, Nov 2021 to Nov 2026. Rules coded line for line from this page's indicator, 5 bp a side. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="section-head">
     <h2 class="ind-heading">Indicator for this setup</h2>

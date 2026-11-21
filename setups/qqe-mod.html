@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/qqe-mod.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/qqe-mod.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-10-21",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -225,8 +225,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <script src="/js/nav.js?v=28" defer></script>
-<script src="/js/site.js?v=55" defer></script>
+<script src="/js/site.js?v=57" defer></script>
 <script src="/js/qqe-anim.js?v=1" defer></script>
 <style>
   /* the stepper (js/qqe-anim.js builds it from the six steps; same as qullamaggie.html) */
@@ -366,7 +367,7 @@
   <header class="top" data-candle-bg="qqe-mod">
     <div>
       <p class="kicker">Indicator setup &middot; 5-minute gold &middot; QQE Mod + EMA 50</p>
-      <h1>QQE <span>Mod</span></h1>
+      <h1>QQE <span>Mod</span></h1><!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Break-even</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">RSI flips bullish while price keeps falling and bearish right before it rallies. QQE Mod smooths two RSI calculations and
@@ -579,6 +580,24 @@
       <p class="kill">Decide after the close, enter on the next open.</p>
     </div>
   </div>
+
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>Break-even</span></div>
+    <h2 id="tested-h">Wins almost half the time, and breaks even</h2>
+    <p class="tested-lead">The red-to-blue flip above the EMA 50, entered at the next open with a 2R target, came out just under break-even.</p>
+    <ul class="tested-stats">
+      <li><b>256</b><span>trades, 5-minute</span></li>
+      <li><b>48%</b><span>win rate</span></li>
+      <li><b>0.97</b><span>profit factor</span></li>
+      <li><b>&minus;0.01R</b><span>average per trade</span></li>
+    </ul>
+    <ul class="tested-notes">
+      <li>4 of the 10 stocks were positive. About 3.5 months of data, on stocks rather than the gold futures in the video.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> TradingView backtest of the 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA) together on 5-minute bars, Aug to Nov 2026 (the last 5,000 bars, so about 3.5 months). Rules coded from this page, 0.5 bp a side for the spread. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="section-head" id="indicator">
     <h2 class="ind-heading">The indicator</h2>

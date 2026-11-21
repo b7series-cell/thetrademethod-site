@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/three-candle-crt.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/three-candle-crt.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-10-10",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -226,8 +226,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <script src="/js/nav.js?v=28" defer></script>
-<script src="/js/site.js?v=55" defer></script>
+<script src="/js/site.js?v=57" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
 <script src="/js/live-kit.js?v=2" defer></script>
 <script src="/js/examples/crt.js?v=1" defer></script><script src="/js/example-kit.js?v=1" defer></script>
@@ -264,7 +265,7 @@
   <header class="top" data-candle-bg="three-candle-crt">
     <div>
       <p class="kicker">Candle Range Theory &middot; three-candle trigger &middot; New York AM &middot; long or short</p>
-      <h1>Three-Candle <span>CRT</span></h1>
+      <h1>Three-Candle <span>CRT</span></h1><!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>No edge</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">One candle marks the extreme. The next has to <em>sweep it and close back inside</em>.
@@ -580,6 +581,35 @@
       <a class="more" href="https://www.youtube.com/watch?v=z1Z72VJGt08" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
     </div>
   </section>
+
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>No edge</span></div>
+    <h2 id="tested-h">Near zero on every timeframe</h2>
+    <p class="tested-lead">Without TradingView's bar magnifier it looked great on QQQ 15-minute: +0.21R and a 57% win rate. With the magnifier on, which checks what happened inside each bar, it lost.</p>
+    <ul class="tested-stats">
+      <li><b>537</b><span>trades, QQQ 15-minute</span></li>
+      <li><b>43%</b><span>win rate</span></li>
+      <li><b class="neg">&minus;0.09R</b><span>average per trade</span></li>
+      <li><b>+0.21R</b><span>the same test without the bar magnifier</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Market and chart</th><th scope="col">Trades</th><th scope="col">Avg R</th></tr></thead>
+      <tbody>
+        <tr><td>QQQ 15-minute</td><td>537</td><td>&minus;0.09R</td></tr>
+        <tr><td>QQQ 30-minute</td><td>830</td><td>+0.05R</td></tr>
+        <tr><td>QQQ 1-hour</td><td>436</td><td>&minus;0.04R</td></tr>
+        <tr><td>SPY 30-minute</td><td>770</td><td>&minus;0.01R</td></tr>
+        <tr><td>SPY 1-hour</td><td>&ndash;</td><td>+0.01R</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tested-notes">
+      <li>Shorts on QQQ did a little better (+0.09R on 30-minute, +0.11R on 1-hour), but not on SPY or on 15-minute. A lead, not a plan.</li>
+      <li>This is an approximation: a direct break only (the page's default is a 1-minute rebreak) and a simplified 1-hour bias.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> TradingView Deep Backtesting with the bar magnifier on, 2020 to 2026, 1 bp a side or a 1-cent spread, plus a multi-ticker run on 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA). +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="section-head">
     <h2 class="ind-heading">Indicator for this setup</h2>

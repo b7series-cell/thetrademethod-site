@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/famous-strategies/low-volatility.html",
  "mainEntityOfPage": "https://thetrademethod.com/famous-strategies/low-volatility.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-11-17",
+ "dateModified": "2026-11-21",
  "inLanguage": "en",
  "author": {
   "@type": "Organization",
@@ -197,6 +197,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/tested.css?v=1">
 <style>
   /* ---------- page-only rules (after apple.css so they win) ---------- */
   .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
@@ -343,7 +344,7 @@
   @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-mock { padding:8px; } }
 </style>
 <script src="/js/nav.js?v=28" defer></script>
-<script src="/js/site.js?v=55" defer></script>
+<script src="/js/site.js?v=57" defer></script>
 <script src="/js/fs-kit.js?v=1" defer></script>
 <script src="/js/fs-low-volatility.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
@@ -360,7 +361,7 @@
   <header class="top" data-candle-bg="low-volatility">
     <div>
       <p class="kicker">Famous strategies &middot; Stocks &middot; Ang, Hodrick, Xing and Zhang, 2006; Frazzini and Pedersen, 2014</p>
-      <h1>Low-Volatility <span>Anomaly</span></h1>
+      <h1>Low-Volatility <span>Anomaly</span></h1><!--tested-chip--><a class="tested-chip v-mixed" href="#tested"><i aria-hidden="true"></i>Tested: <b>Lower risk, lower return</b></a><!--/tested-chip-->
     </div>
     <div>
       <p class="thesis">Shouldn't riskier stocks pay more? In the data, the calmest stocks earned about as much as the wildest, and the noisiest did worst of all. Own the calm ones, rebalance on a schedule, and accept lagging in roaring rallies.
@@ -606,6 +607,20 @@
         </div>
       </section>
   </div>
+
+  <!--tested:start-->
+  <section class="tested v-mixed" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>Lower risk, lower return</span></div>
+    <h2 id="tested-h">Smaller drops, smaller gains</h2>
+    <p class="tested-lead">The calmest 20% of stocks did what the papers say on risk: the worst drop was only 10%. But they made well under the average stock.</p>
+    <ul class="tested-stats">
+      <li><b>+7.7%</b><span>a year, calmest 20%</span></li>
+      <li><b>&minus;10%</b><span>worst drop</span></li>
+      <li><b>+12.9%</b><span>equal-weight market</span></li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> Every US stock that traded from Nov 2021 to Nov 2026, delisted ones included, so there's no survivorship bias. Company figures from SEC filings, used only from the day they were filed. 0.5 bp a side on SPY, QQQ and ETFs, 5 bp a side on single stocks. Stock returns are price only; ETF returns include dividends. Five years is short for a monthly strategy, and 2022 to 2026 was a strong large-cap market that is hard for any timing rule to beat. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <div class="section-head" id="indicator">
     <h2 class="ind-heading">The indicator</h2>
