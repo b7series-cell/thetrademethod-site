@@ -539,7 +539,11 @@ const SETUPS = [
     stages:  6,
     filters: 4,
     status:  "live",
-    indicators: []
+    indicators: [
+      { name: "Fibonacci OTE",
+        blurb: "Finds the break of structure, draws the fib on the latest impulse with the OTE and premium and discount, works the limit at 0.702 with the stop past the swing, and follows the trade to TP1 (half, stop to entry) and the next higher time frame level. Marks no fills and skips setups with no room.",
+        url: "", file: "/pine/fib-ote.pine", alerts: true }
+    ]
   }
 
   ,{
