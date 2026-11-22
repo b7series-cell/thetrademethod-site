@@ -14,14 +14,20 @@ register() flips the page live in STRATEGIES (js/site.js), adds it to the
 hub (JSON-LD + static card), llms.txt, and both build scripts' lists.
 Run node _docs/build-sitemap.js and node _docs/build-search-index.js after.
 """
-import html, importlib.util, os, re, sys, json
+import html
+import importlib.util, os, re, sys, json
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-V = {"KITV": "1", "CBGV": "35", "SITEV": "58", "CSSV": "25", "DATE": "2026-11-17"}
+V = {"KITV": "1", "CBGV": "35", "SITEV": "61", "CSSV": "26", "DATE": "2026-11-17"}
 
 
 def esc(s):
     return html.escape(s, quote=True)
+
+
+def jesc(s):
+    """Plain text for inside a JSON-LD string: no HTML entities."""
+    return json.dumps(s, ensure_ascii=False)[1:-1].replace("</", "<\\/")
 
 
 def stage(n, st):
@@ -66,7 +72,8 @@ def build(spec):
     S = spec
     head = open(os.path.join(ROOT, "_docs", "fs-head-template.html")).read()
     rep = dict(V)
-    rep.update({"DESC": esc(S["desc"]), "TITLE": esc(S["seo_title"]), "SLUG": S["slug"], "NAME": esc(S["name"])})
+    rep.update({"DESC": esc(S["desc"]), "TITLE": esc(S["seo_title"]), "SLUG": S["slug"], "NAME": esc(S["name"]),
+                "JDESC": jesc(S["desc"]), "JTITLE": jesc(S["seo_title"]), "JNAME": jesc(S["name"])})
     for k, v in rep.items():
         head = head.replace("{{%s}}" % k, v)
     b = []

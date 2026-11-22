@@ -65,9 +65,9 @@
  "dateModified": "2026-11-22",
  "inLanguage": "en",
  "author": {
-  "@type": "Organization",
-  "name": "The Trade Method",
-  "url": "https://thetrademethod.com/"
+  "@type": "Person",
+  "name": "Bryant",
+  "url": "https://thetrademethod.com/about.html"
  },
  "publisher": {
   "@type": "Organization",
@@ -196,7 +196,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/apple.css?v=26">
 <link rel="stylesheet" href="/css/tested.css?v=2">
 <style>
   /* ---------- page-only rules (after apple.css so they win) ---------- */
@@ -344,11 +344,37 @@
   @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-mock { padding:8px; } }
 </style>
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=60" defer></script>
+<script src="/js/site.js?v=61" defer></script>
 <script src="/js/fs-kit.js?v=1" defer></script>
 <script src="/js/fs-post-earnings-drift.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=27" defer></script>
+<!-- breadcrumbs --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://thetrademethod.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Famous strategies",
+   "item": "https://thetrademethod.com/famous-strategies/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Post-Earnings Announcement Drift",
+   "item": "https://thetrademethod.com/famous-strategies/post-earnings-drift.html"
+  }
+ ]
+}
+</script><!-- /breadcrumbs -->
 </head>
 <body>
 
@@ -357,6 +383,7 @@
 <div class="sheet">
 
   <a class="back" href="/famous-strategies/">&lsaquo; Famous strategies</a>
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-22">Nov 22, 2026</time></p><!-- /byline -->
 
   <header class="top" data-candle-bg="post-earnings-drift">
     <div>
@@ -658,7 +685,7 @@
 
   <!--tested:start-->
   <section class="tested v-none" id="tested" aria-labelledby="tested-h">
-    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>Weak</span></div>
+    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>Weak</span></div>
     <h2 id="tested-h">A weak drift, positive about half the time</h2>
     <p class="tested-lead">The biggest earnings surprises beat the biggest misses by about 1% over the next 60 days, and that held in only 11 of 20 quarters.</p>
     <ul class="tested-stats">
@@ -830,15 +857,15 @@ if showTbl and barstate.islast
     <p>The papers and books behind every figure on this page.</p>
   </div>
   <ol class="cites">
-    <li>Bernard, V. L., &amp; Thomas, J. K. (1989). Post-earnings-announcement drift: Delayed price response or risk premium? <i>Journal of Accounting Research</i>, 27 (Supplement), 1&ndash;36.<small>The SUE decile strategy, 41 of 48 quarters, 11 of 16 down-market quarters, larger drift in small firms, and the drift around the next three reports.</small></li>
-    <li>Bernard, V. L., &amp; Thomas, J. K. (1990). Evidence that stock prices do not fully reflect the implications of current earnings for future earnings. <i>Journal of Accounting and Economics</i>, 13(4), 305&ndash;340.<small>About 25&ndash;30% of the drift in the 3-day windows around the next reports, and the autocorrelations 0.34, 0.19, 0.06 and &minus;0.24.</small></li>
+    <li>Bernard, V. L., &amp; Thomas, J. K. (1989). Post-earnings-announcement drift: Delayed price response or risk premium? <i>Journal of Accounting Research</i>, 27 (Supplement), 1&ndash;36. <a class="cite-link" href="https://doi.org/10.2307/2491062" target="_blank" rel="noopener">DOI &rsaquo;</a><small>The SUE decile strategy, 41 of 48 quarters, 11 of 16 down-market quarters, larger drift in small firms, and the drift around the next three reports.</small></li>
+    <li>Bernard, V. L., &amp; Thomas, J. K. (1990). Evidence that stock prices do not fully reflect the implications of current earnings for future earnings. <i>Journal of Accounting and Economics</i>, 13(4), 305&ndash;340. <a class="cite-link" href="https://doi.org/10.1016/0165-4101(90)90008-R" target="_blank" rel="noopener">DOI &rsaquo;</a><small>About 25&ndash;30% of the drift in the 3-day windows around the next reports, and the autocorrelations 0.34, 0.19, 0.06 and &minus;0.24.</small></li>
     <li>Ball, R., &amp; Brown, P. (1968). An empirical evaluation of accounting income numbers. <i>Journal of Accounting Research</i>, 6(2), 159&ndash;178.</li>
-    <li>Kettell, McInnis &amp; Zhao (2022), research on the decline of post-earnings announcement drift.<small>The high-minus-low SUE spread falling from about 5% in the 1980s and 1990s to 3% or less by the late 2010s.</small></li>
+    <li>Kettell, McInnis &amp; Zhao (2022), research on the decline of post-earnings announcement drift. <a class="cite-link" href="https://doi.org/10.2307/2490232" target="_blank" rel="noopener">DOI &rsaquo;</a><small>The high-minus-low SUE spread falling from about 5% in the 1980s and 1990s to 3% or less by the late 2010s.</small></li>
   </ol>
 
   <p class="src">Built from Bernard and Thomas's 1989 and 1990 papers and the research listed above. The figures quoted from the papers are labelled as such on the charts. Every company, earnings number, score and price path in the walkthroughs is made up for illustration, including the shapes of the drift lines. Past results from these studies don't promise future returns, and the one-stock, price-confirmed version shown here is a simplification the original papers didn't test. It's shared for education, not as trading advice.</p>
 </div>
-<footer class="gfoot" data-gfooter></footer>
+<footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
 
 </body>
 </html>

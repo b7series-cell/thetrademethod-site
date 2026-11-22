@@ -65,9 +65,9 @@
  "dateModified": "2026-11-22",
  "inLanguage": "en",
  "author": {
-  "@type": "Organization",
-  "name": "The Trade Method",
-  "url": "https://thetrademethod.com/"
+  "@type": "Person",
+  "name": "Bryant",
+  "url": "https://thetrademethod.com/about.html"
  },
  "publisher": {
   "@type": "Organization",
@@ -255,10 +255,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/apple.css?v=26">
 <link rel="stylesheet" href="/css/tested.css?v=2">
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=60" defer></script>
+<script src="/js/site.js?v=61" defer></script>
 <script src="/js/laf-anim.js?v=1" defer></script>
 <style>
   /* steps across the page, the two panels side by side under them (same as hitchhiker-scalp.html) */
@@ -409,6 +409,32 @@
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=37" defer></script>
 
+<!-- breadcrumbs --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://thetrademethod.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Setups",
+   "item": "https://thetrademethod.com/setups/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Look Above and Fail",
+   "item": "https://thetrademethod.com/setups/look-above-and-fail.html"
+  }
+ ]
+}
+</script><!-- /breadcrumbs -->
 </head>
 <body>
 
@@ -417,6 +443,7 @@
 <div class="sheet">
 
   <a class="back" href="/setups/">&lsaquo; All setups</a>
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-22">Nov 22, 2026</time></p><!-- /byline -->
 
   <header class="top" data-candle-bg="look-above-and-fail">
     <div>
@@ -699,7 +726,7 @@
 
   <!--tested:start-->
   <section class="tested v-none" id="tested" aria-labelledby="tested-h">
-    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>Fake levels did as well</span></div>
+    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>Fake levels did as well</span></div>
     <h2 id="tested-h">Fake value areas made as much as the real ones</h2>
     <p class="tested-lead">On 5-minute bars it looked profitable. Then the same rules ran on fake value-area edges, moved in or out by a quarter of the range, and made the same. On 1-minute bars, the most realistic test, it lost on SPY and QQQ.</p>
     <ul class="tested-stats">
@@ -1180,6 +1207,13 @@ if showTbl and barstate.islast
     </div>
   </section>
 
+  <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
+  <div class="relgrid">
+    <a href="/setups/liquidity-refill.html"><span class="k">All session</span><h3>Liquidity Refill</h3><p>When buyers take liquidity faster than sellers can refill it, price has one way to go.</p></a>
+    <a href="/setups/micro-range.html"><span class="k">All session</span><h3>Micro Range</h3><p>Price isn't value.</p></a>
+    <a href="/setups/hitchhiker-scalp.html"><span class="k">All session</span><h3>Hitchhiker Scalp</h3><p>Right direction, wrong entry is still a loss.</p></a>
+    <a href="/setups/fib-ote.html"><span class="k">All session</span><h3>Fibonacci OTE</h3><p>Price moves in waves, so don't buy the impulse.</p></a>
+  </div><!-- /related -->
   <div class="rule">
     <div>
       <h2>Breakouts from balance usually fail. Be there when they do.</h2>
@@ -1200,7 +1234,7 @@ if showTbl and barstate.islast
   <p class="src">From an IQ Capital video interview with Yush, a prop futures trader, on his look above and fail / look below and fail model. The rules, the times, the sizing notes and the examples are as told in the video; the sponsor segments are left out. The payout and win-rate figures are his and the channel's, not verified here. The indicator's thresholds and settings are ours.
   The walkthrough, the stepper chart, the first-30-minutes chart, the aggressive and conservative sketches and the calculator's default numbers are illustrative, made-up bars, not any market's actual prints.</p>
 </div>
-<footer class="gfoot" data-gfooter></footer>
+<footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
 
 <script>
   /* copy the Pine code */

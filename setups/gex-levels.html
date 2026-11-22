@@ -65,9 +65,9 @@
  "dateModified": "2026-11-22",
  "inLanguage": "en",
  "author": {
-  "@type": "Organization",
-  "name": "The Trade Method",
-  "url": "https://thetrademethod.com/"
+  "@type": "Person",
+  "name": "Bryant",
+  "url": "https://thetrademethod.com/about.html"
  },
  "publisher": {
   "@type": "Organization",
@@ -224,16 +224,42 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/apple.css?v=26">
 <link rel="stylesheet" href="/css/tested.css?v=2">
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=60" defer></script>
+<script src="/js/site.js?v=61" defer></script>
 <script src="/js/gex-anim.js?v=2" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
 <script src="/js/live-kit.js?v=3" defer></script>
 <script src="/js/examples/gex.js?v=1" defer></script><script src="/js/example-kit.js?v=1" defer></script><script src="/js/gex-live.js?v=3" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=2" defer></script>
+<!-- breadcrumbs --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://thetrademethod.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Setups",
+   "item": "https://thetrademethod.com/setups/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "GEX Levels",
+   "item": "https://thetrademethod.com/setups/gex-levels.html"
+  }
+ ]
+}
+</script><!-- /breadcrumbs -->
 </head>
 <body>
 
@@ -241,7 +267,8 @@
 <div data-lnav></div>
 <div class="sheet">
 
-  <a class="back" href="/#setups">&lsaquo; All setups</a>
+  <a class="back" href="/setups/">&lsaquo; All setups</a>
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-22">Nov 22, 2026</time></p><!-- /byline -->
 
   <header class="top" data-candle-bg="gex-levels">
     <div>
@@ -574,7 +601,7 @@
 
   <!--tested:start-->
   <section class="tested v-mixed" id="tested" aria-labelledby="tested-h">
-    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>Levels matter, trades broke even</span></div>
+    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>Levels matter, trades broke even</span></div>
     <h2 id="tested-h">Price reacts to the walls, but trading them broke even</h2>
     <p class="tested-lead">Every wall signal did better at the real gamma walls than at fake ones, so the levels carry information. Traded mechanically, they came out at about break-even. There are only six weeks of levels so far.</p>
     <ul class="tested-stats">
@@ -623,6 +650,13 @@
     </li>
   </ul>
 
+  <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
+  <div class="relgrid">
+    <a href="/setups/volume-sr-rejection.html"><span class="k">All session</span><h3>Volume S/R Rejection</h3><p>Trade only the support and resistance the volume profile backs, mark where the point of control stacks on a level, and take the rejection when the bar closes and the volume balance flips your way.</p></a>
+    <a href="/setups/zero-lag-pullback.html"><span class="k">All session</span><h3>Zero Lag Pullback</h3><p>Two zero-lag EMAs, 50 and 100, mark the trend.</p></a>
+    <a href="/setups/volume-profile-system.html"><span class="k">All session</span><h3>Volume Profile System</h3><p>One tool, read three different ways depending on how the prior session closed — a point-of-control bounce, a value-area reversal, or a value-area breakout continuation — all sized to a fixed 2R.</p></a>
+    <a href="/setups/knock-twice.html"><span class="k">All session</span><h3>Knock Twice</h3><p>Price closes through an old swing high, runs, stays away for five bars, then comes back and knocks on the old level once and holds.</p></a>
+  </div><!-- /related -->
   <div class="rule">
     <div>
       <h2>The walls tell you where. The flip tells you how.</h2>
@@ -639,7 +673,7 @@
 
   <p class="src">Levels calculated from delayed options chains each morning (gamma &times; open interest &times; 100 &times; spot&sup2; &times; 1%, expirations out to 30 days, priced at the 9:30 open); the SPX method was checked against a reference chart's published levels. Chart above is an illustration of the mechanics; the table shows calculated levels, not trades.</p>
 </div>
-<footer class="gfoot" data-gfooter></footer>
+<footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
 
 </body>
 </html>

@@ -771,3 +771,22 @@ a.scard:hover h3 { text-decoration:underline; text-underline-offset:3px; }
 @keyframes gmenu-drop { from { transform:translateY(-8px); opacity:0; } to { transform:none; opacity:1; } }
 @media (prefers-reduced-motion:reduce) { .gmenu, .gmenu-in, .gnav .gnav-burger span { animation:none; transition:none; } }
 @media print { .gnav-burger, .gmenu { display:none !important; } }
+
+/* ---------- byline, related setups, static footer (written by _docs/seo-blocks.py) ---------- */
+.byline { position:relative; z-index:3; margin:6px 0 14px; font-size:13px; color:var(--ash); letter-spacing:-0.01em; }
+.byline a { color:var(--mute); }
+.byline a:hover { color:var(--link); text-decoration:underline; }
+.has-lnav .sheet > .byline { margin-top:0; }
+.relgrid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:56px; }
+.relgrid a { display:block; background:var(--charcoal); border:1px solid var(--raised); border-radius:18px; padding:18px 18px 20px; transition:border-color .15s, transform .15s; }
+.relgrid a:hover { border-color:var(--graphite); transform:translateY(-2px); }
+.relgrid .k { font-size:12px; color:var(--ash); }
+.relgrid h3 { margin:6px 0 8px; font-size:19px; font-weight:600; letter-spacing:-0.02em; line-height:1.2; color:var(--silk); }
+.relgrid p { margin:0; font-size:14px; line-height:1.43; color:var(--mute); display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
+@media (max-width:1000px) { .relgrid { grid-template-columns:1fr 1fr; } }
+@media (max-width:560px) { .relgrid { grid-template-columns:1fr; } }
+.static-foot p { margin:0 0 10px; max-width:100ch; }
+.static-foot a { color:var(--mute); }
+@media print { .relgrid { display:none; } }
+.cites .cite-link { color:var(--link); font-size:13px; white-space:nowrap; }
+.cites .cite-link:hover { text-decoration:underline; }

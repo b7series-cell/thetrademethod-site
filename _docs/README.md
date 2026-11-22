@@ -33,6 +33,7 @@ Copy both in before doing anything else. Then move your
     │   ├── build-sitemap.js
     │   ├── seo-check.py       ← runs before every deploy
     │   ├── stamp-dates.py     ← real last-updated dates from git
+    │   ├── seo-blocks.py      ← bylines, breadcrumbs, related setups, static footer
     │   └── README.md
     ├── index.html             ← the directory page
     ├── 404.html
@@ -79,8 +80,10 @@ the section, so the line is harmless on pages that have none.
 1. Copy `_docs/_template.html` to `setups/your-slug.html`, write it.
 2. Add one entry to the `SETUPS` array in `js/nav.js`, including its
    `indicators`.
-3. Run `node _docs/build-sitemap.js` then `python3 _docs/stamp-dates.py`
-   to refresh `sitemap.xml` (the deploy also does this, with dates taken
+3. Run `node _docs/build-sitemap.js`, then `python3 _docs/stamp-dates.py`,
+   then `python3 _docs/seo-blocks.py` to refresh `sitemap.xml`, the dates,
+   and the byline, breadcrumbs, related-setups cards, static footer and
+   homepage counts (the deploy also does all of this, with dates taken
    from git, and rebuilds the search index).
 4. Run `python3 _docs/seo-check.py`. It must show 0 errors, or the
    deploy stops (the deploy workflow runs the same check first). Keep it

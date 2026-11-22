@@ -30,7 +30,8 @@ from urllib.parse import urlsplit, unquote
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITEMAP = os.path.join(ROOT, "sitemap.xml")
 DATE_RE = re.compile(r'("dateModified"\s*:\s*")(\d{4}-\d{2}-\d{2})(")')
-NOISE = [re.compile(r"\?v=\d+"), DATE_RE, re.compile(r"\d{4}-\d{2}-\d{2}")]
+# the byline date (written by seo-blocks.py) is noise too, or each new date would count as a change
+NOISE = [re.compile(r"\?v=\d+"), re.compile(r"<time datetime=\"[^\"]*\">[^<]*</time>"), DATE_RE, re.compile(r"\d{4}-\d{2}-\d{2}")]
 
 
 def git(*args):

@@ -46,6 +46,7 @@ jobs:
         run: |
           node _docs/build-sitemap.js
           python3 _docs/stamp-dates.py
+          python3 _docs/seo-blocks.py
           cp js/search-index.js /tmp/search-index.committed.js
           node _docs/build-search-index.js
           if ! diff -q <(tail -n +2 /tmp/search-index.committed.js) <(tail -n +2 js/search-index.js) >/dev/null; then
@@ -72,6 +73,7 @@ jobs:
         run: |
           node _docs/build-sitemap.js
           python3 _docs/stamp-dates.py
+          python3 _docs/seo-blocks.py
           node _docs/build-search-index.js
 
       - name: Set up SSH key

@@ -128,8 +128,8 @@ SPEC = {
     },
     "sources": [
         "Connors, L. &amp; Alvarez, C. (2008). <i>Short Term Trading Strategies That Work</i>. TradingMarkets.<small>The 2-period RSI strategy: buy above the 200-day moving average when RSI(2) is oversold, exit on a close above the 5-day moving average; entries near the close; no stop loss.</small>",
-        "StockCharts ChartSchool. RSI(2).<small>Summary of Connors' rules: 200-day filter, buy at or below 5 (tested 0&ndash;10), short at or above 95 (tested 90&ndash;100), exit at the 5-day moving average; lower buy levels gave higher returns; Connors found stops hurt performance.</small>",
-        "Wilder, J. W. (1978). <i>New Concepts in Technical Trading Systems</i>. Trend Research.<small>The Relative Strength Index.</small>",
+        "StockCharts ChartSchool. RSI(2). <a class=\"cite-link\" href=\"https://chartschool.stockcharts.com/table-of-contents/trading-strategies-and-models/trading-strategies/rsi-2\" target=\"_blank\" rel=\"noopener\">Source &rsaquo;</a><small>Summary of Connors' rules: 200-day filter, buy at or below 5 (tested 0&ndash;10), short at or above 95 (tested 90&ndash;100), exit at the 5-day moving average; lower buy levels gave higher returns; Connors found stops hurt performance.</small>",
+        "Wilder, J. W. (1978). <i>New Concepts in Technical Trading Systems</i>. Trend Research. <a class=\"cite-link\" href=\"https://openlibrary.org/works/OL5039607W\" target=\"_blank\" rel=\"noopener\">Source &rsaquo;</a><small>The Relative Strength Index.</small>",
     ],
     "src": "Built from the book and the sources listed above. Every bar and trade in the walkthroughs is made up for illustration. The SPY figures are from our own TradingView run of the indicator on this page, not from a published study, and exclude costs, slippage and dividends. Past results don't promise future returns. It's shared for education, not as trading advice.",
     "market": "ETFs",

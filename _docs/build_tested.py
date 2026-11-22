@@ -41,7 +41,7 @@ def chip(p, small=False, href="#tested"):
 def section(p):
     o = ['<!--tested:start-->',
          '<section class="tested v-%s" id="tested" aria-labelledby="tested-h">' % p["verdict"],
-         '  <div class="tested-top"><span class="tested-label">We tested it</span>'
+         '  <div class="tested-top"><span class="tested-label">We tested it</span> '
          '<span class="tested-verdict"><i aria-hidden="true"></i>%s</span></div>' % p["chip"],
          '  <h2 id="tested-h">%s</h2>' % p["headline"],
          '  <p class="tested-lead">%s</p>' % p["lead"]]

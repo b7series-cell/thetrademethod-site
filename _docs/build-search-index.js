@@ -39,7 +39,7 @@ const PAGES = [
   "famous-strategies/pairs-trading.html",
   "famous-strategies/post-earnings-drift.html",
   "covered-calls.html", "expected-move.html",
-  "blog/introducing-backtest-board.html", "contact.html"
+  "blog/introducing-backtest-board.html", "contact.html", "about.html", "privacy.html"
 ];
 
 const SKIP = /^(watch the video|on this page)$/i;   // headings every page has

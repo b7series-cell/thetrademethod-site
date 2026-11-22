@@ -19,9 +19,6 @@ Allow: /
 # Live-data endpoints: no value in search, and every crawl
 # would spend market-data API calls.
 Disallow: /api/
-# Never meant to be public (these shouldn't be uploaded at all).
-Disallow: /_docs/
-Disallow: /Claude%20outputs/
 # Shown only when the app has no connection.
 Disallow: /offline.html
 
