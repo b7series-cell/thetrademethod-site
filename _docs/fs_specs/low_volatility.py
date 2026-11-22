@@ -31,8 +31,8 @@ def mock():
 SPEC = {
     "slug": "low-volatility",
     "name": "Low-Volatility Anomaly",
-    "seo_title": "The Low-Volatility Anomaly and Betting Against Beta, Explained",
-    "desc": "The low-volatility anomaly (Ang, Hodrick, Xing and Zhang, 2006; Frazzini and Pedersen, 2014): calm, low-beta stocks have earned about as much as wild ones, and far more per unit of risk. The flat beta line, the noisiest stocks' poor returns, betting against beta, why it lasts, plus a free TradingView indicator.",
+    "seo_title": "Low-Volatility Anomaly and Betting Against Beta",
+    "desc": "Calm, low-beta stocks have earned about as much as wild ones, with far less risk. The research, betting against beta, why it lasts, an indicator.",
     "kicker": "Famous strategies &middot; Stocks &middot; Ang, Hodrick, Xing and Zhang, 2006; Frazzini and Pedersen, 2014",
     "h1": "Low-Volatility <span>Anomaly</span>",
     "thesis": "Shouldn't riskier stocks pay more? In the data, the calmest stocks earned about as much as the wildest, and the noisiest did worst of all. Own the calm ones, rebalance on a schedule, and accept lagging in roaring rallies.",

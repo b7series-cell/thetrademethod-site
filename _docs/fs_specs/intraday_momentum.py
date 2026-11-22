@@ -39,8 +39,8 @@ def mock():
 SPEC = {
     "slug": "intraday-momentum",
     "name": "Intraday Momentum",
-    "seo_title": "Intraday Momentum: the First Half-Hour Predicts the Last",
-    "desc": "Gao, Han, Li and Zhou (2018): on SPY, the return from the previous close to 10:00 am predicts the direction of the last half-hour of the day. Long or short from 3:30 to 4:00 pm: 6.67% a year vs -1.11% for always long, 1993-2013, before costs, with an honest look at recent results. Animated walkthroughs plus a free TradingView indicator.",
+    "seo_title": "Intraday Momentum Strategy on SPY, Explained",
+    "desc": "On SPY, the move from the prior close to 10:00 am predicts the last half-hour. The 2018 study, an honest look at recent results, and an indicator.",
     "kicker": "Famous strategies &middot; ETFs &middot; Gao, Han, Li &amp; Zhou, <i>Journal of Financial Economics</i>, 2018",
     "h1": "Intraday <span>Momentum</span>",
     "thesis": "On the S&amp;P 500, the two ends of the trading day are linked. The return from yesterday's close to 10:00 am tends to point the way the last half-hour goes. Trade 30 minutes a day, in that direction.",

@@ -44,7 +44,7 @@ SPEC = {
     "slug": "magic-formula",
     "name": "Magic Formula",
     "seo_title": "Greenblatt's Magic Formula, Explained",
-    "desc": "Joel Greenblatt's Magic Formula: rank stocks on earnings yield and return on capital, add the ranks, and buy the best totals for a year. How the two numbers work, the book's 1988-2004 and updated results, why it loses some years, plus a free TradingView indicator.",
+    "desc": "Joel Greenblatt's Magic Formula: rank stocks on earnings yield and return on capital and buy the best for a year. Results, losing years, indicator.",
     "kicker": "Famous strategies &middot; Stocks &middot; Joel Greenblatt, <i>The Little Book That Beats the Market</i>, 2005",
     "h1": "Magic <span>Formula</span>",
     "thesis": "Can two numbers pick stocks? Rank every company on how cheap it is and how good a business it is, add the two ranks, and buy the 20 to 30 best totals. Hold each for a year, then replace it.",

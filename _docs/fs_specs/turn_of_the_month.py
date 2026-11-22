@@ -42,7 +42,7 @@ SPEC = {
     "slug": "turn-of-the-month",
     "name": "Turn of the Month",
     "seo_title": "The Turn-of-the-Month Effect in Stocks, Explained",
-    "desc": "The turn-of-the-month effect: US stock returns have clustered in four trading days, the last of each month and the first three of the next. McConnell and Xu (2008): 0.15% a day on those days vs -0.001% on the rest, 1926-2005, in 31 of 35 countries. How to trade it with an index fund, plus a free TradingView indicator.",
+    "desc": "US stock returns cluster on four days: the last of each month and the first three of the next. The 1926-2005 study, how to trade it, an indicator.",
     "kicker": "Famous strategies &middot; ETFs &middot; Lakonishok &amp; Smidt 1988 &middot; McConnell &amp; Xu 2008",
     "h1": "Turn of the <span>Month</span>",
     "thesis": "For most of the last century, US stocks earned their return in a few days each month. The last trading day of the month and the first three of the next did the work; the days in between, on average, did nothing.",

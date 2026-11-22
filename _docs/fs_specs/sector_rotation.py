@@ -39,8 +39,8 @@ def mock():
 SPEC = {
     "slug": "sector-rotation",
     "name": "Sector Rotation",
-    "seo_title": "Sector Rotation by Momentum (Faber, Moskowitz and Grinblatt), Explained",
-    "desc": "Sector rotation by relative strength: rank ten sectors on trailing return each month and hold the top three. Moskowitz and Grinblatt (1999) found much of stock momentum is industry momentum; Faber (2010) found top sectors beat buy and hold by about 3-6% a year back to the 1920s. With a trend filter for bear markets. Animated walkthroughs plus a free TradingView indicator.",
+    "seo_title": "Sector Rotation by Momentum, Explained",
+    "desc": "Rank ten sectors on trailing return each month and hold the top three. What Moskowitz-Grinblatt and Faber found, a bear market filter, an indicator.",
     "kicker": "Famous strategies &middot; ETFs &middot; Moskowitz &amp; Grinblatt 1999 &middot; Faber 2010",
     "h1": "Sector <span>Rotation</span>",
     "thesis": "Industries go through long runs of leading and lagging. Rank the sectors on what they've returned lately, own the top few, and swap out any that fall behind. No view on the economy needed: the ranking does the rotating.",

@@ -30,7 +30,7 @@ SPEC = {
     "slug": "post-earnings-drift",
     "name": "Post-Earnings Drift",
     "seo_title": "Post-Earnings Announcement Drift (PEAD), Explained",
-    "desc": "Post-earnings announcement drift (Bernard and Thomas, 1989): after a big earnings surprise, stocks keep drifting the same way for weeks. How the surprise is scored, why the drift jumps at the next reports, how much it has faded, plus a free TradingView indicator.",
+    "desc": "After a big earnings surprise, stocks keep drifting the same way for weeks. How the surprise is scored, how much the drift faded, and an indicator.",
     "kicker": "Famous strategies &middot; Stocks &middot; Bernard and Thomas, <i>Journal of Accounting Research</i>, 1989",
     "h1": "Post-Earnings <span>Drift</span>",
     "thesis": "Does a stock that blows out its earnings keep going after the first day? Score every company's surprise against its own history, buy the biggest beats, short the biggest misses, and hold for about a quarter.",

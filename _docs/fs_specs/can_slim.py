@@ -47,7 +47,7 @@ SPEC = {
     "slug": "can-slim",
     "name": "CAN SLIM",
     "seo_title": "CAN SLIM (William O'Neil), Explained",
-    "desc": "William O'Neil's CAN SLIM: seven letters for picking growth leaders (current and annual earnings, something new, supply and demand, leader, institutions, market), bought on breakouts from sound bases and sold at a 7-8% loss with no exceptions. The checklist, the cup with handle, the sell rules, the follow-through day, plus a free TradingView indicator.",
+    "desc": "William O'Neil's CAN SLIM: seven letters for growth leaders, bought on base breakouts and cut at a 7-8% loss. Checklist, sell rules, an indicator.",
     "kicker": "Famous strategies &middot; Stocks &middot; William O'Neil, <i>How to Make Money in Stocks</i>, 1988",
     "h1": "CAN <span>SLIM</span>",
     "thesis": "What did the biggest stock winners have in common before their big moves? O'Neil's answer is seven letters: strong earnings, something new, heavy buying, market leadership and a rising market. Buy the breakout, and cut every loss at 7 to 8%.",
