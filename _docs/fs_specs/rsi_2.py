@@ -42,7 +42,7 @@ SPEC = {
     "slug": "rsi-2",
     "name": "RSI(2)",
     "seo_title": "RSI(2) Pullback Strategy (Larry Connors), Explained",
-    "desc": "Larry Connors' RSI(2) strategy: buy an index ETF like SPY or QQQ above its 200-day average when the 2-period RSI drops to 5 or below, and sell on the first close above the 5-day average. Short, frequent trades with a high hit rate and no stop loss. Animated walkthroughs plus a free TradingView indicator.",
+    "desc": "Larry Connors' RSI(2): buy SPY or QQQ above the 200-day when 2-period RSI hits 5 or less, sell the first close above the 5-day. Free indicator.",
     "kicker": "Famous strategies &middot; ETFs &middot; Larry Connors &amp; Cesar Alvarez, 2008",
     "h1": "RSI<span>(2)</span>",
     "thesis": "In a rising market, sharp two- or three-day pullbacks in an index tend to snap back. A 2-period RSI finds them. Buy when it's deeply oversold and the long-term trend is up, and get out on the first bounce.",

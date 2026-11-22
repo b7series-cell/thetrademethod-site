@@ -45,7 +45,7 @@ SPEC = {
     "slug": "ten-month-sma",
     "name": "10-Month Moving Average",
     "seo_title": "10-Month Moving Average Timing (Faber), Explained",
-    "desc": "Mebane Faber's 10-month moving average rule: once a month, hold an asset if it closed above its 10-month average, move to T-bills if it closed below. On the S&P 500 since 1901, about the same return as holding with far smaller drawdowns, and a five-asset version. Animated walkthroughs plus a free TradingView indicator.",
+    "desc": "Mebane Faber's rule: hold an asset when it closes the month above its 10-month average, else T-bills. Smaller drawdowns since 1901, free indicator.",
     "kicker": "Famous strategies &middot; Stocks + ETFs &middot; Mebane Faber, 2007",
     "h1": "10-Month <span>Moving Average</span>",
     "thesis": "The worst stretches for stocks have tended to happen when prices were already below their long-term trend. Check once a month: if the price closed above its 10-month average, stay in. If it closed below, step aside into T-bills until it's back above.",

@@ -50,8 +50,8 @@ def mock():
 SPEC = {
     "slug": "pairs-trading",
     "name": "Pairs Trading",
-    "seo_title": "Pairs Trading (Gatev, Goetzmann & Rouwenhorst), Explained",
-    "desc": "Pairs trading (Gatev, Goetzmann and Rouwenhorst, 2006): match stocks whose prices moved together for a year, and when they split by two standard deviations, short the leader and buy the laggard until they cross. The rule, the paper's returns and costs, the risks, plus a free TradingView indicator.",
+    "seo_title": "Pairs Trading Strategy (Gatev et al.), Explained",
+    "desc": "Match stocks that moved together for a year; when they split by two standard deviations, short the leader, buy the laggard. Results and an indicator.",
     "kicker": "Famous strategies &middot; Stocks &middot; Gatev, Goetzmann and Rouwenhorst, <i>Review of Financial Studies</i>, 2006",
     "h1": "Pairs <span>Trading</span>",
     "thesis": "Two stocks have moved together for a year. When one suddenly runs ahead of the other, does the gap close again? Short the one that ran, buy the one that lagged, and close both when their prices cross.",

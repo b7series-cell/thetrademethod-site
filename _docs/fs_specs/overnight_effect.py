@@ -36,8 +36,8 @@ def mock():
 SPEC = {
     "slug": "overnight-effect",
     "name": "Overnight Effect",
-    "seo_title": "The Overnight Effect: Why Stock Returns Come at Night",
-    "desc": "The overnight effect: most of the US stock market's gain has come between the close and the next open, not during the trading day. Cliff, Cooper and Gulen (2008), 1993-2006: S&P 500 stocks averaged 0.028-0.048% a night and -0.028 to 0.002% a day. The numbers, the costs, and a free TradingView indicator.",
+    "seo_title": "The Overnight Effect: Stock Returns Come at Night",
+    "desc": "Most of the US stock market's gain has come between the close and the next open. The 2008 study, the numbers, the costs and a free indicator.",
     "kicker": "Famous strategies &middot; ETFs &middot; Cliff, Cooper &amp; Gulen 2008",
     "h1": "The Overnight <span>Effect</span>",
     "thesis": "Split each trading day into two halves: the night, from the 4 pm close to the next morning's open, and the day, from the open to the close. Since the 1990s, the US market's gain has come almost entirely from the night.",

@@ -43,7 +43,7 @@ SPEC = {
     "slug": "value-and-size",
     "name": "Value and Size",
     "seo_title": "Fama-French Value and Size Effects, Explained",
-    "desc": "The Fama-French value and size effects (1992, 1993): beta didn't explain returns, but size and book-to-market did. The sorts, the six boxes behind SMB and HML, how much the premiums shrank after publication, plus a free TradingView indicator.",
+    "desc": "Fama and French found size and book-to-market explained returns where beta didn't. The sorts, SMB and HML, how the premiums shrank, an indicator.",
     "kicker": "Famous strategies &middot; Stocks &middot; Fama and French, <i>Journal of Finance</i>, 1992",
     "h1": "Value <span>and Size</span>",
     "thesis": "Do cheap stocks and small stocks earn more? Fama and French found that two easy numbers, market value and book-to-market, lined up with average returns far better than beta did. Tilt toward small and cheap, rebalance once a year, and wait.",

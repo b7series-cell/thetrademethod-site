@@ -43,8 +43,8 @@ def mock():
 SPEC = {
     "slug": "opening-range-breakout",
     "name": "Opening Range Breakout",
-    "seo_title": "Opening Range Breakout (ORB) on Stocks in Play, Explained",
-    "desc": "The opening range breakout, from Toby Crabel (1990) to Zarattini, Barbon and Aziz (2024): the first 5-minute candle picks the side, a stop order at its high or low, a stop 10% of ATR away, out at the close, and only on stocks in play. 1,637% net in their 2016-2023 backtest against 29% without the filter. Animated walkthroughs plus a free TradingView indicator.",
+    "seo_title": "Opening Range Breakout (ORB) on Stocks in Play",
+    "desc": "The opening range breakout from Crabel to Zarattini (2024): trade the first 5-minute candle's break on stocks in play only. Results and an indicator.",
     "kicker": "Famous strategies &middot; Stocks &middot; Crabel 1990 &middot; Zarattini, Barbon &amp; Aziz 2024",
     "h1": "Opening Range <span>Breakout</span>",
     "thesis": "The first minutes of the session are when overnight news gets priced. On a stock with real news, the direction of the first five minutes tends to continue. Trade the break of that first candle, keep the stop tight, and hold to the close, but only on stocks in play.",

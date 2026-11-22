@@ -37,7 +37,7 @@ SPEC = {
     "slug": "dual-momentum",
     "name": "Dual Momentum",
     "seo_title": "Dual Momentum (Gary Antonacci, GEM), Explained",
-    "desc": "Gary Antonacci's Dual Momentum and his Global Equities Momentum model: once a month, hold the stronger of US and non-US stocks over 12 months, but only if US stocks beat T-bills; otherwise hold bonds. 17.43% a year vs 8.85% for world stocks in his 1974-2013 backtest, with a 22.72% worst drawdown. Animated walkthroughs plus a free TradingView indicator.",
+    "desc": "Gary Antonacci's Dual Momentum: hold the stronger of US and world stocks over 12 months, but only if they beat T-bills, else bonds. Free indicator.",
     "kicker": "Famous strategies &middot; ETFs &middot; Gary Antonacci, <i>Dual Momentum Investing</i>, 2014",
     "h1": "Dual <span>Momentum</span>",
     "thesis": "Two kinds of momentum, used together. Relative momentum picks the stronger of two stock markets. Absolute momentum asks whether stocks are beating T-bills at all, and if they aren't, it holds bonds instead. One decision a month.",
