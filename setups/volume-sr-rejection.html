@@ -255,6 +255,54 @@
 </style>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=2" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is a volume S/R rejection?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A volume S/R rejection trades support and resistance only where real volume changed hands. A 600-bar volume profile decides which swing highs and lows count as levels. You take the rejection when a bar touches the level, closes back on the right side, and the buy/sell volume balance flips your way."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Which levels count?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Swing highs and lows, five bars either side, with a heavy volume node close by. A swing with little volume nearby has nobody defending it."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why does the point of control matter?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "When it sits on a level, two reads of volume agree on one price, making it the strongest zone on the chart: fade into it, or use it as a target."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the volume balance shift?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The winning side holds at least 60% of the bar's volume and its share is up at least 15 points on the previous three bars."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the volume S/R rejection work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not in our test of an approximation of the rules. Across 119,572 trades on 5-minute bars it won 62% of the time but lost 0.20R per trade, with a 0.78 profit factor, because the winners were small and the losers weren't."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -308,6 +356,7 @@
       <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Loses</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is a volume S/R rejection?</h2><p>A volume S/R rejection trades support and resistance only where real volume changed hands. A 600-bar volume profile decides which swing highs and lows count as levels. You take the rejection when a bar touches the level, closes back on the right side, and the buy/sell volume balance flips your way.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">the map</div><div class="n">Rolling profile: 600 bars, 72 rows</div></div>
@@ -875,6 +924,13 @@
     </li>
   </ul>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>Which levels count?</h3><p>Swing highs and lows, five bars either side, with a heavy volume node close by. A swing with little volume nearby has nobody defending it.</p></div>
+    <div class="qa"><h3>Why does the point of control matter?</h3><p>When it sits on a level, two reads of volume agree on one price, making it the strongest zone on the chart: fade into it, or use it as a target.</p></div>
+    <div class="qa"><h3>What is the volume balance shift?</h3><p>The winning side holds at least 60% of the bar's volume and its share is up at least 15 points on the previous three bars.</p></div>
+    <div class="qa"><h3>Does the volume S/R rejection work?</h3><p>Not in our test of an approximation of the rules. Across 119,572 trades on 5-minute bars it won 62% of the time but lost 0.20R per trade, with a 0.78 profit factor, because the winners were small and the losers weren't.</p></div>
+  </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
     <a href="/setups/volume-profile-system.html"><span class="k">All session</span><h3>Volume Profile System</h3><p>One tool, read three different ways depending on how the prior session closed — a point-of-control bounce, a value-area reversal, or a value-area breakout continuation — all sized to a fixed 2R.</p></a>

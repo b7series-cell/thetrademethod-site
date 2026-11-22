@@ -256,4 +256,54 @@ FAQ = {
   ("Does the VWAP reversal work?", "Not in our test: 11,090 trades on 5-minute bars came out just under break-even, with a 39% win rate, a 0.98 profit factor and -0.01R per trade."),
  ],
 },
+"/setups/energy-in-the-tank.html": {
+ "q": "What is the Energy in the Tank setup?",
+ "a": "Energy in the Tank is a volatility cycle breakout on the daily chart or higher. A squeeze on the higher time frame means volatility is compressed and energy is stored. You buy the close above the range top on an outlier volume bar, more than two standard deviations above average, and invalidate on a close back below the level.",
+ "faq": [
+  ("What counts as a squeeze?", "Two standard deviations of closing prices over 20 bars falling below roughly 1.5 times the ATR, one time frame up from the one you trade: weekly for a daily breakout, monthly for a multi-quarter position."),
+  ("Why does the breakout need outlier volume?", "Compressed volatility is the stored energy and heavy volume on the break is the fuel. A breakout on thin volume is a poke, not a launch."),
+  ("When do you take profits?", "When the same volatility measure swings to its expansion extreme, roughly 6 times the ATR in the page's examples. Most of the stored energy is spent, so trim or expect mean reversion."),
+  ("Does Energy in the Tank work?", "Partly. On 13 large caps it made +2.3% a trade over 126 trades with a 22% win rate, mostly from a few multi-year holds. A plain 20-day breakout with the same exits did better (+3.5%), so the exit works but the squeeze signal isn't why."),
+ ],
+},
+"/setups/market-memory.html": {
+ "q": "What is the market memory day two model?",
+ "a": "Market memory is a day two playbook on the 5-minute chart. On a stock that made a big move yesterday, you draw a box from yesterday's high and low plus one or two levels where price fought hard. When price returns to an edge, you wait for a John Wick candle, a sharp wick through the level that closes back inside, and trade toward the other side of the box.",
+ "faq": [
+  ("What is a John Wick candle?", "A sharp wick through a remembered level followed by a distinct close back on the other side: a wick above resistance that closes red, or a wick below support that closes green."),
+  ("What are the two costly mistakes?", "Buying when price runs quickly into or just above yesterday's high without holding there, and selling when it runs quickly into or below yesterday's low without holding there."),
+  ("Where do the stop and target go?", "Enter on the break of the John Wick candle, stop on its far side, and target the other side of the box. Move the stop to break even once price clears the level with a real hold."),
+  ("Does market memory work?", "Not in our test: 8,236 trades on 5-minute bars won 23% of the time, with a 0.87 profit factor and -0.10R per trade."),
+ ],
+},
+"/setups/atr-band-hybrid.html": {
+ "q": "What is the ATR Hybrid Scalp?",
+ "a": "The ATR Hybrid Scalp is a 5-minute Micro Nasdaq futures (MNQ) system where longs and shorts are different strategies. Longs buy a touch of a band 3.1 times the ATR below the previous close, with a 2 ATR target and a 1.5 ATR stop. Shorts sell after a candle with a long upper wick and exit at the close of the next candle.",
+ "faq": [
+  ("Why is the band anchored to the previous close?", "A band that moves with live price can never be caught. Measuring from the last closed candle makes it a fixed level for the next 5 minutes."),
+  ("What is the short signal?", "A candle with an upper wick about twice its body and little or no lower wick. Enter at the next candle's open and close at that candle's close, with no target or stop."),
+  ("Why don't the shorts mirror the longs?", "Inverting the long model for shorts was tested in the source and didn't work. Shorts did better when only taken after a red prior day."),
+  ("Does the ATR Hybrid Scalp work?", "Not on our stand-in test: on QQQ and SPY 5-minute bars, 2,725 trades had a 41% win rate, a 0.76 profit factor and -0.11R per trade. A test on MNQ futures could come out differently."),
+ ],
+},
+"/setups/volume-profile-system.html": {
+ "q": "What is the volume profile system?",
+ "a": "The volume profile system reads the previous session's volume profile three ways. If it closed outside its value area, trade a bounce off the point of control. If it closed inside, trade a reversal back into the value area. A breakout that holds its pullback and breaks structure works either way. Every setup uses a fixed 2R target.",
+ "faq": [
+  ("What are the point of control and value area?", "The point of control is the single price with the most volume. The value area high and low bound the zone holding 70% of the volume traded."),
+  ("Why use the previous session's profile?", "The current session's profile is still forming, so its levels keep moving. Yesterday's is finished and stable. The page uses a fixed range profile with row size 60 and a 70% value area."),
+  ("What confirms the value area reversal?", "Price crosses outside the value area and then a full candle closes back inside. A wick alone doesn't count."),
+  ("Does the volume profile system work?", "Not in our test: 14,779 trades across the three setups on 5-minute bars came out at break-even or worse, with a 38% win rate, a 0.98 profit factor and -0.01R per trade."),
+ ],
+},
+"/setups/volume-sr-rejection.html": {
+ "q": "What is a volume S/R rejection?",
+ "a": "A volume S/R rejection trades support and resistance only where real volume changed hands. A 600-bar volume profile decides which swing highs and lows count as levels. You take the rejection when a bar touches the level, closes back on the right side, and the buy/sell volume balance flips your way.",
+ "faq": [
+  ("Which levels count?", "Swing highs and lows, five bars either side, with a heavy volume node close by. A swing with little volume nearby has nobody defending it."),
+  ("Why does the point of control matter?", "When it sits on a level, two reads of volume agree on one price, making it the strongest zone on the chart: fade into it, or use it as a target."),
+  ("What is the volume balance shift?", "The winning side holds at least 60% of the bar's volume and its share is up at least 15 points on the previous three bars."),
+  ("Does the volume S/R rejection work?", "Not in our test of an approximation of the rules. Across 119,572 trades on 5-minute bars it won 62% of the time but lost 0.20R per trade, with a 0.78 profit factor, because the winners were small and the losers weren't."),
+ ],
+},
 }

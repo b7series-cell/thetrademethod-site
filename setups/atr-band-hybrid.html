@@ -235,6 +235,54 @@
 </style>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=2" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the ATR Hybrid Scalp?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The ATR Hybrid Scalp is a 5-minute Micro Nasdaq futures (MNQ) system where longs and shorts are different strategies. Longs buy a touch of a band 3.1 times the ATR below the previous close, with a 2 ATR target and a 1.5 ATR stop. Shorts sell after a candle with a long upper wick and exit at the close of the next candle."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why is the band anchored to the previous close?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A band that moves with live price can never be caught. Measuring from the last closed candle makes it a fixed level for the next 5 minutes."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the short signal?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A candle with an upper wick about twice its body and little or no lower wick. Enter at the next candle's open and close at that candle's close, with no target or stop."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why don't the shorts mirror the longs?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Inverting the long model for shorts was tested in the source and didn't work. Shorts did better when only taken after a red prior day."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the ATR Hybrid Scalp work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not on our stand-in test: on QQQ and SPY 5-minute bars, 2,725 trades had a 41% win rate, a 0.76 profit factor and -0.11R per trade. A test on MNQ futures could come out differently."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -288,6 +336,7 @@
       <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Loses</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the ATR Hybrid Scalp?</h2><p>The ATR Hybrid Scalp is a 5-minute Micro Nasdaq futures (MNQ) system where longs and shorts are different strategies. Longs buy a touch of a band 3.1 times the ATR below the previous close, with a 2 ATR target and a 1.5 ATR stop. Shorts sell after a candle with a long upper wick and exit at the close of the next candle.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">the foundation</div><div class="n">Understand ATR first</div></div>
@@ -599,6 +648,13 @@
   </section>
   <!--tested:end-->
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>Why is the band anchored to the previous close?</h3><p>A band that moves with live price can never be caught. Measuring from the last closed candle makes it a fixed level for the next 5 minutes.</p></div>
+    <div class="qa"><h3>What is the short signal?</h3><p>A candle with an upper wick about twice its body and little or no lower wick. Enter at the next candle's open and close at that candle's close, with no target or stop.</p></div>
+    <div class="qa"><h3>Why don't the shorts mirror the longs?</h3><p>Inverting the long model for shorts was tested in the source and didn't work. Shorts did better when only taken after a red prior day.</p></div>
+    <div class="qa"><h3>Does the ATR Hybrid Scalp work?</h3><p>Not on our stand-in test: on QQQ and SPY 5-minute bars, 2,725 trades had a 41% win rate, a 0.76 profit factor and -0.11R per trade. A test on MNQ futures could come out differently.</p></div>
+  </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
     <a href="/setups/vwap-reversal.html"><span class="k">All session</span><h3>VWAP Reversal</h3><p>Stack a VWAP band touch, an old horizontal level, and a failure-test reversal candle at the same price — one signal is a guess, three is a trade.</p></a>

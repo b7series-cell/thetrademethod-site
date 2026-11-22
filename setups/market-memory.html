@@ -235,6 +235,54 @@
 </style>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=2" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the market memory day two model?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Market memory is a day two playbook on the 5-minute chart. On a stock that made a big move yesterday, you draw a box from yesterday's high and low plus one or two levels where price fought hard. When price returns to an edge, you wait for a John Wick candle, a sharp wick through the level that closes back inside, and trade toward the other side of the box."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is a John Wick candle?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A sharp wick through a remembered level followed by a distinct close back on the other side: a wick above resistance that closes red, or a wick below support that closes green."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What are the two costly mistakes?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Buying when price runs quickly into or just above yesterday's high without holding there, and selling when it runs quickly into or below yesterday's low without holding there."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Where do the stop and target go?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Enter on the break of the John Wick candle, stop on its far side, and target the other side of the box. Move the stop to break even once price clears the level with a real hold."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does market memory work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not in our test: 8,236 trades on 5-minute bars won 23% of the time, with a 0.87 profit factor and -0.10R per trade."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -289,6 +337,7 @@
       <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Loses</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the market memory day two model?</h2><p>Market memory is a day two playbook on the 5-minute chart. On a stock that made a big move yesterday, you draw a box from yesterday's high and low plus one or two levels where price fought hard. When price returns to an edge, you wait for a John Wick candle, a sharp wick through the level that closes back inside, and trade toward the other side of the box.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">before the open</div><div class="n">Find day two</div></div>
@@ -712,6 +761,13 @@
   </section>
   <!--tested:end-->
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What is a John Wick candle?</h3><p>A sharp wick through a remembered level followed by a distinct close back on the other side: a wick above resistance that closes red, or a wick below support that closes green.</p></div>
+    <div class="qa"><h3>What are the two costly mistakes?</h3><p>Buying when price runs quickly into or just above yesterday's high without holding there, and selling when it runs quickly into or below yesterday's low without holding there.</p></div>
+    <div class="qa"><h3>Where do the stop and target go?</h3><p>Enter on the break of the John Wick candle, stop on its far side, and target the other side of the box. Move the stop to break even once price clears the level with a real hold.</p></div>
+    <div class="qa"><h3>Does market memory work?</h3><p>Not in our test: 8,236 trades on 5-minute bars won 23% of the time, with a 0.87 profit factor and -0.10R per trade.</p></div>
+  </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
     <a href="/setups/fashionably-late.html"><span class="k">All session</span><h3>Fashionably Late</h3><p>Let the low print, let momentum build back to VWAP, and buy the moment the 9 EMA crosses it — proof the turn already happened, not a guess that it will.</p></a>
