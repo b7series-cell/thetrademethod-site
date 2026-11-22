@@ -106,4 +106,54 @@ FAQ = {
   ("Does the Qullamaggie breakout work?", "It was the only setup on this site that clearly beat random entries in our tests: 158 trades with a 5-minute opening range entry averaged +0.63R against -0.21R for random entries with the same exits, though only 35% of trades won."),
  ],
 },
+"/setups/pmh-break.html": {
+ "q": "What is a premarket high break?",
+ "a": "A premarket high (PMH) break is an opening-drive trade on the 2-minute chart. When a stock with a real catalyst opens above yesterday's high and the prior close, you buy the close of the first 2-minute candle that closes above the premarket high on heavy volume, with the stop under that candle's low.",
+ "faq": [
+  ("What has to be true before the open?", "The market's daily chart above its 10 and 20 SMA, the sector moving at least as hard as the market, a real catalyst with heavy premarket volume, and no obvious resistance for 3 to 5%."),
+  ("What is the 9:30 gate?", "The opening print must be above both yesterday's high and the prior close. If it opens below yesterday's high, there's no opening drive trade, however good the news is."),
+  ("What does the breakout candle need?", "A real green body that closes above the premarket high, an upper wick no bigger than half the body, and relative volume above 3. A wick through the level without a close doesn't count."),
+  ("Does the premarket high break work?", "Not in our test: 188 trades on 2-minute bars across SPY, QQQ and 10 large-cap stocks from Nov 2021 to Nov 2026 had a 37% win rate, a 0.94 profit factor and -0.03R per trade."),
+ ],
+},
+"/setups/opening-range-break.html": {
+ "q": "What is an opening range breakout?",
+ "a": "An opening range breakout (ORB) uses the high and low of the first 15 or 30 minutes of trading. Once that range has fully formed, you enter when price breaks it on real volume with the higher time frame agreeing, put the stop a few cents past the breakout bar, and take profits in layers, often at 1 and 2 ATR.",
+ "faq": [
+  ("15 or 30-minute opening range?", "Either works. Pick one window, stay consistent with it, and don't take the break before that window has finished."),
+  ("Where does the stop go on an opening range breakout?", "A few cents beyond the high or low of the actual breakout bar, not an arbitrary distance from the range. If price comes back through that bar, the thing that triggered the trade has failed."),
+  ("What does the higher time frame add?", "The best breaks agree with something bigger: a key level lost or reclaimed, a fresh catalyst, clear relative strength, or a first red day after a big run."),
+  ("Does the opening range breakout work?", "Our first look lost money: 249 trades on 5-minute bars across 10 large-cap stocks, Aug to Nov 2026, had a 36% win rate, a 0.76 profit factor and -0.15R per trade. The higher-time-frame filter couldn't be coded, and the sample is short."),
+ ],
+},
+"/setups/anchored-vwap.html": {
+ "q": "What is an anchored VWAP?",
+ "a": "An anchored VWAP is a volume-weighted average price that starts at an event you choose, such as an earnings release, instead of the start of the day. It shows the average price everyone has paid since the news, so price above it means buyers have been in control since then and price below it means sellers have.",
+ "faq": [
+  ("Where do you anchor the VWAP for earnings?", "On the candle where the news hit. A 15-minute chart with extended hours shows the after-hours reaction. For a strong stock in an uptrend, set the source to the low of each bar."),
+  ("How much after-hours volume do you want?", "At least 20% of the stock's average daily volume in the after-hours session, and 50 to 70% is better."),
+  ("What is the anchored VWAP entry?", "On day one or day two, the stock dips off the open toward the anchored VWAP and reclaims. Buy the strength after the dip, not the dip itself."),
+  ("When do you sell?", "Cut at least half on a daily close below the anchored VWAP. An intraday dip under it isn't enough."),
+ ],
+},
+"/setups/silver-bullet.html": {
+ "q": "What is the ICT Silver Bullet?",
+ "a": "The Silver Bullet is an ICT intraday model traded in three one-hour New York windows: 3 to 4 am, 10 to 11 am and 2 to 3 pm. Price sweeps an untouched level, a strong displacement candle leaves a fair value gap, and you place a limit at the gap's near edge, stop a tick past the sweep, and target the next untouched level.",
+ "faq": [
+  ("What counts as a sweep?", "A candle trading at least one tick through an untouched level such as a swing high or low, a session range, or the previous day's high or low. A wick is enough; an exact touch isn't."),
+  ("What makes a valid fair value gap here?", "Three candles where the first and third don't overlap, a middle candle body of at least 1 ATR(14), a gap of at least 0.1 ATR, all inside the window and after the sweep."),
+  ("What is the Silver Bullet target?", "The nearest untouched level on the other side. If it's closer than 1.5 times the risk the setup is skipped, and with no level at all the target is 2R."),
+  ("Does the Silver Bullet work?", "Not in the study this page is built on. Over 16 years on four futures markets it lost money after costs in all 92 hour and market tests, and about 1 in 4 trades won."),
+ ],
+},
+"/setups/ict-made-simple.html": {
+ "q": "What is ICT trading, made simple?",
+ "a": "ICT trading, as Trader Mayne strips it down, is a price action framework in six pieces: the trend, market structure breaks, the range and its 0.5 premium and discount, three points of interest (order blocks, breakers, fair value gaps), and the draw on liquidity. You map it on a high time frame and enter on a low time frame breaker.",
+ "faq": [
+  ("What is a market structure break?", "A candle body closing through the last swing high in an uptrend (or swing low in a downtrend). A wick doesn't count. A market structure shift is price breaking the last higher low instead, a sign the trend may be turning."),
+  ("What are premium and discount?", "Draw a Fibonacci from the significant low to the significant high of the current leg. Above the 0.5 is premium, where you sell; below it is discount, where you buy. 0.618 to 0.786 is the optimal trade entry."),
+  ("What are the three points of interest?", "An order block (the move before the move that broke structure), a breaker (an order block that failed and flipped), and a fair value gap (three candles where price only went one way)."),
+  ("How do you enter with two time frames?", "When price reaches the high time frame point of interest, zoom in and wait for the low time frame to flip back in line. Enter on its breaker, stop under the turn, and target external range liquidity."),
+ ],
+},
 }

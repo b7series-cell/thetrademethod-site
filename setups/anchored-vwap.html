@@ -375,6 +375,54 @@
 </style>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=13" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is an anchored VWAP?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "An anchored VWAP is a volume-weighted average price that starts at an event you choose, such as an earnings release, instead of the start of the day. It shows the average price everyone has paid since the news, so price above it means buyers have been in control since then and price below it means sellers have."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Where do you anchor the VWAP for earnings?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "On the candle where the news hit. A 15-minute chart with extended hours shows the after-hours reaction. For a strong stock in an uptrend, set the source to the low of each bar."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How much after-hours volume do you want?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "At least 20% of the stock's average daily volume in the after-hours session, and 50 to 70% is better."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the anchored VWAP entry?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "On day one or day two, the stock dips off the open toward the anchored VWAP and reclaims. Buy the strength after the dip, not the dip itself."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "When do you sell?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Cut at least half on a daily close below the anchored VWAP. An intraday dip under it isn't enough."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -428,6 +476,7 @@
       <a class="watch" href="#video"><i></i>Watch the video</a>
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is an anchored VWAP?</h2><p>An anchored VWAP is a volume-weighted average price that starts at an event you choose, such as an earnings release, instead of the start of the day. It shows the average price everyone has paid since the news, so price above it means buyers have been in control since then and price below it means sellers have.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">1 &middot; the catalyst</div><div class="n">A report on heavy volume</div></div>
@@ -708,6 +757,13 @@
     </div>
   </section>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>Where do you anchor the VWAP for earnings?</h3><p>On the candle where the news hit. A 15-minute chart with extended hours shows the after-hours reaction. For a strong stock in an uptrend, set the source to the low of each bar.</p></div>
+    <div class="qa"><h3>How much after-hours volume do you want?</h3><p>At least 20% of the stock's average daily volume in the after-hours session, and 50 to 70% is better.</p></div>
+    <div class="qa"><h3>What is the anchored VWAP entry?</h3><p>On day one or day two, the stock dips off the open toward the anchored VWAP and reclaims. Buy the strength after the dip, not the dip itself.</p></div>
+    <div class="qa"><h3>When do you sell?</h3><p>Cut at least half on a daily close below the anchored VWAP. An intraday dip under it isn't enough.</p></div>
+  </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
     <a href="/setups/the-strat.html"><span class="k">Swing</span><h3>The Strat</h3><p>Price can only do three things: stay inside the last bar (a 1), take out one side (a 2) or both (a 3).</p></a>
