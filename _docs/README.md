@@ -32,6 +32,7 @@ Copy both in before doing anything else. Then move your
     │   ├── DESIGN.md          ← copy yours in
     │   ├── build-sitemap.js
     │   ├── seo-check.py       ← runs before every deploy
+    │   ├── stamp-dates.py     ← real last-updated dates from git
     │   └── README.md
     ├── index.html             ← the directory page
     ├── 404.html
@@ -78,9 +79,12 @@ the section, so the line is harmless on pages that have none.
 1. Copy `_docs/_template.html` to `setups/your-slug.html`, write it.
 2. Add one entry to the `SETUPS` array in `js/nav.js`, including its
    `indicators`.
-3. Run `node _docs/build-sitemap.js` to refresh `sitemap.xml`.
+3. Run `node _docs/build-sitemap.js` then `python3 _docs/stamp-dates.py`
+   to refresh `sitemap.xml` (the deploy also does this, with dates taken
+   from git, and rebuilds the search index).
 4. Run `python3 _docs/seo-check.py`. It must show 0 errors, or the
-   deploy stops (the deploy workflow runs the same check first).
+   deploy stops (the deploy workflow runs the same check first). Keep it
+   at 0 warnings too: titles 70 characters or less, descriptions 120-160.
 5. Upload the changed files.
 
 Keep `status: "draft"` while writing. The page is live on the server but
