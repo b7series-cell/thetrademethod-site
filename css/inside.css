@@ -1,0 +1,60 @@
+/* =====================================================================
+   inside.css — homepage "Inside every page" stepper (#inside).
+   Tabs on the left (chips on phones) drive one panel with a mini chart.
+   ===================================================================== */
+/* ================= shared mini illustrations ================= */
+.ill { display:block; width:100%; height:auto; }
+.ill .ln { stroke:#424245; stroke-width:6; stroke-linecap:round; }
+.ill .ln.hi { stroke:#f5f5f7; }
+.ill .up { fill:#30d158; } .ill .dn { fill:#ff453a; }
+.ill .wk { stroke:#86868b; stroke-width:1.5; }
+.ill .lvl { stroke:#ff453a; stroke-width:2; stroke-dasharray:6 5; }
+.ill .tgt { stroke:#30d158; stroke-width:2; stroke-dasharray:6 5; }
+.ill .ent { stroke:#2997ff; stroke-width:2; }
+.ill .dot { fill:#2997ff; } .ill .dtx { fill:#fff; font:600 11px var(--font); text-anchor:middle; dominant-baseline:central; }
+.ill .lab { fill:#86868b; font:500 11px var(--font); }
+.ill .ok { fill:#30d158; } .ill .no { fill:#ff453a; }
+.ill .code { fill:#86868b; font:500 11px var(--mono-font); }
+.ill .code .kw { fill:#ba62fc; } .ill .code .fn { fill:#2997ff; }
+
+/* ================= B. Stepper (tabs + changing panel) ================= */
+.ib { display:grid; grid-template-columns:minmax(0,0.85fr) minmax(0,1.15fr); gap:28px; align-items:stretch; }
+.ib-tabs { display:flex; flex-direction:column; gap:8px; margin:0; padding:0; list-style:none; }
+.ib-tabs button { all:unset; box-sizing:border-box; width:100%; cursor:pointer; display:flex; align-items:center; gap:14px; padding:16px 20px; border-radius:18px; color:var(--ash); font-size:19px; font-weight:600; transition:background .25s,color .25s; position:relative; overflow:hidden; }
+.ib-tabs button .n { font-size:13px; color:#6e6e73; width:18px; }
+.ib-tabs button.on { background:var(--charcoal); color:var(--silk); }
+.ib-tabs button.on .n { color:var(--link); }
+.ib-tabs button .prog { position:absolute; left:0; bottom:0; height:2px; background:var(--link); width:0; }
+.ib-tabs button.on .prog { animation:ibprog 5s linear forwards; }
+.ib.paused .ib-tabs button.on .prog { animation:none; width:0; }
+@keyframes ibprog { to { width:100%; } }
+.ib-panel { background:var(--charcoal); border-radius:28px; padding:32px; display:grid; grid-template-rows:auto 1fr; gap:22px; min-height:420px; }
+.ib-top { display:flex; justify-content:space-between; align-items:flex-end; gap:16px; }
+.ib-top .k { font-size:14px; color:var(--ash); }
+.ib-top h3 { margin:4px 0 0; font-size:32px; font-weight:600; line-height:1.1; }
+.ib-top .big { font-size:64px; font-weight:600; line-height:1; letter-spacing:-0.015em; font-variant-numeric:tabular-nums; }
+.ib-top .big.spec { background:var(--spectrum); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.ib-body { display:grid; gap:20px; align-content:start; }
+.ib-body p { max-width:46ch; }
+.ib-body p { margin:0; color:var(--ash); font-size:17px; }
+.ib-body p b { color:var(--silk); }
+.ib-fig { background:#000; border-radius:18px; padding:18px 22px; }
+.ib-slide { display:none; } .ib-slide.on { display:contents; animation:ibfade .4s ease; }
+@keyframes ibfade { from { opacity:0; } to { opacity:1; } }
+
+@media (max-width:760px) {
+  .ib { grid-template-columns:1fr; gap:14px; }
+  .ib-tabs { flex-direction:row; overflow-x:auto; gap:8px; scrollbar-width:none; margin:0 -16px; padding:0 16px; scroll-snap-type:x mandatory; }
+  .ib-tabs::-webkit-scrollbar { display:none; }
+  .ib-tabs li { flex:0 0 auto; scroll-snap-align:start; }
+  .ib-tabs button { padding:9px 16px; font-size:15px; border-radius:999px; background:#1d1d1f; gap:8px; white-space:nowrap; }
+  .ib-tabs button.on { background:var(--silk); color:#000; }
+  .ib-tabs button .n { width:auto; }
+  .ib-tabs button.on .n { color:#0066cc; }
+  .ib-panel { padding:22px 20px 24px; min-height:0; border-radius:22px; gap:16px; }
+  .ib-top h3 { font-size:26px; }
+  .ib-top .big { font-size:48px; }
+  .ib-body { grid-template-columns:1fr; gap:14px; }
+  .ib-body p { font-size:16px; }
+}
+@media (prefers-reduced-motion: reduce) { .ib-tabs button.on .prog { animation:none; } .ib-slide.on { animation:none; } }
