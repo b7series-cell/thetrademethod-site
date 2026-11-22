@@ -65,9 +65,9 @@
  "dateModified": "2026-11-22",
  "inLanguage": "en",
  "author": {
-  "@type": "Organization",
-  "name": "The Trade Method",
-  "url": "https://thetrademethod.com/"
+  "@type": "Person",
+  "name": "Bryant",
+  "url": "https://thetrademethod.com/about.html"
  },
  "publisher": {
   "@type": "Organization",
@@ -196,7 +196,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/apple.css?v=26">
 <link rel="stylesheet" href="/css/tested.css?v=2">
 <style>
   /* ---------- page-only rules (after apple.css so they win) ---------- */
@@ -344,11 +344,37 @@
   @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-mock { padding:8px; } }
 </style>
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=60" defer></script>
+<script src="/js/site.js?v=61" defer></script>
 <script src="/js/fs-kit.js?v=1" defer></script>
 <script src="/js/fs-turn-of-the-month.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=35" defer></script>
+<!-- breadcrumbs --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://thetrademethod.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Famous strategies",
+   "item": "https://thetrademethod.com/famous-strategies/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "The Turn-of-the-Month Effect in Stocks, Explained",
+   "item": "https://thetrademethod.com/famous-strategies/turn-of-the-month.html"
+  }
+ ]
+}
+</script><!-- /breadcrumbs -->
 </head>
 <body>
 
@@ -357,6 +383,7 @@
 <div class="sheet">
 
   <a class="back" href="/famous-strategies/">&lsaquo; Famous strategies</a>
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-22">Nov 22, 2026</time></p><!-- /byline -->
 
   <header class="top" data-candle-bg="turn-of-the-month">
     <div>
@@ -582,7 +609,7 @@
 
   <!--tested:start-->
   <section class="tested v-none" id="tested" aria-labelledby="tested-h">
-    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>No edge here</span></div>
+    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>No edge here</span></div>
     <h2 id="tested-h">The turn of the month wasn't special in these years</h2>
     <p class="tested-lead">The days around the turn are 19% of trading days and made 9.8% in total. The rest of the month made 46.9%, so the turn earned about its share and no more.</p>
     <ul class="tested-stats">
@@ -736,14 +763,14 @@ if barstate.islast
     <p>The papers and books behind every figure on this page.</p>
   </div>
   <ol class="cites">
-    <li>McConnell, J. J. &amp; Xu, W. (2008). Equity Returns at the Turn of the Month. <i>Financial Analysts Journal</i>, 64(2), 49&ndash;64.<small>CRSP daily data, 1926&ndash;2005: average daily returns of 0.15% (value-weighted) and 0.22% (equal-weighted) on the four turn-of-the-month days, against &minus;0.001% and 0.04% on other days; no average reward for market risk except around the turn of the month; not confined to small or low-priced stocks or to quarter- and year-ends, not explained by volatility; present in 31 of 35 countries; no higher volume or net fund inflows; &ldquo;a puzzle in search of an answer.&rdquo;</small></li>
-    <li>Lakonishok, J. &amp; Smidt, S. (1988). Are Seasonal Anomalies Real? A Ninety-Year Perspective. <i>Review of Financial Studies</i>, 1(4), 403&ndash;425.<small>Ninety years of daily Dow Jones data: persistently anomalous returns around the turn of the week, month and year, and holidays.</small></li>
+    <li>McConnell, J. J. &amp; Xu, W. (2008). Equity Returns at the Turn of the Month. <i>Financial Analysts Journal</i>, 64(2), 49&ndash;64. <a class="cite-link" href="https://doi.org/10.2469/faj.v64.n2.11" target="_blank" rel="noopener">DOI &rsaquo;</a><small>CRSP daily data, 1926&ndash;2005: average daily returns of 0.15% (value-weighted) and 0.22% (equal-weighted) on the four turn-of-the-month days, against &minus;0.001% and 0.04% on other days; no average reward for market risk except around the turn of the month; not confined to small or low-priced stocks or to quarter- and year-ends, not explained by volatility; present in 31 of 35 countries; no higher volume or net fund inflows; &ldquo;a puzzle in search of an answer.&rdquo;</small></li>
+    <li>Lakonishok, J. &amp; Smidt, S. (1988). Are Seasonal Anomalies Real? A Ninety-Year Perspective. <i>Review of Financial Studies</i>, 1(4), 403&ndash;425. <a class="cite-link" href="https://doi.org/10.1093/rfs/1.4.403" target="_blank" rel="noopener">DOI &rsaquo;</a><small>Ninety years of daily Dow Jones data: persistently anomalous returns around the turn of the week, month and year, and holidays.</small></li>
     <li>Ariel, R. A. (1987). A Monthly Effect in Stock Returns. <i>Journal of Financial Economics</i>, 18(1), 161&ndash;174.</li>
   </ol>
 
   <p class="src">Built from the papers listed above. The calendar and the year of returns in the walkthroughs are made up for illustration. The return bars and the country count use the published numbers. The SPY figures are from our own TradingView run of the indicator on this page, price only, not from a published study. Past results don't promise future returns. It's shared for education, not as trading advice.</p>
 </div>
-<footer class="gfoot" data-gfooter></footer>
+<footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
 
 </body>
 </html>

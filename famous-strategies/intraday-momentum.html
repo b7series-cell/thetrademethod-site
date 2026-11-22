@@ -65,9 +65,9 @@
  "dateModified": "2026-11-22",
  "inLanguage": "en",
  "author": {
-  "@type": "Organization",
-  "name": "The Trade Method",
-  "url": "https://thetrademethod.com/"
+  "@type": "Person",
+  "name": "Bryant",
+  "url": "https://thetrademethod.com/about.html"
  },
  "publisher": {
   "@type": "Organization",
@@ -196,7 +196,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/apple.css?v=26">
 <link rel="stylesheet" href="/css/tested.css?v=2">
 <style>
   /* ---------- page-only rules (after apple.css so they win) ---------- */
@@ -344,11 +344,37 @@
   @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-mock { padding:8px; } }
 </style>
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=60" defer></script>
+<script src="/js/site.js?v=61" defer></script>
 <script src="/js/fs-kit.js?v=1" defer></script>
 <script src="/js/fs-intraday-momentum.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=35" defer></script>
+<!-- breadcrumbs --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://thetrademethod.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Famous strategies",
+   "item": "https://thetrademethod.com/famous-strategies/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Intraday Momentum Strategy on SPY, Explained",
+   "item": "https://thetrademethod.com/famous-strategies/intraday-momentum.html"
+  }
+ ]
+}
+</script><!-- /breadcrumbs -->
 </head>
 <body>
 
@@ -357,6 +383,7 @@
 <div class="sheet">
 
   <a class="back" href="/famous-strategies/">&lsaquo; Famous strategies</a>
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-22">Nov 22, 2026</time></p><!-- /byline -->
 
   <header class="top" data-candle-bg="intraday-momentum">
     <div>
@@ -602,7 +629,7 @@
 
   <!--tested:start-->
   <section class="tested v-none" id="tested" aria-labelledby="tested-h">
-    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>No edge</span></div>
+    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>No edge</span></div>
     <h2 id="tested-h">The first half hour didn't predict the last</h2>
     <p class="tested-lead">Trading the last half hour in the direction of the morning was right on 49% of days, and slightly negative overall.</p>
     <ul class="tested-stats">
@@ -772,13 +799,13 @@ if barstate.islast
     <p>The papers and books behind every figure on this page.</p>
   </div>
   <ol class="cites">
-    <li>Gao, L., Han, Y., Li, S. Z. &amp; Zhou, G. (2018). Market Intraday Momentum. <i>Journal of Financial Economics</i>, 129(2), 394&ndash;414.<small>SPY, February 1993 to December 2013: the first half-hour return (previous close to 10:00 am) predicts the last half-hour return, R&sup2; 1.6%, 2.6% with the twelfth half-hour; timing strategy 6.67% a year, standard deviation 6.19%, Sharpe 1.08, success rate 54.37%, against always long &minus;1.11%, 6.21%, &minus;0.18, 50.42%; stronger on volatile, high-volume, recession and macro-news days; present in ten other ETFs.</small></li>
-    <li>Bogousslavsky, V. (2016). Infrequent Rebalancing, Return Autocorrelation, and Seasonality. <i>Journal of Finance</i>, 71(6), 2967&ndash;3006.<small>The infrequent-rebalancing explanation the paper draws on.</small></li>
+    <li>Gao, L., Han, Y., Li, S. Z. &amp; Zhou, G. (2018). Market Intraday Momentum. <i>Journal of Financial Economics</i>, 129(2), 394&ndash;414. <a class="cite-link" href="https://doi.org/10.1016/j.jfineco.2018.05.009" target="_blank" rel="noopener">DOI &rsaquo;</a><small>SPY, February 1993 to December 2013: the first half-hour return (previous close to 10:00 am) predicts the last half-hour return, R&sup2; 1.6%, 2.6% with the twelfth half-hour; timing strategy 6.67% a year, standard deviation 6.19%, Sharpe 1.08, success rate 54.37%, against always long &minus;1.11%, 6.21%, &minus;0.18, 50.42%; stronger on volatile, high-volume, recession and macro-news days; present in ten other ETFs.</small></li>
+    <li>Bogousslavsky, V. (2016). Infrequent Rebalancing, Return Autocorrelation, and Seasonality. <i>Journal of Finance</i>, 71(6), 2967&ndash;3006. <a class="cite-link" href="https://doi.org/10.1111/jofi.12436" target="_blank" rel="noopener">DOI &rsaquo;</a><small>The infrequent-rebalancing explanation the paper draws on.</small></li>
   </ol>
 
   <p class="src">Built from the paper and the sources listed above. Every bar and dot in the walkthroughs is made up for illustration. The results chart uses the paper's published numbers, which are before trading costs. The 464-day figures are from our own TradingView run of the indicator on this page, not from a published study. Past results don't promise future returns. It's shared for education, not as trading advice.</p>
 </div>
-<footer class="gfoot" data-gfooter></footer>
+<footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
 
 </body>
 </html>

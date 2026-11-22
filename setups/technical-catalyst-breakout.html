@@ -65,9 +65,9 @@
  "dateModified": "2026-11-22",
  "inLanguage": "en",
  "author": {
-  "@type": "Organization",
-  "name": "The Trade Method",
-  "url": "https://thetrademethod.com/"
+  "@type": "Person",
+  "name": "Bryant",
+  "url": "https://thetrademethod.com/about.html"
  },
  "publisher": {
   "@type": "Organization",
@@ -224,9 +224,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/apple.css?v=26">
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=60" defer></script>
+<script src="/js/site.js?v=61" defer></script>
 <script src="/js/tc-anim.js?v=1" defer></script>
 <style>
   /* steps across the page, the two panels side by side under them */
@@ -395,6 +395,32 @@
 </style>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=12" defer></script>
+<!-- breadcrumbs --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://thetrademethod.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Setups",
+   "item": "https://thetrademethod.com/setups/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Technical Catalyst Breakout",
+   "item": "https://thetrademethod.com/setups/technical-catalyst-breakout.html"
+  }
+ ]
+}
+</script><!-- /breadcrumbs -->
 </head>
 <body>
 
@@ -403,6 +429,7 @@
 <div class="sheet">
 
   <a class="back" href="/setups/">&lsaquo; All setups</a>
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-22">Nov 22, 2026</time></p><!-- /byline -->
 
   <header class="top" data-candle-bg="technical-catalyst-breakout">
     <div>
@@ -1076,6 +1103,13 @@ alertcondition(sigExit and barstate.isconfirmed, "Exit", "{{ticker}} technical c
     </div>
   </section>
 
+  <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
+  <div class="relgrid">
+    <a href="/setups/qqe-mod.html"><span class="k">All session</span><h3>QQE Mod + EMA 50</h3><p>Let the EMA 50 pick the side.</p></a>
+    <a href="/setups/hitchhiker-scalp.html"><span class="k">All session</span><h3>Hitchhiker Scalp</h3><p>Right direction, wrong entry is still a loss.</p></a>
+    <a href="/setups/silver-bullet.html"><span class="k">All session</span><h3>Silver Bullet</h3><p>In three one-hour New York windows, wait for a sweep of untouched liquidity and a displacement candle that leaves a fair value gap, then buy or sell the return to the gap.</p></a>
+    <a href="/setups/liquidity-refill.html"><span class="k">All session</span><h3>Liquidity Refill</h3><p>When buyers take liquidity faster than sellers can refill it, price has one way to go.</p></a>
+  </div><!-- /related -->
   <div class="rule">
     <div>
       <h2>The level is the news.</h2>
@@ -1095,7 +1129,7 @@ alertcondition(sigExit and barstate.isconfirmed, "Exit", "{{ticker}} technical c
   <p class="src">From an SMB Capital video by Mike Bellafiore (ETHA breakout traded by an SMB intern). The ETHA and Ethereum levels, the RVOL and the B size
   are as told in the video. The walkthrough, the two charts and the calculator's default numbers are illustrative, made-up bars, not ETHA's actual prints.</p>
 </div>
-<footer class="gfoot" data-gfooter></footer>
+<footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
 <script>
   /* copy the Pine code */
   (function () {

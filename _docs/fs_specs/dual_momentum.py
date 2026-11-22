@@ -130,7 +130,7 @@ SPEC = {
         "li": ["Check only at month-end.", "Use total returns, with dividends.", "Write the holding down before the next month starts."],
     },
     "sources": [
-        "Antonacci, G. (2014). <i>Dual Momentum Investing: An Innovative Strategy for Higher Returns with Lower Risk</i>. McGraw-Hill.<small>The Global Equities Momentum model: S&amp;P 500 vs MSCI ACWI ex-US on 12-month returns, the S&amp;P 500 vs T-bills, Barclays US Aggregate bonds as the alternative. 1974&ndash;2013: 17.43% a year, standard deviation 12.64%, Sharpe 0.87, worst drawdown 22.72%; MSCI ACWI 8.85%, 15.56%, 0.22, 60.21%. Figures before costs and taxes, as reported in reviews of the book.</small>",
+        "Antonacci, G. (2014). <i>Dual Momentum Investing: An Innovative Strategy for Higher Returns with Lower Risk</i>. McGraw-Hill. <a class=\"cite-link\" href=\"https://www.mheducation.com/highered/mhp/product/dual-momentum-investing-innovative-strategy-higher-returns-lower-risk.html\" target=\"_blank\" rel=\"noopener\">Source &rsaquo;</a><small>The Global Equities Momentum model: S&amp;P 500 vs MSCI ACWI ex-US on 12-month returns, the S&amp;P 500 vs T-bills, Barclays US Aggregate bonds as the alternative. 1974&ndash;2013: 17.43% a year, standard deviation 12.64%, Sharpe 0.87, worst drawdown 22.72%; MSCI ACWI 8.85%, 15.56%, 0.22, 60.21%. Figures before costs and taxes, as reported in reviews of the book.</small>",
         "Jegadeesh, N. &amp; Titman, S. (1993). Returns to Buying Winners and Selling Losers. <i>Journal of Finance</i>, 48(1), 65&ndash;91.",
         "Moskowitz, T. J., Ooi, Y. H. &amp; Pedersen, L. H. (2012). Time Series Momentum. <i>Journal of Financial Economics</i>, 104(2), 228&ndash;250.",
     ],

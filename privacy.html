@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy: what the site collects | The Trade Method</title>
+<meta name="description" content="What The Trade Method collects: Google Analytics visit counts, contact form messages, and small settings saved in your browser. No ads and no data sales.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/privacy.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Privacy at The Trade Method">
+<meta property="og:description" content="What The Trade Method collects: Google Analytics visit counts, contact form messages, and small settings saved in your browser. No ads and no data sales.">
+<meta property="og:url" content="https://thetrademethod.com/privacy.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Privacy at The Trade Method">
+<meta name="twitter:description" content="What The Trade Method collects: Google Analytics visit counts, contact form messages, and small settings saved in your browser. No ads and no data sales.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "WebPage",
+ "name": "Privacy at The Trade Method",
+ "description": "What The Trade Method collects: Google Analytics visit counts, contact form messages, and small settings saved in your browser. No ads and no data sales.",
+ "url": "https://thetrademethod.com/privacy.html",
+ "inLanguage": "en",
+ "dateModified": "2026-11-22",
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=26">
+<link rel="stylesheet" href="/css/info-page.css?v=1">
+
+<script src="/js/nav.js?v=29" defer></script>
+<script src="/js/site.js?v=61" defer></script>
+<!-- breadcrumbs --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://thetrademethod.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Privacy",
+   "item": "https://thetrademethod.com/privacy.html"
+  }
+ ]
+}
+</script><!-- /breadcrumbs -->
+</head>
+
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="Privacy"></div>
+
+<main id="top">
+  <section class="hub-hero">
+    <div class="wrap">
+      <p class="eyebrow">Privacy</p>
+      <h1>What this site collects.</h1>
+      <p class="lead">Visit counts, contact form messages and a few settings in your browser. No ads, no accounts, no selling of data.</p>
+    </div>
+  </section>
+
+  <section class="band info-band">
+    <div class="wrap info">
+      <h2>The short version</h2>
+      <p>The site counts visits with Google Analytics, keeps the messages you send through the contact form, and saves a few settings in your own browser. There are no ads, no accounts and no selling of data.</p>
+
+      <h2>Visit counts (Google Analytics)</h2>
+      <p>Pages load Google Analytics 4, which records things like which pages were viewed, how you arrived (a search, a link, an AI answer) and a rough location and device type. Google sets its own cookies to do this. I use the reports to see which pages help people and which need work. Google's handling of that data is described in <a href="https://policies.google.com/privacy" rel="noopener">Google's privacy policy</a>.</p>
+      <p>To stop your visits being counted in a browser, open any page with <code>?notrack=1</code> at the end of the address, for example <a href="/?notrack=1">thetrademethod.com/?notrack=1</a>. That browser stays opted out until you visit with <code>?notrack=0</code> or clear the site's data. A browser extension that blocks Google Analytics works too.</p>
+
+      <h2>The contact form</h2>
+      <p>When you send a message, the form emails it to me and the server keeps a copy with your name, email, topic, the page you sent it from and the message. Your email is only used to reply. To stop abuse the server also keeps a short-lived, one-way scrambled version of your IP address for rate limiting, kept for a day; it can't be turned back into the address.</p>
+      <p>To have a message you sent deleted, <a href="/contact.html">ask through the form</a> using the same email address.</p>
+
+      <h2>Settings saved in your browser</h2>
+      <p>Some pages remember small choices on your own device, such as the side or time window you picked on a backtest panel, and whether you've opted out of analytics. The site can also be installed as an app, which stores copies of pages on your device so they open offline. None of this is sent anywhere; clearing the site's data in your browser removes it.</p>
+
+      <h2>Other services pages load</h2>
+      <ul>
+        <li><b>Google Fonts</b> serves the typeface.</li>
+        <li><b>YouTube</b> serves the reference videos embedded on some pages, mostly through its privacy-enhanced (youtube-nocookie.com) player.</li>
+        <li><b>jsDelivr</b> serves the charting library used on some setup pages.</li>
+        <li><b>SiteGround</b> hosts the site and keeps standard server logs, which include IP addresses.</li>
+      </ul>
+      <p>Each of these sees your IP address when your browser loads from it, under its own privacy policy.</p>
+
+      <h2>Changes</h2>
+      <p>If what the site collects changes, this page changes with it. Questions go through the <a href="/contact.html">contact form</a>.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
+
+</body>
+</html>

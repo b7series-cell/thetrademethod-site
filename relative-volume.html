@@ -65,9 +65,9 @@
  "dateModified": "2026-11-22",
  "inLanguage": "en",
  "author": {
-  "@type": "Organization",
-  "name": "The Trade Method",
-  "url": "https://thetrademethod.com/"
+  "@type": "Person",
+  "name": "Bryant",
+  "url": "https://thetrademethod.com/about.html"
  },
  "publisher": {
   "@type": "Organization",
@@ -195,7 +195,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/apple.css?v=25">
+<link rel="stylesheet" href="/css/apple.css?v=26">
 <link rel="stylesheet" href="/css/tested.css?v=2">
 <style>
   /* ---------- page-only rules (after apple.css so they win) ---------- */
@@ -260,10 +260,36 @@
   }
 </style>
 <script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=60" defer></script>
+<script src="/js/site.js?v=61" defer></script>
 <script src="/js/rvol-anim.js?v=2" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=2" defer></script>
+<!-- breadcrumbs --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://thetrademethod.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Fundamentals",
+   "item": "https://thetrademethod.com/fundamentals/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Relative Volume",
+   "item": "https://thetrademethod.com/relative-volume.html"
+  }
+ ]
+}
+</script><!-- /breadcrumbs -->
 </head>
 <body>
 
@@ -271,7 +297,8 @@
 <div data-lnav></div>
 <div class="sheet">
 
-  <a class="back" href="/#fundamentals">&lsaquo; Fundamentals</a>
+  <a class="back" href="/fundamentals/">&lsaquo; Fundamentals</a>
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-22">Nov 22, 2026</time></p><!-- /byline -->
 
   <header class="top" data-candle-bg="relative-volume">
     <div>
@@ -626,7 +653,7 @@
 
   <!--tested:start-->
   <section class="tested v-none" id="tested" aria-labelledby="tested-h">
-    <div class="tested-top"><span class="tested-label">We tested it</span><span class="tested-verdict"><i aria-hidden="true"></i>RVOL filter: no help</span></div>
+    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>RVOL filter: no help</span></div>
     <h2 id="tested-h">An RVOL filter, tested on a setup</h2>
     <p class="tested-lead">We required cumulative RVOL of at least 1.0 at the signal on the Zero Lag Pullback (on top of a market-regime filter). It made the result worse, on a small sample.</p>
     <ul class="tested-stats">
@@ -681,7 +708,7 @@
 
   <p class="src">Built from a trading-education video on relative volume and a cumulative RVOL histogram (20-day and 5-day, by time of day). Charts above are illustrations of the mechanics, not real tickers or data; the example readings in the table are the presenter's own descriptions, not independently verified. <a href="https://www.youtube.com/watch?v=CvRwUoDZiog" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
 </div>
-<footer class="gfoot" data-gfooter></footer>
+<footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
 
 </body>
 </html>

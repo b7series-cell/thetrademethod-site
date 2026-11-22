@@ -357,11 +357,13 @@
         '<div class="notes">' +
           "<p>A personal learning notebook: trading ideas from videos, articles, books and other traders, written down and animated.</p>" +
           "<p>Levels and times are US equities, Eastern time, regular session unless a page says otherwise.</p>" +
-          "<p>Every page describes a plan, not a recommendation to trade it. Trading involves substantial risk of loss. " +
-          "Worked examples are drawn from trading-education material and are not independently verified.</p>" +
+          "<p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and " +
+          "is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves " +
+          "substantial risk of loss. Past results, including backtests, don't guarantee future results. Worked examples " +
+          "are drawn from trading-education material and are not independently verified.</p>" +
         "</div>" +
         '<div class="cols">' + cols + "</div>" +
-        '<div class="base"><span>&copy; ' + new Date().getFullYear() + " The Trade Method</span><span><a href=\"" + REVIEW_URL + "\" target=\"_blank\" rel=\"noopener\">Trade Review</a> &middot; <a href=\"" + VOLENDAR_URL + "\" target=\"_blank\" rel=\"noopener\">Volendar</a> &middot; <a href=\"" + BACKTEST_URL + "\" target=\"_blank\" rel=\"noopener\">Backtest Board</a> &middot; <a href=\"/contact.html\">Contact</a> &middot; thetrademethod.com</span></div>" +
+        '<div class="base"><span>&copy; ' + new Date().getFullYear() + " The Trade Method</span><span><a href=\"" + REVIEW_URL + "\" target=\"_blank\" rel=\"noopener\">Trade Review</a> &middot; <a href=\"" + VOLENDAR_URL + "\" target=\"_blank\" rel=\"noopener\">Volendar</a> &middot; <a href=\"" + BACKTEST_URL + "\" target=\"_blank\" rel=\"noopener\">Backtest Board</a> &middot; <a href=\"/about.html\">About</a> &middot; <a href=\"/contact.html\">Contact</a> &middot; <a href=\"/privacy.html\">Privacy</a></span></div>" +
       "</div>";
   }
 
@@ -686,7 +688,7 @@
      each page's description and section headings, so a hit on a heading
      links straight to that section. Bump SEARCH_INDEX_URL's ?v= after
      rebuilding the index. */
-  var SEARCH_INDEX_URL = "/js/search-index.js?v=37";
+  var SEARCH_INDEX_URL = "/js/search-index.js?v=38";
   var searchDocs = null, searchIndexState = "";
 
   function searchBase() {

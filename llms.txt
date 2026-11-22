@@ -97,5 +97,7 @@ Educational content only, not financial advice. Times are US Eastern; examples u
 ## Optional
 
 - [Home](https://thetrademethod.com/): the full list of setups grouped by style.
+- [About](https://thetrademethod.com/about.html): who writes the site (Bryant), where each page comes from, and how setups are animated, coded and tested.
 - [Contact](https://thetrademethod.com/contact.html): contact form for questions, corrections and setup or video ideas.
+- [Privacy](https://thetrademethod.com/privacy.html): what the site collects (Google Analytics, contact form messages, browser settings).
 - [Sitemap](https://thetrademethod.com/sitemap.xml)
