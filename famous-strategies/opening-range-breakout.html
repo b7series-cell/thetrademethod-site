@@ -349,6 +349,54 @@
 <script src="/js/fs-opening-range-breakout.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=30" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the opening range breakout strategy?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "This version, from Toby Crabel (1990) as tested by Zarattini, Barbon and Aziz (2024), trades the first 5-minute candle. A green candle means longs only, red shorts only. You place a stop order at its high or low, risk 10% of the 14-day ATR sized to 1% of capital, and hold to the 4:00 close, on stocks in play."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What counts as a stock in play?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "In the paper, the 20 US stocks with the highest relative volume that day, at 100% or more above normal."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How did it do in the paper?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "1,637% net from 2016 to 2023 on stocks in play, with a 2.81 Sharpe ratio. The same rules on every stock made 29%."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why no profit target?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A tight stop with no target means many small losses and a few days that pay several times the risk. It only adds up on stocks with a reason to trend."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does it work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A small edge on QQQ in our test: +0.07R a trade over 1,158 trades on 1-minute bars, about 0.14R better than random direction. On SPY and 10 single stocks it lost."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -401,6 +449,7 @@
       <!--tested-chip--><a class="tested-chip v-mixed" href="#tested"><i aria-hidden="true"></i>Tested: <b>Small edge on QQQ</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the opening range breakout strategy?</h2><p>This version, from Toby Crabel (1990) as tested by Zarattini, Barbon and Aziz (2024), trades the first 5-minute candle. A green candle means longs only, red shorts only. You place a stop order at its high or low, risk 10% of the 14-day ATR sized to 1% of capital, and hold to the 4:00 close, on stocks in play.</p></section><!-- /define -->
 
   <nav class="ribbon seven" aria-label="Opening Range Breakout">
     <div><div class="t">step 1</div><div class="n">Find stocks in play</div></div>
@@ -854,6 +903,13 @@ if barstate.islast
     <a href="/famous-strategies/can-slim.html" style="--tc:#ff9f0a"><span class="k">famous strategy</span><h3>CAN SLIM</h3><p>Breakouts on the daily chart instead of the first five minutes.</p><small>Read &rsaquo;</small></a>
   </div>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What counts as a stock in play?</h3><p>In the paper, the 20 US stocks with the highest relative volume that day, at 100% or more above normal.</p></div>
+    <div class="qa"><h3>How did it do in the paper?</h3><p>1,637% net from 2016 to 2023 on stocks in play, with a 2.81 Sharpe ratio. The same rules on every stock made 29%.</p></div>
+    <div class="qa"><h3>Why no profit target?</h3><p>A tight stop with no target means many small losses and a few days that pay several times the risk. It only adds up on stocks with a reason to trend.</p></div>
+    <div class="qa"><h3>Does it work?</h3><p>A small edge on QQQ in our test: +0.07R a trade over 1,158 trades on 1-minute bars, about 0.14R better than random direction. On SPY and 10 single stocks it lost.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>Try it on paper first.</h2>

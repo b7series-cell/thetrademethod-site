@@ -349,6 +349,54 @@
 <script src="/js/fs-sector-rotation.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=32" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is sector rotation?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Sector rotation ranks industry sectors on their recent returns, holds the top few and swaps out any that fall behind. Based on Moskowitz and Grinblatt (1999) and tested by Mebane Faber (2010), it ranks ten sectors each month and holds the top three, a third each, with no view on the economy needed."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How are sectors ranked?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "By trailing total return. Faber's combined score averages the 1, 3, 6, 9 and 12-month returns."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How did it do in Faber's test?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "About 3 to 6% a year over holding all ten sectors, before costs, beating buy and hold in roughly 70% of years."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is this business cycle rotation?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. Business cycle rotation picks sectors from a forecast of the economy. This version just follows the ranking."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does sector rotation work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Within the noise in our test: the top 3 of the 11 sector SPDRs made +15.6% a year against +14.5% for an equal mix of all of them."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -401,6 +449,7 @@
       <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Within noise</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is sector rotation?</h2><p>Sector rotation ranks industry sectors on their recent returns, holds the top few and swaps out any that fall behind. Based on Moskowitz and Grinblatt (1999) and tested by Mebane Faber (2010), it ranks ten sectors each month and holds the top three, a third each, with no view on the economy needed.</p></section><!-- /define -->
 
   <nav class="ribbon seven" aria-label="Sector Rotation">
     <div><div class="t">step 1</div><div class="n">Month-end</div></div>
@@ -795,6 +844,13 @@ if barstate.islast
     <a href="/famous-strategies/low-volatility.html" style="--tc:#ff9f0a"><span class="k">famous strategy</span><h3>Low-Volatility Anomaly</h3><p>Another way to choose what to own, by risk instead of return.</p><small>Read &rsaquo;</small></a>
   </div>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>How are sectors ranked?</h3><p>By trailing total return. Faber's combined score averages the 1, 3, 6, 9 and 12-month returns.</p></div>
+    <div class="qa"><h3>How did it do in Faber's test?</h3><p>About 3 to 6% a year over holding all ten sectors, before costs, beating buy and hold in roughly 70% of years.</p></div>
+    <div class="qa"><h3>Is this business cycle rotation?</h3><p>No. Business cycle rotation picks sectors from a forecast of the economy. This version just follows the ranking.</p></div>
+    <div class="qa"><h3>Does sector rotation work?</h3><p>Within the noise in our test: the top 3 of the 11 sector SPDRs made +15.6% a year against +14.5% for an equal mix of all of them.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>Try it on paper first.</h2>

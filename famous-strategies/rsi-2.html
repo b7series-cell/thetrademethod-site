@@ -349,6 +349,54 @@
 <script src="/js/fs-rsi-2.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=32" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the RSI(2) strategy?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "RSI(2) is Larry Connors and Cesar Alvarez's pullback strategy for index ETFs like SPY and QQQ. Buy when the 2-period RSI closes at or below 5 while price is above its 200-day average, and sell on the first close above the 5-day average."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why a 2-period RSI?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Looking back two days instead of fourteen turns a slow gauge into one that hits extremes on almost every pullback."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does RSI(2) use a stop?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. Connors found stops hurt results on indexes."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can you short with RSI(2)?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The mirror image: below the 200-day, short when RSI(2) is at or above 95."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does RSI(2) work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "As described, but too rarely to judge in our test. It won 80% of the time on SPY and QQQ but fired only about 20 times on each in five years, making +1.0% a trade on SPY and +0.7% on QQQ."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -401,6 +449,7 @@
       <!--tested-chip--><a class="tested-chip v-thin" href="#tested"><i aria-hidden="true"></i>Tested: <b>Too few trades</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the RSI(2) strategy?</h2><p>RSI(2) is Larry Connors and Cesar Alvarez's pullback strategy for index ETFs like SPY and QQQ. Buy when the 2-period RSI closes at or below 5 while price is above its 200-day average, and sell on the first close above the 5-day average.</p></section><!-- /define -->
 
   <nav class="ribbon seven" aria-label="RSI(2)">
     <div><div class="t">step 1</div><div class="n">Above the 200-day</div></div>
@@ -751,6 +800,13 @@ if barstate.islast
     <a href="/famous-strategies/opening-range-breakout.html" style="--tc:#ff9f0a"><span class="k">famous strategy</span><h3>Opening Range Breakout</h3><p>A short-term strategy that buys strength instead.</p><small>Read &rsaquo;</small></a>
   </div>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>Why a 2-period RSI?</h3><p>Looking back two days instead of fourteen turns a slow gauge into one that hits extremes on almost every pullback.</p></div>
+    <div class="qa"><h3>Does RSI(2) use a stop?</h3><p>No. Connors found stops hurt results on indexes.</p></div>
+    <div class="qa"><h3>Can you short with RSI(2)?</h3><p>The mirror image: below the 200-day, short when RSI(2) is at or above 95.</p></div>
+    <div class="qa"><h3>Does RSI(2) work?</h3><p>As described, but too rarely to judge in our test. It won 80% of the time on SPY and QQQ but fired only about 20 times on each in five years, making +1.0% a trade on SPY and +0.7% on QQQ.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>Try it on paper first.</h2>

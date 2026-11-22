@@ -349,6 +349,54 @@
 <script src="/js/fs-low-volatility.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=29" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the low-volatility anomaly?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The low-volatility anomaly is the finding that the calmest stocks earned about as much as the riskiest, and the noisiest did worst, against the textbook idea that more risk pays more. It comes from Ang, Hodrick, Xing and Zhang (2006) and Frazzini and Pedersen's Betting Against Beta (2014). The strategy owns the calm stocks and rebalances on a schedule."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Volatility or beta?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Two ways to measure calm. Volatility is how much a stock swings; beta is how much it moves with the market. They mostly agree."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How big was the effect in the papers?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The noisiest fifth of stocks trailed the calmest by 1.06% a month. Lowest-beta stocks had a 0.70 Sharpe ratio against 0.28 for the highest, and betting against beta had a 0.78 Sharpe from 1926 to 2012."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the catch?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It lags in roaring rallies."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does low volatility work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Lower risk, lower return in our test. The calmest 20% had a worst drop of only 10% but made +7.7% a year against +12.9% for the average stock."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -401,6 +449,7 @@
       <!--tested-chip--><a class="tested-chip v-mixed" href="#tested"><i aria-hidden="true"></i>Tested: <b>Lower risk, lower return</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the low-volatility anomaly?</h2><p>The low-volatility anomaly is the finding that the calmest stocks earned about as much as the riskiest, and the noisiest did worst, against the textbook idea that more risk pays more. It comes from Ang, Hodrick, Xing and Zhang (2006) and Frazzini and Pedersen's Betting Against Beta (2014). The strategy owns the calm stocks and rebalances on a schedule.</p></section><!-- /define -->
 
   <nav class="ribbon seven" aria-label="Low-Volatility Anomaly">
     <div><div class="t">step 1</div><div class="n">Measure volatility</div></div>
@@ -803,6 +852,13 @@ if showTbl and barstate.islast
     <a href="/famous-strategies/pairs-trading.html" style="--tc:#ff9f0a"><span class="k">famous strategy</span><h3>Pairs Trading</h3><p>Another market-neutral idea built on two legs.</p><small>Read &rsaquo;</small></a>
   </div>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>Volatility or beta?</h3><p>Two ways to measure calm. Volatility is how much a stock swings; beta is how much it moves with the market. They mostly agree.</p></div>
+    <div class="qa"><h3>How big was the effect in the papers?</h3><p>The noisiest fifth of stocks trailed the calmest by 1.06% a month. Lowest-beta stocks had a 0.70 Sharpe ratio against 0.28 for the highest, and betting against beta had a 0.78 Sharpe from 1926 to 2012.</p></div>
+    <div class="qa"><h3>What is the catch?</h3><p>It lags in roaring rallies.</p></div>
+    <div class="qa"><h3>Does low volatility work?</h3><p>Lower risk, lower return in our test. The calmest 20% had a worst drop of only 10% but made +7.7% a year against +12.9% for the average stock.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>Try it on paper first.</h2>

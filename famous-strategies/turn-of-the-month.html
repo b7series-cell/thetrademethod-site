@@ -349,6 +349,54 @@
 <script src="/js/fs-turn-of-the-month.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=35" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the turn of the month effect?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The turn of the month effect is the finding that US stocks earned most of their return on four trading days each month: the last day of the month and the first three of the next. McConnell and Xu (2008) found 0.15% a day in that window from 1926 to 2005, and about nothing on other days."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do you trade the turn of the month?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Buy a broad index fund at the close of the day before the month's last trading day, and sell at the close of the third trading day of the new month."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is it only a US effect?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. McConnell and Xu found it in 31 of 35 countries."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is it caused by fund inflows?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "They found no extra volume or fund inflows that explained it."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the turn of the month still work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not in our test. The turn days were 19% of trading days and made 9.8% in total, while the rest of the month made 46.9%, so they earned about their share and no more."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -401,6 +449,7 @@
       <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>No edge here</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the turn of the month effect?</h2><p>The turn of the month effect is the finding that US stocks earned most of their return on four trading days each month: the last day of the month and the first three of the next. McConnell and Xu (2008) found 0.15% a day in that window from 1926 to 2005, and about nothing on other days.</p></section><!-- /define -->
 
   <nav class="ribbon seven" aria-label="Turn of the Month">
     <div><div class="t">step 1</div><div class="n">Find the last trading day</div></div>
@@ -745,6 +794,13 @@ if barstate.islast
     <a href="/famous-strategies/dual-momentum.html" style="--tc:#ff9f0a"><span class="k">famous strategy</span><h3>Dual Momentum</h3><p>A once-a-month decision of a different kind.</p><small>Read &rsaquo;</small></a>
   </div>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>How do you trade the turn of the month?</h3><p>Buy a broad index fund at the close of the day before the month's last trading day, and sell at the close of the third trading day of the new month.</p></div>
+    <div class="qa"><h3>Is it only a US effect?</h3><p>No. McConnell and Xu found it in 31 of 35 countries.</p></div>
+    <div class="qa"><h3>Is it caused by fund inflows?</h3><p>They found no extra volume or fund inflows that explained it.</p></div>
+    <div class="qa"><h3>Does the turn of the month still work?</h3><p>Not in our test. The turn days were 19% of trading days and made 9.8% in total, while the rest of the month made 46.9%, so they earned about their share and no more.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>Try it on paper first.</h2>
