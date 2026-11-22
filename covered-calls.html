@@ -301,6 +301,54 @@
 <script src="/js/cc-anim.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=6" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is a covered call?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A covered call is selling a call option on stock you already own, 100 shares per contract. You collect the premium today and keep it whatever happens. In exchange your upside stops at the strike, and the stock can still fall. In the page's example, with INTC at $32, selling the $34 call two months out paid $1.50 a share."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the most you can make on a covered call?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The rise to the strike plus the premium. In the INTC example that's $2 plus $1.50, or $350 per contract, about 10.9% over two months."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the break-even?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The stock price you paid minus the premium: $32 minus $1.50 is $30.50 in the example."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does a covered call protect your shares?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. If the stock falls more than the premium you still lose money. At $25 the example loses $5.50 a share instead of $7."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What does assigned mean?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The buyer used the call and your shares were sold at the strike, so you keep the premium plus the gain up to the strike but miss anything above it."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -352,6 +400,7 @@
       </div>
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is a covered call?</h2><p>A covered call is selling a call option on stock you already own, 100 shares per contract. You collect the premium today and keep it whatever happens. In exchange your upside stops at the strike, and the stock can still fall. In the page's example, with INTC at $32, selling the $34 call two months out paid $1.50 a share.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">the trade</div><div class="n">Stock + a sold call</div></div>
@@ -838,6 +887,13 @@
     </div>
   </section>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What is the most you can make on a covered call?</h3><p>The rise to the strike plus the premium. In the INTC example that's $2 plus $1.50, or $350 per contract, about 10.9% over two months.</p></div>
+    <div class="qa"><h3>What is the break-even?</h3><p>The stock price you paid minus the premium: $32 minus $1.50 is $30.50 in the example.</p></div>
+    <div class="qa"><h3>Does a covered call protect your shares?</h3><p>No. If the stock falls more than the premium you still lose money. At $25 the example loses $5.50 a share instead of $7.</p></div>
+    <div class="qa"><h3>What does assigned mean?</h3><p>The buyer used the call and your shares were sold at the strike, so you keep the premium plus the gain up to the strike but miss anything above it.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>You keep the premium. You give up the big run. You still own the risk.</h2>

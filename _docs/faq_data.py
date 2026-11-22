@@ -396,4 +396,54 @@ FAQ = {
   ("Is open profit a cushion for a big add?", "No. Up 3R near target, add something like 0.5R and move the whole stop to the initial target, so the worst case is still up 2.5R."),
  ],
 },
+"/covered-calls.html": {
+ "q": "What is a covered call?",
+ "a": "A covered call is selling a call option on stock you already own, 100 shares per contract. You collect the premium today and keep it whatever happens. In exchange your upside stops at the strike, and the stock can still fall. In the page's example, with INTC at $32, selling the $34 call two months out paid $1.50 a share.",
+ "faq": [
+  ("What is the most you can make on a covered call?", "The rise to the strike plus the premium. In the INTC example that's $2 plus $1.50, or $350 per contract, about 10.9% over two months."),
+  ("What is the break-even?", "The stock price you paid minus the premium: $32 minus $1.50 is $30.50 in the example."),
+  ("Does a covered call protect your shares?", "No. If the stock falls more than the premium you still lose money. At $25 the example loses $5.50 a share instead of $7."),
+  ("What does assigned mean?", "The buyer used the call and your shares were sold at the strike, so you keep the premium plus the gain up to the strike but miss anything above it."),
+ ],
+},
+"/dynamic-risk-sizing.html": {
+ "q": "What is dynamic risk sizing?",
+ "a": "Dynamic risk sizing means risking more on your best setups and less on your weakest, instead of the same amount on every trade. From an SMB Capital video, two traders took the same three trades. The one who sized each trade to its grade finished the day up $7,065, the one who used the same risk every time $4,797.",
+ "faq": [
+  ("What are the risk tiers?", "A+ setups get the most risk (for example $400), A setups really good risk ($300), B setups your baseline ($200), and C setups really small ($100)."),
+  ("How much more should you risk on an A setup?", "Small steps. In the example the A trade got 50% more than the $200 baseline, not ten times more."),
+  ("What makes a trade an A?", "A strong catalyst, a key higher time frame level, volume on the break, a clear trigger, a tight consolidation and a good time of day. A wide, choppy range or a midday breakout pushes it toward a C."),
+  ("Can a trade's grade change?", "Yes. In the example the same stock at the same level was a B- on a wide, choppy first look, then an A once it tightened into a wedge and broke on big volume."),
+ ],
+},
+"/trading-earnings.html": {
+ "q": "How do you trade earnings?",
+ "a": "This page follows a four-step process from a prop trading desk: watch the headline reaction without chasing it, listen to the conference call, wait for price to confirm, then build a Plan A and a Plan B for the next day. In the example the headline spike toward 152 faded, and the better long came near 154 after the call changed the story.",
+ "faq": [
+  ("Why not buy the earnings beat?", "The stock cares whether results beat what investors already expected, not whether the headline sounds good. A beat can be priced in, or traders who positioned before earnings sell the spike."),
+  ("What should you listen for on the earnings call?", "Contracts, next quarter's guidance, financing, dilution and share unlocks. The first two shape the story; the last three are about new supply of stock."),
+  ("Does a faded spike mean you should short?", "No. Good news giving back the move doesn't make the report bad. It only means the first reaction hasn't confirmed anything yet."),
+  ("What are Plan A and Plan B?", "Plan A is what you do if buyers defend a key area, in the example holding 155 to 156. Plan B is what you do if it loses that area and can't reclaim it, so you stop forcing the long."),
+ ],
+},
+"/level-radar.html": {
+ "q": "What is Level Radar?",
+ "a": "Level Radar is a TradingView indicator that shows, for ten levels day traders watch, the chance in percent that price touches each one before the session ends. The levels are the previous day's high, low and close, the overnight high and low, today's open, the opening range high and low, and today's high and low so far. The odds update on every bar.",
+ "faq": [
+  ("How are the odds worked out?", "It compares each level's distance with how far price usually still travels in the time left today, using the last ten sessions' range, shrunk as the session runs out, then checks how often price went that far on past days at the same time of day."),
+  ("What do the colors mean?", "Green levels are above price and red below. Brighter and thicker means higher odds. A tick mark means the level was already touched today."),
+  ("Where does the history come from?", "Fifteen years of index and gold futures built into the script, plus the last twenty sessions of your own chart."),
+  ("Are Level Radar's odds accurate?", "On SPY and QQQ, in our check, yes: levels marked 60 to 70% were touched about 62% of the time, usually within 1 to 3 points. On single stocks the middle-range odds ran 8 to 11 points too high."),
+ ],
+},
+"/get-better-faster.html": {
+ "q": "How do you get better at trading faster?",
+ "a": "Shorten the feedback loop. Pick one setup, trade it, review it, correct it and see it again, until the pattern becomes obvious. Watching videos, following alerts, changing strategies and adding indicators feel like work, but if none of it changes how you execute, you're staying busy rather than improving.",
+ "faq": [
+  ("Why one setup instead of trading in general?", "Trading is too broad to get good at. One setup that shows up often enough to study, recognize and improve at gives you depth. The page's goal is 100 examples of one setup, not 50 strategies."),
+  ("How do you know if you have a setup?", "You can answer six questions before the trade: why the stock is in play, the level, the trigger, where you're wrong, the target, and what would make you pass."),
+  ("How do you get more reps on a setup?", "Add review to live trading: replays, chart review after the close, the best opportunities of the day, historical examples and backtests, and watching the tape. One live rep a day can become about nine."),
+  ("Is market intuition real?", "It's pattern recognition built from reps. Show yourself the same setup 500 times and you stop thinking about it and start seeing it."),
+ ],
+},
 }
