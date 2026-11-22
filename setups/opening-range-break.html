@@ -240,7 +240,7 @@
 <link rel="stylesheet" href="/css/apple.css?v=27">
 <link rel="stylesheet" href="/css/tested.css?v=3">
 <script src="/js/nav.js?v=33" defer></script>
-<script src="/js/site.js?v=64" defer></script>
+<script src="/js/site.js?v=65" defer></script>
 <script src="/js/anim-kit.js?v=2" defer></script>
 <script src="/js/orb-anim.js?v=1" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
@@ -365,7 +365,6 @@
         <div><b>1&ndash;2&times;</b><small>ATR profit targets</small></div>
       </div>
       <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Loses</b></a><!--/tested-chip-->
-      <a class="get-ind" href="#indicator">Get the TradingView indicator &rsaquo;</a>
     </div>
   </header>
   <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is an opening range breakout?</h2><p>An opening range breakout (ORB) uses the high and low of the first 15 or 30 minutes of trading. Once that range has fully formed, you enter when price breaks it on real volume with the higher time frame agreeing, put the stop a few cents past the breakout bar, and take profits in layers, often at 1 and 2 ATR.</p></section><!-- /define -->
@@ -715,6 +714,26 @@
     <aside class="live-side" aria-live="polite"></aside>
   </section>
 
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>Loses</span></div>
+    <h2 id="tested-h">Lost on 8 of 10 stocks</h2>
+    <p class="tested-lead">A 15-minute range, a break on 1.5 times average volume and a one-ATR target lost money over a short, recent sample.</p>
+    <ul class="tested-stats">
+      <li><b>249</b><span>trades, 5-minute</span></li>
+      <li><b>36%</b><span>win rate</span></li>
+      <li><b>0.76</b><span>profit factor</span></li>
+      <li><b class="neg">&minus;0.15R</b><span>average per trade</span></li>
+    </ul>
+    <ul class="tested-notes">
+      <li>Only 2 of the 10 stocks were positive.</li>
+      <li>The sample is about 3.5 months, so it's a first look, not a verdict.</li>
+      <li>The page's higher-time-frame story can't be coded, so it's left out.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> TradingView backtest of the 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA) together on 5-minute bars, Aug to Nov 2026 (the last 5,000 bars, so about 3.5 months). Rules coded from this page, 0.5 bp a side for the spread. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
+
   <section class="ind-sec" id="indicator" aria-label="TradingView indicator">
     <h2 class="ind-heading">The indicator</h2>
     <p class="ind-note">One TradingView script for this setup (Pine Script v6), for US stocks and ETFs on a 1- to 15-minute chart. It boxes the opening range, numbers every break attempt,
@@ -1048,26 +1067,6 @@ alertcondition(evExit, "ORB trade done", "ORB: trade closed (stop, EMA exit or t
       <a class="more" href="https://www.youtube.com/watch?v=KFqSicS7HOo" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
     </div>
   </section>
-
-  <!--tested:start-->
-  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
-    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>Loses</span></div>
-    <h2 id="tested-h">Lost on 8 of 10 stocks</h2>
-    <p class="tested-lead">A 15-minute range, a break on 1.5 times average volume and a one-ATR target lost money over a short, recent sample.</p>
-    <ul class="tested-stats">
-      <li><b>249</b><span>trades, 5-minute</span></li>
-      <li><b>36%</b><span>win rate</span></li>
-      <li><b>0.76</b><span>profit factor</span></li>
-      <li><b class="neg">&minus;0.15R</b><span>average per trade</span></li>
-    </ul>
-    <ul class="tested-notes">
-      <li>Only 2 of the 10 stocks were positive.</li>
-      <li>The sample is about 3.5 months, so it's a first look, not a verdict.</li>
-      <li>The page's higher-time-frame story can't be coded, so it's left out.</li>
-    </ul>
-    <p class="tested-how"><b>How we tested.</b> TradingView backtest of the 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA) together on 5-minute bars, Aug to Nov 2026 (the last 5,000 bars, so about 3.5 months). Rules coded from this page, 0.5 bp a side for the spread. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
-  </section>
-  <!--tested:end-->
 
   <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
   <div class="faq">

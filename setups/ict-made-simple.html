@@ -256,8 +256,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=27">
+<link rel="stylesheet" href="/css/tested.css?v=3">
 <script src="/js/nav.js?v=33" defer></script>
-<script src="/js/site.js?v=64" defer></script>
+<script src="/js/site.js?v=65" defer></script>
 <script src="/js/ict-anim.js?v=1" defer></script>
 <style>
   /* steps across the page, the two panels side by side under them (same as hitchhiker-scalp.html) */
@@ -562,7 +563,7 @@
         <div><b>2</b><small>time frames, at least</small></div>
         <div><b>3</b><small>POIs: order block, breaker, FVG</small></div>
       </div>
-      <a class="get-ind" href="#indicator">Get the TradingView indicator &rsaquo;</a>
+      <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>No edge on any time frame</b></a><!--/tested-chip-->
     </div>
   </header>
   <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is ICT trading, made simple?</h2><p>ICT trading, as Trader Mayne strips it down, is a price action framework in six pieces: the trend, market structure breaks, the range and its 0.5 premium and discount, three points of interest (order blocks, breakers, fair value gaps), and the draw on liquidity. You map it on a high time frame and enter on a low time frame breaker.</p></section><!-- /define -->
@@ -844,6 +845,38 @@
       <li><b>Stop and target:</b> stop under the low before the turn, target external range liquidity, take a chunk off before it if you like. Stopped but the range holds? Look for the next one deeper.</li>
     </ol>
   </div>
+
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>No edge on any time frame</span></div>
+    <h2 id="tested-h">Lost on every intraday pairing and on the whole market</h2>
+    <p class="tested-lead">The indicator's rules, coded line for line, lost on every intraday chart and higher time frame pairing. Daily into weekly looked positive on 12 tickers, but across every liquid US stock all three entry methods lost.</p>
+    <ul class="tested-stats">
+      <li><b>14,525</b><span>trades, whole US market, daily / weekly</span></li>
+      <li><b>27%</b><span>win rate</span></li>
+      <li><b>0.90</b><span>profit factor</span></li>
+      <li><b class="neg">&minus;0.08R</b><span>average per trade, MSS close</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Chart &rarr; HTF</th><th scope="col">Breaker retest</th><th scope="col">MSS close</th><th scope="col">HTF only</th></tr></thead>
+      <tbody>
+        <tr><td>5-minute &rarr; 1-hour</td><td>&minus;0.18R (6,193)</td><td>&minus;0.16R (5,914)</td><td>&minus;0.33R (3,814)</td></tr>
+        <tr><td>15-minute &rarr; 4-hour</td><td>&minus;0.16R (2,182)</td><td>&minus;0.12R (2,123)</td><td>&minus;0.15R (1,220)</td></tr>
+        <tr><td>1-hour &rarr; daily</td><td>&minus;0.07R (598)</td><td>+0.01R (543)</td><td>&minus;0.30R (645)</td></tr>
+        <tr><td>4-hour &rarr; daily</td><td>+0.02R (121)</td><td>&minus;0.08R (102)</td><td>&minus;0.17R (563)</td></tr>
+        <tr><td>Daily &rarr; weekly, 12 tickers</td><td>&minus;0.06R (89)</td><td>+0.21R (77)</td><td>+0.15R (119)</td></tr>
+        <tr><td>Daily &rarr; weekly, whole US market</td><td>&minus;0.08R (16,627)</td><td>&minus;0.08R (14,525)</td><td>&minus;0.14R (21,544)</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tested-notes">
+      <li>Intraday it wins only 20 to 27% of the time against planned rewards of 4 to 10R. The far liquidity targets are rarely reached.</li>
+      <li>The positive daily / weekly rows on 12 tickers rest on 77 to 119 trades. On the whole market, with 14,500 to 21,500 trades, every entry method lost.</li>
+      <li>On the whole market it lost in both halves of the data, and a little more since mid-2024 (MSS close &minus;0.01R before, &minus;0.14R after). Longs were slightly positive (+0.09R); shorts lost (&minus;0.25R).</li>
+      <li>Only 1,148 of 2,526 stocks came out positive on the MSS close entry.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> The indicator's default rules: closed higher-time-frame candles, 2-candle swings, MSB and MSS on closes, POIs (order blocks, breakers, fair value gaps) in discount for longs and premium for shorts, a low taken then an MSS close on the chart, stop past the turn plus 0.1 ATR, target the external range liquidity with a 1.5R minimum. All three entry methods tested. Intraday: 1-minute bars on SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA), Nov 2021 to Nov 2026, 0.5 bp a side. Daily / weekly also on every liquid US stock, delisted ones included, 5 bp a side. The stop wins when stop and target share a bar, and a gap past the stop fills at the open. Trades before June 2024 are the training half, after it the holdout. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
 
   <section class="ind-sec" id="indicator" aria-label="TradingView indicator">
     <h2 class="ind-heading">The indicator</h2>

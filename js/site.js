@@ -100,6 +100,7 @@
     "/setups/cup-and-handle.html": ["none", "No better than random"],
     "/setups/zero-lag-pullback.html": ["none", "No edge vs random"],
     "/setups/fib-ote.html": ["none", "No edge vs random"],
+    "/setups/ict-made-simple.html": ["none", "No edge on any time frame"],
     "/setups/look-above-and-fail.html": ["none", "Fake levels did as well"],
     "/setups/three-candle-crt.html": ["none", "No edge"],
     "/setups/fashionably-late.html": ["none", "No edge after costs"],
