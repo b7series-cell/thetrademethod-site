@@ -251,6 +251,54 @@
 </style>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=2" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is a zero lag pullback?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A zero lag pullback is a trend pullback trade using a 50 and a 100-period zero-lag EMA. In an uptrend, you wait for a close between the two lines, then buy when a green candle closes back above the 50 on volume at or above average. The stop goes below the 100 and the target is 2R."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is a zero-lag EMA?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "An EMA that adds back the gap between an EMA and an EMA of that EMA, so it turns sooner than a plain EMA of the same length."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why not trade the cross?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The cross only says the trend may have turned. Deep pullbacks and ranges cross the lines too, so the entry waits for a pullback inside the new trend."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What cancels the setup?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A close below the 100-period line, or the 50 crossing back under the 100. A reclaim of the 50 on below-average volume is skipped."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the zero lag pullback work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not better than chance in our test. On SPY 5-minute bars, 446 trades made +0.01R a trade with a 35% win rate. On slower charts the long side made money, but random long entries in the same uptrend with the same stop and 2R target made as much."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -304,6 +352,7 @@
       <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>No edge vs random</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is a zero lag pullback?</h2><p>A zero lag pullback is a trend pullback trade using a 50 and a 100-period zero-lag EMA. In an uptrend, you wait for a close between the two lines, then buy when a green candle closes back above the 50 on volume at or above average. The stop goes below the 100 and the target is 2R.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">the chart</div><div class="n">Two lines + volume</div></div>
@@ -713,6 +762,13 @@
     </li>
   </ul>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What is a zero-lag EMA?</h3><p>An EMA that adds back the gap between an EMA and an EMA of that EMA, so it turns sooner than a plain EMA of the same length.</p></div>
+    <div class="qa"><h3>Why not trade the cross?</h3><p>The cross only says the trend may have turned. Deep pullbacks and ranges cross the lines too, so the entry waits for a pullback inside the new trend.</p></div>
+    <div class="qa"><h3>What cancels the setup?</h3><p>A close below the 100-period line, or the 50 crossing back under the 100. A reclaim of the 50 on below-average volume is skipped.</p></div>
+    <div class="qa"><h3>Does the zero lag pullback work?</h3><p>Not better than chance in our test. On SPY 5-minute bars, 446 trades made +0.01R a trade with a 35% win rate. On slower charts the long side made money, but random long entries in the same uptrend with the same stop and 2R target made as much.</p></div>
+  </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
     <a href="/setups/gex-levels.html"><span class="k">All session</span><h3>GEX Levels</h3><p>Dealer hedging leaves fingerprints at a few prices every morning.</p></a>
