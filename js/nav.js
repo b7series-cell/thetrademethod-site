@@ -99,7 +99,7 @@ const SETUPS = [
     status:  "live",
     indicators: [
       { name: "Opening Range Break",
-        blurb: "Boxes the first 15 (or 30) minutes, numbers every break attempt, takes a close outside the range on 1.5x the 20-bar volume with the stop 5 cents past the breakout bar, half off at 1 daily ATR from the low or high of day and the rest on a close through the 9 EMA. Marks no trade, low vol and no room.",
+        blurb: "Boxes the first 2, 5, 15 or 30 minutes, numbers every break attempt, takes a close outside the range on 1.5x the 20-bar volume with the stop 5 cents past the breakout bar, half off at 1 daily ATR from the low or high of day and the rest on a close through the 9 EMA. Marks no trade, low vol and no room.",
         url: "", file: "/pine/opening-range-break.pine", alerts: true }
     ]
   },

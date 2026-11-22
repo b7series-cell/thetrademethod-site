@@ -239,7 +239,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=27">
 <link rel="stylesheet" href="/css/tested.css?v=3">
-<script src="/js/nav.js?v=30" defer></script>
+<script src="/js/nav.js?v=31" defer></script>
 <script src="/js/site.js?v=63" defer></script>
 <script src="/js/anim-kit.js?v=2" defer></script>
 <script src="/js/orb-anim.js?v=1" defer></script>
@@ -725,7 +725,7 @@
           <h3 class="ind-name">Opening Range Break</h3>
           <span class="ind-alerts">alerts</span>
         </div>
-        <p class="ind-blurb">The first 15 minutes (or 30) of the regular session are boxed, and nothing trades until that window has closed. A bar that trades through the range high or low is a break attempt:
+        <p class="ind-blurb">The first 15 minutes of the regular session (or 2, 5 or 30) are boxed, and nothing trades until that window has closed. A bar that trades through the range high or low is a break attempt:
         if it closes back inside it's marked "no trade", and if its volume is under 1.5 times the average of the 20 bars before it, "low vol". A close outside on real volume is the entry, with the stop
         5 cents past the breakout bar. Half comes off at 1 daily ATR from the low of day (high of day for a short); the rest exits on the first close through the 9 EMA, or at the 4:00 close.
         A target the day has already used is "no room". One long and one short a day at most. A table shows the range, the trade and the running win rate and average R.</p>
@@ -750,8 +750,8 @@
 // page's example chart and our test use:
 //
 //   1. The range    High and low of the first 15 minutes of the regular
-//                   session (9:30 to 9:45 ET), or 30 minutes. Nothing is
-//                   traded until the window has fully closed.
+//                   session (9:30 to 9:45 ET), or 2, 5 or 30 minutes.
+//                   Nothing is traded until the window has fully closed.
 //   2. The break    A bar trades through the range high (long) or low
 //                   (short). If it closes back inside, it's a range test:
 //                   marked "no trade", and the idea stays alive.
@@ -777,11 +777,11 @@
 //   Use a 1- to 15-minute chart of a US stock or ETF. Signals are taken
 //   on closed bars only. It marks and alerts. It does not place trades.
 // =====================================================================
-indicator("Opening Range Break [TTM]", shorttitle = "ORB [TTM]", overlay = true, max_lines_count = 400, max_labels_count = 400, max_boxes_count = 120)
+indicator("Opening Range Break [TTM]", shorttitle = "ORB [TTM]", overlay = true, max_lines_count = 500, max_labels_count = 500, max_boxes_count = 500)
 
 // ---------------------------------------------------------------- inputs
 grpR = "Range and break"
-orMin  = input.int(15, "Opening range (minutes)", options = [15, 30], group = grpR, tooltip = "Pick one window and stay with it. The page uses 15 or 30.")
+orMin  = input.int(15, "Opening range (minutes)", options = [2, 5, 15, 30], group = grpR, tooltip = "Pick one window and stay with it. The page uses 15 or 30; 2 and 5 are quicker ranges. The window can't be shorter than one chart bar: on a 5-minute chart, 2 means the first bar.")
 volX   = input.float(1.5, "Break volume at least (x the average)", minval = 1.0, step = 0.1, group = grpR, tooltip = "The page asks for real, outlier volume. 1.5 is our objective stand-in; raise it to 2 or more for only the biggest outliers.")
 volN   = input.int(20, "Volume average: bars before the break", minval = 5, maxval = 200, group = grpR)
 
@@ -871,7 +871,7 @@ if okTf and inRth and barstate.isconfirmed
     e9 := na(e9) ? close : e9 + (close - e9) * 2.0 / (emaLen + 1)
 
     // a new session
-    if key != dayKey
+    if na(dayKey) or key != dayKey
         if side != 0                       // data gap: flatten at this open
             float s0 = side
             float r0 = half ? 0.5 * s0 * (halfX - eP) / risk + 0.5 * s0 * (open - eP) / risk : s0 * (open - eP) / risk
@@ -1019,7 +1019,7 @@ if showTable and barstate.islast
         row(0, "Opening Range Break", "Use a 1- to 15-minute chart", color.orange)
     else
         float avgR = nTr &gt; 0 ? sumR / nTr : na
-        row(0, "Opening Range Break", str.tostring(orMin) + "-min range", color.white)
+        row(0, "Opening Range Break", str.tostring(orMin) + "-min range" + (orMin &lt; barMin ? " (first bar)" : ""), color.white)
         row(1, "Now", status, color.white)
         row(2, "Daily ATR", na(dayAtr) ? "—" : fmt(dayAtr), color.white)
         row(3, "Trades on chart", str.tostring(nTr), color.white)
