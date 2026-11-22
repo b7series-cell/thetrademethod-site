@@ -505,6 +505,54 @@
 <script src="/js/em-dash.js?v=2" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=6" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the expected move?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The expected move is the range the options market is pricing for a stock between now and an expiration, usually one standard deviation either side of the price. In a simplified bell-curve model, price has about a 68% chance of finishing inside it at expiration. This page's calculator draws it on a chart from the at-the-money straddle, a straddle plus strangle, implied volatility or the 16 delta strikes."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does 68% mean price stays inside the range all week?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. 68% is where it finishes, not where it travels. In the same model the odds of never trading outside the range all week are only about 37%, so a mid-week touch of an edge is normal."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Which expiration should you use?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Any. A weekly read uses the coming Friday's expiration; a monthly read often uses the standard monthly about a month out."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Where does the expected move work best?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Where options are deep and liquid, such as SPY and QQQ."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is implied vs actual?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A comparison of the move the options market is pricing with how much the stock usually moves over the same number of days."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -550,6 +598,7 @@
       <p class="thesis">Pick a ticker and an expiration, add the options prices, and get the range the options market is pricing, drawn on the chart. <em>About 68% odds it finishes inside by expiration.</em> Then see whether that range is bigger or smaller than the stock usually moves.</p>
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the expected move?</h2><p>The expected move is the range the options market is pricing for a stock between now and an expiration, usually one standard deviation either side of the price. In a simplified bell-curve model, price has about a 68% chance of finishing inside it at expiration. This page's calculator draws it on a chart from the at-the-money straddle, a straddle plus strangle, implied volatility or the 16 delta strikes.</p></section><!-- /define -->
 
   <nav class="toc" data-em-toc aria-label="On this page">
     <a href="#dashboard">Dashboard</a>
@@ -1032,6 +1081,13 @@
     </div>
   </section>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>Does 68% mean price stays inside the range all week?</h3><p>No. 68% is where it finishes, not where it travels. In the same model the odds of never trading outside the range all week are only about 37%, so a mid-week touch of an edge is normal.</p></div>
+    <div class="qa"><h3>Which expiration should you use?</h3><p>Any. A weekly read uses the coming Friday's expiration; a monthly read often uses the standard monthly about a month out.</p></div>
+    <div class="qa"><h3>Where does the expected move work best?</h3><p>Where options are deep and liquid, such as SPY and QQQ.</p></div>
+    <div class="qa"><h3>What is implied vs actual?</h3><p>A comparison of the move the options market is pricing with how much the stock usually moves over the same number of days.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>It's not a target or a wall. It's how far the market is paying for price to go.</h2>

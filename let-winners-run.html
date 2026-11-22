@@ -221,6 +221,54 @@
 </style>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=2" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How do you let winners run?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Let the move, not a fixed target, decide when you exit a winning trade. Most traders already cut losers fine and lose money by selling winners at a static target. This page covers three exit rules that keep a winner open while it keeps working, with the same entries and stops as before."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Doesn't letting winners run lower your win rate?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes, and that's expected. A 60% win rate at 1R per winner earns +0.2R a trade. A 40% win rate with 3R winners earns +0.6R, three times as much."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the One Below rule?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Exit on the first close below the previous candle's low. It works as both your stop and your profit exit from the moment you're in."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What decides your results?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Expected value over your next 1,000 trades: win rate times average win minus loss rate times average loss, not what one trade does."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is an ATR trailing stop a good exit?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not in our test. On the Energy in the Tank breakout the ATR trail made +0.36% a trade, while holding until a daily close back under the breakout made +2.3 to +3.9%."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -274,6 +322,7 @@
       <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>ATR trail lagged</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">How do you let winners run?</h2><p>Let the move, not a fixed target, decide when you exit a winning trade. Most traders already cut losers fine and lose money by selling winners at a static target. This page covers three exit rules that keep a winner open while it keeps working, with the same entries and stops as before.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">the math</div><div class="n">Expected value</div></div>
@@ -661,6 +710,13 @@
     </li>
   </ul>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>Doesn't letting winners run lower your win rate?</h3><p>Yes, and that's expected. A 60% win rate at 1R per winner earns +0.2R a trade. A 40% win rate with 3R winners earns +0.6R, three times as much.</p></div>
+    <div class="qa"><h3>What is the One Below rule?</h3><p>Exit on the first close below the previous candle's low. It works as both your stop and your profit exit from the moment you're in.</p></div>
+    <div class="qa"><h3>What decides your results?</h3><p>Expected value over your next 1,000 trades: win rate times average win minus loss rate times average loss, not what one trade does.</p></div>
+    <div class="qa"><h3>Is an ATR trailing stop a good exit?</h3><p>Not in our test. On the Energy in the Tank breakout the ATR trail made +0.36% a trade, while holding until a daily close back under the breakout made +2.3 to +3.9%.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>Stop counting how often you're right. Count how much you make when you are.</h2>
