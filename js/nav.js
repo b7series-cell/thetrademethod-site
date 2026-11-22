@@ -577,7 +577,11 @@ const SETUPS = [
     stages:  6,
     filters: 4,
     status:  "live",
-    indicators: []
+    indicators: [
+      { name: "ICT Made Simple",
+        blurb: "Maps the high time frame for you: trend from three candle swings, the MSB or MSS on a body close, the range with its 0.5 and OTE band, the best fair value gap, order block or breaker in the discount (premium), and the draw on liquidity. On your chart it waits for the low taken, the close through the high and the breaker, with the stop under the turn and the target at external range liquidity.",
+        url: "", file: "/pine/ict-made-simple.pine", alerts: true }
+    ]
   }
 
   /* -------------------------------------------------------------------

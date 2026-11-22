@@ -1,0 +1,585 @@
+//@version=6
+// =====================================================================
+// ICT Made Simple — thetrademethod.com
+// https://thetrademethod.com/setups/ict-made-simple.html
+//
+// Trader Mayne's stripped-down ICT framework from the setup page, on two
+// time frames: map it on the high time frame, time it on this chart.
+//
+// THE MAP (high time frame, closed bars only)
+//   1. Trend      Three candle swings (a high with a lower candle on each
+//                 side, a low with a higher one). Up, down, or sideways
+//                 until the first break.
+//   2. Structure  A candle BODY closing through the last swing high is a
+//                 break up (MSB, or MSS if the trend was down). A close
+//                 through the last swing low is the mirror. Wicks don't
+//                 count.
+//   3. Range      From the significant low before the break to the high
+//                 after it (it extends while price makes new highs). The
+//                 0.5 splits premium from discount; 0.618 to 0.786 is the
+//                 optimal trade entry band. A new break draws a new range.
+//   4. POI        Only three: the fair value gaps in the leg, the order
+//                 block (the last down candle at the leg low) and, when
+//                 the leg started with a shift, the breaker (the up candle
+//                 before the drop). Any one that price has closed through
+//                 is gone. The one in the discount wins (the first one
+//                 price reaches); several on top of each other = stacked.
+//   5. Liquidity  External was just taken by the break, so the draw is
+//                 the POI (internal). Once the POI is tagged, the draw is
+//                 external again: the range high.
+//
+// THE TRIGGER (this chart)
+//   6. Zoom in    Price reaches the POI. On this chart wait for a low, a
+//                 high, that low taken out, then a body close through the
+//                 high (the MSS). The up candle before the drop is the
+//                 bullish breaker. Entry: a limit at the breaker (or the
+//                 MSS close). Stop under the low before the turn. Target:
+//                 external range liquidity, the high time frame range high.
+//                 Stopped out but the range holds? The next one can go.
+//
+// Shorts are the mirror: downtrend, premium, a high taken, the bearish
+// breaker, target the range low. A close through the range (a shift on
+// the high time frame) ends the idea.
+//
+// Pairs from the page: monthly→weekly, weekly→daily, daily→4H/1H,
+// 4H→15m, 1H→5m. "Auto" picks the map for the chart you're on.
+// Signals are taken on closed bars only. It marks and alerts. It does
+// not place trades.
+// =====================================================================
+indicator("ICT Made Simple [TTM]", shorttitle = "ICT Simple", overlay = true, max_lines_count = 500, max_labels_count = 500, max_boxes_count = 500, max_bars_back = 1000)
+
+// ---------------------------------------------------------------- inputs
+grpM = "The map (high time frame)"
+htfMode  = input.string("Auto", "High time frame", options = ["Auto", "Custom"], group = grpM, tooltip = "Auto pairs the chart with the map the page uses: 1m-5m → 1H, 15m-30m → 4H, 1H-4H → daily, up to the daily → weekly, weekly → monthly.")
+htfPick  = input.timeframe("D", "Custom high time frame", group = grpM, tooltip = "Used when the setting above is Custom. Must be higher than the chart.")
+htfN     = input.int(1, "Map swings: candles each side", minval = 1, maxval = 5, group = grpM, tooltip = "1 is the page's three candle swing.")
+zoneMode = input.string("The POI", "Take the trigger at", options = ["The POI", "Anywhere in the discount / premium"], group = grpM, tooltip = "The page waits for price to reach the order block, breaker or fair value gap. No POI, no trade.")
+
+grpT = "The trigger (this chart)"
+ltfN     = input.int(1, "Trigger swings: candles each side", minval = 1, maxval = 5, group = grpT)
+entryMd  = input.string("Limit at the breaker", "Entry", options = ["Limit at the breaker", "Close of the MSS candle"], group = grpT, tooltip = "The page enters at the breaker after the low time frame shift.")
+waitN    = input.int(20, "Limit stays open for (bars)", minval = 1, maxval = 500, group = grpT)
+padT     = input.int(1, "Stop: ticks past the low / high of the turn", minval = 0, group = grpT)
+minR     = input.float(1.5, "Skip if the target is under (R)", minval = 0, step = 0.25, group = grpT, tooltip = "The page aims for about 2R; 1.5R to external liquidity isn't bad.")
+sideMd   = input.string("Both", "Trades", options = ["Both", "Longs only", "Shorts only"], group = grpT)
+
+grpS = "Show"
+showMap   = input.bool(true, "The map: range, 0.5, OTE band and POI", group = grpS)
+showOte   = input.bool(true, "OTE band (0.618 to 0.786)", group = grpS)
+showSkip  = input.bool(true, "Mark skipped triggers (low R, already in a trade)", group = grpS)
+showTable = input.bool(true, "Status table", group = grpS)
+cUp  = input.color(#30d158, "Long", group = grpS)
+cDn  = input.color(#ff453a, "Short", group = grpS)
+cMap = input.color(#2997ff, "Range", group = grpS)
+cPoi = input.color(#f4b942, "POI", group = grpS)
+
+// ---------------------------------------------------------------- time frames
+chartSec = timeframe.in_seconds()
+autoTf   = chartSec <= 300 ? "60" : chartSec <= 1800 ? "240" : chartSec <= 14400 ? "D" : chartSec <= 86400 ? "W" : "M"
+htfWant  = htfMode == "Auto" ? autoTf : htfPick
+htfOk    = timeframe.in_seconds(htfWant) > chartSec
+htf      = htfOk ? htfWant : timeframe.period
+
+tfName(string s) =>
+    int sec = timeframe.in_seconds(s)
+    string out = s
+    if sec < 86400
+        int m = int(sec / 60)
+        out := m % 60 == 0 ? str.tostring(int(m / 60)) + "H" : str.tostring(m) + "m"
+    else if s == "D" or s == "1D"
+        out := "Daily"
+    else if s == "W" or s == "1W"
+        out := "Weekly"
+    else if s == "M" or s == "1M"
+        out := "Monthly"
+    out
+
+// ---------------------------------------------------------------- the map (runs on the high time frame)
+// true if no close went through the zone from offset upTo down to 0
+heldSince(int upTo, float t, float b, int dir) =>
+    bool ok = true
+    if upTo >= 0
+        for k = 0 to upTo
+            if dir == 1 ? close[k] < b : close[k] > t
+                ok := false
+                break
+    ok
+
+htfMap(int n) =>
+    var int   tr     = 0          // 1 up, -1 down, 0 sideways (no break yet)
+    var float sh     = na
+    var int   shB    = na
+    var bool  shUsed = true
+    var float sl     = na
+    var int   slB    = na
+    var bool  slUsed = true
+    var float rLo    = na
+    var float rHi    = na
+    var int   rLoB   = na
+    var int   rHiB   = na
+    var int   brkSw  = na         // bar of the swing that was broken
+    var int   brkBar = na         // bar that broke it
+    var bool  legMss = false
+    var int   ev     = 0          // 1 MSB up, 2 MSS up, -1 MSB down, -2 MSS down
+    var int   legT   = na
+    float ph = ta.pivothigh(high, n, n)
+    float pl = ta.pivotlow(low, n, n)
+    if not na(ph)
+        sh := ph
+        shB := bar_index - n
+        shUsed := false
+    if not na(pl)
+        sl := pl
+        slB := bar_index - n
+        slUsed := false
+
+    if not shUsed and close > sh
+        // a body closed through the last swing high: the range runs from the low before it
+        shUsed := true
+        int len = math.min(bar_index - shB, 400)
+        float mn = low
+        int mo = 0
+        for i = 0 to len
+            if low[i] < mn
+                mn := low[i]
+                mo := i
+        legMss := tr == -1
+        ev := tr == -1 ? 2 : 1
+        tr := 1
+        rLo := mn
+        rLoB := bar_index - mo
+        rHi := high
+        rHiB := bar_index
+        brkSw := shB
+        brkBar := bar_index
+        legT := time[mo]
+    else if not slUsed and close < sl
+        slUsed := true
+        int len = math.min(bar_index - slB, 400)
+        float mx = high
+        int mo = 0
+        for i = 0 to len
+            if high[i] > mx
+                mx := high[i]
+                mo := i
+        legMss := tr == 1
+        ev := tr == 1 ? -2 : -1
+        tr := -1
+        rHi := mx
+        rHiB := bar_index - mo
+        rLo := low
+        rLoB := bar_index
+        brkSw := slB
+        brkBar := bar_index
+        legT := time[mo]
+    else
+        if tr == 1 and high > rHi
+            rHi := high
+            rHiB := bar_index
+        if tr == -1 and low < rLo
+            rLo := low
+            rLoB := bar_index
+
+    // the points of interest in the current leg
+    float eq = (rHi + rLo) / 2
+    array<float> zt = array.new<float>()
+    array<float> zb = array.new<float>()
+    array<int>   zk = array.new<int>()      // 1 FVG, 2 order block, 3 breaker
+    if tr != 0 and not na(rLoB) and not na(rHiB)
+        int legStart = tr == 1 ? rLoB : rHiB
+        int len = math.min(bar_index - legStart, 300)
+        float mnC = 1e100
+        float mxC = -1e100
+        for i = 0 to len
+            if i + 2 <= len
+                if tr == 1 and low[i] > high[i + 2] and mnC > high[i + 2]
+                    zt.push(low[i])
+                    zb.push(high[i + 2])
+                    zk.push(1)
+                if tr == -1 and high[i] < low[i + 2] and mxC < low[i + 2]
+                    zt.push(low[i + 2])
+                    zb.push(high[i])
+                    zk.push(1)
+            mnC := math.min(mnC, close[i])
+            mxC := math.max(mxC, close[i])
+        // order block: the last opposite candle at the leg's low (high)
+        int o = bar_index - legStart
+        if o <= 400
+            for j = o to o + 5
+                if tr == 1 ? close[j] < open[j] : close[j] > open[j]
+                    if heldSince(j - 1, high[j], low[j], tr)
+                        zt.push(high[j])
+                        zb.push(low[j])
+                        zk.push(2)
+                    break
+        // breaker: after a shift, the candle before the move that took the low (high)
+        if legMss and not na(brkSw)
+            int o2 = bar_index - brkSw
+            if o2 <= 400
+                for j = o2 to o2 + 5
+                    if tr == 1 ? close[j] > open[j] : close[j] < open[j]
+                        if heldSince(math.min(bar_index - brkBar, 400), high[j], low[j], tr)
+                            zt.push(high[j])
+                            zb.push(low[j])
+                            zk.push(3)
+                        break
+
+    float pT = na
+    float pB = na
+    int   pK = 0
+    int   stk = 0
+    int   prem = 0
+    int nZ = zt.size()
+    if nZ > 0
+        int best = -1
+        for q = 0 to nZ - 1
+            bool good = tr == 1 ? zt.get(q) <= eq : zb.get(q) >= eq
+            if good and (best < 0 or (tr == 1 ? zt.get(q) > zt.get(best) : zb.get(q) < zb.get(best)))
+                best := q
+        if best < 0
+            prem := 1
+            for q = 0 to nZ - 1
+                if best < 0 or (tr == 1 ? zt.get(q) < zt.get(best) : zb.get(q) > zb.get(best))
+                    best := q
+        pT := zt.get(best)
+        pB := zb.get(best)
+        pK := zk.get(best)
+        for q = 0 to nZ - 1
+            if q != best and zk.get(q) != pK and zt.get(q) >= pB and zb.get(q) <= pT
+                stk += 1
+    [tr[1], rLo[1], rHi[1], pT[1], pB[1], pK[1], stk[1], prem[1], ev[1], legT[1]]
+
+[hTr, hLo, hHi, hPT, hPB, hPK, hStk, hPrem, hEv, hLegT] = request.security(syminfo.tickerid, htf, htfMap(htfN), lookahead = barmerge.lookahead_on)
+hEq  = (hHi + hLo) / 2
+hRng = hHi - hLo
+
+fmt(float p) => str.tostring(p, format.mintick)
+poiName(int k) => k == 1 ? "FVG" : k == 2 ? "Order block" : k == 3 ? "Breaker" : "none"
+
+// ---------------------------------------------------------------- state
+var float lSL = na            // last swing low / high on this chart
+var float lSH = na
+// bullish trigger: a low (L1), a high (H), L1 taken, then a close over H
+var float uH = na
+var int   uHB = na
+var float uL1 = na
+var float uMin = na
+var bool  uTaken = false
+var bool  uLive = false
+// bearish trigger: the mirror
+var float dL = na
+var int   dLB = na
+var float dH1 = na
+var float dMax = na
+var bool  dTaken = false
+var bool  dLive = false
+
+var int   pSide = 0           // a resting limit at the breaker
+var int   pBar = na
+var float pEntry = na
+var float pStop = na
+var float pTgt = na
+var box   pBox = na
+
+var int   side = 0            // the open trade
+var int   eBar = na
+var float eP = na
+var float sl = na
+var float tp = na
+var float risk = na
+var line  eLn = na
+var line  sLn = na
+var line  tLn = na
+
+var int   nTr = 0
+var int   nWin = 0
+var float sumR = 0.0
+var string status = "Waiting for the map"
+var string lastTrade = "none yet"
+
+var int   legKey = na
+var bool  tagged = false
+
+bool evPoiL = false
+bool evPoiS = false
+bool evSetL = false
+bool evSetS = false
+bool evInL  = false
+bool evInS  = false
+bool evExit = false
+
+float ph = ta.pivothigh(high, ltfN, ltfN)
+float pl = ta.pivotlow(low, ltfN, ltfN)
+
+openTrade(int s, float entry, float stp, float tgt) =>
+    color c = s == 1 ? cUp : cDn
+    float r = math.abs(tgt - entry) / math.abs(entry - stp)
+    label.new(bar_index, s == 1 ? low : high, (s == 1 ? "LONG " : "SHORT ") + fmt(entry) + "\n" + str.tostring(r, "#.#") + "R to ERL", style = s == 1 ? label.style_label_up : label.style_label_down, color = c, textcolor = color.white, size = size.small)
+    [line.new(bar_index, entry, bar_index, entry, color = color.new(cMap, 0), style = line.style_dashed), line.new(bar_index, stp, bar_index, stp, color = color.new(cDn, 0), style = line.style_dashed), line.new(bar_index, tgt, bar_index, tgt, color = color.new(cUp, 0), style = line.style_dashed)]
+
+closeTrade(float xPx, string why) =>
+    float r = side * (xPx - eP) / risk
+    label.new(bar_index, side == 1 ? high : low, why + "\n" + (r >= 0 ? "+" : "") + str.tostring(r, "#.##") + "R", style = side == 1 ? label.style_label_down : label.style_label_up, color = color.new(r > 0 ? cUp : cDn, 15), textcolor = color.white, size = size.small)
+    r
+
+if barstate.isconfirmed
+    bool mapOk = htfOk and hTr != 0 and not na(hLo) and not na(hHi)
+
+    // the draw on liquidity: internal until the POI is tagged, then external
+    bool newLeg = na(hLegT) ? not na(legKey) : (na(legKey) or hLegT != legKey)
+    if newLeg
+        legKey := hLegT
+        tagged := false
+    if mapOk and not tagged and not na(hPT)
+        if hTr == 1 and low <= hPT
+            tagged := true
+            evPoiL := true
+        if hTr == -1 and high >= hPB
+            tagged := true
+            evPoiS := true
+
+    // 1) the open trade, from the bar after entry: the stop first, then the target
+    if side != 0 and bar_index > eBar
+        bool L = side == 1
+        float stopX = L ? (open <= sl ? open : low <= sl ? sl : na) : (open >= sl ? open : high >= sl ? sl : na)
+        float tgtX  = L ? (open >= tp ? open : high >= tp ? tp : na) : (open <= tp ? open : low <= tp ? tp : na)
+        float xPx = not na(stopX) ? stopX : tgtX
+        if not na(xPx)
+            string why = not na(stopX) ? "Stop" : "ERL"
+            float r = closeTrade(xPx, why)
+            nTr += 1
+            nWin += r > 0 ? 1 : 0
+            sumR += r
+            evExit := true
+            lastTrade := (L ? "Long " : "Short ") + (r >= 0 ? "+" : "") + str.tostring(r, "#.##") + "R (" + why + ")"
+            status := "Flat. " + lastTrade
+            side := 0
+        line.set_x2(eLn, bar_index)
+        line.set_x2(sLn, bar_index)
+        line.set_x2(tLn, bar_index)
+
+    // 2) a resting limit at the breaker: fill, or cancel
+    if pSide != 0 and bar_index > pBar
+        bool L = pSide == 1
+        bool fill = L ? low <= pEntry : high >= pEntry
+        bool ranAway = L ? high >= pTgt : low <= pTgt
+        bool flipped = hTr != pSide
+        box.set_right(pBox, bar_index)
+        if fill and side == 0
+            side := pSide
+            eBar := bar_index
+            eP := L ? math.min(open, pEntry) : math.max(open, pEntry)
+            sl := pStop
+            tp := pTgt
+            risk := math.abs(eP - sl)
+            [a, b, c] = openTrade(side, eP, sl, tp)
+            eLn := a
+            sLn := b
+            tLn := c
+            if L
+                evInL := true
+            else
+                evInS := true
+            status := (L ? "Long " : "Short ") + fmt(eP) + ", stop " + fmt(sl) + ", target " + fmt(tp)
+            pSide := 0
+            // the stop can go on the fill bar too
+            if L ? low <= sl : high >= sl
+                float r = closeTrade(sl, "Stop")
+                nTr += 1
+                sumR += r
+                evExit := true
+                lastTrade := (L ? "Long " : "Short ") + str.tostring(r, "#.##") + "R (Stop)"
+                status := "Flat. " + lastTrade
+                side := 0
+        else if ranAway or flipped or bar_index - pBar >= waitN
+            string why = ranAway ? "ran to the target without a fill" : flipped ? "the map flipped" : "no fill"
+            if showSkip
+                label.new(bar_index, L ? high : low, "cancel · " + why, style = L ? label.style_label_down : label.style_label_up, color = color.new(#8e8e93, 35), textcolor = color.white, size = size.tiny)
+            status := "Limit cancelled: " + why
+            pSide := 0
+
+    // 3) swings on this chart, and the shift that sets up the breaker
+    if not na(ph)
+        uH := ph
+        uHB := bar_index - ltfN
+        uL1 := lSL
+        uTaken := false
+        uLive := not na(lSL)
+        float m = low
+        for i = 0 to ltfN - 1
+            m := math.min(m, low[i])
+        uMin := m
+    if not na(pl)
+        dL := pl
+        dLB := bar_index - ltfN
+        dH1 := lSH
+        dTaken := false
+        dLive := not na(lSH)
+        float m = high
+        for i = 0 to ltfN - 1
+            m := math.max(m, high[i])
+        dMax := m
+    if not na(ph)
+        lSH := ph
+    if not na(pl)
+        lSL := pl
+
+    for k = 0 to 1
+        bool L = k == 0
+        bool live = L ? uLive : dLive
+        if live
+            if L
+                uMin := math.min(uMin, low)
+                uTaken := uTaken or uMin < uL1
+            else
+                dMax := math.max(dMax, high)
+                dTaken := dTaken or dMax > dH1
+            bool taken = L ? uTaken : dTaken
+            float lvl = L ? uH : dL
+            bool through = L ? close > lvl : close < lvl
+            if through and not taken
+                // just a continuation, not the low-high-low-taken shift
+                if L
+                    uLive := false
+                else
+                    dLive := false
+            else if through and taken
+                if L
+                    uLive := false
+                else
+                    dLive := false
+                int s = L ? 1 : -1
+                float turn = L ? uMin : dMax
+                float stp = L ? turn - padT * syminfo.mintick : turn + padT * syminfo.mintick
+                // the breaker: the candle before the move that took the low (high)
+                int o = bar_index - (L ? uHB : dLB)
+                float bkT = na
+                float bkB = na
+                if o <= 400
+                    for j = o to o + 5
+                        if L ? close[j] > open[j] : close[j] < open[j]
+                            bkT := high[j]
+                            bkB := low[j]
+                            break
+                if na(bkT)
+                    bkT := lvl
+                    bkB := lvl
+                bool sideOk = sideMd == "Both" or (L and sideMd == "Longs only") or (not L and sideMd == "Shorts only")
+                bool inMap = mapOk and hTr == s
+                bool rangeOk = L ? turn >= hLo : turn <= hHi
+                bool atZone = zoneMode == "The POI" ? (not na(hPT) and (L ? turn <= hPT : turn >= hPB)) : (L ? turn <= hEq : turn >= hEq)
+                if sideOk and inMap and rangeOk and atZone
+                    float entry = entryMd == "Limit at the breaker" ? (L ? bkT : bkB) : close
+                    float tgt = L ? hHi : hLo
+                    float rk = math.abs(entry - stp)
+                    float rr = rk > 0 and (L ? tgt > entry : tgt < entry) ? math.abs(tgt - entry) / rk : 0.0
+                    string why = side != 0 or pSide != 0 ? "already in a trade" : rr < minR ? str.tostring(rr, "#.#") + "R to ERL · no trade" : ""
+                    color c = L ? cUp : cDn
+                    if why == ""
+                        if L
+                            evSetL := true
+                        else
+                            evSetS := true
+                        label.new(bar_index, L ? high : low, "MSS · " + (L ? "bullish" : "bearish") + " breaker", style = L ? label.style_label_down : label.style_label_up, color = color.new(c, 40), textcolor = color.white, size = size.tiny)
+                        if entryMd == "Limit at the breaker"
+                            pSide := s
+                            pBar := bar_index
+                            pEntry := entry
+                            pStop := stp
+                            pTgt := tgt
+                            pBox := box.new(bar_index - o, bkT, bar_index, bkB, border_color = color.new(c, 30), bgcolor = color.new(c, 85), text = "breaker", text_color = color.new(color.white, 30), text_size = size.tiny, text_halign = text.align_left)
+                            status := (L ? "Long" : "Short") + " limit " + fmt(entry) + " at the breaker, stop " + fmt(stp) + ", target " + fmt(tgt) + " (" + str.tostring(rr, "#.#") + "R)"
+                        else
+                            side := s
+                            eBar := bar_index
+                            eP := entry
+                            sl := stp
+                            tp := tgt
+                            risk := rk
+                            [a, b, cc] = openTrade(s, eP, sl, tp)
+                            eLn := a
+                            sLn := b
+                            tLn := cc
+                            if L
+                                evInL := true
+                            else
+                                evInS := true
+                            status := (L ? "Long " : "Short ") + fmt(eP) + ", stop " + fmt(sl) + ", target " + fmt(tp)
+                    else if showSkip
+                        label.new(bar_index, L ? high : low, "MSS at the POI · " + why, style = L ? label.style_label_down : label.style_label_up, color = color.new(#8e8e93, 35), textcolor = color.white, size = size.tiny)
+
+    if side == 0 and pSide == 0
+        status := not htfOk ? "Pick a higher map time frame" : not mapOk ? "Map: no break yet, sideways" : na(hPT) and zoneMode == "The POI" ? "No POI in this leg: no trade" : not tagged ? "Waiting for price to reach the " + poiName(hPK) : "At the POI: waiting for the shift on this chart"
+
+// ---------------------------------------------------------------- the map, drawn on the last bar
+var line  mHi = na
+var line  mLo = na
+var line  mEq = na
+var box   mOte = na
+var box   mPoi = na
+var label mHiL = na
+var label mLoL = na
+var label mEqL = na
+if barstate.islast
+    line.delete(mHi)
+    line.delete(mLo)
+    line.delete(mEq)
+    box.delete(mOte)
+    box.delete(mPoi)
+    label.delete(mHiL)
+    label.delete(mLoL)
+    label.delete(mEqL)
+    if showMap and htfOk and hTr != 0 and not na(hLegT) and not na(hHi)
+        int x1 = hLegT
+        int x2 = time
+        bool up = hTr == 1
+        mHi := line.new(x1, hHi, x2, hHi, xloc = xloc.bar_time, extend = extend.right, color = up ? cUp : cMap, width = 2)
+        mLo := line.new(x1, hLo, x2, hLo, xloc = xloc.bar_time, extend = extend.right, color = up ? cMap : cDn, width = 2)
+        mEq := line.new(x1, hEq, x2, hEq, xloc = xloc.bar_time, extend = extend.right, color = color.new(cMap, 30), style = line.style_dashed)
+        mHiL := label.new(x2, hHi, (up ? "Range high · ERL target " : "Range high · invalidation ") + fmt(hHi), xloc = xloc.bar_time, style = label.style_label_left, color = color.new(#1d1d1f, 20), textcolor = color.white, size = size.small)
+        mLoL := label.new(x2, hLo, (up ? "Range low · invalidation " : "Range low · ERL target ") + fmt(hLo), xloc = xloc.bar_time, style = label.style_label_left, color = color.new(#1d1d1f, 20), textcolor = color.white, size = size.small)
+        mEqL := label.new(x2, hEq, "0.5 · " + (up ? "discount below" : "premium above"), xloc = xloc.bar_time, style = label.style_label_left, color = color.new(#1d1d1f, 40), textcolor = color.gray, size = size.small)
+        if showOte
+            float o1 = up ? hHi - 0.618 * hRng : hLo + 0.786 * hRng
+            float o2 = up ? hHi - 0.786 * hRng : hLo + 0.618 * hRng
+            mOte := box.new(x1, o1, x2, o2, xloc = xloc.bar_time, extend = extend.right, border_color = color.new(cMap, 70), bgcolor = color.new(cMap, 92), text = "OTE 0.618–0.786", text_color = color.new(cMap, 30), text_size = size.tiny, text_halign = text.align_right)
+        if not na(hPT)
+            string t = tfName(htf) + " " + poiName(hPK) + (hStk > 0 ? " · stacked" : "") + (hPrem == 1 ? (up ? " · in premium" : " · in discount") : "")
+            mPoi := box.new(x1, hPT, x2, hPB, xloc = xloc.bar_time, extend = extend.right, border_color = cPoi, bgcolor = color.new(cPoi, 80), text = t, text_color = color.white, text_size = size.small, text_halign = text.align_left)
+
+// ---------------------------------------------------------------- table
+var table tb = table.new(position.top_right, 2, 10, bgcolor = color.new(#1d1d1f, 10), border_width = 1, border_color = color.new(#3a3a3c, 0))
+row(int r, string k, string v, color c) =>
+    table.cell(tb, 0, r, k, text_color = color.gray, text_size = size.small, text_halign = text.align_left)
+    table.cell(tb, 1, r, v, text_color = c, text_size = size.small, text_halign = text.align_right)
+
+if showTable and barstate.islast
+    if not htfOk
+        row(0, "ICT Made Simple", "Map " + tfName(htfWant) + " must be above the chart", color.orange)
+    else
+        bool up = hTr == 1
+        float pct = hTr == 0 or na(hRng) or hRng == 0 ? na : 100.0 * (up ? hHi - close : close - hLo) / hRng
+        string loc = na(pct) ? "—" : str.tostring(pct, "#") + "% of the leg back · " + (close < hEq ? "discount" : "premium")
+        string brk = hEv == 2 ? "MSS up (shift)" : hEv == 1 ? "MSB up" : hEv == -2 ? "MSS down (shift)" : hEv == -1 ? "MSB down" : "none yet"
+        string poi = na(hPT) ? "none in this leg" : poiName(hPK) + " " + fmt(hPB) + " – " + fmt(hPT) + (hStk > 0 ? " · stacked" : "") + (hPrem == 1 ? " · not in the " + (up ? "discount" : "premium") : "")
+        string drw = hTr == 0 ? "—" : not tagged ? "Internal: the POI" : "External: " + (up ? "range high " + fmt(hHi) : "range low " + fmt(hLo))
+        float avgR = nTr > 0 ? sumR / nTr : na
+        row(0, "ICT Made Simple", "Map " + tfName(htf) + " → trigger " + tfName(timeframe.period), color.white)
+        row(1, "Trend", hTr == 1 ? "Up" : hTr == -1 ? "Down" : "Sideways", hTr == 1 ? cUp : hTr == -1 ? cDn : color.gray)
+        row(2, "Last break", brk, color.white)
+        row(3, "Range", hTr == 0 ? "—" : fmt(hLo) + " – " + fmt(hHi) + " · 0.5 " + fmt(hEq), color.white)
+        row(4, "Price", loc, color.white)
+        row(5, "POI", poi, na(hPT) ? color.gray : cPoi)
+        row(6, "Draw on liquidity", drw, color.white)
+        row(7, "Now", status, color.white)
+        row(8, "Trades on chart", nTr > 0 ? str.tostring(nTr) + " · " + str.tostring(100.0 * nWin / nTr, "#") + "% won · " + (avgR >= 0 ? "+" : "") + str.tostring(avgR, "#.##") + "R avg" : "none yet", nTr == 0 ? color.white : avgR >= 0 ? cUp : cDn)
+        row(9, "Last trade", lastTrade, color.white)
+
+// ---------------------------------------------------------------- alerts
+alertcondition(evPoiL, "ICT price at the long POI", "ICT Made Simple: price reached the high time frame POI in the discount. Watch this chart for the shift.")
+alertcondition(evPoiS, "ICT price at the short POI", "ICT Made Simple: price reached the high time frame POI in the premium. Watch this chart for the shift.")
+alertcondition(evSetL, "ICT long setup (breaker)", "ICT Made Simple: low time frame shift up at the POI. Long limit at the bullish breaker.")
+alertcondition(evSetS, "ICT short setup (breaker)", "ICT Made Simple: low time frame shift down at the POI. Short limit at the bearish breaker.")
+alertcondition(evInL, "ICT long entry", "ICT Made Simple: long filled at the breaker. Stop under the turn, target the range high.")
+alertcondition(evInS, "ICT short entry", "ICT Made Simple: short filled at the breaker. Stop over the turn, target the range low.")
+alertcondition(evExit, "ICT trade done", "ICT Made Simple: trade closed (stop or external liquidity).")
