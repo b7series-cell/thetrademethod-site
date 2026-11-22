@@ -1,0 +1,50 @@
+# Weekly live-site check: every sitemap URL, robots.txt, llms.txt and the
+# www redirect must answer as expected. A red run here means something on the
+# live site broke; GitHub emails the repo owner when a scheduled run fails.
+
+name: Live site health
+
+on:
+  schedule:
+    - cron: "17 11 * * 1"   # Mondays 11:17 UTC (6:17 am Eastern)
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch every sitemap page
+        run: |
+          python3 - <<'PY'
+          import re, sys, urllib.request, urllib.error
+          urls = re.findall(r"<loc>([^<]+)</loc>", open("sitemap.xml", encoding="utf-8").read())
+          urls += ["https://thetrademethod.com/robots.txt", "https://thetrademethod.com/llms.txt"]
+          bad = []
+          for u in urls:
+              try:
+                  req = urllib.request.Request(u, headers={"User-Agent": "thetrademethod-site-health"})
+                  with urllib.request.urlopen(req, timeout=30) as r:
+                      if r.status != 200:
+                          bad.append(f"{r.status} {u}")
+              except urllib.error.HTTPError as e:
+                  bad.append(f"{e.code} {u}")
+              except Exception as e:
+                  bad.append(f"ERR {u} ({e})")
+          # www must 301 to the apex domain
+          class NoRedirect(urllib.request.HTTPRedirectHandler):
+              def redirect_request(self, *a, **k): return None
+          try:
+              urllib.request.build_opener(NoRedirect).open("https://www.thetrademethod.com/", timeout=30)
+              bad.append("www.thetrademethod.com did not redirect")
+          except urllib.error.HTTPError as e:
+              if e.code not in (301, 308) or not e.headers.get("Location", "").startswith("https://thetrademethod.com"):
+                  bad.append(f"www redirect is {e.code} to {e.headers.get('Location')}")
+          except Exception as e:
+              bad.append(f"www check failed ({e})")
+          print(f"Checked {len(urls)} URLs and the www redirect.")
+          for b in bad:
+              print("::error::" + b)
+          sys.exit(1 if bad else 0)
+          PY
