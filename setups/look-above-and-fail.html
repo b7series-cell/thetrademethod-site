@@ -409,6 +409,54 @@
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=37" defer></script>
 
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is a look above and fail?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A look above and fail is a value area fade for balanced days on NQ and ES. Let the day's volume profile build for 30 minutes, mark the value area high and low, and wait. When aggressive buyers push over the high (or sellers under the low) and price comes right back inside, they're trapped. You trade the reclaim to the point of control, then the other side of value."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why wait 30 minutes?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A fresh profile's edges shift a lot early on. Before 10:00, use the previous day's regular-hours value area high and low instead."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Where does the stop go?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Just past the big trades that made the push. If those traders get back to profit, the idea is likely wrong. Every trade is planned for at least 2R."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "When should you not trade it?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "On a trending day, within 5 to 10 minutes of scheduled news, after three stop-outs in the same range, or anywhere between the value area edges."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the look above and fail work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not in our test. On 5-minute bars it looked profitable, but fake value area edges moved by a quarter of the range made as much. On 1-minute bars it lost on SPY and QQQ (-0.07R)."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -463,6 +511,7 @@
       <a class="get-ind" href="#indicator">Get the TradingView indicator &rsaquo;</a>
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is a look above and fail?</h2><p>A look above and fail is a value area fade for balanced days on NQ and ES. Let the day's volume profile build for 30 minutes, mark the value area high and low, and wait. When aggressive buyers push over the high (or sellers under the low) and price comes right back inside, they're trapped. You trade the reclaim to the point of control, then the other side of value.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">1 &middot; location</div><div class="n">The value area high and low</div></div>
@@ -1208,6 +1257,13 @@ if showTbl and barstate.islast
     </div>
   </section>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>Why wait 30 minutes?</h3><p>A fresh profile's edges shift a lot early on. Before 10:00, use the previous day's regular-hours value area high and low instead.</p></div>
+    <div class="qa"><h3>Where does the stop go?</h3><p>Just past the big trades that made the push. If those traders get back to profit, the idea is likely wrong. Every trade is planned for at least 2R.</p></div>
+    <div class="qa"><h3>When should you not trade it?</h3><p>On a trending day, within 5 to 10 minutes of scheduled news, after three stop-outs in the same range, or anywhere between the value area edges.</p></div>
+    <div class="qa"><h3>Does the look above and fail work?</h3><p>Not in our test. On 5-minute bars it looked profitable, but fake value area edges moved by a quarter of the range made as much. On 1-minute bars it lost on SPY and QQQ (-0.07R).</p></div>
+  </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
     <a href="/setups/liquidity-refill.html"><span class="k">All session</span><h3>Liquidity Refill</h3><p>When buyers take liquidity faster than sellers can refill it, price has one way to go.</p></a>

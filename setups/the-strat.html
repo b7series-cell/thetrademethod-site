@@ -397,6 +397,54 @@
 </style>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=14" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is The Strat?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The Strat is a way of reading price that numbers every bar 1, 2 or 3. A 1 stays inside the last bar, a 2 takes out one side and a 3 takes out both. You use the broadening formation as a map, check whether price is above or below the quarter, month, week and day opens, and trade only when a whole group of related assets breaks the same level at the same time."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What do 1, 2 and 3 mean in The Strat?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A 1 is an inside bar that stays inside the last bar's range. A 2 takes out the high (2 up) or the low (2 down). A 3 is an outside bar that takes out both. The break decides the number, not the candle's color."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is time frame continuity?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Checking last price against the opens of four time frames. Above all four, the buyers in every group are more aggressive; below all four, the sellers are. The bigger the time frame, the bigger the money."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is a simultaneous break?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Two or more correlated assets, like the major indexes, sector ETFs, or a sector and its holdings, breaking a 2 in the same direction at the same time. Only an institution is big enough to do that, so it is the evidence the page waits for."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Where does the stop go?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "At worst, just past the current bar's other extreme, for a weekly short just above this week's high. A lower time frame inside bar lets you tighten it."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -449,6 +497,7 @@
       </div>
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is The Strat?</h2><p>The Strat is a way of reading price that numbers every bar 1, 2 or 3. A 1 stays inside the last bar, a 2 takes out one side and a 3 takes out both. You use the broadening formation as a map, check whether price is above or below the quarter, month, week and day opens, and trade only when a whole group of related assets breaks the same level at the same time.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">1 &middot; the numbers</div><div class="n">1, 2 or 3, never the color</div></div>
@@ -761,6 +810,13 @@
     </div>
   </section>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What do 1, 2 and 3 mean in The Strat?</h3><p>A 1 is an inside bar that stays inside the last bar's range. A 2 takes out the high (2 up) or the low (2 down). A 3 is an outside bar that takes out both. The break decides the number, not the candle's color.</p></div>
+    <div class="qa"><h3>What is time frame continuity?</h3><p>Checking last price against the opens of four time frames. Above all four, the buyers in every group are more aggressive; below all four, the sellers are. The bigger the time frame, the bigger the money.</p></div>
+    <div class="qa"><h3>What is a simultaneous break?</h3><p>Two or more correlated assets, like the major indexes, sector ETFs, or a sector and its holdings, breaking a 2 in the same direction at the same time. Only an institution is big enough to do that, so it is the evidence the page waits for.</p></div>
+    <div class="qa"><h3>Where does the stop go?</h3><p>At worst, just past the current bar's other extreme, for a weekly short just above this week's high. A lower time frame inside bar lets you tighten it.</p></div>
+  </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
     <a href="/setups/anchored-vwap.html"><span class="k">Swing</span><h3>Anchored VWAP</h3><p>Anchor a VWAP on the earnings release or catalyst candle, with its source set to the low, and let it tell you whether buyers are in control.</p></a>
