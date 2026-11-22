@@ -144,6 +144,36 @@ PAGES = [
  "how": LOCAL + " Trades managed on 5-minute bars inside each hour.",
 },
 {
+ "path": "setups/ict-made-simple.html", "name": "ICT Made Simple", "group": "Setups",
+ "verdict": "none", "chip": "No edge on any time frame",
+ "headline": "Lost on every intraday pairing and on the whole market",
+ "lead": "The indicator's rules, coded line for line, lost on every intraday chart and higher time frame pairing. Daily into "
+         "weekly looked positive on 12 tickers, but across every liquid US stock all three entry methods lost.",
+ "stats": [["14,525", "trades, whole US market, daily / weekly"], ["27%", "win rate"], ["0.90", "profit factor"],
+           ["&minus;0.08R", "average per trade, MSS close", "neg"]],
+ "table": {"head": ["Chart &rarr; HTF", "Breaker retest", "MSS close", "HTF only"],
+           "rows": [["5-minute &rarr; 1-hour", "&minus;0.18R (6,193)", "&minus;0.16R (5,914)", "&minus;0.33R (3,814)"],
+                    ["15-minute &rarr; 4-hour", "&minus;0.16R (2,182)", "&minus;0.12R (2,123)", "&minus;0.15R (1,220)"],
+                    ["1-hour &rarr; daily", "&minus;0.07R (598)", "+0.01R (543)", "&minus;0.30R (645)"],
+                    ["4-hour &rarr; daily", "+0.02R (121)", "&minus;0.08R (102)", "&minus;0.17R (563)"],
+                    ["Daily &rarr; weekly, 12 tickers", "&minus;0.06R (89)", "+0.21R (77)", "+0.15R (119)"],
+                    ["Daily &rarr; weekly, whole US market", "&minus;0.08R (16,627)", "&minus;0.08R (14,525)", "&minus;0.14R (21,544)"]]},
+ "notes": ["Intraday it wins only 20 to 27% of the time against planned rewards of 4 to 10R. The far liquidity targets are "
+           "rarely reached.",
+           "The positive daily / weekly rows on 12 tickers rest on 77 to 119 trades. On the whole market, with 14,500 to "
+           "21,500 trades, every entry method lost.",
+           "On the whole market it lost in both halves of the data, and a little more since mid-2024 (MSS close &minus;0.01R "
+           "before, &minus;0.14R after). Longs were slightly positive (+0.09R); shorts lost (&minus;0.25R).",
+           "Only 1,148 of 2,526 stocks came out positive on the MSS close entry."],
+ "how": ("The indicator's default rules: closed higher-time-frame candles, 2-candle swings, MSB and MSS on closes, POIs (order "
+         "blocks, breakers, fair value gaps) in discount for longs and premium for shorts, a low taken then an MSS close on the "
+         "chart, stop past the turn plus 0.1 ATR, target the external range liquidity with a 1.5R minimum. All three entry "
+         "methods tested. Intraday: 1-minute bars on SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, "
+         "MSFT, MU, NVDA, TSLA), Nov 2021 to Nov 2026, 0.5 bp a side. Daily / weekly also on every liquid US stock, delisted "
+         "ones included, 5 bp a side. The stop wins when stop and target share a bar, and a gap past the stop fills at the "
+         "open. Trades before June 2024 are the training half, after it the holdout."),
+},
+{
  "path": "setups/look-above-and-fail.html", "name": "Look Above and Fail", "group": "Setups",
  "verdict": "none", "chip": "Fake levels did as well",
  "headline": "Fake value areas made as much as the real ones",

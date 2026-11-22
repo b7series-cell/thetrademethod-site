@@ -100,6 +100,12 @@ def patch_page(p):
     # (Bryant 2026-11-22: that spot is reserved for the tested remark)
     h0 = src.find("<header")
     h1 = src.find("</header>", h0)
+    # Bryant 2026-11-22: only the tested remark goes under the hero stats, never the
+    # "Get the TradingView indicator" button (the indicator stays in its own section)
+    hero = re.sub(r'\n *(?:<p class="hero-cta">)?<a class="(?:get-ind|watch|pill pill-buy)" href="#indicator">.*?</a>(?:</p>)?',
+                  "", src[h0:h1])
+    src = src[:h0] + hero + src[h1:]
+    h1 = h0 + len(hero)
     m = re.search(r"\n      <a class=\"(?:watch|get-ind)\"", src[h0:h1])
     if m:
         i = h0 + m.start()
