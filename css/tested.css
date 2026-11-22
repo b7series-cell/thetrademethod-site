@@ -128,3 +128,4 @@
 @media (max-width:760px) {
   .tr-row { grid-template-columns:1fr; padding:14px 16px; }
 }
+.top .tested-chip { margin-right:8px; }

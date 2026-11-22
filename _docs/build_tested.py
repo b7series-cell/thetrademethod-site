@@ -21,7 +21,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 spec = importlib.util.spec_from_file_location("tested_data", os.path.join(ROOT, "_docs", "tested_data.py"))
 D = importlib.util.module_from_spec(spec); spec.loader.exec_module(D)
 
-CSS_V = 2
+CSS_V = 3
 CSS_LINK = '<link rel="stylesheet" href="/css/tested.css?v=%d">' % CSS_V
 TODAY = datetime.date.today().isoformat()
 OVERVIEW = "/tested-results.html"
@@ -90,15 +90,24 @@ def patch_page(p):
     src = open(path, encoding="utf-8").read()
     # clear an earlier run
     src = re.sub(r"[ \t]*<!--tested:start-->.*?<!--tested:end-->\n\n?", "", src, flags=re.S)
-    src = re.sub(r"<!--tested-chip-->.*?<!--/tested-chip-->", "", src, flags=re.S)
+    src = re.sub(r"(?:\n[ \t]*)?<!--tested-chip-->.*?<!--/tested-chip-->", "", src, flags=re.S)
     # css link, right after apple.css
     src = re.sub(r'<link rel="stylesheet" href="/css/tested\.css\?v=\d+">\n?', "", src)
     src = re.sub(r'(<link rel="stylesheet" href="/css/apple\.css\?v=\d+">\n)', r"\1" + CSS_LINK + "\n", src, count=1)
     if CSS_LINK not in src:
         raise ValueError("apple.css link not found in " + p["path"])
-    # chip under the h1
-    i = src.find("</h1>")
-    src = src[:i + 5] + "<!--tested-chip-->" + chip(p) + "<!--/tested-chip-->" + src[i + 5:]
+    # chip at the bottom of the hero, under the stats, ahead of any hero button
+    # (Bryant 2026-11-22: that spot is reserved for the tested remark)
+    h0 = src.find("<header")
+    h1 = src.find("</header>", h0)
+    m = re.search(r"\n      <a class=\"(?:watch|get-ind)\"", src[h0:h1])
+    if m:
+        i = h0 + m.start()
+    else:
+        i = src.rfind("\n    </div>", h0, h1)
+        if i < 0:
+            raise ValueError("hero end not found in " + p["path"])
+    src = src[:i] + "\n      <!--tested-chip-->" + chip(p) + "<!--/tested-chip-->" + src[i:]
     # the section
     k = insert_point(src)
     src = src[:k] + section(p) + src[k:]
@@ -125,9 +134,8 @@ def overview():
     base = open(os.path.join(ROOT, "seven-trading-traps.html"), encoding="utf-8").read()
     head = base[:base.find('<script type="application/ld+json">')]
     title = "Do trading setups work? Our test results"
-    desc = ("We coded %d setups, fundamentals and famous strategies from this site and backtested them on five years of price "
-            "data, with costs and a random-entry benchmark. One setup beat random entries. Every result, losing ones included."
-            % len(D.PAGES))
+    desc = ("We backtested %d setups and strategies from this site on five years of data, with costs and a "
+            "random-entry benchmark. Every result, losers included." % len(D.PAGES))
     url = "https://thetrademethod.com" + OVERVIEW
     head = re.sub(r"<title>.*?</title>", "<title>%s | The Trade Method</title>" % title, head)
     head = re.sub(r'(<meta (?:name|property)="(?:description|og:description|twitter:description)" content=")[^"]*', r"\g<1>" + desc, head)

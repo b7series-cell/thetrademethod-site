@@ -207,7 +207,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=27">
-<link rel="stylesheet" href="/css/tested.css?v=2">
+<link rel="stylesheet" href="/css/tested.css?v=3">
 <script src="/js/nav.js?v=29" defer></script>
 <script src="/js/site.js?v=61" defer></script>
 <script src="/js/anim-kit.js?v=2" defer></script>
@@ -321,7 +321,7 @@
   <header class="top" data-candle-bg="nine-ema-continuation">
     <div>
       <p class="kicker">9 EMA continuation &middot; off a breakout on volume &middot; long-biased</p>
-      <h1>9 EMA <span>Continuation</span></h1><!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Loses</b></a><!--/tested-chip-->
+      <h1>9 EMA <span>Continuation</span></h1>
     </div>
     <div>
       <p class="thesis">A stock breaks out on real volume. <em>You don't chase it &mdash; you wait for the
@@ -332,6 +332,7 @@
         <div><b>4</b><small>filters</small></div>
         <div><b>~2/10</b><small>times it never gives you the touch</small></div>
       </div>
+      <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Loses</b></a><!--/tested-chip-->
     </div>
   </header>
   <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is a 9 EMA continuation trade?</h2><p>A 9 EMA continuation is a pullback entry after a breakout on real volume. Instead of chasing the spike, you wait for price to come back to the 9-period EMA, watch whether buyers step back in, and enter when price reclaims the line with strength, with a stop below the pullback low.</p></section><!-- /define -->
@@ -673,6 +674,13 @@
     </div>
   </section>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>Do you buy the first touch of the 9 EMA?</h3><p>No. The touch only tells you where to watch. The trigger is buyers stepping back in and price reclaiming the 9 EMA. A mechanical version buys the first candle that closes back above the 9 EMA after the first touch.</p></div>
+    <div class="qa"><h3>Where is the stop on a 9 EMA pullback?</h3><p>Below the low of the candle, or of the pullback, that tested the 9 EMA, not an arbitrary distance from the entry.</p></div>
+    <div class="qa"><h3>What if the stock never pulls back to the 9 EMA?</h3><p>About two times in ten it never gives you the touch. That's a normal miss rate, not a reason to chase. Let it go and wait for the next one.</p></div>
+    <div class="qa"><h3>Does the 9 EMA continuation work?</h3><p>Our mechanical test lost a little: 552 trades on 5-minute bars across 10 large-cap stocks, Aug to Nov 2026, with a 30% win rate, a 0.87 profit factor and -0.06R per trade. Four of the 10 stocks were positive.</p></div>
+  </div><!-- /faq -->
   <!--tested:start-->
   <section class="tested v-none" id="tested" aria-labelledby="tested-h">
     <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>Loses</span></div>
@@ -691,13 +699,6 @@
   </section>
   <!--tested:end-->
 
-  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
-  <div class="faq">
-    <div class="qa"><h3>Do you buy the first touch of the 9 EMA?</h3><p>No. The touch only tells you where to watch. The trigger is buyers stepping back in and price reclaiming the 9 EMA. A mechanical version buys the first candle that closes back above the 9 EMA after the first touch.</p></div>
-    <div class="qa"><h3>Where is the stop on a 9 EMA pullback?</h3><p>Below the low of the candle, or of the pullback, that tested the 9 EMA, not an arbitrary distance from the entry.</p></div>
-    <div class="qa"><h3>What if the stock never pulls back to the 9 EMA?</h3><p>About two times in ten it never gives you the touch. That's a normal miss rate, not a reason to chase. Let it go and wait for the next one.</p></div>
-    <div class="qa"><h3>Does the 9 EMA continuation work?</h3><p>Our mechanical test lost a little: 552 trades on 5-minute bars across 10 large-cap stocks, Aug to Nov 2026, with a 30% win rate, a 0.87 profit factor and -0.06R per trade. Four of the 10 stocks were positive.</p></div>
-  </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
     <a href="/setups/day-three-breakout.html"><span class="k">Opening drive</span><h3>Day Three Breakout</h3><p>A real catalyst drives day one, a quiet low-volume day sets up day two, and the break of that day-two high on day three is the entry — the same three-day sequence, six different tickers.</p></a>
