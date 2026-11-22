@@ -156,4 +156,54 @@ FAQ = {
   ("How do you enter with two time frames?", "When price reaches the high time frame point of interest, zoom in and wait for the low time frame to flip back in line. Enter on its breaker, stop under the turn, and target external range liquidity."),
  ],
 },
+"/setups/gap-give-and-go.html": {
+ "q": "What is the Gap Give and Go?",
+ "a": "The Gap Give and Go is an opening gap trade from an SMB Capital playbook review. A stock gaps up on strong, fresh news, then drops fast on light volume into a key level (the give). You don't buy that drop. You wait for a quiet range where sellers can't push it lower, then buy the turn (the go) when the tape flips, with a hard stop under the low of the day.",
+ "faq": [
+  ("What are the three checks before a Gap Give and Go trade?", "A stock in play with a fresh catalyst graded 8 out of 10 or better, a real key level such as a daily breakout or a big round number, and relative volume well above normal."),
+  ("Why not buy the give?", "A give can keep on giving, and you don't know where it ends until it has. Waiting for the go means you give up the low but only own the days that actually turn."),
+  ("How big a gap is too big?", "About 10% is significant for an 8 out of 10 catalyst and about 20% is a reasonable ceiling. Past 30%, only a 9.5 or 10 catalyst, news that changes the company, can carry it."),
+  ("What are the targets?", "Back through the open, the premarket high, then a measured move of about half the relative volume times the daily ATR. Sell into extensions and hold the rest until the trend ends."),
+ ],
+},
+"/setups/the-strat.html": {
+ "q": "What is The Strat?",
+ "a": "The Strat is a way of reading price that numbers every bar 1, 2 or 3. A 1 stays inside the last bar, a 2 takes out one side and a 3 takes out both. You use the broadening formation as a map, check whether price is above or below the quarter, month, week and day opens, and trade only when a whole group of related assets breaks the same level at the same time.",
+ "faq": [
+  ("What do 1, 2 and 3 mean in The Strat?", "A 1 is an inside bar that stays inside the last bar's range. A 2 takes out the high (2 up) or the low (2 down). A 3 is an outside bar that takes out both. The break decides the number, not the candle's color."),
+  ("What is time frame continuity?", "Checking last price against the opens of four time frames. Above all four, the buyers in every group are more aggressive; below all four, the sellers are. The bigger the time frame, the bigger the money."),
+  ("What is a simultaneous break?", "Two or more correlated assets, like the major indexes, sector ETFs, or a sector and its holdings, breaking a 2 in the same direction at the same time. Only an institution is big enough to do that, so it is the evidence the page waits for."),
+  ("Where does the stop go?", "At worst, just past the current bar's other extreme, for a weekly short just above this week's high. A lower time frame inside bar lets you tighten it."),
+ ],
+},
+"/setups/fib-ote.html": {
+ "q": "What is the Fibonacci OTE?",
+ "a": "The Fibonacci Optimal Trade Entry (OTE) is a pullback entry from ICT and the smart money crowd. You draw the Fibonacci retracement on the latest impulse of a clean trend and put a limit order at 0.702, the middle of the 0.618 to 0.786 zone, with the stop past the swing that started the impulse and half off near the old high.",
+ "faq": [
+  ("What is the OTE zone?", "The part of the retracement between 0.618 and 0.786, where price is cheapest for a buyer (discount) or dearest for a seller (premium). This page uses the classic levels; ICT's original is 0.62 to 0.79 with 0.705 in the middle."),
+  ("Which way do you draw the Fibonacci on the impulse?", "For a long, 1 on the swing low and 0 on the swing high; for a short, the other way round. If price keeps going, move the 0 with it. A pullback that doesn't reach 0.382 is noise."),
+  ("What if price never reaches 0.618?", "The limit order never fills and there's no trade. Missed fills are part of the plan: wait for the next impulse."),
+  ("Does the Fibonacci OTE work?", "Not better than chance in our test. On the 1-hour chart the 0.702 limit made +0.02R a trade over 856 trades with a 34% win rate, about the same as random entries on the same impulse with the same stop and targets (+0.01R)."),
+ ],
+},
+"/setups/micro-range.html": {
+ "q": "What is a micro range?",
+ "a": "A micro range is the small range price builds after it breaks out of a bigger one, from an institutional trader's breakout filter for ES and NQ. A burst out of a range is only price, not value. When price goes sideways beyond the old value, business is being done up there, and that range after the range is what you trade.",
+ "faq": [
+  ("What is one time framing?", "On the weekly and daily, a higher high, a higher low and a higher close than the last bar (up), or the mirror (down). It means one side controls the auction. Anything else is balance."),
+  ("Why skip the first breakout?", "A spike out of the range with no value built beyond it is price, not value. The market is in balance about 70% of the time, and those first breakouts usually fail."),
+  ("What are plan A and plan B?", "Plan A buys an absorbed flush under the micro range low as price reclaims it. Plan B buys aggressive buying through the micro range high. One risk budget is split between the two, not added to."),
+  ("What do you do when the market is in balance?", "Don't trade momentum. Fade failed auctions at the value area edges, with the point of control as the first target and the other side of value next."),
+ ],
+},
+"/setups/look-above-and-fail.html": {
+ "q": "What is a look above and fail?",
+ "a": "A look above and fail is a value area fade for balanced days on NQ and ES. Let the day's volume profile build for 30 minutes, mark the value area high and low, and wait. When aggressive buyers push over the high (or sellers under the low) and price comes right back inside, they're trapped. You trade the reclaim to the point of control, then the other side of value.",
+ "faq": [
+  ("Why wait 30 minutes?", "A fresh profile's edges shift a lot early on. Before 10:00, use the previous day's regular-hours value area high and low instead."),
+  ("Where does the stop go?", "Just past the big trades that made the push. If those traders get back to profit, the idea is likely wrong. Every trade is planned for at least 2R."),
+  ("When should you not trade it?", "On a trending day, within 5 to 10 minutes of scheduled news, after three stop-outs in the same range, or anywhere between the value area edges."),
+  ("Does the look above and fail work?", "Not in our test. On 5-minute bars it looked profitable, but fake value area edges moved by a quarter of the range made as much. On 1-minute bars it lost on SPY and QQQ (-0.07R)."),
+ ],
+},
 }

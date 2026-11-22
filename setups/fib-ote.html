@@ -441,6 +441,54 @@
   }
 </style>
 
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the Fibonacci OTE?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The Fibonacci Optimal Trade Entry (OTE) is a pullback entry from ICT and the smart money crowd. You draw the Fibonacci retracement on the latest impulse of a clean trend and put a limit order at 0.702, the middle of the 0.618 to 0.786 zone, with the stop past the swing that started the impulse and half off near the old high."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the OTE zone?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The part of the retracement between 0.618 and 0.786, where price is cheapest for a buyer (discount) or dearest for a seller (premium). This page uses the classic levels; ICT's original is 0.62 to 0.79 with 0.705 in the middle."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Which way do you draw the Fibonacci on the impulse?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "For a long, 1 on the swing low and 0 on the swing high; for a short, the other way round. If price keeps going, move the 0 with it. A pullback that doesn't reach 0.382 is noise."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What if price never reaches 0.618?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The limit order never fills and there's no trade. Missed fills are part of the plan: wait for the next impulse."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the Fibonacci OTE work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not better than chance in our test. On the 1-hour chart the 0.702 limit made +0.02R a trade over 856 trades with a 34% win rate, about the same as random entries on the same impulse with the same stop and targets (+0.01R)."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -495,6 +543,7 @@
       <a class="get-ind" href="#indicator">Get the TradingView indicator &rsaquo;</a>
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the Fibonacci OTE?</h2><p>The Fibonacci Optimal Trade Entry (OTE) is a pullback entry from ICT and the smart money crowd. You draw the Fibonacci retracement on the latest impulse of a clean trend and put a limit order at 0.702, the middle of the 0.618 to 0.786 zone, with the stop past the swing that started the impulse and half off near the old high.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">1 &middot; trend</div><div class="n">A clean trend, or no trade</div></div>
@@ -1232,6 +1281,13 @@ alertcondition(evT2 or evStop, "Fib OTE trade done", "Fib OTE: trade done (TP2 o
     </div>
   </section>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What is the OTE zone?</h3><p>The part of the retracement between 0.618 and 0.786, where price is cheapest for a buyer (discount) or dearest for a seller (premium). This page uses the classic levels; ICT's original is 0.62 to 0.79 with 0.705 in the middle.</p></div>
+    <div class="qa"><h3>Which way do you draw the Fibonacci on the impulse?</h3><p>For a long, 1 on the swing low and 0 on the swing high; for a short, the other way round. If price keeps going, move the 0 with it. A pullback that doesn't reach 0.382 is noise.</p></div>
+    <div class="qa"><h3>What if price never reaches 0.618?</h3><p>The limit order never fills and there's no trade. Missed fills are part of the plan: wait for the next impulse.</p></div>
+    <div class="qa"><h3>Does the Fibonacci OTE work?</h3><p>Not better than chance in our test. On the 1-hour chart the 0.702 limit made +0.02R a trade over 856 trades with a 34% win rate, about the same as random entries on the same impulse with the same stop and targets (+0.01R).</p></div>
+  </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
     <a href="/setups/micro-range.html"><span class="k">All session</span><h3>Micro Range</h3><p>Price isn't value.</p></a>
