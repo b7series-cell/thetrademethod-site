@@ -201,6 +201,37 @@
     .panel,.filter,.rule,.stage,table { break-inside:avoid; }
     @page { size:A3 landscape; margin:12mm; }
   }
+
+  /* hero link to the indicator */
+  .get-ind { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:#08131f; background:#64d2ff;
+             text-decoration:none; border-radius:9999px; padding:9px 18px; }
+  .get-ind:hover { background:#8cdfff; }
+
+  /* ---------- indicator ---------- */
+  .ind-sec { margin-top:56px; scroll-margin-top:110px; }
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .code-wrap { background:var(--panel); border:1px solid var(--line); border-radius:12px; margin-top:16px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--faint); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#1b2a3e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#26394f; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d9e3; tab-size:4; }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-sec { margin-top:44px; } }
 </style>
 <!-- site shell (Apple style) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -208,8 +239,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=27">
 <link rel="stylesheet" href="/css/tested.css?v=3">
-<script src="/js/nav.js?v=29" defer></script>
-<script src="/js/site.js?v=62" defer></script>
+<script src="/js/nav.js?v=30" defer></script>
+<script src="/js/site.js?v=63" defer></script>
 <script src="/js/anim-kit.js?v=2" defer></script>
 <script src="/js/orb-anim.js?v=1" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
@@ -334,6 +365,7 @@
         <div><b>1&ndash;2&times;</b><small>ATR profit targets</small></div>
       </div>
       <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Loses</b></a><!--/tested-chip-->
+      <a class="get-ind" href="#indicator">Get the TradingView indicator &rsaquo;</a>
     </div>
   </header>
   <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is an opening range breakout?</h2><p>An opening range breakout (ORB) uses the high and low of the first 15 or 30 minutes of trading. Once that range has fully formed, you enter when price breaks it on real volume with the higher time frame agreeing, put the stop a few cents past the breakout bar, and take profits in layers, often at 1 and 2 ATR.</p></section><!-- /define -->
@@ -683,6 +715,328 @@
     <aside class="live-side" aria-live="polite"></aside>
   </section>
 
+  <section class="ind-sec" id="indicator" aria-label="TradingView indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for this setup (Pine Script v6), for US stocks and ETFs on a 1- to 15-minute chart. It boxes the opening range, numbers every break attempt,
+    checks the volume, marks the entry and the stop off the breakout bar, and follows the trade to 1 ATR and the 9 EMA. It marks and alerts. It does not place trades.</p>
+    <ul class="ind-list">
+      <li class="ind-card">
+        <div class="ind-card-top">
+          <h3 class="ind-name">Opening Range Break</h3>
+          <span class="ind-alerts">alerts</span>
+        </div>
+        <p class="ind-blurb">The first 15 minutes (or 30) of the regular session are boxed, and nothing trades until that window has closed. A bar that trades through the range high or low is a break attempt:
+        if it closes back inside it's marked "no trade", and if its volume is under 1.5 times the average of the 20 bars before it, "low vol". A close outside on real volume is the entry, with the stop
+        5 cents past the breakout bar. Half comes off at 1 daily ATR from the low of day (high of day for a short); the rest exits on the first close through the 9 EMA, or at the 4:00 close.
+        A target the day has already used is "no room". One long and one short a day at most. A table shows the range, the trade and the running win rate and average R.</p>
+        <p class="ind-blurb" style="color:var(--dim)">These are the same rules as the example chart above and our test below. The higher time frame story (a catalyst, relative strength, a lost level) can't be coded, so it isn't filtered:
+        check it yourself before you take a break. The window, the volume multiple, the stop buffer, the ATR target and the EMA are settings. Use regular trading hours on the chart.</p>
+        <div class="ind-links">
+          <a class="ind-link ind-link--quiet" href="/pine/opening-range-break.pine" download>Download source (.pine)</a>
+        </div>
+      </li>
+    </ul>
+    <div class="code-wrap">
+      <div class="code-top">
+        <span>opening-range-break.pine &middot; Pine Script v6</span>
+        <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/opening-range-break.pine" download>Download</a></div>
+      </div>
+      <pre class="pine" tabindex="0"><code>//@version=6
+// =====================================================================
+// Opening Range Break — thetrademethod.com
+// https://thetrademethod.com/setups/opening-range-break.html
+//
+// The rules from the Opening Range Break setup page, the same ones the
+// page's example chart and our test use:
+//
+//   1. The range    High and low of the first 15 minutes of the regular
+//                   session (9:30 to 9:45 ET), or 30 minutes. Nothing is
+//                   traded until the window has fully closed.
+//   2. The break    A bar trades through the range high (long) or low
+//                   (short). If it closes back inside, it's a range test:
+//                   marked "no trade", and the idea stays alive.
+//   3. Volume       The break bar's volume must be at least 1.5 x the
+//                   average of the 20 bars before it, or it's "low vol".
+//   4. Entry/stop   Entry at the close of the confirmed break bar. Stop
+//                   5 cents past the breakout bar's own low (long) or high
+//                   (short), not the other side of the range.
+//   5. Targets      Half off at 1 daily ATR(14) from the low of day (long)
+//                   or high of day (short). If that is already behind the
+//                   entry, the day has used its ATR: "no room". The other
+//                   half trails the 9 EMA and exits on the first close
+//                   through it. Anything open is flat at the 4:00 close.
+//   6. Attempts     Every break try is numbered. A failed first try
+//                   doesn't kill the idea: the second one can be the
+//                   trade. One long and one short a day at most, one
+//                   trade at a time.
+//
+//   The higher time frame story (a catalyst, relative strength, a key
+//   level lost) is a judgement call and is NOT filtered. Check it
+//   yourself before you take a break.
+//
+//   Use a 1- to 15-minute chart of a US stock or ETF. Signals are taken
+//   on closed bars only. It marks and alerts. It does not place trades.
+// =====================================================================
+indicator("Opening Range Break [TTM]", shorttitle = "ORB [TTM]", overlay = true, max_lines_count = 400, max_labels_count = 400, max_boxes_count = 120)
+
+// ---------------------------------------------------------------- inputs
+grpR = "Range and break"
+orMin  = input.int(15, "Opening range (minutes)", options = [15, 30], group = grpR, tooltip = "Pick one window and stay with it. The page uses 15 or 30.")
+volX   = input.float(1.5, "Break volume at least (x the average)", minval = 1.0, step = 0.1, group = grpR, tooltip = "The page asks for real, outlier volume. 1.5 is our objective stand-in; raise it to 2 or more for only the biggest outliers.")
+volN   = input.int(20, "Volume average: bars before the break", minval = 5, maxval = 200, group = grpR)
+
+grpT = "Stop and targets"
+pad    = input.float(0.05, "Stop: past the breakout bar by (price)", minval = 0, step = 0.01, group = grpT, tooltip = "A few cents beyond the breakout bar's own low or high.")
+atrLen = input.int(14, "Daily ATR length", minval = 2, group = grpT)
+atrX   = input.float(1.0, "First target (x daily ATR from the low / high of day)", minval = 0.25, step = 0.25, group = grpT, tooltip = "1 ATR is the page's first scale. Use 2 when relative volume is extreme.")
+emaLen = input.int(9, "Trail the rest on this EMA", minval = 2, group = grpT)
+
+grpS = "Show"
+showFail  = input.bool(true, "Mark skipped breaks (no trade, low vol, no room)", group = grpS)
+showTable = input.bool(true, "Status table", group = grpS)
+cUp   = input.color(#30d158, "Long", group = grpS)
+cDn   = input.color(#ff453a, "Short", group = grpS)
+cBox  = input.color(#2997ff, "Opening range", group = grpS)
+cEma  = input.color(#f4b942, "9 EMA", group = grpS)
+
+// ---------------------------------------------------------------- time
+TZ        = "America/New_York"
+RTH_OPEN  = 570      // 9:30
+RTH_CLOSE = 960      // 16:00
+okTf   = timeframe.isintraday and timeframe.in_seconds() &lt;= 900
+barMin = int(timeframe.in_seconds() / 60)
+mod    = hour(time, TZ) * 60 + minute(time, TZ)
+inRth  = mod &gt;= RTH_OPEN and mod &lt; RTH_CLOSE
+orEnd  = RTH_OPEN + orMin
+
+// daily ATR through the last completed day (no look-ahead: [1] with lookahead on)
+dAtr = request.security(syminfo.tickerid, "D", ta.atr(atrLen)[1], lookahead = barmerge.lookahead_on)
+
+// ---------------------------------------------------------------- state
+var int   dayKey  = na
+var bool  dayOk   = false
+var float orh     = na
+var float orl     = na
+var float lod     = na
+var float hod     = na
+var float dayAtr  = na
+var int   triesL  = 0
+var int   triesS  = 0
+var bool  tookL   = false
+var bool  tookS   = false
+var box   orBox   = na
+var line  hiLn    = na
+var line  loLn    = na
+var float prevC   = na
+var float e9      = na
+var array&lt;float&gt; vq = array.new&lt;float&gt;()
+
+var int   side  = 0          // 1 long, -1 short, 0 flat
+var int   eBar  = na
+var float eP    = na
+var float sl    = na
+var float tp    = na
+var float risk  = na
+var bool  half  = false
+var float halfX = na
+var line  eLn   = na
+var line  sLn   = na
+var line  tLn   = na
+
+var int   nTr  = 0
+var int   nWin = 0
+var float sumR = 0.0
+var string status = "Waiting for 9:30"
+var string lastTrade = "none yet"
+
+bool evRange = false
+bool evTry   = false
+bool evBuy   = false
+bool evSell  = false
+bool evHalf  = false
+bool evExit  = false
+
+fmt(float p) =&gt; str.tostring(p, format.mintick)
+
+// ---------------------------------------------------------------- the rules (closed RTH bars only)
+if okTf and inRth and barstate.isconfirmed
+    key = year(time, TZ) * 10000 + month(time, TZ) * 100 + dayofmonth(time, TZ)
+    lastBar = mod + barMin &gt;= RTH_CLOSE
+
+    // 20-bar volume average BEFORE this bar, and the EMA of regular-session closes
+    float vavg = array.size(vq) &gt;= volN ? array.avg(vq) : na
+    array.push(vq, volume)
+    if array.size(vq) &gt; volN
+        array.shift(vq)
+    e9 := na(e9) ? close : e9 + (close - e9) * 2.0 / (emaLen + 1)
+
+    // a new session
+    if key != dayKey
+        if side != 0                       // data gap: flatten at this open
+            float s0 = side
+            float r0 = half ? 0.5 * s0 * (halfX - eP) / risk + 0.5 * s0 * (open - eP) / risk : s0 * (open - eP) / risk
+            nTr += 1
+            nWin += r0 &gt; 0 ? 1 : 0
+            sumR += r0
+            side := 0
+        dayKey := key
+        dayOk  := mod == RTH_OPEN
+        orh := na
+        orl := na
+        lod := na
+        hod := na
+        dayAtr := dAtr
+        triesL := 0
+        triesS := 0
+        tookL := false
+        tookS := false
+        orBox := na
+        hiLn := na
+        loLn := na
+        status := dayOk ? "Opening range forming" : "No 9:30 bar: no range today"
+
+    // exits, from the bar after entry: stop first, then target, then the EMA, then the close
+    float xPx = na
+    string xWhy = ""
+    if side != 0 and bar_index &gt; eBar
+        bool L = side == 1
+        float stopX = L ? (open &lt;= sl ? open : low &lt;= sl ? sl : na) : (open &gt;= sl ? open : high &gt;= sl ? sl : na)
+        if not na(stopX)
+            xPx := stopX
+            xWhy := "Stop"
+        else
+            if not half
+                float tX = L ? (open &gt;= tp ? open : high &gt;= tp ? tp : na) : (open &lt;= tp ? open : low &lt;= tp ? tp : na)
+                if not na(tX)
+                    half := true
+                    halfX := tX
+                    evHalf := true
+                    label.new(bar_index, L ? high : low, "½ at " + str.tostring(atrX) + " ATR", style = L ? label.style_label_down : label.style_label_up, color = color.new(cUp, 15), textcolor = color.white, size = size.small)
+            if half and (L ? close &lt; e9 : close &gt; e9)
+                xPx := close
+                xWhy := str.tostring(emaLen) + " EMA exit"
+            else if lastBar
+                xPx := close
+                xWhy := "Close"
+        if not na(xPx)
+            float s1 = side
+            float full = s1 * (xPx - eP) / risk
+            float r = half ? 0.5 * s1 * (halfX - eP) / risk + 0.5 * full : full
+            nTr += 1
+            nWin += r &gt; 0 ? 1 : 0
+            sumR += r
+            evExit := true
+            lastTrade := (side == 1 ? "Long " : "Short ") + (r &gt;= 0 ? "+" : "") + str.tostring(r, "#.##") + "R (" + xWhy + ")"
+            label.new(bar_index, L ? high : low, xWhy + "\n" + (r &gt;= 0 ? "+" : "") + str.tostring(r, "#.##") + "R", style = L ? label.style_label_down : label.style_label_up, color = color.new(xWhy == "Stop" ? cDn : r &gt; 0 ? cUp : color.gray, 15), textcolor = color.white, size = size.small)
+            line.set_x2(eLn, bar_index)
+            line.set_x2(sLn, bar_index)
+            line.set_x2(tLn, bar_index)
+            side := 0
+            status := "Flat. " + lastTrade
+        else if side != 0
+            line.set_x2(eLn, bar_index)
+            line.set_x2(sLn, bar_index)
+            line.set_x2(tLn, bar_index)
+
+    lod := na(lod) ? low : math.min(lod, low)
+    hod := na(hod) ? high : math.max(hod, high)
+
+    if dayOk
+        if mod &lt; orEnd
+            // the range is still forming
+            orh := na(orh) ? high : math.max(orh, high)
+            orl := na(orl) ? low : math.min(orl, low)
+            if na(orBox)
+                orBox := box.new(bar_index, orh, bar_index, orl, border_color = color.new(cBox, 40), bgcolor = color.new(cBox, 88))
+            else
+                box.set_top(orBox, orh)
+                box.set_bottom(orBox, orl)
+                box.set_right(orBox, bar_index)
+            if mod + barMin &gt;= orEnd
+                evRange := true
+                hiLn := line.new(bar_index, orh, bar_index, orh, color = cBox, width = 2)
+                loLn := line.new(bar_index, orl, bar_index, orl, color = color.new(#8e8e93, 0), width = 2)
+                status := "Range set " + fmt(orh) + " – " + fmt(orl) + ". Waiting for a break"
+        else if na(orh)
+            dayOk := false
+        else
+            line.set_x2(hiLn, bar_index)
+            line.set_x2(loLn, bar_index)
+            float vr = na(vavg) or vavg == 0 ? na : volume / vavg
+            bool volOk = not na(vr) and vr &gt;= volX
+            for k = 0 to 1
+                bool Lg = k == 0
+                float lvl = Lg ? orh : orl
+                bool tried = Lg ? high &gt; orh and prevC &lt;= orh : low &lt; orl and prevC &gt;= orl
+                if tried
+                    int tries = 0
+                    if Lg
+                        triesL += 1
+                        tries := triesL
+                    else
+                        triesS += 1
+                        tries := triesS
+                    evTry := true
+                    bool outside = Lg ? close &gt; lvl : close &lt; lvl
+                    float tgt = Lg ? lod + atrX * dayAtr : hod - atrX * dayAtr
+                    string kind = not outside ? "closed back inside · no trade" : not volOk ? "low vol " + (na(vr) ? "" : str.tostring(vr, "#.#") + "x") + " · no trade" : (Lg ? tookL : tookS) ? "side already traded" : side != 0 ? "already in a trade" : lastBar ? "last bar · no trade" : na(dayAtr) ? "no daily ATR" : (Lg ? tgt &lt;= close : tgt &gt;= close) ? "no room to " + str.tostring(atrX) + " ATR" : "go"
+                    string tryTxt = tries &gt; 1 ? " · try " + str.tostring(tries) : ""
+                    if kind == "go"
+                        side := Lg ? 1 : -1
+                        eBar := bar_index
+                        eP := close
+                        sl := Lg ? low - pad : high + pad
+                        tp := tgt
+                        risk := math.abs(close - sl)
+                        half := false
+                        halfX := na
+                        if Lg
+                            tookL := true
+                            evBuy := true
+                        else
+                            tookS := true
+                            evSell := true
+                        color c = Lg ? cUp : cDn
+                        label.new(bar_index, Lg ? low : high, (Lg ? "BUY " : "SELL ") + fmt(close) + "\n" + str.tostring(vr, "#.#") + "x vol" + tryTxt, style = Lg ? label.style_label_up : label.style_label_down, color = c, textcolor = color.white, size = size.small)
+                        eLn := line.new(bar_index, eP, bar_index, eP, color = color.new(cBox, 0), style = line.style_dashed)
+                        sLn := line.new(bar_index, sl, bar_index, sl, color = color.new(cDn, 0), style = line.style_dashed)
+                        tLn := line.new(bar_index, tp, bar_index, tp, color = color.new(cUp, 0), style = line.style_dashed)
+                        status := (Lg ? "Long " : "Short ") + fmt(eP) + ", stop " + fmt(sl) + ", half at " + fmt(tp)
+                    else if showFail
+                        label.new(bar_index, Lg ? high : low, kind + tryTxt, style = Lg ? label.style_label_down : label.style_label_up, color = color.new(#8e8e93, 35), textcolor = color.white, size = size.tiny)
+    prevC := close
+
+plot(okTf and inRth ? e9 : na, "Trail EMA", color = cEma, linewidth = 2, style = plot.style_linebr)
+
+// ---------------------------------------------------------------- table
+var table tb = table.new(position.top_right, 2, 7, bgcolor = color.new(#1d1d1f, 10), border_width = 1, border_color = color.new(#3a3a3c, 0))
+row(int r, string k, string v, color c) =&gt;
+    table.cell(tb, 0, r, k, text_color = color.gray, text_size = size.small, text_halign = text.align_left)
+    table.cell(tb, 1, r, v, text_color = c, text_size = size.small, text_halign = text.align_right)
+
+if showTable and barstate.islast
+    if not okTf
+        row(0, "Opening Range Break", "Use a 1- to 15-minute chart", color.orange)
+    else
+        float avgR = nTr &gt; 0 ? sumR / nTr : na
+        row(0, "Opening Range Break", str.tostring(orMin) + "-min range", color.white)
+        row(1, "Now", status, color.white)
+        row(2, "Daily ATR", na(dayAtr) ? "—" : fmt(dayAtr), color.white)
+        row(3, "Trades on chart", str.tostring(nTr), color.white)
+        row(4, "Win rate", nTr &gt; 0 ? str.tostring(100.0 * nWin / nTr, "#") + "%" : "—", color.white)
+        row(5, "Average", nTr &gt; 0 ? (avgR &gt;= 0 ? "+" : "") + str.tostring(avgR, "#.##") + "R" : "—", nTr == 0 ? color.white : avgR &gt;= 0 ? cUp : cDn)
+        row(6, "Last trade", lastTrade, color.white)
+
+// ---------------------------------------------------------------- alerts
+alertcondition(evRange, "ORB range set", "ORB: the opening range is set. Watch both edges.")
+alertcondition(evTry, "ORB break attempt", "ORB: price is trying the range. Check the volume.")
+alertcondition(evBuy, "ORB buy", "ORB: long on a confirmed break of the range high.")
+alertcondition(evSell, "ORB sell", "ORB: short on a confirmed break of the range low.")
+alertcondition(evHalf, "ORB half off", "ORB: first target hit (1 ATR). Take half, trail the rest on the EMA.")
+alertcondition(evExit, "ORB trade done", "ORB: trade closed (stop, EMA exit or the close).")</code></pre>
+    </div>
+  </section>
+
   <section class="video" aria-label="Video">
     <div class="video-frame">
       <iframe src="https://www.youtube-nocookie.com/embed/KFqSicS7HOo" title="Opening Range Break (video)" loading="lazy"
@@ -746,6 +1100,20 @@
   <p class="src">Model built around the opening range break (ORB): the high and low of the first 15&ndash;30 minutes of trading, broken on volume with the higher time frame agreeing, as taught in a trading-education video. Price levels for MSTR, OKLO, and BBAI are drawn from that video's transcript and adjusted to plausible decimal placement where the source was ambiguous &mdash; treat them as illustrative of the setup, not exact historical prints. <a href="https://youtu.be/KFqSicS7HOo" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
 </div>
 <footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
+
+<script>
+  /* copy the Pine code */
+  (function () {
+    var b = document.querySelector("[data-copy]"), code = document.querySelector("pre.pine code");
+    if (!b || !code) return;
+    b.addEventListener("click", function () {
+      var t = code.textContent;
+      function done(ok) { b.textContent = ok ? "Copied" : "Select and copy"; setTimeout(function () { b.textContent = "Copy code"; }, 1800); }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { done(true); }, function () { done(false); });
+      else done(false);
+    });
+  })();
+</script>
 
 </body>
 </html>
