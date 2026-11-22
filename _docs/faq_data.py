@@ -346,4 +346,54 @@ FAQ = {
   ("Does the MACD continuation scalp work?", "Not in our test: 286 trades on 5-minute bars won 27% of the time, with a 0.67 profit factor and -0.11R per trade, losing on 7 of 10 stocks. The page teaches it on 1-minute bars."),
  ],
 },
+"/relative-volume.html": {
+ "q": "What is relative volume (RVOL)?",
+ "a": "Relative volume (RVOL) is a stock's volume so far today divided by its normal volume by the same time of day. 1.0x is a normal day. If a stock usually trades 1 million shares by now and has traded 5 million, it's at 5x. It tells you whether participation is abnormal compared to the stock itself, which total volume alone can't.",
+ "faq": [
+  ("Why not just look at total volume?", "10 million shares isn't special for a stock that normally trades 50 million (0.2x), while 2 million is a massive change for one that normally trades 200,000 (10x). Most shares traded isn't the same as most unusual."),
+  ("Why does RVOL make breakouts cleaner?", "On a high-RVOL name, many traders are watching the same premarket high, prior day high, VWAP and opening range, so the reaction at those levels is more predictable. It doesn't mean every breakout works."),
+  ("What is cumulative RVOL?", "At every bar, today's volume so far compared with what's normal by that same time of day, using a 20-day and a 5-day baseline, rather than one number for the whole day."),
+  ("Does an RVOL filter improve a setup?", "Not in our one test. Requiring RVOL of at least 1.0 on the Zero Lag Pullback made it worse (-0.18R against -0.02R), but on only 44 trades, and the test couldn't pick stocks in play the way RVOL is meant to."),
+ ],
+},
+"/trailing-stops.html": {
+ "q": "What is a trailing stop?",
+ "a": "A trailing stop is an exit that moves with the trade as it goes your way. It doesn't give a trade its edge. It protects the edge you already have from selling too early and from overstaying. This page covers four styles, from tightest to most passive: the bar trail, the EMA and parabolic SAR trails, and the ATR trail.",
+ "faq": [
+  ("What is a bar trail?", "The stop rises to just below the prior bar's low on a long (above the prior bar's high on a short). A 2-minute bar trail is the tightest, a 5-minute holds through an opening drive, and a 15-minute can keep you in a full intraday trend. Keep it for explosive volume breakouts."),
+  ("What is an ATR trail?", "A stop set a multiple of the Average True Range away from price. It flattens as price consolidates, which makes it good for holding a trend. A common starting point is a period of 3 and a factor of 3, and you exit on a full bar close below it."),
+  ("Where do the EMA and parabolic SAR fit?", "In the middle. A 9 EMA trail, exiting on a close below it, gives more room than a bar trail and reacts faster than an ATR trail. A parabolic SAR starts wide and tightens as time passes."),
+  ("Can you use more than one trail on a trade?", "Yes. Split the size: trail the momentum part tight, such as a 5-minute bar trail, and hold the rest with a looser trail, such as a 15-minute ATR trail, to stay with a bigger move."),
+ ],
+},
+"/order-flow.html": {
+ "q": "What is order flow?",
+ "a": "Order flow is the record of every executed trade inside each candle, split into trades at the bid and at the ask. A candle only shows four prices, while a footprint chart shows volume at every price inside it: where buyers and sellers were active, where big players traded and who was more aggressive.",
+ "faq": [
+  ("What does the bid and ask side of a footprint mean?", "The bid side is aggressive sellers hitting market orders or passive limit buyers getting filled. The ask side is aggressive buyers or passive limit sellers. You can't know which for certain, so context decides the best guess."),
+  ("What do you need to read order flow?", "A platform that draws footprint charts, such as NinjaTrader, TradingView's volume footprint or Sierra Chart, and level 1 data for one exchange: executed trades with the bid and ask they traded at."),
+  ("Why futures and not spot forex?", "Footprints need accurate volume at every price, which needs a central exchange. Futures have one, so everyone sees the same data. Spot forex doesn't, so read the currency future instead."),
+  ("Where should a beginner read order flow?", "Only at a level you already marked. A big print in the middle of nowhere is a guess; heavy prints right at support or resistance are a reasonable read."),
+ ],
+},
+"/auction-market-theory.html": {
+ "q": "What is auction market theory?",
+ "a": "Auction market theory describes the market as an auction that moves through three phases: balance, where price rotates between two walls; transition, where big orders accept value outside the range; and imbalance, a trend toward the next area of value where a new balance forms. On this page, from Fabio Valentini's video, the first step is reading which regime the market is in before picking a trade.",
+ "faq": [
+  ("Can a trending market be in balance?", "Yes. Through one summer the Nasdaq rotated inside a three-month range on the composite profile, running to one extreme, getting rejected and running to the other."),
+  ("What ends a balance?", "A transition candle, also called an initiative auction, where big orders accept value outside the area. Long term, a fundamental catalyst is usually the reason a market leaves balance."),
+  ("How do you trade inside balance?", "Wall to wall. Trade the rejection at one wall toward the other, then expect the opposite at the other boundary. The realistic target is about 1:1.5 to 1:2, not 1:5."),
+  ("How much should you risk on an add?", "About a third of the profit you've already locked in."),
+ ],
+},
+"/pyramiding.html": {
+ "q": "What is pyramiding into winners?",
+ "a": "Pyramiding is adding to a trade only after it moves in your favor, with every add smaller than the one before. From an SMB Capital video, the first entry is a full 1R, the first add about 0.5R, then 0.25R and down to 0.1R, and the stop moves up behind each add. The size grows while the risk falls.",
+ "faq": [
+  ("How is pyramiding different from martingale?", "Martingale adds bigger bets as a trade goes against you. Pyramiding adds smaller bets only after favorable movement and never goes past the original risk."),
+  ("What do most traders get wrong when pyramiding?", "They undersize the first entry and oversize the adds, trying to get paid more because the trade is working."),
+  ("Where does the stop go after an add?", "Up to the prior support the add came from. By the third entry you can hold your biggest position of the trade while risking less than on the first entry."),
+  ("Is open profit a cushion for a big add?", "No. Up 3R near target, add something like 0.5R and move the whole stop to the initial target, so the worst case is still up 2.5R."),
+ ],
+},
 }

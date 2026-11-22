@@ -317,6 +317,54 @@
 <script src="/js/of-anim.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=16" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is order flow?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Order flow is the record of every executed trade inside each candle, split into trades at the bid and at the ask. A candle only shows four prices, while a footprint chart shows volume at every price inside it: where buyers and sellers were active, where big players traded and who was more aggressive."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What does the bid and ask side of a footprint mean?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The bid side is aggressive sellers hitting market orders or passive limit buyers getting filled. The ask side is aggressive buyers or passive limit sellers. You can't know which for certain, so context decides the best guess."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What do you need to read order flow?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A platform that draws footprint charts, such as NinjaTrader, TradingView's volume footprint or Sierra Chart, and level 1 data for one exchange: executed trades with the bid and ask they traded at."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why futures and not spot forex?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Footprints need accurate volume at every price, which needs a central exchange. Futures have one, so everyone sees the same data. Spot forex doesn't, so read the currency future instead."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Where should a beginner read order flow?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Only at a level you already marked. A big print in the middle of nowhere is a guess; heavy prints right at support or resistance are a reasonable read."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -368,6 +416,7 @@
       </div>
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is order flow?</h2><p>Order flow is the record of every executed trade inside each candle, split into trades at the bid and at the ask. A candle only shows four prices, while a footprint chart shows volume at every price inside it: where buyers and sellers were active, where big players traded and who was more aggressive.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">inside the candle</div><div class="n">Bid &times; ask per price</div></div>
@@ -943,6 +992,13 @@
     </div>
   </section>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What does the bid and ask side of a footprint mean?</h3><p>The bid side is aggressive sellers hitting market orders or passive limit buyers getting filled. The ask side is aggressive buyers or passive limit sellers. You can't know which for certain, so context decides the best guess.</p></div>
+    <div class="qa"><h3>What do you need to read order flow?</h3><p>A platform that draws footprint charts, such as NinjaTrader, TradingView's volume footprint or Sierra Chart, and level 1 data for one exchange: executed trades with the bid and ask they traded at.</p></div>
+    <div class="qa"><h3>Why futures and not spot forex?</h3><p>Footprints need accurate volume at every price, which needs a central exchange. Futures have one, so everyone sees the same data. Spot forex doesn't, so read the currency future instead.</p></div>
+    <div class="qa"><h3>Where should a beginner read order flow?</h3><p>Only at a level you already marked. A big print in the middle of nowhere is a guess; heavy prints right at support or resistance are a reasonable read.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>Without a level, order flow is just noise.</h2>
