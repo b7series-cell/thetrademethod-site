@@ -255,7 +255,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/apple.css?v=26">
+<link rel="stylesheet" href="/css/apple.css?v=27">
 <link rel="stylesheet" href="/css/tested.css?v=2">
 <script src="/js/nav.js?v=29" defer></script>
 <script src="/js/site.js?v=61" defer></script>
@@ -399,6 +399,54 @@
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=18" defer></script>
 <!-- lr-versions -->
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is a liquidity refill setup?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A liquidity refill is a two-candle pattern from a quant trader's order book research. After a relatively big candle (C1) out of compression, the next candle (C2) dips early and shallow, in the top 10 to 20% of C1, and gets absorbed fast. You buy when C2 breaks C1's high, stop past the wick, and exit after three or four candles."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What does liquidity refill mean?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It's the rate at which new limit orders are added back as old ones get taken. When buyers take liquidity faster than sellers can refill it, price has only one way to go."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How early does the C2 wick have to come?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "On a 1-minute chart, in the first 10 to 15 seconds of C2. On a 5-minute chart roughly the first minute, on a 15-minute chart the first couple of minutes, and on a daily chart the first few hours."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "When should you skip a liquidity refill?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "In chop with same-size big candles, when the wick comes late in C2, when it goes past C1's 50% level, or when C2 never breaks C1's high. A break on C3 doesn't count."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Has the liquidity refill been backtested?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not fairly. On 5-minute bars it made +0.83R a trade over 73 trades, but bars can't show whether the wick came first. On 1-minute bars only 10 trades clearly did, so a real test needs tick or second-by-second data."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -452,6 +500,7 @@
       <a class="get-ind" href="#indicator">Get the TradingView indicator &rsaquo;</a>
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is a liquidity refill setup?</h2><p>A liquidity refill is a two-candle pattern from a quant trader's order book research. After a relatively big candle (C1) out of compression, the next candle (C2) dips early and shallow, in the top 10 to 20% of C1, and gets absorbed fast. You buy when C2 breaks C1's high, stop past the wick, and exit after three or four candles.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">1 &middot; the backdrop</div><div class="n">Compression, low volatility</div></div>
@@ -1035,6 +1084,13 @@ alertcondition(exitSig, "Exit", "Liquidity Refill: exit.")</code></pre>
     </div>
   </section>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What does liquidity refill mean?</h3><p>It's the rate at which new limit orders are added back as old ones get taken. When buyers take liquidity faster than sellers can refill it, price has only one way to go.</p></div>
+    <div class="qa"><h3>How early does the C2 wick have to come?</h3><p>On a 1-minute chart, in the first 10 to 15 seconds of C2. On a 5-minute chart roughly the first minute, on a 15-minute chart the first couple of minutes, and on a daily chart the first few hours.</p></div>
+    <div class="qa"><h3>When should you skip a liquidity refill?</h3><p>In chop with same-size big candles, when the wick comes late in C2, when it goes past C1's 50% level, or when C2 never breaks C1's high. A break on C3 doesn't count.</p></div>
+    <div class="qa"><h3>Has the liquidity refill been backtested?</h3><p>Not fairly. On 5-minute bars it made +0.83R a trade over 73 trades, but bars can't show whether the wick came first. On 1-minute bars only 10 trades clearly did, so a real test needs tick or second-by-second data.</p></div>
+  </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
     <a href="/setups/hitchhiker-scalp.html"><span class="k">All session</span><h3>Hitchhiker Scalp</h3><p>Right direction, wrong entry is still a loss.</p></a>

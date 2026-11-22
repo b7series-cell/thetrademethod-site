@@ -224,7 +224,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/apple.css?v=26">
+<link rel="stylesheet" href="/css/apple.css?v=27">
 <script src="/js/nav.js?v=29" defer></script>
 <script src="/js/site.js?v=61" defer></script>
 <script src="/js/tc-anim.js?v=1" defer></script>
@@ -395,6 +395,54 @@
 </style>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=12" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is a technical catalyst breakout?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A technical catalyst breakout is a breakout with no news behind it, where the level itself is the catalyst. From an SMB Capital video, the stock or ETF clears a 9 or 10 out of 10 higher-timeframe level it couldn't break for weeks, on elevated relative volume, with a volume spike on the breakout bar and buyers paying the offer."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What makes a level 9 out of 10?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A multi-week or multi-month ceiling on the daily chart that kept turning price away. A 6 or 7 inside a sloppy range is a pass, and a random intraday line isn't a level at all."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How much relative volume does a technical breakout need?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It has to be elevated going in. In the ETHA example full-day relative volume was over two times normal. A monthly ceiling attempted on normal or half volume is a red flag and no trade."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Where does the stop go on a technical catalyst breakout?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Under the breakout candle, and never right on a round number. Give it a penny more, 9, 14 or 24 cents instead of 10, 20 or 25, to stay out of random liquidity sweeps."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "When do you exit?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "On one of three defined signals: a break of the prior 2-minute bar low, a breakdown of a clean consolidation, or a clear shift on the tape. If it never gets going, scratch it at break-even or a two-cent loss."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -449,6 +497,7 @@
       <a class="watch" href="#indicator" style="margin-left:8px">Get the indicator</a>
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is a technical catalyst breakout?</h2><p>A technical catalyst breakout is a breakout with no news behind it, where the level itself is the catalyst. From an SMB Capital video, the stock or ETF clears a 9 or 10 out of 10 higher-timeframe level it couldn't break for weeks, on elevated relative volume, with a volume spike on the breakout bar and buyers paying the offer.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">1 &middot; the level</div><div class="n">9/10, higher timeframe</div></div>
@@ -1103,6 +1152,13 @@ alertcondition(sigExit and barstate.isconfirmed, "Exit", "{{ticker}} technical c
     </div>
   </section>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What makes a level 9 out of 10?</h3><p>A multi-week or multi-month ceiling on the daily chart that kept turning price away. A 6 or 7 inside a sloppy range is a pass, and a random intraday line isn't a level at all.</p></div>
+    <div class="qa"><h3>How much relative volume does a technical breakout need?</h3><p>It has to be elevated going in. In the ETHA example full-day relative volume was over two times normal. A monthly ceiling attempted on normal or half volume is a red flag and no trade.</p></div>
+    <div class="qa"><h3>Where does the stop go on a technical catalyst breakout?</h3><p>Under the breakout candle, and never right on a round number. Give it a penny more, 9, 14 or 24 cents instead of 10, 20 or 25, to stay out of random liquidity sweeps.</p></div>
+    <div class="qa"><h3>When do you exit?</h3><p>On one of three defined signals: a break of the prior 2-minute bar low, a breakdown of a clean consolidation, or a clear shift on the tape. If it never gets going, scratch it at break-even or a two-cent loss.</p></div>
+  </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
     <a href="/setups/qqe-mod.html"><span class="k">All session</span><h3>QQE Mod + EMA 50</h3><p>Let the EMA 50 pick the side.</p></a>

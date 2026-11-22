@@ -790,3 +790,13 @@ a.scard:hover h3 { text-decoration:underline; text-underline-offset:3px; }
 @media print { .relgrid { display:none; } }
 .cites .cite-link { color:var(--link); font-size:13px; white-space:nowrap; }
 .cites .cite-link:hover { text-decoration:underline; }
+
+/* ---------- plain definition + Questions (written by _docs/add-faq.py) ---------- */
+.define { position:relative; z-index:2; margin:40px 0 8px; padding:22px 24px; background:var(--charcoal); border:1px solid var(--raised); border-radius:18px; max-width:880px; }
+.define h2 { margin:0 0 8px; font-size:15px; font-weight:600; color:var(--ash); letter-spacing:0; }
+.define p { margin:0; font-size:18px; line-height:1.5; color:var(--silk); }
+.faq { display:grid; grid-template-columns:1fr 1fr; gap:14px 28px; margin-bottom:24px; }
+.faq .qa { border-top:1px solid var(--raised); padding-top:16px; }
+.faq h3 { margin:0 0 6px; font-size:18px; font-weight:600; letter-spacing:-0.015em; color:var(--silk); }
+.faq p { margin:0; font-size:15px; line-height:1.5; color:var(--mute); }
+@media (max-width:760px) { .faq { grid-template-columns:1fr; } .define { padding:18px; } .define p { font-size:16px; } }

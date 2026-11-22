@@ -224,7 +224,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/apple.css?v=26">
+<link rel="stylesheet" href="/css/apple.css?v=27">
 <link rel="stylesheet" href="/css/tested.css?v=2">
 <script src="/js/nav.js?v=29" defer></script>
 <script src="/js/site.js?v=61" defer></script>
@@ -389,6 +389,54 @@
 </style>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=15" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the Hitchhiker Scalp?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The Hitchhiker Scalp is an intraday momentum scalp adapted from SMB Capital. After a stock in play makes an outsized move on strong volume, you wait for the first pullback to the 9 EMA on the 2-minute chart, enter as the pullback slows, stop out on a 2-minute close past the 21 EMA, take 70% into momentum and trail the last 30%."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What time frame does the Hitchhiker Scalp use?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The 2-minute chart. The 9 EMA marks the entry area and a 2-minute close past the 21 EMA is the stop."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why not just buy the breakout?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "After an outsized move the stock is stretched from its short-term moving averages. A stop wide enough to survive the pullback makes a scalp not worth taking, so you wait for the first pullback to the 9 EMA on lighter volume instead."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do you take profits on the Hitchhiker Scalp?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Sell about 70% into momentum, roughly 5% at a time, and trail the last 30% on the prior 2-minute bar."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the Hitchhiker Scalp work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "In our test it was break-even: 2,291 trades on the 2-minute chart across SPY, QQQ and 10 large-cap stocks from Nov 2021 to Nov 2026 had a 40% win rate, a 1.03 profit factor and +0.01R per trade. The test couldn't pick stocks in play the way the setup asks."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -443,6 +491,7 @@
       <a class="watch" href="#indicator" style="margin-left:8px">Get the indicator</a>
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the Hitchhiker Scalp?</h2><p>The Hitchhiker Scalp is an intraday momentum scalp adapted from SMB Capital. After a stock in play makes an outsized move on strong volume, you wait for the first pullback to the 9 EMA on the 2-minute chart, enter as the pullback slows, stop out on a 2-minute close past the 21 EMA, take 70% into momentum and trail the last 30%.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">1 &middot; the stock</div><div class="n">In play: volume, range, a reason</div></div>
@@ -1083,6 +1132,13 @@ alertcondition(aExit,  "Hitchhiker: exit", "Stop, tight stop, prior bar broken o
     </div>
   </section>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What time frame does the Hitchhiker Scalp use?</h3><p>The 2-minute chart. The 9 EMA marks the entry area and a 2-minute close past the 21 EMA is the stop.</p></div>
+    <div class="qa"><h3>Why not just buy the breakout?</h3><p>After an outsized move the stock is stretched from its short-term moving averages. A stop wide enough to survive the pullback makes a scalp not worth taking, so you wait for the first pullback to the 9 EMA on lighter volume instead.</p></div>
+    <div class="qa"><h3>How do you take profits on the Hitchhiker Scalp?</h3><p>Sell about 70% into momentum, roughly 5% at a time, and trail the last 30% on the prior 2-minute bar.</p></div>
+    <div class="qa"><h3>Does the Hitchhiker Scalp work?</h3><p>In our test it was break-even: 2,291 trades on the 2-minute chart across SPY, QQQ and 10 large-cap stocks from Nov 2021 to Nov 2026 had a 40% win rate, a 1.03 profit factor and +0.01R per trade. The test couldn't pick stocks in play the way the setup asks.</p></div>
+  </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
     <a href="/setups/liquidity-refill.html"><span class="k">All session</span><h3>Liquidity Refill</h3><p>When buyers take liquidity faster than sellers can refill it, price has one way to go.</p></a>
