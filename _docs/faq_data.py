@@ -446,4 +446,104 @@ FAQ = {
   ("Is market intuition real?", "It's pattern recognition built from reps. Show yourself the same setup 500 times and you stop thinking about it and start seeing it."),
  ],
 },
+"/edge.html": {
+ "q": "What is a trading edge?",
+ "a": "A trading edge is a reason a trade should work that doesn't come from a belief about the stock or a good mood about your day. On this page it is built in a fixed order: read the price action across time frames, structure the idea as catalyst, setup and trade, and start with your stop. Once you have it, it's an inch wide and miles deep.",
+ "faq": [
+  ("How do you know why your trade has edge?", "Structure it as catalyst, setup and trade. The catalyst is why other people have to act, the setup is the price action combination, and the trade is the scoped execution. Know who is on the wrong side and losing money."),
+  ("Why start with the stop?", "Your stop sets your risk and your risk sets your size. Put it where the price action shows your edge began, and move it only when price action gives a new reason, never because of your P&L."),
+  ("How many ideas should you screen per trade?", "Flesh out four or five ideas for every one you actually put risk on."),
+  ("What does inch wide, mile deep mean?", "The what-ifs of fear, FOMO and greed are a mile wide and only an inch deep. Real edge is the opposite: one catalyst, one setup, one read, held with conviction once you're in it."),
+ ],
+},
+"/eight-trading-rules.html": {
+ "q": "How do you get out of a trading slump?",
+ "a": "Make the game easier. On this page, from an SMB Capital video, Mike Bellafiore gives a struggling trader eight rules: lower your size and risk, be more selective, shorten your time frame, don't do it alone, aim for one good trade, grade your entries daily, keep your heart rate low, and write your solution down and send it to someone.",
+ "faq": [
+  ("Is a trading slump normal?", "Yes. Every trader goes through one. What isn't okay is struggling and not changing anything."),
+  ("Why lower size in a slump?", "Smaller size and risk take pressure off, so you can get back to executing what used to work without each loss doing more damage."),
+  ("What is the one good trade rule?", "Stop trying to make it all back today. Aim for one good trade, executed well."),
+  ("Why write the plan down?", "Talking about fixes isn't the same as making them. Writing the solution down and sending it to two people makes it a commitment someone can hold you to."),
+ ],
+},
+"/let-winners-run.html": {
+ "q": "How do you let winners run?",
+ "a": "Let the move, not a fixed target, decide when you exit a winning trade. Most traders already cut losers fine and lose money by selling winners at a static target. This page covers three exit rules that keep a winner open while it keeps working, with the same entries and stops as before.",
+ "faq": [
+  ("Doesn't letting winners run lower your win rate?", "Yes, and that's expected. A 60% win rate at 1R per winner earns +0.2R a trade. A 40% win rate with 3R winners earns +0.6R, three times as much."),
+  ("What is the One Below rule?", "Exit on the first close below the previous candle's low. It works as both your stop and your profit exit from the moment you're in."),
+  ("What decides your results?", "Expected value over your next 1,000 trades: win rate times average win minus loss rate times average loss, not what one trade does."),
+  ("Is an ATR trailing stop a good exit?", "Not in our test. On the Energy in the Tank breakout the ATR trail made +0.36% a trade, while holding until a daily close back under the breakout made +2.3 to +3.9%."),
+ ],
+},
+"/linda-raschke.html": {
+ "q": "What are Linda Raschke's trading rules?",
+ "a": "Linda Raschke is a Market Wizard who has day traded the S&P since the day it listed and ran a $300 million fund. Her rules, as this page sums them up: read price, not the tape; know what kind of day it is; bet the same size every time; and pick your exits like an actuary. Get the main idea right and that's 90% of the game.",
+ "faq": [
+  ("Why does she prefer price to order flow?", "If buyers are really stepping in, price lifts on a plain bar chart. The biggest players hide their moves across accounts and firms, and the tape is full of algorithm noise."),
+  ("What is the volume spike test?", "Take an intraday volume spike, drop to the 1-minute chart and look left. About 80% of volume spikes land on a prior swing point."),
+  ("Is a trailing stop the best exit?", "Only about 15% of the time, in her view."),
+  ("What indicators does she use?", "Few. Moving averages and oscillators lag price. For a model with a real statistical edge she says ATR or percentage functions do much better than oscillators."),
+ ],
+},
+"/mistakes.html": {
+ "q": "What are the biggest support and resistance mistakes?",
+ "a": "A support or resistance level is just an input. This page covers the five mistakes that cost traders money around it: trading the level without the bigger picture, treating every level the same, not looking left on the chart, ignoring volume at the level, and not planning what to do if the level actually works.",
+ "faq": [
+  ("Why check the market before trading a level?", "On a day when the index trends hard and everything is being sold, a support level often sets up a better trade the other way: the break, not the bounce."),
+  ("What does looking left mean?", "Checking the daily or weekly chart for important levels from prior sessions. An intraday low can sit right above much stronger support."),
+  ("Why does volume matter at a level?", "A break on light volume with no catalyst gives little reason to expect follow-through. Without real volume, the fade is usually the better trade."),
+  ("Is the same price always the same level?", "No. A level that is tested and quickly rejected is different from one that holds and closes above on real volume. Size each one by its quality."),
+ ],
+},
+"/price-action-rules.html": {
+ "q": "What are the three price action rules?",
+ "a": "This page's three rules: trade the continuation you're already wired to recognize (a break, a touch back to the broken level, then the go), define your stop before you consider the entry, and add to winners only on a new setup, not because you feel undersized.",
+ "faq": [
+  ("What is a break, touch and go?", "Price breaks a consolidation's low, pops back up to retest the broken support as resistance, then continues in the original direction. Read it on a higher time frame, like the 15-minute, and execute on the 1 or 2-minute."),
+  ("Where does the stop go?", "In the continuation example, above the high of the candle that made the touch, with the target at the low of the original move. Know both before you're in."),
+  ("How often should you add to a winner?", "Roughly one in five trades offers a real chance to add. Treat that as the baseline rather than forcing it."),
+  ("What makes a valid add?", "A completely new setup: a fresh, tighter consolidation after the move works, with its own stop above its high and its own entry on the break of its low."),
+ ],
+},
+"/seven-cheat-codes.html": {
+ "q": "What are the seven cheat codes of a profitable scalper?",
+ "a": "From Scarface Trades' video, seven rules that build on each other: find a strategy with a proven edge, master market structure, combine time frames to enter, expect scalps to work right away, start small and scale slowly, only trade A+ conditions, and practice daily.",
+ "faq": [
+  ("What scalping setups does he trade?", "Three, all retests: the premarket high and low from 4:00 to 9:30 a.m. Eastern, the one candle rule (the last down-close candle in an uptrend), and the 5-minute opening range."),
+  ("Why enter on the retest instead of the break?", "The breakout candle is where many traders get faked out, buying the top with a wide stop. The pullback into the level gives a small stop and a bigger target."),
+  ("How fast should a scalp work?", "Within about 5 minutes. If it doesn't, get out."),
+  ("Why do most traders fail?", "Emotions, and losing too often or too big. One big red day can take a week of profit."),
+ ],
+},
+"/seven-trading-traps.html": {
+ "q": "What are the seven trading traps?",
+ "a": "From an SMB Capital desk reset meeting, the seven traps are the historical reasons experienced traders lose money, starting with style drift and missing a regime change. When the P&L bleeds, the page swaps the excuse \"it's not my market\" for a search: which trap am I in?",
+ "faq": [
+  ("What is style drift?", "Abandoning your proven setups for trades outside your playbook, like a short-term momentum team buying calls far out in time and holding longer, where they had no statistical edge."),
+  ("Why is \"it's not my market\" dangerous?", "It means waiting it out and changing nothing. The page treats a losing stretch as a reason to scrutinize your trading against each trap and adapt."),
+  ("What should you do when a setup goes cold?", "Cut size, by about 50% the moment it goes cold, and downgrade a trade three notches when one nuance is missing."),
+  ("Does a market regime filter help?", "Not in our test. Adding trap 2's QQQ filter to the Zero Lag Pullback cut about 60% of the trades and didn't improve the rest (-0.02R against +0.01R)."),
+ ],
+},
+"/six-momentum-trades.html": {
+ "q": "What are the six momentum trades?",
+ "a": "Most strategy names aren't different trades. They describe a location (VWAP, high of day), a shape (bull flag) or a behavior (failed breakout). This page groups them into six things price can actually do, such as a pullback continuation, a consolidation continuation or a breakout, so you ask what the market is doing instead of which pattern this is.",
+ "faq": [
+  ("Is a VWAP pullback a different trade from a 9 EMA pullback?", "No. VWAP and the 9 EMA are opportunity zones, places to look. The trade underneath both is a pullback continuation."),
+  ("What are the five checks before an entry?", "Stock in play, setup, momentum trade, opportunity zone and trigger, in that order. Then the plan: allocation, stop, entry and target."),
+  ("What is a trigger?", "The price action event that tells you the move is actually happening, not that it might."),
+  ("Why do fewer trades get through?", "Running all five layers every time filters out trades taken on \"I see a pattern, I'm in\". That's the point."),
+ ],
+},
+"/expected-move.html": {
+ "q": "What is the expected move?",
+ "a": "The expected move is the range the options market is pricing for a stock between now and an expiration, usually one standard deviation either side of the price. In a simplified bell-curve model, price has about a 68% chance of finishing inside it at expiration. This page's calculator draws it on a chart from the at-the-money straddle, a straddle plus strangle, implied volatility or the 16 delta strikes.",
+ "faq": [
+  ("Does 68% mean price stays inside the range all week?", "No. 68% is where it finishes, not where it travels. In the same model the odds of never trading outside the range all week are only about 37%, so a mid-week touch of an edge is normal."),
+  ("Which expiration should you use?", "Any. A weekly read uses the coming Friday's expiration; a monthly read often uses the standard monthly about a month out."),
+  ("Where does the expected move work best?", "Where options are deep and liquid, such as SPY and QQQ."),
+  ("What is implied vs actual?", "A comparison of the move the options market is pricing with how much the stock usually moves over the same number of days."),
+ ],
+},
 }
