@@ -234,6 +234,54 @@
 </style>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=2" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is a VWAP reversal?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A VWAP reversal is a fade that stacks three signals at one price: a touch of the second VWAP band, an old horizontal level from the higher time frame, and a failure test that prints a reversal candle. You enter at that candle's close, with the stop just past the pattern's extreme and about 2:1 reward to risk."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What settings does the VWAP need?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The built-in VWAP with a second bands multiplier turned on, calculated by standard deviation, so there is an outer band and not just the median line."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is a failure test?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Price briefly pushes through the level and then falls straight back. It traps breakout buyers, and their stops just beyond the level add fuel to the reversal."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Which candle confirms it?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A shooting star at resistance or a hammer at support. Enter at its close, not while it is still printing."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the VWAP reversal work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not in our test: 11,090 trades on 5-minute bars came out just under break-even, with a 39% win rate, a 0.98 profit factor and -0.01R per trade."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -286,6 +334,7 @@
       <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>No edge</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is a VWAP reversal?</h2><p>A VWAP reversal is a fade that stacks three signals at one price: a touch of the second VWAP band, an old horizontal level from the higher time frame, and a failure test that prints a reversal candle. You enter at that candle's close, with the stop just past the pattern's extreme and about 2:1 reward to risk.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">settings first</div><div class="n">Build the VWAP with its band</div></div>
@@ -626,6 +675,13 @@
   </section>
   <!--tested:end-->
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What settings does the VWAP need?</h3><p>The built-in VWAP with a second bands multiplier turned on, calculated by standard deviation, so there is an outer band and not just the median line.</p></div>
+    <div class="qa"><h3>What is a failure test?</h3><p>Price briefly pushes through the level and then falls straight back. It traps breakout buyers, and their stops just beyond the level add fuel to the reversal.</p></div>
+    <div class="qa"><h3>Which candle confirms it?</h3><p>A shooting star at resistance or a hammer at support. Enter at its close, not while it is still printing.</p></div>
+    <div class="qa"><h3>Does the VWAP reversal work?</h3><p>Not in our test: 11,090 trades on 5-minute bars came out just under break-even, with a 39% win rate, a 0.98 profit factor and -0.01R per trade.</p></div>
+  </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
     <a href="/setups/macd-continuation-scalp.html"><span class="k">All session</span><h3>MACD Continuation Scalp</h3><p>Let a flat consolidation build, wait for the expansion move, then trade the pullback — enter when the MACD line crosses back over the signal line on its side of zero, custom 3/9/5 settings, no histogram.</p></a>

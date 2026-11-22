@@ -206,4 +206,54 @@ FAQ = {
   ("Does the look above and fail work?", "Not in our test. On 5-minute bars it looked profitable, but fake value area edges moved by a quarter of the range made as much. On 1-minute bars it lost on SPY and QQQ (-0.07R)."),
  ],
 },
+"/setups/ready-aim-fire.html": {
+ "q": "What is the Ready, Aim, Fire setup?",
+ "a": "Ready, Aim, Fire is an auction market theory and order flow day trade for NQ and ES futures. Ready: read the higher time frame as trend or balance. Aim: wait for price to reach a level from yesterday's profile, the overnight session or a composite. Fire: enter only when order flow shows one side putting in effort and not getting paid for it. The stop goes past the fight and the target is the next level, at 1:1 or better.",
+ "faq": [
+  ("Which levels does Ready, Aim, Fire use?", "Yesterday's value area high, point of control and value area low, the prior day high and low, the overnight high and low, today's session VWAP, composite high volume nodes, and big GEX walls as secondary levels."),
+  ("What is effort without reward?", "On a 5-minute chart, one side pushes through a level with size and volume piles up there, but price goes nowhere and comes back. That failed push is the trigger. No trigger, no trade."),
+  ("Where does the stop go?", "Past the high the sellers defended (or the low the buyers defended for a long), with room for a wick or one more test. About 50 ticks on NQ is a starting point, wider in fast markets."),
+  ("What reward does the trade need?", "At least 1:1 to the next or second level. If you can't find it, there's no trade. Once in, don't move the stop, jump to break even or add."),
+ ],
+},
+"/setups/knock-twice.html": {
+ "q": "What is the Knock Twice setup?",
+ "a": "Knock Twice is a break of structure trade on the 5-minute chart. After price breaks an old swing high and makes a new high, it comes back, touches the old high once and closes back above it. That's the knock. You enter on that close with the stop a tick under the knock candle, and a close above the new high confirms it.",
+ "faq": [
+  ("Why not buy the first break?", "Plenty of first breaks close straight back under the level. Waiting for price to go away and come back to hold the old high from above is what separates a real break from a stop run."),
+  ("What are the four filters?", "At least 5 bars clear of the old high after the break, a leg of 0.6 to 3 times the 14-bar ATR, a close back on the right side of the level, and new breaks only between 9:35 and 3:30."),
+  ("What is the target?", "T2 is the new high plus the leg from the old high to the new one, a measured move. With the stop this close, it is usually several times the risk."),
+  ("What cancels a Knock Twice trade?", "A close more than 4 ticks back through the old level, no close above the new high within 24 bars of the knock, or a fresh break the other way."),
+ ],
+},
+"/setups/day-three-breakout.html": {
+ "q": "What is a day three breakout?",
+ "a": "A day three breakout is a long-biased momentum trade over three days. A real catalyst drives a big move on day one, day two is a tight, low-volume inside day, and the entry is the break of the day-two high on day three, often right off the open.",
+ "faq": [
+  ("What should day two look like?", "A quiet, low-volume day that stays inside day one's range. A wide, heavy-volume day two is distribution, not accumulation."),
+  ("Where does the stop go?", "Either a few cents below the 5-minute bar that broke the day-two high, or low of day for a wider version. Pick one before the entry and stay with it."),
+  ("How do you take profits?", "Scale out in thirds into blow-off volume, whole-dollar levels and higher time frame resistance. Trail the rest above the 9 EMA on the 2 or 5-minute chart and exit on the first close below it."),
+  ("What if you miss the break at the open?", "Don't chase an extended move. Wait for a pullback toward VWAP or the day-two high that holds, and get long against low of day."),
+ ],
+},
+"/setups/cup-and-handle.html": {
+ "q": "What is a cup and handle?",
+ "a": "A cup and handle is a swing continuation pattern in an uptrend. Price forms a smooth, rounded base (the cup) and then a shallow, tightening pullback just below the old resistance (the handle). The trade is a stop order above the cup's resistance and the handle's high, taken only when price actually breaks it on expanding volume.",
+ "faq": [
+  ("What trend does a cup and handle need?", "Price above its 20, 50 and 200-period simple moving averages, with the 50 sloping up. The rising 50 is often where the base of the cup forms."),
+  ("What should volume do?", "Heavy early in the cup, tapering into the base, ticking back up as price recovers, fading again in the handle, then expanding on the breakout."),
+  ("Where does the stop go?", "1.5 times the ATR, the \"baby bear\" stop: tighter than a 2.0 times position-trading stop and looser than a 1.2 times scalp trail."),
+  ("Does the cup and handle work?", "Not better than chance in our test. Across every liquid US stock over five years it made +0.16R a trade over 226 trades with a 39% win rate, but random uptrend stocks bought on the same days with the same stop and targets made about the same."),
+ ],
+},
+"/setups/vwap-reversal.html": {
+ "q": "What is a VWAP reversal?",
+ "a": "A VWAP reversal is a fade that stacks three signals at one price: a touch of the second VWAP band, an old horizontal level from the higher time frame, and a failure test that prints a reversal candle. You enter at that candle's close, with the stop just past the pattern's extreme and about 2:1 reward to risk.",
+ "faq": [
+  ("What settings does the VWAP need?", "The built-in VWAP with a second bands multiplier turned on, calculated by standard deviation, so there is an outer band and not just the median line."),
+  ("What is a failure test?", "Price briefly pushes through the level and then falls straight back. It traps breakout buyers, and their stops just beyond the level add fuel to the reversal."),
+  ("Which candle confirms it?", "A shooting star at resistance or a hammer at support. Enter at its close, not while it is still printing."),
+  ("Does the VWAP reversal work?", "Not in our test: 11,090 trades on 5-minute bars came out just under break-even, with a 39% win rate, a 0.98 profit factor and -0.01R per trade."),
+ ],
+},
 }
