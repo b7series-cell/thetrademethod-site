@@ -221,6 +221,54 @@
 </style>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=2" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is a trailing stop?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A trailing stop is an exit that moves with the trade as it goes your way. It doesn't give a trade its edge. It protects the edge you already have from selling too early and from overstaying. This page covers four styles, from tightest to most passive: the bar trail, the EMA and parabolic SAR trails, and the ATR trail."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is a bar trail?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The stop rises to just below the prior bar's low on a long (above the prior bar's high on a short). A 2-minute bar trail is the tightest, a 5-minute holds through an opening drive, and a 15-minute can keep you in a full intraday trend. Keep it for explosive volume breakouts."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is an ATR trail?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A stop set a multiple of the Average True Range away from price. It flattens as price consolidates, which makes it good for holding a trend. A common starting point is a period of 3 and a factor of 3, and you exit on a full bar close below it."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Where do the EMA and parabolic SAR fit?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "In the middle. A 9 EMA trail, exiting on a close below it, gives more room than a bar trail and reacts faster than an ATR trail. A parabolic SAR starts wide and tightens as time passes."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can you use more than one trail on a trade?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. Split the size: trail the momentum part tight, such as a 5-minute bar trail, and hold the rest with a looser trail, such as a 15-minute ATR trail, to stay with a bigger move."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -272,6 +320,7 @@
       </div>
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is a trailing stop?</h2><p>A trailing stop is an exit that moves with the trade as it goes your way. It doesn't give a trade its edge. It protects the edge you already have from selling too early and from overstaying. This page covers four styles, from tightest to most passive: the bar trail, the EMA and parabolic SAR trails, and the ATR trail.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">the two problems</div><div class="n">Why use a trail at all</div></div>
@@ -575,6 +624,13 @@
     </div>
   </section>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What is a bar trail?</h3><p>The stop rises to just below the prior bar's low on a long (above the prior bar's high on a short). A 2-minute bar trail is the tightest, a 5-minute holds through an opening drive, and a 15-minute can keep you in a full intraday trend. Keep it for explosive volume breakouts.</p></div>
+    <div class="qa"><h3>What is an ATR trail?</h3><p>A stop set a multiple of the Average True Range away from price. It flattens as price consolidates, which makes it good for holding a trend. A common starting point is a period of 3 and a factor of 3, and you exit on a full bar close below it.</p></div>
+    <div class="qa"><h3>Where do the EMA and parabolic SAR fit?</h3><p>In the middle. A 9 EMA trail, exiting on a close below it, gives more room than a bar trail and reacts faster than an ATR trail. A parabolic SAR starts wide and tightens as time passes.</p></div>
+    <div class="qa"><h3>Can you use more than one trail on a trade?</h3><p>Yes. Split the size: trail the momentum part tight, such as a 5-minute bar trail, and hold the rest with a looser trail, such as a 15-minute ATR trail, to stay with a bigger move.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>A trailing stop doesn't create edge. It protects it.</h2>

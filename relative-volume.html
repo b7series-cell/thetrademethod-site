@@ -264,6 +264,54 @@
 <script src="/js/rvol-anim.js?v=2" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=2" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is relative volume (RVOL)?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Relative volume (RVOL) is a stock's volume so far today divided by its normal volume by the same time of day. 1.0x is a normal day. If a stock usually trades 1 million shares by now and has traded 5 million, it's at 5x. It tells you whether participation is abnormal compared to the stock itself, which total volume alone can't."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why not just look at total volume?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "10 million shares isn't special for a stock that normally trades 50 million (0.2x), while 2 million is a massive change for one that normally trades 200,000 (10x). Most shares traded isn't the same as most unusual."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why does RVOL make breakouts cleaner?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "On a high-RVOL name, many traders are watching the same premarket high, prior day high, VWAP and opening range, so the reaction at those levels is more predictable. It doesn't mean every breakout works."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is cumulative RVOL?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "At every bar, today's volume so far compared with what's normal by that same time of day, using a 20-day and a 5-day baseline, rather than one number for the whole day."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does an RVOL filter improve a setup?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not in our one test. Requiring RVOL of at least 1.0 on the Zero Lag Pullback made it worse (-0.18R against -0.02R), but on only 44 trades, and the test couldn't pick stocks in play the way RVOL is meant to."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -317,6 +365,7 @@
       <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>RVOL filter: no help</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is relative volume (RVOL)?</h2><p>Relative volume (RVOL) is a stock's volume so far today divided by its normal volume by the same time of day. 1.0x is a normal day. If a stock usually trades 1 million shares by now and has traded 5 million, it's at 5x. It tells you whether participation is abnormal compared to the stock itself, which total volume alone can't.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">step 1</div><div class="n">What RVOL tells you</div></div>
@@ -691,6 +740,13 @@
     </li>
   </ul>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>Why not just look at total volume?</h3><p>10 million shares isn't special for a stock that normally trades 50 million (0.2x), while 2 million is a massive change for one that normally trades 200,000 (10x). Most shares traded isn't the same as most unusual.</p></div>
+    <div class="qa"><h3>Why does RVOL make breakouts cleaner?</h3><p>On a high-RVOL name, many traders are watching the same premarket high, prior day high, VWAP and opening range, so the reaction at those levels is more predictable. It doesn't mean every breakout works.</p></div>
+    <div class="qa"><h3>What is cumulative RVOL?</h3><p>At every bar, today's volume so far compared with what's normal by that same time of day, using a 20-day and a 5-day baseline, rather than one number for the whole day.</p></div>
+    <div class="qa"><h3>Does an RVOL filter improve a setup?</h3><p>Not in our one test. Requiring RVOL of at least 1.0 on the Zero Lag Pullback made it worse (-0.18R against -0.02R), but on only 44 trades, and the test couldn't pick stocks in play the way RVOL is meant to.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>Price tells you direction. RVOL tells you participation.</h2>
