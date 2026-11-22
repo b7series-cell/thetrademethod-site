@@ -462,7 +462,7 @@
       var ind = fileIndicators(s);
       return '<a class="gcard' + cls + '" href="' + esc(s.href) + '">' +
         '<div class="top"><span>' + (s === newest ? '<span class="new">New</span> · ' : "") + sideText(s.side) + '</span><span class="tnum">' + esc(s.session) + "</span></div>" +
-        "<h3>" + esc(s.nav) + "</h3><p>" + esc(s.thesis) + "</p>" +
+        "<h3>" + esc(s.nav) + "</h3><p>" + esc(s.thesis) + "</p>" + testedChip(s.href) +
         '<div class="foot"><span>' + s.stages + " stages · " + s.filters + " filters" + (ind ? " · " + ind + " indicator" + (ind > 1 ? "s" : "") : "") +
         '</span><span class="more">Learn more &rsaquo;</span></div></a>';
     }).join("");
@@ -472,7 +472,7 @@
     var el = document.getElementById("fund-cards");
     if (!el) return;
     el.innerHTML = FUNDAMENTALS.map(function (f) {
-      return '<a class="fcard" href="' + esc(f.href) + '"><span class="k">' + esc(f.kind) + "</span><h3>" + esc(f.title) + "</h3><p>" + esc(f.blurb) + '</p><span class="more">Read &rsaquo;</span></a>';
+      return '<a class="fcard" href="' + esc(f.href) + '"><span class="k">' + esc(f.kind) + "</span><h3>" + esc(f.title) + "</h3><p>" + esc(f.blurb) + "</p>" + testedChip(f.href) + '<span class="more">Read &rsaquo;</span></a>';
     }).join("");
   }
 

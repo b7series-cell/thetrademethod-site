@@ -21,7 +21,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 spec = importlib.util.spec_from_file_location("tested_data", os.path.join(ROOT, "_docs", "tested_data.py"))
 D = importlib.util.module_from_spec(spec); spec.loader.exec_module(D)
 
-CSS_V = 1
+CSS_V = 2
 CSS_LINK = '<link rel="stylesheet" href="/css/tested.css?v=%d">' % CSS_V
 TODAY = datetime.date.today().isoformat()
 OVERVIEW = "/tested-results.html"
@@ -239,7 +239,55 @@ def patch_hub(rel):
     open(path, "w", encoding="utf-8").write(src)
 
 
+def homepage():
+    """The "We tested them" band on the homepage, between <!--tested-band:start/end--> markers."""
+    path = os.path.join(ROOT, "index.html")
+    src = open(path, encoding="utf-8").read()
+    n = {k: sum(1 for p in D.PAGES if p["verdict"] == k) for k in LABEL}
+    best = [p for p in D.PAGES if p["verdict"] == "edge"]
+    tally = "".join('<li><a class="tested-chip sm v-%s" href="%s"><i aria-hidden="true"></i>%s: <b>%d</b></a></li>'
+                    % (k, OVERVIEW, LABEL[k], n[k]) for k in ("edge", "mixed", "none", "thin", "info") if n[k])
+    picks = best + [p for p in D.PAGES if p["path"] in ("setups/volume-sr-rejection.html", "setups/three-candle-crt.html")]
+    cards = "\n".join(
+        '        <a class="tb-card v-%s" href="/%s#tested"><span class="tested-chip sm v-%s"><i aria-hidden="true"></i><b>%s</b></span>'
+        '<h3>%s</h3><p>%s</p><span class="more">See the numbers &rsaquo;</span></a>'
+        % (p["verdict"], p["path"], p["verdict"], p["chip"], p["name"], p["headline"]) for p in picks)
+    band = f"""<!--tested-band:start-->
+  <section class="band" id="tested">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>We tested them.</h2>
+          <p class="lead">Every setup we could code ran on five years of price data, with costs, against random entries using the same exits. <b>{len(D.PAGES)} pages tested. {n['edge']} beat random.</b> The losers stay on the page.</p>
+        </div>
+      </div>
+      <div class="tb-stats">
+        <div><b>{len(D.PAGES)}</b><small>pages tested</small></div>
+        <div><b class="pos">{n['edge']}</b><small>beat random entries</small></div>
+        <div><b>{n['mixed']}</b><small>mixed results</small></div>
+        <div><b class="neg">{n['none']}</b><small>no edge after costs</small></div>
+      </div>
+      <ul class="tr-tally">{tally}</ul>
+      <div class="tb-cards">
+{cards}
+      </div>
+      <div class="sec-foot"><a class="pill pill-buy" href="{OVERVIEW}">See every test result</a></div>
+    </div>
+  </section>
+  <!--tested-band:end-->
+"""
+    if "<!--tested-band:start-->" in src:
+        src = re.sub(r"<!--tested-band:start-->.*?<!--tested-band:end-->\n", lambda m: band, src, flags=re.S)
+    else:
+        i = src.find('  <section class="band light" id="fundamentals">')
+        if i == -1:
+            raise ValueError("fundamentals band not found in index.html")
+        src = src[:i] + "  " + band + "\n" + src[i:]
+    open(path, "w", encoding="utf-8").write(src)
+
+
 if __name__ == "__main__":
+    homepage()
     for p in D.PAGES:
         patch_page(p)
     for h in HUBS:
