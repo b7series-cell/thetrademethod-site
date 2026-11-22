@@ -34,7 +34,7 @@
 //   Use a 1- to 15-minute chart of a US stock or ETF. Signals are taken
 //   on closed bars only. It marks and alerts. It does not place trades.
 // =====================================================================
-indicator("Opening Range Break [TTM]", shorttitle = "ORB [TTM]", overlay = true, max_lines_count = 400, max_labels_count = 400, max_boxes_count = 120)
+indicator("Opening Range Break [TTM]", shorttitle = "ORB [TTM]", overlay = true, max_lines_count = 500, max_labels_count = 500, max_boxes_count = 500)
 
 // ---------------------------------------------------------------- inputs
 grpR = "Range and break"
@@ -128,7 +128,7 @@ if okTf and inRth and barstate.isconfirmed
     e9 := na(e9) ? close : e9 + (close - e9) * 2.0 / (emaLen + 1)
 
     // a new session
-    if key != dayKey
+    if na(dayKey) or key != dayKey
         if side != 0                       // data gap: flatten at this open
             float s0 = side
             float r0 = half ? 0.5 * s0 * (halfX - eP) / risk + 0.5 * s0 * (open - eP) / risk : s0 * (open - eP) / risk
