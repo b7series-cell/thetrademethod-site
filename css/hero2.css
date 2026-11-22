@@ -18,6 +18,9 @@
 .cine h1 { margin:0; font-size:clamp(44px,7.2vw,88px); font-weight:600; line-height:1.04; letter-spacing:-.018em; color:var(--silk); max-width:13ch; }
 .cine .side { max-width:40ch; font-size:21px; line-height:1.24; color:var(--mute); letter-spacing:.011em; margin:20px 0 0; }
 .cine .ctas { display:flex; align-items:center; gap:26px; margin-top:28px; flex-wrap:wrap; }
+.cine .ctas .pill-test { gap:9px; color:var(--silk); background:rgba(29,29,31,.55); border:1px solid #424245; -webkit-backdrop-filter:blur(12px); backdrop-filter:blur(12px); }
+.cine .ctas .pill-test:hover { border-color:#86868b; }
+.cine .ctas .pill-test i { width:8px; height:8px; border-radius:50%; background:#30d158; box-shadow:0 0 0 3px rgba(48,209,88,.22); }
 .grad-text { background:linear-gradient(100deg,#2997ff 10%,#30d158 90%); -webkit-background-clip:text; background-clip:text; color:transparent; }
 
 /* staged text reveal: each .rv slides up out of a mask */
