@@ -348,6 +348,54 @@
 <script src="/js/xsm-anim.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=26" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is cross-sectional momentum?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Cross-sectional momentum ranks every stock on its return over the past 3 to 12 months, buys the top tenth and sells short the bottom tenth, and holds for a few months. Jegadeesh and Titman's 1993 paper found the winners kept beating the losers, with the best version earning 1.49% a month."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How is it different from trend following?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Cross-sectional momentum ranks each stock against every other stock on the same date. Trend following, or time-series momentum, compares a stock with its own past. In a crash the cross-sectional winners can be the stocks that fell least."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is there a stop or a target?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. The ranking does all the work. A fresh portfolio is built every month and each one is held for its set period."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What did the paper test?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "NYSE and AMEX stocks from 1965 to 1989, with lookbacks and holding periods of 3, 6, 9 or 12 months. The 6-month / 6-month version made 12.01% a year, compounded."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does momentum still work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not better than the market in our test. The 12-1 long-short made +8.4% a year with a 0.44 Sharpe ratio, against +9.9% and a 0.66 Sharpe for simply owning every stock equally."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -400,6 +448,7 @@
       <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Trails the market</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is cross-sectional momentum?</h2><p>Cross-sectional momentum ranks every stock on its return over the past 3 to 12 months, buys the top tenth and sells short the bottom tenth, and holds for a few months. Jegadeesh and Titman's 1993 paper found the winners kept beating the losers, with the best version earning 1.49% a month.</p></section><!-- /define -->
 
   <nav class="ribbon seven" aria-label="Cross-sectional momentum">
     <div><div class="t">step 1</div><div class="n">Pick the universe</div></div>
@@ -918,6 +967,13 @@ if showTable and barstate.islast
     <a href="/dynamic-risk-sizing.html" style="--tc:#ff9f0a"><span class="k">risk</span><h3>Dynamic Risk Sizing</h3><p>Sizing up and down with conditions, the same idea as scaling momentum around a crash.</p><small>Read &rsaquo;</small></a>
   </div>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>How is it different from trend following?</h3><p>Cross-sectional momentum ranks each stock against every other stock on the same date. Trend following, or time-series momentum, compares a stock with its own past. In a crash the cross-sectional winners can be the stocks that fell least.</p></div>
+    <div class="qa"><h3>Is there a stop or a target?</h3><p>No. The ranking does all the work. A fresh portfolio is built every month and each one is held for its set period.</p></div>
+    <div class="qa"><h3>What did the paper test?</h3><p>NYSE and AMEX stocks from 1965 to 1989, with lookbacks and holding periods of 3, 6, 9 or 12 months. The 6-month / 6-month version made 12.01% a year, compounded.</p></div>
+    <div class="qa"><h3>Does momentum still work?</h3><p>Not better than the market in our test. The 12-1 long-short made +8.4% a year with a 0.44 Sharpe ratio, against +9.9% and a 0.66 Sharpe for simply owning every stock equally.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>Try it on paper first.</h2>

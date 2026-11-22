@@ -349,6 +349,54 @@
 <script src="/js/fs-dual-momentum.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=31" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is dual momentum?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Dual momentum is Gary Antonacci's method from Dual Momentum Investing (2014). Once a month, relative momentum picks the stronger of US and non-US stocks over 12 months, and absolute momentum checks whether US stocks beat T-bills. If they didn't, the money goes to US aggregate bonds. His Global Equities Momentum (GEM) model uses both."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the difference between relative and absolute momentum?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Relative momentum picks which market is stronger, so it always holds something. Absolute momentum asks whether stocks are beating cash at all, and steps into bonds when they aren't."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How often do you check it?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "At each month-end, using 12-month total returns."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What did the book's backtest show?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "From 1974 to 2013, before costs and taxes, GEM made 17.43% a year with a worst drawdown of 22.72%, against 8.85% and 60.21% for world stocks."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does dual momentum work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It trailed holding SPY in our test: +13.8% a year for GEM against +17.6% for SPY held, over five years with no long bear market."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -401,6 +449,7 @@
       <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Trails holding SPY</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is dual momentum?</h2><p>Dual momentum is Gary Antonacci's method from Dual Momentum Investing (2014). Once a month, relative momentum picks the stronger of US and non-US stocks over 12 months, and absolute momentum checks whether US stocks beat T-bills. If they didn't, the money goes to US aggregate bonds. His Global Equities Momentum (GEM) model uses both.</p></section><!-- /define -->
 
   <nav class="ribbon seven" aria-label="Dual Momentum">
     <div><div class="t">step 1</div><div class="n">Month-end</div></div>
@@ -759,6 +808,13 @@ if barstate.islast
     <a href="/famous-strategies/can-slim.html" style="--tc:#ff9f0a"><span class="k">famous strategy</span><h3>CAN SLIM</h3><p>Market direction first, the same idea for single stocks.</p><small>Read &rsaquo;</small></a>
   </div>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What is the difference between relative and absolute momentum?</h3><p>Relative momentum picks which market is stronger, so it always holds something. Absolute momentum asks whether stocks are beating cash at all, and steps into bonds when they aren't.</p></div>
+    <div class="qa"><h3>How often do you check it?</h3><p>At each month-end, using 12-month total returns.</p></div>
+    <div class="qa"><h3>What did the book's backtest show?</h3><p>From 1974 to 2013, before costs and taxes, GEM made 17.43% a year with a worst drawdown of 22.72%, against 8.85% and 60.21% for world stocks.</p></div>
+    <div class="qa"><h3>Does dual momentum work?</h3><p>It trailed holding SPY in our test: +13.8% a year for GEM against +17.6% for SPY held, over five years with no long bear market.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>Try it on paper first.</h2>

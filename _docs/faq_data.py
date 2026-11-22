@@ -546,4 +546,154 @@ FAQ = {
   ("What is implied vs actual?", "A comparison of the move the options market is pricing with how much the stock usually moves over the same number of days."),
  ],
 },
+"/famous-strategies/can-slim.html": {
+ "q": "What is CAN SLIM?",
+ "a": "CAN SLIM is William O'Neil's growth stock method from How to Make Money in Stocks (1988). Each letter is a test a stock must pass before its big move: strong current and annual earnings, something new, supply and demand, a market leader, institutional sponsorship, and a market in a confirmed uptrend. You buy the breakout from a sound base on heavy volume and cut every loss at 7 to 8%.",
+ "faq": [
+  ("What earnings does CAN SLIM look for?", "Quarterly and annual earnings per share growth of 25% or more, with return on equity of 17% or more."),
+  ("When do you buy a CAN SLIM stock?", "Only when the general market is in a confirmed uptrend, on a breakout over the pivot of a sound base with volume 40 to 50% or more above normal, within 5% of the pivot."),
+  ("When do you sell?", "Always on a loss of 7 to 8% from your cost. Most gains are taken at 20 to 25%."),
+  ("Does CAN SLIM work?", "A little better than random in our test. The price and volume rules on the whole US market made +1.3% a trade over 2,474 trades, against +0.4 to +1.1% for random entries with the same exits. Adding the earnings letters lifted it to +1.7%, on only 140 trades."),
+ ],
+},
+"/famous-strategies/cross-sectional-momentum.html": {
+ "q": "What is cross-sectional momentum?",
+ "a": "Cross-sectional momentum ranks every stock on its return over the past 3 to 12 months, buys the top tenth and sells short the bottom tenth, and holds for a few months. Jegadeesh and Titman's 1993 paper found the winners kept beating the losers, with the best version earning 1.49% a month.",
+ "faq": [
+  ("How is it different from trend following?", "Cross-sectional momentum ranks each stock against every other stock on the same date. Trend following, or time-series momentum, compares a stock with its own past. In a crash the cross-sectional winners can be the stocks that fell least."),
+  ("Is there a stop or a target?", "No. The ranking does all the work. A fresh portfolio is built every month and each one is held for its set period."),
+  ("What did the paper test?", "NYSE and AMEX stocks from 1965 to 1989, with lookbacks and holding periods of 3, 6, 9 or 12 months. The 6-month / 6-month version made 12.01% a year, compounded."),
+  ("Does momentum still work?", "Not better than the market in our test. The 12-1 long-short made +8.4% a year with a 0.44 Sharpe ratio, against +9.9% and a 0.66 Sharpe for simply owning every stock equally."),
+ ],
+},
+"/famous-strategies/dual-momentum.html": {
+ "q": "What is dual momentum?",
+ "a": "Dual momentum is Gary Antonacci's method from Dual Momentum Investing (2014). Once a month, relative momentum picks the stronger of US and non-US stocks over 12 months, and absolute momentum checks whether US stocks beat T-bills. If they didn't, the money goes to US aggregate bonds. His Global Equities Momentum (GEM) model uses both.",
+ "faq": [
+  ("What is the difference between relative and absolute momentum?", "Relative momentum picks which market is stronger, so it always holds something. Absolute momentum asks whether stocks are beating cash at all, and steps into bonds when they aren't."),
+  ("How often do you check it?", "At each month-end, using 12-month total returns."),
+  ("What did the book's backtest show?", "From 1974 to 2013, before costs and taxes, GEM made 17.43% a year with a worst drawdown of 22.72%, against 8.85% and 60.21% for world stocks."),
+  ("Does dual momentum work?", "It trailed holding SPY in our test: +13.8% a year for GEM against +17.6% for SPY held, over five years with no long bear market."),
+ ],
+},
+"/famous-strategies/intraday-momentum.html": {
+ "q": "What is intraday momentum?",
+ "a": "Intraday momentum is the link Gao, Han, Li and Zhou (2018) found on SPY: the return from yesterday's 4:00 pm close to 10:00 am today tends to point the way the last half-hour goes. At 3:30 pm you buy SPY if that return was positive, or short it if negative, and close at 4:00.",
+ "faq": [
+  ("Why would the morning predict the close?", "The paper gives two reasons: funds and hedgers who rebalance once a day near the close, and traders who act late on the morning's news, both push price the way the morning pointed."),
+  ("How strong was the effect?", "Small and daily. From 1993 to 2013 the timing rule was right on 54.37% of days and made 6.67% a year, with an R-squared of 1.6%."),
+  ("When was it stronger?", "On volatile and high-volume days, in recessions and on macro news days."),
+  ("Does intraday momentum still work?", "Not in our test: the last half hour went the morning's way on only 49% of days, and the trade averaged -0.01% a day on SPY and -0.02% on QQQ."),
+ ],
+},
+"/famous-strategies/low-volatility.html": {
+ "q": "What is the low-volatility anomaly?",
+ "a": "The low-volatility anomaly is the finding that the calmest stocks earned about as much as the riskiest, and the noisiest did worst, against the textbook idea that more risk pays more. It comes from Ang, Hodrick, Xing and Zhang (2006) and Frazzini and Pedersen's Betting Against Beta (2014). The strategy owns the calm stocks and rebalances on a schedule.",
+ "faq": [
+  ("Volatility or beta?", "Two ways to measure calm. Volatility is how much a stock swings; beta is how much it moves with the market. They mostly agree."),
+  ("How big was the effect in the papers?", "The noisiest fifth of stocks trailed the calmest by 1.06% a month. Lowest-beta stocks had a 0.70 Sharpe ratio against 0.28 for the highest, and betting against beta had a 0.78 Sharpe from 1926 to 2012."),
+  ("What is the catch?", "It lags in roaring rallies."),
+  ("Does low volatility work?", "Lower risk, lower return in our test. The calmest 20% had a worst drop of only 10% but made +7.7% a year against +12.9% for the average stock."),
+ ],
+},
+"/famous-strategies/magic-formula.html": {
+ "q": "What is the Magic Formula?",
+ "a": "The Magic Formula is Joel Greenblatt's stock-picking method from The Little Book That Beats the Market (2005). Rank the largest US stocks on earnings yield (EBIT divided by enterprise value) and return on capital, add the two ranks, buy the 20 to 30 best totals, hold each for a year and replace it.",
+ "faq": [
+  ("Why exclude financials and utilities?", "Their balance sheets don't fit the formula."),
+  ("Why EBIT and enterprise value instead of P/E?", "EBIT is operating profit before interest and taxes, so companies with different debt and tax situations compare on the same footing. Enterprise value counts debt, so a cheap P/E bought with a pile of debt doesn't look cheap."),
+  ("What did the book's test show?", "30.8% a year against 12.4% for the S&P 500, from 1988 to 2004."),
+  ("Does the Magic Formula work?", "It beat the average stock but not SPY in our test: +11.3% a year from 2022 to 2026, against +5.7% for the equal-weight market and +13.0% for SPY."),
+ ],
+},
+"/famous-strategies/opening-range-breakout.html": {
+ "q": "What is the opening range breakout strategy?",
+ "a": "This version, from Toby Crabel (1990) as tested by Zarattini, Barbon and Aziz (2024), trades the first 5-minute candle. A green candle means longs only, red shorts only. You place a stop order at its high or low, risk 10% of the 14-day ATR sized to 1% of capital, and hold to the 4:00 close, on stocks in play.",
+ "faq": [
+  ("What counts as a stock in play?", "In the paper, the 20 US stocks with the highest relative volume that day, at 100% or more above normal."),
+  ("How did it do in the paper?", "1,637% net from 2016 to 2023 on stocks in play, with a 2.81 Sharpe ratio. The same rules on every stock made 29%."),
+  ("Why no profit target?", "A tight stop with no target means many small losses and a few days that pay several times the risk. It only adds up on stocks with a reason to trend."),
+  ("Does it work?", "A small edge on QQQ in our test: +0.07R a trade over 1,158 trades on 1-minute bars, about 0.14R better than random direction. On SPY and 10 single stocks it lost."),
+ ],
+},
+"/famous-strategies/overnight-effect.html": {
+ "q": "What is the overnight effect?",
+ "a": "The overnight effect is the finding that since the 1990s the US market's gain has come almost entirely between the 4:00 pm close and the next morning's open, not during the trading day. Cliff, Cooper and Gulen (2008) found nights beat days in all 14 big ETFs they studied.",
+ "faq": [
+  ("How do you trade the overnight effect?", "Buy a broad index fund such as SPY at the 4:00 pm close, sell at the 9:30 am open, and stay flat during the day. That's about 252 round trips a year."),
+  ("What did the research find?", "From 1993 to 2006, S&P 500 stocks averaged 0.028% to 0.048% a night and -0.028% to 0.002% a day. On SPY, nights beat days by 0.068% a day."),
+  ("Can you use it without trading every night?", "Yes, as timing: buy index funds near the close and sell near the open."),
+  ("Does the overnight effect work?", "Nights beat days before costs in our test, but both trailed holding. SPY held only overnight made +33% before costs and +17.3% after, against +58.3% for simply holding."),
+ ],
+},
+"/famous-strategies/pairs-trading.html": {
+ "q": "What is pairs trading?",
+ "a": "Pairs trading bets on the gap between two stocks that have moved together. In Gatev, Goetzmann and Rouwenhorst's 2006 paper, each stock is paired with the one whose price line stayed closest to its own over 12 months. When the gap reaches two standard deviations, you short the leader and buy the laggard, and close both when their prices cross.",
+ "faq": [
+  ("How are the pairs chosen?", "By distance, not industry: the smallest sum of squared gaps between prices normalized to start at $1 over the 12-month formation period."),
+  ("How long is a pair traded?", "For the next six months. Anything still open then is closed, and a new cycle starts every month."),
+  ("How did it do in the paper?", "Up to about 11% a year above the risk-free rate on liquid US stocks from 1962 to 2002."),
+  ("Does pairs trading work?", "Not in our test: 1,457 pair trades lost about 0.19% a trade after costs."),
+ ],
+},
+"/famous-strategies/post-earnings-drift.html": {
+ "q": "What is post-earnings announcement drift?",
+ "a": "Post-earnings announcement drift (PEAD) is the tendency of stocks with big earnings surprises to keep moving the same way for weeks. Bernard and Thomas (1989) scored each surprise against the company's own history, bought the biggest beats, shorted the biggest misses and held for about 60 days.",
+ "faq": [
+  ("What is SUE?", "Standardized unexpected earnings: reported earnings minus what was expected, divided by how much the company's earnings usually miss the forecast."),
+  ("How strong was the drift in the paper?", "The long-short made money in 41 of 48 quarters from 1974 to 1985, and 25 to 30% of the drift landed at the next earnings reports."),
+  ("Who found it first?", "Ball and Brown, in 1968."),
+  ("Does post-earnings drift still work?", "Weakly in our test. The biggest surprises beat the biggest misses by about 1% over 60 days, positive in only 11 of 20 quarters, though our surprise date came from the later 10-Q filing."),
+ ],
+},
+"/famous-strategies/rsi-2.html": {
+ "q": "What is the RSI(2) strategy?",
+ "a": "RSI(2) is Larry Connors and Cesar Alvarez's pullback strategy for index ETFs like SPY and QQQ. Buy when the 2-period RSI closes at or below 5 while price is above its 200-day average, and sell on the first close above the 5-day average.",
+ "faq": [
+  ("Why a 2-period RSI?", "Looking back two days instead of fourteen turns a slow gauge into one that hits extremes on almost every pullback."),
+  ("Does RSI(2) use a stop?", "No. Connors found stops hurt results on indexes."),
+  ("Can you short with RSI(2)?", "The mirror image: below the 200-day, short when RSI(2) is at or above 95."),
+  ("Does RSI(2) work?", "As described, but too rarely to judge in our test. It won 80% of the time on SPY and QQQ but fired only about 20 times on each in five years, making +1.0% a trade on SPY and +0.7% on QQQ."),
+ ],
+},
+"/famous-strategies/sector-rotation.html": {
+ "q": "What is sector rotation?",
+ "a": "Sector rotation ranks industry sectors on their recent returns, holds the top few and swaps out any that fall behind. Based on Moskowitz and Grinblatt (1999) and tested by Mebane Faber (2010), it ranks ten sectors each month and holds the top three, a third each, with no view on the economy needed.",
+ "faq": [
+  ("How are sectors ranked?", "By trailing total return. Faber's combined score averages the 1, 3, 6, 9 and 12-month returns."),
+  ("How did it do in Faber's test?", "About 3 to 6% a year over holding all ten sectors, before costs, beating buy and hold in roughly 70% of years."),
+  ("Is this business cycle rotation?", "No. Business cycle rotation picks sectors from a forecast of the economy. This version just follows the ranking."),
+  ("Does sector rotation work?", "Within the noise in our test: the top 3 of the 11 sector SPDRs made +15.6% a year against +14.5% for an equal mix of all of them."),
+ ],
+},
+"/famous-strategies/ten-month-sma.html": {
+ "q": "What is the 10-month moving average strategy?",
+ "a": "Mebane Faber's 2007 timing rule: on the last trading day of each month, if the price closed above its 10-month simple moving average, own the asset for the next month. If it closed below, sell and hold 90-day T-bills.",
+ "faq": [
+  ("Why does it help?", "The worst stretches for stocks have tended to happen when prices were already below their long-term trend, so stepping aside then cuts the deepest drops."),
+  ("What did Faber's test show?", "On the S&P 500 from 1901 to 2012, 10.2% a year timed against 9.3% held, with the worst drawdown cut from 83.5% to 50.3%, before costs and taxes."),
+  ("What is the downside?", "Whipsaws and lag. It sells after a decline has started and buys back after a rebound, so it trails in choppy markets."),
+  ("Does the 10-month moving average work?", "It cut the drops and the gains with them in our test: +9.5% a year on SPY timed against +17.6% held, over five years with no long bear market."),
+ ],
+},
+"/famous-strategies/turn-of-the-month.html": {
+ "q": "What is the turn of the month effect?",
+ "a": "The turn of the month effect is the finding that US stocks earned most of their return on four trading days each month: the last day of the month and the first three of the next. McConnell and Xu (2008) found 0.15% a day in that window from 1926 to 2005, and about nothing on other days.",
+ "faq": [
+  ("How do you trade the turn of the month?", "Buy a broad index fund at the close of the day before the month's last trading day, and sell at the close of the third trading day of the new month."),
+  ("Is it only a US effect?", "No. McConnell and Xu found it in 31 of 35 countries."),
+  ("Is it caused by fund inflows?", "They found no extra volume or fund inflows that explained it."),
+  ("Does the turn of the month still work?", "Not in our test. The turn days were 19% of trading days and made 9.8% in total, while the rest of the month made 46.9%, so they earned about their share and no more."),
+ ],
+},
+"/famous-strategies/value-and-size.html": {
+ "q": "What is the value and size effect?",
+ "a": "Fama and French's 1992 paper found two easy numbers lined up with stock returns far better than beta: size (small stocks earned more) and book-to-market (cheap stocks earned more). The strategy tilts toward small and cheap stocks and rebalances once a year.",
+ "faq": [
+  ("What is book-to-market?", "A company's book value of equity divided by its market value. A high number means a stock is priced cheaply against its book value."),
+  ("How big was the value premium?", "From 1963 to 1990, value beat growth by 1.53% a month. After 1991 the value premium shrank to about 0.11% a month."),
+  ("Did the paper say risk doesn't matter?", "No. It said beta, measured the usual way, wasn't the risk the market was paying for."),
+  ("Does value and size investing work?", "Value did, size didn't, in our test: cheap stocks beat expensive ones by about 6.2% a year, and small stocks beat big ones by only 1.6%."),
+ ],
+},
 }

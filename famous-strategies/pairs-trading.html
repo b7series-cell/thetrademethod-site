@@ -349,6 +349,54 @@
 <script src="/js/fs-pairs-trading.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=28" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is pairs trading?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Pairs trading bets on the gap between two stocks that have moved together. In Gatev, Goetzmann and Rouwenhorst's 2006 paper, each stock is paired with the one whose price line stayed closest to its own over 12 months. When the gap reaches two standard deviations, you short the leader and buy the laggard, and close both when their prices cross."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How are the pairs chosen?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "By distance, not industry: the smallest sum of squared gaps between prices normalized to start at $1 over the 12-month formation period."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How long is a pair traded?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "For the next six months. Anything still open then is closed, and a new cycle starts every month."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How did it do in the paper?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Up to about 11% a year above the risk-free rate on liquid US stocks from 1962 to 2002."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does pairs trading work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not in our test: 1,457 pair trades lost about 0.19% a trade after costs."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -401,6 +449,7 @@
       <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>No edge</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is pairs trading?</h2><p>Pairs trading bets on the gap between two stocks that have moved together. In Gatev, Goetzmann and Rouwenhorst's 2006 paper, each stock is paired with the one whose price line stayed closest to its own over 12 months. When the gap reaches two standard deviations, you short the leader and buy the laggard, and close both when their prices cross.</p></section><!-- /define -->
 
   <nav class="ribbon seven" aria-label="Pairs Trading">
     <div><div class="t">step 1</div><div class="n">Normalize prices</div></div>
@@ -787,6 +836,13 @@ if showTbl and barstate.islast
     <a href="/dynamic-risk-sizing.html" style="--tc:#ff9f0a"><span class="k">risk</span><h3>Dynamic Risk Sizing</h3><p>How much to put on each pair when the edge is small and steady.</p><small>Read &rsaquo;</small></a>
   </div>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>How are the pairs chosen?</h3><p>By distance, not industry: the smallest sum of squared gaps between prices normalized to start at $1 over the 12-month formation period.</p></div>
+    <div class="qa"><h3>How long is a pair traded?</h3><p>For the next six months. Anything still open then is closed, and a new cycle starts every month.</p></div>
+    <div class="qa"><h3>How did it do in the paper?</h3><p>Up to about 11% a year above the risk-free rate on liquid US stocks from 1962 to 2002.</p></div>
+    <div class="qa"><h3>Does pairs trading work?</h3><p>Not in our test: 1,457 pair trades lost about 0.19% a trade after costs.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>Try it on paper first.</h2>

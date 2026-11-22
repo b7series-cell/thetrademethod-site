@@ -35,7 +35,7 @@ Copy both in before doing anything else. Then move your
     │   ├── stamp-dates.py     ← real last-updated dates from git
     │   ├── seo-blocks.py      ← bylines, breadcrumbs, related setups, static footer
     │   ├── faq_data.py        ← plain definitions + Questions per page
-    │   ├── add-faq.py         ← writes faq_data.py into the pages
+    │   ├── add-faq.py         ← writes faq_data.py into the pages (re-run after fs_build.py or build_tested.py, then seo-blocks.py)
     │   └── README.md
     ├── index.html             ← the directory page
     ├── 404.html

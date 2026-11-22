@@ -349,6 +349,54 @@
 <script src="/js/fs-intraday-momentum.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=35" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is intraday momentum?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Intraday momentum is the link Gao, Han, Li and Zhou (2018) found on SPY: the return from yesterday's 4:00 pm close to 10:00 am today tends to point the way the last half-hour goes. At 3:30 pm you buy SPY if that return was positive, or short it if negative, and close at 4:00."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why would the morning predict the close?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The paper gives two reasons: funds and hedgers who rebalance once a day near the close, and traders who act late on the morning's news, both push price the way the morning pointed."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How strong was the effect?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Small and daily. From 1993 to 2013 the timing rule was right on 54.37% of days and made 6.67% a year, with an R-squared of 1.6%."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "When was it stronger?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "On volatile and high-volume days, in recessions and on macro news days."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does intraday momentum still work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not in our test: the last half hour went the morning's way on only 49% of days, and the trade averaged -0.01% a day on SPY and -0.02% on QQQ."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -401,6 +449,7 @@
       <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>No edge</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is intraday momentum?</h2><p>Intraday momentum is the link Gao, Han, Li and Zhou (2018) found on SPY: the return from yesterday's 4:00 pm close to 10:00 am today tends to point the way the last half-hour goes. At 3:30 pm you buy SPY if that return was positive, or short it if negative, and close at 4:00.</p></section><!-- /define -->
 
   <nav class="ribbon seven" aria-label="Intraday Momentum">
     <div><div class="t">step 1</div><div class="n">Measure close to 10:00</div></div>
@@ -781,6 +830,13 @@ if barstate.islast
     <a href="/famous-strategies/ten-month-sma.html" style="--tc:#ff9f0a"><span class="k">famous strategy</span><h3>10-Month Moving Average</h3><p>The opposite time scale: one check a month.</p><small>Read &rsaquo;</small></a>
   </div>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>Why would the morning predict the close?</h3><p>The paper gives two reasons: funds and hedgers who rebalance once a day near the close, and traders who act late on the morning's news, both push price the way the morning pointed.</p></div>
+    <div class="qa"><h3>How strong was the effect?</h3><p>Small and daily. From 1993 to 2013 the timing rule was right on 54.37% of days and made 6.67% a year, with an R-squared of 1.6%.</p></div>
+    <div class="qa"><h3>When was it stronger?</h3><p>On volatile and high-volume days, in recessions and on macro news days.</p></div>
+    <div class="qa"><h3>Does intraday momentum still work?</h3><p>Not in our test: the last half hour went the morning's way on only 49% of days, and the trade averaged -0.01% a day on SPY and -0.02% on QQQ.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>Try it on paper first.</h2>

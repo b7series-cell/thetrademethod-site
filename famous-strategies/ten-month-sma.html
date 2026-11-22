@@ -349,6 +349,54 @@
 <script src="/js/fs-ten-month-sma.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=31" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the 10-month moving average strategy?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Mebane Faber's 2007 timing rule: on the last trading day of each month, if the price closed above its 10-month simple moving average, own the asset for the next month. If it closed below, sell and hold 90-day T-bills."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why does it help?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The worst stretches for stocks have tended to happen when prices were already below their long-term trend, so stepping aside then cuts the deepest drops."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What did Faber's test show?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "On the S&P 500 from 1901 to 2012, 10.2% a year timed against 9.3% held, with the worst drawdown cut from 83.5% to 50.3%, before costs and taxes."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the downside?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Whipsaws and lag. It sells after a decline has started and buys back after a rebound, so it trails in choppy markets."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the 10-month moving average work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It cut the drops and the gains with them in our test: +9.5% a year on SPY timed against +17.6% held, over five years with no long bear market."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -401,6 +449,7 @@
       <!--tested-chip--><a class="tested-chip v-mixed" href="#tested"><i aria-hidden="true"></i>Tested: <b>Smaller drops, trails holding</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the 10-month moving average strategy?</h2><p>Mebane Faber's 2007 timing rule: on the last trading day of each month, if the price closed above its 10-month simple moving average, own the asset for the next month. If it closed below, sell and hold 90-day T-bills.</p></section><!-- /define -->
 
   <nav class="ribbon seven" aria-label="10-Month Moving Average">
     <div><div class="t">step 1</div><div class="n">Wait for month-end</div></div>
@@ -780,6 +829,13 @@ if barstate.islast
     <a href="/trailing-stops.html" style="--tc:#ff9f0a"><span class="k">fundamentals</span><h3>Trailing Stops</h3><p>The same idea on a single trade: let the trend decide when you're out.</p><small>Read &rsaquo;</small></a>
   </div>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>Why does it help?</h3><p>The worst stretches for stocks have tended to happen when prices were already below their long-term trend, so stepping aside then cuts the deepest drops.</p></div>
+    <div class="qa"><h3>What did Faber's test show?</h3><p>On the S&amp;P 500 from 1901 to 2012, 10.2% a year timed against 9.3% held, with the worst drawdown cut from 83.5% to 50.3%, before costs and taxes.</p></div>
+    <div class="qa"><h3>What is the downside?</h3><p>Whipsaws and lag. It sells after a decline has started and buys back after a rebound, so it trails in choppy markets.</p></div>
+    <div class="qa"><h3>Does the 10-month moving average work?</h3><p>It cut the drops and the gains with them in our test: +9.5% a year on SPY timed against +17.6% held, over five years with no long bear market.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>Try it on paper first.</h2>

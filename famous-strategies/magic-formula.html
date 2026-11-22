@@ -349,6 +349,54 @@
 <script src="/js/fs-magic-formula.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=28" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the Magic Formula?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The Magic Formula is Joel Greenblatt's stock-picking method from The Little Book That Beats the Market (2005). Rank the largest US stocks on earnings yield (EBIT divided by enterprise value) and return on capital, add the two ranks, buy the 20 to 30 best totals, hold each for a year and replace it."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why exclude financials and utilities?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Their balance sheets don't fit the formula."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why EBIT and enterprise value instead of P/E?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "EBIT is operating profit before interest and taxes, so companies with different debt and tax situations compare on the same footing. Enterprise value counts debt, so a cheap P/E bought with a pile of debt doesn't look cheap."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What did the book's test show?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "30.8% a year against 12.4% for the S&P 500, from 1988 to 2004."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the Magic Formula work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It beat the average stock but not SPY in our test: +11.3% a year from 2022 to 2026, against +5.7% for the equal-weight market and +13.0% for SPY."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -401,6 +449,7 @@
       <!--tested-chip--><a class="tested-chip v-mixed" href="#tested"><i aria-hidden="true"></i>Tested: <b>Beat the average stock, not SPY</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the Magic Formula?</h2><p>The Magic Formula is Joel Greenblatt's stock-picking method from The Little Book That Beats the Market (2005). Rank the largest US stocks on earnings yield (EBIT divided by enterprise value) and return on capital, add the two ranks, buy the 20 to 30 best totals, hold each for a year and replace it.</p></section><!-- /define -->
 
   <nav class="ribbon seven" aria-label="Magic Formula">
     <div><div class="t">step 1</div><div class="n">Screen the market</div></div>
@@ -818,6 +867,13 @@ if showTbl and barstate.islast
     <a href="/four-pillars.html" style="--tc:#ff9f0a"><span class="k">fundamentals</span><h3>Four Pillars</h3><p>Sizing and discipline, the parts that decide whether you stick with a system.</p><small>Read &rsaquo;</small></a>
   </div>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>Why exclude financials and utilities?</h3><p>Their balance sheets don't fit the formula.</p></div>
+    <div class="qa"><h3>Why EBIT and enterprise value instead of P/E?</h3><p>EBIT is operating profit before interest and taxes, so companies with different debt and tax situations compare on the same footing. Enterprise value counts debt, so a cheap P/E bought with a pile of debt doesn't look cheap.</p></div>
+    <div class="qa"><h3>What did the book's test show?</h3><p>30.8% a year against 12.4% for the S&amp;P 500, from 1988 to 2004.</p></div>
+    <div class="qa"><h3>Does the Magic Formula work?</h3><p>It beat the average stock but not SPY in our test: +11.3% a year from 2022 to 2026, against +5.7% for the equal-weight market and +13.0% for SPY.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>Try it on paper first.</h2>
