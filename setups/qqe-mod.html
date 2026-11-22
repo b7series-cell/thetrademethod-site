@@ -355,6 +355,54 @@
 </style>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=9" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the QQE Mod + EMA 50 strategy?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It's an indicator setup on a 5-minute gold chart. The EMA 50 picks the side: above it you only buy, below it you only sell. You trade the QQE Mod histogram's color change (red to blue for a buy) on a strong closed candle, enter at the next open, stop beyond the last swing, and take a 2R target only if the next level leaves room."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What QQE Mod settings does it use?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Mihkel00's QQE Mod with RSI length 8 and RSI smoothing 5, everything else at default, plus a 50-period EMA."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What do the QQE Mod colors mean?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Blue means both of the indicator's RSI calculations agree on bullish momentum, red means they agree on bearish momentum, and gray or nothing means they don't agree or the RSI is near 50."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "When should you skip a QQE Mod signal?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "When price is chopping across the EMA 50, when the stop beyond the last swing is too big for your risk limit, or when the next support or resistance sits between the entry and the 2R target."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the QQE Mod strategy work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "In our test it came out just under break-even: 256 trades on 5-minute bars across 10 large-cap stocks, Aug to Nov 2026, with a 48% win rate, a 0.97 profit factor and -0.01R per trade. That was on stocks, not the gold futures from the video."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -407,6 +455,7 @@
       </div>
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the QQE Mod + EMA 50 strategy?</h2><p>It's an indicator setup on a 5-minute gold chart. The EMA 50 picks the side: above it you only buy, below it you only sell. You trade the QQE Mod histogram's color change (red to blue for a buy) on a strong closed candle, enter at the next open, stop beyond the last swing, and take a 2R target only if the next level leaves room.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">the filter</div><div class="n">Price vs the EMA 50</div></div>
@@ -893,6 +942,13 @@ if sellSignal
     </div>
   </section>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What QQE Mod settings does it use?</h3><p>Mihkel00's QQE Mod with RSI length 8 and RSI smoothing 5, everything else at default, plus a 50-period EMA.</p></div>
+    <div class="qa"><h3>What do the QQE Mod colors mean?</h3><p>Blue means both of the indicator's RSI calculations agree on bullish momentum, red means they agree on bearish momentum, and gray or nothing means they don't agree or the RSI is near 50.</p></div>
+    <div class="qa"><h3>When should you skip a QQE Mod signal?</h3><p>When price is chopping across the EMA 50, when the stop beyond the last swing is too big for your risk limit, or when the next support or resistance sits between the entry and the 2R target.</p></div>
+    <div class="qa"><h3>Does the QQE Mod strategy work?</h3><p>In our test it came out just under break-even: 256 trades on 5-minute bars across 10 large-cap stocks, Aug to Nov 2026, with a 48% win rate, a 0.97 profit factor and -0.01R per trade. That was on stocks, not the gold futures from the video.</p></div>
+  </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
     <a href="/setups/technical-catalyst-breakout.html"><span class="k">All session</span><h3>Technical Catalyst Breakout</h3><p>No headline needed.</p></a>

@@ -56,4 +56,54 @@ FAQ = {
   ("Has the liquidity refill been backtested?", "Not fairly. On 5-minute bars it made +0.83R a trade over 73 trades, but bars can't show whether the wick came first. On 1-minute bars only 10 trades clearly did, so a real test needs tick or second-by-second data."),
  ],
 },
+"/four-pillars.html": {
+ "q": "What are the four pillars of trading?",
+ "a": "The four pillars are a simple framework you can repeat on every trade: levels, the prices the market keeps reacting to; context, the trend and the bigger picture around a level; position sizing, the same small risk on every trade; and discipline, following the plan you wrote while calm instead of chasing.",
+ "faq": [
+  ("Why use fewer indicators?", "Past a certain point more inputs just mean more conflicting signals, and conflict means hesitation at the moment you need clarity. A level the market has proven it respects, plus the context around it, carries most of what the indicators try to say."),
+  ("What makes a level worth trading?", "How many times price actually reacted there, across different conditions. A line drawn once and touched once doesn't count, and neither does how clean it looks."),
+  ("How should you size a trade?", "Risk a small, fixed percentage of the account on every trade, one you could repeat a hundred times in a row, and fit the position to that risk rather than to how good the setup feels."),
+  ("Why is discipline a pillar?", "Most blown-up accounts are a discipline problem, not a strategy problem: chasing a missed entry, widening risk mid-trade, or sizing up to win back a loss. The simplest framework is useless if you can't follow it under pressure."),
+ ],
+},
+"/setups/qqe-mod.html": {
+ "q": "What is the QQE Mod + EMA 50 strategy?",
+ "a": "It's an indicator setup on a 5-minute gold chart. The EMA 50 picks the side: above it you only buy, below it you only sell. You trade the QQE Mod histogram's color change (red to blue for a buy) on a strong closed candle, enter at the next open, stop beyond the last swing, and take a 2R target only if the next level leaves room.",
+ "faq": [
+  ("What QQE Mod settings does it use?", "Mihkel00's QQE Mod with RSI length 8 and RSI smoothing 5, everything else at default, plus a 50-period EMA."),
+  ("What do the QQE Mod colors mean?", "Blue means both of the indicator's RSI calculations agree on bullish momentum, red means they agree on bearish momentum, and gray or nothing means they don't agree or the RSI is near 50."),
+  ("When should you skip a QQE Mod signal?", "When price is chopping across the EMA 50, when the stop beyond the last swing is too big for your risk limit, or when the next support or resistance sits between the entry and the 2R target."),
+  ("Does the QQE Mod strategy work?", "In our test it came out just under break-even: 256 trades on 5-minute bars across 10 large-cap stocks, Aug to Nov 2026, with a 48% win rate, a 0.97 profit factor and -0.01R per trade. That was on stocks, not the gold futures from the video."),
+ ],
+},
+"/stacked-imbalances.html": {
+ "q": "What is a stacked imbalance?",
+ "a": "A stacked imbalance is three or more prices in a row on a footprint chart where one side traded about four times harder than the other. Because markets have memory, price often reacts when it returns to that zone, which makes it a place to get long (a buying stack) or short (a selling stack) with a small stop.",
+ "faq": [
+  ("What ratio counts as an imbalance?", "About 4 to 1 is the closest thing to a standard. Some traders use 3, 5 or 6 to 1. Pick one and stick with it so your levels mean the same thing every day."),
+  ("Diagonal or horizontal imbalances?", "Most footprint software compares the bid at one price with the offer one tick up (diagonal). Some traders compare bid and ask at the same price (horizontal). Both look for one side hitting far harder than the other; pick one and stay with it."),
+  ("Why does it matter where the stack sits in the candle?", "A stack mid-body is a level to mark for later support or resistance. Buy imbalances at the top of a red candle followed by a move down mean those buyers are trapped, and trapped-trader stacks in the wicks are the ones Futures Flow trades most."),
+  ("What does a stacked imbalance trade look like?", "In the payroll example a buying stack formed around 3,973 to 3,974. Price came back to 3,974, held for four bars with a stop at 3,973, then rallied to 3,994. The trader himself says that is the best case, not the usual one."),
+ ],
+},
+"/thesis-to-trade.html": {
+ "q": "What is the thesis to trade method?",
+ "a": "It's Vincent Desiano's daily process from his live stream. Build levels only on the weekly, daily, 4-hour and hourly charts and group nearby lows into zones, write an if-then game plan for each zone, read whether price holds, fails or traps there, enter on the break and retest after confirmation, and manage the trade with intraday structure.",
+ "faq": [
+  ("How wide should a zone be?", "About 20 to 30 points on the S&P and about 100 on the Nasdaq. A 200-point demand zone isn't a zone."),
+  ("Why only higher time frames for levels?", "An intraday trade should come off a major inflection point, not a little pivot from yesterday, so levels come from the weekly, daily, 4-hour and hourly charts and nothing lower."),
+  ("What is a break and retest entry?", "Price reaches a zone, holds it with higher lows and buyers stepping up, and only then do you enter, with the stop under the level. In the stream's S&P example the 7,469 to 7,490 zone held and the long ran almost 100 points."),
+  ("When do you exit?", "When the intraday structure breaks, using the EMA cloud in trending markets. On a short, price holding back above a previous low means the structure is gone and so is the trade."),
+ ],
+},
+"/setups/qullamaggie.html": {
+ "q": "What is the Qullamaggie breakout setup?",
+ "a": "It's Kristjan Kullamägi's momentum swing trade. Find the top 1 to 2% of stocks by recent gains, wait for a tight base on the 10 and 20-day averages, buy the opening range high on breakout day with the stop at the low of the day, sell a third to a half after three to five days, and trail the rest on the 10 or 20-day.",
+ "faq": [
+  ("How much does Qullamaggie risk per trade?", "About 0.5% of the account, and never more than 1%. Skip the trade if the low of the day is further from the entry than the stock's average daily range."),
+  ("What makes a good base?", "Two weeks to two months of sideways action after a big move, with higher lows, tighter ranges, drying volume, and price riding on top of the 10 and 20-day averages."),
+  ("When do you sell the rest of the position?", "On the first daily close below the trailing average: the 10-day for faster, more extended stocks and the 20-day for slower ones. There are no price targets."),
+  ("Does the Qullamaggie breakout work?", "It was the only setup on this site that clearly beat random entries in our tests: 158 trades with a 5-minute opening range entry averaged +0.63R against -0.21R for random entries with the same exits, though only 35% of trades won."),
+ ],
+},
 }
