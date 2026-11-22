@@ -365,6 +365,54 @@
 <script src="/js/lrad-anim.js?v=1" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=36" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is Level Radar?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Level Radar is a TradingView indicator that shows, for ten levels day traders watch, the chance in percent that price touches each one before the session ends. The levels are the previous day's high, low and close, the overnight high and low, today's open, the opening range high and low, and today's high and low so far. The odds update on every bar."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How are the odds worked out?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It compares each level's distance with how far price usually still travels in the time left today, using the last ten sessions' range, shrunk as the session runs out, then checks how often price went that far on past days at the same time of day."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What do the colors mean?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Green levels are above price and red below. Brighter and thicker means higher odds. A tick mark means the level was already touched today."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Where does the history come from?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Fifteen years of index and gold futures built into the script, plus the last twenty sessions of your own chart."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Are Level Radar's odds accurate?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "On SPY and QQQ, in our check, yes: levels marked 60 to 70% were touched about 62% of the time, usually within 1 to 3 points. On single stocks the middle-range odds ran 8 to 11 points too high."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -418,6 +466,7 @@
       <!--tested-chip--><a class="tested-chip v-info" href="#tested"><i aria-hidden="true"></i>Tested: <b>Accurate on SPY/QQQ</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is Level Radar?</h2><p>Level Radar is a TradingView indicator that shows, for ten levels day traders watch, the chance in percent that price touches each one before the session ends. The levels are the previous day's high, low and close, the overnight high and low, today's open, the opening range high and low, and today's high and low so far. The odds update on every bar.</p></section><!-- /define -->
 
   <nav class="ribbon seven" aria-label="Level Radar">
     <div><div class="t">step 1</div><div class="n">Mark the levels</div></div>
@@ -1612,6 +1661,13 @@ if barstate.islast and not TF_OK
     </div>
   </section>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>How are the odds worked out?</h3><p>It compares each level's distance with how far price usually still travels in the time left today, using the last ten sessions' range, shrunk as the session runs out, then checks how often price went that far on past days at the same time of day.</p></div>
+    <div class="qa"><h3>What do the colors mean?</h3><p>Green levels are above price and red below. Brighter and thicker means higher odds. A tick mark means the level was already touched today.</p></div>
+    <div class="qa"><h3>Where does the history come from?</h3><p>Fifteen years of index and gold futures built into the script, plus the last twenty sessions of your own chart.</p></div>
+    <div class="qa"><h3>Are Level Radar's odds accurate?</h3><p>On SPY and QQQ, in our check, yes: levels marked 60 to 70% were touched about 62% of the time, usually within 1 to 3 points. On single stocks the middle-range odds ran 8 to 11 points too high.</p></div>
+  </div><!-- /faq -->
   <div class="rule">
     <div>
       <h2>Before your next target, ask what the odds are.</h2>
