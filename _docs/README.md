@@ -31,6 +31,7 @@ Copy both in before doing anything else. Then move your
     │   ├── _template.html     ← YOU ADD THIS
     │   ├── DESIGN.md          ← copy yours in
     │   ├── build-sitemap.js
+    │   ├── seo-check.py       ← runs before every deploy
     │   └── README.md
     ├── index.html             ← the directory page
     ├── 404.html
@@ -78,7 +79,9 @@ the section, so the line is harmless on pages that have none.
 2. Add one entry to the `SETUPS` array in `js/nav.js`, including its
    `indicators`.
 3. Run `node _docs/build-sitemap.js` to refresh `sitemap.xml`.
-4. Upload the changed files.
+4. Run `python3 _docs/seo-check.py`. It must show 0 errors, or the
+   deploy stops (the deploy workflow runs the same check first).
+5. Upload the changed files.
 
 Keep `status: "draft"` while writing. The page is live on the server but
 stays out of the nav, the directory, the counts, and the sitemap until
