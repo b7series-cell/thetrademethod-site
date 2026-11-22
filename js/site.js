@@ -203,6 +203,7 @@
   var REVIEW_URL = "https://journal.thetrademethod.com/";    // the Trade Review site (subdomain)
   var VOLENDAR_URL = "https://volendar.com/";
   var BACKTEST_URL = "https://backtestboard.com/";
+  var BUTTSKWEET_URL = "https://buttskweet.com/";
   function renderGnav() {
     var el = document.querySelector("[data-gnav]");
     if (!el) return;
@@ -363,7 +364,7 @@
           "are drawn from trading-education material and are not independently verified.</p>" +
         "</div>" +
         '<div class="cols">' + cols + "</div>" +
-        '<div class="base"><span>&copy; ' + new Date().getFullYear() + " The Trade Method</span><span><a href=\"" + REVIEW_URL + "\" target=\"_blank\" rel=\"noopener\">Trade Review</a> &middot; <a href=\"" + VOLENDAR_URL + "\" target=\"_blank\" rel=\"noopener\">Volendar</a> &middot; <a href=\"" + BACKTEST_URL + "\" target=\"_blank\" rel=\"noopener\">Backtest Board</a> &middot; <a href=\"/about.html\">About</a> &middot; <a href=\"/contact.html\">Contact</a> &middot; <a href=\"/privacy.html\">Privacy</a></span></div>" +
+        '<div class="base"><span>&copy; ' + new Date().getFullYear() + " The Trade Method</span><span><a href=\"" + REVIEW_URL + "\" target=\"_blank\" rel=\"noopener\">Trade Review</a> &middot; <a href=\"" + VOLENDAR_URL + "\" target=\"_blank\" rel=\"noopener\">Volendar</a> &middot; <a href=\"" + BACKTEST_URL + "\" target=\"_blank\" rel=\"noopener\">Backtest Board</a> &middot; <a href=\"" + BUTTSKWEET_URL + "\" target=\"_blank\" rel=\"noopener\">Buttskweet</a> &middot; <a href=\"/about.html\">About</a> &middot; <a href=\"/contact.html\">Contact</a> &middot; <a href=\"/privacy.html\">Privacy</a></span></div>" +
       "</div>";
   }
 
