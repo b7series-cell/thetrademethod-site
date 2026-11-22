@@ -306,4 +306,44 @@ FAQ = {
   ("Does the volume S/R rejection work?", "Not in our test of an approximation of the rules. Across 119,572 trades on 5-minute bars it won 62% of the time but lost 0.20R per trade, with a 0.78 profit factor, because the winners were small and the losers weren't."),
  ],
 },
+"/setups/gex-levels.html": {
+ "q": "What are GEX levels?",
+ "a": "GEX levels are prices where options dealers' hedging is concentrated, measured as gamma exposure at each strike. The call wall is the strike above price with the biggest call gamma and tends to act as resistance. The put wall is the strike below price with the biggest put gamma and tends to act as support. The gamma flip is where total gamma crosses zero, and it sets the regime: fade the walls above it, follow the break below it.",
+ "faq": [
+  ("How is gamma exposure calculated?", "For each strike: gamma times open interest times 100 times spot squared times 1%. Calls count positive and puts negative. The page uses expirations out to 30 days, priced at the 9:30 open."),
+  ("What does the gamma flip tell you?", "Not direction, but how price moves. Above it dealers are long gamma, sell rips and buy dips, so moves get damped. Below it they hedge with the move, so moves stretch."),
+  ("How long are GEX levels good for?", "One session. Pull them each morning before the open, rerun midday for 0DTE names like SPY and QQQ or after a big move, and never carry today's walls into tomorrow."),
+  ("Do GEX levels work?", "Partly. In our test of 2,831 signals on 43 tickers, every wall signal did better at the real walls than at fake ones, so the levels carry information. Traded mechanically, they broke even at -0.02R per trade, with only six weeks of levels so far."),
+ ],
+},
+"/setups/zero-lag-pullback.html": {
+ "q": "What is a zero lag pullback?",
+ "a": "A zero lag pullback is a trend pullback trade using a 50 and a 100-period zero-lag EMA. In an uptrend, you wait for a close between the two lines, then buy when a green candle closes back above the 50 on volume at or above average. The stop goes below the 100 and the target is 2R.",
+ "faq": [
+  ("What is a zero-lag EMA?", "An EMA that adds back the gap between an EMA and an EMA of that EMA, so it turns sooner than a plain EMA of the same length."),
+  ("Why not trade the cross?", "The cross only says the trend may have turned. Deep pullbacks and ranges cross the lines too, so the entry waits for a pullback inside the new trend."),
+  ("What cancels the setup?", "A close below the 100-period line, or the 50 crossing back under the 100. A reclaim of the 50 on below-average volume is skipped."),
+  ("Does the zero lag pullback work?", "Not better than chance in our test. On SPY 5-minute bars, 446 trades made +0.01R a trade with a 35% win rate. On slower charts the long side made money, but random long entries in the same uptrend with the same stop and 2R target made as much."),
+ ],
+},
+"/setups/three-candle-crt.html": {
+ "q": "What is a three-candle CRT?",
+ "a": "A three-candle CRT is a Candle Range Theory trigger. Candle 1 on the 1-hour, 30 or 15-minute chart marks a range. Candle 2 wicks beyond one side and closes back inside it, a sweep. You enter only if candle 3 breaks candle 2's high (long) or low (short), with the target at the opposing extreme and the stop set to make exactly 1.5R.",
+ "faq": [
+  ("What is the difference between a sweep and a breakout?", "A sweep wicks beyond candle 1's range and closes back inside it. A candle that closes beyond the range is a breakout, and the setup is void."),
+  ("What if candle 3 doesn't break candle 2?", "The setup is dead. A fourth or later candle breaking the same level is too low-quality to take."),
+  ("Direct break or rebreak?", "A direct break enters the instant candle 3 crosses the level: more trades, lower win rate. A rebreak waits for a break, a pullback and a second break, timed on the 1-minute chart: fewer trades, higher win rate."),
+  ("Does the three-candle CRT work?", "Not in our test. On QQQ 15-minute it looked strong without TradingView's bar magnifier (+0.21R), but with it on, 537 trades had a 43% win rate and -0.09R per trade, and it was near zero on every timeframe."),
+ ],
+},
+"/setups/macd-continuation-scalp.html": {
+ "q": "What is a MACD continuation scalp?",
+ "a": "A MACD continuation scalp uses a 3/9/5 MACD on the 1-minute chart. After 3 to 15 minutes of the MACD flat around zero, it expands away from zero, pulls back toward its signal line while staying on the same side of zero, and the cross back is the entry. The stop goes below the pullback low and you exit when the lines cross the other way.",
+ "faq": [
+  ("Why 3/9/5 instead of 12/26/9?", "The MACD line is the spread between a 3 and a 9-period moving average and the signal line is a 5-period average of it, faster than the default. The histogram isn't used."),
+  ("Why must the lines stay on one side of zero?", "Staying above zero through the pullback (below for a short) keeps you trading with the trend already established. A cross that straddles zero isn't this trade."),
+  ("When should you not take it?", "On a choppy ticker with no consolidation or context, or on a second cross of a move that already ran through the full sequence."),
+  ("Does the MACD continuation scalp work?", "Not in our test: 286 trades on 5-minute bars won 27% of the time, with a 0.67 profit factor and -0.11R per trade, losing on 7 of 10 stocks. The page teaches it on 1-minute bars."),
+ ],
+},
 }

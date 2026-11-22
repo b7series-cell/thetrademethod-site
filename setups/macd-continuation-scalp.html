@@ -237,6 +237,54 @@
 </style>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=2" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is a MACD continuation scalp?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A MACD continuation scalp uses a 3/9/5 MACD on the 1-minute chart. After 3 to 15 minutes of the MACD flat around zero, it expands away from zero, pulls back toward its signal line while staying on the same side of zero, and the cross back is the entry. The stop goes below the pullback low and you exit when the lines cross the other way."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why 3/9/5 instead of 12/26/9?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The MACD line is the spread between a 3 and a 9-period moving average and the signal line is a 5-period average of it, faster than the default. The histogram isn't used."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why must the lines stay on one side of zero?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Staying above zero through the pullback (below for a short) keeps you trading with the trend already established. A cross that straddles zero isn't this trade."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "When should you not take it?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "On a choppy ticker with no consolidation or context, or on a second cross of a move that already ran through the full sequence."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the MACD continuation scalp work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not in our test: 286 trades on 5-minute bars won 27% of the time, with a 0.67 profit factor and -0.11R per trade, losing on 7 of 10 stocks. The page teaches it on 1-minute bars."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -290,6 +338,7 @@
       <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Loses</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is a MACD continuation scalp?</h2><p>A MACD continuation scalp uses a 3/9/5 MACD on the 1-minute chart. After 3 to 15 minutes of the MACD flat around zero, it expands away from zero, pulls back toward its signal line while staying on the same side of zero, and the cross back is the entry. The stop goes below the pullback low and you exit when the lines cross the other way.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">step one</div><div class="n">Flat consolidation near zero</div></div>
@@ -617,6 +666,13 @@
   </section>
   <!--tested:end-->
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>Why 3/9/5 instead of 12/26/9?</h3><p>The MACD line is the spread between a 3 and a 9-period moving average and the signal line is a 5-period average of it, faster than the default. The histogram isn't used.</p></div>
+    <div class="qa"><h3>Why must the lines stay on one side of zero?</h3><p>Staying above zero through the pullback (below for a short) keeps you trading with the trend already established. A cross that straddles zero isn't this trade.</p></div>
+    <div class="qa"><h3>When should you not take it?</h3><p>On a choppy ticker with no consolidation or context, or on a second cross of a move that already ran through the full sequence.</p></div>
+    <div class="qa"><h3>Does the MACD continuation scalp work?</h3><p>Not in our test: 286 trades on 5-minute bars won 27% of the time, with a 0.67 profit factor and -0.11R per trade, losing on 7 of 10 stocks. The page teaches it on 1-minute bars.</p></div>
+  </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
     <a href="/setups/vwap-reversal.html"><span class="k">All session</span><h3>VWAP Reversal</h3><p>Stack a VWAP band touch, an old horizontal level, and a failure-test reversal candle at the same price — one signal is a guess, three is a trade.</p></a>

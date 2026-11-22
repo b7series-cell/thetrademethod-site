@@ -253,6 +253,54 @@
 </style>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=2" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is a three-candle CRT?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A three-candle CRT is a Candle Range Theory trigger. Candle 1 on the 1-hour, 30 or 15-minute chart marks a range. Candle 2 wicks beyond one side and closes back inside it, a sweep. You enter only if candle 3 breaks candle 2's high (long) or low (short), with the target at the opposing extreme and the stop set to make exactly 1.5R."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the difference between a sweep and a breakout?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A sweep wicks beyond candle 1's range and closes back inside it. A candle that closes beyond the range is a breakout, and the setup is void."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What if candle 3 doesn't break candle 2?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The setup is dead. A fourth or later candle breaking the same level is too low-quality to take."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Direct break or rebreak?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A direct break enters the instant candle 3 crosses the level: more trades, lower win rate. A rebreak waits for a break, a pullback and a second break, timed on the 1-minute chart: fewer trades, higher win rate."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the three-candle CRT work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not in our test. On QQQ 15-minute it looked strong without TradingView's bar magnifier (+0.21R), but with it on, 537 trades had a 43% win rate and -0.09R per trade, and it was near zero on every timeframe."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -306,6 +354,7 @@
       <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>No edge</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is a three-candle CRT?</h2><p>A three-candle CRT is a Candle Range Theory trigger. Candle 1 on the 1-hour, 30 or 15-minute chart marks a range. Candle 2 wicks beyond one side and closes back inside it, a sweep. You enter only if candle 3 breaks candle 2's high (long) or low (short), with the target at the opposing extreme and the stop set to make exactly 1.5R.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">candle 1</div><div class="n">Mark the extreme, don't act</div></div>
@@ -660,6 +709,13 @@
     </li>
   </ul>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What is the difference between a sweep and a breakout?</h3><p>A sweep wicks beyond candle 1's range and closes back inside it. A candle that closes beyond the range is a breakout, and the setup is void.</p></div>
+    <div class="qa"><h3>What if candle 3 doesn't break candle 2?</h3><p>The setup is dead. A fourth or later candle breaking the same level is too low-quality to take.</p></div>
+    <div class="qa"><h3>Direct break or rebreak?</h3><p>A direct break enters the instant candle 3 crosses the level: more trades, lower win rate. A rebreak waits for a break, a pullback and a second break, timed on the 1-minute chart: fewer trades, higher win rate.</p></div>
+    <div class="qa"><h3>Does the three-candle CRT work?</h3><p>Not in our test. On QQQ 15-minute it looked strong without TradingView's bar magnifier (+0.21R), but with it on, 537 trades had a 43% win rate and -0.09R per trade, and it was near zero on every timeframe.</p></div>
+  </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
     <a href="/setups/volume-profile-system.html"><span class="k">All session</span><h3>Volume Profile System</h3><p>One tool, read three different ways depending on how the prior session closed — a point-of-control bounce, a value-area reversal, or a value-area breakout continuation — all sized to a fixed 2R.</p></a>

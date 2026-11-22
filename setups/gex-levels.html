@@ -234,6 +234,54 @@
 <script src="/js/examples/gex.js?v=1" defer></script><script src="/js/example-kit.js?v=1" defer></script><script src="/js/gex-live.js?v=3" defer></script>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
 <script src="/js/candle-bg.js?v=2" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What are GEX levels?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "GEX levels are prices where options dealers' hedging is concentrated, measured as gamma exposure at each strike. The call wall is the strike above price with the biggest call gamma and tends to act as resistance. The put wall is the strike below price with the biggest put gamma and tends to act as support. The gamma flip is where total gamma crosses zero, and it sets the regime: fade the walls above it, follow the break below it."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How is gamma exposure calculated?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "For each strike: gamma times open interest times 100 times spot squared times 1%. Calls count positive and puts negative. The page uses expirations out to 30 days, priced at the 9:30 open."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What does the gamma flip tell you?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not direction, but how price moves. Above it dealers are long gamma, sell rips and buy dips, so moves get damped. Below it they hedge with the move, so moves stretch."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How long are GEX levels good for?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "One session. Pull them each morning before the open, rerun midday for 0DTE names like SPY and QQQ or after a big move, and never carry today's walls into tomorrow."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Do GEX levels work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Partly. In our test of 2,831 signals on 43 tickers, every wall signal did better at the real walls than at fake ones, so the levels carry information. Traded mechanically, they broke even at -0.02R per trade, with only six weeks of levels so far."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
 <!-- breadcrumbs --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -287,6 +335,7 @@
       <!--tested-chip--><a class="tested-chip v-mixed" href="#tested"><i aria-hidden="true"></i>Tested: <b>Levels matter, trades broke even</b></a><!--/tested-chip-->
     </div>
   </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What are GEX levels?</h2><p>GEX levels are prices where options dealers' hedging is concentrated, measured as gamma exposure at each strike. The call wall is the strike above price with the biggest call gamma and tends to act as resistance. The put wall is the strike below price with the biggest put gamma and tends to act as support. The gamma flip is where total gamma crosses zero, and it sets the regime: fade the walls above it, follow the break below it.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">the math</div><div class="n">Gamma exposure by strike</div></div>
@@ -651,6 +700,13 @@
     </li>
   </ul>
 
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>How is gamma exposure calculated?</h3><p>For each strike: gamma times open interest times 100 times spot squared times 1%. Calls count positive and puts negative. The page uses expirations out to 30 days, priced at the 9:30 open.</p></div>
+    <div class="qa"><h3>What does the gamma flip tell you?</h3><p>Not direction, but how price moves. Above it dealers are long gamma, sell rips and buy dips, so moves get damped. Below it they hedge with the move, so moves stretch.</p></div>
+    <div class="qa"><h3>How long are GEX levels good for?</h3><p>One session. Pull them each morning before the open, rerun midday for 0DTE names like SPY and QQQ or after a big move, and never carry today's walls into tomorrow.</p></div>
+    <div class="qa"><h3>Do GEX levels work?</h3><p>Partly. In our test of 2,831 signals on 43 tickers, every wall signal did better at the real walls than at fake ones, so the levels carry information. Traded mechanically, they broke even at -0.02R per trade, with only six weeks of levels so far.</p></div>
+  </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
     <a href="/setups/volume-sr-rejection.html"><span class="k">All session</span><h3>Volume S/R Rejection</h3><p>Trade only the support and resistance the volume profile backs, mark where the point of control stacks on a level, and take the rejection when the bar closes and the volume balance flips your way.</p></a>
