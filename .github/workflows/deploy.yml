@@ -31,7 +31,19 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Stops the deploy if a sitemap page is missing its title, description,
+  # canonical or JSON-LD, is marked noindex, or links to a file that doesn't
+  # exist. Long titles/descriptions and llms.txt gaps are warnings only.
+  seo-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check SEO basics
+        run: python3 _docs/seo-check.py
+
   deploy:
+    needs: seo-check
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
