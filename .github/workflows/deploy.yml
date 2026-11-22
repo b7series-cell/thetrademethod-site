@@ -31,7 +31,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Stops the deploy if a sitemap page is missing its title, description,
+  # Rebuilds sitemap.xml (with git last-updated dates) and the search index,
+  # then stops the deploy if a sitemap page is missing its title, description,
   # canonical or JSON-LD, is marked noindex, or links to a file that doesn't
   # exist. Long titles/descriptions and llms.txt gaps are warnings only.
   seo-check:
@@ -39,6 +40,17 @@ jobs:
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Rebuild sitemap, dates and search index
+        run: |
+          node _docs/build-sitemap.js
+          python3 _docs/stamp-dates.py
+          cp js/search-index.js /tmp/search-index.committed.js
+          node _docs/build-search-index.js
+          if ! diff -q <(tail -n +2 /tmp/search-index.committed.js) <(tail -n +2 js/search-index.js) >/dev/null; then
+            echo "::warning::js/search-index.js in the repo is out of date. The deploy uploads a fresh copy; run node _docs/build-search-index.js and bump search-index.js?v= in js/site.js so returning visitors get it."
+          fi
       - name: Check SEO basics
         run: python3 _docs/seo-check.py
 
@@ -53,6 +65,14 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      # Same rebuild as the check job, so the uploaded sitemap carries real
+      # last-updated dates and the search index matches the pages.
+      - name: Rebuild sitemap, dates and search index
+        run: |
+          node _docs/build-sitemap.js
+          python3 _docs/stamp-dates.py
+          node _docs/build-search-index.js
 
       - name: Set up SSH key
         env:
