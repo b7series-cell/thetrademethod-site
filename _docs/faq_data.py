@@ -206,6 +206,16 @@ FAQ = {
   ("Does the look above and fail work?", "Not in our test. On 5-minute bars it looked profitable, but fake value area edges moved by a quarter of the range made as much. On 1-minute bars it lost on SPY and QQQ (-0.07R)."),
  ],
 },
+"/setups/heatmap-scalp.html": {
+ "q": "What is the Heatmap Scalp?",
+ "a": "The Heatmap Scalp is an order flow day trade on NQ and ES futures from a funded trader's live session. Market structure and VWAP set the side: higher lows above VWAP means longs only. A liquidity heatmap such as Bookmap times the entry: on a pullback, the other side's big market orders stop moving price and the resting liquidity holds, so you get in on the bid. The stop is a fixed dollar amount, you add on pullbacks while in profit, and you exit just before a big wall of liquidity.",
+ "faq": [
+  ("What does a liquidity heatmap show?", "Resting limit orders as bright horizontal bars (brighter means more contracts at that price) and filled market orders as bubbles, green for buyers and red for sellers. It shows where the size is and whether it's being taken or pulled."),
+  ("When do you get out early?", "When big orders stack against the trade: large red bubbles on a long and the bid liquidity under you keeps getting taken. In the video that cut the first loss to about half the planned risk."),
+  ("When do you add to the trade?", "Only on a pullback while you're already in profit and the trend still holds, not on a breakout. The stop for both goes under VWAP, then to just above the first entry once the local high breaks."),
+  ("How many trades a day?", "Three at most for a day trader. A fourth is usually a re-entry for the adrenaline, and after a green morning he only risks what keeps the day green."),
+ ],
+},
 "/setups/ready-aim-fire.html": {
  "q": "What is the Ready, Aim, Fire setup?",
  "a": "Ready, Aim, Fire is an auction market theory and order flow day trade for NQ and ES futures. Ready: read the higher time frame as trend or balance. Aim: wait for price to reach a level from yesterday's profile, the overnight session or a composite. Fire: enter only when order flow shows one side putting in effort and not getting paid for it. The stop goes past the fight and the target is the next level, at 1:1 or better.",
