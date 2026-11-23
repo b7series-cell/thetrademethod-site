@@ -1317,6 +1317,31 @@
       }
     },
 
+    /* Heatmap scalp: higher lows above VWAP, a first long cut early on big sellers, the bid holds the pullback to VWAP,
+       long on the bid, add on the next pullback, out a few ticks under the wall of sell orders (alternates long / short) */
+    "heatmap-scalp": {
+      ind: ["vwap"],
+      lines: [{ k: "vwap", col: BLUE, w: 2, glow: true, label: "VWAP" }],
+      story: function (st) {
+        var d = st.dir = -(st.dir || -1), W, B;
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); W = level(st, st.price + 9 * d, d > 0 ? "Wall of sell orders" : "Wall of buy orders", ORANGE, true); return bar(st, { d: 0.4 * d, n: 0.4 }); }),
+          rep(5, function (st, k) { return bar(st, { d: (k % 2 ? -0.5 : 0.9) * d, n: 0.4, mk: k === 3 ? { t: d > 0 ? "Bias \u00b7 higher lows above VWAP" : "Bias \u00b7 lower highs below VWAP", col: SILK, below: d > 0 } : null }); }),
+          rep(1, function (st) { return bar(st, { d: 0.6 * d, n: 0.2, mk: { t: d > 0 ? "First long" : "First short", col: d > 0 ? GREEN : RED, below: d > 0 } }); }),
+          rep(1, function (st) { var c = d > 0 ? RED : GREEN; return bar(st, { d: -1.4 * d, n: 0.2, v: 0.9, flash: c, mk: { t: "Big orders against it \u00b7 cut it early", col: c, below: d < 0 } }); }),
+          rep(1, function (st) { B = level(st, st.price - 0.9 * d, d > 0 ? "Bid holds" : "Offer holds", ORANGE); return bar(st, { d: -0.5 * d, n: 0.3, v: 0.8 }); }),
+          rep(3, function (st) { return bar(st, { to: B.y + 0.2 * d, pull: 0.6, n: 0.3, v: 0.75, flo: d > 0 ? B.y - 0.15 : null, cap: d < 0 ? B.y + 0.15 : null }); }),
+          rep(1, function (st) { var c = d > 0 ? GREEN : RED; return bar(st, { d: 1.1 * d, n: 0.2, v: 0.6, flash: c, mk: { t: d > 0 ? "Their push fails \u00b7 long on the bid" : "Their push fails \u00b7 short on the offer", col: c, below: d > 0 } }); }),
+          rep(3, function (st) { return bar(st, { d: 0.9 * d, n: 0.4 }); }),
+          rep(2, function (st, k) { return bar(st, { d: -0.6 * d, n: 0.3, mk: k === 1 ? { t: "Pullback \u00b7 add one", col: d > 0 ? GREEN : RED, below: d > 0 } : null }); }),
+          rep(4, function (st) { return bar(st, { to: W.y - 0.4 * d, pull: 0.4, n: 0.3, cap: d > 0 ? W.y - 0.1 : null, flo: d < 0 ? W.y + 0.1 : null }); }),
+          rep(1, function (st) { W.label = "Out a few ticks before the wall"; return bar(st, { to: W.y - 0.2 * d, pull: 0.8, n: 0.1, cap: d > 0 ? W.y : null, flo: d < 0 ? W.y : null, mk: { t: "Out before the wall", col: BLUE, below: d < 0 } }); }),
+          rep(2, function (st) { return bar(st, { d: -1.0 * d, n: 0.4, v: 0.7 }); }),
+          rep(3, function (st) { return bar(st, { d: rnd(-0.3, 0.3), n: 0.6 }); })
+        ];
+      }
+    },
+
     "eight-trading-rules": {
       story: function (st) {
         var E;

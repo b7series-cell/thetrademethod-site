@@ -584,6 +584,21 @@ const SETUPS = [
     ]
   }
 
+  ,{
+    slug:    "heatmap-scalp",
+    href:    "/setups/heatmap-scalp.html",
+    nav:     "Heatmap Scalp",
+    title:   "Heatmap Scalp — Trend, VWAP and the Liquidity on the Book",
+    thesis:  "The chart gives the side, the heatmap gives the moment. Higher lows above VWAP means longs only (the mirror for shorts). On a pullback, when the sellers' big orders stop pushing price lower and the bid holds, get long on the bid. Fixed dollar stop, cut it early if big orders stack against you, add on the next pullback, and get out a few ticks before the big wall of liquidity.",
+    session: "London and NY · 1-minute NQ and ES with a liquidity heatmap",
+    group:   "day",
+    side:    "both",
+    stages:  6,
+    filters: 4,
+    status:  "live",
+    indicators: []
+  }
+
   /* -------------------------------------------------------------------
      Copy this block for the next setup. Keep the trailing comma on the
      entry above when you do. Leave `indicators` as an empty array if a

@@ -1,0 +1,881 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Heatmap Scalp — order flow with the trend and VWAP | The Trade Method</title>
+<meta name="description" content="Matthias&#x27;s order flow scalp: trend and VWAP for the bias, a liquidity heatmap for the trigger, enter on the bid, add on pullbacks, out before the wall.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/heatmap-scalp.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Heatmap Scalp — order flow with the trend and VWAP">
+<meta property="og:description" content="Matthias&#x27;s order flow scalp: trend and VWAP for the bias, a liquidity heatmap for the trigger, enter on the bid, add on pullbacks, out before the wall.">
+<meta property="og:url" content="https://thetrademethod.com/setups/heatmap-scalp.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Heatmap Scalp — order flow with the trend and VWAP">
+<meta name="twitter:description" content="Matthias&#x27;s order flow scalp: trend and VWAP for the bias, a liquidity heatmap for the trigger, enter on the bid, add on pullbacks, out before the wall.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Heatmap Scalp — trend, VWAP and the liquidity on the book",
+ "name": "Heatmap Scalp",
+ "description": "Matthias's order flow scalping method on NQ and ES futures, from an IQ Capital live trading session: the trend from market structure (higher highs and higher lows) and price on the right side of VWAP set the bias, a liquidity heatmap (Bookmap) shows resting limit orders and big market orders, and the entry comes on a pullback when the other side's aggression stops working, filled on the bid. A fixed dollar stop, cut early when big orders stack against the trade, add on pullbacks while in profit, take partials into liquidity and get out before the big wall. Three trades a day at most.",
+ "url": "https://thetrademethod.com/setups/heatmap-scalp.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/heatmap-scalp.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-23",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Person",
+  "name": "Bryant",
+  "url": "https://thetrademethod.com/about.html"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+
+  /* hero link to the indicator */
+  .get-ind { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:#08131f; background:#64d2ff;
+             text-decoration:none; border-radius:9999px; padding:9px 18px; }
+  .get-ind:hover { background:#8cdfff; }
+
+  /* ---------- indicator ---------- */
+  .ind-sec { margin-top:56px; scroll-margin-top:110px; }
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .code-wrap { background:var(--panel); border:1px solid var(--line); border-radius:12px; margin-top:16px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--faint); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#1b2a3e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#26394f; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d9e3; tab-size:4; }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-sec { margin-top:44px; } }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=27">
+<script src="/js/nav.js?v=34" defer></script>
+<script src="/js/site.js?v=66" defer></script>
+<script src="/js/hs-anim.js?v=1" defer></script>
+<style>
+  /* steps across the page, the two panels side by side under them (same as hitchhiker-scalp.html) */
+  .hs-main { grid-template-columns:1fr; gap:22px; }
+  .hs-stages { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .sheet .hs-stages .stage, .sheet .hs-stages .stage:first-child { padding:26px 24px; background:var(--charcoal); align-content:start; }
+  .hs-side { display:grid; grid-template-columns:1fr 1.4fr; gap:16px; align-items:stretch; }
+  .hs-side .panel + .panel { margin-top:0; }
+  .hs-side .timing { grid-template-columns:1fr 1fr; }
+  @media (max-width:1100px) { .hs-stages { grid-template-columns:1fr 1fr; } .hs-side { grid-template-columns:1fr; } }
+  @media (max-width:680px) { .hs-stages { grid-template-columns:1fr; } }
+  /* the stepper (js/hs-anim.js builds it from the six steps) */
+  .hs-stages.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#f5f5f7; }
+  .gs-bar { display:grid; grid-template-columns:repeat(6,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:8.333%; right:8.333%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .hs-stages.is-stepper .stage, .sheet .hs-stages.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .hs-stages.is-stepper .stage .num { display:none; }
+  .sheet .hs-stages.is-stepper .stage[hidden] { display:none; }
+  .sheet .hs-stages.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .hs-stages.is-stepper { padding:20px 12px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:34px; height:34px; font-size:14px; }
+    .gs-line { top:16px; }
+    .gs-bar { margin-bottom:20px; }
+  }
+  /* video (same as hitchhiker-scalp.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+  .watch { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:var(--ink); text-decoration:none;
+           background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); border-radius:9999px; padding:7px 14px 7px 10px; }
+  .watch:hover { background:rgba(255,255,255,0.14); }
+  .watch i { width:0; height:0; border-left:9px solid #ff453a; border-top:6px solid transparent; border-bottom:6px solid transparent; margin-left:4px; }
+
+  .h1-rf { color:#64d2ff; }
+  .ribbon .n { font-size:14px; }
+
+  /* tiles */
+  .vs { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .vs div { background:var(--panel); border:1px solid var(--line); border-top:3px solid #64d2ff; border-radius:11px; padding:16px 17px; }
+  .vs .sc { font-family:var(--mono); font-size:13px; color:#64d2ff; font-weight:700; display:block; margin-bottom:6px; }
+  .vs h3 { margin:0 0 6px; font-size:16px; }
+  .vs p { margin:0; font-size:14px; color:var(--dim); }
+
+  /* the checks and outputs (same look as hitchhiker-scalp.html) */
+  .chk-out { margin-top:14px; border-radius:11px; padding:14px 16px; border:1px solid var(--line); background:var(--panel2); }
+  .chk-out b { display:block; font-size:24px; font-weight:800; letter-spacing:-0.02em; margin-bottom:4px; }
+  .chk-out p { margin:0; font-size:14px; color:var(--dim); }
+  .chk-out.is-a { border-color:#22855a; } .chk-out.is-a b { color:var(--up); }
+  .chk-out.is-b { border-color:#7a5a12; } .chk-out.is-b b { color:var(--gold); }
+  .chk-out.is-no { border-color:#5e2a30; } .chk-out.is-no b { color:var(--down); }
+
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in.four { grid-template-columns:repeat(4,1fr); }
+  .calc-in label { font-size:12px; color:var(--faint); display:block; }
+  .calc-in input, .calc-in select { width:100%; margin-top:4px; background:var(--panel2); color:var(--ink); border:1px solid var(--line); border-radius:8px;
+                   padding:8px 10px; font-family:var(--mono); font-size:15px; }
+  .calc-in input:focus, .calc-in select:focus { outline:2px solid var(--blue); outline-offset:1px; }
+  .calc-in input[type=range] { padding:0; accent-color:#30d158; background:none; border:0; }
+  .calc-in output { font-family:var(--mono); color:var(--ink); font-size:14px; float:right; }
+  .hs-book .calc-in { grid-template-columns:1fr 1fr auto; align-items:end; }
+  .hs-book .warn { margin-top:16px; }
+  .hs-book .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; }
+  .hs-book .reset:hover { background:#3a3a3c; }
+  .hs-two svg, .hs-dev svg { border-radius:14px; }
+  .hs-dev .calc-in { grid-template-columns:1fr; }
+  .hs-two .reset, .hs-dev .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; margin-top:12px; }
+  .h1-rf { color:#bf5af2; }
+  .counts div { border-left-color:#bf5af2; }
+  .vs.hs-vs div { border-top-color:#bf5af2; } .vs.hs-vs .sc { color:#bf5af2; }
+  .size-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .size-grid div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .size-grid b { display:block; font-family:var(--mono); font-size:20px; color:var(--gold); margin-bottom:4px; }
+  .size-grid p { margin:0; color:var(--dim); font-size:13.4px; }
+  @media (max-width:680px) { .size-grid { grid-template-columns:1fr; } }
+
+  /* case table + quotes (same as hitchhiker-scalp.html) */
+  .quote { margin:16px 0 0; padding:14px 18px; border-left:3px solid #64d2ff; background:var(--panel); border-radius:0 11px 11px 0; font-size:16px; }
+  .quote small { display:block; color:var(--faint); font-size:12.5px; margin-top:4px; }
+  .howto { margin:0; padding-left:20px; color:var(--ink); font-size:14.5px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#64d2ff; font-weight:600; }
+  .two-note { margin:14px 0 0; color:var(--dim); font-size:14px; max-width:86ch; }
+  .vcase td.txt { min-width:200px; }
+
+  /* the animation redraws for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .ribbon + .anim { margin-top:8px; }
+  @media (max-width:1100px) {
+    .vs { grid-template-columns:1fr 1fr; }
+    .calc-in.four { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:680px) {
+    /* breathing room around the walkthrough and the charts on small screens (project rule: not packed tight on phones) */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .counts { flex-wrap:wrap; gap:16px 22px; }
+    .vs { grid-template-columns:1fr; }
+    .calc-in, .calc-in.four, .hs-book .calc-in { grid-template-columns:1fr 1fr; }
+    .hs-book .calc-in .reset { grid-column:1 / -1; justify-self:start; }
+    .section-head { margin-top:52px; }
+    .hs-two, .hs-dev, .hs-plan { margin-top:28px; }
+    .risk + .risk, .panel + .risk { margin-top:28px; }
+    .vcase th, .vcase td { padding:9px 8px; }
+    .hs-side .filters, .hs-side .timing { grid-template-columns:1fr !important; }
+  }
+  /* the case table scrolls inside itself on a phone, never the page */
+  .tscroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .tscroll table { min-width:720px; }
+</style>
+
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=44" defer></script>
+
+<style>
+  /* heatmap scalp page extras (yellow, for the bright liquidity on the heatmap) */
+  .h1-hs { color:#ffd60a; }
+  .thesis em { color:#ffd60a; }
+  .counts div { border-left-color:#ffd60a; }
+  .vs.hs-vs div { border-top-color:#ffd60a; } .vs.hs-vs .sc { color:#ffd60a; }
+  .quote { border-left-color:#ffd60a; }
+  .howto b { color:#ffd60a; }
+  .hs-read svg, .hs-check svg { border-radius:14px; }
+  .hs-read .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; margin-top:12px; }
+  .hs-read .reset:hover, .pre button:hover { background:#3a3a3c; }
+  .pre { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; align-items:center; }
+  .pre button { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; }
+  .pre button[aria-pressed="true"] { background:#ffd60a; color:#000; }
+  .hs-read-note { margin:12px 0 0; color:var(--dim); font-size:14px; max-width:90ch; }
+  .hs-read-note b { color:var(--ink); }
+  .hs-check .calc-in { grid-template-columns:repeat(3,1fr); }
+  .lamps { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin:4px 0 0; }
+  .lamps div { display:flex; align-items:center; gap:9px; background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:10px 12px; font-size:14px; font-weight:600; }
+  .hs-lamp { width:12px; height:12px; border-radius:50%; flex:0 0 12px; background:#3a3a3c; }
+  .hs-lamp.is-ok { background:var(--up); box-shadow:0 0 0 4px rgba(48,209,88,0.18); }
+  .hs-lamp.is-warn { background:var(--gold); box-shadow:0 0 0 4px rgba(244,185,66,0.18); }
+  .hs-lamp.is-no { background:var(--down); box-shadow:0 0 0 4px rgba(224,80,90,0.18); }
+  .hs-plan .calc-in { grid-template-columns:repeat(3,1fr); }
+  .rules-table td:first-child { font-weight:700; color:#ffd60a; }
+  .key { display:flex; flex-wrap:wrap; gap:10px 22px; margin:14px 0 0; font-size:13.5px; color:var(--dim); }
+  .key span { display:inline-flex; align-items:center; gap:8px; }
+  .key i { display:inline-block; width:22px; height:10px; border-radius:3px; }
+  .key i.b { width:14px; height:14px; border-radius:50%; }
+  @media (max-width:1100px) { .hs-check .calc-in, .hs-plan .calc-in { grid-template-columns:repeat(2,1fr); } .lamps { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:680px) {
+    .hs-check, .hs-read, .hs-plan { margin-top:28px; }
+    .pre { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .pre::-webkit-scrollbar { display:none; }
+    .pre button { flex:0 0 auto; }
+    .lamps { grid-template-columns:1fr 1fr; }
+    .hs-plan .calc-in { grid-template-columns:1fr 1fr; }
+    .hs-check .calc-in { grid-template-columns:1fr; }
+  }
+</style>
+
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the Heatmap Scalp?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The Heatmap Scalp is an order flow day trade on NQ and ES futures from a funded trader's live session. Market structure and VWAP set the side: higher lows above VWAP means longs only. A liquidity heatmap such as Bookmap times the entry: on a pullback, the other side's big market orders stop moving price and the resting liquidity holds, so you get in on the bid. The stop is a fixed dollar amount, you add on pullbacks while in profit, and you exit just before a big wall of liquidity."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What does a liquidity heatmap show?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Resting limit orders as bright horizontal bars (brighter means more contracts at that price) and filled market orders as bubbles, green for buyers and red for sellers. It shows where the size is and whether it's being taken or pulled."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "When do you get out early?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "When big orders stack against the trade: large red bubbles on a long and the bid liquidity under you keeps getting taken. In the video that cut the first loss to about half the planned risk."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "When do you add to the trade?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Only on a pullback while you're already in profit and the trend still holds, not on a breakout. The stop for both goes under VWAP, then to just above the first entry once the local high breaks."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How many trades a day?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Three at most for a day trader. A fourth is usually a re-entry for the adrenaline, and after a green morning he only risks what keeps the day green."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
+<!-- breadcrumbs --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://thetrademethod.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Setups",
+   "item": "https://thetrademethod.com/setups/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Heatmap Scalp",
+   "item": "https://thetrademethod.com/setups/heatmap-scalp.html"
+  }
+ ]
+}
+</script><!-- /breadcrumbs -->
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/setups/">&lsaquo; All setups</a>
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-23">Nov 23, 2026</time></p><!-- /byline -->
+
+  <header class="top" data-candle-bg="heatmap-scalp">
+    <div>
+      <p class="kicker">An order flow scalp with the trend &middot; NQ and ES futures, a 1-minute chart beside a liquidity heatmap, London and New York sessions, long or short</p>
+      <h1>Heatmap <span class="h1-hs">Scalp</span></h1>
+    </div>
+    <div>
+      <p class="thesis">The chart gives the side, the heatmap gives the moment. <em>Bias:</em> higher lows and price above VWAP means longs only (the mirror for shorts).
+      <em>Entry:</em> on a pullback, when the sellers' big orders stop pushing price lower and the bid holds, filled on the bid. <em>Manage:</em> a fixed dollar stop, cut it early if big orders stack against you,
+      add on the next pullback while you're in profit, and get out a tick before the big wall of liquidity.</p>
+      <div class="counts">
+        <div><b>3</b><small>trades a day, at most</small></div>
+        <div><b>2:1</b><small>his starting reward for a newer trader</small></div>
+        <div><b>55&ndash;60%</b><small>his win rate, profit factor about 1.7</small></div>
+      </div>
+    </div>
+  </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the Heatmap Scalp?</h2><p>The Heatmap Scalp is an order flow day trade on NQ and ES futures from a funded trader's live session. Market structure and VWAP set the side: higher lows above VWAP means longs only. A liquidity heatmap such as Bookmap times the entry: on a pullback, the other side's big market orders stop moving price and the resting liquidity holds, so you get in on the bid. The stop is a fixed dollar amount, you add on pullbacks while in profit, and you exit just before a big wall of liquidity.</p></section><!-- /define -->
+
+  <nav class="ribbon">
+    <div><div class="t">1 &middot; bias</div><div class="n">Structure plus VWAP</div></div>
+    <div><div class="t">2 &middot; market</div><div class="n">Trade the one that moves</div></div>
+    <div><div class="t">3 &middot; location</div><div class="n">Pullback to VWAP or support</div></div>
+    <div><div class="t">4 &middot; trigger</div><div class="n">Their push fails, the bid holds</div></div>
+    <div><div class="t">5 &middot; risk</div><div class="n">Fixed dollars, cut it early</div></div>
+    <div><div class="t">6 &middot; add and exit</div><div class="n">Add on pullbacks, out before the wall</div></div>
+  </nav>
+
+  <section class="anim" data-hs-anim aria-label="Animated walkthrough of a Heatmap Scalp long on a made-up NQ morning">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">8 / 8</p>
+        <h2 class="anim-title">Watch one session on the heatmap</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 660" role="img" aria-label="Illustrative heatmap of a made-up NQ London morning. Price makes higher lows above VWAP, so the bias is long. A first long at 25,868 meets big sell orders and the bid liquidity under it gets taken, so it is cut at 25,858 for 10 points instead of the full 20. Price pulls back toward VWAP, sellers hit the bid at 25,850 but can't take it, small buyers lift it, and a second long fills on the bid at 25,852 with a stop at 25,832. A pullback to 25,861 is bought for a second lot, the stop goes under VWAP, then to just above the entry once the local high at 25,872 breaks. A big wall of sell orders rests at 25,895; both lots are sold at 25,892, a few ticks under it: plus 40 and plus 31 points."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+    <div class="key" aria-hidden="true">
+      <span><i style="background:linear-gradient(90deg,#3b1d0e,#ff9f0a,#ffd60a)"></i>resting limit orders (brighter = bigger)</span>
+      <span><i class="b" style="background:rgba(48,209,88,0.5);border:1px solid #30d158"></i>market buyers</span>
+      <span><i class="b" style="background:rgba(255,69,58,0.5);border:1px solid #ff453a"></i>market sellers</span>
+      <span><i style="background:#64d2ff;height:3px"></i>VWAP</span>
+    </div>
+  </section>
+
+  <div class="main hs-main">
+    <div class="hs-stages" data-hs-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Bias: structure plus VWAP</h3>
+          <ul>
+            <li>Higher highs and higher lows, and price above the session VWAP: you're long for the session. Lower highs, lower lows, under VWAP: short.</li>
+            <li>He's a trend follower. The chance it keeps going is bigger than the chance it breaks structure and turns.</li>
+            <li>Price drifting between the two? That's the middle of a short and a long bias. Wait, or let the heatmap decide.</li>
+          </ul>
+          <p class="why">VWAP is the confirmation: as long as a long trend stays above it, the long idea is still alive.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Market: trade the one that's moving</h3>
+          <ul>
+            <li>Watch NQ and ES side by side. They usually move together, so one confirms the other.</li>
+            <li>If ES is going two points up and two back, switch to NQ (or the other way). You only earn when it moves.</li>
+            <li>London is quieter: smaller moves, thinner books. The US session is faster: wider stops, so smaller size.</li>
+          </ul>
+          <p class="why">Chop is where big players like to fill their orders. Unless you're one of them, it's not your market.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Location: the pullback, not the middle</h3>
+          <ul>
+            <li>The best spot is a pullback to VWAP, ideally where an earlier support level sits too.</li>
+            <li>A wick into VWAP that comes straight back is better than a candle that sits there.</li>
+            <li>Or a small range after a dip (could be accumulation) that breaks back in the trend's direction.</li>
+          </ul>
+          <p class="why">Price likes to go through VWAP before it turns. That's why a first touch isn't enough on its own.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Trigger: their push stops working</h3>
+          <ul>
+            <li>On the heatmap: sellers hit it with big market orders (red bubbles), but the price stops going lower.</li>
+            <li>The bid liquidity under price stays put and doesn't get taken. Small buyers start lifting it, and a green candle closes.</li>
+            <li>Enter on the bid with a one-click limit, not at the ask. You don't pay the spread.</li>
+          </ul>
+          <p class="why">When the market sells hard and can't go lower, that's enough. It went sideways, and sideways after a selloff can be accumulation.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Risk: fixed dollars, cut it early</h3>
+          <ul>
+            <li>The stop is a set dollar amount: about $400 a prop account a trade, which was 20 points on NQ in the London session. Size to the stop.</li>
+            <li>If big sell orders come in and the bid liquidity under you keeps getting taken, get out. Don't wait for the full stop.</li>
+            <li>Don't pin the stop tight or jump to break even right away. A small dip will take you out right before it goes.</li>
+          </ul>
+          <p class="why">His first trade of the session lost about half the planned risk instead of all of it. That difference is the edge.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Add on pullbacks, out before the wall</h3>
+          <ul>
+            <li>In profit and it pulls back with the trend still intact? Add size. Move the stop under VWAP.</li>
+            <li>Once the pullback is done and price takes out the local high, the stop can go to break even or a little above.</li>
+            <li>Liquidity above can pull price like a magnet. Take partials into it, and get out a few ticks before a big wall.</li>
+          </ul>
+          <p class="why">"Don't be a dick for a tick." The last few ticks to the wall aren't worth the risk of it holding.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="hs-side">
+      <div class="panel">
+        <h4>What the heatmap shows</h4>
+        <p class="lead">Bookmap or any heatmap that shows the resting liquidity.</p>
+        <div class="timing">
+          <div><b>Bright bars</b><p>Resting limit orders. The brighter the bar, the more contracts sit at that price.</p></div>
+          <div><b>Bubbles</b><p>Market orders that filled. Green bubbles bought at the ask, red ones sold at the bid. Bigger bubble, bigger order.</p></div>
+          <div><b>Pulled and moved</b><p>Liquidity taken out and put back higher, again and again, in a long trend: follow it and stay in.</p></div>
+          <div><b>Stacked against you</b><p>Big red bubbles, then more and more liquidity on the offer: the trade idea is done.</p></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>When to leave it alone</h4>
+        <p class="lead">Any one of these and he doesn't take it.</p>
+        <div class="filters kills" style="grid-template-columns:repeat(2,1fr); margin-top:14px;">
+          <div class="filter" style="background:var(--panel2)"><h3>Chop</h3><p>Two points up, two points back. No volatility, nothing to earn.</p><p class="kill">Switch markets or wait.</p></div>
+          <div class="filter" style="background:var(--panel2)"><h3>Against the bias</h3><p>Buying under VWAP in a downtrend, or a long when the sellers are still in full control.</p><p class="kill">Only with the trend.</p></div>
+          <div class="filter" style="background:var(--panel2)"><h3>A wall in the way</h3><p>A big block of liquidity just ahead. If it breaks through after you fade it, you're stopped.</p><p class="kill">Let them take it first.</p></div>
+          <div class="filter" style="background:var(--panel2)"><h3>Trade number four</h3><p>A re-entry for the adrenaline, or a trade big enough to turn a green day red.</p><p class="kill">Three a day, then done.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>Read the book</h2>
+    <p>Four things the heatmap does, and what he does about each one. Pick one to play it. The orange and yellow bars are resting limit orders; the bubbles are market orders.</p>
+  </div>
+  <div class="panel hs-read" data-hs-read>
+    <div class="pre" role="group" aria-label="Pick what the book is doing">
+      <button type="button" data-case="hold" aria-pressed="true">The bid holds the pullback</button>
+      <button type="button" data-case="stack" aria-pressed="false">Sellers stack under you</button>
+      <button type="button" data-case="move" aria-pressed="false">Liquidity taken and moved up</button>
+      <button type="button" data-case="wall" aria-pressed="false">A wall ahead</button>
+    </div>
+    <svg viewBox="0 0 1180 400" role="img" aria-label="An illustrative heatmap that plays the picked case."></svg>
+    <p class="hs-read-note" aria-live="polite"></p>
+    <button type="button" class="reset" data-play>Play again</button>
+  </div>
+  <p class="quote">The bubbles only tell you what they meant after they print.<small>Matthias's point, in our words. A small range after a selloff could be accumulation, or it could drop again. Use the bubbles to know where your areas are, not to predict.</small></p>
+
+  <div class="section-head">
+    <h2>Is it a trade?</h2>
+    <p>Set the session and the moment. Every lamp has to be green (or yellow at worst) before he clicks.</p>
+  </div>
+  <div class="panel hs-check" data-hs-check>
+    <div class="calc-in">
+      <label>Structure and VWAP<select name="bias"><option value="up" selected>Higher lows, above VWAP</option><option value="down">Lower highs, below VWAP</option><option value="mixed">Mixed: around VWAP</option></select></label>
+      <label>Your trade<select name="side"><option value="long" selected>Long</option><option value="short">Short</option></select></label>
+      <label>The market<select name="vol"><option value="moving" selected>Moving, the other index agrees</option><option value="lone">Moving, the other index doesn't</option><option value="chop">Chop: two up, two back</option></select></label>
+      <label>Where price is<select name="loc"><option value="vwap" selected>Pullback to VWAP / support</option><option value="range">Small range after the dip</option><option value="middle">In the middle of the move</option></select></label>
+      <label>The book<select name="book"><option value="hold" selected>Their push fails, bid holds</option><option value="none">Nothing yet</option><option value="against">Big orders stacking against you</option><option value="wall">A big wall right ahead</option></select></label>
+      <label>Trades so far today<select name="n"><option value="0" selected>0</option><option value="1">1</option><option value="2">2</option><option value="3">3 or more</option></select></label>
+    </div>
+    <div class="lamps" aria-hidden="true">
+      <div><span class="hs-lamp" data-lamp></span>Bias</div>
+      <div><span class="hs-lamp" data-lamp></span>Market</div>
+      <div><span class="hs-lamp" data-lamp></span>Location</div>
+      <div><span class="hs-lamp" data-lamp></span>Book</div>
+      <div><span class="hs-lamp" data-lamp></span>Count</div>
+    </div>
+    <div class="chk-out hs-out" aria-live="polite"></div>
+  </div>
+
+  <div class="section-head">
+    <h2>Size it, then add</h2>
+    <p>The stop is a dollar amount first, points second. Put in your risk a trade, the stop in points and the target, then see what a second lot on the pullback does. The defaults are the walkthrough's long.</p>
+  </div>
+  <div class="risk hs-plan">
+    <div class="panel" data-hs-calc>
+      <div class="calc-in">
+        <label>Risk a trade ($)<input name="risk" type="number" inputmode="decimal" step="50" min="0" value="400"></label>
+        <label>Stop (points)<input name="stop" type="number" inputmode="decimal" step="0.25" min="0" value="20"></label>
+        <label>Contract<select name="ct"><option value="2">MNQ ($2/pt)</option><option value="20">NQ ($20/pt)</option><option value="5">MES ($5/pt)</option><option value="50">ES ($50/pt)</option></select></label>
+        <label>Target (points)<input name="tp" type="number" inputmode="decimal" step="0.25" min="0" value="40"></label>
+        <label>Add at (points in profit)<input name="add" type="number" inputmode="decimal" step="0.25" min="0" value="9"></label>
+        <label>Accounts copied<input name="acc" type="number" inputmode="numeric" step="1" min="1" value="1"></label>
+      </div>
+      <div class="chk-out hs-cout" aria-live="polite"></div>
+      <div class="calc hs-ccalc" aria-live="polite" style="margin-top:14px"></div>
+    </div>
+    <div class="warn">
+      <h4>What he'd tell a newer trader</h4>
+      <p>Smaller size, a bigger stop and a bigger target. Most people get squeezed out by a tight stop right before the move goes their way, and then they get frustrated.</p>
+      <div class="size-grid" style="margin:12px 0">
+        <div><b>2:1</b><p>A fixed reward to risk to start. 5:1 means a low win rate and a lot of frustration.</p></div>
+        <div><b>3 / day</b><p>Three trades at most for a day trader. More is chasing.</p></div>
+        <div><b>Months</b><p>Stick with one plan for months, not a day or two.</p></div>
+      </div>
+      <p style="margin:0 0 6px"><b>Track two numbers</b></p>
+      <ul style="margin:0 0 12px; padding-left:18px; font-size:14px">
+        <li style="margin-bottom:5px">Win rate and profit factor. If one goes up and the other holds, you improved.</li>
+        <li style="margin-bottom:5px">His: 55 to 60% wins, a profit factor around 1.7 to 1.8. Some weeks day trading it's 1.0 to 1.5, and some weeks he's under break even.</li>
+        <li>A higher reward to risk always means a lower win rate. There's no way around that.</li>
+      </ul>
+      <p class="big">Up on the day? Risk only what keeps it green. Break even is fine; red after green isn't.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>His rules, from the session</h2>
+    <p>He says he doesn't have strict rules anymore, it's mostly experience. These are the ones he did say out loud while trading.</p>
+  </div>
+  <div class="tscroll">
+    <table class="rules-table">
+      <thead><tr><th>Rule</th><th>What he said</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Know the bias before the open</td><td class="txt">Before the session starts he knows what he wants to trade: here, the long, because of higher lows above VWAP.</td><td class="txt">You only look for one side, so you're not flipping on every bubble.</td></tr>
+        <tr><td>Stick to what you said</td><td class="txt">If you said a level must hold and it doesn't, the idea is done. Two losses on the same idea and he stops.</td><td class="txt">Being flexible is fine; arguing with the market isn't.</td></tr>
+        <tr><td>Fill on the bid</td><td class="txt">One-click limit at the bid instead of a market order at the ask.</td><td class="txt">You keep the spread. In a fast market a market order is still fine.</td></tr>
+        <tr><td>Stop in dollars</td><td class="txt">$400 a prop account a trade ($500 was the account's limit, so slippage still fits). With his own money he'd allow more.</td><td class="txt">The stop is the investment you're making. Decide it before the profit.</td></tr>
+        <tr><td>Micros in the US session</td><td class="txt">In New York a 20-point NQ stop is nothing, so on prop accounts he trades micros there to get a wider stop.</td><td class="txt">Same dollars, more room.</td></tr>
+        <tr><td>Add on pullbacks, not on breakouts</td><td class="txt">If it goes straight up there's no reason to add. If it pulls back while the trend holds, he adds.</td><td class="txt">A better average price, and the stop can sit under VWAP.</td></tr>
+        <tr><td>Don't be a dick for a tick</td><td class="txt">Out a few ticks before the big liquidity, not at it.</td><td class="txt">The wall can fill and flush right back.</td></tr>
+        <tr><td>Three trades a day</td><td class="txt">One more after a good morning, only if it's a really good setup and the stop wouldn't turn the day red.</td><td class="txt">Re-entering for the next adrenaline hit is how accounts die.</td></tr>
+        <tr><td>Reversals get a re-entry</td><td class="txt">If you trade reversals, plan for one stop and one re-entry.</td><td class="txt">Catching the top or bottom is much harder than following a trend.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-head">
+    <h2>The trades in the video</h2>
+    <p>A London session and the New York open, on ES and NQ, copied across ten prop accounts. Dollar figures are what he read out, per account or for all ten.</p>
+  </div>
+  <div class="tscroll">
+    <table class="vcase">
+      <thead><tr><th>Trade</th><th>What he saw</th><th>What he did</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><th>London, ES long<br><small>the first try</small></th>
+          <td class="txt">Higher lows since Asia, above VWAP, liquidity above. A big buying bubble right before.</td>
+          <td class="txt">Two lots in before the move, take profit set near the high. Then big red bubbles, the bid liquidity kept getting taken, no power to break the high.</td>
+          <td class="txt">Cut it early: about &minus;$243 an account instead of the full &minus;$400.</td></tr>
+        <tr><th>London, NQ long<br><small>ES went flat</small></th>
+          <td class="txt">ES was going sideways, NQ was moving. Sellers hit it again and again, it stopped going lower, small buyers pushed it back up.</td>
+          <td class="txt">In on the bid after a green candle, one lot an account, a 20-point stop. Added a second lot on the pullback, stop under VWAP, then above break even. Out under the high.</td>
+          <td class="txt">About +$5,390 across the accounts.</td></tr>
+        <tr><th>New York, ES long<br><small>the open</small></th>
+          <td class="txt">A sharp selloff at the open, nobody buying, then strong buyers stepped in.</td>
+          <td class="txt">Long, stop to break even quickly. Closed when strong selling came back in.</td>
+          <td class="txt">A small win.</td></tr>
+        <tr><th>New York, NQ long<br><small>trade three</small></th>
+          <td class="txt">NQ pushing higher with aggressive buying on every pullback, big liquidity above at the high.</td>
+          <td class="txt">In on the bid after a breakout candle, added on two pullbacks, out before the big liquidity.</td>
+          <td class="txt">About +$8,400 for the trade, almost all in a few minutes.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-head">
+    <h2>How you trade it</h2>
+    <p>Start to finish, for one session.</p>
+  </div>
+  <div class="panel">
+    <ol class="howto">
+      <li><b>Bias:</b> before the open, read the structure and VWAP. Higher lows above VWAP: longs only. Lower highs below it: shorts only.</li>
+      <li><b>Market:</b> put NQ and ES side by side. Trade the one that's moving; the other one is your confirmation.</li>
+      <li><b>Location:</b> wait for a pullback toward VWAP or support, or a small range after the dip. Not the middle of the move.</li>
+      <li><b>Trigger:</b> on the heatmap, the other side's big orders stop moving price and the liquidity on your side holds. A candle closes your way. Enter on the bid (or the offer for a short).</li>
+      <li><b>Risk:</b> a fixed dollar stop, sized for the session (micros when it's fast). If big orders stack against you, get out early.</li>
+      <li><b>Add:</b> on a pullback while you're in profit and the trend holds. Stop under VWAP, then to break even once the local high breaks.</li>
+      <li><b>Exit:</b> partials into liquidity, and the rest a few ticks before the big wall. Three trades a day, then done.</li>
+    </ol>
+  </div>
+
+  <section class="video" id="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/3hpEo_n8Ohw" title="$520k Payout Trader Trades His BANNED Orderflow Strategy LIVE (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>IQ Capital sits with funded trader Matthias for a London session and the New York open: a quick stop out, a winner with an add, his rules, then three trades on NQ and ES on a chart and Bookmap side by side.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=3hpEo_n8Ohw" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What does a liquidity heatmap show?</h3><p>Resting limit orders as bright horizontal bars (brighter means more contracts at that price) and filled market orders as bubbles, green for buyers and red for sellers. It shows where the size is and whether it's being taken or pulled.</p></div>
+    <div class="qa"><h3>When do you get out early?</h3><p>When big orders stack against the trade: large red bubbles on a long and the bid liquidity under you keeps getting taken. In the video that cut the first loss to about half the planned risk.</p></div>
+    <div class="qa"><h3>When do you add to the trade?</h3><p>Only on a pullback while you're already in profit and the trend still holds, not on a breakout. The stop for both goes under VWAP, then to just above the first entry once the local high breaks.</p></div>
+    <div class="qa"><h3>How many trades a day?</h3><p>Three at most for a day trader. A fourth is usually a re-entry for the adrenaline, and after a green morning he only risks what keeps the day green.</p></div>
+  </div><!-- /faq -->
+  <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
+  <div class="relgrid">
+    <a href="/setups/ready-aim-fire.html"><span class="k">All session</span><h3>Ready, Aim, Fire</h3><p>Three pieces, and every trade needs all three.</p></a>
+    <a href="/setups/fib-ote.html"><span class="k">All session</span><h3>Fibonacci OTE</h3><p>Price moves in waves, so don't buy the impulse.</p></a>
+    <a href="/setups/micro-range.html"><span class="k">All session</span><h3>Micro Range</h3><p>Price isn't value.</p></a>
+    <a href="/setups/look-above-and-fail.html"><span class="k">All session</span><h3>Look Above and Fail</h3><p>Markets range more than they trend, and in a range the money is made at the edges.</p></a>
+  </div><!-- /related -->
+  <div class="rule">
+    <div>
+      <h2>The chart picks the side. The book picks the moment.</h2>
+      <p>Structure and VWAP tell you which way to lean before the open. The heatmap tells you when the other side has run out of push.
+      Fill on the bid, cut it early when they stack against you, add on the pullback, and leave the last few ticks for someone else.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Higher lows above VWAP: long only.</li>
+        <li>Trade the index that's moving.</li>
+        <li>Their push fails, the bid holds: in.</li>
+        <li>Fixed dollar stop, cut it early.</li>
+        <li>Add on pullbacks, out before the wall.</li>
+        <li>Three trades a day.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">From IQ Capital's live session with funded trader Matthias trading order flow on NQ and ES futures. The rules and the trades are as told and shown in the video; the sponsor segments and the firm's offers are left out. His payout total, win rate and profit factor are his own figures, not audited.
+  The walkthrough, the stepper charts, the book scripts and the sizing defaults are illustrative, made-up prices, not any market's actual prints.</p>
+</div>
+<footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
+
+</body>
+</html>
