@@ -61,6 +61,7 @@
     { href: "/level-radar.html", title: "Level Radar", kind: "Indicator · 10 levels", blurb: "Put a percent on every key intraday level: the chance price touches yesterday's high, low or close, the overnight high or low, the open or the opening range before the close, from the distance, the room left today and the past. Use it for targets, as a filter and for timing." },
     { href: "/seven-cheat-codes.html", title: "Seven Cheat Codes", kind: "Rules · 7 cheat codes", blurb: "Scarface Trades' seven rules for scalping: a setup with a proven edge (pre-market high and low retests, the one candle rule, the 5-minute opening range), trade with the structure, combine time frames for the entry, scalps should work right away, start small, trade only A+ days, and practice daily." },
     { href: "/eight-trading-rules.html", title: "Eight Trading Rules", kind: "Rules · 8 rules", blurb: "SMB Capital's eight rules to get profitable again after a slump: lower size and risk, be more selective, shorten your time frame, don't do it alone, one good trade, a daily report card on entries, keep your heart rate low, and write your plan down and send it. Plus Shark's way out of a slump." },
+    { href: "/24-hour-stock-trading.html", title: "24-Hour Stock Trading", kind: "Note · new trading hours", blurb: "From Sunday, Dec 6 at 9 PM ET, US stocks trade Sunday 9 PM to Friday 8 PM with a pause from 8 to 9 PM: the new 9 PM to 4 AM overnight session, how overnight trades count, and what stays the same." },
     { href: "/covered-calls.html",      title: "Covered Calls",                  kind: "Options · 4 outcomes",      blurb: "Own the stock, sell a call against it, keep the premium. The four outcomes, the cap on your upside, and how to place the order." },
     { href: "/expected-move.html",      title: "Expected Move",                  kind: "Options · calculator",      blurb: "A dashboard for the range the options market prices: enter the chain, get the upper and lower move on a chart, and see if it's wide or narrow for the stock." }
   ];
@@ -690,7 +691,7 @@
      each page's description and section headings, so a hit on a heading
      links straight to that section. Bump SEARCH_INDEX_URL's ?v= after
      rebuilding the index. */
-  var SEARCH_INDEX_URL = "/js/search-index.js?v=41";
+  var SEARCH_INDEX_URL = "/js/search-index.js?v=42";
   var searchDocs = null, searchIndexState = "";
 
   function searchBase() {

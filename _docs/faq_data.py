@@ -466,6 +466,16 @@ FAQ = {
   ("What does inch wide, mile deep mean?", "The what-ifs of fear, FOMO and greed are a mile wide and only an inch deep. Real edge is the opposite: one catalyst, one setup, one read, held with conviction once you're in it."),
  ],
 },
+"/24-hour-stock-trading.html": {
+ "q": "When does 24-hour stock trading start?",
+ "a": "Sunday, Dec 6, 2026 at 9 PM ET. From then on, US stocks trade from Sunday 9 PM to Friday 8 PM, with a one-hour pause from 8 to 9 PM each weeknight. The new part is an overnight session from 9 PM to 4 AM on Nasdaq, NYSE Arca, Cboe EDGX, MEMX and 24X.",
+ "faq": [
+  ("Do premarket and regular hours change?", "No. Premarket (4:00 to 9:30), regular hours (9:30 to 4:00) and after-hours (4:00 to 8:00) stay the same, and so do the 9:30 open and 4:00 close auctions and the official close."),
+  ("Which day does an overnight trade count toward?", "The next one. Trades between 9 PM and midnight count toward the next day, the way futures work."),
+  ("Do overnight trades change the day's high or low?", "No. Overnight trades add to volume but don't set the day's last price, high or low."),
+  ("How much trading happens overnight?", "Only about 1% of share volume, so the overnight session is thin."),
+ ],
+},
 "/eight-trading-rules.html": {
  "q": "How do you get out of a trading slump?",
  "a": "Make the game easier. On this page, from an SMB Capital video, Mike Bellafiore gives a struggling trader eight rules: lower your size and risk, be more selective, shorten your time frame, don't do it alone, aim for one good trade, grade your entries daily, keep your heart rate low, and write your solution down and send it to someone.",
