@@ -76,6 +76,8 @@
    "articleSection": "Market hours",
    "keywords": "23-hour stock trading, 24-hour stock trading, overnight stock trading, overnight session, 24/5 trading, brokers with overnight trading, overnight volume, Nasdaq Night Session, extended hours",
    "citation": [
+    {"@type": "Legislation", "name": "Order Granting Approval of the Twenty-Seventh Amendment to the LULD Plan (Overnight Protections)", "author": {"@type": "Organization", "name": "U.S. Securities and Exchange Commission"}, "datePublished": "2026-08-05", "url": "https://www.federalregister.gov/d/2026-16201"},
+    {"@type": "Legislation", "name": "Order Approving NSCC Rule Change to Support Extended Trading Hours (SR-NSCC-2026-006)", "author": {"@type": "Organization", "name": "U.S. Securities and Exchange Commission"}, "datePublished": "2026-05-27", "url": "https://www.federalregister.gov/d/2026-10836"},
     {
      "@type": "Legislation",
      "name": "Nasdaq Rulebook, Equity 4",
@@ -190,7 +192,7 @@
         <section aria-labelledby="short-answer">
           <h2 id="short-answer">The short answer</h2>
           <p class="post-answer">Starting Sunday, Dec 6, 2026, US stocks trade from Sunday 9 PM to Friday 8 PM Eastern, with a one-hour pause from 8 to 9 PM each weeknight. That makes each trading day 23 hours long, 9 PM to 8 PM. The new overnight session (9 PM to 4 AM) runs on Nasdaq, NYSE Arca, Cboe EDGX, MEMX and 24X, takes limit orders only, and carries only about 1% of share volume.</p>
-          <p class="post-asof">Data: exchange notices and rulebooks for the Dec 6, 2026 launch, SEC staff data on overnight volume (August 2026), and broker help pages checked November 24, 2026. Published <time datetime="2026-11-24">November 24, 2026</time>; last updated <time datetime="2026-11-24">November 24, 2026</time>.</p>
+          <p class="post-asof">Data: exchange notices and rulebooks for the Dec 6, 2026 launch, SEC staff data on overnight volume (August 2026), SEC orders on overnight price bands and NSCC clearing hours, and broker help pages checked November 24, 2026. Published <time datetime="2026-11-24">November 24, 2026</time>; last updated <time datetime="2026-11-24">November 24, 2026</time>.</p>
           <aside class="post-summary" aria-label="Article summary">
             <p class="post-summary-h">In this article</p>
             <p>How one 23-hour trading day is built, how the week runs, which day a night trade counts toward, and which orders still work after dark. Then seven brokers and what each one offers overnight, how thin the volume really is, and the four checks I run before I'd place a trade at night.</p>
@@ -208,7 +210,9 @@
               <li><a href="#trading-day">The 23-hour trading day</a></li>
               <li><a href="#trading-week">The trading week</a></li>
               <li><a href="#trade-date">Trade date and settlement</a></li>
+              <li><a href="#clearing">Clearing and settlement</a></li>
               <li><a href="#order-rules">Overnight order rules</a></li>
+              <li><a href="#halts">Halts and price bands</a></li>
               <li><a href="#time-zones">Times outside Eastern</a></li>
               <li><a href="#brokers">Brokers with overnight trading</a></li>
               <li><a href="#volume">How much volume to expect</a></li>
@@ -229,6 +233,8 @@
             <li><b>Day:</b> each trading day runs 23 hours, from 9 PM the evening before to 8 PM.</li>
             <li><b>Hours:</b> 115 trading hours a week, up from 80 (4 AM to 8 PM, five days). Regular hours stay at 32.5 a week.</li>
             <li><b>Venues overnight:</b> Nasdaq, NYSE Arca, Cboe EDGX, MEMX and 24X.</li>
+            <li><b>Halts:</b> fixed 20% price bands overnight with no automatic pauses; a stock halted overnight stays halted until 4 AM.</li>
+            <li><b>Clearing:</b> NSCC clears overnight trades 24x5; settlement stays T+1 from the next-day trade date.</li>
             <li><b>Unchanged:</b> premarket (4:00 to 9:30), regular hours (9:30 to 4:00), after-hours (4:00 to 8:00), the open and close auctions, and the official close.</li>
             <li><b>Volume:</b> about 0.9% of US share volume traded overnight in August 2026, per <a href="https://www.sec.gov/files/2026_TM_Overnight_Trading_Roundtable_Memo_090926.pdf" target="_blank" rel="noopener">SEC staff data</a>. Overnight trades add to volume but don't set the day's last price, high or low.</li>
           </ul>
@@ -300,6 +306,17 @@
           <p>Overnight trades add to the next day's volume, but they don't set that day's last price, high or low. Tuesday's open is still the 9:30 auction, and Tuesday's high and low still come from the session you know.</p>
         </section>
 
+        <section aria-labelledby="clearing">
+          <h2 id="clearing">How are overnight trades cleared and settled?</h2>
+          <p>The same way as daytime trades, with the next day's trade date. The National Securities Clearing Corporation (NSCC), part of DTCC, is the central counterparty for US stock trades: it steps in as buyer to every seller and seller to every buyer and guarantees settlement. Since late June 2026, <a href="https://www.dtcc.com/press-releases/2026/nscc-now-live-with-clearing-hours-extended" target="_blank" rel="noopener">NSCC's trade capture runs 24x5</a>, from Sunday 8 PM to Friday 8 PM ET, so overnight trades are taken in and guaranteed soon after they execute instead of waiting for the morning.</p>
+          <ul>
+            <li><b>Trade date:</b> NSCC <a href="https://www.federalregister.gov/d/2026-10836" target="_blank" rel="noopener">starts taking trades for the next trade date</a> at about 8 PM, which is why a 10 PM Monday trade is a Tuesday trade.</li>
+            <li><b>Settlement:</b> unchanged at T+1, one business day after the trade date. The 10 PM Monday buy settles Wednesday.</li>
+            <li><b>The 8 to 9 PM pause:</b> the exchanges and the consolidated tape use it to close one trading day and open the next.</li>
+            <li><b>Your broker:</b> before Dec 6, broker overnight trades ran through ATSs that already cleared through NSCC. Brokers still set their own rules on when cash from an overnight sale is usable and how a pre-midnight trade counts for day-trade limits, so check yours.</li>
+          </ul>
+        </section>
+
         <section aria-labelledby="order-rules">
           <h2 id="order-rules">Which orders work overnight?</h2>
           <p>Only limit orders. Nasdaq's rulebook rejects unpriced orders, such as market orders, in the Night Session, and peg orders and orders meant for the opening and closing auctions aren't available either.</p>
@@ -312,6 +329,27 @@
             <li><b>Open orders at 4 AM:</b> cancelled by Nasdaq at the end of the Night Session; re-enter them for the premarket.</li>
           </ul>
           <p>Because stop orders mostly can't protect an overnight position, size it for the gap: the price can move past your planned stop before you can act. The <a href="/dynamic-risk-sizing.html">Dynamic Risk Sizing</a> page shows how to size from the stop distance.</p>
+        </section>
+
+        <section aria-labelledby="halts">
+          <h2 id="halts">What happens to trading halts overnight?</h2>
+          <p>The overnight session has price limits but no automatic trading pauses. Under the <a href="https://www.federalregister.gov/d/2026-16201" target="_blank" rel="noopener">SEC-approved overnight rules for limit up-limit down (LULD)</a>, each stock gets fixed price bands for the whole 9 PM to 4 AM session, and trades outside them are blocked. If a stock needs to stop, the exchange that lists it calls a regulatory halt by hand, and a stock halted overnight doesn't reopen until 4 AM.</p>
+          <div class="post-table">
+            <table>
+              <caption>Halts and price limits, regular hours vs the overnight session (from Dec 6, 2026)</caption>
+              <thead><tr><th scope="col">Rule</th><th scope="col">Regular hours</th><th scope="col">Overnight, 9 PM to 4 AM</th></tr></thead>
+              <tbody>
+                <tr><td>Price bands</td><td>Move with the price all day</td><td>Fixed for the night: 20% beyond the lower and higher of the official close and the 7:45 PM last sale</td></tr>
+                <tr><td>Minimum band</td><td>Set by the LULD tiers</td><td>$3 from the reference price ($1 under $1); leveraged ETFs get the 20% times their leverage</td></tr>
+                <tr><td>Band hit</td><td>A 5-minute trading pause if the stock stays at the band</td><td>No automatic pause; trades and quotes outside the band are blocked</td></tr>
+                <tr><td>Exchange halt</td><td>Trading resumes the same session</td><td>Orders are rejected and the stock stays halted until at least 4 AM</td></tr>
+                <tr><td>Halt from earlier in the day</td><td>&mdash;</td><td>Nasdaq keeps the stock halted overnight until the listing exchange resumes it</td></tr>
+                <tr><td>Market-wide circuit breakers</td><td>7% and 13% drops halt the market for 15 minutes; 20% ends the day</td><td>After a 20% halt, <a href="https://www.sec.gov/files/rules/sro/nasdaq/2026/34-106586.pdf" target="_blank" rel="noopener">Nasdaq doesn't reopen at 9 PM</a>; trading waits until 4 AM</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>The bands are published before 9 PM each night and stop at 4 AM, so morning earnings and news can move prices freely in premarket. The SEC calls this setup Phase 1: the exchanges plan to propose revised overnight protections after studying how the session trades.</p>
+          <p>What it means for a night trade: a stock can sit pinned at its band for hours with no pause to collect orders, and a halt locks you in the position until 4 AM at the earliest. That's one more reason to keep overnight size small.</p>
         </section>
 
         <section aria-labelledby="time-zones">
@@ -426,6 +464,10 @@
             <p>No. Premarket still runs 4:00 to 9:30 Eastern, the open is still the 9:30 auction, and overnight trades don't set the day's last price, high or low.</p>
             <h3 id="faq-8">What time does the overnight session start in Pacific time?</h3>
             <p>The overnight session runs 6 PM to 1 AM Pacific (9 PM to 4 AM Eastern). The trading week opens Sunday at 6 PM Pacific and closes Friday at 5 PM Pacific, with a pause from 5 to 6 PM Pacific on weeknights.</p>
+            <h3 id="faq-9">Are there trading halts in the overnight session?</h3>
+            <p>Not automatic ones. From Dec 6, 2026, each stock has fixed overnight price bands, 20% beyond its reference prices, and trades outside them are blocked with no 5-minute pause. The listing exchange can still call a regulatory halt, and a stock halted overnight stays halted until at least 4 AM Eastern.</p>
+            <h3 id="faq-10">Who clears overnight stock trades?</h3>
+            <p>The National Securities Clearing Corporation (NSCC), part of DTCC, the same central counterparty that clears daytime trades. It has run 24x5 trade capture since June 2026, from Sunday 8 PM to Friday 8 PM Eastern, and overnight trades still settle T+1 from their next-day trade date.</p>
           </div>
         </section>
 
@@ -510,6 +552,22 @@
    "acceptedAnswer": {
     "@type": "Answer",
     "text": "The overnight session runs 6 PM to 1 AM Pacific (9 PM to 4 AM Eastern). The trading week opens Sunday at 6 PM Pacific and closes Friday at 5 PM Pacific, with a pause from 5 to 6 PM Pacific on weeknights."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Are there trading halts in the overnight session?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not automatic ones. From Dec 6, 2026, each stock has fixed overnight price bands, 20% beyond its reference prices, and trades outside them are blocked with no 5-minute pause. The listing exchange can still call a regulatory halt, and a stock halted overnight stays halted until at least 4 AM Eastern."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Who clears overnight stock trades?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The National Securities Clearing Corporation (NSCC), part of DTCC, the same central counterparty that clears daytime trades. It has run 24x5 trade capture since June 2026, from Sunday 8 PM to Friday 8 PM Eastern, and overnight trades still settle T+1 from their next-day trade date."
    }
   }
  ]
