@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How does 23-hour stock trading work? | The Trade Method</title>
+<meta name="description" content="From Dec 6, 2026, US stocks trade Sunday 9 PM to Friday 8 PM ET. Which brokers offer overnight trading, how thin the volume is, and how the 23-hour day works.">
+<meta name="author" content="Bryant">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/blog/how-23-hour-stock-trading-works.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="How does 23-hour stock trading work?">
+<meta property="og:description" content="From Dec 6, 2026, US stocks trade Sunday 9 PM to Friday 8 PM ET. Which brokers offer overnight trading, how thin the volume is, and how the 23-hour day works.">
+<meta property="og:url" content="https://thetrademethod.com/blog/how-23-hour-stock-trading-works.html">
+<meta property="og:image" content="https://thetrademethod.com/blog/img/how-23-hour-stock-trading-works-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How does 23-hour stock trading work?">
+<meta name="twitter:description" content="From Dec 6, 2026, US stocks trade Sunday 9 PM to Friday 8 PM ET. Which brokers offer overnight trading, how thin the volume is, and how the 23-hour day works.">
+<meta name="twitter:image" content="https://thetrademethod.com/blog/img/how-23-hour-stock-trading-works-og.jpg">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "@id": "https://thetrademethod.com/blog/how-23-hour-stock-trading-works.html#post",
+   "headline": "How does 23-hour stock trading work?",
+   "alternativeHeadline": "23-hour stock trading: brokers, volume and the new schedule",
+   "abstract": "This article explains the near-24-hour US stock schedule that starts Sunday, Dec 6, 2026: how one 23-hour trading day is built, how the week runs, which day an overnight trade counts toward, and which order types work at night. It lists seven brokers and what each offers overnight, with links to their own pages. It also shows how thin overnight volume is, about 1% of share volume, and gives starting rules for symbol, volume, spread and size before trading at night.",
+   "description": "From Dec 6, 2026, US stocks trade Sunday 9 PM to Friday 8 PM ET. Which brokers offer overnight trading, how thin the volume is, and how the 23-hour day works.",
+   "url": "https://thetrademethod.com/blog/how-23-hour-stock-trading-works.html",
+   "mainEntityOfPage": "https://thetrademethod.com/blog/how-23-hour-stock-trading-works.html",
+   "image": [
+    "https://thetrademethod.com/blog/img/how-23-hour-stock-trading-works-og.jpg"
+   ],
+   "datePublished": "2026-11-24",
+   "dateModified": "2026-11-24",
+   "inLanguage": "en",
+   "articleSection": "Market hours",
+   "keywords": "23-hour stock trading, 24-hour stock trading, overnight stock trading, overnight session, 24/5 trading, brokers with overnight trading, overnight volume, Nasdaq Night Session, extended hours",
+   "citation": [
+    {
+     "@type": "Legislation",
+     "name": "Nasdaq Rulebook, Equity 4",
+     "author": {
+      "@type": "Organization",
+      "name": "The Nasdaq Stock Market LLC"
+     },
+     "datePublished": "2026",
+     "url": "https://listingcenter.nasdaq.com/rulebook/nasdaq/rules/Nasdaq%20Equity%204"
+    },
+    {
+     "@type": "ScholarlyArticle",
+     "name": "Nocturnal Trading",
+     "author": [
+      "Gregory W. Eaton",
+      "Andriy Shkilko",
+      "Ingrid M. Werner"
+     ],
+     "datePublished": "2026",
+     "url": "https://www.aeaweb.org/conference/2026/program/paper/kRz7yE6Q"
+    }
+   ],
+   "about": {
+    "@type": "WebPage",
+    "name": "24-Hour Stock Trading",
+    "url": "https://thetrademethod.com/24-hour-stock-trading.html"
+   },
+   "author": {
+    "@type": "Person",
+    "name": "Bryant",
+    "url": "https://thetrademethod.com/about.html"
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "The Trade Method",
+    "logo": {
+     "@type": "ImageObject",
+     "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+    }
+   },
+   "isPartOf": {
+    "@type": "WebSite",
+    "name": "The Trade Method",
+    "url": "https://thetrademethod.com/"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "url": "https://thetrademethod.com/blog/how-23-hour-stock-trading-works.html",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "When does 23-hour stock trading start?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "23-hour US stock trading starts Sunday, Dec 6, 2026 at 9 PM Eastern. From then on, stocks trade from Sunday 9 PM to Friday 8 PM Eastern, with a one-hour pause from 8 to 9 PM each weeknight."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is the US stock market open 24 hours a day now?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. The US stock market is open 23 hours each weekday from Dec 6, 2026: 9 PM to 8 PM Eastern, with an 8 to 9 PM pause. It closes from Friday 8 PM to Sunday 9 PM, so there is no weekend trading."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which brokers offer overnight stock trading?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "As of November 24, 2026, Charles Schwab (on thinkorswim), Interactive Brokers, Robinhood, Webull, moomoo and E*TRADE offer overnight or 24/5 trading in a list of US stocks and ETFs. Fidelity lists premarket and after-hours sessions but no overnight session. Each broker sets its own hours and symbol list."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How much volume trades in the overnight session?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "About 1% of US share volume trades overnight, and it is concentrated in large stocks and ETFs such as S&P 500 and Nasdaq-100 names, SPY and QQQ. Many smaller stocks trade little or nothing overnight."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can you use market or stop orders in the overnight session?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No market orders: Nasdaq rejects unpriced orders in its Night Session, and brokers take limit orders only overnight. Stop orders are generally not available overnight either, so overnight positions should be sized for a gap past the planned stop."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Which day does a trade at 10 PM count toward?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "A trade between 9 PM and midnight counts toward the next trading day. A 10 PM Monday trade is a Tuesday trade and, with T+1 settlement, settles Wednesday."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does overnight trading change the premarket high or the open?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "No. Premarket still runs 4:00 to 9:30 Eastern, the open is still the 9:30 auction, and overnight trades don't set the day's last price, high or low."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What time does the overnight session start in Pacific time?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The overnight session runs 6 PM to 1 AM Pacific (9 PM to 4 AM Eastern). The trading week opens Sunday at 6 PM Pacific and closes Friday at 5 PM Pacific, with a pause from 5 to 6 PM Pacific on weeknights."
+     }
+    }
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://thetrademethod.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Blog",
+     "item": "https://thetrademethod.com/blog/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "How does 23-hour stock trading work?",
+     "item": "https://thetrademethod.com/blog/how-23-hour-stock-trading-works.html"
+    }
+   ]
+  }
+ ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=27">
+<link rel="stylesheet" href="/css/blog.css?v=3">
+
+<script src="/js/nav.js?v=34" defer></script>
+<script src="/js/site.js?v=68" defer></script>
+<!-- breadcrumbs --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://thetrademethod.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Blog",
+   "item": "https://thetrademethod.com/blog/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "How does 23-hour stock trading work?",
+   "item": "https://thetrademethod.com/blog/how-23-hour-stock-trading-works.html"
+  }
+ ]
+}
+</script><!-- /breadcrumbs -->
+</head>
+
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="Blog"></div>
+
+<main id="top">
+  <header class="post-hero">
+    <div class="wrap">
+      <a class="post-back" href="/blog/">&lsaquo; Blog</a>
+      <p class="eyebrow">23-hour trading guide &middot; By <span class="post-author">Bryant</span> &middot; <time datetime="2026-11-24">November 24, 2026</time> &middot; Market hours</p>
+      <h1>How does 23-hour stock trading work?</h1>
+      <p class="lead">The new US stock schedule from Sunday, Dec 6, the brokers that already trade overnight, and how much volume to expect. <b>Plus the liquidity rules to check before a night trade.</b></p>
+      <div class="hub-stats">
+        <div><b class="tnum">23</b><small>hours in each trading day</small></div>
+        <div><b class="tnum">115</b><small>trading hours a week, up from 80</small></div>
+        <div><b class="tnum">~1%</b><small>of share volume trades overnight</small></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="band white post-band">
+    <div class="post">
+
+      <article class="post-body">
+
+        <section aria-labelledby="short-answer">
+          <h2 id="short-answer">The short answer</h2>
+          <p class="post-answer">Starting Sunday, Dec 6, 2026, US stocks trade from Sunday 9 PM to Friday 8 PM Eastern, with a one-hour pause from 8 to 9 PM each weeknight. That makes each trading day 23 hours long, 9 PM to 8 PM. The new overnight session (9 PM to 4 AM) runs on Nasdaq, NYSE Arca, Cboe EDGX, MEMX and 24X, takes limit orders only, and carries only about 1% of share volume.</p>
+          <p class="post-asof">Data: exchange notices and rulebooks for the Dec 6, 2026 launch, and broker help pages checked November 24, 2026. Published <time datetime="2026-11-24">November 24, 2026</time>; last updated <time datetime="2026-11-24">November 24, 2026</time>.</p>
+          <aside class="post-summary" aria-label="Article summary">
+            <p class="post-summary-h">In this article</p>
+            <p>This article explains the near-24-hour US stock schedule that starts Sunday, Dec 6, 2026: how one 23-hour trading day is built, how the week runs, which day an overnight trade counts toward, and which order types work at night. It lists seven brokers and what each offers overnight, with links to their own pages. It also shows how thin overnight volume is, about 1% of share volume, and gives starting rules for symbol, volume, spread and size before trading at night.</p>
+          </aside>
+        </section>
+
+        <div class="post-toc-wrap">
+          <nav class="post-toc" aria-label="On this page">
+            <p class="post-toc-h">On this page</p>
+            <ol>
+              <li><a href="#short-answer">The short answer</a></li>
+              <li><a href="#key-facts">Key facts</a></li>
+              <li><a href="#key-terms">Key terms</a></li>
+              <li><a href="#trading-day">The 23-hour trading day</a></li>
+              <li><a href="#trading-week">The trading week</a></li>
+              <li><a href="#trade-date">Trade date and settlement</a></li>
+              <li><a href="#order-rules">Overnight order rules</a></li>
+              <li><a href="#time-zones">Times outside Eastern</a></li>
+              <li><a href="#brokers">Brokers with overnight trading</a></li>
+              <li><a href="#volume">How much volume to expect</a></li>
+              <li><a href="#liquidity-rules">Rules before a night trade</a></li>
+              <li><a href="#levels">What it means for your levels</a></li>
+              <li><a href="#research">What the research says</a></li>
+              <li><a href="#faq">Frequently asked questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <section aria-labelledby="key-facts">
+          <h2 id="key-facts">Key facts</h2>
+          <ul>
+            <li><b>Start:</b> the first overnight session opens Sunday, Dec 6, 2026 at 9 PM ET.</li>
+            <li><b>Week:</b> Sunday 9 PM to Friday 8 PM ET, with a pause from 8 to 9 PM Monday through Thursday. Saturday stays closed.</li>
+            <li><b>Day:</b> each trading day runs 23 hours, from 9 PM the evening before to 8 PM.</li>
+            <li><b>Hours:</b> 115 trading hours a week, up from 80 (4 AM to 8 PM, five days). Regular hours stay at 32.5 a week.</li>
+            <li><b>Venues overnight:</b> Nasdaq, NYSE Arca, Cboe EDGX, MEMX and 24X.</li>
+            <li><b>Unchanged:</b> premarket (4:00 to 9:30), regular hours (9:30 to 4:00), after-hours (4:00 to 8:00), the open and close auctions, and the official close.</li>
+            <li><b>Volume:</b> about 1% of share volume trades overnight. Overnight trades add to volume but don't set the day's last price, high or low.</li>
+          </ul>
+          <figure class="post-fig">
+            <img src="/blog/img/23-hour-trading-day.webp" width="1600" height="869" loading="lazy" decoding="async" alt="A bar showing one 23-hour trading day in Eastern time: an 8 to 9 PM pause, the new overnight session from 9 PM to 4 AM, premarket 4:00 to 9:30, regular hours 9:30 to 4:00 and after-hours 4:00 to 8:00 PM. Below it: Dec 6 first overnight session, 115 trading hours a week up from 80, about 1% of share volume overnight.">
+            <figcaption>One trading day, 8 PM to 8 PM Eastern. Only the blue overnight block is new; everything from 4 AM on stays where it was.</figcaption>
+          </figure>
+        </section>
+
+        <section aria-labelledby="key-terms">
+          <h2 id="key-terms">Key terms</h2>
+          <dl class="post-terms">
+            <div><dt>Overnight session</dt><dd>The new exchange session from 9 PM to 4 AM ET; Nasdaq's rulebook calls it the Night Session.</dd></div>
+            <div><dt>23-hour trading</dt><dd>The schedule from Dec 6, 2026: trading from 9 PM to 8 PM each weekday, with an 8 to 9 PM pause between trading days.</dd></div>
+            <div><dt>24/5 trading</dt><dd>The name brokers use for round-the-clock trading Sunday night to Friday night; in practice it has a short daily break.</dd></div>
+            <div><dt>ATS (alternative trading system)</dt><dd>A trading venue that is not an exchange; broker overnight trading before Dec 6 runs mostly through ATSs such as Blue Ocean.</dd></div>
+            <div><dt>Trade date</dt><dd>The day a trade is booked to; trades from 9 PM to midnight are booked to the next day.</dd></div>
+            <div><dt>Unpriced order</dt><dd>An order with no limit price, such as a market order; exchanges reject these overnight.</dd></div>
+            <div><dt>Liquidity</dt><dd>How much can trade near the current price without moving it; overnight liquidity is a small fraction of daytime liquidity.</dd></div>
+            <div><dt>Bid-ask spread</dt><dd>The gap between the best price to buy and the best price to sell; it is usually wider overnight.</dd></div>
+          </dl>
+        </section>
+
+        <section aria-labelledby="trading-day">
+          <h2 id="trading-day">How is one 23-hour trading day built?</h2>
+          <p>A trading day now starts at 9 PM the evening before and ends at 8 PM. Tuesday's trading day, for example, opens Monday at 9 PM and closes Tuesday at 8 PM. The only new block is the overnight session; the four blocks after it are the same as today.</p>
+          <div class="post-table">
+            <table>
+              <caption>One trading day, hour by hour (Eastern time, from Dec 6, 2026)</caption>
+              <thead><tr><th scope="col">Window</th><th scope="col">Session</th><th scope="col">Hours</th><th scope="col">What happens</th></tr></thead>
+              <tbody class="tnum">
+                <tr><td>8 PM to 9 PM</td><td>Pause</td><td>1</td><td>No trading. Open exchange orders from the day are cancelled at 8 PM.</td></tr>
+                <tr><td>9 PM to 4 AM</td><td>Overnight (new)</td><td>7</td><td>Limit orders only on Nasdaq, NYSE Arca, Cboe EDGX, MEMX and 24X. Counts toward the next day. Open orders are cancelled at 4 AM.</td></tr>
+                <tr><td>4:00 to 9:30</td><td>Premarket</td><td>5.5</td><td>Unchanged. The premarket high and low come from this window.</td></tr>
+                <tr><td>9:30 to 4:00</td><td>Regular hours</td><td>6.5</td><td>Unchanged, with the 9:30 opening auction and the 4:00 closing auction.</td></tr>
+                <tr><td>4:00 to 8:00</td><td>After-hours</td><td>4</td><td>Unchanged.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>The 8 to 9 PM hour is the break between one trading day and the next. Nasdaq's rules cancel orders still resting on its book at 8 PM, start taking Night Session orders at 9 PM, and cancel anything still open at 4 AM, so day-session orders and overnight orders don't carry into each other.</p>
+        </section>
+
+        <section aria-labelledby="trading-week">
+          <h2 id="trading-week">How does the 23-hour trading week run?</h2>
+          <p>The trading week opens Sunday at 9 PM ET with Monday's overnight session and closes Friday at 8 PM ET. There is no overnight session on Friday night or Saturday night, so the market is shut for 49 hours over the weekend, from Friday 8 PM to Sunday 9 PM.</p>
+          <div class="post-table">
+            <table>
+              <caption>Trading hours by calendar day (Eastern time, from Dec 6, 2026)</caption>
+              <thead><tr><th scope="col">Day</th><th scope="col">Open</th><th scope="col">Hours</th></tr></thead>
+              <tbody class="tnum">
+                <tr><td>Sunday</td><td>9 PM to midnight (Monday's overnight)</td><td>3</td></tr>
+                <tr><td>Monday</td><td>Midnight to 8 PM, then 9 PM to midnight</td><td>23</td></tr>
+                <tr><td>Tuesday</td><td>Midnight to 8 PM, then 9 PM to midnight</td><td>23</td></tr>
+                <tr><td>Wednesday</td><td>Midnight to 8 PM, then 9 PM to midnight</td><td>23</td></tr>
+                <tr><td>Thursday</td><td>Midnight to 8 PM, then 9 PM to midnight</td><td>23</td></tr>
+                <tr><td>Friday</td><td>Midnight to 8 PM</td><td>20</td></tr>
+                <tr><td>Saturday</td><td>Closed</td><td>0</td></tr>
+                <tr><td><b>Week</b></td><td>Sunday 9 PM to Friday 8 PM</td><td><b>115</b></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Before Dec 6, exchange trading ran 4 AM to 8 PM, 16 hours a day and 80 hours a week. The overnight session adds 35 hours a week. Regular hours, where most volume trades, stay at 6.5 hours a day and 32.5 hours a week.</p>
+        </section>
+
+        <section aria-labelledby="trade-date">
+          <h2 id="trade-date">Which day does an overnight trade count toward?</h2>
+          <p>An overnight trade counts toward the next trading day. A buy at 10 PM Monday is a Tuesday trade, the way stock index futures already book their evening session. A buy at 2 AM Tuesday is also a Tuesday trade, because it happens on Tuesday's calendar date inside Tuesday's trading day.</p>
+          <p>Settlement follows the trade date. US stocks settle one business day after the trade date (T+1), so the 10 PM Monday trade has a Tuesday trade date and settles Wednesday. E*TRADE's overnight notes put it the same way: trades from 8 PM to 11:59 PM settle two business days from the calendar day they were placed. For day-trade counting and buying power, check how your broker books trades placed before midnight.</p>
+          <p>Overnight trades add to the next day's volume, but they don't set that day's last price, high or low. Tuesday's open is still the 9:30 auction, and Tuesday's high and low still come from the session you know.</p>
+        </section>
+
+        <section aria-labelledby="order-rules">
+          <h2 id="order-rules">Which orders work overnight?</h2>
+          <p>Only limit orders. Nasdaq's rulebook rejects unpriced orders, such as market orders, in the Night Session, and peg orders and orders meant for the opening and closing auctions aren't available either. Every broker listed below also takes limit orders only overnight.</p>
+          <ul>
+            <li><b>Limit orders:</b> accepted. Price them at or inside the spread and don't chase.</li>
+            <li><b>Market orders:</b> rejected by the exchange overnight.</li>
+            <li><b>Stop orders:</b> generally not available overnight at the brokers listed below. Webull, for one, doesn't take stop-type orders in its overnight session.</li>
+            <li><b>Auction orders</b> (market-on-open, limit-on-close and the like): not part of the overnight session.</li>
+            <li><b>Short sales:</b> not accepted overnight at E*TRADE, Webull or moomoo.</li>
+            <li><b>Open orders at 4 AM:</b> cancelled by Nasdaq at the end of the Night Session; re-enter them for the premarket.</li>
+          </ul>
+          <p>Because stop orders mostly can't protect an overnight position, size it for the gap: the price can move past your planned stop before you can act. The <a href="/dynamic-risk-sizing.html">Dynamic Risk Sizing</a> page shows how to size from the stop distance.</p>
+        </section>
+
+        <section aria-labelledby="time-zones">
+          <h2 id="time-zones">What time is the overnight session outside Eastern time?</h2>
+          <p>The schedule follows US Eastern time, so it shifts by an hour in other countries when US daylight saving time starts or ends. The launch on Dec 6, 2026 falls in Eastern Standard Time (UTC-5).</p>
+          <div class="post-table">
+            <table>
+              <caption>Week open, nightly pause and week close in other time zones (US winter time, from Dec 6, 2026)</caption>
+              <thead><tr><th scope="col">Time zone</th><th scope="col">Week opens</th><th scope="col">Nightly pause</th><th scope="col">Week closes</th></tr></thead>
+              <tbody class="tnum">
+                <tr><td>Eastern (ET)</td><td>Sun 9 PM</td><td>8 to 9 PM</td><td>Fri 8 PM</td></tr>
+                <tr><td>Central (CT)</td><td>Sun 8 PM</td><td>7 to 8 PM</td><td>Fri 7 PM</td></tr>
+                <tr><td>Pacific (PT)</td><td>Sun 6 PM</td><td>5 to 6 PM</td><td>Fri 5 PM</td></tr>
+                <tr><td>UTC / London (GMT)</td><td>Mon 2:00 AM</td><td>1:00 to 2:00 AM</td><td>Sat 1:00 AM</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section aria-labelledby="brokers">
+          <h2 id="brokers">Which brokers offer overnight stock trading?</h2>
+          <p>As of November 24, 2026, at least six large US brokers offer an overnight or 24/5 session in US stocks and ETFs: Charles Schwab (thinkorswim), Interactive Brokers, Robinhood, Webull, moomoo and E*TRADE. Fidelity's help pages list premarket and after-hours sessions but no overnight session. Each broker limits which symbols trade overnight, and all of them take limit orders only.</p>
+          <div class="post-table">
+            <table>
+              <caption>Overnight stock trading by broker, from each broker's own pages (checked November 24, 2026; hours Eastern)</caption>
+              <thead><tr><th scope="col">Broker</th><th scope="col">Overnight hours</th><th scope="col">What trades overnight</th><th scope="col">Order rules</th></tr></thead>
+              <tbody>
+                <tr><td><a href="https://www.schwab.com/24-5-trading" target="_blank" rel="noopener">Charles Schwab</a></td><td>24/5, Sunday night to Friday night, thinkorswim only</td><td>1,100+ symbols: S&amp;P 500, Nasdaq-100 and Dow 30 stocks plus 600+ ETFs</td><td>EXTO order type; orders expire 8 PM unless GTC</td></tr>
+                <tr><td><a href="https://www.interactivebrokers.com/en/trading/us-overnight-trading.php" target="_blank" rel="noopener">Interactive Brokers</a></td><td>8:00 PM to 3:50 AM, Sunday to Thursday nights</td><td>10,000+ US stocks and ETFs</td><td>Limit orders; no extra overnight fee; 8 PM to midnight trades dated the next day</td></tr>
+                <tr><td><a href="https://robinhood.com/us/en/support/articles/24hour-market/" target="_blank" rel="noopener">Robinhood</a></td><td>24 Hour Market, Sunday 8 PM to Friday 8 PM</td><td>A list of about 900+ stocks and ETFs</td><td>Limit orders only; price bands may reject far-off limits</td></tr>
+                <tr><td><a href="https://www.webull.com/help/faq/10988-All-About-Overnight-Trading" target="_blank" rel="noopener">Webull</a></td><td>8 PM to 4 AM, Sunday to Thursday nights</td><td>Select stocks and ETFs (24H icon)</td><td>Limit day orders only; no shorting, margin, fractional shares or stops</td></tr>
+                <tr><td><a href="https://www.moomoo.com/us/support/topic4_663" target="_blank" rel="noopener">moomoo</a></td><td>8 PM to 4 AM, Sunday to Thursday nights</td><td>Eligible US stocks and ETFs (marked 24 in the app)</td><td>Limit orders only; no shorting; counts toward the next trading day</td></tr>
+                <tr><td><a href="https://us.etrade.com/knowledge/library/stocks/how-to-place-trade-during-extended-hours" target="_blank" rel="noopener">E*TRADE</a></td><td>8 PM to 4 AM, Sunday to Thursday nights</td><td>Select securities, such as SPY, QQQ, DIA and GLD</td><td>Limit orders only; no GTC; no short sales; unfilled orders cancelled at 4 AM</td></tr>
+                <tr><td><a href="https://www.fidelity.com/trading/faqs-placing-orders" target="_blank" rel="noopener">Fidelity</a></td><td>No overnight session listed</td><td>Premarket 7:00 to 9:28 AM and after-hours 4:00 to 8:00 PM only</td><td>Limit orders in extended hours; no GTC</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p><b>Expect these hours to change.</b> Broker overnight sessions before Dec 6 start at 8 PM because they run mostly through alternative trading systems such as Blue Ocean, not exchanges. The exchange overnight session starts at 9 PM, and each broker decides whether and when to route there. Check your broker's announcement for its post-Dec 6 hours, the symbol list, and whether stop orders or margin work overnight.</p>
+          <p>Three things to check in your own account before the first night trade: that overnight trading is turned on (Interactive Brokers says some accounts must enable it), that the symbol carries the broker's 24-hour marker, and how your chart's extended-hours setting shows overnight bars.</p>
+        </section>
+
+        <section aria-labelledby="volume">
+          <h2 id="volume">How much volume trades overnight?</h2>
+          <p>Very little: about 1% of US share volume trades overnight, roughly 1 share in every 100. That share is an average across all stocks, and it is concentrated in a small set of names. Academic work on the overnight session found that most stocks had no overnight volume at all on a typical night.</p>
+          <p>For scale, a stock that trades 50 million shares a day would see about 500,000 shares overnight if it got its 1% share, spread over seven hours. A stock that trades 2 million shares a day would see about 20,000 shares across the whole night, often in a handful of trades. Many symbols get far less than their average share, and some nights none.</p>
+          <ul>
+            <li><b>Where the volume goes:</b> the largest stocks and ETFs, the names on every broker's overnight list (S&amp;P 500 and Nasdaq-100 stocks, SPY, QQQ and similar funds).</li>
+            <li><b>When it spikes:</b> around news, such as earnings released after the close, overnight economic data and moves in Asian and European markets.</li>
+            <li><b>What changes on Dec 6:</b> five exchanges join the ATSs that already trade overnight, so more brokers and market makers can take part. That should help, but the session starts from a thin base, and the first weeks are likely to stay thin.</li>
+          </ul>
+          <p>The <a href="/relative-volume.html">Relative Volume</a> page explains how to compare a stock's volume to its own normal, which is the right yardstick overnight too: compare tonight's overnight volume to that stock's past overnight sessions, not to its daytime volume.</p>
+        </section>
+
+        <section aria-labelledby="liquidity-rules">
+          <h2 id="liquidity-rules">What should you check before an overnight trade?</h2>
+          <p>Check four things before entering at night: that the symbol is a large, widely traded name, that it has actually traded tonight, that the spread is tight, and that your order is small next to what's there. The table gives starting numbers. These are The Trade Method's starting rules for thin markets, not tested results; tighten or loosen them as your own overnight fills come in.</p>
+          <div class="post-table">
+            <table>
+              <caption>Starting liquidity rules for an overnight trade (suggested thresholds, not backtested)</caption>
+              <thead><tr><th scope="col">Check</th><th scope="col">Starting rule</th><th scope="col">Why</th></tr></thead>
+              <tbody>
+                <tr><td>Symbol</td><td>An S&amp;P 500 or Nasdaq-100 stock, or a large ETF such as SPY, QQQ or IWM</td><td>These are on every broker's overnight list and draw most overnight volume</td></tr>
+                <tr><td>Volume tonight</td><td>At least 50,000 shares traded in the session before you enter</td><td>Shows real two-way trading tonight, not one stale quote</td></tr>
+                <tr><td>Spread</td><td>0.10% of price or less; skip above 0.25%</td><td>A $100 stock with a 25-cent spread costs 0.25% just to get in and out</td></tr>
+                <tr><td>Order size</td><td>No more than 1% of tonight's volume so far, and no more than the size shown at the bid or ask</td><td>Larger orders walk the book and move the price against you</td></tr>
+                <tr><td>Position size</td><td>One quarter to one half of your regular-hours size</td><td>No stop orders and thin books mean bigger slippage when wrong</td></tr>
+                <tr><td>Order type</td><td>Limit, at or inside the spread</td><td>The only order type exchanges take overnight</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Worked example: at 11 PM, a Nasdaq-100 stock has traded 80,000 shares overnight and is quoted $200.00 bid, $200.12 ask (a 0.06% spread) with 300 shares on each side. The size cap is 300 shares, the smaller of 1% of 80,000 (800 shares) and the 300 shown. If your regular position is 1,000 shares, the quarter-to-half rule puts tonight's size at 250 to 500 shares, so 250 to 300 shares, with a limit order at or inside $200.12.</p>
+        </section>
+
+        <section aria-labelledby="levels">
+          <h2 id="levels">What does 23-hour trading change for your levels?</h2>
+          <p>Very little for levels built on premarket and regular hours. Premarket still runs 4:00 to 9:30, so the premarket high and low come from the same window. The 9:30 opening auction and the 4:00 closing auction set the open and the official close, and overnight trades don't set the day's last price, high or low.</p>
+          <p>The overnight session does add a new reference, the overnight high and low, much like the evening session high and low in stock index futures. A stock can now react to 11 PM news hours before premarket, so by 4 AM part of a gap may already have traded. The setup pages on this site, such as the <a href="/setups/pmh-break.html">PMH Break</a> and <a href="/setups/gap-give-and-go.html">Gap Give and Go</a>, keep using premarket and regular-hours levels. The <a href="/24-hour-stock-trading.html">24-hour stock trading note</a> sums up the change on one page.</p>
+        </section>
+
+        <section aria-labelledby="research">
+          <h2 id="research">What the rules and research say</h2>
+          <blockquote class="post-quote">
+            <p>&ldquo;Unpriced orders are not permitted during the Night Session.&rdquo;</p>
+            <footer>The Nasdaq Stock Market, <cite><a href="https://listingcenter.nasdaq.com/rulebook/nasdaq/rules/Nasdaq%20Equity%204" target="_blank" rel="noopener">Nasdaq Rulebook, Equity 4</a></cite>, 2026.</footer>
+          </blockquote>
+          <p>The same Nasdaq rules cancel orders resting on the book at 8 PM, take Night Session orders from 9 PM, and cancel anything still open at 4 AM. That is why overnight trading is limit-order only and why an overnight order doesn't roll into the premarket.</p>
+          <p>Research on the overnight market before the exchanges joined points the same way as the volume numbers. Gregory Eaton, Andriy Shkilko and Ingrid Werner study the 8 PM to 4 AM session in <a href="https://www.aeaweb.org/conference/2026/program/paper/kRz7yE6Q" target="_blank" rel="noopener">&ldquo;Nocturnal Trading&rdquo;</a> (presented at the 2026 American Economic Association meetings). They find that a single platform dominated the session with only a few liquidity providers, that each trade moved prices several times more than a trade of the same kind during regular hours, and that meaningful price discovery still happened overnight. In plain terms: overnight prices carry real information, but each order pushes the price more, which is why size and spread matter more at night.</p>
+        </section>
+
+        <section aria-labelledby="faq">
+          <h2 id="faq">Frequently asked questions</h2>
+          <div class="post-faq">
+            <h3 id="faq-1">When does 23-hour stock trading start?</h3>
+            <p>23-hour US stock trading starts Sunday, Dec 6, 2026 at 9 PM Eastern. From then on, stocks trade from Sunday 9 PM to Friday 8 PM Eastern, with a one-hour pause from 8 to 9 PM each weeknight.</p>
+            <h3 id="faq-2">Is the US stock market open 24 hours a day now?</h3>
+            <p>No. The US stock market is open 23 hours each weekday from Dec 6, 2026: 9 PM to 8 PM Eastern, with an 8 to 9 PM pause. It closes from Friday 8 PM to Sunday 9 PM, so there is no weekend trading.</p>
+            <h3 id="faq-3">Which brokers offer overnight stock trading?</h3>
+            <p>As of November 24, 2026, Charles Schwab (on thinkorswim), Interactive Brokers, Robinhood, Webull, moomoo and E*TRADE offer overnight or 24/5 trading in a list of US stocks and ETFs. Fidelity lists premarket and after-hours sessions but no overnight session. Each broker sets its own hours and symbol list.</p>
+            <h3 id="faq-4">How much volume trades in the overnight session?</h3>
+            <p>About 1% of US share volume trades overnight, and it is concentrated in large stocks and ETFs such as S&amp;P 500 and Nasdaq-100 names, SPY and QQQ. Many smaller stocks trade little or nothing overnight.</p>
+            <h3 id="faq-5">Can you use market or stop orders in the overnight session?</h3>
+            <p>No market orders: Nasdaq rejects unpriced orders in its Night Session, and brokers take limit orders only overnight. Stop orders are generally not available overnight either, so overnight positions should be sized for a gap past the planned stop.</p>
+            <h3 id="faq-6">Which day does a trade at 10 PM count toward?</h3>
+            <p>A trade between 9 PM and midnight counts toward the next trading day. A 10 PM Monday trade is a Tuesday trade and, with T+1 settlement, settles Wednesday.</p>
+            <h3 id="faq-7">Does overnight trading change the premarket high or the open?</h3>
+            <p>No. Premarket still runs 4:00 to 9:30 Eastern, the open is still the 9:30 auction, and overnight trades don't set the day's last price, high or low.</p>
+            <h3 id="faq-8">What time does the overnight session start in Pacific time?</h3>
+            <p>The overnight session runs 6 PM to 1 AM Pacific (9 PM to 4 AM Eastern). The trading week opens Sunday at 6 PM Pacific and closes Friday at 5 PM Pacific, with a pause from 5 to 6 PM Pacific on weeknights.</p>
+          </div>
+        </section>
+
+        <section aria-labelledby="disclaimer">
+          <h2 id="disclaimer">Disclaimer</h2>
+          <p class="post-disclaim"><b>Not financial advice.</b> The Trade Method is a learning notebook, not an advisory service. Broker hours, symbol lists and order rules change; check your broker before trading. The liquidity rules above are starting points, not tested results. Trading involves substantial risk of loss, and overnight trading adds thin liquidity, wider spreads and gap risk.</p>
+        </section>
+
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
+
+</body>
+</html>
