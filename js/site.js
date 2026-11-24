@@ -90,6 +90,7 @@
 
   /* Blog posts, newest first. Feeds site search and the footer. */
   var POSTS = [
+    { href: "/blog/how-23-hour-stock-trading-works.html", title: "How does 23-hour stock trading work?", date: "2026-11-24", tag: "Market hours", blurb: "From Dec 6, 2026, US stocks trade Sunday 9 PM to Friday 8 PM ET. The 23-hour day, brokers with overnight trading, overnight volume and liquidity rules." },
     { href: "/blog/introducing-backtest-board.html", title: "Do TradingView indicators beat random entries?", date: "2026-10-31", tag: "Backtesting", blurb: "No. Introducing Backtest Board: 45 TradingView indicators, 28 markets, 10 timeframes and 23,608 backtests; after costs, none clearly beats random entries." }
   ];
 
@@ -691,7 +692,7 @@
      each page's description and section headings, so a hit on a heading
      links straight to that section. Bump SEARCH_INDEX_URL's ?v= after
      rebuilding the index. */
-  var SEARCH_INDEX_URL = "/js/search-index.js?v=42";
+  var SEARCH_INDEX_URL = "/js/search-index.js?v=44";
   var searchDocs = null, searchIndexState = "";
 
   function searchBase() {

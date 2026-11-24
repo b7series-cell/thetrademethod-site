@@ -79,6 +79,7 @@ const EXTRA_PAGES = [
   { loc: "/covered-calls.html", priority: "0.7" },
   { loc: "/expected-move.html", priority: "0.7" },
   { loc: "/blog/", priority: "0.8" },
+  { loc: "/blog/how-23-hour-stock-trading-works.html", priority: "0.7" },
   { loc: "/blog/introducing-backtest-board.html", priority: "0.7" },
   { loc: "/contact.html", priority: "0.4" }
 ];

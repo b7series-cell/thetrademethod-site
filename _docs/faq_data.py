@@ -473,7 +473,7 @@ FAQ = {
   ("Do premarket and regular hours change?", "No. Premarket (4:00 to 9:30), regular hours (9:30 to 4:00) and after-hours (4:00 to 8:00) stay the same, and so do the 9:30 open and 4:00 close auctions and the official close."),
   ("Which day does an overnight trade count toward?", "The next one. Trades between 9 PM and midnight count toward the next day, the way futures work."),
   ("Do overnight trades change the day's high or low?", "No. Overnight trades add to volume but don't set the day's last price, high or low."),
-  ("How much trading happens overnight?", "Only about 1% of share volume, so the overnight session is thin."),
+  ("How much trading happens overnight?", "Only about 1% of share volume (0.9% in August 2026, per SEC staff data), so the overnight session is thin."),
  ],
 },
 "/eight-trading-rules.html": {
