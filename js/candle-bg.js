@@ -1342,6 +1342,22 @@
       }
     },
 
+    "24-hour-stock-trading": {
+      story: function (st) {
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { n: 0.2, uw: 0.3, lw: 0.3, v: 0.1, mk: { t: "9 PM · overnight opens (new)", col: BLUE } }); }),
+          rep(6, function (st, k) { return bar(st, { d: rnd(-0.2, 0.25), n: 0.25, uw: 0.4, lw: 0.4, v: 0.08, mk: k === 3 ? { t: "Counts toward the next day", col: PURPLE, below: true } : null }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 0.2, n: 0.4, v: 0.25, mk: { t: "4:00 · premarket", col: SILK } }); }),
+          rep(4, function (st) { return bar(st, { d: rnd(-0.25, 0.45), n: 0.5, v: 0.3 }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 1.1, n: 0.4, v: 1, flash: GREEN, mk: { t: "9:30 open auction · unchanged", col: GREEN, below: true } }); }),
+          rep(6, function (st) { return bar(st, { d: rnd(-0.6, 0.8), n: 1, v: rnd(0.45, 0.8) }); }),
+          rep(1, function (st) { return bar(st, { d: 0.2, n: 0.4, v: 0.95, flash: BLUE, mk: { t: "4:00 close · official close", col: BLUE } }); }),
+          rep(3, function (st) { return bar(st, { d: rnd(-0.3, 0.3), n: 0.4, v: 0.2 }); }),
+          rep(1, function (st) { return bar(st, { d: 0, n: 0.2, uw: 0.3, lw: 0.3, v: 0.12, mk: { t: "8 PM · one-hour pause", col: ORANGE, below: true } }); })
+        ];
+      }
+    },
+
     "eight-trading-rules": {
       story: function (st) {
         var E;

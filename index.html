@@ -84,8 +84,24 @@
 <link rel="stylesheet" href="/css/hero2.css?v=2">
 <link rel="stylesheet" href="/css/inside.css?v=1">
 
+<style>
+  /* important note strip under the hero */
+  .note-strip { padding:28px 0 0; }
+  .note-strip a { display:flex; align-items:center; gap:16px; background:#1d1d1f; border:1px solid #3a3a3c; border-left:4px solid #f4b942; border-radius:18px; padding:16px 20px; color:#f5f5f7; text-decoration:none; }
+  .note-strip a:hover { border-color:#f4b942; }
+  .note-strip .k { flex:0 0 auto; font-size:12px; font-weight:600; letter-spacing:0.04em; text-transform:uppercase; color:#000; background:#f4b942; border-radius:20px; padding:4px 10px; }
+  .note-strip p { margin:0; font-size:16px; line-height:1.45; }
+  .note-strip p b { font-weight:600; }
+  .note-strip .more { flex:0 0 auto; margin-left:auto; color:#2997ff; font-size:15px; white-space:nowrap; }
+  @media (max-width:680px) {
+    .note-strip { padding-top:20px; }
+    .note-strip a { flex-direction:column; align-items:flex-start; gap:10px; padding:16px; }
+    .note-strip p { font-size:15px; }
+    .note-strip .more { margin-left:0; }
+  }
+</style>
 <script src="/js/nav.js?v=34" defer></script>
-<script src="/js/site.js?v=66" defer></script>
+<script src="/js/site.js?v=67" defer></script>
 <script src="/js/hero2-anim.js?v=1" defer></script>
 <script src="/js/inside.js?v=1" defer></script>
 </head>
@@ -112,6 +128,12 @@
     </div>
     <button class="skip" type="button">Skip intro</button>
   </section>
+
+  <aside class="note-strip" aria-label="Important information">
+    <div class="wrap">
+      <a href="/24-hour-stock-trading.html"><span class="k">Important</span><p><b>24-hour stock trading starts Sunday, Dec 6 at 9 PM ET.</b> Stocks will trade Sunday 9 PM to Friday 8 PM, with a pause from 8 to 9 PM each weeknight. Premarket, regular hours and after-hours don't change.</p><span class="more">What changes &rsaquo;</span></a>
+    </div>
+  </aside>
 
   <section class="band" id="why">
     <div class="wrap">
