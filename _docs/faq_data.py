@@ -466,6 +466,17 @@ FAQ = {
   ("What does inch wide, mile deep mean?", "The what-ifs of fear, FOMO and greed are a mile wide and only an inch deep. Real edge is the opposite: one catalyst, one setup, one read, held with conviction once you're in it."),
  ],
 },
+"/stop-placement.html": {
+ "q": "Where should you put your stop loss?",
+ "a": "Where the trade is proven wrong, not where it feels comfortable. On this page, from an SMB Capital video, Jeff Holden says the question isn't how to avoid being wrong, it's what price would have to do to prove the trade has changed. For an opening range break that's back inside the range and under VWAP, which is usually much closer than the low of the day.",
+ "faq": [
+  ("Why is a low-of-day stop often wrong for a breakout?", "It sits far past the point where the breakout has already failed. On the CRWV trade in the video it risked about 3.82 to make 2.18, so the trade had to win about 64% of the time just to break even."),
+  ("Does a closer stop lower the win rate?", "A little, sometimes. In a choppy opening range a failed break usually runs back to the other side fast, so a stop under VWAP barely changes the odds while cutting the risk roughly in half."),
+  ("Can you start with a wide stop?", "Yes, but move it as the trade works. Ask at each level, like VWAP, the pre-market high or the opening price, whether losing it would make the trade wrong. If yes, the stop goes there."),
+  ("What is a turn trade stop?", "A stop just under the level you bought. The thesis is that buyers defend that level right away, so if it breaks or price just sits there, you're out. The best turn trades risk 10 to 20 cents to make a dollar."),
+  ("How do you know if a tighter stop is better?", "Test it on your own trades first: how often the closer stop got hit, the average loss, and what the wider stop cost when it was hit. Let the sample decide before it becomes a rule."),
+ ],
+},
 "/24-hour-stock-trading.html": {
  "q": "When does 24-hour stock trading start?",
  "a": "Sunday, Dec 6, 2026 at 9 PM ET. From then on, US stocks trade from Sunday 9 PM to Friday 8 PM, with a one-hour pause from 8 to 9 PM each weeknight. The new part is an overnight session from 9 PM to 4 AM on Nasdaq, NYSE Arca, Cboe EDGX, MEMX and 24X.",

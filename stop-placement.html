@@ -1,0 +1,976 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Where Your Stop Belongs: Stop Where the Thesis Dies | The Trade Method</title>
+<meta name="description" content="Put your stop where the trade is proven wrong, not at the low of day. SMB Capital&#x27;s stop technique: the claim, a real CRWV review and the turn trade.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/stop-placement.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Where Your Stop Belongs: Stop Where the Thesis Dies">
+<meta property="og:description" content="Put your stop where the trade is proven wrong, not at the low of day. SMB Capital&#x27;s stop technique: the claim, a real CRWV review and the turn trade.">
+<meta property="og:url" content="https://thetrademethod.com/stop-placement.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Where Your Stop Belongs: Stop Where the Thesis Dies">
+<meta name="twitter:description" content="Put your stop where the trade is proven wrong, not at the low of day. SMB Capital&#x27;s stop technique: the claim, a real CRWV review and the turn trade.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Where Your Stop Belongs — put your stop where the thesis dies",
+ "name": "Where Your Stop Belongs",
+ "description": "Where your stop belongs, from SMB Capital's stop technique: ask what price would have to do to prove the trade has changed and put the stop there, not at the low of the day. What an opening range break claims, a CRWV review with three stops on the same trade, moving a wide stop up, the turn trade with a tight stop, testing closer stops on your own sample, and writing the invalidation before entry.",
+ "url": "https://thetrademethod.com/stop-placement.html",
+ "mainEntityOfPage": "https://thetrademethod.com/stop-placement.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-24",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Person",
+  "name": "Bryant",
+  "url": "https://thetrademethod.com/about.html"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.eight { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=27">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the way back: five cards, or a stepper once js/sp-anim.js runs */
+  .sp-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .sp-steps .stage, .sheet .sp-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .sp-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .sp-steps.is-stepper .stage, .sheet .sp-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .sp-steps.is-stepper .stage .num { display:none; }
+  .sheet .sp-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .sp-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .sp-steps + .four { margin-top:28px; }
+  .sp-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .sp-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .sp-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .sp-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .sp-steps { margin-top:24px; }
+  }
+
+  @media (min-width:1101px) { .ribbon.eight { grid-template-columns:repeat(8,1fr); } }
+
+  /* calculator */
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in label { font-size:12px; color:var(--ash); display:block; }
+  .calc-in input { width:100%; margin-top:4px; background:var(--raised); color:var(--silk); border:1px solid #3a3a3c; border-radius:10px;
+                   padding:9px 11px; font:inherit; font-size:15px; font-variant-numeric:tabular-nums; }
+  .calc-in input:focus { outline:2px solid #2997ff; outline-offset:1px; }
+  .presets { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 12px; }
+  .presets .pill { font-size:13px; padding:6px 14px; }
+
+  /* the one-line invalidation */
+  .plan { margin:0; padding:16px 18px; background:var(--raised); border-radius:18px; font-family:var(--mono-font); font-size:13.5px; color:var(--silk); white-space:pre-wrap; line-height:1.6; }
+
+  /* pick your stop */
+  .pick { text-align:left; font:inherit; color:inherit; border:2px solid transparent; cursor:pointer; background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pick:hover { border-color:#3a3a3c; }
+  .pick.is-on { border-color:#2997ff; }
+  .pick .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pick b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pick p { margin:0; color:var(--mute); font-size:14px; }
+  .pick-out { margin-top:14px; color:var(--silk); font-size:15px; }
+  .pick-out:empty { display:none; }
+  .pick-out p { margin:0 0 6px; }
+  [data-sp-pick] { margin:0 0 28px; }
+
+  /* calculators */
+  .calc-out { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+  .calc-out div { background:var(--raised); border-radius:14px; padding:10px 12px; }
+  .calc-out span { display:block; font-size:12px; color:var(--ash); }
+  .calc-out b { font-family:var(--mono-font); font-weight:600; font-size:18px; }
+  .meter { position:relative; height:12px; background:#2c2c2e; border-radius:6px; margin:14px 0 6px; overflow:hidden; }
+  .meter i { position:absolute; left:0; top:0; bottom:0; background:#ff9f0a; border-radius:6px; transition:width .3s ease; }
+  .calc-note { margin:8px 0 0; color:var(--mute); font-size:14px; }
+  .ev-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  .ev-grid fieldset { border:0; margin:0; padding:12px; background:var(--raised); border-radius:16px; display:grid; gap:8px; }
+  .ev-grid legend { float:left; width:100%; font-weight:600; font-size:15px; margin-bottom:2px; }
+  .ev-grid label { font-size:12px; color:var(--ash); display:block; }
+  .ev-grid input { width:100%; margin-top:4px; background:#1d1d1f; color:var(--silk); border:1px solid #3a3a3c; border-radius:10px; padding:8px 10px; font:inherit; font-size:15px; font-variant-numeric:tabular-nums; }
+  .ev-res { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .ev-res div { background:var(--raised); border-radius:14px; padding:10px 12px; border-left:3px solid #3a3a3c; }
+  .ev-res div.best { border-left-color:#30d158; }
+  .ev-res span { display:block; font-size:12px; color:var(--ash); }
+  .ev-res b { font-family:var(--mono-font); font-size:18px; font-weight:600; }
+  .table-wrap { overflow-x:auto; }
+  @media (max-width:680px) {
+    .calc-out { grid-template-columns:1fr 1fr; }
+    .calc-in[style] { grid-template-columns:1fr 1fr 1fr !important; }
+    .ev-grid, .ev-res { grid-template-columns:1fr; }
+    .pick-out { font-size:14.5px; }
+    table { font-size:13px; } th, td { padding:8px 8px; }
+    .table-wrap table { min-width:640px; }
+    .table-wrap caption { max-width:340px; }
+  }
+</style>
+<script src="/js/nav.js?v=34" defer></script>
+<script src="/js/site.js?v=69" defer></script>
+<script src="/js/sp-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=46" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Where should you put your stop loss?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Where the trade is proven wrong, not where it feels comfortable. On this page, from an SMB Capital video, Jeff Holden says the question isn't how to avoid being wrong, it's what price would have to do to prove the trade has changed. For an opening range break that's back inside the range and under VWAP, which is usually much closer than the low of the day."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why is a low-of-day stop often wrong for a breakout?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It sits far past the point where the breakout has already failed. On the CRWV trade in the video it risked about 3.82 to make 2.18, so the trade had to win about 64% of the time just to break even."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does a closer stop lower the win rate?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A little, sometimes. In a choppy opening range a failed break usually runs back to the other side fast, so a stop under VWAP barely changes the odds while cutting the risk roughly in half."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can you start with a wide stop?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes, but move it as the trade works. Ask at each level, like VWAP, the pre-market high or the opening price, whether losing it would make the trade wrong. If yes, the stop goes there."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is a turn trade stop?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A stop just under the level you bought. The thesis is that buyers defend that level right away, so if it breaks or price just sits there, you're out. The best turn trades risk 10 to 20 cents to make a dollar."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do you know if a tighter stop is better?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Test it on your own trades first: how often the closer stop got hit, the average loss, and what the wider stop cost when it was hit. Let the sample decide before it becomes a rule."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
+<!-- breadcrumbs --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://thetrademethod.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Fundamentals",
+   "item": "https://thetrademethod.com/fundamentals/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Where Your Stop Belongs",
+   "item": "https://thetrademethod.com/stop-placement.html"
+  }
+ ]
+}
+</script><!-- /breadcrumbs -->
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="Where Your Stop Belongs"></div>
+<div class="sheet">
+
+  <a class="back" href="/fundamentals/">&lsaquo; Fundamentals</a>
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-24">Nov 24, 2026</time></p><!-- /byline -->
+
+  <header class="top" data-candle-bg="stop-placement">
+    <div>
+      <p class="kicker">Trading fundamentals &middot; from SMB Capital's "The Stop Technique that Will Take You to the Trading Big Leagues"</p>
+      <h1>Where Your <span>Stop</span> Belongs</h1>
+    </div>
+    <div>
+      <p class="thesis">Traders park the stop at the low of the day because they hate getting shaken out. Jeff Holden of SMB Capital says that's the wrong question. The right one:
+      <em>what would price have to do to prove this trade has changed?</em></p>
+      <div class="counts">
+        <div><b>1</b><small>question that decides the stop</small></div>
+        <div><b>3</b><small>stops on the same trade</small></div>
+        <div><b>2</b><small>trades, same stock, same morning</small></div>
+      </div>
+    </div>
+  </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">Where should you put your stop loss?</h2><p>Where the trade is proven wrong, not where it feels comfortable. On this page, from an SMB Capital video, Jeff Holden says the question isn't how to avoid being wrong, it's what price would have to do to prove the trade has changed. For an opening range break that's back inside the range and under VWAP, which is usually much closer than the low of the day.</p></section><!-- /define -->
+
+  <nav class="ribbon" aria-label="Where your stop belongs, in five ideas">
+    <div><div class="t">the claim</div><div class="n">What the trade says</div></div>
+    <div><div class="t">the cost</div><div class="n">Wide stops need more wins</div></div>
+    <div><div class="t">the review</div><div class="n">Same trade, new stop</div></div>
+    <div><div class="t">the turn</div><div class="n">Risk cents, not dollars</div></div>
+    <div><div class="t">the rule</div><div class="n">Write it before entry</div></div>
+  </nav>
+
+  <div class="section-head" id="question">
+    <h2>You're asking the wrong question</h2>
+    <p>The impulse makes sense. Nobody wants to be right about the stock and wrong about the timing, and nobody wants to get shaken out of a trade that was about to work. But a stop that's far away because you hate getting shaken out is answering a question about your feelings, not about the trade.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">?</div>
+        <div>
+          <h3>One question decides the stop</h3>
+          <ul>
+            <li><b>Not:</b> how do I avoid being wrong?</li>
+            <li><b>Instead:</b> what would price have to do to prove this trade has changed?</li>
+            <li>For a quick scalp off a defined level, that answer is usually much closer than the low of the day.</li>
+          </ul>
+          <p class="why">How far away the stop is and how it feels are secondary. The stop has one job: mark the price where the trade's claim is dead.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Two ways to pick a stop</h4>
+        <div class="pair">
+          <div class="care"><span class="k">the nerves stop</span><b>"Give it room"</b><p>The low of the day, picked so you don't get shaken out. Comfortable, and comfort has a price, paid in reward to risk.</p></div>
+          <div class="yes"><span class="k">the thesis stop</span><b>"Where it's proven wrong"</b><p>The price where the idea behind this trade stops being true. It belongs to the trade, not to your nerves.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="claim">
+    <h2>What an opening range break claims</h2>
+    <p>Every trade makes a claim. An opening range break's claim isn't "price goes up eventually". It's that price leaves the range and stays out. So the stop goes where that claim stops being true.</p>
+  </div>
+  <section class="anim" data-sp-anim="claim" aria-label="Illustrative made-up 1-minute bars. An opening range forms between 54 and 57 dollars, with VWAP near 56 in the middle. Price breaks out above 57 and keeps going: the claim is that it leaves the range and stays out. A faded alternate path shows a failed break: back inside the range, through VWAP and down to the 54 low quickly. The line where the claim dies is just under the range and VWAP, much closer than the low of the day.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The claim, and where it dies</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative opening range break and where its claim dies."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>The stop has one job</h3>
+          <ul>
+            <li>Mark the price where the claim is dead.</li>
+            <li>For an opening range break: price back inside the range, and below VWAP, means it didn't leave and stay out.</li>
+            <li>In a choppy opening range, a failed break tends to run all the way to the other side, fast.</li>
+          </ul>
+          <p class="why">That's why a closer stop here doesn't cost you much probability. If the break fails, it's usually headed back down anyway.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <blockquote class="qb">The question isn't how do I avoid being wrong. It's <b>what would price have to do to prove this trade has changed?</b> &mdash; Jeff Holden, SMB Capital</blockquote>
+      </div>
+      <div class="panel">
+        <h4>Claims for other trades</h4>
+        <div class="timing" style="grid-template-columns:1fr">
+          <div><b>Opening range break</b><p>Price leaves the range and stays out. Dead when it's back in the range and under VWAP.</p></div>
+          <div><b>Turn trade at support</b><p>Buyers defend the level right away. Dead the moment the level breaks, or price just sits there.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="cost">
+    <h2>What a wide stop really costs</h2>
+    <p>The video starts with a hypothetical, not a desk trade: buy at $50.00, target $50.60, stop at the session low of $49.40. That's 60 cents of risk for 60 cents of reward, one to one at best. The trade has to win more than half the time just to break even, and it was supposed to be a quick scalp off a defined level.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Wide doesn't mean safe</h3>
+          <ul>
+            <li>The wide stop didn't make the trade safer. It made the trade need to be right more often.</li>
+            <li>Cut that stop in half (49.70) and the same 60-cent target is two to one. You now break even winning one trade in three.</li>
+            <li>The cost of the closer stop: if price fails, it'll come lower quickly and likely stop you out. That's the point.</li>
+          </ul>
+          <p class="why">Low-of-day stops are a common thing to teach. The video's point isn't that they're always wrong, it's that the stop should come from the trade's structure, not from the fear of a shake-out.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel calc" data-sp-calc>
+        <h4>Same target, different stop</h4>
+        <p class="lead">Put in an entry, a target and a stop. The break-even win rate is how often the trade has to work just to not lose money.</p>
+        <div class="presets" role="group" aria-label="Examples">
+          <button type="button" class="pill" data-p="50,50.60,49.40">Hypothetical: session low</button>
+          <button type="button" class="pill" data-p="50,50.60,49.70">Hypothetical: stop halved</button>
+          <button type="button" class="pill" data-p="57.82,60,54">CRWV: low of day</button>
+          <button type="button" class="pill" data-p="57.82,60,55.90">CRWV: under VWAP</button>
+          <button type="button" class="pill" data-p="57.82,60,56.90">CRWV: under the range</button>
+        </div>
+        <div class="calc-in" style="grid-template-columns:repeat(3,1fr)">
+          <label>Entry<input type="number" step="0.01" inputmode="decimal" name="entry" value="50"></label>
+          <label>Target<input type="number" step="0.01" inputmode="decimal" name="target" value="50.60"></label>
+          <label>Stop<input type="number" step="0.01" inputmode="decimal" name="stop" value="49.40"></label>
+        </div>
+        <div data-calc-out aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="review">
+    <h2>A real review: same trade, different stop</h2>
+    <p>From one of SMB's trade reviews: a trader took an opening range break in CoreWeave (CRWV). He waited for the pre-market high to break, went long around 57.82 as it broke out of the range, and targeted $60, which he called resistance. It broke 60, he sold 90% and kept a runner. A good trade. The entry was right, the target was right, the structure was right. The stop was the problem.</p>
+  </div>
+  <div class="panel" data-sp-pick id="pick">
+    <h4>Before you read on, pick your stop</h4>
+    <p class="lead">Entry 57.82, target 60.00. Where does your stop go? Say it out loud, then click.</p>
+    <div class="pair" style="margin-top:0">
+      <button type="button" class="pick" data-k="lod"><span class="k">choice A</span><b>The low of the day</b><p>Below the $54 wick. Plenty of room.</p></button>
+      <button type="button" class="pick" data-k="vwap"><span class="k">choice B</span><b>Just under VWAP</b><p>Around $56, in the middle of the range.</p></button>
+    </div>
+    <div class="pick-out" data-pick-out aria-live="polite"></div>
+  </div>
+  <section class="anim" data-sp-anim="review" aria-label="Illustrative made-up 1-minute bars of the CRWV opening range break from the video. The range runs from a 54.00 low to 57.00, the pre-market high is 57.75 and VWAP is near 56. Long at 57.82, target 60.00. Three stops are drawn as risk boxes: the low of the day at 54.00 risks 3.82 for 2.18, about 0.6 to 1, and needs a 64 percent win rate to break even. Just under VWAP at 55.90 risks 1.92, about 1.1 to 1, break even 47 percent. Just under the range at 56.90 risks 0.92, about 2.4 to 1, break even 30 percent. Then the trade works to 60 and sells 90 percent with a runner.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Three stops on one trade</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative CRWV opening range break with three stop choices."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="panel table-wrap">
+    <table>
+      <caption>Long 57.82, target 60.00 (reward 2.18). Only the stop changes. Levels from the video; the break-even column is just risk divided by risk plus reward.</caption>
+      <thead><tr><th scope="col">Stop</th><th scope="col">Price</th><th scope="col">Risk</th><th scope="col">Reward to risk</th><th scope="col">Break-even win rate</th><th scope="col">The video's take</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Low of the day</th><td>54.00</td><td class="neg">3.82</td><td>0.6 to 1</td><td>64%</td><td class="txt">Protects a win rate at the cost of growing as a trader. The video rounds it to risking about 3.5 to make 2.5.</td></tr>
+        <tr><th scope="row">Just under VWAP</th><td>55.90</td><td>1.92</td><td>1.1 to 1</td><td>47%</td><td class="txt">Doesn't really change the probability, maybe a little. Cuts the risk by about two points.</td></tr>
+        <tr><th scope="row">Just under the range</th><td>56.90</td><td class="pos">0.92</td><td>2.4 to 1</td><td>30%</td><td class="txt">Some traders argue for it. Tiny risk, but now you start changing the probability.</td></tr>
+        <tr><th scope="row">Low of the breakout candle</th><td>~57.40</td><td>~0.40</td><td>5+ to 1</td><td>under 20%</td><td class="txt">Too tight for this trade. You run a real risk of getting stopped out of a good break.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="main" style="margin-top:22px">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Ask the two questions</h3>
+          <ul>
+            <li>If price got to the low of the day, would the thesis still be right? No.</li>
+            <li>If price got back below VWAP, would the thesis still be right? Also no.</li>
+            <li>And if it fell just below 56, the odds it keeps going to 52 are pretty high. If it comes all the way back to VWAP and works anyway, maybe you got lucky, but it's not the same trade.</li>
+          </ul>
+          <p class="why">Same entry, same target, same probability. Only the stop moves, and the expected value over time gets a lot better.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The honest answer most traders give</h4>
+        <p class="lead">"I hate for my thesis to be right and for me to get shaken out. I like to give it a lot of breathing room." That's the real conversation: what's breathing room, and what's just trading fearfully?</p>
+        <div class="pair">
+          <div class="yes"><span class="k">breathing room</span><b>Room the trade needs</b><p>Space for normal noise before the claim is proven wrong.</p></div>
+          <div class="care"><span class="k">fear</span><b>Room your nerves want</b><p>Space past the point where the trade has already failed.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="manage">
+    <h2>Start wide if you have to, then move it</h2>
+    <p>You can start with your stop far away on entry. That's what this trader wanted. His mistake was not moving it up as the trade went his way. As soon as the range is broken, ask where this trade fails, and if it does, how likely it is to go a lot lower.</p>
+  </div>
+  <section class="anim" data-sp-anim="manage" aria-label="Illustrative made-up 1-minute bars of the same CRWV trade. Long 57.82 with the stop starting at the low of the day, 54.00. As the trade works, the stop steps up at each am-I-wrong check: under VWAP at 55.90, under the range at 56.90, then under the pre-market high at 57.65. At 60 the trader sells 90 percent and the runner's stop sits under the pre-market high.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Am I wrong if it drops this?</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative stop moved up in steps as the trade works."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Have the conversation with yourself</h3>
+          <ul>
+            <li>If it drops VWAP, am I wrong?</li>
+            <li>If it drops the pre-market high, am I wrong?</li>
+            <li>If it drops the opening price, am I wrong?</li>
+            <li>Each "yes" is a level the stop can move up to.</li>
+          </ul>
+          <p class="why">Experienced traders have this conversation all the time. Keep the low-of-day stop if you want, but then you have to manage the risk, not just the reward.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Why moving it up protects the probability</h4>
+        <p class="lead">In a choppy opening range, a break that fails has a really high chance of going all the way back to the other side, fast.</p>
+        <div class="pair">
+          <div class="yes"><span class="k">stop under VWAP</span><b>Small loss, same odds</b><p>If it fails, it was going back anyway. You're out with a fraction of the risk.</p></div>
+          <div class="care"><span class="k">stop at the low</span><b>Full loss, same odds</b><p>You take the whole trip down to the low and call it breathing room.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="turn">
+    <h2>Same stock, same morning, a different trade</h2>
+    <p>Which would you rather take: the breakout at 57.82, or the bounce at 54? A second trader wasn't looking at the opening range break at all. He took the first pullback, a <b>turn trade</b>, when CRWV pulled down to $54: higher time frame support, the low of the range, where the pre-market buyers were. He saw buyers step in with conviction and went long.</p>
+  </div>
+  <section class="anim" data-sp-anim="turn" aria-label="Illustrative made-up 1-minute bars of the same morning. Price flushes down to 54.00, higher time frame support and the low of the range. Buyers step in and the trader goes long at 54.05 with a stop just under 54 at 53.89, 16 cents of risk. He sells pieces at 55.40 and 56.00 on the way back up and the last piece fills on a resting order at 56.50. Then the two stops are compared side by side: the breakout risked 3.82, the turn trade risked 0.16.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The turn trade at 54</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative turn trade at 54 with a stop just under the level."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>A tight stop that belongs</h3>
+          <ul>
+            <li>The stop sat just under 54. If 54 breaks, the level is gone, and the trade is gone with it.</li>
+            <li>The best turn trades risk 10 or 20 cents to make a dollar.</li>
+            <li>He took pieces off back toward the top of the range, with a resting order at 56.50 for the last one.</li>
+            <li>If it drops 54, you're out. If it dilly-dallies and bounces around, you don't have a trade that's going to give you continuation either.</li>
+          </ul>
+          <p class="why">Don't guess and don't second-guess. The thesis is a strong stock pulling into a key level where buyers step in. That's the stop.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Both stops are honest</h4>
+        <p class="lead">Same stock, same morning. One trader risked dollars on a breakout, the other risked cents on a bounce. Only one stop belonged to the trade it was protecting.</p>
+        <div class="pair">
+          <div class="care"><span class="k">breakout · stop at the low</span><b>3.82 of risk</b><p>Protecting against being wrong, with a stop past the point the trade had already failed.</p></div>
+          <div class="yes"><span class="k">turn · stop under 54</span><b>About 0.16 of risk</b><p>The level is the thesis. Lose the level, lose the trade.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <blockquote class="qb">The stop doesn't belong to your nerves. <b>It belongs to the trade that you took.</b></blockquote>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="sample">
+    <h2>A closer stop isn't free</h2>
+    <p>Let's be honest about the other side. A closer stop will trigger more exits, and one that's too close will trigger far too many, including trades that would have recovered. That can't be settled by one example. Before a tighter stop becomes a rule, check it against your own trades.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Let your sample decide</h3>
+          <ul>
+            <li>Pull your own breakouts and your own turn trades.</li>
+            <li>How often did the closer stop exit?</li>
+            <li>What was the average loss?</li>
+            <li>What did the wider stop cost when it finally hit?</li>
+          </ul>
+          <p class="why">A stop that exits early and small can be the better stop on some trades. A turn trade needs a tight one. An opening range break wants neither too tight nor too loose: balance the probability against the reward to risk.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel calc" data-sp-ev>
+        <h4>Wide stop vs closer stop, over a sample</h4>
+        <p class="lead">Fill in your own numbers per share. The closer stop usually wins less often; the question is whether it wins enough. Examples are made up.</p>
+        <div class="presets" role="group" aria-label="Examples">
+          <button type="button" class="pill" data-p="65,2.18,3.82,58,2.18,1.92">Breakouts: low of day vs VWAP</button>
+          <button type="button" class="pill" data-p="65,2.18,3.82,32,2.18,0.92">Too tight</button>
+        </div>
+        <div class="ev-grid">
+          <fieldset>
+            <legend>Wide stop</legend>
+            <label>Win rate %<input type="number" step="1" min="0" max="100" inputmode="decimal" name="w1" value="65"></label>
+            <label>Average win<input type="number" step="0.01" inputmode="decimal" name="a1" value="2.18"></label>
+            <label>Average loss<input type="number" step="0.01" inputmode="decimal" name="l1" value="3.82"></label>
+          </fieldset>
+          <fieldset>
+            <legend>Closer stop</legend>
+            <label>Win rate %<input type="number" step="1" min="0" max="100" inputmode="decimal" name="w2" value="58"></label>
+            <label>Average win<input type="number" step="0.01" inputmode="decimal" name="a2" value="2.18"></label>
+            <label>Average loss<input type="number" step="0.01" inputmode="decimal" name="l2" value="1.92"></label>
+          </fieldset>
+        </div>
+        <div data-ev-out aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="write">
+    <h2>Write the invalidation down before you enter</h2>
+    <p>Before your next breakout, write one line: the price behavior that proves this trade wrong. Not the dollar amount you're willing to lose. The behavior. If you can't write it, you don't actually have a stop. You have a hope, and hope is not a risk plan.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">7</div>
+        <div>
+          <h3>Write it, trade it, review it</h3>
+          <ul>
+            <li>Write the invalidation before the entry.</li>
+            <li>Trade the plan.</li>
+            <li>Review the samples.</li>
+          </ul>
+          <p class="why">That's how a stop becomes a system instead of a feeling.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>One line per trade</h4>
+        <p class="lead">Two examples from the trades on this page. The stop price comes from the line, not the other way around.</p>
+<pre class="plan">Opening range break, long 57.82
+Wrong if: it's back inside the range and under VWAP.
+Stop: 55.90, then up to 56.90 once it holds above 57.
+
+Turn trade, long 54.05
+Wrong if: 54 breaks, or it doesn't turn almost right away.
+Stop: 53.89.</pre>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="ackman">
+    <h2>A billion-dollar lesson in thesis discipline</h2>
+    <p>Jeff closes with a story he learned early in his career. It's the same discipline at a completely different scale: when the thesis changes, you're out.</p>
+  </div>
+  <div class="four">
+    <div style="--tc:#2997ff"><span class="k">January 2022</span><h3>The position</h3><p>Bill Ackman's Pershing Square buys about 3.1 million shares of Netflix, roughly a $1.1 billion position.</p></div>
+    <div style="--tc:#ff9f0a"><span class="k">April 2022</span><h3>The thesis changes</h3><p>Netflix reports its first subscriber loss in about a decade, and management pivots to an ad-supported plan it had ruled out before.</p></div>
+    <div style="--tc:#ff453a"><span class="k">Days later</span><h3>The exit</h3><p>He sells the entire position at a loss of around $400 million, saying he'd lost confidence in his ability to predict the company's future.</p></div>
+    <div style="--tc:#30d158"><span class="k">The lesson</span><h3>No hold and hope</h3><p>He didn't wait for the old thesis to come back. You don't have to pay $400 million to practice the same thing: a stop tied to the trade you took.</p></div>
+  </div>
+
+  <div class="section-head" id="steps">
+    <h2>Your stop, step by step</h2>
+    <p>The whole idea as a routine for every trade. Click through it.</p>
+  </div>
+  <div class="sp-steps" data-sp-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Name the claim</h3>
+          <ul>
+            <li>What is this trade saying will happen? Not "it goes up". Be specific.</li>
+            <li>Opening range break: it leaves the range and stays out. Turn trade: buyers defend the level right away.</li>
+          </ul>
+          <p class="why">Different trades make different claims, so they get different stops, even on the same stock the same morning.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Write what proves it wrong</h3>
+          <ul>
+            <li>One line, before the entry: the price behavior that kills the claim.</li>
+            <li>Behavior, not a dollar amount.</li>
+          </ul>
+          <p class="why">If you can't write it, you don't have a stop. You have a hope.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Put the stop there</h3>
+          <ul>
+            <li>Just past where that behavior shows up: under VWAP, under the range, under the level.</li>
+            <li>Check the reward to risk. Same target, a closer honest stop, a better trade.</li>
+          </ul>
+          <p class="why">Not too tight to survive normal noise, not so wide that it sits past the point the trade has already failed.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Move it as it works</h3>
+          <ul>
+            <li>Started wide? Ask "am I wrong if it drops this?" at each level: VWAP, the pre-market high, the opening price.</li>
+            <li>Each yes is a new place for the stop.</li>
+          </ul>
+          <p class="why">You make the trade better without making it any harder to be right.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Let the sample decide</h3>
+          <ul>
+            <li>Track how often the closer stop exits, the average loss, and what the wide stop cost when it hit.</li>
+            <li>Only then turn the observation into a rule.</li>
+          </ul>
+          <p class="why">That's how a stop becomes a system instead of a feeling.</p>
+        </div>
+      </section>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/kQw4zErz5Oc" title="The Stop Technique that Will Take You to the Trading Big Leagues (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Jeff Holden of SMB Capital on why the low of the day is often the wrong stop, with two real trade reviews from the same morning.</p>
+      <ol>
+        <li><b>0:00</b>The stop traders choose that frustrates us</li>
+        <li><b>0:50</b>What an opening range break is claiming</li>
+        <li><b>1:40</b>The hypothetical: what a wide stop costs</li>
+        <li><b>3:10</b>A real review: same trade, different stop</li>
+        <li><b>7:02</b>Starting wide, then moving the stop</li>
+        <li><b>8:52</b>Same morning, a different trade: the turn trade</li>
+        <li><b>11:47</b>Why a closer stop isn't free</li>
+        <li><b>13:08</b>Write down your invalidation before entry</li>
+        <li><b>13:48</b>A billion-dollar lesson in thesis discipline</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=kQw4zErz5Oc" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>Why is a low-of-day stop often wrong for a breakout?</h3><p>It sits far past the point where the breakout has already failed. On the CRWV trade in the video it risked about 3.82 to make 2.18, so the trade had to win about 64% of the time just to break even.</p></div>
+    <div class="qa"><h3>Does a closer stop lower the win rate?</h3><p>A little, sometimes. In a choppy opening range a failed break usually runs back to the other side fast, so a stop under VWAP barely changes the odds while cutting the risk roughly in half.</p></div>
+    <div class="qa"><h3>Can you start with a wide stop?</h3><p>Yes, but move it as the trade works. Ask at each level, like VWAP, the pre-market high or the opening price, whether losing it would make the trade wrong. If yes, the stop goes there.</p></div>
+    <div class="qa"><h3>What is a turn trade stop?</h3><p>A stop just under the level you bought. The thesis is that buyers defend that level right away, so if it breaks or price just sits there, you're out. The best turn trades risk 10 to 20 cents to make a dollar.</p></div>
+    <div class="qa"><h3>How do you know if a tighter stop is better?</h3><p>Test it on your own trades first: how often the closer stop got hit, the average loss, and what the wider stop cost when it was hit. Let the sample decide before it becomes a rule.</p></div>
+  </div><!-- /faq -->
+  <div class="rule">
+    <div>
+      <h2>A stop belongs to the trade, not to your nerves.</h2>
+      <p>Ask what price would have to do to prove the trade has changed, and put the stop there. Write it down before you enter, move it as the trade works, and let your own sample tell you when a tighter stop should become a rule.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Name the trade's claim.</li>
+        <li>Write the behavior that proves it wrong.</li>
+        <li>Put the stop where that happens.</li>
+        <li>Started wide? Move it up at each "am I wrong?" level.</li>
+        <li>Turn trades: risk cents under the level.</li>
+        <li>Check closer stops against your own sample first.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from SMB Capital's video "The Stop Technique that Will Take You to the Trading Big Leagues" with Jeff Holden: the question that should decide where a stop goes, what an opening range break claims, the $50 hypothetical, the CRWV opening range break review (entry about 57.82, target 60, stop at the 54 low of day vs about 56 under VWAP), moving a wide stop up, the turn trade at 54 with a resting order at 56.50, why a closer stop isn't free, writing the invalidation before entry, and Bill Ackman's 2022 Netflix exit (Pershing Square bought about 3.1 million shares in January 2022 and sold them in April 2022 at a loss of roughly $400 million). The CRWV prices are as the video gives them; the bars in the walkthroughs, the exact stop prices, the partial-exit prices and the sample numbers in the calculators are made up to show the idea. Not financial advice.</p>
+</div>
+<footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
+
+</body>
+</html>

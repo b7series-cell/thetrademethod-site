@@ -75,6 +75,7 @@ const EXTRA_PAGES = [
   { loc: "/level-radar.html", priority: "0.7" },
   { loc: "/seven-cheat-codes.html", priority: "0.7" },
   { loc: "/eight-trading-rules.html", priority: "0.7" },
+  { loc: "/stop-placement.html", priority: "0.7" },
   { loc: "/24-hour-stock-trading.html", priority: "0.7" },
   { loc: "/covered-calls.html", priority: "0.7" },
   { loc: "/expected-move.html", priority: "0.7" },

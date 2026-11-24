@@ -1342,6 +1342,36 @@
       }
     },
 
+    /* Stop placement: an opening range, a break, three stops, then the stop steps up */
+    "stop-placement": {
+      story: function (st) {
+        var hi, lo, i0, RG, SA, SB, SC;
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); i0 = st.candles.length; return bar(st, { n: 1.8, v: 0.8 }); }),
+          rep(2, function (st) { return bar(st, { n: 1.8, v: 0.7 }); }),
+          rep(1, function (st) { return bar(st, { d: -2.4, n: 0.4, lw: 2.2, v: 0.9, mk: { t: "Low of the day", col: SILK, below: true } }); }),
+          rep(4, function (st) { return bar(st, { d: rnd(0.2, 1.1), n: 1, v: 0.6 }); }),
+          rep(1, function (st) {
+            var seg = st.candles.slice(i0); hi = -1e9; lo = 1e9;
+            seg.forEach(function (q) { hi = Math.max(hi, q.h); lo = Math.min(lo, q.l); });
+            st.boxes.push({ i0: i0, i1: i0 + 8, y0: lo, y1: hi, col: BLUE });
+            RG = level(st, hi, "Range high", BLUE); RG.i0 = i0;
+            return bar(st, { n: 0.8, cap: hi, flo: lo + (hi - lo) * 0.4 });
+          }),
+          rep(3, function (st) { return bar(st, { n: 0.8, cap: hi, flo: lo + (hi - lo) * 0.5 }); }),
+          rep(1, function (st) { return bar(st, { d: 2.6, n: 0.3, v: 1, flash: GREEN, mk: { t: "Entry on the break", col: GREEN, below: true } }); }),
+          rep(1, function (st) { SA = level(st, lo, "Stop A · low of day · 0.6 to 1", RED); return bar(st, { d: 0.3, n: 0.4 }); }),
+          rep(1, function (st) { SB = level(st, lo + (hi - lo) * 0.62, "Stop B · under VWAP · 1.1 to 1", ORANGE); return bar(st, { d: 0.3, n: 0.4, flo: hi }); }),
+          rep(1, function (st) { SC = level(st, hi - 0.4, "Where the claim dies", GREEN, true); return bar(st, { d: 0.4, n: 0.4, flo: hi, mk: { t: "What would prove it wrong?", col: GREEN } }); }),
+          rep(6, function (st) { return bar(st, { d: 0.6, n: 0.8, flo: hi + 0.2 }); }),
+          rep(1, function (st) { closeLevels(st); level(st, hi + 2.2, "Stop moved up", GREEN, true); return bar(st, { d: 0.6, n: 0.5, flo: hi + 2.4, mk: { t: "Am I wrong if it drops this?", col: SILK, below: true } }); }),
+          rep(5, function (st) { return bar(st, { d: 0.5, n: 0.8, flo: hi + 2.6 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.8, n: 0.4, v: 0.9, flash: GREEN, mk: { t: "Target · sell 90%", col: GREEN } }); }),
+          rep(4, function (st) { return bar(st, { d: rnd(-0.4, 0.5), n: 0.7 }); })
+        ];
+      }
+    },
+
     "24-hour-stock-trading": {
       story: function (st) {
         return [
