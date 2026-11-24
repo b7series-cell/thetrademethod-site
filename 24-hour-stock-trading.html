@@ -379,6 +379,57 @@
     <div>
       <p class="thesis">Starting Sunday, Dec 6 at 9 PM ET, US stocks trade almost around the clock: from Sunday 9 PM to Friday 8 PM, with a one-hour pause from 8 to 9 PM each weeknight.
       <em>Premarket, regular hours and after-hours don't change.</em></p>
+      <div class="cd" id="launch-cd" data-target="2026-12-07T02:00:00Z" aria-live="off">
+        <p class="cd-k" id="cd-k">First overnight session opens in</p>
+        <div class="cd-row" id="cd-row" hidden>
+          <div><b class="tnum" id="cd-d">00</b><small>days</small></div>
+          <div><b class="tnum" id="cd-h">00</b><small>hours</small></div>
+          <div><b class="tnum" id="cd-m">00</b><small>min</small></div>
+          <div><b class="tnum" id="cd-s">00</b><small>sec</small></div>
+        </div>
+        <p class="cd-when"><time datetime="2026-12-06T21:00:00-05:00">Sunday, Dec 6, 2026 &middot; 9:00 PM ET</time></p>
+      </div>
+      <style>
+        .cd { margin:22px 0 4px; display:inline-block; max-width:100%; border:1px solid rgba(255,255,255,.16); border-radius:18px; padding:16px 20px 14px; background:rgba(41,151,255,.08); }
+        .cd-k { margin:0 0 10px; font-size:14px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:#2997ff; }
+        .cd-row { display:flex; gap:10px; }
+        .cd-row[hidden] { display:none; }
+        .cd-row div { min-width:74px; text-align:center; background:rgba(255,255,255,.06); border-radius:12px; padding:10px 8px 8px; }
+        .cd-row b { display:block; font-size:36px; font-weight:600; line-height:1; letter-spacing:-.01em; }
+        .cd-row small { display:block; margin-top:6px; font-size:12px; color:var(--ash); text-transform:uppercase; letter-spacing:.06em; }
+        .cd-when { margin:10px 0 0; font-size:14px; color:var(--ash); }
+        .cd.live { background:rgba(48,209,88,.1); border-color:rgba(48,209,88,.35); }
+        .cd.live .cd-k { color:#30d158; margin:0; }
+        @media (max-width:480px) {
+          .cd { display:block; padding:14px 14px 12px; }
+          .cd-row { gap:8px; }
+          .cd-row div { flex:1; min-width:0; padding:8px 4px 6px; }
+          .cd-row b { font-size:28px; }
+          .cd-row small { font-size:11px; }
+        }
+      </style>
+      <script>
+        (function () {
+          var el = document.getElementById("launch-cd"); if (!el) return;
+          var t = Date.parse(el.getAttribute("data-target"));
+          var row = document.getElementById("cd-row"), k = document.getElementById("cd-k");
+          var ids = ["cd-d", "cd-h", "cd-m", "cd-s"].map(function (i) { return document.getElementById(i); });
+          function pad(n) { return (n < 10 ? "0" : "") + n; }
+          function tick() {
+            var ms = t - Date.now();
+            if (ms <= 0) {
+              el.className = "cd live"; row.hidden = true;
+              k.textContent = "The overnight session is live";
+              clearInterval(timer); return;
+            }
+            var s = Math.floor(ms / 1000);
+            var v = [Math.floor(s / 86400), Math.floor(s % 86400 / 3600), Math.floor(s % 3600 / 60), s % 60];
+            for (var i = 0; i < 4; i++) ids[i].textContent = pad(v[i]);
+            row.hidden = false;
+          }
+          var timer = setInterval(tick, 1000); tick();
+        })();
+      </script>
       <div class="counts">
         <div><b>Dec 6</b><small>first overnight session, Sunday 9 PM ET</small></div>
         <div><b>9 PM&ndash;4 AM</b><small>the new overnight session</small></div>
