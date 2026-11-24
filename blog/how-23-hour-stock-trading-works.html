@@ -261,7 +261,7 @@
               <thead><tr><th scope="col">Window</th><th scope="col">Session</th><th scope="col">Hours</th><th scope="col">What happens</th></tr></thead>
               <tbody class="tnum">
                 <tr><td>8 PM to 9 PM</td><td>Pause</td><td>1</td><td>No trading. Open exchange orders from the day are cancelled at 8 PM.</td></tr>
-                <tr><td>9 PM to 4 AM</td><td>Overnight (new)</td><td>7</td><td>Limit orders only on Nasdaq, NYSE Arca, Cboe EDGX, MEMX and 24X. Counts toward the next day. Open orders are cancelled at 4 AM.</td></tr>
+                <tr><td>9 PM to 4 AM</td><td>Overnight (new)</td><td>7</td><td>Limit orders only, on the five exchanges above. Counts toward the next day. Open orders are cancelled at 4 AM.</td></tr>
                 <tr><td>4:00 to 9:30</td><td>Premarket</td><td>5.5</td><td>Unchanged. The premarket high and low come from this window.</td></tr>
                 <tr><td>9:30 to 4:00</td><td>Regular hours</td><td>6.5</td><td>Unchanged, with the 9:30 opening auction and the 4:00 closing auction.</td></tr>
                 <tr><td>4:00 to 8:00</td><td>After-hours</td><td>4</td><td>Unchanged.</td></tr>
@@ -302,7 +302,7 @@
 
         <section aria-labelledby="order-rules">
           <h2 id="order-rules">Which orders work overnight?</h2>
-          <p>Only limit orders. Nasdaq's rulebook rejects unpriced orders, such as market orders, in the Night Session, and peg orders and orders meant for the opening and closing auctions aren't available either. Every broker listed below also takes limit orders only overnight.</p>
+          <p>Only limit orders. Nasdaq's rulebook rejects unpriced orders, such as market orders, in the Night Session, and peg orders and orders meant for the opening and closing auctions aren't available either.</p>
           <ul>
             <li><b>Limit orders:</b> accepted. Price them at or inside the spread and don't chase.</li>
             <li><b>Market orders:</b> rejected by the exchange overnight.</li>
@@ -370,7 +370,7 @@
           <p>Check four things before entering at night: that the symbol is a large, widely traded name, that it has actually traded tonight, that the spread is tight, and that your order is small next to what's there. The table gives starting numbers. These are my starting rules for thin markets, not tested results. I'll tighten or loosen them once real overnight fills come in, and you should do the same with yours.</p>
           <div class="post-table">
             <table>
-              <caption>Starting liquidity rules for an overnight trade (suggested thresholds, not backtested)</caption>
+              <caption>Starting liquidity rules for an overnight trade</caption>
               <thead><tr><th scope="col">Check</th><th scope="col">Starting rule</th><th scope="col">Why</th></tr></thead>
               <tbody>
                 <tr><td>Symbol</td><td>An S&amp;P 500 or Nasdaq-100 stock, or a large ETF such as SPY, QQQ or IWM</td><td>These are on every broker's overnight list and draw most overnight volume</td></tr>
@@ -387,8 +387,8 @@
 
         <section aria-labelledby="levels">
           <h2 id="levels">What does 23-hour trading change for your levels?</h2>
-          <p>Very little for levels built on premarket and regular hours. Premarket still runs 4:00 to 9:30, so the premarket high and low come from the same window. The 9:30 opening auction and the 4:00 closing auction set the open and the official close, and overnight trades don't set the day's last price, high or low.</p>
-          <p>The overnight session does add a new reference, the overnight high and low, much like the evening session high and low in stock index futures. A stock can now react to 11 PM news hours before premarket, so by 4 AM part of a gap may already have traded. The setup pages on this site, such as the <a href="/setups/pmh-break.html">PMH Break</a> and <a href="/setups/gap-give-and-go.html">Gap Give and Go</a>, keep using premarket and regular-hours levels. The <a href="/24-hour-stock-trading.html">24-hour stock trading note</a> sums up the change on one page.</p>
+          <p>Very little for levels built on premarket and regular hours. Those windows and both auctions stay exactly where they are.</p>
+          <p>The overnight session does add a new reference, the overnight high and low, much like the evening session high and low in stock index futures. A stock can now react to 11 PM news hours before premarket, so by 4 AM part of a gap may already have traded. Setups like <a href="/setups/gap-give-and-go.html">Gap Give and Go</a> still work off the premarket gap; just know some of it may have traded overnight. The <a href="/24-hour-stock-trading.html">24-hour stock trading note</a> sums up the change on one page.</p>
         </section>
 
         <section aria-labelledby="my-plan">
@@ -404,7 +404,6 @@
             <p>&ldquo;Unpriced orders are not permitted during the Night Session.&rdquo;</p>
             <footer>The Nasdaq Stock Market, <cite><a href="https://listingcenter.nasdaq.com/rulebook/nasdaq/rules/Nasdaq%20Equity%204" target="_blank" rel="noopener">Nasdaq Rulebook, Equity 4</a></cite>, 2026.</footer>
           </blockquote>
-          <p>The same Nasdaq rules cancel orders resting on the book at 8 PM, take Night Session orders from 9 PM, and cancel anything still open at 4 AM. That is why overnight trading is limit-order only and why an overnight order doesn't roll into the premarket.</p>
           <p>Research on the overnight market before the exchanges joined points the same way as the volume numbers. Gregory Eaton, Andriy Shkilko and Ingrid Werner study the 8 PM to 4 AM session in <a href="https://www.aeaweb.org/conference/2026/program/paper/kRz7yE6Q" target="_blank" rel="noopener">&ldquo;Nocturnal Trading&rdquo;</a> (presented at the 2026 American Economic Association meetings). They find that a single platform dominated the session with only a few liquidity providers, that each trade moved prices several times more than a trade of the same kind during regular hours, and that meaningful price discovery still happened overnight. In plain terms: overnight prices carry real information, but each order pushes the price more, which is why size and spread matter more at night.</p>
         </section>
 
