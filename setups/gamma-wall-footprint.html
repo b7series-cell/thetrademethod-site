@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gamma Wall Footprint — three GEX setups | The Trade Method</title>
+<meta name="description" content="Three gamma level setups on NQ: fade the put or call wall when the footprint confirms, or go with the break of zero gamma. Location, approach, confirmation.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/gamma-wall-footprint.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Gamma Wall Footprint — three GEX setups">
+<meta property="og:description" content="Three gamma level setups on NQ: fade the put or call wall when the footprint confirms, or go with the break of zero gamma. Location, approach, confirmation.">
+<meta property="og:url" content="https://thetrademethod.com/setups/gamma-wall-footprint.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gamma Wall Footprint — three GEX setups">
+<meta name="twitter:description" content="Three gamma level setups on NQ: fade the put or call wall when the footprint confirms, or go with the break of zero gamma. Location, approach, confirmation.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Gamma Wall Footprint — three GEX setups confirmed by the footprint",
+ "name": "Gamma Wall Footprint",
+ "description": "Skydweller.trades' three gamma level setups on NQ futures: mark the put wall, call wall and zero gamma from the GEX map before the open; read the regime (above zero gamma dealer hedging absorbs moves, below it adds fuel); judge the approach (a slow drift means look for the reaction right at the wall, a fast push means let it overshoot and enter on the reclaim); and confirm on the footprint with absorption, stacked imbalances, a delta flip or trapped traders. Stop where the wall idea is proven wrong, often 30 to 50 ticks on NQ, half off at the first reaction, the rest to the next level. The third setup goes with the break when price loses zero gamma and holds.",
+ "url": "https://thetrademethod.com/setups/gamma-wall-footprint.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/gamma-wall-footprint.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-25",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Person",
+  "name": "Bryant",
+  "url": "https://thetrademethod.com/about.html"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+
+  /* hero link to the indicator */
+  .get-ind { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:#08131f; background:#64d2ff;
+             text-decoration:none; border-radius:9999px; padding:9px 18px; }
+  .get-ind:hover { background:#8cdfff; }
+
+  /* ---------- indicator ---------- */
+  .ind-sec { margin-top:56px; scroll-margin-top:110px; }
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .code-wrap { background:var(--panel); border:1px solid var(--line); border-radius:12px; margin-top:16px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--faint); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#1b2a3e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#26394f; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d9e3; tab-size:4; }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-sec { margin-top:44px; } }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=27">
+<script src="/js/nav.js?v=35" defer></script>
+<script src="/js/site.js?v=70" defer></script>
+<script src="/js/gw-anim.js?v=1" defer></script>
+<style>
+  /* steps across the page, the two panels side by side under them (same as heatmap-scalp.html) */
+  .gw-main { grid-template-columns:1fr; gap:22px; }
+  .gw-stages { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .sheet .gw-stages .stage, .sheet .gw-stages .stage:first-child { padding:26px 24px; background:var(--charcoal); align-content:start; }
+  .gw-side { display:grid; grid-template-columns:1fr 1.4fr; gap:16px; align-items:stretch; }
+  .gw-side .panel + .panel { margin-top:0; }
+  .gw-side .timing { grid-template-columns:1fr 1fr; }
+  @media (max-width:1100px) { .gw-stages { grid-template-columns:1fr 1fr; } .gw-side { grid-template-columns:1fr; } }
+  @media (max-width:680px) { .gw-stages { grid-template-columns:1fr; } }
+  /* the stepper (js/gw-anim.js builds it from the six steps) */
+  .gw-stages.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#f5f5f7; }
+  .gs-bar { display:grid; grid-template-columns:repeat(6,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:8.333%; right:8.333%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .gw-stages.is-stepper .stage, .sheet .gw-stages.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .gw-stages.is-stepper .stage .num { display:none; }
+  .sheet .gw-stages.is-stepper .stage[hidden] { display:none; }
+  .sheet .gw-stages.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .gw-stages.is-stepper { padding:20px 12px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:34px; height:34px; font-size:14px; }
+    .gs-line { top:16px; }
+    .gs-bar { margin-bottom:20px; }
+  }
+  /* video (same as heatmap-scalp.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+  .watch { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:var(--ink); text-decoration:none;
+           background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); border-radius:9999px; padding:7px 14px 7px 10px; }
+  .watch:hover { background:rgba(255,255,255,0.14); }
+  .watch i { width:0; height:0; border-left:9px solid #ff453a; border-top:6px solid transparent; border-bottom:6px solid transparent; margin-left:4px; }
+
+  .h1-rf { color:#64d2ff; }
+  .ribbon .n { font-size:14px; }
+
+  /* tiles */
+  .vs { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .vs div { background:var(--panel); border:1px solid var(--line); border-top:3px solid #64d2ff; border-radius:11px; padding:16px 17px; }
+  .vs .sc { font-family:var(--mono); font-size:13px; color:#64d2ff; font-weight:700; display:block; margin-bottom:6px; }
+  .vs h3 { margin:0 0 6px; font-size:16px; }
+  .vs p { margin:0; font-size:14px; color:var(--dim); }
+
+  /* the checks and outputs (same look as hitchhiker-scalp.html) */
+  .chk-out { margin-top:14px; border-radius:11px; padding:14px 16px; border:1px solid var(--line); background:var(--panel2); }
+  .chk-out b { display:block; font-size:24px; font-weight:800; letter-spacing:-0.02em; margin-bottom:4px; }
+  .chk-out p { margin:0; font-size:14px; color:var(--dim); }
+  .chk-out.is-a { border-color:#22855a; } .chk-out.is-a b { color:var(--up); }
+  .chk-out.is-b { border-color:#7a5a12; } .chk-out.is-b b { color:var(--gold); }
+  .chk-out.is-no { border-color:#5e2a30; } .chk-out.is-no b { color:var(--down); }
+
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in.four { grid-template-columns:repeat(4,1fr); }
+  .calc-in label { font-size:12px; color:var(--faint); display:block; }
+  .calc-in input, .calc-in select { width:100%; margin-top:4px; background:var(--panel2); color:var(--ink); border:1px solid var(--line); border-radius:8px;
+                   padding:8px 10px; font-family:var(--mono); font-size:15px; }
+  .calc-in input:focus, .calc-in select:focus { outline:2px solid var(--blue); outline-offset:1px; }
+  .calc-in input[type=range] { padding:0; accent-color:#30d158; background:none; border:0; }
+  .calc-in output { font-family:var(--mono); color:var(--ink); font-size:14px; float:right; }
+  .gw-book .calc-in { grid-template-columns:1fr 1fr auto; align-items:end; }
+  .gw-book .warn { margin-top:16px; }
+  .gw-book .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; }
+  .gw-book .reset:hover { background:#3a3a3c; }
+  .gw-two svg, .gw-dev svg { border-radius:14px; }
+  .gw-dev .calc-in { grid-template-columns:1fr; }
+  .gw-two .reset, .gw-dev .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; margin-top:12px; }
+  .h1-rf { color:#bf5af2; }
+  .counts div { border-left-color:#bf5af2; }
+  .vs.gw-vs div { border-top-color:#bf5af2; } .vs.gw-vs .sc { color:#bf5af2; }
+  .size-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .size-grid div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .size-grid b { display:block; font-family:var(--mono); font-size:20px; color:var(--gold); margin-bottom:4px; }
+  .size-grid p { margin:0; color:var(--dim); font-size:13.4px; }
+  @media (max-width:680px) { .size-grid { grid-template-columns:1fr; } }
+
+  /* case table + quotes (same as heatmap-scalp.html) */
+  .quote { margin:16px 0 0; padding:14px 18px; border-left:3px solid #64d2ff; background:var(--panel); border-radius:0 11px 11px 0; font-size:16px; }
+  .quote small { display:block; color:var(--faint); font-size:12.5px; margin-top:4px; }
+  .howto { margin:0; padding-left:20px; color:var(--ink); font-size:14.5px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#64d2ff; font-weight:600; }
+  .two-note { margin:14px 0 0; color:var(--dim); font-size:14px; max-width:86ch; }
+  .vcase td.txt { min-width:200px; }
+
+  /* the animation redraws for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .ribbon + .anim { margin-top:8px; }
+  @media (max-width:1100px) {
+    .vs { grid-template-columns:1fr 1fr; }
+    .calc-in.four { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:680px) {
+    /* breathing room around the walkthrough and the charts on small screens (project rule: not packed tight on phones) */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .counts { flex-wrap:wrap; gap:16px 22px; }
+    .vs { grid-template-columns:1fr; }
+    .calc-in, .calc-in.four, .gw-book .calc-in { grid-template-columns:1fr 1fr; }
+    .gw-book .calc-in .reset { grid-column:1 / -1; justify-self:start; }
+    .section-head { margin-top:52px; }
+    .gw-two, .gw-dev, .gw-plan { margin-top:28px; }
+    .risk + .risk, .panel + .risk { margin-top:28px; }
+    .vcase th, .vcase td { padding:9px 8px; }
+    .gw-side .filters, .gw-side .timing { grid-template-columns:1fr !important; }
+  }
+  /* the case table scrolls inside itself on a phone, never the page */
+  .tscroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .tscroll table { min-width:720px; }
+</style>
+
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=47" defer></script>
+
+<style>
+  /* gamma wall footprint page extras (indigo, for the dealer-hedging map) */
+  .h1-gw { color:#7d7aff; }
+  .thesis em { color:#7d7aff; }
+  .counts div { border-left-color:#7d7aff; }
+  .vs.gw-vs div { border-top-color:#7d7aff; } .vs.gw-vs .sc { color:#7d7aff; }
+  .quote { border-left-color:#7d7aff; }
+  .howto b { color:#7d7aff; }
+  .gw-plays svg, .gw-read svg { border-radius:14px; }
+  .gw-plays .reset, .gw-read .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; margin-top:12px; }
+  .gw-plays .reset:hover, .gw-read .reset:hover, .pre button:hover { background:#3a3a3c; }
+  .pre { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; align-items:center; }
+  .pre button { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; }
+  .pre button[aria-pressed="true"] { background:#7d7aff; color:#000; }
+  .gw-note { margin:12px 0 0; color:var(--dim); font-size:14px; max-width:90ch; }
+  .gw-note b { color:var(--ink); }
+  .gw-check .calc-in { grid-template-columns:repeat(3,1fr); }
+  .lamps { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin:4px 0 0; }
+  .lamps div { display:flex; align-items:center; gap:9px; background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:10px 12px; font-size:14px; font-weight:600; }
+  .gw-lamp { width:12px; height:12px; border-radius:50%; flex:0 0 12px; background:#3a3a3c; }
+  .gw-lamp.is-ok { background:var(--up); box-shadow:0 0 0 4px rgba(48,209,88,0.18); }
+  .gw-lamp.is-warn { background:var(--gold); box-shadow:0 0 0 4px rgba(244,185,66,0.18); }
+  .gw-lamp.is-no { background:var(--down); box-shadow:0 0 0 4px rgba(224,80,90,0.18); }
+  .gw-plan .calc-in { grid-template-columns:repeat(3,1fr); }
+  .key { display:flex; flex-wrap:wrap; gap:10px 22px; margin:14px 0 0; font-size:13.5px; color:var(--dim); }
+  .key span { display:inline-flex; align-items:center; gap:8px; }
+  .key i { display:inline-block; width:22px; height:10px; border-radius:3px; }
+  .models { display:grid; grid-template-columns:1fr; gap:10px; margin-top:14px; }
+  .models div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .models b { display:block; font-size:15px; margin-bottom:4px; }
+  .models b span { font-family:var(--mono); font-size:12px; color:#7d7aff; margin-right:8px; }
+  .models p { margin:0; color:var(--dim); font-size:13.4px; }
+  @media (max-width:1100px) { .gw-check .calc-in, .gw-plan .calc-in { grid-template-columns:repeat(2,1fr); } .lamps { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:680px) {
+    .gw-check, .gw-read, .gw-plays, .gw-plan { margin-top:28px; }
+    .pre { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .pre::-webkit-scrollbar { display:none; }
+    .pre button { flex:0 0 auto; }
+    .lamps { grid-template-columns:1fr 1fr; }
+    .gw-plan .calc-in { grid-template-columns:1fr 1fr; }
+    .gw-check .calc-in { grid-template-columns:1fr; }
+  }
+</style>
+
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the Gamma Wall Footprint?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The Gamma Wall Footprint is a set of three NQ futures day trades at the levels from a GEX (gamma exposure) map: the put wall, the call wall and zero gamma. The wall tells you where, not when. A slow drift into a wall means look for the reaction right at it; a fast push means let it overshoot and enter on the reclaim. The footprint chart confirms the entry with absorption, stacked imbalances, a delta flip or trapped traders. The third setup goes with the move when price breaks below zero gamma and holds."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What are the call wall, put wall and zero gamma?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The call wall is the strike with the most positive gamma, where dealers tend to sell rallies. The put wall is the strike with the most negative gamma, where dealers tend to buy dips. Zero gamma is the border: above it dealer hedging absorbs moves, below it the hedging adds fuel and moves stretch."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why not just buy or sell at the wall?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Because the wall tells you where, not when. Price can run straight through it, especially on a fast approach. You wait for the footprint to show someone defending the level, or for a fast move to overshoot and come back (the reclaim)."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Where does the stop go?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Where the wall idea is proven wrong: past the failed low or the overshoot high, often 30 to 50 ticks on NQ. The target is the next level. Entering close to the level is what makes the reward big: in the video's example, entering at the wall was about 8R, chasing it later was under 1R."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "When should you not trade the levels?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "On a single big options print without context, when a wall has broken and price accepted beyond it, on OPEX, triple witching and VIX expiration days when the levels move, and right after a loss if the next trade isn't from the plan."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
+<!-- breadcrumbs --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://thetrademethod.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Setups",
+   "item": "https://thetrademethod.com/setups/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Gamma Wall Footprint",
+   "item": "https://thetrademethod.com/setups/gamma-wall-footprint.html"
+  }
+ ]
+}
+</script><!-- /breadcrumbs -->
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/setups/">&lsaquo; All setups</a>
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-25">Nov 25, 2026</time></p><!-- /byline -->
+
+  <header class="top" data-candle-bg="gamma-wall-footprint">
+    <div>
+      <p class="kicker">Three trades at the GEX levels &middot; NQ futures, a 5-minute chart with a footprint, the first hours of the US session, long or short</p>
+      <h1>Gamma Wall <span class="h1-gw">Footprint</span></h1>
+    </div>
+    <div>
+      <p class="thesis">The wall tells you where, not when. <em>Location:</em> the put wall, the call wall and zero gamma from the morning GEX map.
+      <em>Approach:</em> a slow drift into a wall means look for the reaction right at it; a fast push means let it overshoot and take the reclaim.
+      <em>Confirmation:</em> the footprint shows someone knocking: absorption, stacked imbalances, a delta flip or trapped traders. The stop goes where the idea is wrong, the target is the next level.</p>
+      <div class="counts">
+        <div><b>3</b><small>setups: a long, a short, a regime break</small></div>
+        <div><b>4</b><small>footprint signs that say when</small></div>
+        <div><b>8R</b><small>entered close; chased, it's under 1R</small></div>
+      </div>
+    </div>
+  </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the Gamma Wall Footprint?</h2><p>The Gamma Wall Footprint is a set of three NQ futures day trades at the levels from a GEX (gamma exposure) map: the put wall, the call wall and zero gamma. The wall tells you where, not when. A slow drift into a wall means look for the reaction right at it; a fast push means let it overshoot and enter on the reclaim. The footprint chart confirms the entry with absorption, stacked imbalances, a delta flip or trapped traders. The third setup goes with the move when price breaks below zero gamma and holds.</p></section><!-- /define -->
+
+  <nav class="ribbon">
+    <div><div class="t">1 &middot; map</div><div class="n">Put wall, call wall, zero gamma</div></div>
+    <div><div class="t">2 &middot; regime</div><div class="n">The lake or the rapids</div></div>
+    <div><div class="t">3 &middot; approach</div><div class="n">Slow: at the level. Fast: the reclaim</div></div>
+    <div><div class="t">4 &middot; confirm</div><div class="n">The footprint knocks</div></div>
+    <div><div class="t">5 &middot; risk</div><div class="n">Stop where it's wrong, enter close</div></div>
+    <div><div class="t">6 &middot; manage</div><div class="n">Half off, the rest to the next level</div></div>
+  </nav>
+
+  <section class="anim" data-gw-anim aria-label="Animated walkthrough of a put wall long on a made-up NQ morning">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">7 / 7</p>
+        <h2 class="anim-title">Watch one put wall long</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 660" role="img" aria-label="Illustrative 5-minute NQ chart. The GEX map puts the put wall at 25,150 and zero gamma at 25,250. Price grinds lower in small candles, a slow approach, and tags the put wall. The footprint of that bar shows over 3,000 contracts sold into the wall without price going lower: absorption. The next bar shows stacked buy imbalances, a big buy print and delta flipping positive. Long at 25,156, stop 11 points lower at 25,145 under the failed low. Half off at 25,200, the rest rides to zero gamma at 25,250, plus 94 points."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+    <div class="key" aria-hidden="true">
+      <span><i style="background:#ff453a;height:3px"></i>put wall</span>
+      <span><i style="background:#30d158;height:3px"></i>call wall</span>
+      <span><i style="background:#7d7aff;height:3px"></i>zero gamma</span>
+      <span><i style="background:rgba(255,69,58,0.55)"></i>sold at the bid</span>
+      <span><i style="background:rgba(48,209,88,0.55)"></i>bought at the ask</span>
+    </div>
+  </section>
+
+  <div class="main gw-main">
+    <div class="gw-stages" data-gw-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Map: put wall, call wall, zero gamma</h3>
+          <ul>
+            <li>Add up the gamma exposure of every strike and you get the GEX map. Three lines on it matter.</li>
+            <li>The call wall, the most positive gamma: dealers sell rallies there. A ceiling with springs.</li>
+            <li>The put wall, the most negative gamma: dealers buy dips there. A trampoline floor.</li>
+            <li>Zero gamma isn't support or resistance. It's the border between two kinds of market.</li>
+          </ul>
+          <p class="why">Price doesn't react at random prices. It reacts where the dealers' hedging is biggest, and you can know those prices before the open.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Regime: the lake or the rapids</h3>
+          <ul>
+            <li>Above zero gamma, dealers sell rips and buy dips. Their hedging soaks up moves: a calm lake, you paddle back and forth.</li>
+            <li>Below it, they sell weakness and buy strength. Their hedging adds fuel: the rapids, and the current takes you.</li>
+            <li>Before any trade, ask one question: am I on the lake or in the rapids?</li>
+          </ul>
+          <p class="why">Same-day (0DTE) options make this strongest in the first hours of the US session. One or two good setups, then you're done.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Approach: how price arrives</h3>
+          <ul>
+            <li>Slow approach: small candles, a steady drift. Look for the reaction right at the level.</li>
+            <li>Fast approach: big candles, real momentum. Don't catch the ball while it's stretching the net.</li>
+            <li>Let a fast move overshoot, then enter when price gets back to the level. That's the reclaim, and it proves the breakout failed.</li>
+          </ul>
+          <p class="why">Throw a ball softly at a net and it stops right there. Throw it hard and it stretches way past the line, then snaps back.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Confirm: the footprint knocks</h3>
+          <ul>
+            <li>Absorption: sellers keep hitting it, the red numbers pile up, and price won't go lower.</li>
+            <li>Stacked imbalances: three rows or more where one side is three times bigger. Someone just took control.</li>
+            <li>A delta flip: big negative, then big positive, right at the level.</li>
+            <li>Trapped traders: they rushed through the door just before it slammed shut behind them.</li>
+          </ul>
+          <p class="why">GEX shows you where the door is. The footprint tells you if someone is knocking.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Risk: stop where the idea is wrong</h3>
+          <ul>
+            <li>Ask: if this wall is supposed to hold, where would price have to go to prove me wrong? On NQ that's often 30 to 50 ticks.</li>
+            <li>The target is the next level. Small stop, big target, but only if you enter near the level.</li>
+            <li>Same wall, same target: enter close and it's 8R. Chase it late and it's not even 1R.</li>
+          </ul>
+          <p class="why">The level gives you a short distance to being wrong. Enter far from it and you've thrown that away.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Manage: half off, the rest rides</h3>
+          <ul>
+            <li>With more than one contract, take some off at the first reaction and let the rest ride to the next level.</li>
+            <li>If a wall breaks and price accepts beyond it, don't stand in front of a broken dam holding a bucket. Reassess.</li>
+            <li>Check the calendar: OPEX, triple witching and VIX expiration move the levels. Check yourself after a loss.</li>
+          </ul>
+          <p class="why">On moving day all the furniture is in the hallway. Your usual levels might not be where you left them.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="gw-side">
+      <div class="panel">
+        <h4>Three ways to find the levels</h4>
+        <p class="lead">Three models, one rule: location first, execution second.</p>
+        <div class="models">
+          <div><b><span>Model 1</span>Gamma walls</b><p>The call wall, the put wall, and the second biggest ones behind them. That's your map for the day.</p></div>
+          <div><b><span>Model 2</span>Open interest</b><p>Volume is everyone who walked past the stadium today. Open interest is the crowd still in their seats. Look back about 90 days; the biggest crowds become levels.</p></div>
+          <div><b><span>Model 3</span>Convexity</b><p>Stepping stones across a river. Positive convexity pockets are the stones, and price likes to travel from one to the next.</p></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>When to leave it alone</h4>
+        <p class="lead">Any one of these and it isn't a trade yet.</p>
+        <div class="filters kills" style="grid-template-columns:repeat(2,1fr); margin-top:14px;">
+          <div class="filter" style="background:var(--panel2)"><h3>One big print</h3><p>A huge call trade on a flow scanner. It could be a hedge, one leg of a spread, or a bet on volatility.</p><p class="kill">One trade without context tells you almost nothing.</p></div>
+          <div class="filter" style="background:var(--panel2)"><h3>Just a wall</h3><p>Price is at the level, but the footprint shows nobody knocking. Or a fast move is still stretching the net.</p><p class="kill">The wall is where, not when.</p></div>
+          <div class="filter" style="background:var(--panel2)"><h3>A broken dam</h3><p>The wall broke and price accepted beyond it.</p><p class="kill">Don't fade it with a bucket. Reassess.</p></div>
+          <div class="filter" style="background:var(--panel2)"><h3>Moving day, or angry</h3><p>OPEX, triple witching or VIX expiration. Or the trade right after a loss.</p><p class="kill">Recheck the map, and ask if it's still the plan.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The three setups</h2>
+    <p>Different direction, same recipe: location, approach, confirmation. Pick one to play it. The first two are the video's replays on 5-minute NQ; the third is drawn with made-up prices.</p>
+  </div>
+  <div class="panel gw-plays" data-gw-plays>
+    <div class="pre" role="group" aria-label="Pick a setup">
+      <button type="button" data-case="put" aria-pressed="true">Put wall &middot; slow approach, long</button>
+      <button type="button" data-case="call" aria-pressed="false">Call wall &middot; fast approach, short</button>
+      <button type="button" data-case="zero" aria-pressed="false">Zero gamma &middot; the regime breaks</button>
+    </div>
+    <svg viewBox="0 0 1180 420" role="img" aria-label="An illustrative 5-minute chart that plays the picked setup."></svg>
+    <p class="gw-note" aria-live="polite"></p>
+    <button type="button" class="reset" data-play>Play again</button>
+  </div>
+
+  <div class="section-head">
+    <h2>Read the footprint</h2>
+    <p>A footprint splits every candle into price rows: contracts sold aggressively at the bid on the left, bought aggressively at the ask on the right. Ask minus bid is delta. Pick a sign to see it.</p>
+  </div>
+  <div class="panel gw-read" data-gw-read>
+    <div class="pre" role="group" aria-label="Pick a footprint sign">
+      <button type="button" data-case="absorb" aria-pressed="true">Absorption</button>
+      <button type="button" data-case="stack" aria-pressed="false">Stacked imbalances</button>
+      <button type="button" data-case="flip" aria-pressed="false">Delta flip</button>
+      <button type="button" data-case="trap" aria-pressed="false">Trapped traders</button>
+    </div>
+    <svg viewBox="0 0 1180 440" role="img" aria-label="Illustrative footprint bars that show the picked sign."></svg>
+    <p class="gw-note" aria-live="polite"></p>
+    <button type="button" class="reset" data-play>Play again</button>
+  </div>
+  <p class="quote">A gamma wall alone is information. A big futures trade alone is information. Price action alone is information. Stack them at the same price and you have a trade.<small>The video's closing point, in our words.</small></p>
+
+  <div class="section-head">
+    <h2>Is it a trade?</h2>
+    <p>Set where price is and what it's doing. Every lamp has to be green (or yellow at worst) before you click.</p>
+  </div>
+  <div class="panel gw-check" data-gw-check>
+    <div class="calc-in">
+      <label>Location<select name="loc"><option value="put" selected>At the put wall (long)</option><option value="call">At the call wall (short)</option><option value="zero">Lost zero gamma (short, with it)</option><option value="mid">Between levels</option></select></label>
+      <label>Regime<select name="reg"><option value="lake" selected>Above zero gamma: the lake</option><option value="rapids">Below zero gamma: the rapids</option></select></label>
+      <label>How price arrived<select name="app"><option value="slow" selected>Slow: small candles, steady drift</option><option value="fast">Fast: big candles, momentum</option></select></label>
+      <label>Your entry<select name="ent"><option value="at" selected>Right at the level, on the reaction</option><option value="reclaim">After the overshoot, on the reclaim</option><option value="accept">It broke through and held</option></select></label>
+      <label>The footprint<select name="fp"><option value="yes" selected>Absorption, stacking, a flip or trapped traders</option><option value="none">Nothing yet</option><option value="against">Pushing through against you</option></select></label>
+      <label>The day<select name="day"><option value="ok" selected>Normal day, first or second trade</option><option value="opex">OPEX, triple witching or VIX expiration</option><option value="loss">Right after a loss</option><option value="done">Already took two good ones</option></select></label>
+    </div>
+    <div class="lamps" aria-hidden="true">
+      <div><span class="gw-lamp" data-lamp></span>Location</div>
+      <div><span class="gw-lamp" data-lamp></span>Regime</div>
+      <div><span class="gw-lamp" data-lamp></span>Approach</div>
+      <div><span class="gw-lamp" data-lamp></span>Footprint</div>
+      <div><span class="gw-lamp" data-lamp></span>Day</div>
+    </div>
+    <div class="chk-out gw-out" aria-live="polite"></div>
+  </div>
+
+  <div class="section-head">
+    <h2>Enter close, or don't</h2>
+    <p>Same wall, same stop, same target. The only thing that changes the trade is where you get in. The defaults are the video's put wall long; try the chase button.</p>
+  </div>
+  <div class="risk gw-plan">
+    <div class="panel" data-gw-calc>
+      <div class="pre" role="group" aria-label="Presets">
+        <button type="button" data-pre="close" aria-pressed="true">Enter close: 25,156</button>
+        <button type="button" data-pre="chase" aria-pressed="false">Chase it: 25,200</button>
+        <button type="button" data-pre="short" aria-pressed="false">The call wall short</button>
+      </div>
+      <div class="calc-in">
+        <label>Side<select name="side"><option value="long" selected>Long</option><option value="short">Short</option></select></label>
+        <label>Entry<input name="entry" type="number" inputmode="decimal" step="0.25" value="25156"></label>
+        <label>Stop<input name="stop" type="number" inputmode="decimal" step="0.25" value="25145"></label>
+        <label>First take profit<input name="tp1" type="number" inputmode="decimal" step="0.25" value="25200"></label>
+        <label>Next level (target)<input name="tp2" type="number" inputmode="decimal" step="0.25" value="25250"></label>
+        <label>Contract<select name="ct"><option value="2">MNQ ($2/pt)</option><option value="20" selected>NQ ($20/pt)</option></select></label>
+      </div>
+      <div class="chk-out gw-cout" aria-live="polite"></div>
+      <div class="calc gw-ccalc" aria-live="polite" style="margin-top:14px"></div>
+    </div>
+    <div class="warn">
+      <h4>Two more things</h4>
+      <div class="size-grid" style="margin:12px 0">
+        <div><b>30&ndash;50</b><p>Ticks: where the wall idea is usually proven wrong on NQ. That's 7.5 to 12.5 points.</p></div>
+        <div><b>&frac12; off</b><p>At the first reaction, with more than one contract. The rest rides to the next level.</p></div>
+        <div><b>1&ndash;2</b><p>Quality setups in the first hours of the session, then you're done.</p></div>
+      </div>
+      <p style="margin:0 0 6px"><b>Check the calendar</b></p>
+      <p>OPEX, triple witching and VIX expiration are moving day. Positions roll, the map changes, and yesterday's walls might not be where you left them.</p>
+      <p style="margin:0 0 6px"><b>Check yourself</b></p>
+      <p>After a loss, ask if the next trade still comes from the plan. You know how to drive; driving angry is how accidents happen.</p>
+      <p class="big">A level on its own is not a trade.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The trades in the video</h2>
+    <p>Two replays on the 5-minute NQ chart, plus the third play he describes without a chart. Prices are as he read them out.</p>
+  </div>
+  <div class="tscroll">
+    <table class="vcase">
+      <thead><tr><th>Trade</th><th>The map and the approach</th><th>The footprint</th><th>The trade</th></tr></thead>
+      <tbody>
+        <tr><th>Example 1 &middot; long<br><small>the put wall</small></th>
+          <td class="txt">Put wall 25,150, zero gamma 25,250. Price grinds lower in small, steady candles: a slow approach, so watch for the reaction right at the wall.</td>
+          <td class="txt">Over 3,000 contracts sold into the wall and price won't go lower: absorption. Next bar: stacked buy imbalances, a big buy print, delta flips positive.</td>
+          <td class="txt">Long 25,156, stop 11 points lower under the failed low. Half off at 25,200, the rest to zero gamma: +94 points.</td></tr>
+        <tr><th>Example 2 &middot; short<br><small>the call wall</small></th>
+          <td class="txt">Call wall 25,450. This time price rips in big green candles: a fast approach, so don't catch the ball while it's stretching the net.</td>
+          <td class="txt">It overshoots the wall with over 6,000 contracts bought above it and no follow-through. Back under the wall the buyers are trapped; sellers stack the bid and delta flips hard negative.</td>
+          <td class="txt">Short 25,447, stop above the overshoot high. Half off at 25,380, the rest into zero gamma: +127 points.</td></tr>
+        <tr><th>The third play<br><small>zero gamma</small></th>
+          <td class="txt">Late morning, price drifts down toward zero gamma. The GEX is shrinking and gamma is building at lower strikes.</td>
+          <td class="txt">Price breaks below zero gamma and holds. The ranges get bigger: you've left the lake.</td>
+          <td class="txt">Don't fade anything. Go with the momentum, a wider stop, the put wall as the target. Back above zero gamma and holding on the retest: you were wrong, out.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-head">
+    <h2>How you trade it</h2>
+    <p>Start to finish, for one morning.</p>
+  </div>
+  <div class="panel">
+    <ol class="howto">
+      <li><b>Map:</b> before the open, mark the put wall, the call wall and zero gamma (and the second biggest walls). Open interest and convexity pockets can add levels.</li>
+      <li><b>Regime:</b> ask if you're on the lake (above zero gamma, moves get absorbed) or in the rapids (below it, moves stretch). If price breaks below zero gamma and holds, switch to the third play and go with it.</li>
+      <li><b>Approach:</b> watch how price arrives at the level. Slow drift: look for the reaction at the level. Fast push: let it overshoot and wait for the reclaim.</li>
+      <li><b>Confirm:</b> on the footprint, at least one of absorption, stacked imbalances, a delta flip or trapped traders, right at the level.</li>
+      <li><b>Risk:</b> stop where the wall idea is proven wrong (often 30 to 50 ticks on NQ), target the next level. Only take it if you're close to the level.</li>
+      <li><b>Manage:</b> half off at the first reaction, the rest to the next level. A wall that breaks and holds is a reason to reassess, not to add.</li>
+      <li><b>Stop:</b> one or two quality setups in the first hours, then done. Recheck the map on expiration days, and check yourself after a loss.</li>
+    </ol>
+  </div>
+
+  <section class="video" id="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/vT3javtAde8" title="Gamma Levels Explained: The 3 Setups I Trade Every Day (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Skydweller.trades explains dealer hedging with a bookmaker, a car and a goalkeeper, then walks through the GEX map, the three ways to find levels, and two replays on 5-minute NQ with the footprint.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=vT3javtAde8" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What are the call wall, put wall and zero gamma?</h3><p>The call wall is the strike with the most positive gamma, where dealers tend to sell rallies. The put wall is the strike with the most negative gamma, where dealers tend to buy dips. Zero gamma is the border: above it dealer hedging absorbs moves, below it the hedging adds fuel and moves stretch.</p></div>
+    <div class="qa"><h3>Why not just buy or sell at the wall?</h3><p>Because the wall tells you where, not when. Price can run straight through it, especially on a fast approach. You wait for the footprint to show someone defending the level, or for a fast move to overshoot and come back (the reclaim).</p></div>
+    <div class="qa"><h3>Where does the stop go?</h3><p>Where the wall idea is proven wrong: past the failed low or the overshoot high, often 30 to 50 ticks on NQ. The target is the next level. Entering close to the level is what makes the reward big: in the video's example, entering at the wall was about 8R, chasing it later was under 1R.</p></div>
+    <div class="qa"><h3>When should you not trade the levels?</h3><p>On a single big options print without context, when a wall has broken and price accepted beyond it, on OPEX, triple witching and VIX expiration days when the levels move, and right after a loss if the next trade isn't from the plan.</p></div>
+  </div><!-- /faq -->
+  <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
+  <div class="relgrid">
+    <a href="/setups/heatmap-scalp.html"><span class="k">All session</span><h3>Heatmap Scalp</h3><p>The chart gives the side, the heatmap gives the moment.</p></a>
+    <a href="/setups/ready-aim-fire.html"><span class="k">All session</span><h3>Ready, Aim, Fire</h3><p>Three pieces, and every trade needs all three.</p></a>
+    <a href="/setups/fib-ote.html"><span class="k">All session</span><h3>Fibonacci OTE</h3><p>Price moves in waves, so don't buy the impulse.</p></a>
+    <a href="/setups/micro-range.html"><span class="k">All session</span><h3>Micro Range</h3><p>Price isn't value.</p></a>
+  </div><!-- /related -->
+  <div class="rule">
+    <div>
+      <h2>The wall is where. The footprint is when.</h2>
+      <p>Know the levels before the open, wait for price to come to them, and read how it arrives. Take it only when the footprint shows someone defending the level,
+      with the stop where the idea is wrong and the target at the next level.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Map the walls and zero gamma.</li>
+        <li>Lake or rapids: fade, or go with it.</li>
+        <li>Slow: at the level. Fast: the reclaim.</li>
+        <li>No knock on the footprint, no trade.</li>
+        <li>Enter close, target the next level.</li>
+        <li>One or two, then done.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">From Skydweller.trades' "Gamma Levels Explained: The 3 Setups I Trade Every Day" (YouTube, October 2026). The rules and the two NQ examples are as told and shown in the video; the free guide offered in the video is left out. For how the walls and zero gamma are calculated, see <a href="/setups/gex-levels.html">GEX Levels</a>; for more on footprint imbalances, <a href="/stacked-imbalances.html">Stacked Imbalances</a>.
+  The walkthrough, the footprint numbers, the stepper charts, the third setup's prices and the candles in every chart are illustrative, made up to show the idea, not any market's actual prints.</p>
+</div>
+<footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
+
+</body>
+</html>
