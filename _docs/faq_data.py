@@ -206,6 +206,16 @@ FAQ = {
   ("Does the look above and fail work?", "Not in our test. On 5-minute bars it looked profitable, but fake value area edges moved by a quarter of the range made as much. On 1-minute bars it lost on SPY and QQQ (-0.07R)."),
  ],
 },
+"/setups/gamma-wall-footprint.html": {
+ "q": "What is the Gamma Wall Footprint?",
+ "a": "The Gamma Wall Footprint is a set of three NQ futures day trades at the levels from a GEX (gamma exposure) map: the put wall, the call wall and zero gamma. The wall tells you where, not when. A slow drift into a wall means look for the reaction right at it; a fast push means let it overshoot and enter on the reclaim. The footprint chart confirms the entry with absorption, stacked imbalances, a delta flip or trapped traders. The third setup goes with the move when price breaks below zero gamma and holds.",
+ "faq": [
+  ("What are the call wall, put wall and zero gamma?", "The call wall is the strike with the most positive gamma, where dealers tend to sell rallies. The put wall is the strike with the most negative gamma, where dealers tend to buy dips. Zero gamma is the border: above it dealer hedging absorbs moves, below it the hedging adds fuel and moves stretch."),
+  ("Why not just buy or sell at the wall?", "Because the wall tells you where, not when. Price can run straight through it, especially on a fast approach. You wait for the footprint to show someone defending the level, or for a fast move to overshoot and come back (the reclaim)."),
+  ("Where does the stop go?", "Where the wall idea is proven wrong: past the failed low or the overshoot high, often 30 to 50 ticks on NQ. The target is the next level. Entering close to the level is what makes the reward big: in the video's example, entering at the wall was about 8R, chasing it later was under 1R."),
+  ("When should you not trade the levels?", "On a single big options print without context, when a wall has broken and price accepted beyond it, on OPEX, triple witching and VIX expiration days when the levels move, and right after a loss if the next trade isn't from the plan."),
+ ],
+},
 "/setups/heatmap-scalp.html": {
  "q": "What is the Heatmap Scalp?",
  "a": "The Heatmap Scalp is an order flow day trade on NQ and ES futures from a funded trader's live session. Market structure and VWAP set the side: higher lows above VWAP means longs only. A liquidity heatmap such as Bookmap times the entry: on a pullback, the other side's big market orders stop moving price and the resting liquidity holds, so you get in on the bid. The stop is a fixed dollar amount, you add on pullbacks while in profit, and you exit just before a big wall of liquidity.",

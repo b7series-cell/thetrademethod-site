@@ -599,6 +599,21 @@ const SETUPS = [
     indicators: []
   }
 
+  ,{
+    slug:    "gamma-wall-footprint",
+    href:    "/setups/gamma-wall-footprint.html",
+    nav:     "Gamma Wall Footprint",
+    title:   "Gamma Wall Footprint — Three GEX Setups the Footprint Confirms",
+    thesis:  "The wall tells you where, not when. Mark the put wall, call wall and zero gamma before the open. A slow drift into a wall: look for the reaction right at it. A fast push: let it overshoot and take the reclaim. Only take it when the footprint knocks (absorption, stacked imbalances, a delta flip or trapped traders). Stop where the idea is wrong, target the next level, half off at the first reaction. If price loses zero gamma and holds, go with it instead.",
+    session: "NY morning · 5-minute NQ with a footprint and the GEX map",
+    group:   "day",
+    side:    "both",
+    stages:  6,
+    filters: 4,
+    status:  "live",
+    indicators: []
+  }
+
   /* -------------------------------------------------------------------
      Copy this block for the next setup. Keep the trailing comma on the
      entry above when you do. Leave `indicators` as an empty array if a

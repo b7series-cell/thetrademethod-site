@@ -1317,6 +1317,33 @@
       }
     },
 
+    /* Gamma wall footprint: a slow drift into the put wall, absorption, the footprint knocks, long, half off,
+       the rest to zero gamma (alternates with the mirror: a call wall short into zero gamma) */
+    "gamma-wall-footprint": {
+      story: function (st) {
+        var d = st.dir = -(st.dir || -1), W, Z;
+        return [
+          rep(1, function (st) {
+            closeLevels(st); session(st);
+            W = level(st, st.price - 7 * d, d > 0 ? "Put wall" : "Call wall", d > 0 ? RED : GREEN, true);
+            Z = level(st, st.price + 3 * d, "Zero gamma", PURPLE);
+            return bar(st, { d: -0.3 * d, n: 0.3 });
+          }),
+          rep(10, function (st, k) { return bar(st, { to: W.y + 0.6 * d, pull: 0.16, n: 0.35, v: 0.4, flo: d > 0 ? W.y + 0.3 : null, cap: d < 0 ? W.y - 0.3 : null,
+                                                       mk: k === 5 ? { t: "Slow approach", col: SILK, below: d < 0 } : null }); }),
+          rep(1, function (st) { return bar(st, { to: W.y + 0.4 * d, pull: 0.8, n: 0.1, v: 1, lo: d > 0 ? W.y - 0.25 : null, hi: d < 0 ? W.y + 0.25 : null, pierce: true,
+                                                  flash: d > 0 ? RED : GREEN, mk: { t: d > 0 ? "3,000 sold \u00b7 no lower" : "3,000 bought \u00b7 no higher", col: d > 0 ? RED : GREEN, below: d > 0 } }); }),
+          rep(1, function (st) { var c = d > 0 ? GREEN : RED; return bar(st, { d: 1.5 * d, n: 0.15, v: 0.9, flash: c, mk: { t: d > 0 ? "Footprint knocks \u00b7 long" : "Footprint knocks \u00b7 short", col: c, below: d > 0 } }); }),
+          rep(4, function (st) { return bar(st, { d: 0.8 * d, n: 0.4 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.5 * d, n: 0.2, mk: { t: "Half off", col: ORANGE, below: d < 0 } }); }),
+          rep(1, function (st) { return bar(st, { d: -0.4 * d, n: 0.2 }); }),
+          rep(4, function (st) { return bar(st, { to: Z.y, pull: 0.45, n: 0.3, cap: d > 0 ? Z.y + 0.2 : null, flo: d < 0 ? Z.y - 0.2 : null }); }),
+          rep(1, function (st) { Z.label = "Zero gamma \u00b7 the rest out"; return bar(st, { to: Z.y, pull: 0.9, n: 0.1, mk: { t: "Next level", col: PURPLE, below: d < 0 } }); }),
+          rep(5, function (st) { return bar(st, { d: rnd(-0.5, 0.5), n: 0.6 }); })
+        ];
+      }
+    },
+
     /* Heatmap scalp: higher lows above VWAP, a first long cut early on big sellers, the bid holds the pullback to VWAP,
        long on the bid, add on the next pullback, out a few ticks under the wall of sell orders (alternates long / short) */
     "heatmap-scalp": {
