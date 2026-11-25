@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Does the hitchhiker scalp work? | The Trade Method</title>
+<meta name="description" content="Not on its own. Tested on 2,291 trades of 2-minute data, SMB&#x27;s first pullback to the 9 EMA made +0.01R per trade after costs. What held up and what didn&#x27;t.">
+<meta name="author" content="Bryant">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/blog/does-the-hitchhiker-scalp-work.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Does the hitchhiker scalp work?">
+<meta property="og:description" content="Not on its own. Tested on 2,291 trades of 2-minute data, SMB&#x27;s first pullback to the 9 EMA made +0.01R per trade after costs. What held up and what didn&#x27;t.">
+<meta property="og:url" content="https://thetrademethod.com/blog/does-the-hitchhiker-scalp-work.html">
+<meta property="og:image" content="https://thetrademethod.com/blog/img/does-the-hitchhiker-scalp-work-og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Does the hitchhiker scalp work?">
+<meta name="twitter:description" content="Not on its own. Tested on 2,291 trades of 2-minute data, SMB&#x27;s first pullback to the 9 EMA made +0.01R per trade after costs. What held up and what didn&#x27;t.">
+<meta name="twitter:image" content="https://thetrademethod.com/blog/img/does-the-hitchhiker-scalp-work-og.jpg">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "BlogPosting",
+   "@id": "https://thetrademethod.com/blog/does-the-hitchhiker-scalp-work.html#post",
+   "headline": "Does the hitchhiker scalp work?",
+   "alternativeHeadline": "The hitchhiker scalp, tested on 2,291 trades",
+   "abstract": "This article tests the hitchhiker scalp, an intraday momentum setup adapted from SMB Capital, on five years of 2-minute data. It matters because the setup is simple to state and widely taught, and the rules are easy to code. It covers the rules as tested, the overall result, how it split by side, time of day, year and stock, where the profit actually came from, and which change is worth testing next.",
+   "description": "Not on its own. Tested on 2,291 trades of 2-minute data, SMB's first pullback to the 9 EMA made +0.01R per trade after costs. What held up and what didn't.",
+   "url": "https://thetrademethod.com/blog/does-the-hitchhiker-scalp-work.html",
+   "mainEntityOfPage": "https://thetrademethod.com/blog/does-the-hitchhiker-scalp-work.html",
+   "image": [
+    "https://thetrademethod.com/blog/img/does-the-hitchhiker-scalp-work-og.jpg"
+   ],
+   "datePublished": "2026-11-25",
+   "dateModified": "2026-11-25",
+   "inLanguage": "en",
+   "articleSection": "Backtesting",
+   "keywords": "hitchhiker scalp, SMB Capital, 9 EMA pullback, 21 EMA, 2-minute chart, scalping, backtest, day trading",
+   "about": {
+    "@type": "Thing",
+    "name": "Hitchhiker Scalp",
+    "url": "https://thetrademethod.com/setups/hitchhiker-scalp.html"
+   },
+   "citation": [
+    {
+     "@type": "ScholarlyArticle",
+     "name": "Pseudo-Mathematics and Financial Charlatanism: The Effects of Backtest Overfitting on Out-of-Sample Performance",
+     "author": [
+      "David H. Bailey",
+      "Jonathan Borwein",
+      "Marcos López de Prado",
+      "Qiji Jim Zhu"
+     ],
+     "datePublished": "2014",
+     "isPartOf": {
+      "@type": "Periodical",
+      "name": "Notices of the American Mathematical Society"
+     },
+     "url": "https://scholarworks.wmich.edu/math_pubs/40/"
+    }
+   ],
+   "author": {
+    "@type": "Person",
+    "name": "Bryant",
+    "url": "https://thetrademethod.com/about.html",
+    "worksFor": {
+     "@type": "Organization",
+     "name": "The Trade Method",
+     "url": "https://thetrademethod.com/"
+    }
+   },
+   "publisher": {
+    "@type": "Organization",
+    "name": "The Trade Method",
+    "logo": {
+     "@type": "ImageObject",
+     "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+    }
+   },
+   "isPartOf": {
+    "@type": "WebSite",
+    "name": "The Trade Method",
+    "url": "https://thetrademethod.com/"
+   }
+  },
+  {
+   "@type": "FAQPage",
+   "url": "https://thetrademethod.com/blog/does-the-hitchhiker-scalp-work.html",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "Is the hitchhiker scalp profitable?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Not on its own in testing. Over 2,291 trades on 2-minute bars of 10 large-cap stocks from November 2021 to November 2026, the hitchhiker scalp made +0.01R per trade after costs, with a profit factor of 1.03 and a 40% win rate. That is break-even."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is the hitchhiker scalp?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The hitchhiker scalp is an intraday momentum setup taught by SMB Capital. After a stock in play makes an outsized move on heavy volume, the trader waits for the first pullback to the 9 EMA on the 2-minute chart, enters as the pullback slows, exits on a 2-minute close past the 21 EMA, takes 70% into momentum and trails the last 30%."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What time of day is best for the hitchhiker scalp?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The first hour after the open. In the five-year test, hitchhiker entries from 9:30 to 10:30 Eastern made +0.018R per trade, while entries after 10:30 lost 0.021R per trade. A separate TradingView run on AMD also did better when limited to the first hour."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does the hitchhiker scalp work better long or short?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Shorts did slightly better in testing: +0.023R per trade on 1,111 short trades against +0.002R on 1,180 long trades. The gap is too small to rely on."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is the win rate of the hitchhiker scalp?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "About 40%. The hitchhiker scalp depends on a few large winners: the median trade lost 0.23R, while the best 5% of trades made +237R in total, enough to cover the other 95%."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Why use the 21 EMA for the hitchhiker stop?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The 21 EMA marks where the move's trend is broken. A pullback that holds above it is still a pullback; a 2-minute close beyond it means the move has likely failed. Because the stop is a close, losses can run past 1R, so position size should be based on the distance to the 21 EMA."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Is there a TradingView indicator for the hitchhiker scalp?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. The Trade Method's Hitchhiker Scalp indicator (Pine Script v6) finds the move, waits for the first pullback to the 9 EMA, checks pullback volume, marks entries and stops, and has options to close flat at the end of the day and trade the first hour only. It is free on the Hitchhiker Scalp setup page."
+     }
+    }
+   ]
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Home",
+     "item": "https://thetrademethod.com/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Blog",
+     "item": "https://thetrademethod.com/blog/"
+    },
+    {
+     "@type": "ListItem",
+     "position": 3,
+     "name": "Does the hitchhiker scalp work?",
+     "item": "https://thetrademethod.com/blog/does-the-hitchhiker-scalp-work.html"
+    }
+   ]
+  }
+ ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=27">
+<link rel="stylesheet" href="/css/blog.css?v=3">
+
+<script src="/js/nav.js?v=35" defer></script>
+<script src="/js/site.js?v=71" defer></script>
+</head>
+
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="Blog"></div>
+
+<main id="top">
+  <header class="post-hero">
+    <div class="wrap">
+      <a class="post-back" href="/blog/">&lsaquo; Blog</a>
+      <p class="eyebrow">Hitchhiker Scalp, tested &middot; By <span class="post-author">Bryant</span> &middot; <time datetime="2026-11-25">November 25, 2026</time> &middot; Backtesting</p>
+      <h1>Does the hitchhiker scalp work?</h1>
+      <p class="lead">Five years of 2-minute bars, 10 large-cap stocks and 2,291 trades of SMB Capital's first-pullback scalp. <b>What held up, what didn't, and the one filter worth a closer look.</b></p>
+      <div class="hub-stats">
+        <div><b class="tnum">2,291</b><small>trades tested, Nov 2021 to Nov 2026</small></div>
+        <div><b class="tnum">+0.01R</b><small>average per trade after costs</small></div>
+        <div><b class="tnum">46R</b><small>worst peak-to-low drawdown</small></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="band white post-band">
+    <div class="post">
+
+      <article class="post-body">
+
+        <section aria-labelledby="short-answer">
+          <h2 id="short-answer">The short answer</h2>
+          <p class="post-answer">Not on its own. Tested on 2,291 trades over five years of 2-minute bars, the hitchhiker scalp (the first pullback to the 9 EMA after a strong move, stopped on a close past the 21 EMA) made +0.01R per trade after costs, a profit factor of 1.03. That is break-even. A few slices did better, but none clearly enough to call an edge.</p>
+          <p class="post-asof">Data: The Trade Method backtest of the <a href="/setups/hitchhiker-scalp.html">Hitchhiker Scalp</a> rules on 2-minute bars of 10 large-cap US stocks, November 2021 to November 2026, plus a TradingView run of the indicator on AMD, September 9 to November 20, 2026. Published <time datetime="2026-11-25">November 25, 2026</time>; last updated <time datetime="2026-11-25">November 25, 2026</time>.</p>
+          <aside class="post-summary" aria-label="Article summary">
+            <p class="post-summary-h">In this article</p>
+            <p>This article tests the hitchhiker scalp, an intraday momentum setup adapted from SMB Capital, on five years of 2-minute data. It matters because the setup is simple to state and widely taught, and the rules are easy to code. It covers the rules as tested, the overall result, how it split by side, time of day, year and stock, where the profit actually came from, and which change is worth testing next.</p>
+          </aside>
+        </section>
+
+        <div class="post-toc-wrap">
+          <nav class="post-toc" aria-label="On this page">
+            <p class="post-toc-h">On this page</p>
+            <ol>
+              <li><a href="#short-answer">The short answer</a></li>
+              <li><a href="#key-results">Key results</a></li>
+              <li><a href="#key-terms">Key terms</a></li>
+              <li><a href="#rules">The rules that were tested</a></li>
+              <li><a href="#over-time">How the results moved over time</a></li>
+              <li><a href="#breakdown">Long or short, early or late</a></li>
+              <li><a href="#by-stock">Which stocks it worked on</a></li>
+              <li><a href="#where-profit">Where the profit came from</a></li>
+              <li><a href="#amd">The AMD check in TradingView</a></li>
+              <li><a href="#verdict">How to use it</a></li>
+              <li><a href="#research">What the research says</a></li>
+              <li><a href="#faq">Frequently asked questions</a></li>
+            </ol>
+          </nav>
+        </div>
+
+        <section aria-labelledby="key-results">
+          <h2 id="key-results">Key results</h2>
+          <ul>
+            <li><b>Overall:</b> 2,291 trades, 40% winners, profit factor 1.03, +0.01R per trade, +27.9R in total over five years.</li>
+            <li><b>Training vs holdout:</b> &minus;0.003R per trade before June 2024 (1,083 trades) and +0.026R after it (1,208 trades). Both are close to zero.</li>
+            <li><b>Side:</b> shorts +0.023R per trade, longs +0.002R.</li>
+            <li><b>Time of day:</b> entries from 9:30 to 10:30 made +0.018R per trade; entries after 10:30 lost &minus;0.021R.</li>
+            <li><b>Stocks:</b> 6 of 10 were positive. HOOD (+0.12R) and META (+0.08R) were best; MSFT and AMD (both &minus;0.06R) were worst.</li>
+            <li><b>Drawdown:</b> the running total fell 46R from its September 2023 peak to its October 2025 low before recovering.</li>
+            <li><b>Shape:</b> the median trade lost 0.23R. The best 5% of trades made +237R; the other 95% lost about 209R.</li>
+          </ul>
+          <div class="post-table">
+            <table>
+              <caption>Hitchhiker Scalp backtest, 2-minute bars, November 2021 to November 2026</caption>
+              <thead><tr><th scope="col">Group</th><th scope="col">Avg per trade</th><th scope="col">Trades</th><th scope="col">Win rate</th><th scope="col">Profit factor</th></tr></thead>
+              <tbody class="tnum">
+                <tr><td>All trades</td><td>+0.01R</td><td>2,291</td><td>40%</td><td>1.03</td></tr>
+                <tr><td>Training (before June 2024)</td><td>&minus;0.00R</td><td>1,083</td><td>39%</td><td>0.99</td></tr>
+                <tr><td>Holdout (June 2024 on)</td><td>+0.03R</td><td>1,208</td><td>41%</td><td>1.07</td></tr>
+                <tr><td>Longs</td><td>+0.00R</td><td>1,180</td><td>40%</td><td>1.01</td></tr>
+                <tr><td>Shorts</td><td>+0.02R</td><td>1,111</td><td>41%</td><td>1.06</td></tr>
+                <tr><td>Entries 9:30 to 10:30</td><td>+0.02R</td><td>1,925</td><td>41%</td><td>1.05</td></tr>
+                <tr><td>Entries after 10:30</td><td>&minus;0.02R</td><td>366</td><td>36%</td><td>0.95</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section aria-labelledby="key-terms">
+          <h2 id="key-terms">Key terms</h2>
+          <dl class="post-terms">
+            <div><dt>Hitchhiker scalp</dt><dd>An intraday momentum setup taught by SMB Capital: after a stock in play makes an outsized move on heavy volume, wait for the first pullback instead of chasing, then ride the next leg.</dd></div>
+            <div><dt>9 EMA and 21 EMA</dt><dd>Exponential moving averages of the last 9 and 21 bars. In the hitchhiker scalp the 9 EMA marks the entry area and a bar closing past the 21 EMA ends the trade.</dd></div>
+            <div><dt>R</dt><dd>The amount risked on a trade. +1R means the trade made what it risked; &minus;0.5R means it lost half of it.</dd></div>
+            <div><dt>Profit factor</dt><dd>Total won divided by total lost. 1.0 is break-even; 1.03 means the winners covered the losers with 3% to spare.</dd></div>
+            <div><dt>Holdout</dt><dd>The later part of the data, kept apart from the period the rules were checked on, used to see if a result still holds on data it has not seen.</dd></div>
+            <div><dt>Drawdown</dt><dd>The drop in the running total from a high point to the lowest point after it.</dd></div>
+          </dl>
+        </section>
+
+        <section aria-labelledby="rules">
+          <h2 id="rules">The rules that were tested</h2>
+          <p>The test coded the rules from The Trade Method's <a href="/setups/hitchhiker-scalp.html">Hitchhiker Scalp</a> page at its default settings, long and short:</p>
+          <ol>
+            <li><b>The move:</b> a fast, one-directional run on the 2-minute chart, well away from the 9 EMA, on volume well above normal.</li>
+            <li><b>The pullback:</b> the first pullback to the 9 EMA after that move, holding the 21 EMA, ideally on lighter volume than the move.</li>
+            <li><b>The entry:</b> as the pullback slows and turns, a tick past the prior bar.</li>
+            <li><b>The stop:</b> a 2-minute close past the 21 EMA.</li>
+            <li><b>The exit:</b> 70% sold in small pieces into new highs (or lows), the last 30% trailed on the prior 2-minute bar.</li>
+          </ol>
+          <p>Fills were at the bar close, 0.5 basis points a side were charged for the spread, and any single trade was capped at +10R. Every entry in the data came between 9:34 and 11:22 Eastern, because that is when the big opening moves the setup needs show up.</p>
+          <p>One limit matters: the setup is meant for a stock in play, one with abnormal volume, a large range and a reason to move that day. A backtest can't pick those the way a trader does each morning, so the test ran on the same 10 liquid stocks every day (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA and TSLA).</p>
+        </section>
+
+        <section aria-labelledby="over-time">
+          <h2 id="over-time">How the hitchhiker scalp results moved over time</h2>
+          <p>The running total ended five years at +27.9R, but the path matters more than the end point. The hitchhiker scalp was up 28.6R by September 2023, gave all of it back and more by October 2025 (&minus;17.8R), then made it back in 2026.</p>
+          <figure class="post-fig">
+            <img src="/blog/img/hitchhiker-scalp-tested.webp" width="1600" height="820" loading="lazy" decoding="async" alt="Line chart of the hitchhiker scalp's running total in R across 2,291 trades from November 2021 to November 2026. It rises to a peak of +28.6R in September 2023, falls to a low of -17.8R in October 2025, and ends at +27.9R. The holdout period from June 2024 is shaded.">
+            <figcaption>A 46R drop from peak to low took two years. At 1% of the account risked per trade, that is close to half the account gone before the recovery.</figcaption>
+          </figure>
+          <div class="post-table">
+            <table>
+              <caption>Hitchhiker Scalp by year (2021 is mid-November on; 2026 runs to mid-November)</caption>
+              <thead><tr><th scope="col">Year</th><th scope="col">Avg per trade</th><th scope="col">Trades</th><th scope="col">Win rate</th><th scope="col">Profit factor</th></tr></thead>
+              <tbody class="tnum">
+                <tr><td>2021</td><td>&minus;0.22R</td><td>19</td><td>42%</td><td>0.47</td></tr>
+                <tr><td>2022</td><td>+0.04R</td><td>413</td><td>42%</td><td>1.10</td></tr>
+                <tr><td>2023</td><td>&minus;0.00R</td><td>452</td><td>38%</td><td>0.99</td></tr>
+                <tr><td>2024</td><td>+0.01R</td><td>505</td><td>40%</td><td>1.03</td></tr>
+                <tr><td>2025</td><td>&minus;0.06R</td><td>466</td><td>38%</td><td>0.85</td></tr>
+                <tr><td>2026</td><td>+0.09R</td><td>436</td><td>43%</td><td>1.30</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>2026 is the best year in the test. It is also the year right after the worst one, which is what a setup with no stable edge looks like: good and bad stretches that roughly cancel out.</p>
+        </section>
+
+        <section aria-labelledby="breakdown">
+          <h2 id="breakdown">Long or short, early or late</h2>
+          <p>Shorts did a little better than longs (+0.023R against +0.002R per trade), and entries in the first hour did better than later ones (+0.018R against &minus;0.021R). Both gaps point the same way traders expect, since the strongest moves and the heaviest volume come right after the open. Neither gap is large enough to stand on its own: 0.02R per trade is about the size of a slightly worse fill.</p>
+          <p>The time-of-day split is still the most useful finding here. First-hour entries were positive in both halves of the data (+0.008R per trade in training, +0.028R in the holdout). Later entries lost overall, mostly from late longs (&minus;0.15R per trade over 170 trades), so skipping hitchhiker longs after 10:30 cost nothing in this test.</p>
+        </section>
+
+        <section aria-labelledby="by-stock">
+          <h2 id="by-stock">Which stocks the hitchhiker scalp worked on</h2>
+          <div class="post-table">
+            <table>
+              <caption>Hitchhiker Scalp by stock, 2-minute bars, November 2021 to November 2026</caption>
+              <thead><tr><th scope="col">Stock</th><th scope="col">Avg per trade</th><th scope="col">Trades</th><th scope="col">Win rate</th><th scope="col">Profit factor</th></tr></thead>
+              <tbody class="tnum">
+                <tr><td>HOOD</td><td>+0.12R</td><td>204</td><td>44%</td><td>1.38</td></tr>
+                <tr><td>META</td><td>+0.08R</td><td>244</td><td>46%</td><td>1.23</td></tr>
+                <tr><td>COIN</td><td>+0.05R</td><td>228</td><td>40%</td><td>1.14</td></tr>
+                <tr><td>TSLA</td><td>+0.03R</td><td>235</td><td>40%</td><td>1.11</td></tr>
+                <tr><td>MU</td><td>+0.03R</td><td>231</td><td>39%</td><td>1.09</td></tr>
+                <tr><td>GOOG</td><td>+0.02R</td><td>238</td><td>39%</td><td>1.06</td></tr>
+                <tr><td>NVDA</td><td>&minus;0.04R</td><td>224</td><td>37%</td><td>0.90</td></tr>
+                <tr><td>AAPL</td><td>&minus;0.05R</td><td>222</td><td>37%</td><td>0.86</td></tr>
+                <tr><td>AMD</td><td>&minus;0.06R</td><td>259</td><td>40%</td><td>0.87</td></tr>
+                <tr><td>MSFT</td><td>&minus;0.06R</td><td>206</td><td>39%</td><td>0.85</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>The faster, more volatile names (HOOD, COIN, TSLA) leaned positive and the slower mega-caps (AAPL, MSFT) leaned negative, which fits the setup's own advice to trade stocks in play. With about 200 trades per stock, though, a 0.1R gap between two stocks can come from luck alone, so the table is a hint, not a list of what to trade.</p>
+        </section>
+
+        <section aria-labelledby="where-profit">
+          <h2 id="where-profit">Where the hitchhiker scalp's profit came from</h2>
+          <p>The typical hitchhiker trade lost money. The median trade was &minus;0.23R, and 6 of every 10 trades were losers, most of them small, as the pullback failed and price closed back past the 21 EMA. The 70/30 exit is built for the few trades that keep running: 36 trades made +2R or more, the best made +7.3R, and the top 5% of trades (about 115) added up to +237R. The other 95% lost about 209R between them.</p>
+          <p>That shape has two practical effects. Skipping a few trades, or cutting a runner early, can turn the whole result negative. And the stop is a close past the 21 EMA, not a fixed price, so 159 trades lost more than 1R when a bar closed well beyond the average. Sizing on the distance to the 21 EMA, as the setup page shows, is what keeps those losses close to 1R.</p>
+        </section>
+
+        <section aria-labelledby="amd">
+          <h2 id="amd">The AMD check in TradingView</h2>
+          <p>A separate run of the <a href="/setups/hitchhiker-scalp.html#indicator">Hitchhiker Scalp indicator</a> in TradingView on AMD 2-minute bars, from September 9 to November 20, 2026, gave a similar first read: 62 trades, 40% winners and &minus;12.1R, partly because that first version could hold a trade overnight. Two changes were then added to the indicator as options: close any open trade at the end of the day (now on by default), and trade the first hour only.</p>
+          <ul>
+            <li><b>Flat at the close:</b> 64 trades, &minus;11.7R.</li>
+            <li><b>Flat at the close and first hour only:</b> 33 trades, 58% winners, +1.8R.</li>
+          </ul>
+          <p>That lines up with the five-year test, where first-hour entries were the better half. It is still 33 trades on one stock over about ten weeks, far too few to prove anything by itself.</p>
+        </section>
+
+        <section aria-labelledby="verdict">
+          <h2 id="verdict">How to use the hitchhiker scalp</h2>
+          <p>As tested, the hitchhiker scalp is a break-even setup. That is not the same as useless: it describes a sound habit (don't chase, wait for the first pullback, define the risk at the 21 EMA), and break-even before a trader's own stock selection leaves room for that selection to add something. What the data does not support is trading every 9 EMA pullback on a fixed list of stocks and expecting it to pay.</p>
+          <ul>
+            <li><b>Trade the first hour.</b> Entries after 10:30 were negative in the five-year test and in the AMD run.</li>
+            <li><b>Pick the stock in play.</b> The test couldn't, and the more volatile names did better, so this is where a trader's own work has to come in.</li>
+            <li><b>Keep the runner.</b> The result lives in the top 5% of trades; the trailed 30% is what catches them.</li>
+            <li><b>Size on the 21 EMA.</b> The stop is a close, so the distance to the 21 EMA is the real risk.</li>
+            <li><b>Track it before sizing up.</b> A 46R drawdown was part of the five-year path; small size until a trader's own record shows an edge.</li>
+          </ul>
+          <p>The full setup, with a walkthrough, a pullback volume checker, a size calculator and the TradingView indicator, is on the <a href="/setups/hitchhiker-scalp.html">Hitchhiker Scalp page</a>. Other setups tested the same way are on <a href="/tested-results.html">the tested results page</a>.</p>
+        </section>
+
+        <section aria-labelledby="research">
+          <h2 id="research">What the research says</h2>
+          <blockquote class="post-quote">
+            <p>&ldquo;We prove that high simulated performance is easily achievable after backtesting&rdquo; a relatively small number of strategy configurations.</p>
+            <footer>David H. Bailey, Jonathan Borwein, Marcos L&oacute;pez de Prado and Qiji Jim Zhu, <cite><a href="https://scholarworks.wmich.edu/math_pubs/40/" target="_blank" rel="noopener">&ldquo;Pseudo-Mathematics and Financial Charlatanism: The Effects of Backtest Overfitting on Out-of-Sample Performance&rdquo;</a></cite>, Notices of the American Mathematical Society 61(5), 2014.</footer>
+          </blockquote>
+          <p>This article cut one test seven ways (side, hour, year, stock and more), and some cuts look good: HOOD at +0.12R per trade, 2026 at +0.09R, the AMD first-hour run at +1.8R. That is the trap Bailey and his co-authors describe. Slice any break-even result enough times and some slices will look like an edge. The first-hour filter is the one worth testing on its own, because there is a reason behind it (the opening moves carry the volume the setup needs) and it showed up in two separate runs, but it needs new data before it counts.</p>
+        </section>
+
+        <section aria-labelledby="faq">
+          <h2 id="faq">Frequently asked questions</h2>
+          <div class="post-faq">
+            <h3 id="faq-1">Is the hitchhiker scalp profitable?</h3>
+            <p>Not on its own in testing. Over 2,291 trades on 2-minute bars of 10 large-cap stocks from November 2021 to November 2026, the hitchhiker scalp made +0.01R per trade after costs, with a profit factor of 1.03 and a 40% win rate. That is break-even.</p>
+            <h3 id="faq-2">What is the hitchhiker scalp?</h3>
+            <p>The hitchhiker scalp is an intraday momentum setup taught by SMB Capital. After a stock in play makes an outsized move on heavy volume, the trader waits for the first pullback to the 9 EMA on the 2-minute chart, enters as the pullback slows, exits on a 2-minute close past the 21 EMA, takes 70% into momentum and trails the last 30%.</p>
+            <h3 id="faq-3">What time of day is best for the hitchhiker scalp?</h3>
+            <p>The first hour after the open. In the five-year test, hitchhiker entries from 9:30 to 10:30 Eastern made +0.018R per trade, while entries after 10:30 lost 0.021R per trade. A separate TradingView run on AMD also did better when limited to the first hour.</p>
+            <h3 id="faq-4">Does the hitchhiker scalp work better long or short?</h3>
+            <p>Shorts did slightly better in testing: +0.023R per trade on 1,111 short trades against +0.002R on 1,180 long trades. The gap is too small to rely on.</p>
+            <h3 id="faq-5">What is the win rate of the hitchhiker scalp?</h3>
+            <p>About 40%. The hitchhiker scalp depends on a few large winners: the median trade lost 0.23R, while the best 5% of trades made +237R in total, enough to cover the other 95%.</p>
+            <h3 id="faq-6">Why use the 21 EMA for the hitchhiker stop?</h3>
+            <p>The 21 EMA marks where the move's trend is broken. A pullback that holds above it is still a pullback; a 2-minute close beyond it means the move has likely failed. Because the stop is a close, losses can run past 1R, so position size should be based on the distance to the 21 EMA.</p>
+            <h3 id="faq-7">Is there a TradingView indicator for the hitchhiker scalp?</h3>
+            <p>Yes. The Trade Method's Hitchhiker Scalp indicator (Pine Script v6) finds the move, waits for the first pullback to the 9 EMA, checks pullback volume, marks entries and stops, and has options to close flat at the end of the day and trade the first hour only. It is free on the Hitchhiker Scalp setup page.</p>
+          </div>
+        </section>
+
+        <section aria-labelledby="disclaimer">
+          <h2 id="disclaimer">Disclaimer</h2>
+          <p class="post-disclaim"><b>Not financial advice.</b> The Trade Method is a learning notebook, not an advisory service. These are backtest results on past data with simplified fills and costs; live results differ, and past results, including backtests, don't guarantee future results. Trading involves substantial risk of loss.</p>
+        </section>
+
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer class="gfoot" data-gfooter></footer>
+
+</body>
+</html>
