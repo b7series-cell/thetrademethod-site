@@ -146,7 +146,7 @@
      "name": "What time of day is best for the hitchhiker scalp?",
      "acceptedAnswer": {
       "@type": "Answer",
-      "text": "The first hour after the open. In the five-year test, hitchhiker entries from 9:30 to 10:30 Eastern made +0.018R per trade, while entries after 10:30 lost 0.021R per trade. A separate TradingView run on AMD also did better when limited to the first hour."
+      "text": "The first hour after the open. In the five-year test, hitchhiker entries from 9:30 to 10:30 Eastern made +0.018R per trade, while entries after 10:30 lost 0.021R per trade. A separate TradingView run on AMD also did better when limited to the first hour. The losses after 10:30 came from longs; late shorts made about +0.09R per trade on 196 trades, too few to rely on."
      }
     },
     {
@@ -363,7 +363,7 @@
         <section aria-labelledby="breakdown">
           <h2 id="breakdown">Long or short, early or late</h2>
           <p>Shorts did a little better than longs (+0.023R against +0.002R per trade), and entries in the first hour did better than later ones (+0.018R against &minus;0.021R). Both gaps point the same way traders expect, since the strongest moves and the heaviest volume come right after the open. Neither gap is large enough to stand on its own: 0.02R per trade is about the size of a slightly worse fill.</p>
-          <p>The time-of-day split is still the most useful finding here. First-hour entries were positive in both halves of the data (+0.008R per trade in training, +0.028R in the holdout). Later entries lost overall, mostly from late longs (&minus;0.15R per trade over 170 trades), so skipping hitchhiker longs after 10:30 cost nothing in this test.</p>
+          <p>The time-of-day split is still the most useful finding here. First-hour entries were positive in both halves of the data (+0.008R per trade in training, +0.028R in the holdout). Later entries lost overall, mostly from late longs (&minus;0.15R per trade over 170 trades), so skipping hitchhiker longs after 10:30 cost nothing in this test. Late shorts went the other way, about +0.09R per trade on 196 trades, which is too small a sample to build on.</p>
         </section>
 
         <section aria-labelledby="by-stock">
@@ -409,7 +409,7 @@
           <h2 id="verdict">How to use the hitchhiker scalp</h2>
           <p>As tested, the hitchhiker scalp is a break-even setup. That is not the same as useless: it describes a sound habit (don't chase, wait for the first pullback, define the risk at the 21 EMA), and break-even before a trader's own stock selection leaves room for that selection to add something. What the data does not support is trading every 9 EMA pullback on a fixed list of stocks and expecting it to pay.</p>
           <ul>
-            <li><b>Trade the first hour.</b> Entries after 10:30 were negative in the five-year test and in the AMD run.</li>
+            <li><b>Skip longs after 10:30.</b> Late longs lost &minus;0.15R per trade over 170 trades. Late shorts did better (about +0.09R on 196 trades), but that is too few to rely on, so first-hour trades remain the core.</li>
             <li><b>Pick the stock in play.</b> The test couldn't, and the more volatile names did better, so this is where a trader's own work has to come in.</li>
             <li><b>Keep the runner.</b> The result lives in the top 5% of trades; the trailed 30% is what catches them.</li>
             <li><b>Size on the 21 EMA.</b> The stop is a close, so the distance to the 21 EMA is the real risk.</li>
@@ -435,7 +435,7 @@
             <h3 id="faq-2">What is the hitchhiker scalp?</h3>
             <p>The hitchhiker scalp is an intraday momentum setup taught by SMB Capital. After a stock in play makes an outsized move on heavy volume, the trader waits for the first pullback to the 9 EMA on the 2-minute chart, enters as the pullback slows, exits on a 2-minute close past the 21 EMA, takes 70% into momentum and trails the last 30%.</p>
             <h3 id="faq-3">What time of day is best for the hitchhiker scalp?</h3>
-            <p>The first hour after the open. In the five-year test, hitchhiker entries from 9:30 to 10:30 Eastern made +0.018R per trade, while entries after 10:30 lost 0.021R per trade. A separate TradingView run on AMD also did better when limited to the first hour.</p>
+            <p>The first hour after the open. In the five-year test, hitchhiker entries from 9:30 to 10:30 Eastern made +0.018R per trade, while entries after 10:30 lost 0.021R per trade. A separate TradingView run on AMD also did better when limited to the first hour. The losses after 10:30 came from longs; late shorts made about +0.09R per trade on 196 trades, too few to rely on.</p>
             <h3 id="faq-4">Does the hitchhiker scalp work better long or short?</h3>
             <p>Shorts did slightly better in testing: +0.023R per trade on 1,111 short trades against +0.002R on 1,180 long trades. The gap is too small to rely on.</p>
             <h3 id="faq-5">What is the win rate of the hitchhiker scalp?</h3>
