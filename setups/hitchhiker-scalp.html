@@ -227,7 +227,7 @@
 <link rel="stylesheet" href="/css/apple.css?v=27">
 <link rel="stylesheet" href="/css/tested.css?v=3">
 <script src="/js/nav.js?v=35" defer></script>
-<script src="/js/site.js?v=70" defer></script>
+<script src="/js/site.js?v=73" defer></script>
 <script src="/js/hh-anim.js?v=1" defer></script>
 <style>
   /* steps across the page, the two panels side by side under them */
@@ -784,9 +784,10 @@
       <li><b>+0.01R</b><span>average per trade</span></li>
     </ul>
     <ul class="tested-notes">
-      <li>The test can't pick stocks in play the way the page asks, so it ran on the same 12 tickers every day.</li>
+      <li>The test can't pick stocks in play the way the page asks, so it ran on the same 10 large-cap stocks every day.</li>
+      <li>The full breakdown by side, time of day, year and stock is in the blog post <a href="/blog/does-the-hitchhiker-scalp-work.html">Does the hitchhiker scalp work?</a></li>
     </ul>
-    <p class="tested-how"><b>How we tested.</b> 5 years of price history, Nov 2021 to Nov 2026, on SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA). Rules coded from this page at its default settings. Fills at the bar close, the stop wins when stop and target are hit in the same bar, 0.5 bp a side for the spread, results in R capped at +10R. Trades before June 2024 are the training half, after it the holdout. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+    <p class="tested-how"><b>How we tested.</b> 5 years of price history, Nov 2021 to Nov 2026, on 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA). Rules coded from this page at its default settings. Fills at the bar close, the stop wins when stop and target are hit in the same bar, 0.5 bp a side for the spread, results in R capped at +10R. Trades before June 2024 are the training half, after it the holdout. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
   </section>
   <!--tested:end-->
 

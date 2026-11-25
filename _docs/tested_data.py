@@ -239,8 +239,9 @@ PAGES = [
  "headline": "Break-even over 2,291 trades",
  "lead": "The first pullback to the 9 EMA on the 2-minute chart, with the 70/30 exit, roughly paid for its costs and no more.",
  "stats": [["2,291", "trades, 2-minute"], ["40%", "win rate"], ["1.03", "profit factor"], ["+0.01R", "average per trade"]],
- "notes": ["The test can't pick stocks in play the way the page asks, so it ran on the same 12 tickers every day."],
- "how": LOCAL,
+ "notes": ["The test can't pick stocks in play the way the page asks, so it ran on the same 10 large-cap stocks every day.",
+           "The full breakdown by side, time of day, year and stock is in the blog post <a href=\"/blog/does-the-hitchhiker-scalp-work.html\">Does the hitchhiker scalp work?</a>"],
+ "how": LOCAL.replace("on SPY, QQQ and 10 large-cap stocks", "on 10 large-cap stocks"),
 },
 {
  "path": "setups/volume-profile-system.html", "name": "Volume Profile System", "group": "Setups",
