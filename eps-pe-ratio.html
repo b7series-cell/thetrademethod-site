@@ -1,0 +1,832 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>EPS and the P/E Ratio Explained for Beginners | The Trade Method</title>
+<meta name="description" content="Earnings per share and the price-to-earnings ratio explained: the formulas, worked examples, dilution and buybacks, P/E by industry, and trailing vs forward P/E.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/eps-pe-ratio.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="EPS and the P/E Ratio Explained for Beginners">
+<meta property="og:description" content="Earnings per share and the price-to-earnings ratio explained: the formulas, worked examples, dilution and buybacks, P/E by industry, and trailing vs forward P/E.">
+<meta property="og:url" content="https://thetrademethod.com/eps-pe-ratio.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="EPS and the P/E Ratio Explained for Beginners">
+<meta name="twitter:description" content="Earnings per share and the price-to-earnings ratio explained: the formulas, worked examples, dilution and buybacks, P/E by industry, and trailing vs forward P/E.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "EPS and the P/E Ratio — earnings per share and what you pay for it",
+ "name": "EPS and the P/E Ratio",
+ "description": "Two beginner videos from Martik Finance on one page: earnings per share is net income minus preferred dividends, divided by shares outstanding (Company A earns $4.80 a share, Company B $3.85), what moves EPS (profit, dilution from new shares, buybacks), negative EPS, and its pros and cons. The P/E ratio is the share price divided by EPS: what investors pay for $1 of yearly earnings, why it varies by industry, comparing against the industry average (FreshBite at 10, Tasty Treats at 15, average 12), and trailing vs forward P/E (BrightTech at 20 trailing, 10 forward).",
+ "url": "https://thetrademethod.com/eps-pe-ratio.html",
+ "mainEntityOfPage": "https://thetrademethod.com/eps-pe-ratio.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-26",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Person",
+  "name": "Bryant",
+  "url": "https://thetrademethod.com/about.html"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.eight { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=27">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the way back: five cards, or a stepper once js/sp-anim.js runs */
+  .sp-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .sp-steps .stage, .sheet .sp-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .sp-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .sp-steps.is-stepper .stage, .sheet .sp-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .sp-steps.is-stepper .stage .num { display:none; }
+  .sheet .sp-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .sp-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .sp-steps + .four { margin-top:28px; }
+  .sp-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .sp-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .sp-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .sp-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .sp-steps { margin-top:24px; }
+  }
+
+  @media (min-width:1101px) { .ribbon.eight { grid-template-columns:repeat(8,1fr); } }
+
+  /* calculator */
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in label { font-size:12px; color:var(--ash); display:block; }
+  .calc-in input { width:100%; margin-top:4px; background:var(--raised); color:var(--silk); border:1px solid #3a3a3c; border-radius:10px;
+                   padding:9px 11px; font:inherit; font-size:15px; font-variant-numeric:tabular-nums; }
+  .calc-in input:focus { outline:2px solid #2997ff; outline-offset:1px; }
+  .presets { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 12px; }
+  .presets .pill { font-size:13px; padding:6px 14px; }
+
+  /* the one-line invalidation */
+  .plan { margin:0; padding:16px 18px; background:var(--raised); border-radius:18px; font-family:var(--mono-font); font-size:13.5px; color:var(--silk); white-space:pre-wrap; line-height:1.6; }
+
+  /* pick your stop */
+  .pick { text-align:left; font:inherit; color:inherit; border:2px solid transparent; cursor:pointer; background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pick:hover { border-color:#3a3a3c; }
+  .pick.is-on { border-color:#2997ff; }
+  .pick .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pick b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pick p { margin:0; color:var(--mute); font-size:14px; }
+  .pick-out { margin-top:14px; color:var(--silk); font-size:15px; }
+  .pick-out:empty { display:none; }
+  .pick-out p { margin:0 0 6px; }
+  [data-sp-pick] { margin:0 0 28px; }
+
+  /* calculators */
+  .calc-out { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+  .calc-out div { background:var(--raised); border-radius:14px; padding:10px 12px; }
+  .calc-out span { display:block; font-size:12px; color:var(--ash); }
+  .calc-out b { font-family:var(--mono-font); font-weight:600; font-size:18px; }
+  .meter { position:relative; height:12px; background:#2c2c2e; border-radius:6px; margin:14px 0 6px; overflow:hidden; }
+  .meter i { position:absolute; left:0; top:0; bottom:0; background:#ff9f0a; border-radius:6px; transition:width .3s ease; }
+  .calc-note { margin:8px 0 0; color:var(--mute); font-size:14px; }
+  .ev-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  .ev-grid fieldset { border:0; margin:0; padding:12px; background:var(--raised); border-radius:16px; display:grid; gap:8px; }
+  .ev-grid legend { float:left; width:100%; font-weight:600; font-size:15px; margin-bottom:2px; }
+  .ev-grid label { font-size:12px; color:var(--ash); display:block; }
+  .ev-grid input { width:100%; margin-top:4px; background:#1d1d1f; color:var(--silk); border:1px solid #3a3a3c; border-radius:10px; padding:8px 10px; font:inherit; font-size:15px; font-variant-numeric:tabular-nums; }
+  .ev-res { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .ev-res div { background:var(--raised); border-radius:14px; padding:10px 12px; border-left:3px solid #3a3a3c; }
+  .ev-res div.best { border-left-color:#30d158; }
+  .ev-res span { display:block; font-size:12px; color:var(--ash); }
+  .ev-res b { font-family:var(--mono-font); font-size:18px; font-weight:600; }
+  .table-wrap { overflow-x:auto; }
+  @media (max-width:680px) {
+    .calc-out { grid-template-columns:1fr 1fr; }
+    .calc-in[style] { grid-template-columns:1fr 1fr 1fr !important; }
+    .ev-grid, .ev-res { grid-template-columns:1fr; }
+    .pick-out { font-size:14.5px; }
+    table { font-size:13px; } th, td { padding:8px 8px; }
+    .table-wrap table { min-width:640px; }
+    .table-wrap caption { max-width:340px; }
+  }
+</style>
+<style>
+  /* ---------- shared with futures-basics ---------- */
+  .filters.six { grid-template-columns:repeat(3,1fr); }
+  .calc-in select { width:100%; margin-top:4px; background:var(--raised); color:var(--silk); border:1px solid #3a3a3c; border-radius:10px;
+                    padding:9px 11px; font:inherit; font-size:15px; }
+  .presets .pill.is-on { background:#2997ff; color:#000; }
+  .calc-out.three { grid-template-columns:repeat(3,1fr); }
+  .sp-steps + .video { margin-top:72px; }
+  @media (max-width:1100px) { .filters.six { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:680px) {
+    .filters.six { grid-template-columns:1fr; }
+    .calc-in[style] { grid-template-columns:1fr 1fr !important; }
+    .calc-out.three { grid-template-columns:1fr 1fr; }
+    .sp-steps + .video { margin-top:56px; }
+  }
+</style>
+<style>
+  /* ---------- basics pages (bx-anim.js) ---------- */
+  .filters.three { grid-template-columns:repeat(3,1fr); }
+  .filters.four { grid-template-columns:repeat(4,1fr); }
+  .four.two { grid-template-columns:repeat(2,1fr); }
+  .video ol.plain { list-style:disc; }
+  .table-wrap td.txt b { color:var(--silk); }
+  [data-bx-pick] .pair { margin-top:0; }
+  [data-bx-pick] .pick-out { margin-top:16px; }
+  @media (max-width:1100px) { .filters.four { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:680px) {
+    .filters.three, .filters.four, .four.two { grid-template-columns:1fr; }
+    [data-bx-pick] .pair { grid-template-columns:1fr; }
+  }
+</style>
+<script src="/js/nav.js?v=36" defer></script>
+<script src="/js/site.js?v=76" defer></script>
+<script src="/js/bx-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=50" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What are EPS and the P/E ratio?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Earnings per share (EPS) is a company's net income, minus preferred dividends, divided by its shares outstanding: the profit each share earns. The price-to-earnings (P/E) ratio is the share price divided by EPS: how many dollars investors pay for each dollar of yearly earnings."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do you calculate earnings per share?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Subtract preferred dividends from net income, then divide by the common shares outstanding. A company with $5,000,000 of net income, $200,000 of preferred dividends and 1,000,000 shares has an EPS of $4.80."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What makes EPS go up or down?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Profit and the share count. Higher net income raises EPS. Issuing new shares (dilution) lowers it, and buying shares back raises it, even with no change in profit."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is a good P/E ratio?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "There isn't one number. P/E ranges differ by industry: growth industries like tech often run high, mature or cyclical ones like utilities run low. Compare a company with its own industry's average."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the difference between trailing and forward P/E?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Trailing P/E uses the last 12 months of actual earnings. Forward P/E uses analysts' estimates for the next 12 months. A forward P/E below the trailing one means earnings are expected to grow."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can EPS be negative?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes, when a company has a net loss. Then the P/E isn't meaningful. It doesn't automatically mean a bad investment: look at why, and at revenue growth, cash flow and debt."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Does a low P/E mean a stock is cheap?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not always. It can mean the stock is undervalued, or that the company is facing problems. A high P/E can mean expected growth rather than overvaluation."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
+<!-- breadcrumbs --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://thetrademethod.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Basics",
+   "item": "https://thetrademethod.com/basics/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "EPS and the P/E Ratio Explained for Beginners",
+   "item": "https://thetrademethod.com/eps-pe-ratio.html"
+  }
+ ]
+}
+</script><!-- /breadcrumbs -->
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="EPS and the P/E Ratio"></div>
+<div class="sheet">
+
+  <a class="back" href="/basics/">&lsaquo; Basics</a>
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-26">Nov 26, 2026</time></p><!-- /byline -->
+
+  <header class="top" data-candle-bg="eps-pe-ratio">
+    <div>
+      <p class="kicker">Basics &middot; from Martik Finance's "What is Earnings Per Share (EPS) of a Stock?" and "What is the PE Ratio of a Stock?"</p>
+      <h1><span>EPS</span> and the P/E Ratio</h1>
+    </div>
+    <div>
+      <p class="thesis">Own a share and you own a slice of the company's profit. Earnings per share is the size of that slice. The P/E ratio is what investors are paying for it.
+      <em>Neither number means much without context.</em></p>
+      <div class="counts">
+        <div><b>$4.80</b><small>Company A's earnings per share</small></div>
+        <div><b>20</b><small>P/E: $20 paid per $1 earned</small></div>
+        <div><b>2</b><small>kinds of P/E: trailing and forward</small></div>
+      </div>
+    </div>
+  </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What are EPS and the P/E ratio?</h2><p>Earnings per share (EPS) is a company's net income, minus preferred dividends, divided by its shares outstanding: the profit each share earns. The price-to-earnings (P/E) ratio is the share price divided by EPS: how many dollars investors pay for each dollar of yearly earnings.</p></section><!-- /define -->
+
+  <nav class="ribbon" aria-label="EPS and P/E, in five ideas">
+    <div><div class="t">EPS</div><div class="n">Profit per share</div></div>
+    <div><div class="t">what moves it</div><div class="n">Profit and share count</div></div>
+    <div><div class="t">P/E</div><div class="n">Price ÷ EPS</div></div>
+    <div><div class="t">context</div><div class="n">Compare within the industry</div></div>
+    <div><div class="t">timing</div><div class="n">Trailing vs forward</div></div>
+  </nav>
+
+  <div class="section-head" id="eps">
+    <h2>Earnings per share</h2>
+    <p>Owning a share makes you a legal part owner of the company, and part owners get a portion of the profits. EPS measures that portion.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>The formula</h3>
+          <ul>
+            <li><b>Net income:</b> the total profit after all expenses and taxes.</li>
+            <li><b>Minus preferred dividends:</b> preferred shareholders get a fixed dividend first (and usually no vote), so that money isn't available to common shareholders.</li>
+            <li><b>Divided by shares outstanding:</b> the common shares in the market.</li>
+          </ul>
+          <p class="why">EPS = (net income − preferred dividends) ÷ shares outstanding. Sites like Yahoo Finance show it, but it isn't always up to date, especially for smaller companies, so check it against other sources.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel table-wrap">
+        <h4>The video's two tech companies</h4>
+        <table>
+          <thead><tr><th></th><th>Company A</th><th>Company B</th></tr></thead>
+          <tbody>
+            <tr><th>Net income</th><td>$5,000,000</td><td>$8,000,000</td></tr>
+            <tr><th>Preferred dividends</th><td>$200,000</td><td>$300,000</td></tr>
+            <tr><th>Shares outstanding</th><td>1,000,000</td><td>2,000,000</td></tr>
+            <tr><th>EPS</th><td class="pos"><b>$4.80</b></td><td><b>$3.85</b></td></tr>
+          </tbody>
+        </table>
+        <p class="calc-note">B makes more money in total. A makes more for each share, which suggests it's more efficient per share. EPS alone doesn't say which is the better investment: check revenue growth, debt, cash flow and how stable profits are.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="anim" data-bx-anim="cake" aria-label="Company A: 5 million dollars of net income minus 200,000 dollars of preferred dividends, over 1 million shares, is 4.80 dollars a share. Company B: 8 million minus 300,000 over 2 million shares is 3.85. With made-up numbers: if A issues 250,000 new shares, EPS falls to 3.84; if A instead buys back 200,000 shares, EPS rises to 6.00 with no change in profit. At a made-up 96 dollar price, A's P/E is 20.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Cutting the cake</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="A company's earnings drawn as a cake cut into one slice per share."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Two things move EPS</h3>
+          <ul>
+            <li><b>Profit:</b> more sales, lower costs or better efficiency raise EPS. Less net income lowers it.</li>
+            <li><b>Share count:</b> more shares split the same profit into smaller slices; fewer shares make each slice bigger.</li>
+          </ul>
+          <p class="why">The birthday cake: more guests arrive, so you cut more, smaller slices. If almost nobody wants cake, the few who do get bigger ones.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Dilution and buybacks</h4>
+        <div class="pair">
+          <div class="care"><span class="k">more shares</span><b>Dilution</b><p>A company issues new shares for quick cash, to pay debt or buy another company. Each share gets a smaller slice of profit.</p></div>
+          <div class="yes"><span class="k">fewer shares</span><b>Buybacks</b><p>A company buys its own shares back. The rest get a bigger slice, and EPS rises, which some companies do to keep investors happy.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>When EPS is negative</h4>
+        <p class="lead" style="margin:0">A net loss gives a negative EPS. Startups and growing companies often spend heavily before they turn a profit. It shows financial struggle, but not automatically a bad investment: look at why, and at revenue growth, cash flow and debt.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="pe">
+    <h2>The price-to-earnings ratio</h2>
+    <p>"Is this stock overvalued or not?" is the most common question in value investing. The P/E ratio is one quick way to start answering it: share price on top, earnings per share on the bottom.</p>
+  </div>
+  <section class="anim" data-bx-anim="pe" aria-label="A 100 dollar stock with 10 dollars of earnings per share has a P/E of 10. FreshBite at 50 dollars and Tasty Treats at 75 dollars both earn 5 dollars a share: P/Es of 10 and 15 against an industry average of 12. BrightTech at 100 dollars with last year's EPS of 5 has a trailing P/E of 20; with expected EPS of 10 its forward P/E is 10; if the estimate were 4 the forward P/E would be 25.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">What a P/E says, and what it doesn't</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Bars comparing P/E ratios of the video's fictional companies."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Dollars paid per dollar earned</h3>
+          <ul>
+            <li>A stock at $100 with $10 of EPS has a P/E of 10: investors pay $10 for every $1 the company earns in a year.</li>
+            <li>If earnings stayed the same, it would take about 10 years of earnings to make back the price.</li>
+            <li>A high P/E can mean investors expect fast growth. A low one can mean the stock is undervalued, or the company is facing trouble.</li>
+          </ul>
+          <p class="why">Think of it as a measure of the market's expectations, not a verdict.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel calc" data-bx-calc="eps">
+        <h4>Work out EPS and P/E</h4>
+        <p class="lead">Company A is filled in, with a made-up $96 price. Try B, or your own numbers.</p>
+        <div class="presets" role="group" aria-label="Examples">
+          <button type="button" class="pill" data-preset='{"ni":"5000000","pd":"200000","sh":"1000000","px":"96","ind":"20"}'>Company A</button>
+          <button type="button" class="pill" data-preset='{"ni":"8000000","pd":"300000","sh":"2000000","px":"96","ind":"20"}'>Company B</button>
+          <button type="button" class="pill" data-preset='{"ni":"-1500000","pd":"0","sh":"1000000","px":"30","ind":"20"}'>A loss</button>
+        </div>
+        <div class="calc-in" style="grid-template-columns:repeat(3,1fr)">
+          <label>Net income $<input name="ni" type="number" step="any" value="5000000" inputmode="decimal"></label>
+          <label>Preferred div. $<input name="pd" type="number" step="any" value="200000" inputmode="decimal"></label>
+          <label>Shares<input name="sh" type="number" step="any" value="1000000" inputmode="decimal"></label>
+          <label>Share price $<input name="px" type="number" step="any" value="96" inputmode="decimal"></label>
+          <label>Industry P/E<input name="ind" type="number" step="any" value="20" inputmode="decimal"></label>
+        </div>
+        <div data-calc-out></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="industry">
+    <h2>A P/E only means something next to its industry</h2>
+    <p>Different industries carry different growth, risk and business models, so their normal P/E ranges differ. Comparing a company with its industry average is far more useful than looking at one P/E alone.</p>
+  </div>
+  <div class="four six">
+    <div style="--tc:#30d158"><span class="k">high P/E</span><h3>Growth industries</h3><p>Technology, biotech, e-commerce. Investors pay more for today's earnings because they expect fast growth.</p><small>A tech startup with new products might sit at 50 or more.</small></div>
+    <div style="--tc:#2997ff"><span class="k">low P/E</span><h3>Mature or cyclical</h3><p>Utilities, manufacturing, energy. Slower growth, or earnings that swing with the economy.</p><small>Investors won't pay a high premium. Consumer goods sit in between.</small></div>
+    <div style="--tc:#ff453a"><span class="k">no P/E</span><h3>Negative or undefined</h3><p>Early-stage startups or heavily indebted companies that aren't profitable yet.</p><small>Look at revenue growth and potential future profits instead.</small></div>
+  </div>
+  <div class="main" style="margin-top:28px">
+    <div>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Trailing vs forward</h3>
+          <ul>
+            <li><b>Trailing P/E</b> uses the last 12 months of earnings: real data.</li>
+            <li><b>Forward P/E</b> uses analysts' estimate for the next 12 months: a guess about where the company is heading.</li>
+            <li>Forward lower than trailing: earnings are expected to grow. Forward higher: they're expected to shrink.</li>
+          </ul>
+          <p class="why">BrightTech at $100: last year's EPS of $5 gives a trailing P/E of 20. An expected $10 gives a forward P/E of 10. If the estimate were $4, it would be 25. Estimates can be wrong.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel table-wrap">
+        <h4>Pros and cons</h4>
+        <table>
+          <thead><tr><th></th><th>EPS</th><th>P/E ratio</th></tr></thead>
+          <tbody>
+            <tr><th>Good for</th><td class="txt">Simple to work out; profit per share; comparing companies in the same industry</td><td class="txt">Easy to calculate; a quick read on valuation; comparing peers in the same sector</td></tr>
+            <tr><th>Misses</th><td class="txt">Debt and future growth; fewer shares can flatter it; accounting can be gamed</td><td class="txt">Long-term growth; temporary spikes or dips in earnings; debt and cash flow</td></tr>
+          </tbody>
+        </table>
+        <p class="calc-note">A low P/E doesn't always mean a good buy, and a high one doesn't always mean overvalued. It depends on the context and the rest of the numbers.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="steps">
+    <h2>Reading a P/E in five checks</h2>
+    <p>From the raw numbers to a fair comparison. Click through them.</p>
+  </div>
+  <div class="sp-steps" data-bx-steps="eps">
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Work out the EPS</h3>
+          <ul>
+            <li>Net income minus preferred dividends, divided by shares outstanding.</li>
+            <li>Check the site's number against another source.</li>
+          </ul>
+          <p class="why">Company A: ($5M − $0.2M) ÷ 1M = $4.80.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Is it positive?</h3>
+          <ul>
+            <li>Negative EPS means a loss, and no meaningful P/E.</li>
+            <li>Ask why: a growing company spending to scale, or a business in trouble?</li>
+          </ul>
+          <p class="why">Then lean on revenue growth, cash flow and debt.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Compare within the industry</h3>
+          <ul>
+            <li>Find the industry's average P/E.</li>
+            <li>Below it might be cheap, or troubled. Above it might be overvalued, or growing.</li>
+          </ul>
+          <p class="why">FreshBite at 10 and Tasty Treats at 15, against an average of 12.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Check which P/E it is</h3>
+          <ul>
+            <li>Trailing is real data; forward is an estimate.</li>
+            <li>Compare the two to see whether growth or decline is expected.</li>
+          </ul>
+          <p class="why">BrightTech: 20 trailing, 10 forward if the estimate holds.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Watch the share count and the rest</h3>
+          <ul>
+            <li>New shares dilute EPS; buybacks boost it without more profit.</li>
+            <li>Never stop at one ratio: debt and cash flow matter too.</li>
+          </ul>
+          <p class="why">EPS can rise just because the cake was cut into fewer slices.</p>
+        </div>
+      </section>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/EqeYM9pZo8Q" title="What is Earnings Per Share (EPS) of a Stock? (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Video 1: earnings per share</h2>
+      <p>Martik Finance's 8-minute explainer on the EPS formula and what moves it.</p>
+      <ol class="plain">
+        <li>The formula, and preferred dividends</li>
+        <li>Finding EPS on Yahoo Finance</li>
+        <li>Company A vs Company B</li>
+        <li>Negative EPS</li>
+        <li>Dilution and buybacks: the birthday cake</li>
+        <li>EPS in the P/E ratio, pros and cons</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=EqeYM9pZo8Q" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+  <section class="video" aria-label="Video" style="margin-top:28px">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/oEqJAFBCCow" title="What is the PE Ratio of a Stock? (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Video 2: the P/E ratio</h2>
+      <p>Martik Finance's 8-minute explainer on what the P/E says and how to use it.</p>
+      <ol class="plain">
+        <li>Price over earnings per share</li>
+        <li>What a high or low P/E suggests</li>
+        <li>P/E by industry</li>
+        <li>FreshBite vs Tasty Treats</li>
+        <li>Trailing vs forward: BrightTech</li>
+        <li>Pros and cons</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=oEqJAFBCCow" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>How do you calculate earnings per share?</h3><p>Subtract preferred dividends from net income, then divide by the common shares outstanding. A company with $5,000,000 of net income, $200,000 of preferred dividends and 1,000,000 shares has an EPS of $4.80.</p></div>
+    <div class="qa"><h3>What makes EPS go up or down?</h3><p>Profit and the share count. Higher net income raises EPS. Issuing new shares (dilution) lowers it, and buying shares back raises it, even with no change in profit.</p></div>
+    <div class="qa"><h3>What is a good P/E ratio?</h3><p>There isn't one number. P/E ranges differ by industry: growth industries like tech often run high, mature or cyclical ones like utilities run low. Compare a company with its own industry's average.</p></div>
+    <div class="qa"><h3>What is the difference between trailing and forward P/E?</h3><p>Trailing P/E uses the last 12 months of actual earnings. Forward P/E uses analysts' estimates for the next 12 months. A forward P/E below the trailing one means earnings are expected to grow.</p></div>
+    <div class="qa"><h3>Can EPS be negative?</h3><p>Yes, when a company has a net loss. Then the P/E isn't meaningful. It doesn't automatically mean a bad investment: look at why, and at revenue growth, cash flow and debt.</p></div>
+    <div class="qa"><h3>Does a low P/E mean a stock is cheap?</h3><p>Not always. It can mean the stock is undervalued, or that the company is facing problems. A high P/E can mean expected growth rather than overvaluation.</p></div>
+  </div><!-- /faq -->
+  <div class="rule">
+    <div>
+      <h2>Two numbers, never alone.</h2>
+      <p>EPS tells you how much profit each share earns. P/E tells you how much the market pays for it. Both are quick, useful starting points, and both can mislead without the industry, the share count, debt and cash flow next to them.</p>
+    </div>
+    <div>
+      <ul>
+        <li>EPS = (net income − preferred dividends) ÷ shares.</li>
+        <li>More shares dilute it; buybacks lift it.</li>
+        <li>P/E = share price ÷ EPS.</li>
+        <li>Compare P/E within the same industry.</li>
+        <li>Trailing is real; forward is an estimate.</li>
+        <li>Low isn't always cheap; high isn't always expensive.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from two Martik Finance videos. "What is Earnings Per Share (EPS) of a Stock? (Value Investing for Beginners)": the formula, preferred dividends, finding EPS on Yahoo Finance, Company A ($5,000,000 net income, $200,000 preferred dividends, 1,000,000 shares, $4.80) and Company B ($8,000,000, $300,000, 2,000,000 shares, $3.85), negative EPS, what moves EPS, dilution and buybacks (the birthday cake), EPS in the P/E ratio, and the pros and cons. "What is the PE Ratio of a Stock? (Value Investing for Beginners)": price over EPS ($100 and $10 for a P/E of 10), what high and low P/Es suggest, P/E by industry, FreshBite ($50, $5, P/E 10) and Tasty Treats ($75, $5, P/E 15) against an industry average of 12, trailing vs forward P/E with BrightTech ($100, EPS $5 trailing for 20, $10 forward for 10, $4 forward for 25), and the pros and cons. The dilution (250,000 new shares) and buyback (200,000 shares) numbers, and the $96 share price for Company A, are made up to show the idea. Not financial advice.</p>
+</div>
+<footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
+
+</body>
+</html>

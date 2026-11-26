@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fundamental vs Technical vs Macro Analysis | The Trade Method</title>
+<meta name="description" content="The three ways investors read a market: fundamental analysis (what a company is worth), technical analysis (what the price is doing) and macro analysis (the economy).">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/analysis-types.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Fundamental vs Technical vs Macro Analysis">
+<meta property="og:description" content="The three ways investors read a market: fundamental analysis (what a company is worth), technical analysis (what the price is doing) and macro analysis (the economy).">
+<meta property="og:url" content="https://thetrademethod.com/analysis-types.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fundamental vs Technical vs Macro Analysis">
+<meta name="twitter:description" content="The three ways investors read a market: fundamental analysis (what a company is worth), technical analysis (what the price is doing) and macro analysis (the economy).">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Fundamental vs Technical vs Macro Analysis — three ways to read a market",
+ "name": "Fundamental vs Technical vs Macro",
+ "description": "A beginner's guide from Martik Finance to the three core approaches: fundamental analysis (quantitative numbers from the income statement, balance sheet and cash flow, and qualitative factors like brand, leadership, competitive advantage and industry trends), technical analysis (price, volume, trends, support and resistance, breakouts and fakeouts), and macro analysis (monetary policy and interest rates, fiscal policy, GDP, unemployment, consumer confidence, manufacturing, the economic calendar and geopolitics), with the advantages and limits of each.",
+ "url": "https://thetrademethod.com/analysis-types.html",
+ "mainEntityOfPage": "https://thetrademethod.com/analysis-types.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-26",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Person",
+  "name": "Bryant",
+  "url": "https://thetrademethod.com/about.html"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.eight { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=27">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the way back: five cards, or a stepper once js/sp-anim.js runs */
+  .sp-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .sp-steps .stage, .sheet .sp-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .sp-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .sp-steps.is-stepper .stage, .sheet .sp-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .sp-steps.is-stepper .stage .num { display:none; }
+  .sheet .sp-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .sp-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .sp-steps + .four { margin-top:28px; }
+  .sp-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .sp-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .sp-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .sp-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .sp-steps { margin-top:24px; }
+  }
+
+  @media (min-width:1101px) { .ribbon.eight { grid-template-columns:repeat(8,1fr); } }
+
+  /* calculator */
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in label { font-size:12px; color:var(--ash); display:block; }
+  .calc-in input { width:100%; margin-top:4px; background:var(--raised); color:var(--silk); border:1px solid #3a3a3c; border-radius:10px;
+                   padding:9px 11px; font:inherit; font-size:15px; font-variant-numeric:tabular-nums; }
+  .calc-in input:focus { outline:2px solid #2997ff; outline-offset:1px; }
+  .presets { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 12px; }
+  .presets .pill { font-size:13px; padding:6px 14px; }
+
+  /* the one-line invalidation */
+  .plan { margin:0; padding:16px 18px; background:var(--raised); border-radius:18px; font-family:var(--mono-font); font-size:13.5px; color:var(--silk); white-space:pre-wrap; line-height:1.6; }
+
+  /* pick your stop */
+  .pick { text-align:left; font:inherit; color:inherit; border:2px solid transparent; cursor:pointer; background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pick:hover { border-color:#3a3a3c; }
+  .pick.is-on { border-color:#2997ff; }
+  .pick .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pick b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pick p { margin:0; color:var(--mute); font-size:14px; }
+  .pick-out { margin-top:14px; color:var(--silk); font-size:15px; }
+  .pick-out:empty { display:none; }
+  .pick-out p { margin:0 0 6px; }
+  [data-sp-pick] { margin:0 0 28px; }
+
+  /* calculators */
+  .calc-out { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+  .calc-out div { background:var(--raised); border-radius:14px; padding:10px 12px; }
+  .calc-out span { display:block; font-size:12px; color:var(--ash); }
+  .calc-out b { font-family:var(--mono-font); font-weight:600; font-size:18px; }
+  .meter { position:relative; height:12px; background:#2c2c2e; border-radius:6px; margin:14px 0 6px; overflow:hidden; }
+  .meter i { position:absolute; left:0; top:0; bottom:0; background:#ff9f0a; border-radius:6px; transition:width .3s ease; }
+  .calc-note { margin:8px 0 0; color:var(--mute); font-size:14px; }
+  .ev-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  .ev-grid fieldset { border:0; margin:0; padding:12px; background:var(--raised); border-radius:16px; display:grid; gap:8px; }
+  .ev-grid legend { float:left; width:100%; font-weight:600; font-size:15px; margin-bottom:2px; }
+  .ev-grid label { font-size:12px; color:var(--ash); display:block; }
+  .ev-grid input { width:100%; margin-top:4px; background:#1d1d1f; color:var(--silk); border:1px solid #3a3a3c; border-radius:10px; padding:8px 10px; font:inherit; font-size:15px; font-variant-numeric:tabular-nums; }
+  .ev-res { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .ev-res div { background:var(--raised); border-radius:14px; padding:10px 12px; border-left:3px solid #3a3a3c; }
+  .ev-res div.best { border-left-color:#30d158; }
+  .ev-res span { display:block; font-size:12px; color:var(--ash); }
+  .ev-res b { font-family:var(--mono-font); font-size:18px; font-weight:600; }
+  .table-wrap { overflow-x:auto; }
+  @media (max-width:680px) {
+    .calc-out { grid-template-columns:1fr 1fr; }
+    .calc-in[style] { grid-template-columns:1fr 1fr 1fr !important; }
+    .ev-grid, .ev-res { grid-template-columns:1fr; }
+    .pick-out { font-size:14.5px; }
+    table { font-size:13px; } th, td { padding:8px 8px; }
+    .table-wrap table { min-width:640px; }
+    .table-wrap caption { max-width:340px; }
+  }
+</style>
+<style>
+  /* ---------- shared with futures-basics ---------- */
+  .filters.six { grid-template-columns:repeat(3,1fr); }
+  .calc-in select { width:100%; margin-top:4px; background:var(--raised); color:var(--silk); border:1px solid #3a3a3c; border-radius:10px;
+                    padding:9px 11px; font:inherit; font-size:15px; }
+  .presets .pill.is-on { background:#2997ff; color:#000; }
+  .calc-out.three { grid-template-columns:repeat(3,1fr); }
+  .sp-steps + .video { margin-top:72px; }
+  @media (max-width:1100px) { .filters.six { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:680px) {
+    .filters.six { grid-template-columns:1fr; }
+    .calc-in[style] { grid-template-columns:1fr 1fr !important; }
+    .calc-out.three { grid-template-columns:1fr 1fr; }
+    .sp-steps + .video { margin-top:56px; }
+  }
+</style>
+<style>
+  /* ---------- basics pages (bx-anim.js) ---------- */
+  .filters.three { grid-template-columns:repeat(3,1fr); }
+  .filters.four { grid-template-columns:repeat(4,1fr); }
+  .four.two { grid-template-columns:repeat(2,1fr); }
+  .video ol.plain { list-style:disc; }
+  .table-wrap td.txt b { color:var(--silk); }
+  [data-bx-pick] .pair { margin-top:0; }
+  [data-bx-pick] .pick-out { margin-top:16px; }
+  @media (max-width:1100px) { .filters.four { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:680px) {
+    .filters.three, .filters.four, .four.two { grid-template-columns:1fr; }
+    [data-bx-pick] .pair { grid-template-columns:1fr; }
+  }
+</style>
+<script src="/js/nav.js?v=36" defer></script>
+<script src="/js/site.js?v=76" defer></script>
+<script src="/js/bx-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=50" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the difference between fundamental, technical and macro analysis?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Fundamental analysis works out what a company is worth from its financial statements and qualities like its brand and leadership. Technical analysis reads the price chart: price, volume, trends, support and resistance. Macro analysis looks at the economy: interest rates, government spending, GDP, jobs and world events."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is quantitative vs qualitative analysis?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Quantitative analysis uses numbers you can measure, from the income statement, balance sheet and cash flow report. Qualitative analysis judges what's hard to measure: brand strength, leadership, competitive advantage and industry trends."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What are support and resistance?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Support is a price floor where buyers tend to step in and the stock stops falling. Resistance is a ceiling where sellers tend to take profits and the stock stops rising."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is a fakeout?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A move through support or resistance that quickly snaps back inside. It can trap traders who jumped in too soon, which is why many wait for a close beyond the level."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How do interest rates affect stocks?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Low rates make borrowing cheap, so companies expand and people spend, which often pushes stocks higher. Rising rates slow borrowing and spending, and stocks usually take a hit."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Which type of analysis is best?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Each has a blind spot. Fundamentals don't time entries, technicals don't explain why price moves, and macro says nothing about a single company. Many investors combine them."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
+<!-- breadcrumbs --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://thetrademethod.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Basics",
+   "item": "https://thetrademethod.com/basics/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "Fundamental vs Technical vs Macro Analysis",
+   "item": "https://thetrademethod.com/analysis-types.html"
+  }
+ ]
+}
+</script><!-- /breadcrumbs -->
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="Fundamental vs Technical vs Macro"></div>
+<div class="sheet">
+
+  <a class="back" href="/basics/">&lsaquo; Basics</a>
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-26">Nov 26, 2026</time></p><!-- /byline -->
+
+  <header class="top" data-candle-bg="analysis-types">
+    <div>
+      <p class="kicker">Basics &middot; from Martik Finance's "Fundamental Analysis vs Technical Analysis vs Macro Analysis"</p>
+      <h1>Three Ways to <span>Read</span> a Market</h1>
+    </div>
+    <div>
+      <p class="thesis">Fundamental analysis asks what a company is really worth. Technical analysis asks what the price is doing. Macro analysis asks what the economy is doing to everything.
+      <em>Experienced investors use one, or a mix, instead of vibes.</em></p>
+      <div class="counts">
+        <div><b>3</b><small>lenses on the same market</small></div>
+        <div><b>2</b><small>sides of fundamentals: numbers and judgment</small></div>
+        <div><b>1</b><small>economic calendar to watch</small></div>
+      </div>
+    </div>
+  </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the difference between fundamental, technical and macro analysis?</h2><p>Fundamental analysis works out what a company is worth from its financial statements and qualities like its brand and leadership. Technical analysis reads the price chart: price, volume, trends, support and resistance. Macro analysis looks at the economy: interest rates, government spending, GDP, jobs and world events.</p></section><!-- /define -->
+
+  <nav class="ribbon" aria-label="Three kinds of analysis, in five ideas">
+    <div><div class="t">fundamental</div><div class="n">What is it worth?</div></div>
+    <div><div class="t">technical</div><div class="n">What is price doing?</div></div>
+    <div><div class="t">macro</div><div class="n">What is the economy doing?</div></div>
+    <div><div class="t">the mix</div><div class="n">Most use more than one</div></div>
+    <div><div class="t">the limits</div><div class="n">Each one misses something</div></div>
+  </nav>
+
+  <div class="section-head" id="which">
+    <h2>Which question are you asking?</h2>
+    <p>Ever bought a stock because someone online said it was going to the moon, and it crashed right after? Guessing, copying and vibes aren't a method. Pick the question first; it tells you which kind of analysis answers it.</p>
+  </div>
+  <div class="panel" data-bx-pick>
+    <div class="four six" style="gap:14px">
+      <button type="button" class="pick" data-k="fund" aria-pressed="false"><span class="k">long-term owner</span><b>Is this a good business at this price?</b><p>You want to own a company for years.</p></button>
+      <button type="button" class="pick" data-k="tech" aria-pressed="false"><span class="k">trader</span><b>Where is price likely to go next?</b><p>You care about the move, not the company.</p></button>
+      <button type="button" class="pick" data-k="macro" aria-pressed="false"><span class="k">big picture</span><b>Is this a good time for stocks at all?</b><p>You're choosing broad markets, regions or index funds.</p></button>
+    </div>
+    <div class="pick-out" data-pick-out aria-live="polite"></div>
+    <template data-for="fund"><p><b>Fundamental analysis.</b> Read the income statement, balance sheet and cash flow, then judge the brand, the leadership, the moat and the industry. It's the method Warren Buffett and Peter Lynch relied on. Start with <a href="/eps-pe-ratio.html">EPS and the P/E ratio</a>.</p></template>
+    <template data-for="tech"><p><b>Technical analysis.</b> Price, volume, trend, support and resistance, breakouts and fakeouts. It's visual and quick to learn, but it shows what price is doing, not why. Most of this site's <a href="/setups/">setups</a> live here.</p></template>
+    <template data-for="macro"><p><b>Macro analysis.</b> Interest rates, government spending, GDP, jobs, consumer confidence, factories and world events. Great for index funds and ETFs; it says nothing about one company's earnings.</p></template>
+  </div>
+
+  <div class="section-head" id="fundamental">
+    <h2>Fundamental analysis: what is it worth?</h2>
+    <p>The most popular method for long-term investors. "I invest in companies, not stocks." As Warren Buffett put it, never invest in a business you cannot understand. You're working out what the company is actually worth, not just what the stock price says.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Is it strong, profitable, growing?</h3>
+          <ul>
+            <li><b>Quantitative:</b> the numbers you can measure, straight from the income statement, balance sheet and cash flow report. How much money it makes, how much debt it carries, how well it invests in its future.</li>
+            <li><b>Qualitative:</b> what you can't put a number on but still matters. Brand strength, leadership, competitive advantage, and whether its industry is growing or shrinking.</li>
+          </ul>
+          <p class="why">The video's Netflix example: subscriber growth slows and earnings soften, but the brand, the library and the push into new audiences still count. The numbers don't tell you everything.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Strengths and limits</h4>
+        <div class="pair">
+          <div class="yes"><span class="k">strengths</span><b>The company's real health</b><p>Built for long-term investing, not short-term swings. Real numbers like revenue, earnings and cash flow. The method top investors rely on.</p></div>
+          <div class="care"><span class="k">limits</span><b>Opinions and forecasts</b><p>Qualitative calls are subjective. Predictions don't always come true. And companies can hide bad news: Enron looked solid until it fell apart.</p></div>
+        </div>
+        <p class="calc-note">Want the first two numbers to learn? <a href="/eps-pe-ratio.html">EPS and the P/E ratio</a>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="technical">
+    <h2>Technical analysis: what is price doing?</h2>
+    <p>All about reading charts. Instead of financial reports or company news, technical traders study how the stock moves: its price, its volume, and the patterns those create.</p>
+  </div>
+  <section class="anim" data-bx-anim="chart" aria-label="Made-up daily bars with volume. First an uptrend with higher highs and higher lows. Then a range with resistance at 62 dollars and support at 58 dollars. A fakeout pokes above 62 on light volume and closes back inside. Then a breakout closes above 62 on the biggest volume in weeks and keeps going.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Trend, levels, fakeout, breakout</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="A made-up chart with an uptrend, support and resistance, a fakeout and a breakout."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>The basic vocabulary</h3>
+          <ul>
+            <li><b>Volume</b> is how many shares traded: how much energy is behind a move.</li>
+            <li><b>Uptrend:</b> new highs, and pullbacks that don't fall as far. <b>Downtrend:</b> it keeps dropping and struggles to bounce.</li>
+            <li><b>Support</b> is the floor where buyers jump in. <b>Resistance</b> is the ceiling where sellers take profits.</li>
+            <li>A break through either can start a new trend. A <b>fakeout</b> breaks, then snaps back and traps the early buyers.</li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Strengths and limits</h4>
+        <div class="pair">
+          <div class="yes"><span class="k">strengths</span><b>Visual and fast</b><p>Relatively easy to follow, and it doesn't take long to get the hang of. No digging through reports.</p></div>
+          <div class="care"><span class="k">limits</span><b>Shows what, not why</b><p>Ignores fundamentals and news. Patterns don't always play out. It assumes history repeats, and new events can break that.</p></div>
+        </div>
+        <p class="calc-note">Go deeper: <a href="/relative-volume.html">Relative Volume</a> and <a href="/six-momentum-trades.html">Six Momentum Trades</a>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="macro">
+    <h2>Macro analysis: what is the economy doing?</h2>
+    <p>Zoom out to the whole economy: government policy, world events, inflation and the health of the economy.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Interest rates move everything</h3>
+          <ul>
+            <li>Central banks like the Federal Reserve run <b>monetary policy</b>, mainly by setting interest rates.</li>
+            <li><b>Low rates:</b> borrowing is cheap, companies expand, people spend. That often pushes stocks higher.</li>
+            <li><b>Rising rates</b> to fight inflation: borrowing slows, spending drops, and stocks usually take a hit.</li>
+            <li><b>Fiscal policy</b> is government spending and taxes: more spending can push the economy short term; high taxes or cuts can slow it.</li>
+          </ul>
+          <p class="why">Macro suits broad investments like index funds and ETFs, because it shows which markets or regions might do well. It says nothing about a single company's earnings.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>The indicators to know</h4>
+        <div class="timing" style="grid-template-columns:1fr 1fr">
+          <div><b>GDP</b><p>How much the economy is growing. Growth is usually good news for stocks.</p></div>
+          <div><b>Unemployment rate</b><p>More people out of work means less spending and lower company earnings.</p></div>
+          <div><b>Consumer confidence</b><p>People who feel good about the economy spend more.</p></div>
+          <div><b>Manufacturing reports</b><p>Busy factories are a sign businesses are doing well.</p></div>
+          <div><b>Geopolitics</b><p>Wars, trade tensions, tariffs and even elections can shake markets fast.</p></div>
+          <div><b>Economic calendar</b><p>Free calendars, like investing.com's, list when each report comes out.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="compare">
+    <h2>The three side by side</h2>
+    <p>Each lens sees something the others miss. That's why many investors combine them.</p>
+  </div>
+  <div class="panel table-wrap">
+    <table>
+      <thead><tr><th></th><th>Fundamental</th><th>Technical</th><th>Macro</th></tr></thead>
+      <tbody>
+        <tr><th>The question</th><td class="txt">What is this company worth?</td><td class="txt">What is the price doing?</td><td class="txt">What is the economy doing?</td></tr>
+        <tr><th>You look at</th><td class="txt">Financial statements, brand, leaders, moat, industry</td><td class="txt">Price, volume, trends, support and resistance</td><td class="txt">Rates, spending and taxes, GDP, jobs, confidence, world events</td></tr>
+        <tr><th>Best for</th><td class="txt">Long-term ownership of companies</td><td class="txt">Timing entries and exits</td><td class="txt">Broad markets, regions, index funds and ETFs</td></tr>
+        <tr><th>Blind spot</th><td class="txt">Subjective calls, forecasts, cooked books</td><td class="txt">Doesn't explain why; patterns fail</td><td class="txt">Says nothing about one company</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-head" id="steps">
+    <h2>Reading a chart, step by step</h2>
+    <p>The technical toolkit from the video, in the order you'd use it. Click through it.</p>
+  </div>
+  <div class="sp-steps" data-bx-steps="analysis">
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Start with price</h3>
+          <ul>
+            <li>Everything on the chart starts with the price moving up and down.</li>
+            <li>Ask where it is now compared with where it's been.</li>
+          </ul>
+          <p class="why">Price is the only thing every trader agrees on.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Check the volume</h3>
+          <ul>
+            <li>How many shares traded on the move.</li>
+            <li>Big moves on big volume carry more energy than quiet drifts.</li>
+          </ul>
+          <p class="why">Volume tells you how much conviction is behind price.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Name the trend</h3>
+          <ul>
+            <li>Higher highs and higher lows: an uptrend.</li>
+            <li>Lower highs and lower lows: a downtrend. Neither: sideways.</li>
+          </ul>
+          <p class="why">Stocks rarely move all over the place for no reason.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Mark support and resistance</h3>
+          <ul>
+            <li>The floor where buyers keep stepping in.</li>
+            <li>The ceiling where sellers keep taking profits.</li>
+          </ul>
+          <p class="why">These are where decisions get made.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Judge the break</h3>
+          <ul>
+            <li>A breakout closes through the level and keeps going.</li>
+            <li>A fakeout pokes through and snaps back, trapping early traders.</li>
+          </ul>
+          <p class="why">Don't jump in too soon: wait to see which one it is.</p>
+        </div>
+      </section>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/HOcUZI-AxeM" title="Fundamental Analysis vs Technical Analysis vs Macro Analysis (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Martik Finance's 9-minute tour of the three core approaches, with examples, strengths and limits.</p>
+      <ol class="plain">
+        <li>Why "vibes" isn't a strategy</li>
+        <li>Fundamental analysis: quantitative and qualitative</li>
+        <li>The Netflix example, strengths and limits</li>
+        <li>Technical analysis: price, volume, trends</li>
+        <li>Support, resistance, breakouts and fakeouts</li>
+        <li>Macro analysis: rates, fiscal policy and the indicators</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=HOcUZI-AxeM" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What is quantitative vs qualitative analysis?</h3><p>Quantitative analysis uses numbers you can measure, from the income statement, balance sheet and cash flow report. Qualitative analysis judges what's hard to measure: brand strength, leadership, competitive advantage and industry trends.</p></div>
+    <div class="qa"><h3>What are support and resistance?</h3><p>Support is a price floor where buyers tend to step in and the stock stops falling. Resistance is a ceiling where sellers tend to take profits and the stock stops rising.</p></div>
+    <div class="qa"><h3>What is a fakeout?</h3><p>A move through support or resistance that quickly snaps back inside. It can trap traders who jumped in too soon, which is why many wait for a close beyond the level.</p></div>
+    <div class="qa"><h3>How do interest rates affect stocks?</h3><p>Low rates make borrowing cheap, so companies expand and people spend, which often pushes stocks higher. Rising rates slow borrowing and spending, and stocks usually take a hit.</p></div>
+    <div class="qa"><h3>Which type of analysis is best?</h3><p>Each has a blind spot. Fundamentals don't time entries, technicals don't explain why price moves, and macro says nothing about a single company. Many investors combine them.</p></div>
+  </div><!-- /faq -->
+  <div class="rule">
+    <div>
+      <h2>Pick the question, then the lens.</h2>
+      <p>Fundamental analysis tells you what you own. Technical analysis tells you when price agrees. Macro tells you what the tide is doing to every boat. Each one misses something, so most experienced investors use a mix.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Fundamental: what a company is worth.</li>
+        <li>Numbers and judgment both count.</li>
+        <li>Technical: price, volume, trend, levels.</li>
+        <li>Not every breakout is real.</li>
+        <li>Macro: rates, spending, jobs, world events.</li>
+        <li>Each lens has a blind spot.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from Martik Finance's video "Fundamental Analysis vs Technical Analysis vs Macro Analysis": why guessing, copying and vibes fail, fundamental analysis (Warren Buffett's "never invest in a business you cannot understand", quantitative analysis from the income statement, balance sheet and cash flow report, qualitative factors: brand, leadership, competitive advantage, industry trends, the Netflix example, Enron), technical analysis (price, volume, uptrends and downtrends, support, resistance, breakouts, fakeouts), and macro analysis (monetary policy and interest rates, fiscal policy, GDP, unemployment, consumer confidence, manufacturing reports, the economic calendar, geopolitics), with the advantages and limits of each. The chart's bars are made up to show the ideas. Not financial advice.</p>
+</div>
+<footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
+
+</body>
+</html>

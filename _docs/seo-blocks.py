@@ -108,7 +108,8 @@ def fmt_date(d):
 
 # Pages that belong to the Basics section (/basics/): their breadcrumb and
 # back link point at /basics/ instead of /fundamentals/.
-BASICS_HREFS = {"/futures-basics.html"}
+BASICS_HREFS = {"/futures-basics.html", "/investment-funds.html", "/options-basics.html", "/eps-pe-ratio.html",
+                "/arbitrage.html", "/analysis-types.html", "/recession-investing.html"}
 
 
 def main():
