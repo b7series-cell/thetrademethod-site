@@ -498,6 +498,18 @@ FAQ = {
   ("How do you know if a tighter stop is better?", "Test it on your own trades first: how often the closer stop got hit, the average loss, and what the wider stop cost when it was hit. Let the sample decide before it becomes a rule."),
  ],
 },
+"/futures-basics.html": {
+ "q": "How do futures work?",
+ "a": "A futures contract is an agreement to buy or sell a set amount of something at a set price on a set date. Unlike an option, both sides are obligated. You put up a small deposit called margin, often around 5% of the contract's value, and your account is marked to market every day, so gains and losses are paid in cash daily.",
+ "faq": [
+  ("What is the difference between futures and options?", "An option gives the buyer the right to buy or sell, and the most the buyer can lose is the premium. A futures contract is an obligation for both sides: unless you close it before it expires, you have to go through with it."),
+  ("Is futures margin a loan?", "No. In stocks, margin means borrowing from your broker and paying interest. In futures, margin is a security deposit that shows you can cover losses. There's no loan and no interest, and it's only a small slice of the contract's value."),
+  ("What is a margin call in futures?", "If daily losses push your balance below the maintenance margin, you have to deposit enough to bring it back up to the initial margin. If you don't, or the market keeps moving against you, the broker can close your position for you."),
+  ("How much is one tick worth?", "It depends on the contract. One crude oil contract is 1,000 barrels with a 1-cent tick, so a tick is $10 and a $1 move is $1,000. The E-mini S&P 500 is $50 times the index with a quarter-point tick worth $12.50."),
+  ("Can you lose more than you put in with futures?", "Yes. Because of leverage, a big enough move against you can lose more than your margin deposit, and you can end up owing your broker money. With 5% margin, a 5% move against you wipes out the whole deposit."),
+  ("How did oil prices go negative in April 2020?", "Demand collapsed and storage filled up. The expiring May crude contract was physically settled, so holders who couldn't take delivery paid others to take it. It settled at minus $37.63 on April 20, 2020, while later months stayed positive."),
+ ],
+},
 "/24-hour-stock-trading.html": {
  "q": "When does 24-hour stock trading start?",
  "a": "Sunday, Dec 6, 2026 at 9 PM ET. From then on, US stocks trade from Sunday 9 PM to Friday 8 PM, with a one-hour pause from 8 to 9 PM each weeknight. The new part is an overnight session from 9 PM to 4 AM on Nasdaq, NYSE Arca, Cboe EDGX, MEMX and 24X.",

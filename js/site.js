@@ -62,6 +62,7 @@
     { href: "/seven-cheat-codes.html", title: "Seven Cheat Codes", kind: "Rules · 7 cheat codes", blurb: "Scarface Trades' seven rules for scalping: a setup with a proven edge (pre-market high and low retests, the one candle rule, the 5-minute opening range), trade with the structure, combine time frames for the entry, scalps should work right away, start small, trade only A+ days, and practice daily." },
     { href: "/eight-trading-rules.html", title: "Eight Trading Rules", kind: "Rules · 8 rules", blurb: "SMB Capital's eight rules to get profitable again after a slump: lower size and risk, be more selective, shorten your time frame, don't do it alone, one good trade, a daily report card on entries, keep your heart rate low, and write your plan down and send it. Plus Shark's way out of a slump." },
     { href: "/stop-placement.html", title: "Where Your Stop Belongs", kind: "Framework · 1 question", blurb: "Jeff Holden of SMB Capital on where a stop belongs: ask what price would have to do to prove the trade has changed, not how to avoid being wrong. What an opening range break claims, a real CRWV review with three stops on the same trade, moving a wide stop up, the turn trade with a stop just under the level, testing closer stops on your own sample, and writing the invalidation down before entry." },
+    { href: "/futures-basics.html", title: "How Futures Work", kind: "Basics · futures", blurb: "A beginner's guide to futures from Martik Finance: a contract both sides must keep (unlike an option), hedgers and speculators, long and short, contract size and tick value, margin as a deposit and the leverage it creates, daily mark to market and margin calls, contango and backwardation, the day oil went negative, and the six risks." },
     { href: "/24-hour-stock-trading.html", title: "24-Hour Stock Trading", kind: "Note · new trading hours", blurb: "From Sunday, Dec 6 at 9 PM ET, US stocks trade Sunday 9 PM to Friday 8 PM with a pause from 8 to 9 PM: the new 9 PM to 4 AM overnight session, how overnight trades count, and what stays the same." },
     { href: "/covered-calls.html",      title: "Covered Calls",                  kind: "Options · 4 outcomes",      blurb: "Own the stock, sell a call against it, keep the premium. The four outcomes, the cap on your upside, and how to place the order." },
     { href: "/expected-move.html",      title: "Expected Move",                  kind: "Options · calculator",      blurb: "A dashboard for the range the options market prices: enter the chain, get the upper and lower move on a chart, and see if it's wide or narrow for the stock." }
@@ -260,6 +261,7 @@
         '<ul class="gmenu-main">' +
           '<li><a href="/"' + cur(p === "/" || p === "/index.html") + '>Home</a></li>' +
           '<li><a href="/setups/"' + cur(p.indexOf("/setups/") === 0) + '>Setups</a></li>' +
+          '<li><a href="/basics/"' + cur(p.indexOf("/basics/") === 0) + '>Basics</a></li>' +
           '<li><a href="/fundamentals/"' + cur(p.indexOf("/fundamentals/") === 0) + '>Fundamentals</a></li>' +
           '<li><a href="/famous-strategies/"' + cur(p.indexOf("/famous-strategies/") === 0) + '>Famous Strategies</a></li>' +
           '<li><a href="/blog/"' + cur(p.indexOf("/blog/") === 0) + '>Blog</a></li>' +
@@ -332,8 +334,8 @@
       ? (p === "/blog/" ? "" : '<a href="/blog/">All posts</a>') + '<a class="pill pill-buy" href="/">Home</a>'
       : isStrat
       ? (p === "/famous-strategies/" ? hubLink("/setups/", "All setups") + hubLink("/fundamentals/", "Fundamentals") : '<a href="/famous-strategies/">All strategies</a>') + '<a class="pill pill-buy" href="/">Home</a>'
-      : (p === "/setups/" || p === "/fundamentals/")
-      ? hubLink("/setups/", "All setups") + hubLink("/fundamentals/", "Fundamentals") + '<a class="pill pill-buy" href="/">Home</a>'
+      : (p === "/setups/" || p === "/fundamentals/" || p === "/basics/")
+      ? hubLink("/basics/", "Basics") + hubLink("/setups/", "All setups") + hubLink("/fundamentals/", "Fundamentals") + '<a class="pill pill-buy" href="/">Home</a>'
       : (s ? '<span class="tnum">' + esc(s.session) + "</span>" : "") + '<a href="/setups/">All setups</a><a class="pill pill-buy" href="/#setups">Browse</a>';
     el.outerHTML =
       '<div class="lnav"><div class="wrap"><span class="title">' + esc(title) + '</span><div class="right">' + right + "</div></div></div>";
@@ -349,7 +351,8 @@
       return "<div><h4>" + esc(GROUPS[g].short) + "</h4>" +
         list.map(function (s) { return '<a href="' + esc(s.href) + '">' + esc(s.nav) + "</a>"; }).join("") + "</div>";
     }).join("") +
-      "<div><h4>Fundamentals</h4>" +
+      '<div><h4>Basics</h4><a href="/basics/">Start here</a>' +
+      '<h4 style="margin-top:18px">Fundamentals</h4>' +
       FUNDAMENTALS.map(function (f) { return '<a href="' + esc(f.href) + '">' + esc(f.title) + "</a>"; }).join("") +
       '<h4 style="margin-top:18px">Famous strategies</h4>' +
       STRAT_LIVE.map(function (x) { return '<a href="' + esc(x.href) + '">' + esc(x.title) + "</a>"; }).join("") +
@@ -694,7 +697,7 @@
      each page's description and section headings, so a hit on a heading
      links straight to that section. Bump SEARCH_INDEX_URL's ?v= after
      rebuilding the index. */
-  var SEARCH_INDEX_URL = "/js/search-index.js?v=51";
+  var SEARCH_INDEX_URL = "/js/search-index.js?v=52";
   var searchDocs = null, searchIndexState = "";
 
   function searchBase() {
@@ -721,6 +724,7 @@
       { u: "/setups/", t: "All setups", sub: "", kind: "Page", d: "Every setup in one list, filtered by session and side.", k: "setups list browse index", h: [], order: 2 },
       { u: "/contact.html", t: "Contact", sub: "", kind: "Page", d: "Send a question, a correction or a setup idea.", k: "contact email message question feedback idea suggestion correction report problem", h: [], order: 2 },
       { u: "/famous-strategies/", t: "Famous strategies", sub: "", kind: "Page", d: "Famous, research-backed stock and ETF strategies, one detailed page each.", k: "famous strategies research academic papers momentum value etf stocks list browse index", h: [], order: 2 },
+      { u: "/basics/", t: "Basics", sub: "", kind: "Page", d: "Start here if you're new: how markets, orders, charts and risk work.", k: "basics beginner beginners start new learn how trading works", h: [], order: 2 },
       { u: "/fundamentals/", t: "All fundamentals", sub: "", kind: "Page", d: "Every framework, process and options page in one list.", k: "fundamentals frameworks list browse index", h: [], order: 2 }
     );
     return docs;
