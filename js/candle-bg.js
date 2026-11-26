@@ -1447,6 +1447,98 @@
       }
     },
 
+    /* Basics pages (Martik Finance videos, js/bx-anim.js) */
+    "investment-funds": {
+      story: function (st) {
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { n: 0.4, v: 0.6, mk: { t: "One buy \u00b7 hundreds of companies", col: SILK } }); }),
+          rep(5, function (st) { return bar(st, { d: 0.45, n: 0.6 }); }),
+          rep(1, function (st) { return bar(st, { d: -0.2, n: 0.3, mk: { t: "Expense ratio \u00b7 charged every year", col: ORANGE, below: true } }); }),
+          rep(4, function (st) { return bar(st, { d: 0.4, n: 0.6 }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 0.3, n: 0.4, mk: { t: "Index fund \u00b7 copies the list", col: BLUE } }); }),
+          rep(5, function (st) { return bar(st, { d: 0.45, n: 0.7 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.5, n: 0.3, v: 0.8, flash: GREEN, mk: { t: "Low fee \u00b7 more of it stays yours", col: GREEN, below: true } }); }),
+          rep(3, function (st) { return bar(st, { d: rnd(-0.3, 0.5), n: 0.6 }); })
+        ];
+      }
+    },
+
+    "options-basics": {
+      story: function (st) {
+        var K, B;
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); K = level(st, st.price + 0.2, "Strike $100", BLUE, true); B = level(st, st.price + 2.2, "Break-even $102", ORANGE); return bar(st, { n: 0.3, v: 0.6, mk: { t: "Buy 1 call \u00b7 $200", col: SILK } }); }),
+          rep(4, function (st, k) { return bar(st, { n: 0.6, cap: B.y - 0.3, mk: k === 2 ? { t: "Time decay \u00b7 every day", col: ORANGE, below: true } : null }); }),
+          rep(1, function (st) { return bar(st, { d: 1.6, n: 0.3, v: 0.9, pierce: true, flash: GREEN, mk: { t: "In the money", col: GREEN } }); }),
+          rep(4, function (st) { return bar(st, { d: 0.9, n: 0.6 }); }),
+          rep(1, function (st) { B.col = GREEN; B.label = "Above break-even"; return bar(st, { d: 0.6, n: 0.3, v: 0.8, mk: { t: "Sell the contract", col: GREEN, below: true } }); }),
+          rep(3, function (st) { return bar(st, { d: rnd(-0.4, 0.4), n: 0.6 }); })
+        ];
+      }
+    },
+
+    "eps-pe-ratio": {
+      story: function (st) {
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { n: 0.4, v: 0.5, mk: { t: "EPS $4.80 \u00b7 P/E 20", col: SILK } }); }),
+          rep(4, function (st) { return bar(st, { d: rnd(-0.2, 0.3), n: 0.7 }); }),
+          rep(1, function (st) { divider(st); return bar(st, { d: 1.8, n: 0.3, v: 1, flash: GREEN, mk: { t: "Earnings up \u00b7 EPS rises", col: GREEN, below: true } }); }),
+          rep(4, function (st) { return bar(st, { d: 0.4, n: 0.6 }); }),
+          rep(1, function (st) { return bar(st, { d: -1.2, n: 0.3, v: 0.8, mk: { t: "New shares \u00b7 diluted", col: RED } }); }),
+          rep(3, function (st) { return bar(st, { d: rnd(-0.3, 0.3), n: 0.6 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.9, n: 0.3, v: 0.7, mk: { t: "Buyback \u00b7 fewer slices", col: BLUE, below: true } }); }),
+          rep(4, function (st) { return bar(st, { d: 0.3, n: 0.6 }); })
+        ];
+      }
+    },
+
+    "arbitrage": {
+      story: function (st) {
+        var A, B;
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); A = level(st, st.price - 2.4, "Exchange A \u00b7 $100", GREEN, true); B = level(st, st.price + 2.4, "Exchange B \u00b7 $105", ORANGE, true); return bar(st, { n: 0.4, v: 0.5, mk: { t: "Same asset, two prices", col: SILK } }); }),
+          rep(3, function (st) { return bar(st, { n: 0.6, cap: B.y, flo: A.y }); }),
+          rep(1, function (st) { return bar(st, { n: 0.3, v: 0.9, flash: GREEN, cap: B.y, flo: A.y, mk: { t: "Buy A, sell B \u00b7 at once", col: GREEN, below: true } }); }),
+          rep(6, function (st) { A.y += 0.38; B.y -= 0.38; return bar(st, { n: 0.4, cap: B.y, flo: A.y }); }),
+          rep(1, function (st) { A.label = "Gap closed"; B.label = ""; return bar(st, { n: 0.2, v: 0.4, mk: { t: "Milliseconds", col: SILK } }); }),
+          rep(4, function (st) { return bar(st, { d: rnd(-0.3, 0.3), n: 0.5 }); })
+        ];
+      }
+    },
+
+    "analysis-types": {
+      story: function (st) {
+        var R, S;
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); return bar(st, { n: 0.4, mk: { t: "Higher highs, higher lows", col: GREEN } }); }),
+          rep(6, function (st) { return bar(st, { d: 0.6, n: 0.8 }); }),
+          rep(1, function (st) { R = level(st, st.price + 1.2, "Resistance", RED, true); S = level(st, st.price - 2.2, "Support", GREEN); return bar(st, { n: 0.5, cap: R.y }); }),
+          rep(4, function (st) { return bar(st, { n: 0.8, cap: R.y, flo: S.y }); }),
+          rep(1, function (st) { return bar(st, { d: 0.2, n: 0.2, hi: R.y + 0.9, v: 0.3, mk: { t: "Fakeout \u00b7 back inside", col: ORANGE } }); }),
+          rep(2, function (st) { return bar(st, { n: 0.6, cap: R.y, flo: S.y }); }),
+          rep(1, function (st) { R.col = GREEN; R.label = "Breakout on volume"; return bar(st, { d: 2.2, n: 0.3, v: 1, pierce: true, flash: GREEN, mk: { t: "Closes above", col: GREEN, below: true } }); }),
+          rep(4, function (st) { return bar(st, { d: 0.6, n: 0.6 }); })
+        ];
+      }
+    },
+
+    "recession-investing": {
+      story: function (st) {
+        var H;
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); H = level(st, st.price + 0.6, "Old high", GRAY, true); return bar(st, { n: 0.4, mk: { t: "Before the recession", col: SILK } }); }),
+          rep(6, function (st, k) { return bar(st, { d: -1.1, n: 1, v: 0.7, mk: k === 4 ? { t: "Panic selling", col: RED, below: true } : null }); }),
+          rep(1, function (st) { return bar(st, { d: 1.8, n: 0.4, v: 1, flash: GREEN, mk: { t: "A best day, in the worst month", col: GREEN } }); }),
+          rep(1, function (st) { return bar(st, { d: -1.4, n: 0.4, v: 0.9, mk: { t: "The low \u00b7 headlines still awful", col: ORANGE, below: true } }); }),
+          rep(5, function (st) { return bar(st, { d: 0.8, n: 0.8 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.4, n: 0.4, mk: { t: "\"It's official: a recession\"", col: ORANGE } }); }),
+          rep(5, function (st) { return bar(st, { d: 0.7, n: 0.8 }); }),
+          rep(1, function (st) { H.col = GREEN; H.label = "Back to the high"; return bar(st, { d: 0.6, n: 0.4, flash: GREEN }); }),
+          rep(3, function (st) { return bar(st, { d: rnd(-0.3, 0.5), n: 0.6 }); })
+        ];
+      }
+    },
+
     "24-hour-stock-trading": {
       story: function (st) {
         return [

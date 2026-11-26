@@ -22,7 +22,7 @@ const ROOT = path.resolve(__dirname, "..");
 const PAGES = [
   "edge.html", "mistakes.html", "price-action-rules.html", "trailing-stops.html",
   "let-winners-run.html", "relative-volume.html", "six-momentum-trades.html",
-  "four-pillars.html", "get-better-faster.html", "dynamic-risk-sizing.html", "order-flow.html", "linda-raschke.html", "trading-earnings.html", "seven-trading-traps.html", "auction-market-theory.html", "thesis-to-trade.html", "pyramiding.html", "stacked-imbalances.html", "level-radar.html", "seven-cheat-codes.html", "eight-trading-rules.html", "stop-placement.html", "futures-basics.html", "24-hour-stock-trading.html", "tested-results.html",
+  "four-pillars.html", "get-better-faster.html", "dynamic-risk-sizing.html", "order-flow.html", "linda-raschke.html", "trading-earnings.html", "seven-trading-traps.html", "auction-market-theory.html", "thesis-to-trade.html", "pyramiding.html", "stacked-imbalances.html", "level-radar.html", "seven-cheat-codes.html", "eight-trading-rules.html", "stop-placement.html", "futures-basics.html", "investment-funds.html", "options-basics.html", "eps-pe-ratio.html", "arbitrage.html", "analysis-types.html", "recession-investing.html", "24-hour-stock-trading.html", "tested-results.html",
   "famous-strategies/cross-sectional-momentum.html",
   "famous-strategies/overnight-effect.html",
   "famous-strategies/turn-of-the-month.html",
