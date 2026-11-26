@@ -1,0 +1,906 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Futures Work: Contracts, Margin and Leverage | The Trade Method</title>
+<meta name="description" content="How futures work for beginners: a contract both sides must keep, contract size and tick value, margin as a deposit, daily mark to market and margin calls.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/futures-basics.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="How Futures Work: Contracts, Margin and Leverage">
+<meta property="og:description" content="How futures work for beginners: a contract both sides must keep, contract size and tick value, margin as a deposit, daily mark to market and margin calls.">
+<meta property="og:url" content="https://thetrademethod.com/futures-basics.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How Futures Work: Contracts, Margin and Leverage">
+<meta name="twitter:description" content="How futures work for beginners: a contract both sides must keep, contract size and tick value, margin as a deposit, daily mark to market and margin calls.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "How Futures Work — contracts, margin and leverage for beginners",
+ "name": "How Futures Work",
+ "description": "A beginner's guide to futures from Martik Finance: a futures contract is an obligation for both sides, unlike an option. Hedgers and speculators, the kinds of futures, long and short, contract size and tick value, margin as a deposit and the leverage it creates, daily mark to market, initial and maintenance margin and margin calls, futures vs spot, contango and backwardation, the day oil went negative in April 2020, and the six main risks.",
+ "url": "https://thetrademethod.com/futures-basics.html",
+ "mainEntityOfPage": "https://thetrademethod.com/futures-basics.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-26",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Person",
+  "name": "Bryant",
+  "url": "https://thetrademethod.com/about.html"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(38px,5.6vw,66px); line-height:0.98; letter-spacing:-0.03em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(5,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters (reused as gut-check cards) ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:170px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.rule { grid-template-columns:1fr; }
+    .ribbon, .ribbon.eight { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=27">
+<style>
+  /* ---------- page-only rules (after apple.css so they win) ---------- */
+  .calc .row { display:flex; justify-content:space-between; align-items:baseline; gap:16px; padding:10px 0; font-size:15px; }
+  .calc .row span { color:var(--mute); }
+  .calc .row b { font-family:var(--mono-font); font-weight:600; text-align:right; }
+  .calc .row.tot b { color:var(--up); }
+  .panel ul.plain { margin:0; padding-left:18px; color:var(--silk); font-size:14.5px; }
+  .panel ul.plain li { margin-bottom:6px; }
+  .panel a.more { font-size:15px; }
+
+  /* video */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video ol { margin:0 0 16px; padding-left:20px; color:var(--mute); font-size:15px; }
+  .video ol li { margin-bottom:4px; }
+  .video ol b { font-family:var(--mono-font); font-weight:500; color:var(--ash); font-size:13px; margin-right:6px; }
+  .video a.more { font-size:15px; }
+
+  /* two- and three-way comparisons */
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px; }
+  .pair div { background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pair .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pair b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pair p { margin:0; color:var(--mute); font-size:14px; }
+  .pair .yes { background:rgba(48,209,88,0.12); } .pair .yes b { color:var(--up); }
+  .pair .care { background:rgba(255,159,10,0.12); } .pair .care b { color:var(--orange); }
+
+  /* card grids */
+  .four { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .four.six { grid-template-columns:repeat(3,1fr); }
+  .four > div, .four > a { background:var(--charcoal); border-radius:22px; padding:18px 18px 20px; border-top:3px solid var(--tc, var(--up)); color:inherit; text-decoration:none; display:block; }
+  .four > a:hover h3 { text-decoration:underline; }
+  .four .k { font-family:var(--mono-font); font-size:12px; color:var(--tc, var(--up)); }
+  .four h3 { margin:6px 0 8px; font-size:20px; }
+  .four p { margin:0 0 6px; color:var(--silk); font-size:15px; }
+  .four small { display:block; color:var(--ash); font-size:13.5px; }
+
+  /* a pulled quote from the video */
+  .qb { margin:0; padding:18px 20px; background:var(--raised); border-radius:18px; color:var(--silk); font-size:16px; line-height:1.5; }
+  .qb b { color:var(--up); }
+
+  /* the animations redraw for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .section-head + .anim { margin-top:8px; }
+
+  /* the way back: five cards, or a stepper once js/sp-anim.js runs */
+  .sp-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; }
+  .sheet .sp-steps .stage, .sheet .sp-steps .stage:first-child { padding:22px 20px; background:var(--charcoal); border-radius:22px; align-content:start; }
+  .sp-steps.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#2997ff; }
+  .gs-bar { display:grid; grid-template-columns:repeat(5,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:10%; right:10%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .sp-steps.is-stepper .stage, .sheet .sp-steps.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .sp-steps.is-stepper .stage .num { display:none; }
+  .sheet .sp-steps.is-stepper .stage[hidden] { display:none; }
+  .sheet .sp-steps.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  .sp-steps + .four { margin-top:28px; }
+  .sp-steps + .section-head { margin-top:56px; }
+
+  @media (max-width:1100px) {
+    .video { grid-template-columns:1fr; }
+    .four, .four.six { grid-template-columns:repeat(2,1fr); }
+    .sp-steps { grid-template-columns:1fr 1fr; }
+  }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    /* breathing room around each walkthrough on small screens */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .section-head + .anim { margin-top:24px; }
+    .sheet .anim + .main, .sheet .anim + .four { margin-top:8px; }
+    .sheet .main + .anim, .sheet .four + .anim { margin-top:56px; }
+    .sheet .anim + .section-head { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .four, .four.six, .pair, .sp-steps { grid-template-columns:1fr; }
+    .calc .row { flex-direction:column; gap:2px; }
+    .calc .row b { text-align:left; }
+    .sp-steps.is-stepper { padding:20px 14px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:36px; height:36px; font-size:15px; }
+    .gs-line { top:17px; }
+    .gs-bar { margin-bottom:20px; }
+    .sheet .section-head + .sp-steps { margin-top:24px; }
+  }
+
+  @media (min-width:1101px) { .ribbon.eight { grid-template-columns:repeat(8,1fr); } }
+
+  /* calculator */
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in label { font-size:12px; color:var(--ash); display:block; }
+  .calc-in input { width:100%; margin-top:4px; background:var(--raised); color:var(--silk); border:1px solid #3a3a3c; border-radius:10px;
+                   padding:9px 11px; font:inherit; font-size:15px; font-variant-numeric:tabular-nums; }
+  .calc-in input:focus { outline:2px solid #2997ff; outline-offset:1px; }
+  .presets { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 12px; }
+  .presets .pill { font-size:13px; padding:6px 14px; }
+
+  /* the one-line invalidation */
+  .plan { margin:0; padding:16px 18px; background:var(--raised); border-radius:18px; font-family:var(--mono-font); font-size:13.5px; color:var(--silk); white-space:pre-wrap; line-height:1.6; }
+
+  /* pick your stop */
+  .pick { text-align:left; font:inherit; color:inherit; border:2px solid transparent; cursor:pointer; background:var(--raised); border-radius:18px; padding:14px 16px; }
+  .pick:hover { border-color:#3a3a3c; }
+  .pick.is-on { border-color:#2997ff; }
+  .pick .k { font-size:12px; color:var(--ash); font-family:var(--mono-font); }
+  .pick b { display:block; margin:6px 0 4px; font-size:16px; }
+  .pick p { margin:0; color:var(--mute); font-size:14px; }
+  .pick-out { margin-top:14px; color:var(--silk); font-size:15px; }
+  .pick-out:empty { display:none; }
+  .pick-out p { margin:0 0 6px; }
+  [data-sp-pick] { margin:0 0 28px; }
+
+  /* calculators */
+  .calc-out { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+  .calc-out div { background:var(--raised); border-radius:14px; padding:10px 12px; }
+  .calc-out span { display:block; font-size:12px; color:var(--ash); }
+  .calc-out b { font-family:var(--mono-font); font-weight:600; font-size:18px; }
+  .meter { position:relative; height:12px; background:#2c2c2e; border-radius:6px; margin:14px 0 6px; overflow:hidden; }
+  .meter i { position:absolute; left:0; top:0; bottom:0; background:#ff9f0a; border-radius:6px; transition:width .3s ease; }
+  .calc-note { margin:8px 0 0; color:var(--mute); font-size:14px; }
+  .ev-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+  .ev-grid fieldset { border:0; margin:0; padding:12px; background:var(--raised); border-radius:16px; display:grid; gap:8px; }
+  .ev-grid legend { float:left; width:100%; font-weight:600; font-size:15px; margin-bottom:2px; }
+  .ev-grid label { font-size:12px; color:var(--ash); display:block; }
+  .ev-grid input { width:100%; margin-top:4px; background:#1d1d1f; color:var(--silk); border:1px solid #3a3a3c; border-radius:10px; padding:8px 10px; font:inherit; font-size:15px; font-variant-numeric:tabular-nums; }
+  .ev-res { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .ev-res div { background:var(--raised); border-radius:14px; padding:10px 12px; border-left:3px solid #3a3a3c; }
+  .ev-res div.best { border-left-color:#30d158; }
+  .ev-res span { display:block; font-size:12px; color:var(--ash); }
+  .ev-res b { font-family:var(--mono-font); font-size:18px; font-weight:600; }
+  .table-wrap { overflow-x:auto; }
+  @media (max-width:680px) {
+    .calc-out { grid-template-columns:1fr 1fr; }
+    .calc-in[style] { grid-template-columns:1fr 1fr 1fr !important; }
+    .ev-grid, .ev-res { grid-template-columns:1fr; }
+    .pick-out { font-size:14.5px; }
+    table { font-size:13px; } th, td { padding:8px 8px; }
+    .table-wrap table { min-width:640px; }
+    .table-wrap caption { max-width:340px; }
+  }
+</style>
+<style>
+  /* ---------- futures-basics page ---------- */
+  .filters.six { grid-template-columns:repeat(3,1fr); }
+  .calc-in select { width:100%; margin-top:4px; background:var(--raised); color:var(--silk); border:1px solid #3a3a3c; border-radius:10px;
+                    padding:9px 11px; font:inherit; font-size:15px; }
+  .presets .pill.is-on { background:#2997ff; color:#000; }
+  .calc-out.three { grid-template-columns:repeat(3,1fr); }
+  .sp-steps + .video { margin-top:72px; }
+  @media (max-width:1100px) { .filters.six { grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:680px) {
+    .filters.six { grid-template-columns:1fr; }
+    .calc-in[style] { grid-template-columns:1fr 1fr !important; }
+    .calc-out.three { grid-template-columns:1fr 1fr; }
+    .sp-steps + .video { margin-top:56px; }
+  }
+</style>
+<script src="/js/nav.js?v=36" defer></script>
+<script src="/js/site.js?v=75" defer></script>
+<script src="/js/fb-anim.js?v=1" defer></script>
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=49" defer></script>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "How do futures work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "A futures contract is an agreement to buy or sell a set amount of something at a set price on a set date. Unlike an option, both sides are obligated. You put up a small deposit called margin, often around 5% of the contract's value, and your account is marked to market every day, so gains and losses are paid in cash daily."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the difference between futures and options?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "An option gives the buyer the right to buy or sell, and the most the buyer can lose is the premium. A futures contract is an obligation for both sides: unless you close it before it expires, you have to go through with it."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Is futures margin a loan?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "No. In stocks, margin means borrowing from your broker and paying interest. In futures, margin is a security deposit that shows you can cover losses. There's no loan and no interest, and it's only a small slice of the contract's value."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is a margin call in futures?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "If daily losses push your balance below the maintenance margin, you have to deposit enough to bring it back up to the initial margin. If you don't, or the market keeps moving against you, the broker can close your position for you."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How much is one tick worth?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "It depends on the contract. One crude oil contract is 1,000 barrels with a 1-cent tick, so a tick is $10 and a $1 move is $1,000. The E-mini S&P 500 is $50 times the index with a quarter-point tick worth $12.50."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Can you lose more than you put in with futures?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Yes. Because of leverage, a big enough move against you can lose more than your margin deposit, and you can end up owing your broker money. With 5% margin, a 5% move against you wipes out the whole deposit."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "How did oil prices go negative in April 2020?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Demand collapsed and storage filled up. The expiring May crude contract was physically settled, so holders who couldn't take delivery paid others to take it. It settled at minus $37.63 on April 20, 2020, while later months stayed positive."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
+<!-- breadcrumbs --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://thetrademethod.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Fundamentals",
+   "item": "https://thetrademethod.com/fundamentals/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "How Futures Work",
+   "item": "https://thetrademethod.com/futures-basics.html"
+  }
+ ]
+}
+</script><!-- /breadcrumbs -->
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="How Futures Work"></div>
+<div class="sheet">
+
+  <a class="back" href="/fundamentals/">&lsaquo; Fundamentals</a>
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-26">Nov 26, 2026</time></p><!-- /byline -->
+
+  <header class="top" data-candle-bg="futures-basics">
+    <div>
+      <p class="kicker">Basics &middot; from Martik Finance's "How Futures Trading Really Work (Full Beginner's Guide)"</p>
+      <h1>How <span>Futures</span> Work</h1>
+    </div>
+    <div>
+      <p class="thesis">A futures contract is a deal to buy or sell something at a set price on a set date. Both sides are on the hook, a small deposit controls a big position, and the account is settled in cash every single day.
+      <em>That's the opportunity and the danger in one sentence.</em></p>
+      <div class="counts">
+        <div><b>2</b><small>sides, both obligated</small></div>
+        <div><b>5%</b><small>deposit controls the whole contract</small></div>
+        <div><b>1</b><small>day between cash settlements</small></div>
+      </div>
+    </div>
+  </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">How do futures work?</h2><p>A futures contract is an agreement to buy or sell a set amount of something at a set price on a set date. Unlike an option, both sides are obligated. You put up a small deposit called margin, often around 5% of the contract's value, and your account is marked to market every day, so gains and losses are paid in cash daily.</p></section><!-- /define -->
+
+  <nav class="ribbon" aria-label="How futures work, in five ideas">
+    <div><div class="t">the deal</div><div class="n">Price locked today</div></div>
+    <div><div class="t">the size</div><div class="n">Every tick has a dollar value</div></div>
+    <div><div class="t">the margin</div><div class="n">A deposit, not a loan</div></div>
+    <div><div class="t">the curve</div><div class="n">Futures aren't spot</div></div>
+    <div><div class="t">the risks</div><div class="n">You can lose more than you put up</div></div>
+  </nav>
+
+  <div class="section-head" id="contract">
+    <h2>What a futures contract is</h2>
+    <p>An agreement between two people to buy or sell something at a set price on a set date in the future. The video starts with an airline that has already sold next year's tickets and has no idea what jet fuel will cost. A futures contract lets it lock tomorrow's price today.</p>
+  </div>
+  <section class="anim" data-fb-anim="deal" aria-label="Illustrative made-up wheat prices from March to September. In March a farmer and a bread company agree on 5,000 bushels at 6 dollars in September, 30,000 dollars. If wheat falls to 4.80 the farmer still gets 30,000 instead of 24,000. If wheat rises to 7.20 the bread company still pays 30,000 instead of 36,000. Neither side can walk away. The agreement itself then trades on an exchange, where speculators take sides without ever touching wheat.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">The wheat deal</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative wheat price paths and a locked futures price."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>A deal both sides must keep</h3>
+          <ul>
+            <li>It's March. The farmer agrees to sell 5,000 bushels of wheat in September at $6 a bushel.</li>
+            <li>The bread company agrees to buy at that price, no matter what wheat does in between.</li>
+            <li>Unless you close it out before it expires, you can't walk away.</li>
+          </ul>
+          <p class="why">That's the big difference from an option. An option gives you the right to buy or sell, and you can walk away losing only the premium. A futures contract is an obligation for both sides.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Futures vs options</h4>
+        <div class="pair">
+          <div class="care"><span class="k">futures</span><b>An obligation</b><p>Both sides must go through with it, or close it before it expires. Gains and losses have no built-in cap.</p></div>
+          <div class="yes"><span class="k">options</span><b>A right</b><p>The buyer can walk away. The most the buyer can lose is the premium paid.</p></div>
+        </div>
+      </div>
+      <div class="panel">
+        <h4>Who's on each side</h4>
+        <div class="timing" style="grid-template-columns:1fr">
+          <div><b>Hedgers</b><p>Businesses locking in a price to kill uncertainty: the farmer, the airline buying jet fuel, a jewelry company that needs to know what gold will cost. They aren't trying to get rich off the swings.</p></div>
+          <div><b>Speculators</b><p>Traders who never want a bushel of wheat or a tanker of crude. They take the other side of the hedger's risk to profit from the price move itself. Without them the hedger has no one to trade with.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="kinds">
+    <h2>What you can trade with futures</h2>
+    <p>Futures started with crops and raw materials. Today financial futures make up a huge share of the volume.</p>
+  </div>
+  <div class="four">
+    <div style="--tc:#f4b942"><span class="k">commodity</span><h3>Physical goods</h3><p>Crude oil, gold, wheat, natural gas.</p><small>Some settle by physical delivery if you hold to expiration.</small></div>
+    <div style="--tc:#30d158"><span class="k">stock index</span><h3>The whole market</h3><p>Contracts on the S&amp;P 500 or the Nasdaq.</p><small>Speculate on, or hedge against, the entire market moving up or down.</small></div>
+    <div style="--tc:#2997ff"><span class="k">rates &amp; currency</span><h3>Bonds and FX</h3><p>Interest rate futures on US Treasuries, and currency futures on exchange rates.</p><small>Mostly used by institutions to hedge.</small></div>
+    <div style="--tc:#bf5af2"><span class="k">crypto</span><h3>The newest kind</h3><p>Futures on Bitcoin, Ethereum and other coins.</p><small>Trade the price without holding coins in a wallet.</small></div>
+  </div>
+
+  <div class="section-head" id="long-short">
+    <h2>Long and short are equally normal</h2>
+    <p>In stocks most people only think one way: buy low, sell high. In futures you're just choosing a side of the agreement, so selling first is as easy as buying.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Pick a side of the deal</h3>
+          <ul>
+            <li><b>Long:</b> you buy the contract, locking in today's price to buy later. You win if the price rises.</li>
+            <li><b>Short:</b> you sell the contract first, without owning anything, locking in today's price to sell later. You win if the price falls.</li>
+            <li>To get out, take the opposite trade: a long sells the same contract, a short buys it back.</li>
+          </ul>
+          <p class="why">Your profit or loss is the difference between entry and exit, times the contract size. That's why the contract size is the first thing to look up.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>If you hold to expiration</h4>
+        <div class="pair">
+          <div class="care"><span class="k">physical delivery</span><b>The goods show up</b><p>You deliver, or take delivery of, the real thing. One crude contract is 1,000 barrels.</p></div>
+          <div class="yes"><span class="k">cash settled</span><b>The difference is paid</b><p>No goods change hands. The price difference is paid out in cash.</p></div>
+        </div>
+        <p class="calc-note">That's why most traders close well before expiration. Very few people want 100 ounces of gold or 1,000 barrels of oil at their door.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="size">
+    <h2>Contract size and tick value</h2>
+    <p>Every contract is a fixed, standard amount set by the exchange. You can't customize it. That amount decides how many dollars you make or lose for every move in price.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Look these up before any new contract</h3>
+          <ul>
+            <li><b>Crude oil (CME):</b> 1,000 barrels. A $1 move is $1,000. The tick is 1 cent, worth $10.</li>
+            <li><b>Gold:</b> 100 troy ounces. A $1 move is $100.</li>
+            <li><b>E-mini S&amp;P 500:</b> the index times $50. The tick is a quarter point, worth $12.50.</li>
+          </ul>
+          <p class="why">The tick is the smallest move a contract is allowed to make. Tick value is the contract size times the tick: 1,000 barrels &times; $0.01 = $10.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel calc" data-fb-calc>
+        <h4>What a move is worth</h4>
+        <p class="lead">Pick a contract, then set the entry, exit and number of contracts.</p>
+        <div class="presets" role="group" aria-label="Contract">
+          <button type="button" class="pill" data-c="cl">Crude oil</button>
+          <button type="button" class="pill" data-c="gc">Gold</button>
+          <button type="button" class="pill" data-c="es">E-mini S&amp;P</button>
+          <button type="button" class="pill" data-c="mes">Micro E-mini S&amp;P</button>
+        </div>
+        <div class="calc-in" style="grid-template-columns:repeat(4,1fr)">
+          <label>Side<select name="side"><option value="1">Long</option><option value="-1">Short</option></select></label>
+          <label>Entry<input name="entry" type="number" step="any" value="70.00" inputmode="decimal"></label>
+          <label>Exit<input name="exit" type="number" step="any" value="71.00" inputmode="decimal"></label>
+          <label>Contracts<input name="qty" type="number" step="1" min="1" value="1" inputmode="numeric"></label>
+        </div>
+        <div data-calc-out></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="margin">
+    <h2>Margin is a deposit, not a loan</h2>
+    <p>In stocks, margin means borrowing from your broker and paying interest. In futures, margin is a security deposit that shows you can cover losses. No loan, no interest. It's a small slice of the contract's value, and that's where the leverage comes from.</p>
+  </div>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>A small deposit, a big position</h3>
+          <ul>
+            <li>Gold at $2,000 an ounce, one contract of 100 ounces: about $200,000 of gold.</li>
+            <li>You might put up only around 5% of that, say $10,000, as margin.</li>
+            <li>So a 5% move in gold is a 100% swing on the money you actually put up.</li>
+          </ul>
+          <p class="why">That's why futures accounts move so fast, in both directions. The leverage is the same whether the move helps you or hurts you.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel calc" data-fb-lev>
+        <h4>Leverage, in your numbers</h4>
+        <p class="lead">The video's gold example is filled in. The maintenance level here is made up; your broker and the exchange set the real one.</p>
+        <div class="calc-in" style="grid-template-columns:repeat(4,1fr)">
+          <label>Contract value $<input name="val" type="number" step="any" value="200000" inputmode="decimal"></label>
+          <label>Initial margin $<input name="im" type="number" step="any" value="10000" inputmode="decimal"></label>
+          <label>Maintenance $<input name="mm" type="number" step="any" value="9000" inputmode="decimal"></label>
+          <label>Price move %<input name="mv" type="number" step="any" value="5" inputmode="decimal"></label>
+        </div>
+        <div data-lev-out></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="mark-to-market">
+    <h2>Marked to market, every single day</h2>
+    <p>A futures trade isn't buy it and forget it. At the end of each session the exchange uses the settlement price to work out your gain or loss, and that cash is added to or taken out of your account. Whether you like it or not.</p>
+  </div>
+  <section class="anim" data-fb-anim="margin" aria-label="Illustrative made-up daily settlements for one long gold contract bought at 2,000 dollars, 100 ounces, so each dollar is 100 dollars. Initial margin 10,000, maintenance 9,000, both made up. Day 1 settles 2,012, the account rises to 11,200. Day 2 2,004, 10,400. Day 3 1,995, 9,500. Day 4 1,986, the account falls to 8,600, below maintenance: a margin call asks for 1,400 to get back to the 10,000 initial margin. Days 5 to 7 rise to 2,021 and the trader closes by selling one contract: 21 dollars times 100 ounces, a 2,100 dollar gain.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">One gold contract, day by day</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative daily settlements, account balance and a margin call."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Initial margin, maintenance margin</h3>
+          <ul>
+            <li><b>Initial margin:</b> the deposit you need to open the position. Your entry ticket.</li>
+            <li><b>Maintenance margin:</b> a lower level your balance must stay above while you hold.</li>
+            <li>Fall below it and you get a <b>margin call</b>: deposit enough to get back up to the initial margin.</li>
+          </ul>
+          <p class="why">If you don't, or the market keeps running against you fast enough, the broker can close your position for you, whether you want it closed or not.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <blockquote class="qb">A futures trade is <b>not a buy it and forget it kind of trade.</b> &mdash; Martik Finance</blockquote>
+      </div>
+      <div class="panel">
+        <h4>Why it matters</h4>
+        <ul class="plain">
+          <li>Losses aren't on paper. They leave your account in real money each day the market moves against you.</li>
+          <li>With the made-up numbers above, a move of only 0.5% against you uses up the room between initial and maintenance.</li>
+          <li>Margin calls tend to come when the market is moving fastest, which is the worst time to be forced out.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="curve">
+    <h2>The futures price isn't the spot price</h2>
+    <p>The spot price is what the thing costs right now. A futures price is the market's expectation for a later date, plus the cost of carrying it until then: storage, interest rates and insurance for physical goods. Line up the prices for each expiry month and you get the futures curve.</p>
+  </div>
+  <section class="anim" data-fb-anim="curve" aria-label="Illustrative futures curves. First a spot price and a futures price that differ. Then contango: later months priced higher than spot, common for goods that are costly to store. Then backwardation: later months priced lower than spot, when there's high demand or a shortage right now. Then April 2020: with storage full, the expiring May crude oil contract settled at minus 37.63 dollars on April 20, 2020, while later months stayed positive. Holders who couldn't take delivery paid others to take the contract.">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n"></p>
+        <h2 class="anim-title">Contango, backwardation, and negative oil</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 540" role="img" aria-label="Illustrative futures curves in contango and backwardation, and the April 2020 crude oil curve."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+  </section>
+  <div class="main">
+    <div>
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>The day oil went negative</h3>
+          <ul>
+            <li>April 2020: lockdowns, and demand for oil collapsed almost overnight.</li>
+            <li>Tanks and pipelines filled up. There was nowhere left to put more oil.</li>
+            <li>The expiring contract was physically settled, so anyone still holding it would have to take real oil they had no way to store.</li>
+          </ul>
+          <p class="why">So holders paid someone else to take the contract. Oil wasn't worthless. The obligation to take delivery, with zero storage, was worse than worthless for a very short window.</p>
+        </div>
+      </section>
+    </div>
+    <div>
+      <div class="panel">
+        <h4>Two shapes of the curve</h4>
+        <div class="pair">
+          <div class="yes"><span class="k">later months higher</span><b>Contango</b><p>Common for goods that cost a lot to store. You pay up to own it later.</p></div>
+          <div class="care"><span class="k">later months lower</span><b>Backwardation</b><p>High demand or a shortage right now. People pay more today than they expect to pay later.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head" id="risks">
+    <h2>The six risks to be honest about</h2>
+    <p>Before you even think about placing a trade, know what you're exposed to.</p>
+  </div>
+  <div class="filters six">
+    <div class="filter"><h3>Leverage cuts both ways</h3><p>A small move against you is a large percentage loss on the money you put up.</p><p class="kill">5% against you can be 100% of your deposit.</p></div>
+    <div class="filter"><h3>Losses aren't capped</h3><p>Unlike buying a stock outright, a leveraged futures position can lose more than your margin.</p><p class="kill">You can end up owing your broker.</p></div>
+    <div class="filter"><h3>Cash leaves daily</h3><p>Mark to market means losses come out of your balance in real money each day.</p><p class="kill">Not theoretical. Not later.</p></div>
+    <div class="filter"><h3>Forced out at the worst time</h3><p>Below maintenance you add funds right away, or the broker closes you.</p><p class="kill">Often right when it's most volatile.</p></div>
+    <div class="filter"><h3>Contracts expire</h3><p>Forget the date on a physically settled contract and the goods are yours.</p><p class="kill">"Your 1,000 barrels are ready for pickup."</p></div>
+    <div class="filter"><h3>Thin contracts</h3><p>Less popular contracts, or ones far from expiry, can have wide gaps between the price you want and the one you get.</p><p class="kill">You may not get out when you want.</p></div>
+  </div>
+
+  <div class="section-head" id="steps">
+    <h2>Before your first futures trade</h2>
+    <p>Five things to know about any contract before you touch it. Click through them.</p>
+  </div>
+  <div class="sp-steps" data-fb-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Look up the contract</h3>
+          <ul>
+            <li>Contract size, tick size and tick value, from the exchange.</li>
+            <li>Work out what a 1-point move costs you per contract.</li>
+          </ul>
+          <p class="why">Crude: a $1 move is $1,000. E-mini S&amp;P: a 1-point move is $50.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Know the margin</h3>
+          <ul>
+            <li>Initial margin to open, maintenance margin to hold.</li>
+            <li>Work out how far price can move against you before a margin call.</li>
+          </ul>
+          <p class="why">On the gold example, 0.5% against you is enough.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Size the risk in dollars</h3>
+          <ul>
+            <li>Stop distance in ticks &times; tick value &times; contracts = the dollars at risk.</li>
+            <li>Remember a fast market can blow through a stop. Losses can run past your margin.</li>
+          </ul>
+          <p class="why">If one contract is too big for your account, a micro contract is a tenth of the size.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>Check the calendar</h3>
+          <ul>
+            <li>When does this contract expire?</li>
+            <li>Is it cash settled or physically delivered?</li>
+          </ul>
+          <p class="why">Close or roll well before expiration unless you really want the goods.</p>
+        </div>
+      </section>
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Trade where the volume is</h3>
+          <ul>
+            <li>Stick to liquid contracts, usually the front month of the big ones.</li>
+            <li>Thin or far-dated contracts can leave you stuck at a bad price.</li>
+          </ul>
+          <p class="why">In a fast or thin market, the exit you planned may not be there.</p>
+        </div>
+      </section>
+  </div>
+
+  <section class="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/sLjN5OKK7uw" title="How Futures Trading Really Work (Full Beginner's Guide) (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Martik Finance's 14-minute beginner's guide: what a futures contract is, leverage and margin, daily mark to market, and the day oil went negative.</p>
+      <ol>
+        <li><b>0:00</b>The airline and the price of fuel</li>
+        <li><b>1:05</b>What a futures contract is</li>
+        <li><b>2:05</b>Futures vs options</li>
+        <li><b>2:25</b>Hedgers and speculators</li>
+        <li><b>3:21</b>Kinds of futures</li>
+        <li><b>4:17</b>Long and short</li>
+        <li><b>5:04</b>A gold example</li>
+        <li><b>7:05</b>Contract size and tick value</li>
+        <li><b>8:24</b>Margin and leverage</li>
+        <li><b>9:24</b>Initial and maintenance margin</li>
+        <li><b>10:25</b>Futures vs spot, contango and backwardation</li>
+        <li><b>11:20</b>April 2020: negative oil</li>
+        <li><b>12:10</b>The risks</li>
+      </ol>
+      <a class="more" href="https://www.youtube.com/watch?v=sLjN5OKK7uw" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>What is the difference between futures and options?</h3><p>An option gives the buyer the right to buy or sell, and the most the buyer can lose is the premium. A futures contract is an obligation for both sides: unless you close it before it expires, you have to go through with it.</p></div>
+    <div class="qa"><h3>Is futures margin a loan?</h3><p>No. In stocks, margin means borrowing from your broker and paying interest. In futures, margin is a security deposit that shows you can cover losses. There's no loan and no interest, and it's only a small slice of the contract's value.</p></div>
+    <div class="qa"><h3>What is a margin call in futures?</h3><p>If daily losses push your balance below the maintenance margin, you have to deposit enough to bring it back up to the initial margin. If you don't, or the market keeps moving against you, the broker can close your position for you.</p></div>
+    <div class="qa"><h3>How much is one tick worth?</h3><p>It depends on the contract. One crude oil contract is 1,000 barrels with a 1-cent tick, so a tick is $10 and a $1 move is $1,000. The E-mini S&amp;P 500 is $50 times the index with a quarter-point tick worth $12.50.</p></div>
+    <div class="qa"><h3>Can you lose more than you put in with futures?</h3><p>Yes. Because of leverage, a big enough move against you can lose more than your margin deposit, and you can end up owing your broker money. With 5% margin, a 5% move against you wipes out the whole deposit.</p></div>
+    <div class="qa"><h3>How did oil prices go negative in April 2020?</h3><p>Demand collapsed and storage filled up. The expiring May crude contract was physically settled, so holders who couldn't take delivery paid others to take it. It settled at minus $37.63 on April 20, 2020, while later months stayed positive.</p></div>
+  </div><!-- /faq -->
+  <div class="rule">
+    <div>
+      <h2>Small deposit, full-size risk.</h2>
+      <p>Futures are useful tools for hedgers and speculators alike, and one of the easiest ways to turn a small market move into a large loss. The video's own advice: if you're watching to learn how they work, great. If you're about to open an account and start trading them, slow down first.</p>
+    </div>
+    <div>
+      <ul>
+        <li>A futures contract is an obligation for both sides.</li>
+        <li>Know the contract size and tick value first.</li>
+        <li>Margin is a deposit; the leverage is real.</li>
+        <li>Your account settles in cash every day.</li>
+        <li>Know where the margin call is before you enter.</li>
+        <li>Close or roll before expiration.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">Built from Martik Finance's video "How Futures Trading Really Work (Full Beginner's Guide)": the airline and jet fuel, the farmer and bread company wheat deal (5,000 bushels at $6), futures vs options, hedgers and speculators, commodity, financial and crypto futures, long and short, the gold example ($2,000 an ounce, about $10,000 of margin controlling about $200,000), closing and expiration, contract sizes (crude oil 1,000 barrels with a $10 tick, gold 100 troy ounces, the E-mini S&amp;P 500 at $50 times the index with a $12.50 tick), margin as a deposit, initial and maintenance margin, futures vs spot, contango and backwardation, April 2020's negative oil price, and the risks. The May 2020 WTI settlement of &minus;$37.63 on April 20, 2020 is from the public record; the later-month prices on that curve are approximate. The gold tick ($0.10, worth $10) and the Micro E-mini S&amp;P ($5 times the index) are the CME's contract specs, not from the video. The wheat paths, the daily gold settlements, the $9,000 maintenance level and the contango and backwardation curves are made up to show the idea. Margin levels change; check your broker and the exchange. Not financial advice.</p>
+</div>
+<footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
+
+</body>
+</html>

@@ -1429,6 +1429,24 @@
       }
     },
 
+    "futures-basics": {
+      story: function (st) {
+        var E, M;
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); E = level(st, st.price, "Long 1 contract \u00b7 $10k controls $200k", BLUE, true); return bar(st, { n: 0.4, v: 0.7, mk: { t: "Small deposit, big position", col: SILK } }); }),
+          rep(3, function (st, k) { return bar(st, { d: 0.7, n: 0.6, mk: k === 2 ? { t: "Day settles \u00b7 cash in", col: GREEN, below: true } : null }); }),
+          rep(1, function (st) { divider(st); M = level(st, E.y - 3, "Maintenance margin", ORANGE, true); return bar(st, { d: -0.8, n: 0.5 }); }),
+          rep(4, function (st, k) { return bar(st, { d: -1.1, n: 0.5, mk: k === 3 ? { t: "Day settles \u00b7 cash out", col: RED } : null }); }),
+          rep(1, function (st) { M.col = RED; M.label = "Below maintenance"; return bar(st, { d: -1.6, n: 0.3, v: 1, flash: RED, mk: { t: "Margin call \u00b7 add funds", col: RED, below: true } }); }),
+          rep(3, function (st) { return bar(st, { d: 0.5, n: 0.6 }); }),
+          rep(1, function (st) { closeLevels(st); divider(st); return bar(st, { d: 1.3, n: 0.4, v: 0.8, mk: { t: "Marked to market daily", col: SILK, below: true } }); }),
+          rep(5, function (st) { return bar(st, { d: 0.9, n: 0.7 }); }),
+          rep(1, function (st) { return bar(st, { d: 0.4, n: 0.3, v: 0.9, flash: GREEN, mk: { t: "Close: sell 1 to offset", col: GREEN } }); }),
+          rep(4, function (st) { return bar(st, { d: rnd(-0.4, 0.4), n: 0.6 }); })
+        ];
+      }
+    },
+
     "24-hour-stock-trading": {
       story: function (st) {
         return [
