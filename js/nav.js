@@ -614,6 +614,21 @@ const SETUPS = [
     indicators: []
   }
 
+  ,{
+    slug:    "ten-am-orb",
+    href:    "/setups/ten-am-orb.html",
+    nav:     "The 10 AM ORB",
+    title:   "The 10 AM ORB — an opening range breakout that waits for 10:00",
+    thesis:  "The first break of the opening range is where most traders get faked out. Set the bias before the bell, take nothing from 9:30 to 9:45, mark the 15-minute range and its 50% line, and let 10:00 show the real direction. The break with your bias is confirmation; the retest that holds is the entry. Stop past the reaction, target the next key level at 1:2 or better, break-even once it works, and expect a shakeout into 11:00.",
+    session: "NY open · 9:45–11:00 ET · 5-minute ES and NQ",
+    group:   "open",
+    side:    "both",
+    stages:  6,
+    filters: 4,
+    status:  "live",
+    indicators: []
+  }
+
   /* -------------------------------------------------------------------
      Copy this block for the next setup. Keep the trailing comma on the
      entry above when you do. Leave `indicators` as an empty array if a

@@ -1317,6 +1317,36 @@
       }
     },
 
+    /* The 10 AM ORB: fakeouts both ways from 9:30 to 9:45, box the 15-minute range, the break with the bias
+       is not the entry, the retest holds at 10:00, in, a shakeout into 11:00, out at the next level (alternates long / short) */
+    "ten-am-orb": {
+      story: function (st) {
+        var d = st.dir = -(st.dir || -1), i0, hi, lo, E, M, K;
+        return [
+          rep(1, function (st) { closeLevels(st); session(st); i0 = st.candles.length; return bar(st, { d: 2.6, n: 0.4, v: 0.9, mk: { t: "9:30 \u00b7 hands off", col: RED } }); }),
+          rep(1, function (st) { return bar(st, { d: -4.4, n: 0.4, v: 1, mk: { t: "Fakeout", col: RED, below: true } }); }),
+          rep(1, function (st) { return bar(st, { d: 2.2, n: 0.5, v: 0.8 }); }),
+          rep(1, function (st) {
+            var seg = st.candles.slice(i0); hi = -1e9; lo = 1e9;
+            seg.forEach(function (q) { hi = Math.max(hi, q.h); lo = Math.min(lo, q.l); });
+            st.boxes.push({ i0: i0, i1: i0 + 2, y0: lo, y1: hi, col: ORANGE });
+            E = level(st, d > 0 ? hi : lo, d > 0 ? "9:45 range high" : "9:45 range low", ORANGE, true); E.i0 = i0;
+            M = level(st, (hi + lo) / 2, "50%", GRAY); M.i0 = i0;
+            level(st, d > 0 ? lo : hi, d > 0 ? "Range low" : "Range high", ORANGE).i0 = i0;
+            K = level(st, (d > 0 ? hi : lo) + 7 * d, "Next key level", BLUE);
+            return bar(st, { to: E.y + 0.8 * d, pull: 0.9, n: 0.2, pierce: true, v: 0.6, mk: { t: "The break \u00b7 wait", col: ORANGE, below: d < 0 } });
+          }),
+          rep(2, function (st) { return bar(st, { to: E.y + 0.2 * d, pull: 0.6, n: 0.2, flo: d > 0 ? E.y - 0.6 : null, cap: d < 0 ? E.y + 0.6 : null, v: 0.4 }); }),
+          rep(1, function (st) { var c = d > 0 ? GREEN : RED; return bar(st, { d: 1.6 * d, n: 0.2, v: 0.9, flash: c, mk: { t: d > 0 ? "10:00 \u00b7 retest holds \u00b7 long" : "10:00 \u00b7 retest holds \u00b7 short", col: c, below: d > 0 } }); }),
+          rep(6, function (st) { return bar(st, { d: 0.65 * d, n: 0.5 }); }),
+          rep(2, function (st, k) { return bar(st, { d: -0.9 * d, n: 0.3, mk: k === 1 ? { t: "Shakeout into 11:00", col: PURPLE, below: d > 0 } : null }); }),
+          rep(4, function (st) { return bar(st, { to: K.y, pull: 0.45, n: 0.3, cap: d > 0 ? K.y + 0.2 : null, flo: d < 0 ? K.y - 0.2 : null }); }),
+          rep(1, function (st) { K.label = "Next key level \u00b7 out"; return bar(st, { to: K.y, pull: 0.9, n: 0.1, mk: { t: "Target", col: BLUE, below: d < 0 } }); }),
+          rep(5, function (st) { return bar(st, { d: rnd(-0.5, 0.5), n: 0.6 }); })
+        ];
+      }
+    },
+
     /* Gamma wall footprint: a slow drift into the put wall, absorption, the footprint knocks, long, half off,
        the rest to zero gamma (alternates with the mirror: a call wall short into zero gamma) */
     "gamma-wall-footprint": {
