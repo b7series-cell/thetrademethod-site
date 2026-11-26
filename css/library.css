@@ -1,0 +1,26 @@
+/* Homepage "Browse the library": one band with tabs for setups, basics,
+   fundamentals and famous strategies. Cards swipe sideways on phones. */
+.lib-tabs { display:inline-flex; gap:6px; padding:5px; border-radius:999px; background:var(--charcoal); margin:0 0 28px; max-width:100%; overflow-x:auto; scrollbar-width:none; }
+.lib-tabs::-webkit-scrollbar { display:none; }
+.lib-tabs button { all:unset; box-sizing:border-box; cursor:pointer; padding:10px 20px; border-radius:999px; font-size:17px; font-weight:600; color:var(--ash); white-space:nowrap; transition:background .2s,color .2s; }
+.lib-tabs button:hover { color:var(--silk); }
+.lib-tabs button:focus-visible { outline:2px solid var(--link); outline-offset:2px; }
+.lib-tabs button span { font-weight:400; color:#6e6e73; margin-left:4px; }
+.lib-tabs button[aria-selected="true"] { background:var(--silk); color:#000; }
+
+/* shorter cards: the full blurb lives on each page */
+#setups .gcard { min-height:0; }
+#setups .gcard.w3, #setups .gcard.w2 { grid-column:auto; }
+#setups .gcard.w3 h3 { font-size:28px; line-height:1.14; }
+#setups .gcard h3 { margin-top:18px; }
+#setups .gcard p, #setups .fcard p, #setups .scard p { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+#setups .gcard.w3 p { font-size:inherit; max-width:none; }
+#setups .fcard, #setups .scard { min-height:0; }
+
+@media (max-width:734px) {
+  .lib-tabs { display:flex; border-radius:0; background:none; margin:0 -16px 24px; padding:0 16px; gap:8px; }
+  .lib-tabs button { padding:9px 15px; font-size:15px; background:var(--charcoal); }
+  .lib-rail { display:flex !important; overflow-x:auto; scroll-snap-type:x mandatory; gap:12px; margin:0 -16px; padding:0 16px 6px; scrollbar-width:none; }
+  .lib-rail::-webkit-scrollbar { display:none; }
+  .lib-rail > * { flex:0 0 82%; scroll-snap-align:start; min-height:0; }
+}

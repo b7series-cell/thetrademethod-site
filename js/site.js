@@ -228,10 +228,8 @@
       '<nav class="gnav" aria-label="Global"><div class="gnav-inner">' +
         '<a class="glyph" href="/" aria-label="The Trade Method home">' + glyph + "</a>" +
         '<a class="hide-xxxs" href="/#setups">Setups</a>' +
-        '<a class="hide-xxs" href="/#sessions">Sessions</a>' +
-        '<a class="hide-xs hide-md" href="/#day">Trading day</a>' +
         '<a class="hide-lg" href="/basics/"' + (here().indexOf("/basics/") === 0 ? ' aria-current="page"' : "") + '>Basics</a>' +
-        '<a class="hide-tiny" href="/#fundamentals">Fundamentals</a>' +
+        '<a class="hide-tiny" href="/fundamentals/"' + (here().indexOf("/fundamentals/") === 0 ? ' aria-current="page"' : "") + '>Fundamentals</a>' +
         '<a class="hide-lg" href="/famous-strategies/"' + (here().indexOf("/famous-strategies/") === 0 ? ' aria-current="page"' : "") + '>Strategies</a>' +
         '<a class="hide-md" href="/blog/"' + (here().indexOf("/blog/") === 0 ? ' aria-current="page"' : "") + '>Blog</a>' +
         '<a class="hide-sm" href="/#inside">Inside a page</a>' +
@@ -274,8 +272,6 @@
           '<li><a href="/blog/"' + cur(p.indexOf("/blog/") === 0) + '>Blog</a></li>' +
         "</ul>" +
         '<ul class="gmenu-sub">' +
-          '<li><a href="/#sessions">Sessions</a></li>' +
-          '<li><a href="/#day">Trading day</a></li>' +
           '<li><a href="/#inside">Inside a page</a></li>' +
           '<li><a href="/contact.html"' + cur(p.indexOf("/contact") === 0) + '>Contact</a></li>' +
         "</ul>" +
@@ -336,7 +332,7 @@
     var isBlog = p.indexOf("/blog/") === 0;
     var isStrat = p.indexOf("/famous-strategies/") === 0;
     var right = isHome
-      ? '<a href="#inside">Overview</a><a href="#day">Trading day</a><a class="pill pill-buy" href="#setups">Browse</a>'
+      ? '<a href="#inside">Overview</a><a href="#tested">Tested</a><a class="pill pill-buy" href="#setups">Browse</a>'
       : isBlog
       ? (p === "/blog/" ? "" : '<a href="/blog/">All posts</a>') + '<a class="pill pill-buy" href="/">Home</a>'
       : isStrat
