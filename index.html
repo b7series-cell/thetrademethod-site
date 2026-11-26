@@ -79,7 +79,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/apple.css?v=27">
+<link rel="stylesheet" href="/css/apple.css?v=28">
 <link rel="stylesheet" href="/css/tested.css?v=3">
 <link rel="stylesheet" href="/css/hero2.css?v=2">
 <link rel="stylesheet" href="/css/inside.css?v=1">
@@ -99,9 +99,30 @@
     .note-strip p { font-size:15px; }
     .note-strip .more { margin-left:0; }
   }
+  /* basics band */
+  .bh-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .bh-card { background:#fff; color:#1d1d1f; border-radius:24px; padding:24px 22px 20px; display:flex; flex-direction:column; }
+  .bh-ico { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:14px; }
+  .bh-card h3 { margin:0 0 4px; font-size:21px; font-weight:600; letter-spacing:0.004em; }
+  .bh-card > p { margin:0 0 12px; color:#6e6e73; font-size:15px; line-height:1.45; }
+  .bh-card ul { list-style:none; margin:0 0 14px; padding:0; }
+  .bh-card li { border-top:1px solid #e8e8ed; }
+  .bh-card li a { display:block; padding:10px 0; color:#1d1d1f; font-size:16px; font-weight:500; text-decoration:none; }
+  .bh-card li a:hover { color:#0066cc; }
+  .bh-more { margin-top:auto; color:#0066cc; font-size:15px; text-decoration:none; }
+  .bh-more:hover { text-decoration:underline; }
+  @media (max-width:1000px) { .bh-grid { grid-template-columns:1fr 1fr; } }
+  @media (max-width:680px) {
+    .bh-grid { grid-template-columns:1fr; gap:12px; }
+    .bh-card { border-radius:20px; padding:18px; display:grid; grid-template-columns:44px 1fr; column-gap:14px; align-items:center; }
+    .bh-ico { margin:0; grid-row:span 3; align-self:start; }
+    .bh-card h3 { font-size:19px; }
+    .bh-card > p { margin:0 0 6px; font-size:14px; }
+    .bh-card ul { display:none; }
+  }
 </style>
 <script src="/js/nav.js?v=36" defer></script>
-<script src="/js/site.js?v=76" defer></script>
+<script src="/js/site.js?v=77" defer></script>
 <script src="/js/hero2-anim.js?v=1" defer></script>
 <script src="/js/inside.js?v=1" defer></script>
 </head>
@@ -276,6 +297,24 @@
     </div>
   </section>
   <!--tested-band:end-->
+
+  <section class="band" id="basics">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2>New to trading? Start here.</h2>
+          <p class="lead">How markets, orders, charts and risk work, before any setup. <b>Plain-English pages, each built from a beginner video.</b></p>
+        </div>
+      </div>
+      <div class="bh-grid">
+        <div class="bh-card"><div class="bh-ico" style="background:#2997ff1f"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 18V10M9.5 18V10M14.5 18V10M19 18V10M2 8l10-5 10 5z" fill="none" stroke="#2997ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Markets &amp; instruments</h3><p>What you&rsquo;re actually trading.</p><ul><li><a href="/futures-basics.html">How Futures Work</a></li><li><a href="/options-basics.html">How Options Work</a></li><li><a href="/investment-funds.html">Investment Funds Explained</a></li></ul><a class="bh-more" href="/basics/#markets">6 pages &rsaquo;</a></div>
+        <div class="bh-card"><div class="bh-ico" style="background:#ff9f0a1f"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3" fill="none" stroke="#ff9f0a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Orders &amp; execution</h3><p>How a trade gets filled.</p><ul><li><a href="/order-flow.html">Order Flow for Beginners</a></li><li><a href="/arbitrage.html">What Arbitrage Is</a></li></ul><a class="bh-more" href="/basics/#orders">2 pages &rsaquo;</a></div>
+        <div class="bh-card"><div class="bh-ico" style="background:#30d1581f"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4v16M6 8h-2v8h2M12 2v18M12 6h-2v10h2M18 6v14M18 9h-2v7h2" fill="none" stroke="#30d158" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Reading charts</h3><p>What price and volume are saying.</p><ul><li><a href="/analysis-types.html">Fundamental vs Technical vs Macro</a></li><li><a href="/relative-volume.html">Relative Volume</a></li><li><a href="/six-momentum-trades.html">Six Momentum Trades</a></li></ul><a class="bh-more" href="/basics/#charts">3 pages &rsaquo;</a></div>
+        <div class="bh-card"><div class="bh-ico" style="background:#ff453a1f"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M5 7h14M5 7l-3 7h6zM19 7l-3 7h6zM8 21h8" fill="none" stroke="#ff453a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Risk &amp; money</h3><p>How much to risk, and where you&rsquo;re wrong.</p><ul><li><a href="/stop-placement.html">Where Your Stop Belongs</a></li><li><a href="/dynamic-risk-sizing.html">Dynamic Risk Sizing</a></li><li><a href="/recession-investing.html">Investing Through a Recession</a></li></ul><a class="bh-more" href="/basics/#risk">3 pages &rsaquo;</a></div>
+      </div>
+      <div class="sec-foot"><a class="pill pill-buy" href="/basics/">Open the basics page</a></div>
+    </div>
+  </section>
 
   <section class="band light" id="fundamentals">
     <div class="wrap">
