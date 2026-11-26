@@ -206,6 +206,17 @@ FAQ = {
   ("Does the look above and fail work?", "Not in our test. On 5-minute bars it looked profitable, but fake value area edges moved by a quarter of the range made as much. On 1-minute bars it lost on SPY and QQQ (-0.07R)."),
  ],
 },
+"/setups/ten-am-orb.html": {
+ "q": "What is the 10 AM ORB?",
+ "a": "The 10 AM ORB is an opening range breakout for ES and NQ futures that waits for the clock. You set a bias from the larger time frame before the open, take no trades between 9:30 and 9:45 ET when fakeouts are most common, and mark the high, low and 50% of the first 15 minutes. The first break in the direction of your bias is confirmation, not the entry. Around 10:00, when the real direction for the day usually shows, you enter on the retest of the range edge or a higher low (lower high for shorts), with the stop past the reaction and the target at the next key level.",
+ "faq": [
+  ("Why not trade the first break of the opening range?", "Because 9:30 to 9:45 is when volume is highest and big money is filling orders, and the easiest fills come from trapping breakout traders. The first break is often faked out in both directions before the real move starts, usually around 10:00."),
+  ("What is the 50% rule?", "When the opening range is very large, often from news, a break of its high or low comes too late. The halfway line of the range becomes the key level instead: in the direction of your bias, look for a reaction there and take a base hit back to the range edge."),
+  ("Where does the stop go?", "Just past the reaction candle or the retest low (high for shorts), or outside the 15-minute range. The coach in the video risks about $250 to $350 a trade, aims for 1:2 or 1:3, and moves the stop to break-even once the trade works."),
+  ("What happens at 11:00?", "The 1-hour candle prints at 11:00, and price often shakes out against the trend into it before the trend resumes. If nothing broke out of the range between 10:00 and 10:30, treat it as a range day and wait for the next hourly candle."),
+  ("When should you not trade it?", "Before 9:45, without a bias or against it, on level 3 news and FOMC days, and after the move has already run from the range."),
+ ],
+},
 "/setups/gamma-wall-footprint.html": {
  "q": "What is the Gamma Wall Footprint?",
  "a": "The Gamma Wall Footprint is a set of three NQ futures day trades at the levels from a GEX (gamma exposure) map: the put wall, the call wall and zero gamma. The wall tells you where, not when. A slow drift into a wall means look for the reaction right at it; a fast push means let it overshoot and enter on the reclaim. The footprint chart confirms the entry with absorption, stacked imbalances, a delta flip or trapped traders. The third setup goes with the move when price breaks below zero gamma and holds.",

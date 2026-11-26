@@ -1,0 +1,850 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The 10 AM ORB — let 10:00 pick the direction | The Trade Method</title>
+<meta name="description" content="An opening range breakout on a clock: no trades before 9:45 ET, mark the 15-minute range, let 10:00 set the direction, enter the retest with your bias.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/setups/ten-am-orb.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="The 10 AM ORB — let 10:00 pick the direction">
+<meta property="og:description" content="An opening range breakout on a clock: no trades before 9:45 ET, mark the 15-minute range, let 10:00 set the direction, enter the retest with your bias.">
+<meta property="og:url" content="https://thetrademethod.com/setups/ten-am-orb.html">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The 10 AM ORB — let 10:00 pick the direction">
+<meta name="twitter:description" content="An opening range breakout on a clock: no trades before 9:45 ET, mark the 15-minute range, let 10:00 set the direction, enter the retest with your bias.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "The 10 AM ORB — an opening range breakout that waits for 10:00",
+ "name": "The 10 AM ORB",
+ "description": "Peachy Investor's opening range breakout model for ES and NQ futures, as traded by coach Goose: set a larger point of view bias first and skip level 3 news and FOMC days; take no trade between 9:30 and 9:45 ET, when fakeouts are most common; mark the 15-minute opening range high, low and 50% at 9:45 and the 30-minute range at 10:00; treat the first break in the direction of the bias as confirmation, not the entry; enter around 10:00 on a retest of the range edge or a higher low (lower high for shorts), stop past the reaction candle, target the next key level at 1:2 or better; move the stop to break-even, take base hits inside a wide range, use the 50% line on a big range, and expect a shakeout into the 11:00 hourly candle.",
+ "url": "https://thetrademethod.com/setups/ten-am-orb.html",
+ "mainEntityOfPage": "https://thetrademethod.com/setups/ten-am-orb.html",
+ "image": "https://thetrademethod.com/assets/og-image.png",
+ "dateModified": "2026-11-26",
+ "inLanguage": "en",
+ "author": {
+  "@type": "Person",
+  "name": "Bryant",
+  "url": "https://thetrademethod.com/about.html"
+ },
+ "publisher": {
+  "@type": "Organization",
+  "name": "The Trade Method",
+  "logo": {
+   "@type": "ImageObject",
+   "url": "https://thetrademethod.com/assets/apple-touch-icon.png"
+  }
+ },
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ }
+}
+</script>
+<style>
+  :root {
+    --bg:#070d17; --panel:#0c1626; --panel2:#101d2f; --line:#1b2a3e;
+    --ink:#e7eff8; --dim:#9fb3c8; --faint:#6d84a0;
+    --up:#2ecf7a; --down:#e0505a; --gold:#f4b942; --blue:#5aa9ff;
+    --sans:"Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); font-size:15px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet { max-width:1640px; margin:0 auto; padding:34px 30px 56px; }
+
+  /* ---------- header ---------- */
+  .top { display:grid; grid-template-columns:minmax(320px,1fr) minmax(340px,1.15fr); gap:34px; align-items:end;
+         border-bottom:1px solid var(--line); padding-bottom:26px; }
+  h1 { font-size:clamp(42px,6.2vw,78px); line-height:0.92; letter-spacing:-0.035em; font-weight:800; margin:0 0 10px; }
+  h1 span { color:var(--up); }
+  .kicker { color:var(--faint); font-size:14px; margin:0 0 14px; }
+  .thesis { font-size:19px; line-height:1.45; color:var(--ink); margin:0; max-width:62ch; }
+  .thesis em { font-style:normal; color:var(--up); font-weight:700; }
+  .counts { display:flex; gap:26px; margin-top:16px; }
+  .counts div { border-left:2px solid var(--up); padding-left:12px; }
+  .counts b { display:block; font-size:26px; font-weight:800; letter-spacing:-0.02em; }
+  .counts small { color:var(--faint); font-size:13px; }
+  .back { display:inline-block; margin-bottom:18px; font-size:13px; color:var(--faint); text-decoration:none; border-bottom:1px solid transparent; }
+  .back:hover { color:var(--ink); border-bottom-color:var(--faint); }
+
+  /* ---------- ribbon ---------- */
+  .ribbon { display:grid; grid-template-columns:repeat(6,1fr); gap:2px; margin:26px 0 30px;
+            background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden; }
+  .ribbon div { background:var(--panel); padding:13px 16px; }
+  .ribbon .t { font-family:var(--mono); font-size:12px; color:var(--gold); }
+  .ribbon .n { font-weight:700; font-size:15px; margin-top:3px; }
+
+  /* ---------- main ---------- */
+  .main { display:grid; grid-template-columns:minmax(300px,0.62fr) minmax(520px,1.38fr); gap:28px; align-items:start; }
+  .stage { border-top:1px solid var(--line); padding:16px 0 15px; display:grid;
+           grid-template-columns:34px 1fr; gap:14px; }
+  .stage:first-child { border-top:none; padding-top:0; }
+  .num { font-family:var(--mono); font-size:14px; font-weight:700; color:#08131f;
+         background:var(--up); border-radius:6px; height:26px; display:flex; align-items:center;
+         justify-content:center; }
+  .stage h3 { margin:2px 0 7px; font-size:19px; letter-spacing:-0.01em; }
+  .stage ul { margin:0; padding-left:17px; }
+  .stage li { margin-bottom:4px; color:var(--ink); }
+  .why { color:var(--dim); font-size:13.5px; margin:9px 0 0; padding-left:12px;
+         border-left:2px solid #24384f; }
+  .panel { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px; }
+  .panel + .panel { margin-top:22px; }
+  .panel h4 { margin:0 0 4px; font-size:17px; }
+  .panel p.lead { margin:0 0 14px; color:var(--dim); font-size:14px; }
+  svg { display:block; width:100%; height:auto; }
+
+  /* ---------- timing ---------- */
+  .timing { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:14px; }
+  .timing div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .timing b { display:block; font-size:15px; margin-bottom:4px; }
+  .timing p { margin:0; color:var(--dim); font-size:13.4px; }
+
+  /* ---------- filters ---------- */
+  .section-head { margin:44px 0 16px; padding-top:22px; border-top:1px solid var(--line); }
+  .section-head h2 { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .section-head p { margin:0; color:var(--dim); max-width:78ch; }
+  .filters { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+  .filter { background:var(--panel); border:1px solid var(--line); border-top:3px solid var(--down);
+            border-radius:11px; padding:16px 17px; }
+  .filter h3 { margin:0 0 8px; font-size:17px; }
+  .filter p { margin:0 0 9px; font-size:14px; color:var(--ink); }
+  .filter .kill { color:var(--down); font-size:13.2px; margin:0; font-weight:600; }
+
+  /* ---------- risk ---------- */
+  .risk { display:grid; grid-template-columns:1.15fr 1fr; gap:20px; }
+  .calc { font-family:var(--mono); font-size:14px; line-height:2.0; }
+  .calc .row { display:flex; justify-content:space-between; border-bottom:1px dotted #24384f; }
+  .calc .row b { font-weight:700; }
+  .calc .row.tot { border-bottom:none; border-top:2px solid var(--up); color:var(--up); font-weight:700; }
+  .warn { background:#1a1013; border:1px solid #5e2a30; border-radius:11px; padding:16px 18px; }
+  .warn h4 { margin:0 0 8px; color:var(--down); font-size:17px; }
+  .warn p { margin:0 0 10px; font-size:14px; }
+  .warn .big { font-family:var(--mono); font-size:15px; color:var(--down); font-weight:700; }
+
+  /* ---------- examples ---------- */
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  caption { text-align:left; color:var(--dim); padding-bottom:10px; }
+  th, td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th { color:var(--faint); font-weight:600; font-size:13px; border-bottom:1px solid #2b4058; }
+  tbody th { font-weight:600; color:var(--dim); width:190px; }
+  td { font-family:var(--mono); font-size:13.6px; }
+  td.txt { font-family:var(--sans); font-size:14px; }
+  .tick { font-family:var(--sans); font-size:17px; font-weight:800; letter-spacing:-0.01em; }
+  .tick small { display:block; font-weight:400; font-size:12.5px; color:var(--faint); letter-spacing:0; }
+  .pos { color:var(--up); } .neg { color:var(--down); }
+
+  /* ---------- indicators ---------- */
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .ind-link--pending { color:var(--faint); font-weight:400; }
+
+  /* ---------- footer ---------- */
+  .rule { margin-top:44px; border:1px solid #22855a; background:#0b1c17; border-radius:12px;
+          padding:26px 30px; display:grid; grid-template-columns:1.25fr 1fr; gap:30px; }
+  .rule h2 { margin:0 0 8px; font-size:30px; line-height:1.15; letter-spacing:-0.02em; }
+  .rule p { margin:0; color:var(--dim); }
+  .rule ul { margin:0; padding-left:18px; color:var(--dim); font-size:14px; }
+  .src { margin-top:26px; color:var(--faint); font-size:12.5px; }
+
+  @media (max-width:1100px) {
+    .top,.main,.risk,.rule { grid-template-columns:1fr; }
+    .ribbon { grid-template-columns:repeat(2,1fr); }
+    .filters { grid-template-columns:repeat(2,1fr); }
+    .timing { grid-template-columns:1fr; }
+  }
+  @media print {
+    body { background:#fff; }
+    .sheet { max-width:none; padding:0; }
+    .panel,.filter,.rule,.stage,table { break-inside:avoid; }
+    @page { size:A3 landscape; margin:12mm; }
+  }
+
+  /* hero link to the indicator */
+  .get-ind { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:#08131f; background:#64d2ff;
+             text-decoration:none; border-radius:9999px; padding:9px 18px; }
+  .get-ind:hover { background:#8cdfff; }
+
+  /* ---------- indicator ---------- */
+  .ind-sec { margin-top:56px; scroll-margin-top:110px; }
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .code-wrap { background:var(--panel); border:1px solid var(--line); border-radius:12px; margin-top:16px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--faint); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#1b2a3e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#26394f; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d9e3; tab-size:4; }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-sec { margin-top:44px; } }
+</style>
+<!-- site shell (Apple style) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=27">
+<script src="/js/nav.js?v=36" defer></script>
+<script src="/js/site.js?v=74" defer></script>
+<script src="/js/tf-anim.js?v=1" defer></script>
+<style>
+  /* steps across the page, the two panels side by side under them (same as gamma-wall-footprint.html) */
+  .tf-main { grid-template-columns:1fr; gap:22px; }
+  .tf-stages { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .sheet .tf-stages .stage, .sheet .tf-stages .stage:first-child { padding:26px 24px; background:var(--charcoal); align-content:start; }
+  .tf-side { display:grid; grid-template-columns:1fr 1.4fr; gap:16px; align-items:stretch; }
+  .tf-side .panel + .panel { margin-top:0; }
+  .tf-side .timing { grid-template-columns:1fr 1fr; }
+  @media (max-width:1100px) { .tf-stages { grid-template-columns:1fr 1fr; } .tf-side { grid-template-columns:1fr; } }
+  @media (max-width:680px) { .tf-stages { grid-template-columns:1fr; } }
+  /* the stepper (js/tf-anim.js builds it from the six steps) */
+  .tf-stages.is-stepper { display:block; background:var(--charcoal); border-radius:28px; padding:28px 28px 30px; --gs:#f5f5f7; }
+  .gs-bar { display:grid; grid-template-columns:repeat(6,1fr); position:relative; margin:0 0 28px; }
+  .gs-line { position:absolute; left:8.333%; right:8.333%; top:21px; height:2px; background:#3a3a3c; }
+  .gs-line i { display:block; height:100%; width:0; background:var(--up); transition:width .35s ease; }
+  .gs-step { position:relative; background:none; border:0; padding:0; color:var(--ash,#86868b); font:inherit; font-size:14px; cursor:pointer; text-align:center; }
+  .gs-step b { display:flex; align-items:center; justify-content:center; width:44px; height:44px; margin:0 auto 8px; border-radius:50%;
+               background:#2c2c2e; border:2px solid #2c2c2e; color:#f5f5f7; font-size:17px; position:relative; z-index:1; transition:all .25s ease; }
+  .gs-step.is-done b { background:#123d22; border-color:var(--up); color:var(--up); }
+  .gs-step.is-on b { background:var(--gs); border-color:var(--gs); color:#000; box-shadow:0 0 0 6px color-mix(in srgb, var(--gs) 22%, transparent); }
+  .gs-step.is-on { color:#f5f5f7; font-weight:600; }
+  .gs-step:focus-visible b { outline:2px solid #2997ff; outline-offset:3px; }
+  .gs-body { display:grid; grid-template-columns:1fr 1.1fr; gap:30px; align-items:center; }
+  .gs-tag { margin:0 0 4px; font-family:var(--mono); font-size:12px; color:var(--gs); letter-spacing:0.04em; text-transform:uppercase; }
+  .sheet .tf-stages.is-stepper .stage, .sheet .tf-stages.is-stepper .stage:first-child { background:none; padding:0; border:0; margin:0; border-radius:0; }
+  .sheet .tf-stages.is-stepper .stage .num { display:none; }
+  .sheet .tf-stages.is-stepper .stage[hidden] { display:none; }
+  .sheet .tf-stages.is-stepper .stage .why { border-left-color:var(--gs); }
+  .gs-nav { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+  .gs-prev { background:#2c2c2e; color:#f5f5f7; }
+  .gs-prev:hover { background:#3a3a3c; }
+  .gs-nav button:disabled { opacity:0.35; cursor:default; }
+  .gs-chart { background:#141416; border-radius:18px; padding:10px; }
+  @media (max-width:900px) {
+    .gs-body { grid-template-columns:1fr; gap:20px; }
+    .gs-chart { order:-1; }
+  }
+  @media (max-width:680px) {
+    .tf-stages.is-stepper { padding:20px 12px 22px; border-radius:22px; }
+    .gs-step span { display:none; }
+    .gs-step b { width:34px; height:34px; font-size:14px; }
+    .gs-line { top:16px; }
+    .gs-bar { margin-bottom:20px; }
+  }
+  /* video (same as gamma-wall-footprint.html) */
+  .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
+           display:grid; grid-template-columns:minmax(0,1.6fr) minmax(240px,1fr); gap:28px; align-items:center; }
+  .video-frame { position:relative; aspect-ratio:16/9; border-radius:18px; overflow:hidden; background:#000; }
+  .video-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+  .video h2 { margin:0 0 8px; font-size:28px; font-weight:600; line-height:1.14; }
+  .video p { margin:0 0 14px; color:var(--mute); }
+  .video a.more { font-size:15px; }
+  .video + .rule { margin-top:56px; }
+  @media (max-width:1100px) { .video { grid-template-columns:1fr; } }
+  @media (max-width:680px) {
+    .video { padding:14px; border-radius:22px; margin-top:56px; gap:20px; }
+    .video h2 { font-size:22px; }
+    .video + .rule { margin-top:44px; }
+  }
+  .watch { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:14px; font-weight:600; color:var(--ink); text-decoration:none;
+           background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.14); border-radius:9999px; padding:7px 14px 7px 10px; }
+  .watch:hover { background:rgba(255,255,255,0.14); }
+  .watch i { width:0; height:0; border-left:9px solid #ff453a; border-top:6px solid transparent; border-bottom:6px solid transparent; margin-left:4px; }
+
+  .h1-rf { color:#64d2ff; }
+  .ribbon .n { font-size:14px; }
+
+  /* tiles */
+  .vs { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .vs div { background:var(--panel); border:1px solid var(--line); border-top:3px solid #64d2ff; border-radius:11px; padding:16px 17px; }
+  .vs .sc { font-family:var(--mono); font-size:13px; color:#64d2ff; font-weight:700; display:block; margin-bottom:6px; }
+  .vs h3 { margin:0 0 6px; font-size:16px; }
+  .vs p { margin:0; font-size:14px; color:var(--dim); }
+
+  /* the checks and outputs (same look as hitchhiker-scalp.html) */
+  .chk-out { margin-top:14px; border-radius:11px; padding:14px 16px; border:1px solid var(--line); background:var(--panel2); }
+  .chk-out b { display:block; font-size:24px; font-weight:800; letter-spacing:-0.02em; margin-bottom:4px; }
+  .chk-out p { margin:0; font-size:14px; color:var(--dim); }
+  .chk-out.is-a { border-color:#22855a; } .chk-out.is-a b { color:var(--up); }
+  .chk-out.is-b { border-color:#7a5a12; } .chk-out.is-b b { color:var(--gold); }
+  .chk-out.is-no { border-color:#5e2a30; } .chk-out.is-no b { color:var(--down); }
+
+  .calc-in { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-bottom:14px; }
+  .calc-in.four { grid-template-columns:repeat(4,1fr); }
+  .calc-in label { font-size:12px; color:var(--faint); display:block; }
+  .calc-in input, .calc-in select { width:100%; margin-top:4px; background:var(--panel2); color:var(--ink); border:1px solid var(--line); border-radius:8px;
+                   padding:8px 10px; font-family:var(--mono); font-size:15px; }
+  .calc-in input:focus, .calc-in select:focus { outline:2px solid var(--blue); outline-offset:1px; }
+  .calc-in input[type=range] { padding:0; accent-color:#30d158; background:none; border:0; }
+  .calc-in output { font-family:var(--mono); color:var(--ink); font-size:14px; float:right; }
+  .tf-book .calc-in { grid-template-columns:1fr 1fr auto; align-items:end; }
+  .tf-book .warn { margin-top:16px; }
+  .tf-book .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; }
+  .tf-book .reset:hover { background:#3a3a3c; }
+  .tf-two svg, .tf-dev svg { border-radius:14px; }
+  .tf-dev .calc-in { grid-template-columns:1fr; }
+  .tf-two .reset, .tf-dev .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; margin-top:12px; }
+  .h1-rf { color:#bf5af2; }
+  .counts div { border-left-color:#bf5af2; }
+  .vs.tf-vs div { border-top-color:#bf5af2; } .vs.tf-vs .sc { color:#bf5af2; }
+  .size-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+  .size-grid div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .size-grid b { display:block; font-family:var(--mono); font-size:20px; color:var(--gold); margin-bottom:4px; }
+  .size-grid p { margin:0; color:var(--dim); font-size:13.4px; }
+  @media (max-width:680px) { .size-grid { grid-template-columns:1fr; } }
+
+  /* case table + quotes (same as gamma-wall-footprint.html) */
+  .quote { margin:16px 0 0; padding:14px 18px; border-left:3px solid #64d2ff; background:var(--panel); border-radius:0 11px 11px 0; font-size:16px; }
+  .quote small { display:block; color:var(--faint); font-size:12.5px; margin-top:4px; }
+  .howto { margin:0; padding-left:20px; color:var(--ink); font-size:14.5px; }
+  .howto li { margin-bottom:9px; }
+  .howto b { color:#64d2ff; font-weight:600; }
+  .two-note { margin:14px 0 0; color:var(--dim); font-size:14px; max-width:86ch; }
+  .vcase td.txt { min-width:200px; }
+
+  /* the animation redraws for a phone, so no sideways scrolling */
+  .sheet .anim svg { min-width:0; }
+  .sheet .anim { margin:0 0 56px; }
+  .ribbon + .anim { margin-top:8px; }
+  @media (max-width:1100px) {
+    .vs { grid-template-columns:1fr 1fr; }
+    .calc-in.four { grid-template-columns:repeat(2,1fr); }
+  }
+  @media (max-width:680px) {
+    /* breathing room around the walkthrough and the charts on small screens (project rule: not packed tight on phones) */
+    .sheet .anim { margin:44px 0 60px; padding:22px 14px 20px; }
+    .sheet .anim + .main { margin-top:8px; }
+    .anim-head { margin-bottom:18px; }
+    .anim-chips { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .anim-chips::-webkit-scrollbar { display:none; }
+    .anim-chips button { flex:0 0 auto; }
+    .counts { flex-wrap:wrap; gap:16px 22px; }
+    .vs { grid-template-columns:1fr; }
+    .calc-in, .calc-in.four, .tf-book .calc-in { grid-template-columns:1fr 1fr; }
+    .tf-book .calc-in .reset { grid-column:1 / -1; justify-self:start; }
+    .section-head { margin-top:52px; }
+    .tf-two, .tf-dev, .tf-plan { margin-top:28px; }
+    .risk + .risk, .panel + .risk { margin-top:28px; }
+    .vcase th, .vcase td { padding:9px 8px; }
+    .tf-side .filters, .tf-side .timing { grid-template-columns:1fr !important; }
+  }
+  /* the case table scrolls inside itself on a phone, never the page */
+  .tscroll { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .tscroll table { min-width:720px; }
+</style>
+
+<link rel="stylesheet" href="/css/candle-bg.css?v=2">
+<script src="/js/candle-bg.js?v=48" defer></script>
+
+<style>
+  /* 10 AM ORB page extras (orange, the opening range colour) */
+  .h1-tf { color:#ff9f0a; }
+  .thesis em { color:#ff9f0a; }
+  .counts div { border-left-color:#ff9f0a; }
+  .vs.tf-vs div { border-top-color:#ff9f0a; } .vs.tf-vs .sc { color:#ff9f0a; }
+  .quote { border-left-color:#ff9f0a; }
+  .howto b { color:#ff9f0a; }
+  .tf-plays svg, .tf-read svg { border-radius:14px; }
+  .tf-plays .reset, .tf-read .reset { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; margin-top:12px; }
+  .tf-plays .reset:hover, .tf-read .reset:hover, .pre button:hover { background:#3a3a3c; }
+  .pre { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px; align-items:center; }
+  .pre button { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#2c2c2e; border:0; border-radius:9999px; padding:8px 14px; }
+  .pre button[aria-pressed="true"] { background:#ff9f0a; color:#000; }
+  .tf-note { margin:12px 0 0; color:var(--dim); font-size:14px; max-width:90ch; }
+  .tf-note b { color:var(--ink); }
+  .tf-check .calc-in { grid-template-columns:repeat(3,1fr); }
+  .lamps { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin:4px 0 0; }
+  .lamps div { display:flex; align-items:center; gap:9px; background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:10px 12px; font-size:14px; font-weight:600; }
+  .tf-lamp { width:12px; height:12px; border-radius:50%; flex:0 0 12px; background:#3a3a3c; }
+  .tf-lamp.is-ok { background:var(--up); box-shadow:0 0 0 4px rgba(48,209,88,0.18); }
+  .tf-lamp.is-warn { background:var(--gold); box-shadow:0 0 0 4px rgba(244,185,66,0.18); }
+  .tf-lamp.is-no { background:var(--down); box-shadow:0 0 0 4px rgba(224,80,90,0.18); }
+  .tf-plan .calc-in { grid-template-columns:repeat(3,1fr); }
+  .key { display:flex; flex-wrap:wrap; gap:10px 22px; margin:14px 0 0; font-size:13.5px; color:var(--dim); }
+  .key span { display:inline-flex; align-items:center; gap:8px; }
+  .key i { display:inline-block; width:22px; height:10px; border-radius:3px; }
+  .models { display:grid; grid-template-columns:1fr; gap:10px; margin-top:14px; }
+  .models div { background:var(--panel2); border:1px solid var(--line); border-radius:9px; padding:13px 15px; }
+  .models b { display:block; font-size:15px; margin-bottom:4px; }
+  .models b span { font-family:var(--mono); font-size:12px; color:#ff9f0a; margin-right:8px; }
+  .models p { margin:0; color:var(--dim); font-size:13.4px; }
+  @media (max-width:1100px) { .tf-check .calc-in, .tf-plan .calc-in { grid-template-columns:repeat(2,1fr); } .lamps { grid-template-columns:repeat(3,1fr); } }
+  @media (max-width:680px) {
+    .tf-check, .tf-read, .tf-plays, .tf-plan { margin-top:28px; }
+    .pre { flex-wrap:nowrap; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; scrollbar-width:none; }
+    .pre::-webkit-scrollbar { display:none; }
+    .pre button { flex:0 0 auto; }
+    .lamps { grid-template-columns:1fr 1fr; }
+    .tf-plan .calc-in { grid-template-columns:1fr 1fr; }
+    .tf-check .calc-in { grid-template-columns:1fr; }
+  }
+  .clock { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-top:14px; }
+  .clock div { background:var(--panel2); border:1px solid var(--line); border-left:3px solid var(--c,#ff9f0a); border-radius:9px; padding:12px 14px; }
+  .clock b { display:block; font-family:var(--mono); font-size:14px; color:var(--c,#ff9f0a); margin-bottom:3px; }
+  .clock p { margin:0; color:var(--dim); font-size:13.4px; }
+  .tf-check .calc-in { grid-template-columns:repeat(3,1fr); }
+  .tf-plan .calc-in { grid-template-columns:repeat(3,1fr); }
+  @media (max-width:680px) { .clock { grid-template-columns:1fr; } .tf-check .calc-in { grid-template-columns:1fr; } .tf-plan .calc-in { grid-template-columns:1fr 1fr; } }
+</style>
+<!-- faq-ld --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "What is the 10 AM ORB?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The 10 AM ORB is an opening range breakout for ES and NQ futures that waits for the clock. You set a bias from the larger time frame before the open, take no trades between 9:30 and 9:45 ET when fakeouts are most common, and mark the high, low and 50% of the first 15 minutes. The first break in the direction of your bias is confirmation, not the entry. Around 10:00, when the real direction for the day usually shows, you enter on the retest of the range edge or a higher low (lower high for shorts), with the stop past the reaction and the target at the next key level."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Why not trade the first break of the opening range?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Because 9:30 to 9:45 is when volume is highest and big money is filling orders, and the easiest fills come from trapping breakout traders. The first break is often faked out in both directions before the real move starts, usually around 10:00."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What is the 50% rule?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "When the opening range is very large, often from news, a break of its high or low comes too late. The halfway line of the range becomes the key level instead: in the direction of your bias, look for a reaction there and take a base hit back to the range edge."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Where does the stop go?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Just past the reaction candle or the retest low (high for shorts), or outside the 15-minute range. The coach in the video risks about $250 to $350 a trade, aims for 1:2 or 1:3, and moves the stop to break-even once the trade works."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "What happens at 11:00?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "The 1-hour candle prints at 11:00, and price often shakes out against the trend into it before the trend resumes. If nothing broke out of the range between 10:00 and 10:30, treat it as a range day and wait for the next hourly candle."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "When should you not trade it?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Before 9:45, without a bias or against it, on level 3 news and FOMC days, and after the move has already run from the range."
+   }
+  }
+ ]
+}
+</script><!-- /faq-ld -->
+<!-- breadcrumbs --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://thetrademethod.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Setups",
+   "item": "https://thetrademethod.com/setups/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 3,
+   "name": "The 10 AM ORB",
+   "item": "https://thetrademethod.com/setups/ten-am-orb.html"
+  }
+ ]
+}
+</script><!-- /breadcrumbs -->
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav></div>
+<div class="sheet">
+
+  <a class="back" href="/setups/">&lsaquo; All setups</a>
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-26">Nov 26, 2026</time></p><!-- /byline -->
+
+  <header class="top" data-candle-bg="ten-am-orb">
+    <div>
+      <p class="kicker">An opening range breakout on a clock &middot; ES and NQ futures, a 5-minute chart, 9:45 to 11:00 ET, long or short</p>
+      <h1>The 10 AM <span class="h1-tf">ORB</span></h1>
+    </div>
+    <div>
+      <p class="thesis">The first break of the opening range is where most traders get faked out. <em>Bias first:</em> know which side the day is on before the bell.
+      <em>Wait:</em> no trades from 9:30 to 9:45, mark the 15-minute range and its 50% line, and let 10:00 show the real direction.
+      <em>Enter on the retest:</em> the break with your bias is confirmation, the pullback that holds is the entry. Stop past the reaction, target the next key level, break-even as soon as it works.</p>
+      <div class="counts">
+        <div><b>9:45</b><small>no trade before it</small></div>
+        <div><b>10:00</b><small>the true direction for the day</small></div>
+        <div><b>1:2+</b><small>reward to risk, to the next level</small></div>
+      </div>
+    </div>
+  </header>
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the 10 AM ORB?</h2><p>The 10 AM ORB is an opening range breakout for ES and NQ futures that waits for the clock. You set a bias from the larger time frame before the open, take no trades between 9:30 and 9:45 ET when fakeouts are most common, and mark the high, low and 50% of the first 15 minutes. The first break in the direction of your bias is confirmation, not the entry. Around 10:00, when the real direction for the day usually shows, you enter on the retest of the range edge or a higher low (lower high for shorts), with the stop past the reaction and the target at the next key level.</p></section><!-- /define -->
+
+  <nav class="ribbon">
+    <div><div class="t">1 &middot; bias</div><div class="n">The larger point of view first</div></div>
+    <div><div class="t">2 &middot; wait</div><div class="n">Nothing before 9:45</div></div>
+    <div><div class="t">3 &middot; mark</div><div class="n">The range, its 50%, the key levels</div></div>
+    <div><div class="t">4 &middot; 10:00</div><div class="n">The true direction for the day</div></div>
+    <div><div class="t">5 &middot; enter</div><div class="n">On the retest, not the break</div></div>
+    <div><div class="t">6 &middot; manage</div><div class="n">Base hits, break-even, 11:00</div></div>
+  </nav>
+
+  <section class="anim" data-tf-anim aria-label="Animated walkthrough of a 10 AM ORB long on a made-up ES morning">
+    <div class="anim-head">
+      <div>
+        <p class="anim-n">8 / 8</p>
+        <h2 class="anim-title">Watch one 10 AM long</h2>
+        <p class="anim-text" aria-live="polite"></p>
+      </div>
+      <div class="anim-ctrl">
+        <button type="button" class="pill pill-buy anim-play" aria-pressed="false">Play</button>
+        <button type="button" class="pill anim-replay">Replay</button>
+      </div>
+    </div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 640" role="img" aria-label="Illustrative 5-minute ES chart. The bias is bullish and yesterday's high, 6,870, is the next key level. From 9:30 to 9:45 price pops up, gets slammed down and pops again: both first breaks get stopped. At 9:45 the opening range is 6,852 to 6,836 with the 50% line at 6,844. Price breaks above the range high, which confirms the bias but is not the entry. It pulls back, makes a higher low at 6,849.50, and at 10:00 a green candle leaves it: long 6,856, stop 6,849. The stop moves to break-even. Into 11:00 price shakes out 9 points but holds above break-even, then the trend resumes to 6,870: plus 14 points, 2R."></svg></div>
+    <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
+    <div class="key" aria-hidden="true">
+      <span><i style="background:#ff9f0a;height:3px"></i>opening range high and low</span>
+      <span><i style="background:#ff9f0a;height:2px;opacity:0.7"></i>50% line (dotted)</span>
+      <span><i style="background:#64d2ff;height:3px"></i>key level (KPL)</span>
+      <span><i style="background:#ff453a"></i>9:30&ndash;9:45 hands off</span>
+      <span><i style="background:#f4b942"></i>9:45&ndash;10 plan</span>
+      <span><i style="background:#30d158"></i>10:00&ndash;10:30 enter</span>
+    </div>
+  </section>
+
+  <div class="main tf-main">
+    <div class="tf-stages" data-tf-steps>
+      <section class="stage">
+        <div class="num">1</div>
+        <div>
+          <h3>Bias: the larger point of view first</h3>
+          <ul>
+            <li>Before the session, do the top-down read: is the bigger trend up or down? That's the only side you trade today.</li>
+            <li>A break in the same direction as your bias is a confluence. A break against it is the low-probability side.</li>
+            <li>Check the calendar. Level 3 news or FOMC: skip the day, especially if you're new.</li>
+          </ul>
+          <p class="why">Before, the coach in the video took whichever way it broke: long over the high, short under the low. It didn't work over time. Adding a daily bias is what changed it.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">2</div>
+        <div>
+          <h3>Wait: nothing before 9:45</h3>
+          <ul>
+            <li>The traditional ORB trades the break of the first 5 or 15 minutes. That window, 9:30 to 9:45 ET, has the most fakeouts of the day.</li>
+            <li>Volume is at its highest and big money is placing its orders. The easiest way to get a good fill is to trap the early breakout traders.</li>
+            <li>So you don't take a trade before 9:45. If you're not a lightning-fast 15-second scalper, waiting is the edge.</li>
+          </ul>
+          <p class="why">You know the direction, you're confident, you enter at the open, you get chopped out, and then it goes your way. Waiting fixes that one.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">3</div>
+        <div>
+          <h3>Mark: the range, its 50%, the key levels</h3>
+          <ul>
+            <li>At 9:45, mark the high and low of the first 15 minutes. At 10:00 the 30-minute range prints too.</li>
+            <li>Draw the 50% line. On a big range it's often the most important level of the morning.</li>
+            <li>The top, the 50% and the bottom of the range are key pivot levels (KPLs). Add the bigger ones: yesterday's high and low, premarket, higher time frame levels.</li>
+          </ul>
+          <p class="why">These are where you look for reactions and where you aim. Trades go from one key level to the next.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">4</div>
+        <div>
+          <h3>10:00: the true direction for the day</h3>
+          <ul>
+            <li>9:45 to 10:00 is for finding the setup. Institutions are still positioning, so fakeouts are still common.</li>
+            <li>Most of the time the real move starts around 10:00, with the best entries from 10:00 to 10:15.</li>
+            <li>No break out of the range between 10:00 and 10:30? Call it a range day and wait for the next 1-hour candle.</li>
+          </ul>
+          <p class="why">Not set in stone. Nothing in the market is. It's what the probabilities favour, tested over a stretch of 30 days or more, not one day.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">5</div>
+        <div>
+          <h3>Enter: on the retest, not the break</h3>
+          <ul>
+            <li>Price breaks the range in the direction of your bias. That confirms your thesis. It isn't the entry.</li>
+            <li>Wait for support to form: a retest of the range high, or (better) a deeper pullback that makes a higher low. For shorts, a retest of the low or a lower high.</li>
+            <li>Enter as it leaves that level, around 10:00. The stop goes just past the reaction candle or the retest low, or outside the 15-minute range.</li>
+          </ul>
+          <p class="why">Market structure 101: higher lows in an up move, lower highs in a down move. The retest proves the break was real.</p>
+        </div>
+      </section>
+
+      <section class="stage">
+        <div class="num">6</div>
+        <div>
+          <h3>Manage: base hits, break-even, 11:00</h3>
+          <ul>
+            <li>Target the next key level at 1:2 or better. Once it moves your way, stop to break-even.</li>
+            <li>Inside a wide range, take base hits from one level to the next, not the whole move. Once the move has happened, don't chase the break.</li>
+            <li>The 1-hour candle prints at 11:00. Expect a shakeout into it, and the trend to resume after.</li>
+          </ul>
+          <p class="why">A trend band helps you stay in on trending days: a pullback into the bands is a place to add, not to panic sell.</p>
+        </div>
+      </section>
+    </div>
+
+    <div class="tf-side">
+      <div class="panel">
+        <h4>The clock</h4>
+        <p class="lead">Eastern time, New York session, index futures.</p>
+        <div class="clock">
+          <div style="--c:#ff453a"><b>9:30&ndash;9:45</b><p>Hands off. The traditional ORB window and the most fakeouts of the day.</p></div>
+          <div style="--c:#f4b942"><b>9:45&ndash;10:00</b><p>Mark the range, find the setup. Positioning time, so still a fakeout risk.</p></div>
+          <div style="--c:#30d158"><b>10:00&ndash;10:30</b><p>The entry window. 10:00 is usually the true direction for the day.</p></div>
+          <div style="--c:#bf5af2"><b>11:00</b><p>The 1-hour candle. Watch for a shakeout into it, then the trend resumes.</p></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h4>When to leave it alone</h4>
+        <p class="lead">Any one of these and it isn't a trade.</p>
+        <div class="filters kills" style="grid-template-columns:repeat(2,1fr); margin-top:14px;">
+          <div class="filter" style="background:var(--panel2)"><h3>Before 9:45</h3><p>The first 15 minutes, when volume is highest and orders are being filled.</p><p class="kill">You become the liquidity.</p></div>
+          <div class="filter" style="background:var(--panel2)"><h3>No bias</h3><p>You'd take whichever way it breaks, or the break goes against the bigger trend.</p><p class="kill">Bias first, or no trade.</p></div>
+          <div class="filter" style="background:var(--panel2)"><h3>News day</h3><p>Level 3 news or FOMC on the calendar.</p><p class="kill">Volatility breaks the model. Skip it.</p></div>
+          <div class="filter" style="background:var(--panel2)"><h3>The move is gone</h3><p>It already ran from the range, or nothing broke by 10:30.</p><p class="kill">Don't chase. Wait for the next hour.</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>The trades in the video</h2>
+    <p>Four ES mornings from the video, replayed on made-up 5-minute bars (she showed the charts without reading out prices). Pick one to play it.</p>
+  </div>
+  <div class="panel tf-plays" data-tf-plays>
+    <div class="pre" role="group" aria-label="Pick a trade">
+      <button type="button" data-case="reject" aria-pressed="true">Rejected at 10:00 &middot; short</button>
+      <button type="button" data-case="half" aria-pressed="false">Big range: the 50% rule &middot; long</button>
+      <button type="button" data-case="pre" aria-pressed="false">Premarket pop fails &middot; short</button>
+      <button type="button" data-case="eleven" aria-pressed="false">Shakeout into 11:00 &middot; short</button>
+    </div>
+    <svg viewBox="0 0 1180 460" role="img" aria-label="An illustrative 5-minute chart that plays the picked trade."></svg>
+    <p class="tf-note" aria-live="polite"></p>
+    <button type="button" class="reset" data-play>Play again</button>
+  </div>
+  <p class="quote">You could just have a simple rule like: don't participate until 10:00 a.m. Eastern. It could save you a lot of headache.<small>The video's main point, close to her words.</small></p>
+
+  <div class="section-head">
+    <h2>Is it a trade?</h2>
+    <p>Set the time, your bias and what price is doing. Every lamp has to be green (yellow at worst) before you click.</p>
+  </div>
+  <div class="panel tf-check" data-tf-check>
+    <div class="calc-in">
+      <label>Time (ET)<select name="time"><option value="open">9:30 to 9:45</option><option value="plan">9:45 to 10:00</option><option value="ten" selected>10:00 to 10:30, it broke out</option><option value="range">10:30, no break yet</option><option value="eleven">Into 11:00</option></select></label>
+      <label>Your bias<select name="bias"><option value="with" selected>The setup is with my larger point of view</option><option value="none">No bias, I'll take whichever way it breaks</option><option value="against">It's against my bias</option></select></label>
+      <label>The calendar<select name="news"><option value="ok" selected>Normal day</option><option value="news">Level 3 news or FOMC</option></select></label>
+      <label>Your entry<select name="ent"><option value="break">The first break of the range</option><option value="retest">A retest of the range edge that holds</option><option value="hl" selected>A higher low (lower high) after a deeper pullback</option><option value="half">A reaction at the 50% line of a big range</option><option value="chase">After it already ran</option></select></label>
+      <label>Room to the next key level<select name="room"><option value="two" selected>2R or more</option><option value="one">About 1R</option><option value="none">Less than 1R</option></select></label>
+    </div>
+    <div class="lamps" aria-hidden="true">
+      <div><span class="tf-lamp" data-lamp></span>Time</div>
+      <div><span class="tf-lamp" data-lamp></span>Bias</div>
+      <div><span class="tf-lamp" data-lamp></span>News</div>
+      <div><span class="tf-lamp" data-lamp></span>Entry</div>
+      <div><span class="tf-lamp" data-lamp></span>Room</div>
+    </div>
+    <div class="chk-out tf-out" aria-live="polite"></div>
+  </div>
+
+  <div class="section-head">
+    <h2>Size it</h2>
+    <p>Pick a dollar risk first, then let the stop decide the size. The coach in the video risks about $250 to $350 a trade and wants at least 1:2. ES is $50 a point, the micro (MES) $5.</p>
+  </div>
+  <div class="risk tf-plan">
+    <div class="panel" data-tf-calc>
+      <div class="pre" role="group" aria-label="Presets">
+        <button type="button" data-pre="walk" aria-pressed="true">The walkthrough long</button>
+        <button type="button" data-pre="goose" aria-pressed="false">$300 on MES at 1:3</button>
+        <button type="button" data-pre="live" aria-pressed="false">The live short: $500</button>
+      </div>
+      <div class="calc-in">
+        <label>Risk ($)<input name="risk" type="number" inputmode="decimal" step="25" value="350"></label>
+        <label>Contract<select name="ct"><option value="50" selected>ES ($50/pt)</option><option value="5">MES ($5/pt)</option></select></label>
+        <label>Side<select name="side"><option value="long" selected>Long</option><option value="short">Short</option></select></label>
+        <label>Entry<input name="entry" type="number" inputmode="decimal" step="0.25" value="6856"></label>
+        <label>Stop<input name="stop" type="number" inputmode="decimal" step="0.25" value="6849"></label>
+        <label>Next key level<input name="tgt" type="number" inputmode="decimal" step="0.25" value="6870"></label>
+      </div>
+      <div class="chk-out tf-cout" aria-live="polite"></div>
+      <div class="calc tf-ccalc" aria-live="polite" style="margin-top:14px"></div>
+    </div>
+    <div class="warn">
+      <h4>What the results in the video were</h4>
+      <div class="size-grid" style="margin:12px 0">
+        <div><b>$250&ndash;350</b><p>The coach's usual risk per trade, aiming for 1:2 or 1:3.</p></div>
+        <div><b>5-min</b><p>He only uses the 5-minute chart, and only trades ES in the New York session.</p></div>
+        <div><b>+2R</b><p>The live trade on camera: $500 risked, closed at +$1,000.</p></div>
+      </div>
+      <p>The video says his cash account went from $3,000 to $10,000 in 7 trading days in October, after a month and a half of prop firm payouts. That's one trader's report, not a test, and he says he takes losses too.</p>
+      <p class="big">One great week is not an edge. Test it over 30 days or more.</p>
+    </div>
+  </div>
+
+  <div class="section-head">
+    <h2>How you trade it</h2>
+    <p>Start to finish, for one morning.</p>
+  </div>
+  <div class="panel">
+    <ol class="howto">
+      <li><b>Before the open:</b> do the top-down read and write down the bias for the day. Mark the key levels. Check the calendar: level 3 news or FOMC means no trade.</li>
+      <li><b>9:30 to 9:45:</b> watch, don't trade. Let the open fake out the breakout traders.</li>
+      <li><b>9:45:</b> mark the 15-minute range high, low and 50%. If the range is huge (news), the 50% line is your level.</li>
+      <li><b>9:45 to 10:00:</b> look for the setup. A break in the direction of your bias confirms it. Don't take that break.</li>
+      <li><b>10:00 to 10:30:</b> enter on the retest of the range edge, or a higher low (lower high for shorts) as price leaves it. Stop past the reaction candle, target the next key level at 1:2 or better.</li>
+      <li><b>Manage:</b> stop to break-even once it works. Base hits from level to level; add on pullbacks into the trend bands on a trending day.</li>
+      <li><b>Into 11:00:</b> expect a shakeout while the 1-hour candle prints. No break by 10:30 means a range day: wait for the next hour, or be done.</li>
+    </ol>
+  </div>
+
+  <section class="video" id="video" aria-label="Video">
+    <div class="video-frame">
+      <iframe src="https://www.youtube-nocookie.com/embed/AiWteMSHQ-0" title="Give Me 34 Minutes and I'll Teach You How to Grow a Small Account (video)" loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    <div>
+      <h2>Watch the video</h2>
+      <p>Peachy Investor explains why the traditional opening range breakout gets faked out, draws the time-of-day rules, backtests a few days of ES with her coach Goose's model, and takes a live trade into 11:00.</p>
+      <a class="more" href="https://www.youtube.com/watch?v=AiWteMSHQ-0" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
+    </div>
+  </section>
+
+  <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
+  <div class="faq">
+    <div class="qa"><h3>Why not trade the first break of the opening range?</h3><p>Because 9:30 to 9:45 is when volume is highest and big money is filling orders, and the easiest fills come from trapping breakout traders. The first break is often faked out in both directions before the real move starts, usually around 10:00.</p></div>
+    <div class="qa"><h3>What is the 50% rule?</h3><p>When the opening range is very large, often from news, a break of its high or low comes too late. The halfway line of the range becomes the key level instead: in the direction of your bias, look for a reaction there and take a base hit back to the range edge.</p></div>
+    <div class="qa"><h3>Where does the stop go?</h3><p>Just past the reaction candle or the retest low (high for shorts), or outside the 15-minute range. The coach in the video risks about $250 to $350 a trade, aims for 1:2 or 1:3, and moves the stop to break-even once the trade works.</p></div>
+    <div class="qa"><h3>What happens at 11:00?</h3><p>The 1-hour candle prints at 11:00, and price often shakes out against the trend into it before the trend resumes. If nothing broke out of the range between 10:00 and 10:30, treat it as a range day and wait for the next hourly candle.</p></div>
+    <div class="qa"><h3>When should you not trade it?</h3><p>Before 9:45, without a bias or against it, on level 3 news and FOMC days, and after the move has already run from the range.</p></div>
+  </div><!-- /faq -->
+  <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
+  <div class="relgrid">
+    <a href="/setups/gap-give-and-go.html"><span class="k">Opening drive</span><h3>Gap Give and Go</h3><p>A stock gaps on a real catalyst, then gives back fast on light volume into a key level.</p></a>
+    <a href="/setups/nine-ema-continuation.html"><span class="k">Opening drive</span><h3>9 EMA Continuation</h3><p>Don't chase the breakout — wait for the pullback into the 9 EMA, read whether buyers actually step back up, and enter on the reclaim, not the tap.</p></a>
+    <a href="/setups/day-three-breakout.html"><span class="k">Opening drive</span><h3>Day Three Breakout</h3><p>A real catalyst drives day one, a quiet low-volume day sets up day two, and the break of that day-two high on day three is the entry — the same three-day sequence, six different tickers.</p></a>
+    <a href="/setups/opening-range-break.html"><span class="k">Opening drive</span><h3>Opening Range Break</h3><p>Let the first 15–30 minutes set the range, then trust the break only when volume and the higher time frame agree — the ticker changes, the mechanics never do.</p></a>
+  </div><!-- /related -->
+  <div class="rule">
+    <div>
+      <h2>The break is a signal. The retest is the trade.</h2>
+      <p>Know your side before the bell, sit through the first 15 minutes, mark the range, and let 10:00 show the direction.
+      Get in when the pullback holds, with the stop past the reaction and the target at the next key level.</p>
+    </div>
+    <div>
+      <ul>
+        <li>Bias first. No bias, no trade.</li>
+        <li>Nothing before 9:45.</li>
+        <li>Mark the high, the low and the 50%.</li>
+        <li>The break confirms; the retest enters.</li>
+        <li>Next key level, 1:2 or better, then break-even.</li>
+        <li>Expect a shakeout into 11:00.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="src">From Peachy Investor's "Give Me 34 Minutes and I'll Teach You How to Grow a Small Account" (YouTube, November 2026), with her New York session coach Goose. The rules, the time-of-day windows and the trades are as told and shown in the video; the platform, prop firm and course promotions are left out, and her custom coach levels and signature bands are described in general terms. For the classic version with volume rules and an indicator, see <a href="/setups/opening-range-break.html">Opening Range Break</a>; for the research on the first half hour, <a href="/famous-strategies/opening-range-breakout.html">the opening range breakout study</a>.
+  The walkthrough, the stepper charts and the candles and prices in every chart are illustrative, made up to show the idea, not any market's actual prints.</p>
+</div>
+<footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
+
+</body>
+</html>
