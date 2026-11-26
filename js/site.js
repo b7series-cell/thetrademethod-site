@@ -230,6 +230,7 @@
         '<a class="hide-xxxs" href="/#setups">Setups</a>' +
         '<a class="hide-xxs" href="/#sessions">Sessions</a>' +
         '<a class="hide-xs hide-md" href="/#day">Trading day</a>' +
+        '<a class="hide-lg" href="/basics/"' + (here().indexOf("/basics/") === 0 ? ' aria-current="page"' : "") + '>Basics</a>' +
         '<a class="hide-tiny" href="/#fundamentals">Fundamentals</a>' +
         '<a class="hide-lg" href="/famous-strategies/"' + (here().indexOf("/famous-strategies/") === 0 ? ' aria-current="page"' : "") + '>Strategies</a>' +
         '<a class="hide-md" href="/blog/"' + (here().indexOf("/blog/") === 0 ? ' aria-current="page"' : "") + '>Blog</a>' +
