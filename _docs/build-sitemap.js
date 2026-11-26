@@ -34,6 +34,7 @@ const today = new Date().toISOString().slice(0, 10);
    homepage counts, but it still belongs in the sitemap. */
 const EXTRA_PAGES = [
   { loc: "/setups/", priority: "0.9" },
+  { loc: "/basics/", priority: "0.9" },
   { loc: "/fundamentals/", priority: "0.9" },
   { loc: "/famous-strategies/", priority: "0.9" },
   { loc: "/about.html", priority: "0.5" },

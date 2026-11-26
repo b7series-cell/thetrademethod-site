@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script>
+  /* ?notrack=1 once in a browser stops counting your own visits there; ?notrack=0 turns counting back on */
+  (function () {
+    try {
+      var o = new URLSearchParams(location.search).get("notrack");
+      if (o === "1") localStorage.setItem("ga_optout", "1"); else if (o === "0") localStorage.removeItem("ga_optout");
+      if (localStorage.getItem("ga_optout") === "1") window["ga-disable-G-9VXPV49KWZ"] = true;
+    } catch (e) {}
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-9VXPV49KWZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  /* never send the private preview code to Google: drop it from the page and referrer addresses */
+  (function () {
+    function clean(a) { try { var u = new URL(a); u.searchParams.delete("preview"); u.searchParams.delete("notrack"); return u.toString(); } catch (e) { return a; } }
+    var cfg = { page_location: clean(location.href) };
+    if (document.referrer) cfg.page_referrer = clean(document.referrer);
+    gtag('config', 'G-9VXPV49KWZ', cfg);
+  })();
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trading Basics — start here if you're new | The Trade Method</title>
+<meta name="description" content="Trading basics in plain English: futures, market hours, options, order flow, volume, stops and sizing. Start here if you're new to trading.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="https://thetrademethod.com/basics/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="The Trade Method">
+<meta property="og:title" content="Trading Basics — start here if you're new">
+<meta property="og:description" content="Trading basics in plain English: futures, market hours, options, order flow, volume, stops and sizing. Start here if you're new to trading.">
+<meta property="og:url" content="https://thetrademethod.com/basics/">
+<meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Trading Basics — start here if you're new">
+<meta name="twitter:description" content="Trading basics in plain English: futures, market hours, options, order flow, volume, stops and sizing. Start here if you're new to trading.">
+<meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
+<link rel="icon" href="/favicon.ico?v=2" sizes="any">
+<link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trade Method">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "CollectionPage",
+ "name": "Trading basics",
+ "description": "Trading basics in plain English: futures, market hours, options, order flow, volume, stops and sizing. Start here if you're new to trading.",
+ "url": "https://thetrademethod.com/basics/",
+ "inLanguage": "en",
+ "isPartOf": {
+  "@type": "WebSite",
+  "name": "The Trade Method",
+  "url": "https://thetrademethod.com/"
+ },
+ "mainEntity": {
+  "@type": "ItemList",
+  "numberOfItems": 8,
+  "itemListElement": [
+   {
+    "@type": "ListItem",
+    "position": 1,
+    "name": "How Futures Work",
+    "url": "https://thetrademethod.com/futures-basics.html"
+   },
+   {
+    "@type": "ListItem",
+    "position": 2,
+    "name": "24-Hour Stock Trading",
+    "url": "https://thetrademethod.com/24-hour-stock-trading.html"
+   },
+   {
+    "@type": "ListItem",
+    "position": 3,
+    "name": "Covered Calls",
+    "url": "https://thetrademethod.com/covered-calls.html"
+   },
+   {
+    "@type": "ListItem",
+    "position": 4,
+    "name": "Order Flow for Beginners",
+    "url": "https://thetrademethod.com/order-flow.html"
+   },
+   {
+    "@type": "ListItem",
+    "position": 5,
+    "name": "Relative Volume",
+    "url": "https://thetrademethod.com/relative-volume.html"
+   },
+   {
+    "@type": "ListItem",
+    "position": 6,
+    "name": "Six Momentum Trades",
+    "url": "https://thetrademethod.com/six-momentum-trades.html"
+   },
+   {
+    "@type": "ListItem",
+    "position": 7,
+    "name": "Where Your Stop Belongs",
+    "url": "https://thetrademethod.com/stop-placement.html"
+   },
+   {
+    "@type": "ListItem",
+    "position": 8,
+    "name": "Dynamic Risk Sizing",
+    "url": "https://thetrademethod.com/dynamic-risk-sizing.html"
+   }
+  ]
+ }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/apple.css?v=27">
+<link rel="stylesheet" href="/css/tested.css?v=3">
+
+<script src="/js/nav.js?v=36" defer></script>
+<script src="/js/site.js?v=75" defer></script>
+<style>
+  .bx-groups { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .bx-grp { background:var(--white); border-radius:28px; padding:28px 28px 14px; color:#1d1d1f; }
+  .bx-ico { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; margin-bottom:12px; }
+  .bx-grp h2 { margin:0 0 4px; font-size:26px; font-weight:600; letter-spacing:0.004em; }
+  .bx-grp > p { margin:0 0 14px; color:#6e6e73; font-size:15px; }
+  .bx-row { display:flex; justify-content:space-between; align-items:center; gap:14px; padding:14px 0; border-top:1px solid #e8e8ed; color:#1d1d1f; text-decoration:none; }
+  .bx-row b { display:block; font-size:17px; font-weight:600; }
+  .bx-row small { display:block; color:#6e6e73; font-size:14px; line-height:1.45; }
+  .bx-row:hover b { color:var(--link-light); }
+  .bx-row .m { white-space:nowrap; font-size:13px; color:#86868b; }
+  .bx-next { display:flex; justify-content:space-between; align-items:center; gap:20px; flex-wrap:wrap; background:#1d1d1f; color:#f5f5f7; border-radius:28px; padding:28px 32px; margin-top:24px; }
+  .bx-next h3 { margin:0 0 4px; font-size:22px; font-weight:600; }
+  .bx-next p { margin:0; color:#a1a1a6; }
+  @media (max-width:900px) { .bx-groups { grid-template-columns:1fr; } }
+  @media (max-width:680px) { .bx-grp { padding:22px 18px 8px; border-radius:22px; } .bx-row .m { display:none; } .bx-next { padding:24px 20px; border-radius:22px; } }
+</style>
+<!-- breadcrumbs --><script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "BreadcrumbList",
+ "itemListElement": [
+  {
+   "@type": "ListItem",
+   "position": 1,
+   "name": "Home",
+   "item": "https://thetrademethod.com/"
+  },
+  {
+   "@type": "ListItem",
+   "position": 2,
+   "name": "Trading Basics",
+   "item": "https://thetrademethod.com/basics/"
+  }
+ ]
+}
+</script><!-- /breadcrumbs -->
+</head>
+<body>
+
+<div data-gnav></div>
+<div data-lnav data-title="Basics"></div>
+
+<main id="top">
+  <section class="hub-hero">
+    <div class="wrap">
+      <p class="eyebrow">The basics</p>
+      <h1>How trading works, one topic at a time.</h1>
+      <p class="lead">Plain-English pages on how markets, orders, charts and risk work. <b>Start here if you&rsquo;re new.</b> Jump to what you need.</p>
+      <div class="hub-stats">
+        <div><b class="tnum">4</b><small>topics</small></div>
+        <div><b class="tnum">8</b><small>pages</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band light" style="padding-top:48px">
+    <div class="wrap">
+      <div class="bx-groups">
+        <section class="bx-grp" id="markets" aria-labelledby="markets-h"><div class="bx-ico" style="background:#2997ff1f"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 18V10M9.5 18V10M14.5 18V10M19 18V10M2 8l10-5 10 5z" fill="none" stroke="#2997ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h2 id="markets-h">Markets &amp; instruments</h2><p>What you&rsquo;re actually trading.</p>
+          <a class="bx-row" href="/futures-basics.html"><span><b>How Futures Work</b><small>A contract both sides must keep, margin, leverage and the daily cash settlement.</small></span><span class="m">14-min video &rsaquo;</span></a>
+          <a class="bx-row" href="/24-hour-stock-trading.html"><span><b>24-Hour Stock Trading</b><small>When US stocks trade: pre-market, the open, the close, after-hours and the new overnight session.</small></span><span class="m">Note &rsaquo;</span></a>
+          <a class="bx-row" href="/covered-calls.html"><span><b>Covered Calls</b><small>The simplest options trade: own the stock, sell a call, keep the premium. The four ways it ends.</small></span><span class="m">Options &rsaquo;</span></a>
+        </section>
+        <section class="bx-grp" id="orders" aria-labelledby="orders-h"><div class="bx-ico" style="background:#ff9f0a1f"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3" fill="none" stroke="#ff9f0a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h2 id="orders-h">Orders &amp; execution</h2><p>How a trade gets filled.</p>
+          <a class="bx-row" href="/order-flow.html"><span><b>Order Flow for Beginners</b><small>What a footprint chart shows about the buyers and sellers filling every price.</small></span><span class="m">Framework &rsaquo;</span></a>
+        </section>
+        <section class="bx-grp" id="charts" aria-labelledby="charts-h"><div class="bx-ico" style="background:#30d1581f"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4v16M6 8h-2v8h2M12 2v18M12 6h-2v10h2M18 6v14M18 9h-2v7h2" fill="none" stroke="#30d158" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h2 id="charts-h">Reading charts</h2><p>What price and volume are saying.</p>
+          <a class="bx-row" href="/relative-volume.html"><span><b>Relative Volume</b><small>Is today&rsquo;s volume unusual for this stock? Why the same move means more on heavy volume.</small></span><span class="m">Framework &rsaquo;</span></a>
+          <a class="bx-row" href="/six-momentum-trades.html"><span><b>Six Momentum Trades</b><small>Breakout, retest, pullback, consolidation, trend and reclaim: the six moves behind most strategy names.</small></span><span class="m">Framework &rsaquo;</span></a>
+        </section>
+        <section class="bx-grp" id="risk" aria-labelledby="risk-h"><div class="bx-ico" style="background:#ff453a1f"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M5 7h14M5 7l-3 7h6zM19 7l-3 7h6zM8 21h8" fill="none" stroke="#ff453a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h2 id="risk-h">Risk &amp; money</h2><p>How much to risk, and where you&rsquo;re wrong.</p>
+          <a class="bx-row" href="/stop-placement.html"><span><b>Where Your Stop Belongs</b><small>Put the stop where the trade is proven wrong, not where it feels comfortable.</small></span><span class="m">Framework &rsaquo;</span></a>
+          <a class="bx-row" href="/dynamic-risk-sizing.html"><span><b>Dynamic Risk Sizing</b><small>Why sizing every trade the same drains your account, and a simple A+ to C model.</small></span><span class="m">Framework &rsaquo;</span></a>
+        </section>
+      </div>
+      <div class="bx-next">
+        <div><h3>Know the basics?</h3><p>The fundamentals build on them: edge, stops, exits and sizing.</p></div>
+        <a class="pill pill-buy" href="/fundamentals/">Go to the fundamentals &rsaquo;</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
+
+</body>
+</html>

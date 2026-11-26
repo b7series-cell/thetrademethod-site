@@ -261,6 +261,7 @@
         '<ul class="gmenu-main">' +
           '<li><a href="/"' + cur(p === "/" || p === "/index.html") + '>Home</a></li>' +
           '<li><a href="/setups/"' + cur(p.indexOf("/setups/") === 0) + '>Setups</a></li>' +
+          '<li><a href="/basics/"' + cur(p.indexOf("/basics/") === 0) + '>Basics</a></li>' +
           '<li><a href="/fundamentals/"' + cur(p.indexOf("/fundamentals/") === 0) + '>Fundamentals</a></li>' +
           '<li><a href="/famous-strategies/"' + cur(p.indexOf("/famous-strategies/") === 0) + '>Famous Strategies</a></li>' +
           '<li><a href="/blog/"' + cur(p.indexOf("/blog/") === 0) + '>Blog</a></li>' +
@@ -333,8 +334,8 @@
       ? (p === "/blog/" ? "" : '<a href="/blog/">All posts</a>') + '<a class="pill pill-buy" href="/">Home</a>'
       : isStrat
       ? (p === "/famous-strategies/" ? hubLink("/setups/", "All setups") + hubLink("/fundamentals/", "Fundamentals") : '<a href="/famous-strategies/">All strategies</a>') + '<a class="pill pill-buy" href="/">Home</a>'
-      : (p === "/setups/" || p === "/fundamentals/")
-      ? hubLink("/setups/", "All setups") + hubLink("/fundamentals/", "Fundamentals") + '<a class="pill pill-buy" href="/">Home</a>'
+      : (p === "/setups/" || p === "/fundamentals/" || p === "/basics/")
+      ? hubLink("/basics/", "Basics") + hubLink("/setups/", "All setups") + hubLink("/fundamentals/", "Fundamentals") + '<a class="pill pill-buy" href="/">Home</a>'
       : (s ? '<span class="tnum">' + esc(s.session) + "</span>" : "") + '<a href="/setups/">All setups</a><a class="pill pill-buy" href="/#setups">Browse</a>';
     el.outerHTML =
       '<div class="lnav"><div class="wrap"><span class="title">' + esc(title) + '</span><div class="right">' + right + "</div></div></div>";
@@ -350,7 +351,8 @@
       return "<div><h4>" + esc(GROUPS[g].short) + "</h4>" +
         list.map(function (s) { return '<a href="' + esc(s.href) + '">' + esc(s.nav) + "</a>"; }).join("") + "</div>";
     }).join("") +
-      "<div><h4>Fundamentals</h4>" +
+      '<div><h4>Basics</h4><a href="/basics/">Start here</a>' +
+      '<h4 style="margin-top:18px">Fundamentals</h4>' +
       FUNDAMENTALS.map(function (f) { return '<a href="' + esc(f.href) + '">' + esc(f.title) + "</a>"; }).join("") +
       '<h4 style="margin-top:18px">Famous strategies</h4>' +
       STRAT_LIVE.map(function (x) { return '<a href="' + esc(x.href) + '">' + esc(x.title) + "</a>"; }).join("") +
@@ -722,6 +724,7 @@
       { u: "/setups/", t: "All setups", sub: "", kind: "Page", d: "Every setup in one list, filtered by session and side.", k: "setups list browse index", h: [], order: 2 },
       { u: "/contact.html", t: "Contact", sub: "", kind: "Page", d: "Send a question, a correction or a setup idea.", k: "contact email message question feedback idea suggestion correction report problem", h: [], order: 2 },
       { u: "/famous-strategies/", t: "Famous strategies", sub: "", kind: "Page", d: "Famous, research-backed stock and ETF strategies, one detailed page each.", k: "famous strategies research academic papers momentum value etf stocks list browse index", h: [], order: 2 },
+      { u: "/basics/", t: "Basics", sub: "", kind: "Page", d: "Start here if you're new: how markets, orders, charts and risk work.", k: "basics beginner beginners start new learn how trading works", h: [], order: 2 },
       { u: "/fundamentals/", t: "All fundamentals", sub: "", kind: "Page", d: "Every framework, process and options page in one list.", k: "fundamentals frameworks list browse index", h: [], order: 2 }
     );
     return docs;

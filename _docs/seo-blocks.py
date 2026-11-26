@@ -106,6 +106,11 @@ def fmt_date(d):
     return dt.date.fromisoformat(d).strftime("%b %-d, %Y")
 
 
+# Pages that belong to the Basics section (/basics/): their breadcrumb and
+# back link point at /basics/ instead of /fundamentals/.
+BASICS_HREFS = {"/futures-basics.html"}
+
+
 def main():
     setups = [s for s in load_setups() if s.get("status") != "draft"]
     funds = load_fundamentals()
@@ -155,6 +160,8 @@ def main():
                 section = ("Famous strategies", "/famous-strategies/")
             elif href.startswith("/blog/") and href != "/blog/":
                 section = ("Blog", "/blog/")
+            elif href in BASICS_HREFS:
+                section = ("Basics", "/basics/")
             elif href in fund_hrefs:
                 section = ("Fundamentals", "/fundamentals/")
             else:
@@ -171,6 +178,8 @@ def main():
         # back links to the hubs
         if href.startswith("/setups/"):
             src = src.replace('<a class="back" href="/#setups">&lsaquo; All setups</a>', '<a class="back" href="/setups/">&lsaquo; All setups</a>')
+        elif href in BASICS_HREFS:
+            src = src.replace('<a class="back" href="/fundamentals/">&lsaquo; Fundamentals</a>', '<a class="back" href="/basics/">&lsaquo; Basics</a>')
         elif href in fund_hrefs:
             src = re.sub(r'<a class="back" href="/(?:#setups|#fundamentals)">&lsaquo; [^<]*</a>',
                          '<a class="back" href="/fundamentals/">&lsaquo; Fundamentals</a>', src)
