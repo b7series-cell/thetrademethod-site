@@ -497,7 +497,7 @@
         '<div class="row"><span>Stop: the line less ' + buf.toFixed(2) + '</span><b>' + stop.toFixed(2) + '</b></div>' +
         '<div class="row"><span>Risk a share, from ' + entry.toFixed(2) + '</span><b>' + ps.toFixed(2) + '</b></div>' +
         '<div class="row"><span>Shares for $' + risk.toFixed(0) + ' at risk</span><b>' + sh.toLocaleString() + ' sh</b></div>' +
-        '<div class="row"><span>Entry above the line</span><b>' + (entry - line).toFixed(2) + (room > 85 ? " &middot; far" : "") + '</b></div>' +
+        '<div class="row"><span>Entry above the line (share of the risk)</span><b>' + (entry - line).toFixed(2) + ' &middot; ' + Math.round(room) + '%</b></div>' +
         '<div class="row tot"><span>Daily close below: cut at least</span><b>' + half.toLocaleString() + ' sh</b></div>';
     }
     root.addEventListener("input", run);
