@@ -258,7 +258,7 @@
 <link rel="stylesheet" href="/css/apple.css?v=28">
 <script src="/js/nav.js?v=36" defer></script>
 <script src="/js/site.js?v=77" defer></script>
-<script src="/js/gw-anim.js?v=3" defer></script>
+<script src="/js/gw-anim.js?v=4" defer></script>
 <style>
   /* steps across the page, the two panels side by side under them (same as heatmap-scalp.html) */
   .gw-main { grid-template-columns:1fr; gap:22px; }
@@ -788,7 +788,7 @@
   <div class="panel gw-check" data-gw-check>
     <div class="calc-in">
       <label>Location<select name="loc"><option value="put" selected>At the put wall (long)</option><option value="call">At the call wall (short)</option><option value="zero">Lost zero gamma (short, with it)</option><option value="mid">Between levels</option></select></label>
-      <label>Regime<select name="reg"><option value="lake" selected>Above zero gamma: the lake</option><option value="rapids">Below zero gamma: the rapids</option></select></label>
+      <label>Regime<select name="reg"><option value="lake">Above zero gamma: the lake</option><option value="rapids" selected>Below zero gamma: the rapids</option></select></label>
       <label>How price arrived<select name="app"><option value="slow" selected>Slow: small candles, steady drift</option><option value="fast">Fast: big candles, momentum</option></select></label>
       <label>Your entry<select name="ent"><option value="at" selected>Right at the level, on the reaction</option><option value="reclaim">After the overshoot, on the reclaim</option><option value="accept">It broke through and held</option></select></label>
       <label>The footprint<select name="fp"><option value="yes" selected>Absorption, stacking, a flip, trapped traders or big prints</option><option value="none">Nothing yet</option><option value="against">Pushing through against you</option></select></label>
