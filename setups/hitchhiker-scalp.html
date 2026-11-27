@@ -808,9 +808,11 @@
       ran heavier than the move it marks &ldquo;Skip&rdquo; instead. The stop is a 2-minute close past the 21 EMA, tightened to the most recent low (high) once the move's
       extreme is taken out. Each new high in profit trims two 5% pieces up to 70%, then the last 30% is out on a break of the prior bar. Only the first
       pullback after a move is taken. Anything still open is closed on the last bar of the regular session, so a scalp is never held overnight.
-      Two optional switches under Session: entries in the first hour only, and strong moves only (2.5&times; normal volume). Every number is a setting.</p>
+      Two optional switches under Session: entries in the first hour only, and strong moves only (2.5&times; normal volume). Two more under Skip, from the
+      video's &ldquo;when I pass&rdquo; list, both off by default: skip chop (closes crossed the 9 EMA more than 4 times in the 20 bars before the move) and skip
+      mid-range on the daily chart (price between 30% and 70% of the last 20 days' range). Every number is a setting.</p>
       <p class="ind-blurb" style="color:var(--dim)">Two things stay with you: whether the stock is really in play (news, earnings, a theme, a key level) and what
-      the market is doing. The panel shows RVOL as a hint. The 60% and 100% volume lines are ours, not the video's.</p>
+      the market is doing. The panel shows RVOL as a hint. The 60% and 100% volume lines, and the chop and mid-range numbers, are ours, not the video's.</p>
       <div class="ind-links">
         <a class="ind-link ind-link--quiet" href="/pine/hitchhiker-scalp.pine" download>Download source (.pine)</a>
       </div>
@@ -849,6 +851,9 @@
 //                    last regular-session bar, never held overnight.
 //                    Optional: entries in the first hour only, and a
 //                    strong-volume filter on the move (2.5x normal).
+//   8. The skips     Optional, from the video's "when I pass" list:
+//                    chop (price kept crossing the 9 EMA before the
+//                    move) and mid-range on the daily chart.
 //
 // "In play" (news, earnings, a theme, a key level) and the market's
 // direction are still your call; the panel shows RVOL as a hint.
@@ -889,6 +894,15 @@ winMins    = input.int(60, "First hour: minutes after the open", minval = 5, max
 strongVol  = input.bool(false, "Strong moves only: move volume at least (x normal)", inline = "sv", group = grpT)
 strongX    = input.float(2.5, "", minval = 1.0, step = 0.1, inline = "sv", group = grpT)
 
+grpK = "Skip (from the video)"
+skipChop   = input.bool(false, "Skip chop: closes crossed the 9 EMA more than", inline = "ch", group = grpK)
+chopMax    = input.int(4, "", minval = 1, inline = "ch", group = grpK)
+chopBars   = input.int(20, "Chop: bars looked at before the move", minval = 5, group = grpK)
+skipMid    = input.bool(false, "Skip mid-range on the daily chart", group = grpK)
+dayLen     = input.int(20, "Daily range: days", minval = 5, group = grpK)
+midLo      = input.float(30, "Mid-range from (% of the daily range)", minval = 0, maxval = 100, group = grpK)
+midHi      = input.float(70, "Mid-range to (% of the daily range)", minval = 0, maxval = 100, group = grpK)
+
 grpV = "Display"
 showEma    = input.bool(true, "Show the 9 and 21 EMAs", group = grpV)
 showTrims  = input.bool(true, "Mark each trim", group = grpV)
@@ -917,6 +931,15 @@ mNorm   = volNorm[moveBars]
 volOk   = mNorm &gt; 0 and mVol &gt;= (strongVol ? math.max(moveVolX, strongX) : moveVolX) * mNorm
 moveUp   = allowLong  and net &gt;=  moveAtr * atr and upBars &gt;= moveBars - 2 and volOk and close - e9 &gt;= extAtr * atr
 moveDown = allowShort and net &lt;= -moveAtr * atr and dnBars &gt;= moveBars - 2 and volOk and e9 - close &gt;= extAtr * atr
+// the skips: chop before the move, and where price sits in its daily range
+crossed = (close &gt; e9) != (close[1] &gt; e9[1]) ? 1 : 0
+chopN   = math.sum(crossed, chopBars)[moveBars]
+chopOk  = not skipChop or na(chopN) or chopN &lt;= chopMax
+dHi     = request.security(syminfo.tickerid, "D", ta.highest(high, dayLen)[1], lookahead = barmerge.lookahead_on)
+dLo     = request.security(syminfo.tickerid, "D", ta.lowest(low, dayLen)[1], lookahead = barmerge.lookahead_on)
+dPos    = dHi &gt; dLo ? (close - dLo) / (dHi - dLo) * 100 : na
+midOk   = not skipMid or na(dPos) or dPos &lt; midLo or dPos &gt; midHi
+
 hhMove  = ta.highest(high, moveBars)
 llMove  = ta.lowest(low, moveBars)
 
@@ -960,7 +983,7 @@ bool aExit  = false
 
 // a new move: starts (or flips) the hunt for the first pullback. After a setup ends,
 // only a move that started after it counts, so the 2nd, 3rd... pullback is never taken.
-int  mdir     = moveUp ? 1 : moveDown ? -1 : 0
+int  mdir     = chopOk and midOk ? (moveUp ? 1 : moveDown ? -1 : 0) : 0
 bool fresh    = na(lastEnd) or bar_index - moveBars &gt;= lastEnd
 bool startNew = state &lt;= 2 and mdir != 0 and fresh and (state == 0 or mdir != dir) and inWindow and not (flatClose and lastBar)
 
