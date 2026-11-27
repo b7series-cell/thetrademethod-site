@@ -8,7 +8,7 @@
    3.1 x the previous candle's ATR. The opening candle touches it: skip.
    Later the previous candle's ATR reads 17.85 (the page's worked number),
    the band sits 55.34 under 20950, a wick clips it: buy 20894.50, target
-   +35.70 (2 x ATR), stop -26.75 (1.5 x ATR, to the tick). Target hits two
+   +35.75 (2 x ATR, to the tick), stop -26.75 (1.5 x ATR, to the tick). Target hits two
    candles later. Then the short side: an upper wick 2.8x its body with a
    0.5-point lower wick, prior day red; short the next open 20962, out at
    that candle's close 20947 (+15). Scripted bars, no market data.
@@ -31,7 +31,7 @@ AnimKit.mount("atr", function (K) {
   var BAND = B.map(function (b, i) { return i ? B[i - 1][3] - MULT * ATR[i - 1] : null; });
   var A0 = ATR[IN - 1];                                   /* 17.85 */
   var ENTRY = Math.floor(BAND[IN] * 4) / 4;               /* buy limit at the band, to the tick: 20894.50 */
-  var TD = 2 * A0, SD = Math.round(1.5 * A0 * 4) / 4;     /* +35.70, -26.75 */
+  var TD = Math.round(2 * A0 * 4) / 4, SD = Math.round(1.5 * A0 * 4) / 4;     /* +35.75, -26.75 (to the 0.25 tick) */
   var TGT = ENTRY + TD, STP = ENTRY - SD;
   var SIN = B[SHORT][0], SOUT = B[SHORT][3];
 
@@ -44,8 +44,8 @@ AnimKit.mount("atr", function (K) {
     { at: 3.2, title: "Anchor the band to the prior close", text: "The lower band for the next candle is the previous close minus 3.1 x ATR: 21004 - 3.1 x 10.78 = 20970.58. It is set before the candle opens and does not move." },
     { at: 6.0, title: "Skip the opening candle", text: "The 9:30 candle drops through the band. No trade: at the open, the ATR behind the band is not reliable yet." },
     { at: 9.4, title: "The wick clips the band: buy", text: "ATR climbs to 17.85, so the band stretches 55.34 under the 20950 close. The next candle's wick clips 20894.66 and the limit fills at 20894.50." },
-    { at: 14.6, title: "Fixed 2 / 1.5 ATR exit", text: "Target is 2 x 17.85 = +35.70 (20930.20). Stop is 1.5 x 17.85 = -26.75 (20867.75). Both are set at entry and never move. Two candles later the target fills." },
-    { at: 19.8, title: "Shorts read a wick, not the band", text: "The prior day closed red, so shorts are on. This candle's upper wick is 28 points, 2.8x its 10-point body, and its lower wick is only 0.5: a rejection off the highs." },
+    { at: 14.6, title: "Fixed 2 / 1.5 ATR exit", text: "Target is 2 x 17.85 = 35.70, +35.75 to the tick (20930.25). Stop is 1.5 x 17.85 = -26.75 (20867.75). Both are set at entry and never move. Two candles later the target fills." },
+    { at: 19.8, title: "Shorts read a wick, not the band", text: "The prior day closed red, so the presenter's filter lets shorts on. This candle's upper wick is 28 points, 2.8x its 10-point body, and its lower wick is only 0.5, under a tenth of the upper wick: a rejection off the highs." },
     { at: 24.2, title: "Out on time, not price", text: "Short at the next candle's open, 20962. No target, no stop: the trade closes at that candle's close, 20947, for +15 points." }
   ];
 
@@ -106,12 +106,12 @@ AnimKit.mount("atr", function (K) {
       s += K.hline(G, xe, xr, TGT, C.up, "5 4", 1.4, aT * aL / aE) + K.tag(G, 1000, TGT, "Target " + K.f2(TGT), C.up, aT * (1 - fade(T, 19.8, 0.4)), "#000");
       s += K.hline(G, xe, xr, STP, C.dn, "5 4", 1.4, aT * aL / aE) + K.tag(G, 1000, STP, "Stop " + K.f2(STP), C.dn, aT * (1 - fade(T, 19.8, 0.4)), "#fff");
       s += K.callout(G.x(IN) - 30, G.y(20872) + 28, ["Wick clipped the band: buy " + K.f2(ENTRY)], C.up, aE * (1 - fade(T, 14.6, 0.4)), true);
-      s += K.callout(660, G.y(21004), ["Previous candle's ATR: 17.85", "Target  2 × 17.85 = +35.70", "Stop  1.5 × 17.85 = −26.75 (to the tick)"], C.gold, aT * (1 - fade(T, 19.8, 0.4)));
+      s += K.callout(660, G.y(21004), ["Previous candle's ATR: 17.85", "Target  2 × 17.85 = +35.75 (to the tick)", "Stop  1.5 × 17.85 = −26.75 (to the tick)"], C.gold, aT * (1 - fade(T, 19.8, 0.4)));
     }
     var aH = fade(T, TB[HIT][1], 0.3);
     if (aH > 0) {
       s += K.dot(G.x(HIT), G.y(TGT), 7, C.up, aH);
-      s += txt(G.x(HIT), G.y(TGT) - 30, "target +35.70", C.up, 12, "middle", 700, aH * (1 - 0.6 * fade(T, 19.8, 0.4)));
+      s += txt(G.x(HIT), G.y(TGT) - 30, "target +35.75", C.up, 12, "middle", 700, aH * (1 - 0.6 * fade(T, 19.8, 0.4)));
     }
     /* short side: prior day red, the rejection wick */
     var aD = fade(T, 19.8, 0.4);
@@ -127,7 +127,7 @@ AnimKit.mount("atr", function (K) {
         '<line x1="' + (xw - 4) + '" x2="' + (xw + 4) + '" y1="' + G.y(b[1]).toFixed(1) + '" y2="' + G.y(b[1]).toFixed(1) + '"/>' +
         '<line x1="' + (xw - 4) + '" x2="' + (xw + 4) + '" y1="' + G.y(b[3]).toFixed(1) + '" y2="' + G.y(b[3]).toFixed(1) + '"/></g>';
       s += txt(xw - 6, G.y((b[1] + b[3]) / 2) + 4, "wick 28", C.gold, 12, "end", 700, aW);
-      s += K.callout(G.x(WICK) + 26, G.y(21000), ["Upper wick 28 = 2.8× body 10", "Lower wick 0.5: negligible"], C.gold, aW * (1 - fade(T, 24.2, 0.4)));
+      s += K.callout(G.x(WICK) + 26, G.y(21000), ["Upper wick 28 = 2.8× body 10", "Lower wick 0.5 < 1/10 of 28"], C.gold, aW * (1 - fade(T, 24.2, 0.4)));
     }
     /* time exit */
     var aI = fade(T, TB[SHORT][0], 0.2), aX = fade(T, TB[SHORT][1], 0.3);

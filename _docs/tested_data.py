@@ -295,11 +295,12 @@ PAGES = [
  "path": "setups/atr-band-hybrid.html", "name": "ATR Hybrid Scalp", "group": "Setups",
  "verdict": "none", "chip": "Loses",
  "headline": "Lost on the index ETFs",
- "lead": "Run on QQQ and SPY 5-minute bars in place of MNQ futures, the long band touch and the short wick fade lost about a "
-         "tenth of their risk per trade.",
- "stats": [["2,725", "trades, 5-minute"], ["41%", "win rate"], ["0.76", "profit factor"], ["&minus;0.11R", "average per trade", "neg"]],
- "notes": ["The page is built for MNQ futures. QQQ and SPY are a stand-in, so a futures test could come out differently."],
- "how": LOCAL,
+ "lead": "Run with the page's indicator rules on QQQ and SPY 5-minute bars in place of MNQ futures, the two playbooks together lost a little.",
+ "stats": [["2,108", "trades, 5-minute"], ["43%", "win rate"], ["0.87", "profit factor"], ["&minus;0.04R", "average per trade", "neg"]],
+ "notes": ["The page is built for MNQ futures. QQQ and SPY are a stand-in, so a futures test could come out differently.",
+           "The loss came from the shorts: 1,645 trades, a 0.70 profit factor, &minus;0.06R. The longs were about break-even: 463 trades, a 1.04 profit factor, +0.02R (+0.12R on SPY, &minus;0.09R on QQQ).",
+           "The shorts have no stop, so their R uses the long side&#x27;s yardstick for that candle, 1.5 &times; the previous ATR. An earlier run that gave the shorts a stop lost &minus;0.11R overall."],
+ "how": "5 years of 5-minute bars, Nov 2021 to Nov 2026, on QQQ and SPY, run with the same rules as this page&#x27;s indicator at its default settings (prior-day-red filter on). Longs fill at the band; shorts go in at the next open and out at its close. 0.5 bp a side for the spread. Before June 2024 it lost &minus;0.06R a trade, after it &minus;0.02R.",
 },
 {
  "path": "setups/opening-range-break.html", "name": "Opening Range Break", "group": "Setups",
@@ -324,12 +325,16 @@ PAGES = [
 {
  "path": "setups/nine-ema-continuation.html", "name": "9 EMA Continuation", "group": "Setups",
  "verdict": "none", "chip": "Loses",
- "headline": "A small loss on a mechanical version",
- "lead": "A breakout on volume, then the first close back above the 9 EMA after the first touch, half off at 2R and the rest "
-         "trailed on the 9 EMA.",
- "stats": [["552", "trades, 5-minute"], ["30%", "win rate"], ["0.87", "profit factor"], ["&minus;0.06R", "average per trade", "neg"]],
- "notes": ["4 of the 10 stocks were positive. About 3.5 months of data."],
- "how": TV_STOCKS,
+ "headline": "A small loss over five years",
+ "lead": "Run with the page's indicator rules: a breakout on volume, then the first green close back above the 9 EMA after "
+         "the first touch, half off at 2R and the rest trailed on the 9 EMA.",
+ "stats": [["7,094", "trades, 5-minute"], ["33%", "win rate"], ["0.93", "profit factor"], ["&minus;0.03R", "average per trade", "neg"]],
+ "notes": ["3 of the 10 stocks were positive. Before June 2024 it lost &minus;0.01R a trade, after it &minus;0.05R.",
+           "The latest months were the worst: Aug to Nov 2026 lost &minus;0.13R a trade over 421 trades. An earlier "
+           "TradingView run of those months lost &minus;0.06R."],
+ "how": ("5 years of 5-minute bars, Nov 2021 to Nov 2026, on 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, "
+         "MSFT, MU, NVDA, TSLA), run with the same rules as this page's indicator at its default settings, long only. "
+         "Fills at the bar close, the stop wins when it is hit, 0.5 bp a side for the spread, results in R capped at +10R."),
 },
 {
  "path": "setups/qqe-mod.html", "name": "QQE Mod + EMA 50", "group": "Setups",
