@@ -114,7 +114,15 @@ const SETUPS = [
     stages:  6,
     filters: 4,
     status:  "live",
-    indicators: []
+    indicators: [
+      {
+        name:  "Day Three Breakout — The Trade Method",
+        blurb: "Checks for a catalyst-style day one and a quiet inside day two, arms a buy stop at the day-two high, takes an early break with the stop under the breakout bar, and scales out in thirds to a 9 EMA close, with webhook-ready alerts.",
+        url:   "",
+        file:  "/pine/day-three-breakout.pine",
+        alerts: true
+      }
+    ]
   },
   {
     slug:    "nine-ema-continuation",

@@ -207,7 +207,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=28">
-<script src="/js/nav.js?v=39" defer></script>
+<script src="/js/nav.js?v=40" defer></script>
 <script src="/js/site.js?v=78" defer></script>
 <script src="/js/anim-kit.js?v=2" defer></script>
 <script src="/js/d3b-anim.js?v=1" defer></script>
@@ -810,6 +810,29 @@
       <a class="more" href="https://www.youtube.com/watch?v=wpPHULhcsn4" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
     </div>
   </section>
+
+  <div class="section-head" id="indicator">
+    <h2 class="ind-heading">Indicator for this setup</h2>
+    <p class="ind-note">Add this to a 5-minute TradingView chart (regular hours) of a stock you're watching. It uses the same rules as the example
+    chart above. It draws and alerts on the setup &mdash; it does not place trades, and it can't read the news, so the catalyst check is yours.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">Day Three Breakout &mdash; The Trade Method</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">Checks the last two daily bars for the sequence: a day one up 20% or more on 3&times; its average volume, then an inside
+      day two on lower volume that didn't open in the lower half of day one. On day three it arms a buy stop at the day-two high and takes the
+      break if it starts in the first 30 minutes. The stop goes a few cents under the breakout bar (or at low of day, a setting). It sells a third
+      into blow-off volume, a third at the next whole dollar after a VWAP dip holds, and the rest on the first close below the 9 EMA or at the
+      close. A status panel shows the day one and day two checks; alerts for armed, entry and exit, with JSON webhook versions.
+      The thirds and the volume and time cut-offs are our objective version of the video's judgment calls.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/day-three-breakout.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+  </ul>
 
   <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
   <div class="faq">
