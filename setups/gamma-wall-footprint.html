@@ -258,7 +258,7 @@
 <link rel="stylesheet" href="/css/apple.css?v=28">
 <script src="/js/nav.js?v=36" defer></script>
 <script src="/js/site.js?v=78" defer></script>
-<script src="/js/gw-anim.js?v=3" defer></script>
+<script src="/js/gw-anim.js?v=5" defer></script>
 <style>
   /* steps across the page, the two panels side by side under them (same as heatmap-scalp.html) */
   .gw-main { grid-template-columns:1fr; gap:22px; }
@@ -553,7 +553,7 @@
 
   <header class="top" data-candle-bg="gamma-wall-footprint">
     <div>
-      <p class="kicker">Three trades at the GEX levels &middot; NQ futures, a 5-minute chart with a footprint, the first hours of the US session, long or short</p>
+      <p class="kicker">Three trades at the GEX levels &middot; NQ futures (his guide covers ES too), a 5-minute chart with a footprint, the first hours of the US session, long or short</p>
       <h1>Gamma Wall <span class="h1-gw">Footprint</span></h1>
     </div>
     <div>
@@ -611,7 +611,7 @@
             <li>Add up the gamma exposure of every strike and you get the GEX map. Three lines on it matter.</li>
             <li>The call wall, the most positive gamma: dealers sell rallies there. A ceiling with springs.</li>
             <li>The put wall, the most negative gamma: dealers buy dips there. A trampoline floor.</li>
-            <li>Zero gamma isn't support or resistance. It's the border between two kinds of market.</li>
+            <li>Zero gamma is the flip point of the whole map: the border between two kinds of market.</li>
           </ul>
           <p class="why">Price doesn't react at random prices. It reacts where the dealers' hedging is biggest, and you can know those prices before the open.</p>
         </div>
@@ -650,7 +650,7 @@
           <ul>
             <li>Absorption: sellers keep hitting it, the red numbers pile up, and price won't go lower.</li>
             <li>Stacked imbalances: three rows or more where one side is three times bigger. Someone just took control.</li>
-            <li>A delta flip: big negative, then big positive, right at the level.</li>
+            <li>A delta flip: big negative, then big positive, right at the level (or the reverse at a call wall).</li>
             <li>Trapped traders: they rushed through the door just before it slammed shut behind them.</li>
             <li>Bonus, big prints: single large trades right at the level. Size showing up where it should.</li>
           </ul>
@@ -726,7 +726,7 @@
 
   <div class="section-head" id="rules">
     <h2>The rules: entry, stop and exit</h2>
-    <p>Each setup from start to finish. The put wall and call wall prices are the video's two examples. The video gives no chart for the third play, so its prices come from our drawing.</p>
+    <p>Each setup from start to finish. The put wall and call wall prices are the video's two examples. Neither the video nor his guide gives prices for the third play, so its prices come from our drawing.</p>
   </div>
   <div class="gw-rules">
     <div class="panel">
@@ -788,7 +788,7 @@
   <div class="panel gw-check" data-gw-check>
     <div class="calc-in">
       <label>Location<select name="loc"><option value="put" selected>At the put wall (long)</option><option value="call">At the call wall (short)</option><option value="zero">Lost zero gamma (short, with it)</option><option value="mid">Between levels</option></select></label>
-      <label>Regime<select name="reg"><option value="lake" selected>Above zero gamma: the lake</option><option value="rapids">Below zero gamma: the rapids</option></select></label>
+      <label>Regime<select name="reg"><option value="lake">Above zero gamma: the lake</option><option value="rapids" selected>Below zero gamma: the rapids</option></select></label>
       <label>How price arrived<select name="app"><option value="slow" selected>Slow: small candles, steady drift</option><option value="fast">Fast: big candles, momentum</option></select></label>
       <label>Your entry<select name="ent"><option value="at" selected>Right at the level, on the reaction</option><option value="reclaim">After the overshoot, on the reclaim</option><option value="accept">It broke through and held</option></select></label>
       <label>The footprint<select name="fp"><option value="yes" selected>Absorption, stacking, a flip, trapped traders or big prints</option><option value="none">Nothing yet</option><option value="against">Pushing through against you</option></select></label>
@@ -834,7 +834,7 @@
         <div><b>1&ndash;2</b><p>Quality setups in the first hours of the session, then you're done.</p></div>
       </div>
       <p style="margin:0 0 6px"><b>Check the calendar</b></p>
-      <p>OPEX, triple witching and VIX expiration are moving day. Positions roll, the map changes, and yesterday's walls might not be where you left them.</p>
+      <p>OPEX, triple witching, VIX expiration, quarter-end and index rolls are moving day. Positions roll, the map changes, and yesterday's walls might not be where you left them.</p>
       <p style="margin:0 0 6px"><b>Check yourself</b></p>
       <p>After a loss, ask if the next trade still comes from the plan. You know how to drive; driving angry is how accidents happen.</p>
       <p class="big">A level on its own is not a trade.</p>
@@ -843,7 +843,7 @@
 
   <div class="section-head">
     <h2>The trades in the video</h2>
-    <p>Two examples on the 5-minute NQ chart, plus the third play he describes without a chart. The video labels the two examples &ldquo;synthetic replay, educational&rdquo;: teaching charts, not trades from his account. Prices are as shown in the video.</p>
+    <p>Two examples on the 5-minute NQ chart, plus the third play, which he describes without prices. The video labels the two examples &ldquo;synthetic replay, educational&rdquo;: teaching charts, not trades from his account. Prices are as shown in the video.</p>
   </div>
   <div class="tscroll">
     <table class="vcase">
@@ -858,7 +858,7 @@
           <td class="txt">It overshoots the wall with over 6,000 contracts bought above it and no follow-through. Delta runs +1,243, +1,635, then +5,560 on the overshoot. Back under the wall the buyers are trapped; sellers stack the bid and delta flips to &minus;1,340, then &minus;5,030.</td>
           <td class="txt">Short 25,447 once price is back below the wall, stop +48 ticks (12 points) at 25,459, above the overshoot high. Half off at 25,380, the rest into zero gamma 25,320: +127 points, about 10R.</td></tr>
         <tr><th>The third play<br><small>zero gamma</small></th>
-          <td class="txt">Late morning, price drifts down toward zero gamma. The GEX is shrinking and gamma is building at lower strikes.</td>
+          <td class="txt">Price drifts down toward zero gamma, often late morning. The GEX is shrinking and gamma is building at lower strikes.</td>
           <td class="txt">Price breaks below zero gamma and holds. The ranges get bigger: you've left the lake.</td>
           <td class="txt">Don't fade anything. Go with the momentum, a wider stop, the put wall as the target. Back above zero gamma and holding on the retest: you were wrong, out.</td></tr>
       </tbody>
@@ -875,7 +875,7 @@
       <li><b>Map:</b> before the open, mark the put wall, the call wall and zero gamma (and the second biggest walls). Open interest and convexity pockets can add levels.</li>
       <li><b>Regime:</b> ask if you're on the lake (above zero gamma, moves get absorbed) or in the rapids (below it, moves stretch). If price breaks below zero gamma and holds, switch to the third play and go with it.</li>
       <li><b>Approach:</b> watch how price arrives at the level. Slow drift: look for the reaction at the level. Fast push: let it overshoot and wait for the reclaim.</li>
-      <li><b>Confirm:</b> on the footprint, at least one of absorption, stacked imbalances, a delta flip or trapped traders, right at the level.</li>
+      <li><b>Confirm:</b> on the footprint, at least one of absorption, stacked imbalances, a delta flip or trapped traders (big prints add confidence), right at the level.</li>
       <li><b>Risk:</b> stop where the wall idea is proven wrong (often 30 to 50 ticks on NQ), target the next level. Only take it if you're close to the level.</li>
       <li><b>Manage:</b> half off at the first reaction, the rest to the next level. A wall that breaks and holds is a reason to reassess, not to add.</li>
       <li><b>Stop:</b> one or two quality setups in the first hours, then done. Recheck the map on expiration days, and check yourself after a loss.</li>
@@ -927,7 +927,7 @@
   </div>
 
   <p class="src">From Skydweller.trades' "Gamma Levels Explained: The 3 Setups I Trade Every Day" (YouTube, October 2026). The rules and the two NQ examples are as told and shown in the video; the stops, wrong-if lines, big prints and the pre-session checklist also follow his free Gamma Levels guide (an 18-page PDF offered with the video). For how the walls and zero gamma are calculated, see <a href="/setups/gex-levels.html">GEX Levels</a>; for more on footprint imbalances, <a href="/stacked-imbalances.html">Stacked Imbalances</a>.
-  The walkthrough, the footprint numbers, the stepper charts, the third setup's prices and the candles in every chart are illustrative, made up to show the idea, not any market's actual prints.</p>
+  The candles in every chart, the footprint rows and the stepper charts are drawn to fit the video's prices and deltas; the third setup's prices are made up. The video's own two examples are labelled synthetic replays, so none of it is a real market's prints.</p>
 </div>
 <footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
 
