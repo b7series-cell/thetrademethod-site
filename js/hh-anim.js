@@ -124,7 +124,7 @@
   var M0 = 12, M1 = 19, P0 = 20, P1 = 24, TURN = 25, NEWHI = 28, OUT = 34;
   var MOVE_HI = BARS[M1][1];                         // 102.90
   var CHASE = BARS[18][3], CHASE_STOP = E21[18];     // chasing the close of the big bar, stop at its 21 EMA
-  var ENTRY = 101.34;                                 // a penny over the prior bar's high as buyers step back in
+  var ENTRY = 101.33;                                 // a penny over the prior bar's high (101.32) as buyers step back in
   var STOPREF = E21[P1];                              // the 21 EMA when the entry fills
   var RISK = ENTRY - STOPREF;
   var TIGHT = +(BARS[NEWHI - 1][2] - 0.01).toFixed(2); // the most recent low when the new high prints
@@ -147,7 +147,7 @@
 
     var STAGES = [
       { at: 0,    title: "A stock in play", text: "The semis are moving on news, and this ETF is trading well above its normal volume with a wide range on the day: abnormal volume, a big range, and a reason traders are watching. That's in play. A stock drifting in the middle of its range on light volume is nothing to hitchhike." },
-      { at: 3.6,  title: "The outsized move", text: "Eight straight bars push it from 98.30 to " + f2(MOVE_HI) + " on heavy buying, about " + kv(VOL_MOVE) + " a bar against " + kv(VOL_BASE) + " before it. Buyers are clearly in control. Now you know the direction." },
+      { at: 3.6,  title: "The outsized move", text: "Eight bars carry it from about 98.30 to " + f2(MOVE_HI) + " on heavy buying, about " + kv(VOL_MOVE) + " a bar against " + kv(VOL_BASE) + " before it. Buyers are clearly in control. Now you know the direction." },
       { at: 7.4,  title: "Don't chase it", text: "Buying the top of that push at " + f2(CHASE) + " means a stop back at the 21 EMA, " + f2(CHASE_STOP) + ": " + f2(CHASE - CHASE_STOP) + " a share of risk on a scalp. Too far. You'd either use a tight stop and get shaken out, or give it so much room you're not scalping anymore. Let it go." },
       { at: 10.0, title: "The first pullback, on lighter volume", text: "Here's the first pullback toward the 9 EMA. Small bodies, lower highs, and volume down to about " + kv(VOL_PB) + " a bar, " + Math.round(VOL_PCT) + "% of the move's. The selling is a lot less convincing than the buying was. That's what you want to see." },
       { at: 13.6, title: "Selling slows at the 9 EMA: buy", text: "Price stalls at the 9 EMA and a bar pushes back over the prior bar's high. Buy " + f2(ENTRY) + ". The stop is a 2-minute close under the 21 EMA, " + f2(STOPREF) + " right now: " + f2(RISK) + " of risk, a quarter of chasing it. You know where you're wrong before you get in, so you can size it." },
@@ -574,7 +574,7 @@
         s += hl(X(TURN), xb, Y(STOPREF), C.e21, "5 4", 2);
         s += hl(X(TURN), xb, Y(ENTRY), C.ink, null, 1.4);
         s += t(xb, Y(STOPREF) + 18, "2-min close under the 21: out", c, "end", 700);
-        s += t(xb, Y(ENTRY) - 8, "risk " + f2(RISK) + " vs " + f2(CHASE - CHASE_STOP) + " chasing", C.dim, "end", 600);
+        s += t(xb, Y(STOPREF) + 36, "risk " + f2(RISK) + " vs " + f2(CHASE - CHASE_STOP) + " chasing", C.dim, "end", 600);
       }
       if (k === 5) {
         TRIMS.forEach(function (tr, j) {
@@ -584,8 +584,8 @@
         s += hl(X(NEWHI), xb, Y(TIGHT), C.dn, null, 1.6);
         s += tri(X(OUT), Y(RUN_OUT) + 12, false, c, 10);
         s += t(X(NEWHI) - 4, Y(BARS[32][1]) - 26, "70% in 5% pieces", C.dn, "end", 700);
-        s += t(xb, Y(TIGHT) + 16, "stop to the recent low", C.dn, "end", 600);
-        s += t(X(OUT) + 10, Y(RUN_OUT) + 26, "30% out on a prior-bar break", c, "end", 700);
+        s += t(X(0), Y(103.9), "red line: stop up to the recent low", C.dn, "start", 600);
+        s += t(X(0), Y(103.9) + 18, "\u25BC 30% out on a prior-bar break", c, "start", 700);
       }
       s += t(xa, 314, "Illustrative · made-up bars", C.faint);
       return s;
