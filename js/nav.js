@@ -170,7 +170,11 @@ const SETUPS = [
     stages:  6,
     filters: 4,
     status:  "live",
-    indicators: []
+    indicators: [
+      { name: "ATR Hybrid Scalp",
+        blurb: "Draws the band (previous close − 3.1 ATR), marks each band-touch long with its 2 ATR target and 1.5 ATR stop, and marks each rejection wick and the one-candle short after it. Skips the opening candle.",
+        url: "", file: "/pine/atr-band-hybrid.pine", alerts: true }
+    ]
   },
   {
     slug:    "cup-and-handle",

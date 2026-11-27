@@ -232,9 +232,8 @@
 
     /* ATR band hybrid: the trend rides its band, dips to the lower band get bought */
     "atr-band-hybrid": {
-      ind: ["atr"],
-      lines: [{ k: "au", col: BLUE, w: 1.6, label: "Upper band" }, { k: "am", col: GRAY, w: 1, dash: true }, { k: "al", col: GREEN, w: 2, glow: true, label: "Lower ATR band" }],
-      bands: [{ u: "au", l: "al", col: BLUE, a: 0.05 }],
+      ind: ["atrpc"],
+      lines: [{ k: "al", col: GREEN, w: 2, glow: true, label: "Prior close \u2212 3.1 ATR" }],
       story: function (st) {
         return [
           rep(7, function (st) { return bar(st, { d: 0.7, n: 1 }); }),
@@ -1686,6 +1685,8 @@
       q.bu = m + Math.max(0.6, 2 * s); q.bl = m - Math.max(0.6, 2 * s);
     }
     if (IND.indexOf("atr") >= 0) { I.e20 = ema(I.e20, q.c, 20); q.am = I.e20; q.au = I.e20 + 2.2 * I.atr; q.al = I.e20 - 2.2 * I.atr; }
+    /* the ATR Hybrid's band: fixed for each candle at the PREVIOUS close minus 3.1 x the previous ATR */
+    if (IND.indexOf("atrpc") >= 0) { q.al = I.apc != null ? I.apc : q.c - 3.1 * I.atr; I.apc = q.c - 3.1 * I.atr; }
     if (IND.indexOf("zl") >= 0) {
       var lag = 6, src = n > lag ? 2 * q.c - cs[n - 1 - lag].c : q.c;
       I.zl = ema(I.zl, src, 14); q.zl = I.zl;

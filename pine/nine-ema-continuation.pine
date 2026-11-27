@@ -26,6 +26,12 @@
 //                 last bar. Stop first, then the half target, then the
 //                 close. One trade at a time.
 //
+// Gap days: the 9 EMA starts from yesterday's close, so after a big gap
+// it needs ten or more bars to catch up. On a 5- or 15-minute chart it can
+// still be far below price when the first pullback comes, and the setup is
+// marked "no touch". The video's traders read gap days on the 1- and
+// 2-minute charts, where the line catches up within minutes.
+//
 // Same rules as the page's example chart (js/ema9-live.js). The 12-bar
 // range, 1.5x volume, 12-bar wait and the 2R half are ours, not the
 // video's. Not coded: the catalyst (news, earnings, a 52-week break), so
