@@ -779,7 +779,7 @@
           <span class="ind-alerts">alerts</span>
         </div>
         <p class="ind-blurb">When you add it, TradingView asks you to click the anchor bar: the candle where the report or the catalyst hit. The line uses the low of each bar by default, the video's tweak for strong stocks, and the normal VWAP can be drawn beside it.
-        On an intraday chart with extended hours it adds up the volume from the anchor to the next 9:30 open and shows it as a share of the 20-day average day: under 20% is thin, 20% is the minimum, 50% and up is strong.
+        On an intraday chart with extended hours it adds up the volume from the anchor to the next 9:30 open and shows it as a share of the 20-day average day: under 20% is thin, 20% is the minimum, 50% and up is strong. Without extended hours on, it asks you to turn them on instead of guessing.
         In the first 30 minutes of day one or day two, a dip to within half an ATR of the line that closes back above the day's open and the line is marked as the entry, with the stop under the line and a share size from your risk.
         On any chart, the first daily close under the line is marked "cut at least half", and a later daily close back above it "back on the table".</p>
         <p class="ind-blurb" style="color:var(--dim)">The anchor, the low source, the 20% and 50 to 70% grades and the cut-half rule are from the video. The half-ATR "near the line" distance, the 30-minute window, the stop buffer and the 20-day average are ours, and every one is a setting.
@@ -827,7 +827,7 @@
 indicator("Anchored VWAP (Earnings and Catalysts)", shorttitle = "AVWAP Catalyst", overlay = true, max_labels_count = 200, max_lines_count = 50)
 
 // ---------------- inputs ----------------
-anchorT  = input.time(timestamp("2024-10-30T16:00:00"), "Anchor bar (click the release candle)", confirm = true, group = "Anchor")
+anchorT  = input.time(timestamp("2024-10-30T16:00:00-04:00"), "Anchor bar (click the release candle)", confirm = true, group = "Anchor")
 useLow   = input.bool(true, "Source: low of each bar (for strong stocks)", group = "Lines")
 showNorm = input.bool(true, "Also draw the normal VWAP (typical price)", group = "Lines")
 tz       = "America/New_York"
@@ -859,7 +859,8 @@ plotshape(started and not started[1], "Anchor", shape.circle, location.belowbar,
 // ---------------- session and daily facts ----------------
 intraday  = timeframe.isintraday
 inRth     = not na(time(timeframe.period, rth, tz))
-rthOpenBar = inRth and not inRth[1]
+newDay    = dayofmonth(time, tz) != dayofmonth(time[1], tz)
+rthOpenBar = inRth and (not inRth[1] or newDay)
 var float dayOpen = na
 if rthOpenBar
     dayOpen := open
@@ -870,20 +871,27 @@ lastRth = intraday ? inRth and nextT &gt;= endMs : true   // on a daily chart ev
 advD   = request.security(syminfo.tickerid, "D", ta.sma(volume, advLen)[1], lookahead = barmerge.lookahead_on)
 atr14  = ta.atr(14)
 isAnchor = started and not started[1]
+var int anchorBar = na
+if isAnchor
+    anchorBar := bar_index
 
 // ---------------- the report: after-hours volume share ----------------
 var float ahVol = 0.0
+var int   ahBars = 0
 var bool  ahDone = false
 var label ahLab = na
 if started and intraday and not ahDone
     if rthOpenBar and not isAnchor
         ahDone := true
-        pct = advD &gt; 0 ? ahVol / advD * 100 : na
+        pct = advD &gt; 0 and ahBars &gt; 0 ? ahVol / advD * 100 : na
         grade = na(pct) ? "" : pct &gt;= 50 ? "strong" : pct &gt;= 20 ? "ok" : "thin"
-        ahLab := label.new(bar_index, high, "After hours: " + str.tostring(pct, "0") + "% of avg day (" + grade + ")\n20% minimum · 50-70% better",
-             style = label.style_label_down, color = color.new(pct &gt;= 50 ? #30d158 : pct &gt;= 20 ? #2997ff : #ff453a, 15), textcolor = color.white, size = size.small)
+        txt = na(pct) ? "Turn on extended hours to grade the report's after-hours volume" : "After hours: " + str.tostring(pct, "0") + "% of avg day (" + grade + ")\n20% minimum · 50-70% better"
+        ahLab := label.new(bar_index, high, txt,
+             style = label.style_label_down, color = color.new(na(pct) ? #636366 : pct &gt;= 50 ? #30d158 : pct &gt;= 20 ? #2997ff : #ff453a, 15), textcolor = color.white, size = size.small)
     else
         ahVol += volume
+        if not inRth
+            ahBars += 1
 
 // ---------------- count sessions since the anchor ----------------
 var int dayN = 0      // 1 = day one, 2 = day two
@@ -899,7 +907,7 @@ if rthOpenBar
 evEntry = false
 float ePx = na
 float sPx = na
-if intraday and started and inRth and (dayN == 1 or dayN == 2) and minsIn &lt; winMin and not tookDay and not na(av)
+if intraday and started and bar_index &gt; anchorBar and inRth and (dayN == 1 or dayN == 2) and minsIn &lt; winMin and not tookDay and not na(av)
     dipNear = low &lt;= av + nearAtr * atr14
     held    = close &gt; av
     reclaim = close &gt; dayOpen and close &gt; open

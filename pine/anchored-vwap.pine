@@ -31,7 +31,7 @@
 indicator("Anchored VWAP (Earnings and Catalysts)", shorttitle = "AVWAP Catalyst", overlay = true, max_labels_count = 200, max_lines_count = 50)
 
 // ---------------- inputs ----------------
-anchorT  = input.time(timestamp("2024-10-30T16:00:00"), "Anchor bar (click the release candle)", confirm = true, group = "Anchor")
+anchorT  = input.time(timestamp("2024-10-30T16:00:00-04:00"), "Anchor bar (click the release candle)", confirm = true, group = "Anchor")
 useLow   = input.bool(true, "Source: low of each bar (for strong stocks)", group = "Lines")
 showNorm = input.bool(true, "Also draw the normal VWAP (typical price)", group = "Lines")
 tz       = "America/New_York"
@@ -63,7 +63,8 @@ plotshape(started and not started[1], "Anchor", shape.circle, location.belowbar,
 // ---------------- session and daily facts ----------------
 intraday  = timeframe.isintraday
 inRth     = not na(time(timeframe.period, rth, tz))
-rthOpenBar = inRth and not inRth[1]
+newDay    = dayofmonth(time, tz) != dayofmonth(time[1], tz)
+rthOpenBar = inRth and (not inRth[1] or newDay)
 var float dayOpen = na
 if rthOpenBar
     dayOpen := open
@@ -74,20 +75,27 @@ lastRth = intraday ? inRth and nextT >= endMs : true   // on a daily chart every
 advD   = request.security(syminfo.tickerid, "D", ta.sma(volume, advLen)[1], lookahead = barmerge.lookahead_on)
 atr14  = ta.atr(14)
 isAnchor = started and not started[1]
+var int anchorBar = na
+if isAnchor
+    anchorBar := bar_index
 
 // ---------------- the report: after-hours volume share ----------------
 var float ahVol = 0.0
+var int   ahBars = 0
 var bool  ahDone = false
 var label ahLab = na
 if started and intraday and not ahDone
     if rthOpenBar and not isAnchor
         ahDone := true
-        pct = advD > 0 ? ahVol / advD * 100 : na
+        pct = advD > 0 and ahBars > 0 ? ahVol / advD * 100 : na
         grade = na(pct) ? "" : pct >= 50 ? "strong" : pct >= 20 ? "ok" : "thin"
-        ahLab := label.new(bar_index, high, "After hours: " + str.tostring(pct, "0") + "% of avg day (" + grade + ")\n20% minimum · 50-70% better",
-             style = label.style_label_down, color = color.new(pct >= 50 ? #30d158 : pct >= 20 ? #2997ff : #ff453a, 15), textcolor = color.white, size = size.small)
+        txt = na(pct) ? "Turn on extended hours to grade the report's after-hours volume" : "After hours: " + str.tostring(pct, "0") + "% of avg day (" + grade + ")\n20% minimum · 50-70% better"
+        ahLab := label.new(bar_index, high, txt,
+             style = label.style_label_down, color = color.new(na(pct) ? #636366 : pct >= 50 ? #30d158 : pct >= 20 ? #2997ff : #ff453a, 15), textcolor = color.white, size = size.small)
     else
         ahVol += volume
+        if not inRth
+            ahBars += 1
 
 // ---------------- count sessions since the anchor ----------------
 var int dayN = 0      // 1 = day one, 2 = day two
@@ -103,7 +111,7 @@ if rthOpenBar
 evEntry = false
 float ePx = na
 float sPx = na
-if intraday and started and inRth and (dayN == 1 or dayN == 2) and minsIn < winMin and not tookDay and not na(av)
+if intraday and started and bar_index > anchorBar and inRth and (dayN == 1 or dayN == 2) and minsIn < winMin and not tookDay and not na(av)
     dipNear = low <= av + nearAtr * atr14
     held    = close > av
     reclaim = close > dayOpen and close > open
