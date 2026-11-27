@@ -441,7 +441,11 @@ const SETUPS = [
     stages:  6,
     filters: 4,
     status:  "live",
-    indicators: []
+    indicators: [
+      { name: "Anchored VWAP (Earnings and Catalysts)",
+        blurb: "Click the release candle: draws the low-source anchored VWAP, grades the after-hours volume, marks the day-one or day-two dip and reclaim, and flags each daily close below the line (cut half) and back above it.",
+        url: "", file: "/pine/anchored-vwap.pine", alerts: true }
+    ]
   }
 
   ,{
