@@ -134,6 +134,7 @@ FAQ = {
   ("How much after-hours volume do you want?", "At least 20% of the stock's average daily volume in the after-hours session, and 50 to 70% is better."),
   ("What is the anchored VWAP entry?", "On day one or day two, the stock dips off the open toward the anchored VWAP and reclaims. Buy the strength after the dip, not the dip itself."),
   ("When do you sell?", "Cut at least half on a daily close below the anchored VWAP. An intraday dip under it isn't enough."),
+  ("Does the anchored VWAP earnings setup work?", "Not in our test. Over 5,126 earnings trades on 450 heavily traded stocks from 2021 to 2026, the indicator's rules lost 0.15R a trade with a 29% win rate, and 0.09R at the 20% after-hours minimum. The same rules on random days lost 0.72R, so the earnings anchor helps, but about 40% of trades are stopped out on the entry day."),
  ],
 },
 "/setups/silver-bullet.html": {
