@@ -273,7 +273,7 @@ FAQ = {
  "faq": [
   ("What trend does a cup and handle need?", "Price above its 20, 50 and 200-period simple moving averages, with the 50 sloping up. The rising 50 is often where the base of the cup forms."),
   ("What should volume do?", "Heavy early in the cup, tapering into the base, ticking back up as price recovers, fading again in the handle, then expanding on the breakout."),
-  ("Where does the stop go?", "1.5 times the ATR, the \"baby bear\" stop: tighter than a 2.0 times position-trading stop and looser than a 1.2 times scalp trail."),
+  ("Where does the stop go?", "1.5 times the ATR, the \"baby bear\" stop: tighter than a 2.0 times position-trading stop and looser than a 1.2 times tight trailing stop. The video sets it as a trailing stop, so by the first target it sits above the entry."),
   ("Does the cup and handle work?", "Not better than chance in our test. Across every liquid US stock over five years it made +0.16R a trade over 226 trades with a 39% win rate, but random uptrend stocks bought on the same days with the same stop and targets made about the same."),
  ],
 },
