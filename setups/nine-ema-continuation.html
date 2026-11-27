@@ -752,7 +752,7 @@
         (within 12 bars) is the touch, and each close back under the line after that is marked as a failed test. The first green candle that closes back over the 9 EMA is the entry, with the stop one tick under the pullback low
         and share size worked out from the risk you type in. A close under the breakout bar's low, or the end of the session, cancels the setup. The status panel says which stage you're in.</p>
         <p class="ind-blurb" style="color:var(--dim)">The 12-bar range, the 1.5&times; volume, the 12-bar wait and the 2R half are ours, not the video's. It can't judge the catalyst (earnings, news, a 52-week break), so check that yourself.
-        Long only by default, as the page shows it; a setting marks the short mirror. An optional entry window (off by default) limits entries to the morning. It runs on the regular session (9:30 to 4:00 New York).</p>
+        Long only by default, as the page shows it; a setting marks the short mirror. An optional entry window (off by default) limits entries to the morning. It runs on the regular session (9:30 to 4:00 New York). On a big gap, use the 1- or 2-minute chart as the video's traders do: the 9 EMA starts from yesterday's close and takes ten or more bars to catch up, so on a 5- or 15-minute chart the first pullback often never reaches it.</p>
         <div class="ind-links">
           <a class="ind-link ind-link--quiet" href="/pine/nine-ema-continuation.pine" download>Download source (.pine)</a>
         </div>
@@ -790,6 +790,12 @@
 //                 on the first CLOSE under the 9 EMA, or at the session's
 //                 last bar. Stop first, then the half target, then the
 //                 close. One trade at a time.
+//
+// Gap days: the 9 EMA starts from yesterday's close, so after a big gap
+// it needs ten or more bars to catch up. On a 5- or 15-minute chart it can
+// still be far below price when the first pullback comes, and the setup is
+// marked "no touch". The video's traders read gap days on the 1- and
+// 2-minute charts, where the line catches up within minutes.
 //
 // Same rules as the page's example chart (js/ema9-live.js). The 12-bar
 // range, 1.5x volume, 12-bar wait and the 2R half are ours, not the
