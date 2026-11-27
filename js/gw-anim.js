@@ -177,7 +177,7 @@
       { at: 0,    title: "The map before the open", text: "The GEX map for the day puts the put wall at " + pt(PW) + " and zero gamma at " + pt(ZG) + ". The call wall is far above. Location first: these are the prices this plan cares about." },
       { at: 3.2,  title: "A slow approach", text: "Price grinds lower in small, steady candles. No momentum. A slow approach means you look for the reaction right at the wall, not past it." },
       { at: 7.4,  title: "It tags the wall: absorption", text: "Price tags " + pt(PW) + ". The footprint shows over 3,000 contracts sold into the wall, and price won't go lower. The goalkeeper is catching every shot." },
-      { at: 10.2, title: "The knock", text: "Next bar: stacked buy imbalances, three rows where the buyers are more than three times the sellers, a big buy print at 25,156, and delta flips from −3,076 to +3,460." },
+      { at: 10.2, title: "The knock", text: "Next bar: stacked buy imbalances, three rows where the buyers are more than three times the sellers, a big buy print, and delta flips from −3,076 to +3,460." },
       { at: 13.0, title: "Long " + pt(E1) + ", stop " + pt(S1), text: "Long at " + pt(E1) + ". The stop goes 11 points lower at " + pt(S1) + ", under the failed low: if the wall is real, price shouldn't trade there again." },
       { at: 15.4, title: "Half off at " + pt(H1), text: "The first reaction carries price to " + pt(H1) + ". Half comes off there: +44 points on that half. The rest rides." },
       { at: 18.0, title: "The rest to zero gamma: +94", text: "The rest goes to the next level, zero gamma at " + pt(ZG) + ": +94 points from an 11-point stop. Location, approach, confirmation." }
@@ -474,7 +474,7 @@
         r += t(ox + 115, 330, label + " · " + (rew / risk).toFixed(1) + "R", good ? C.up : C.dn, "middle", 700, 13);
         return r;
       }
-      return s + side(24, 25156, "Close", true) + side(300, 25200, "Chased", false);
+      return s + side(24, 25156, "Close", true) + side(300, 25214, "Chased", false);
     }
     function manage(c) {
       var s = t(16, 24, "Some off at the first reaction, the rest to the next level", C.faint, "start", null, 12);
