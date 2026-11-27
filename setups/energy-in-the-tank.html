@@ -208,7 +208,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=28">
 <link rel="stylesheet" href="/css/tested.css?v=3">
-<script src="/js/nav.js?v=40" defer></script>
+<script src="/js/nav.js?v=41" defer></script>
 <script src="/js/site.js?v=78" defer></script>
 <script src="/js/anim-kit.js?v=2" defer></script>
 <script src="/js/eit-anim.js?v=1" defer></script>
@@ -721,6 +721,29 @@
     <p class="tested-how"><b>How we tested.</b> TradingView backtest of 13 large caps together on daily bars, 2010 to 2026, 1 bp a side, fixed position size. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
   </section>
   <!--tested:end-->
+
+  <div class="section-head" id="indicator">
+    <h2 class="ind-heading">Indicator for this setup</h2>
+    <p class="ind-note">Add this to a daily TradingView chart of a stock you're watching. It draws and alerts on the setup &mdash; it does not place trades.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">Energy in the Tank &mdash; The Trade Method</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">Plots the measure (2 standard deviations of 20 closes divided by the 14-day ATR) with the 1.5&times; squeeze and
+      6&times; expansion lines, and shades every squeeze. By default it works the way the video does: a weekly squeeze arms it, the level is the
+      top of the weekly range (the highest weekly close of the last 20 weeks), and a daily close above it on volume more than two standard
+      deviations over average is the buy. It marks low-volume closes, pokes and breaks with no squeeze, holds until a close back below the level,
+      and flags the first close with the measure above 6. A setting switches it to the example chart's rules instead, where a daily squeeze
+      arms it. The level, the stop and the trim are our objective version; the video draws its levels by eye and gives no stop. Alerts for
+      squeeze on, buy, stop and trim cue.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/energy-in-the-tank.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+  </ul>
 
   <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
   <div class="faq">

@@ -84,7 +84,15 @@ const SETUPS = [
     stages:  6,
     filters: 4,
     status:  "live",
-    indicators: []
+    indicators: [
+      {
+        name:  "Energy in the Tank — The Trade Method",
+        blurb: "Plots the squeeze measure with its 1.5x and 6x lines, arms on a weekly squeeze, buys a daily close above the top of the weekly range on 2-sigma volume, stops on a close back below the level and flags the 6x trim cue, with alerts.",
+        url:   "",
+        file:  "/pine/energy-in-the-tank.pine",
+        alerts: true
+      }
+    ]
   },
   {
     slug:    "opening-range-break",
