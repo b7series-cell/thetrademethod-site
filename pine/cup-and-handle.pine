@@ -2,7 +2,8 @@
 // Cup and Handle — Trade Plan R1.0
 // Finds cup-and-handle bases with the same mechanical rules as the backtest on
 // thetrademethod.com/setups/cup-and-handle.html, arms a buy stop a hair over
-// resistance, and manages the trade: 1.5 × ATR stop, half off at resistance +
+// resistance, and manages the trade: 1.5 × ATR stop (fixed, or trailing like the
+// video, as a setting), half off at resistance +
 // 1/3 of the cup depth (stop to breakeven), the rest at resistance + 2/3,
 // out after 60 bars if neither target fills. Built for the daily chart.
 //
@@ -21,7 +22,9 @@
 // buy stop for the next bar; place the order then. Entry/exit alerts fire at
 // the close of the bar they happened on. Within a bar, a green bar is taken to
 // trade open → low → high → close and a red bar open → high → low → close.
-// The buy-stop offset (0.07%) matches the page's example: 340 → 340.25.
+// The buy stop sits 0.07% over resistance (ours). In the video's example the
+// stop triggers at 340 with a 340.25 limit. Stop style: fixed with breakeven
+// after target 1 (ours, what the backtest used) or the video's trailing stop.
 indicator("Cup and Handle — Trade Plan R1.0", shorttitle="C&H R1.0", overlay=true, max_bars_back=1000, max_lines_count=400, max_labels_count=400)
 
 // ---------- inputs ----------
@@ -48,6 +51,7 @@ gT = "Trade"
 trigPct   = input.float(0.07, "Buy stop above resistance (%)", minval=0, maxval=2, step=0.01, group=gT)
 stopAtr   = input.float(1.5, "Stop (× ATR 14)", minval=0.5, maxval=5, step=0.1, group=gT)
 maxHold   = input.int(60, "Time stop (bars)", minval=5, maxval=500, group=gT)
+stopMode  = input.string("Fixed, breakeven after target 1", "Stop style", options=["Fixed, breakeven after target 1", "Trailing (the video)"], group=gT, tooltip="Fixed: the stop stays 1.5 ATR under the fill and moves to breakeven after target 1 (the rules our backtest used). Trailing: the stop follows the highest high since the fill at the same distance, like the video's 12-point trail-stop order.")
 gV = "Display"
 showCup   = input.bool(true, "Draw the current base", group=gV)
 showTrade = input.bool(true, "Draw trades (fill, stop, targets)", group=gV)
@@ -175,6 +179,8 @@ var float T1 = na
 var float T2 = na
 var float R = na
 var float trimPx = na
+var float hh = na
+var float curS = na
 var int   entryBar = na
 var float armTrig = na
 var float armT1 = na
@@ -216,6 +222,8 @@ if barstate.isconfirmed and not inTrade and not na(armBar) and armBar == bar_ind
         T1 := armT1
         T2 := armT2
         R := E - S
+        hh := E
+        curS := S
         entryBar := bar_index
         entryNow := true
         if showTrade
@@ -239,14 +247,13 @@ if barstate.isconfirmed and inTrade
         float p = step == 0 ? p0 : step == 1 ? p1 : p2
         bool isLow = (step == 1 and green) or (step == 2 and not green)
         bool isHigh = (step == 1 and not green) or (step == 2 and green)
+        bool trail = stopMode == "Trailing (the video)"
+        curS := trail ? math.max(S, hh - R) : trimmed ? E : S
+        string stopWhy = trail ? "trailing stop" : trimmed ? "breakeven" : "stop"
         if step == 0
-            if not trimmed and p <= S
+            if p <= curS
                 exitNow := true
-                exitWhy := "stop"
-                exitPx := p
-            else if trimmed and p <= E
-                exitNow := true
-                exitWhy := "breakeven"
+                exitWhy := stopWhy
                 exitPx := p
             else
                 if not trimmed and p >= T1
@@ -257,15 +264,12 @@ if barstate.isconfirmed and inTrade
                     exitNow := true
                     exitWhy := "target 2"
                     exitPx := p
+                hh := math.max(hh, p)
         else if isLow
-            if not trimmed and p <= S
+            if p <= curS
                 exitNow := true
-                exitWhy := "stop"
-                exitPx := S
-            else if trimmed and p <= E
-                exitNow := true
-                exitWhy := "breakeven"
-                exitPx := E
+                exitWhy := stopWhy
+                exitPx := curS
         else if isHigh
             if not trimmed and p >= T1
                 trimmed := true
@@ -275,6 +279,7 @@ if barstate.isconfirmed and inTrade
                 exitNow := true
                 exitWhy := "target 2"
                 exitPx := T2
+            hh := math.max(hh, p)
         if exitNow
             break
     if not exitNow and bar_index - entryBar >= maxHold
@@ -284,9 +289,11 @@ if barstate.isconfirmed and inTrade
     if showTrade
         for ln in array.from(lnFill, lnStop, lnT1, lnT2)
             line.set_x2(ln, bar_index)
-    if trimNow and showTrade
+    float nextS = stopMode == "Trailing (the video)" ? math.max(S, hh - R) : trimmed ? E : S
+    if showTrade and not exitNow and nextS != line.get_y1(lnStop)
         line.set_x2(lnStop, bar_index)
-        lnStop := line.new(bar_index, E, bar_index, E, color=colStop, style=line.style_dotted, width=2)
+        lnStop := line.new(bar_index, nextS, bar_index, nextS, color=colStop, style=line.style_dotted, width=2)
+    curS := nextS
     if exitNow
         tradeR := trimmed ? (0.5 * (trimPx - E) + 0.5 * (exitPx - E)) / R : (exitPx - E) / R
         nTrades += 1
@@ -333,7 +340,7 @@ plotshape(armedNow, "Armed", shape.triangleup, location.belowbar, color.new(colT
 // ---------- panel ----------
 var table panel = table.new(position.top_right, 2, 6, bgcolor=color.new(#000000, 15), border_width=1, border_color=color.new(#808080, 60))
 if barstate.islast and showPanel
-    string state = inTrade ? (trimmed ? "In trade · half off, stop at breakeven" : "In trade") : not na(armBar) ? "Armed · buy stop " + str.tostring(armTrig, format.mintick) : lastWhy == "—" ? "Watching" : "Watching · last check failed: " + lastWhy
+    string state = inTrade ? (trimmed ? (stopMode == "Trailing (the video)" ? "In trade · half off, trailing" : "In trade · half off, stop at breakeven") : "In trade") : not na(armBar) ? "Armed · buy stop " + str.tostring(armTrig, format.mintick) : lastWhy == "—" ? "Watching" : "Watching · last check failed: " + lastWhy
     table.cell(panel, 0, 0, "C&H R1.0", text_color=#ff9f0a, text_size=size.small)
     table.cell(panel, 1, 0, state, text_color=#f5f5f7, text_size=size.small)
     table.cell(panel, 0, 1, "Uptrend", text_color=#a1a1a6, text_size=size.small)
@@ -341,7 +348,7 @@ if barstate.islast and showPanel
     table.cell(panel, 0, 2, "Market", text_color=#a1a1a6, text_size=size.small)
     table.cell(panel, 1, 2, mktOk ? "above 50 & 200" : "below", text_color=mktOk ? #30d158 : #ff453a, text_size=size.small)
     table.cell(panel, 0, 3, "Levels", text_color=#a1a1a6, text_size=size.small)
-    table.cell(panel, 1, 3, inTrade ? "fill " + str.tostring(E, format.mintick) + " · stop " + str.tostring(trimmed ? E : S, format.mintick) + " · T1 " + str.tostring(T1, format.mintick) + " · T2 " + str.tostring(T2, format.mintick) : not na(armBar) ? "T1 " + str.tostring(armT1, format.mintick) + " · T2 " + str.tostring(armT2, format.mintick) : "—", text_color=#f5f5f7, text_size=size.small)
+    table.cell(panel, 1, 3, inTrade ? "fill " + str.tostring(E, format.mintick) + " · stop " + str.tostring(curS, format.mintick) + " · T1 " + str.tostring(T1, format.mintick) + " · T2 " + str.tostring(T2, format.mintick) : not na(armBar) ? "T1 " + str.tostring(armT1, format.mintick) + " · T2 " + str.tostring(armT2, format.mintick) : "—", text_color=#f5f5f7, text_size=size.small)
     table.cell(panel, 0, 4, "Trades on chart", text_color=#a1a1a6, text_size=size.small)
     table.cell(panel, 1, 4, str.tostring(nTrades) + (nTrades > 0 ? " · avg " + str.tostring(sumR / nTrades, "#.##") + "R" : ""), text_color=#f5f5f7, text_size=size.small)
     table.cell(panel, 0, 5, "Timeframe", text_color=#a1a1a6, text_size=size.small)
@@ -350,9 +357,8 @@ if barstate.islast and showPanel
 // ---------- alerts ----------
 alertcondition(armedNow, "Armed — place the buy stop", "C&H armed on {{ticker}}: buy stop for the next bar (see the chart for the level). Close={{close}}")
 alertcondition(entryNow, "Entry — buy stop filled", "C&H entry on {{ticker}} @ {{close}}")
-alertcondition(trimNow, "Target 1 — half off", "C&H target 1 hit on {{ticker}}: half off, stop to breakeven")
+alertcondition(trimNow, "Target 1 — half off", "C&H target 1 hit on {{ticker}}: half off (stop to breakeven, or keep trailing)")
 alertcondition(exitNow, "Exit — trade closed", "C&H exit on {{ticker}} @ {{close}}")
-alertcondition(barstate.isconfirmed, "Test — Fires Every Bar", "🟢 TEST — plumbing works on {{ticker}} @ {{close}}")
 if armedNow
     alert('{"event":"armed","ticker":"' + syminfo.ticker + '","tf":"' + timeframe.period + '","buy_stop":' + str.tostring(armTrig, format.mintick) +
      ',"stop_est":' + str.tostring(armTrig - stopAtr * armAtr, format.mintick) + ',"t1":' + str.tostring(armT1, format.mintick) + ',"t2":' + str.tostring(armT2, format.mintick) + '}', alert.freq_once_per_bar_close)
@@ -361,4 +367,4 @@ if entryNow
 if trimNow
     alert(f_json("target1", trimPx), alert.freq_once_per_bar_close)
 if exitNow
-    alert(f_json(exitWhy == "target 2" ? "target2" : exitWhy == "breakeven" ? "breakeven" : exitWhy == "time stop" ? "time_stop" : "stop", exitPx), alert.freq_once_per_bar_close)
+    alert(f_json(exitWhy == "target 2" ? "target2" : exitWhy == "breakeven" ? "breakeven" : exitWhy == "trailing stop" ? "trailing_stop" : exitWhy == "time stop" ? "time_stop" : "stop", exitPx), alert.freq_once_per_bar_close)
