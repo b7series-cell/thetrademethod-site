@@ -300,7 +300,7 @@
    "name": "Does the 9 EMA continuation work?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Our mechanical test lost a little: 552 trades on 5-minute bars across 10 large-cap stocks, Aug to Nov 2026, with a 30% win rate, a 0.87 profit factor and -0.06R per trade. Four of the 10 stocks were positive."
+    "text": "Our test with the page's indicator rules lost a little: 7,094 trades on 5-minute bars across 10 large-cap stocks, Nov 2021 to Nov 2026, with a 33% win rate, a 0.93 profit factor and -0.03R per trade. Three of the 10 stocks were positive."
    }
   }
  ]
@@ -723,18 +723,19 @@
   <!--tested:start-->
   <section class="tested v-none" id="tested" aria-labelledby="tested-h">
     <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>Loses</span></div>
-    <h2 id="tested-h">A small loss on a mechanical version</h2>
-    <p class="tested-lead">A breakout on volume, then the first close back above the 9 EMA after the first touch, half off at 2R and the rest trailed on the 9 EMA.</p>
+    <h2 id="tested-h">A small loss over five years</h2>
+    <p class="tested-lead">Run with the page's indicator rules: a breakout on volume, then the first green close back above the 9 EMA after the first touch, half off at 2R and the rest trailed on the 9 EMA.</p>
     <ul class="tested-stats">
-      <li><b>552</b><span>trades, 5-minute</span></li>
-      <li><b>30%</b><span>win rate</span></li>
-      <li><b>0.87</b><span>profit factor</span></li>
-      <li><b class="neg">&minus;0.06R</b><span>average per trade</span></li>
+      <li><b>7,094</b><span>trades, 5-minute</span></li>
+      <li><b>33%</b><span>win rate</span></li>
+      <li><b>0.93</b><span>profit factor</span></li>
+      <li><b class="neg">&minus;0.03R</b><span>average per trade</span></li>
     </ul>
     <ul class="tested-notes">
-      <li>4 of the 10 stocks were positive. About 3.5 months of data.</li>
+      <li>3 of the 10 stocks were positive. Before June 2024 it lost &minus;0.01R a trade, after it &minus;0.05R.</li>
+      <li>The latest months were the worst: Aug to Nov 2026 lost &minus;0.13R a trade over 421 trades. An earlier TradingView run of those months lost &minus;0.06R.</li>
     </ul>
-    <p class="tested-how"><b>How we tested.</b> TradingView backtest of the 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA) together on 5-minute bars, Aug to Nov 2026 (the last 5,000 bars, so about 3.5 months). Rules coded from this page, 0.5 bp a side for the spread. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+    <p class="tested-how"><b>How we tested.</b> 5 years of 5-minute bars, Nov 2021 to Nov 2026, on 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA), run with the same rules as this page's indicator at its default settings, long only. Fills at the bar close, the stop wins when it is hit, 0.5 bp a side for the spread, results in R capped at +10R. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
   </section>
   <!--tested:end-->
 
@@ -979,7 +980,7 @@ if evBuy
     <div class="qa"><h3>Do you buy the first touch of the 9 EMA?</h3><p>No. The touch only tells you where to watch. The trigger is buyers stepping back in and price reclaiming the 9 EMA. A mechanical version buys the first candle that closes back above the 9 EMA after the first touch.</p></div>
     <div class="qa"><h3>Where is the stop on a 9 EMA pullback?</h3><p>Below the low of the candle, or of the pullback, that tested the 9 EMA, not an arbitrary distance from the entry.</p></div>
     <div class="qa"><h3>What if the stock never pulls back to the 9 EMA?</h3><p>About two times in ten it never gives you the touch. That's a normal miss rate, not a reason to chase. Let it go and wait for the next one.</p></div>
-    <div class="qa"><h3>Does the 9 EMA continuation work?</h3><p>Our mechanical test lost a little: 552 trades on 5-minute bars across 10 large-cap stocks, Aug to Nov 2026, with a 30% win rate, a 0.87 profit factor and -0.06R per trade. Four of the 10 stocks were positive.</p></div>
+    <div class="qa"><h3>Does the 9 EMA continuation work?</h3><p>Our test with the page's indicator rules lost a little: 7,094 trades on 5-minute bars across 10 large-cap stocks, Nov 2021 to Nov 2026, with a 33% win rate, a 0.93 profit factor and -0.03R per trade. Three of the 10 stocks were positive.</p></div>
   </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">

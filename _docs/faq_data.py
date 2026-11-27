@@ -33,7 +33,7 @@ FAQ = {
   ("Do you buy the first touch of the 9 EMA?", "No. The touch only tells you where to watch. The trigger is buyers stepping back in and price reclaiming the 9 EMA. A mechanical version buys the first candle that closes back above the 9 EMA after the first touch."),
   ("Where is the stop on a 9 EMA pullback?", "Below the low of the candle, or of the pullback, that tested the 9 EMA, not an arbitrary distance from the entry."),
   ("What if the stock never pulls back to the 9 EMA?", "About two times in ten it never gives you the touch. That's a normal miss rate, not a reason to chase. Let it go and wait for the next one."),
-  ("Does the 9 EMA continuation work?", "Our mechanical test lost a little: 552 trades on 5-minute bars across 10 large-cap stocks, Aug to Nov 2026, with a 30% win rate, a 0.87 profit factor and -0.06R per trade. Four of the 10 stocks were positive."),
+  ("Does the 9 EMA continuation work?", "Our test with the page's indicator rules lost a little: 7,094 trades on 5-minute bars across 10 large-cap stocks, Nov 2021 to Nov 2026, with a 33% win rate, a 0.93 profit factor and -0.03R per trade. Three of the 10 stocks were positive."),
  ],
 },
 "/setups/fashionably-late.html": {
