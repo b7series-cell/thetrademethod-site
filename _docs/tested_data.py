@@ -295,12 +295,12 @@ PAGES = [
  "path": "setups/atr-band-hybrid.html", "name": "ATR Hybrid Scalp", "group": "Setups",
  "verdict": "none", "chip": "Loses",
  "headline": "Lost on the index ETFs",
- "lead": "Run on QQQ and SPY 5-minute bars in place of MNQ futures, the long band touch and the short wick fade lost about a "
-         "tenth of their risk per trade.",
- "stats": [["2,725", "trades, 5-minute"], ["41%", "win rate"], ["0.76", "profit factor"], ["&minus;0.11R", "average per trade", "neg"]],
+ "lead": "Run with the page's indicator rules on QQQ and SPY 5-minute bars in place of MNQ futures, the two playbooks together lost a little.",
+ "stats": [["2,108", "trades, 5-minute"], ["43%", "win rate"], ["0.87", "profit factor"], ["&minus;0.04R", "average per trade", "neg"]],
  "notes": ["The page is built for MNQ futures. QQQ and SPY are a stand-in, so a futures test could come out differently.",
-           "Most of the loss came from the shorts. The longs alone were about flat (&minus;0.02R on QQQ, +0.06R on SPY). The shorts were re-run exactly as the video has them (no stop, out at the next candle&#x27;s close, lower wick under a tenth of the upper wick) and still lost: &minus;0.09R a trade on QQQ, &minus;0.16R on SPY."],
- "how": LOCAL,
+           "The loss came from the shorts: 1,645 trades, a 0.70 profit factor, &minus;0.06R. The longs were about break-even: 463 trades, a 1.04 profit factor, +0.02R (+0.12R on SPY, &minus;0.09R on QQQ).",
+           "The shorts have no stop, so their R uses the long side&#x27;s yardstick for that candle, 1.5 &times; the previous ATR. An earlier run that gave the shorts a stop lost &minus;0.11R overall."],
+ "how": "5 years of 5-minute bars, Nov 2021 to Nov 2026, on QQQ and SPY, run with the same rules as this page&#x27;s indicator at its default settings (prior-day-red filter on). Longs fill at the band; shorts go in at the next open and out at its close. 0.5 bp a side for the spread. Before June 2024 it lost &minus;0.06R a trade, after it &minus;0.02R.",
 },
 {
  "path": "setups/opening-range-break.html", "name": "Opening Range Break", "group": "Setups",

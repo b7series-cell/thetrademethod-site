@@ -301,7 +301,7 @@
    "name": "Does the ATR Hybrid Scalp work?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Not on our stand-in test: on QQQ and SPY 5-minute bars, 2,725 trades had a 41% win rate, a 0.76 profit factor and -0.11R per trade. A test on MNQ futures could come out differently."
+    "text": "Not on our stand-in test: with the page's indicator rules on QQQ and SPY 5-minute bars, 2,108 trades had a 43% win rate, a 0.87 profit factor and -0.04R per trade. The longs were about break-even; the shorts lost. A test on MNQ futures could come out differently."
    }
   }
  ]
@@ -692,18 +692,19 @@
   <section class="tested v-none" id="tested" aria-labelledby="tested-h">
     <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>Loses</span></div>
     <h2 id="tested-h">Lost on the index ETFs</h2>
-    <p class="tested-lead">Run on QQQ and SPY 5-minute bars in place of MNQ futures, the long band touch and the short wick fade lost about a tenth of their risk per trade.</p>
+    <p class="tested-lead">Run with the page's indicator rules on QQQ and SPY 5-minute bars in place of MNQ futures, the two playbooks together lost a little.</p>
     <ul class="tested-stats">
-      <li><b>2,725</b><span>trades, 5-minute</span></li>
-      <li><b>41%</b><span>win rate</span></li>
-      <li><b>0.76</b><span>profit factor</span></li>
-      <li><b class="neg">&minus;0.11R</b><span>average per trade</span></li>
+      <li><b>2,108</b><span>trades, 5-minute</span></li>
+      <li><b>43%</b><span>win rate</span></li>
+      <li><b>0.87</b><span>profit factor</span></li>
+      <li><b class="neg">&minus;0.04R</b><span>average per trade</span></li>
     </ul>
     <ul class="tested-notes">
       <li>The page is built for MNQ futures. QQQ and SPY are a stand-in, so a futures test could come out differently.</li>
-      <li>Most of the loss came from the shorts. The longs alone were about flat (&minus;0.02R on QQQ, +0.06R on SPY). The shorts were re-run exactly as the video has them (no stop, out at the next candle&#x27;s close, lower wick under a tenth of the upper wick) and still lost: &minus;0.09R a trade on QQQ, &minus;0.16R on SPY.</li>
+      <li>The loss came from the shorts: 1,645 trades, a 0.70 profit factor, &minus;0.06R. The longs were about break-even: 463 trades, a 1.04 profit factor, +0.02R (+0.12R on SPY, &minus;0.09R on QQQ).</li>
+      <li>The shorts have no stop, so their R uses the long side&#x27;s yardstick for that candle, 1.5 &times; the previous ATR. An earlier run that gave the shorts a stop lost &minus;0.11R overall.</li>
     </ul>
-    <p class="tested-how"><b>How we tested.</b> 5 years of price history, Nov 2021 to Nov 2026, on SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA). Rules coded from this page at its default settings. Fills at the bar close, the stop wins when stop and target are hit in the same bar, 0.5 bp a side for the spread, results in R capped at +10R. Trades before June 2024 are the training half, after it the holdout. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+    <p class="tested-how"><b>How we tested.</b> 5 years of 5-minute bars, Nov 2021 to Nov 2026, on QQQ and SPY, run with the same rules as this page&#x27;s indicator at its default settings (prior-day-red filter on). Longs fill at the band; shorts go in at the next open and out at its close. 0.5 bp a side for the spread. Before June 2024 it lost &minus;0.06R a trade, after it &minus;0.02R. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
   </section>
   <!--tested:end-->
 
@@ -939,7 +940,7 @@ alertcondition(evWick, "Short: rejection wick", "ATR Hybrid: {{ticker}} rejectio
     <div class="qa"><h3>Why is the band anchored to the previous close?</h3><p>A band that moves with live price can never be caught. Measuring from the last closed candle makes it a fixed level for the next 5 minutes.</p></div>
     <div class="qa"><h3>What is the short signal?</h3><p>A candle with a long upper wick, a rejection off the highs. The presenter's test version needs an upper wick at least twice the body and a lower wick no more than about a tenth of the upper wick. Enter at the next candle's open and close at that candle's close, with no target or stop.</p></div>
     <div class="qa"><h3>Why don't the shorts mirror the longs?</h3><p>Inverting the long model for shorts was tested in the source and didn't work. In the presenter's test, shorts did better after a red prior day, but on only about 60 trades.</p></div>
-    <div class="qa"><h3>Does the ATR Hybrid Scalp work?</h3><p>Not on our stand-in test: on QQQ and SPY 5-minute bars, 2,725 trades had a 41% win rate, a 0.76 profit factor and -0.11R per trade. A test on MNQ futures could come out differently.</p></div>
+    <div class="qa"><h3>Does the ATR Hybrid Scalp work?</h3><p>Not on our stand-in test: with the page's indicator rules on QQQ and SPY 5-minute bars, 2,108 trades had a 43% win rate, a 0.87 profit factor and -0.04R per trade. The longs were about break-even; the shorts lost. A test on MNQ futures could come out differently.</p></div>
   </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">

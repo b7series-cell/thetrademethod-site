@@ -314,7 +314,7 @@ FAQ = {
   ("Why is the band anchored to the previous close?", "A band that moves with live price can never be caught. Measuring from the last closed candle makes it a fixed level for the next 5 minutes."),
   ("What is the short signal?", "A candle with a long upper wick, a rejection off the highs. The presenter's test version needs an upper wick at least twice the body and a lower wick no more than about a tenth of the upper wick. Enter at the next candle's open and close at that candle's close, with no target or stop."),
   ("Why don't the shorts mirror the longs?", "Inverting the long model for shorts was tested in the source and didn't work. In the presenter's test, shorts did better after a red prior day, but on only about 60 trades."),
-  ("Does the ATR Hybrid Scalp work?", "Not on our stand-in test: on QQQ and SPY 5-minute bars, 2,725 trades had a 41% win rate, a 0.76 profit factor and -0.11R per trade. A test on MNQ futures could come out differently."),
+  ("Does the ATR Hybrid Scalp work?", "Not on our stand-in test: with the page's indicator rules on QQQ and SPY 5-minute bars, 2,108 trades had a 43% win rate, a 0.87 profit factor and -0.04R per trade. The longs were about break-even; the shorts lost. A test on MNQ futures could come out differently."),
  ],
 },
 "/setups/volume-profile-system.html": {
