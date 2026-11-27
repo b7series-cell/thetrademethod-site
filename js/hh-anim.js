@@ -574,7 +574,7 @@
         s += hl(X(TURN), xb, Y(STOPREF), C.e21, "5 4", 2);
         s += hl(X(TURN), xb, Y(ENTRY), C.ink, null, 1.4);
         s += t(xb, Y(STOPREF) + 18, "2-min close under the 21: out", c, "end", 700);
-        s += t(xb, Y(ENTRY) - 8, "risk " + f2(RISK) + " vs " + f2(CHASE - CHASE_STOP) + " chasing", C.dim, "end", 600);
+        s += t(xb, Y(STOPREF) + 36, "risk " + f2(RISK) + " vs " + f2(CHASE - CHASE_STOP) + " chasing", C.dim, "end", 600);
       }
       if (k === 5) {
         TRIMS.forEach(function (tr, j) {
@@ -584,8 +584,8 @@
         s += hl(X(NEWHI), xb, Y(TIGHT), C.dn, null, 1.6);
         s += tri(X(OUT), Y(RUN_OUT) + 12, false, c, 10);
         s += t(X(NEWHI) - 4, Y(BARS[32][1]) - 26, "70% in 5% pieces", C.dn, "end", 700);
-        s += t(xb, Y(TIGHT) + 16, "stop to the recent low", C.dn, "end", 600);
-        s += t(X(OUT) + 10, Y(RUN_OUT) + 26, "30% out on a prior-bar break", c, "end", 700);
+        s += t(X(0), Y(103.9), "red line: stop up to the recent low", C.dn, "start", 600);
+        s += t(X(0), Y(103.9) + 18, "\u25BC 30% out on a prior-bar break", c, "start", 700);
       }
       s += t(xa, 314, "Illustrative · made-up bars", C.faint);
       return s;
