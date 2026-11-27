@@ -160,7 +160,7 @@
   var CL1 = [25232, 25236, 25228, 25224, 25226, 25218, 25212, 25214, 25204, 25198, 25192, 25194, 25184, 25176, 25170, 25163, 25158,
              25153, 25164, 25170, 25176, 25184, 25192, 25201, 25196, 25205, 25214, 25222, 25228, 25236, 25244, 25251, 25246, 25248];
   var B1 = makeBars(25238, CL1, 9, { 17: [25158, 25160.5, 25146, 25153], 18: [25153, 25166.5, 25151, 25164], 23: [25192, 25204, 25190.5, 25201], 31: [25244, 25253, 25242, 25251] });
-  var WALLBAR = { rows: { 25160: [210, 262], 25155: [1040, 388], 25150: [2010, 330], 25145: [860, 64] } };
+  var WALLBAR = { rows: { 25160: [70, 262], 25155: [1040, 388], 25150: [2010, 330], 25145: [1000, 64] } };
   var KNOCK = { rows: { 25170: [90, 240], 25165: [160, 1200], 25160: [210, 1500], 25155: [180, 1200], 25150: [310, 270] } };
   var PREVBAR = { rows: { 25175: [300, 250], 25170: [520, 380], 25165: [810, 420], 25160: [683, 300], 25155: [200, 120] } };
   var FP_PRICES = range(25170, 25145, 5);
@@ -177,7 +177,7 @@
       { at: 0,    title: "The map before the open", text: "The GEX map for the day puts the put wall at " + pt(PW) + " and zero gamma at " + pt(ZG) + ". The call wall is far above. Location first: these are the prices this plan cares about." },
       { at: 3.2,  title: "A slow approach", text: "Price grinds lower in small, steady candles. No momentum. A slow approach means you look for the reaction right at the wall, not past it." },
       { at: 7.4,  title: "It tags the wall: absorption", text: "Price tags " + pt(PW) + ". The footprint shows over 3,000 contracts sold into the wall, and price won't go lower. The goalkeeper is catching every shot." },
-      { at: 10.2, title: "The knock", text: "Next bar: stacked buy imbalances, three rows where the buyers are more than three times the sellers, a big buy print at 25,156, and delta flips from −3,076 to +3,460." },
+      { at: 10.2, title: "The knock", text: "Next bar: stacked buy imbalances, three rows where the buyers are more than three times the sellers, a big buy print, and delta flips from −3,076 to +3,460." },
       { at: 13.0, title: "Long " + pt(E1) + ", stop " + pt(S1), text: "Long at " + pt(E1) + ". The stop goes 11 points lower at " + pt(S1) + ", under the failed low: if the wall is real, price shouldn't trade there again." },
       { at: 15.4, title: "Half off at " + pt(H1), text: "The first reaction carries price to " + pt(H1) + ". Half comes off there: +44 points on that half. The rest rides." },
       { at: 18.0, title: "The rest to zero gamma: +94", text: "The rest goes to the next level, zero gamma at " + pt(ZG) + ": +94 points from an 11-point stop. Location, approach, confirmation." }
@@ -474,7 +474,7 @@
         r += t(ox + 115, 330, label + " · " + (rew / risk).toFixed(1) + "R", good ? C.up : C.dn, "middle", 700, 13);
         return r;
       }
-      return s + side(24, 25156, "Close", true) + side(300, 25200, "Chased", false);
+      return s + side(24, 25156, "Close", true) + side(300, 25214, "Chased", false);
     }
     function manage(c) {
       var s = t(16, 24, "Some off at the first reaction, the rest to the next level", C.faint, "start", null, 12);
@@ -617,7 +617,7 @@
     var BACK = { rows: { 25455: [420, 310], 25450: [2700, 390], 25445: [2200, 510], 25440: [1300, 420], 25435: [640, 600] } };
     var CASES = {
       absorb: { prices: range(25175, 25145, 5), bars: [[PREVBAR, "the bar before"], [WALLBAR, "the wall bar"]], wall: [PW, "put wall", C.dn], hiBid: [[], [25155, 25150, 25145]], maxv: 1600,
-        verdict: "<b>Absorption.</b> In the bar before, selling moved price down. At the wall the sellers hit even harder (4,120 contracts at the bid, 3,910 of them in the bottom three rows, delta −3,076) and price won't go lower. A goalkeeper catching every shot: someone is soaking up the selling." },
+        verdict: "<b>Absorption.</b> In the bar before, selling moved price down. At the wall the sellers hit even harder (4,120 contracts at the bid, over 3,000 of them at 25,145 to 25,154, delta −3,076) and price won't go lower. A goalkeeper catching every shot: someone is soaking up the selling." },
       stack: { prices: range(25170, 25145, 5), bars: [[WALLBAR, "the wall bar"], [KNOCK, "the next bar"]], wall: [PW, "put wall", C.dn], hiAsk: [[], [25165, 25160, 25155]], maxv: 1600,
         verdict: "<b>Stacked imbalances.</b> Three rows in a row where the buyers at the ask are more than three times the sellers at the bid. Three or more stacked means someone just took control. Here it's the buyers, right off the put wall." },
       flip: { prices: range(25170, 25145, 5), bars: [[WALLBAR, "the wall bar"], [KNOCK, "the next bar"]], wall: [PW, "put wall", C.dn], dHi: true, maxv: 1600,
@@ -698,7 +698,7 @@
         regOk = reg === "rapids" ? true : false;
         appOk = ent === "accept" ? true : ent === "at" ? "warn" : false;
       } else {
-        regOk = reg === "lake" ? true : "warn";
+        regOk = loc === "put" ? true : reg === "lake" ? true : "warn";
         if (ent === "accept") appOk = false;
         else if (app === "slow") appOk = ent === "at" ? true : "warn";
         else appOk = ent === "reclaim" ? true : false;
@@ -720,7 +720,7 @@
         var warn = regOk === "warn" || appOk === "warn" || dayOk === "warn";
         k = warn ? "b" : "a";
         h = warn ? "A trade, with something to check" : (loc === "zero" ? "Go with it: short" : "Take it: " + side);
-        p = warn ? ((regOk === "warn" ? "Below zero gamma moves stretch, so expect bigger ranges than on the lake. " : "") +
+        p = warn ? ((regOk === "warn" ? "Below zero gamma rallies stretch, so a call wall fade is riskier than on the lake: if it breaks and holds, don't fight it. " : "") +
                     (appOk === "warn" && loc !== "zero" ? "It came in slow; the reaction usually comes right at the level, so waiting for a reclaim can leave you behind. " : "") +
                     (appOk === "warn" && loc === "zero" ? "It's broken, but wait for it to hold below before you go with it. " : "") +
                     (day === "opex" ? "It's moving day: check the levels are where you left them. " : "") +
