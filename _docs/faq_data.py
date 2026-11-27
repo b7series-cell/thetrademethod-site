@@ -263,7 +263,7 @@ FAQ = {
  "faq": [
   ("What should day two look like?", "A quiet, low-volume day that stays inside day one's range. A wide, heavy-volume day two is distribution, not accumulation."),
   ("Where does the stop go?", "Either a few cents below the 5-minute bar that broke the day-two high, or low of day for a wider version. Pick one before the entry and stay with it."),
-  ("How do you take profits?", "Scale out in thirds into blow-off volume, whole-dollar levels and higher time frame resistance. Trail the rest above the 9 EMA on the 2 or 5-minute chart and exit on the first close below it."),
+  ("How do you take profits?", "Sell a third or a quarter at a time into blow-off volume, whole-dollar levels and higher time frame resistance. Ride the rest above the 9 EMA on the 2-minute chart and take another piece on its first close below; cut the last piece on the first close below the 9 EMA on the 5-minute chart."),
   ("What if you miss the break at the open?", "Don't chase an extended move. Wait for a pullback toward VWAP or the day-two high that holds, and get long against low of day."),
  ],
 },
