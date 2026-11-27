@@ -236,12 +236,22 @@ PAGES = [
 {
  "path": "setups/hitchhiker-scalp.html", "name": "Hitchhiker Scalp", "group": "Setups",
  "verdict": "none", "chip": "Break-even",
- "headline": "Break-even over 2,291 trades",
- "lead": "The first pullback to the 9 EMA on the 2-minute chart, with the 70/30 exit, roughly paid for its costs and no more.",
- "stats": [["2,291", "trades, 2-minute"], ["40%", "win rate"], ["1.03", "profit factor"], ["+0.01R", "average per trade"]],
- "notes": ["The test can't pick stocks in play the way the page asks, so it ran on the same 10 large-cap stocks every day.",
+ "headline": "Break-even over 16,136 trades",
+ "lead": "The site's indicator at its default settings, run on the 2-minute chart with the 70/30 exit, roughly paid for its costs and no more.",
+ "stats": [["16,136", "trades, 2-minute"], ["46%", "win rate"], ["1.01", "profit factor"], ["+0.006R", "average per trade"]],
+ "table": {"head": ["Version", "Trades", "Avg per trade", "Before / after Jun 2024"],
+           "rows": [["Defaults", "16,136", "+0.006R", "+0.017 / &minus;0.006"],
+                    ["First hour only", "8,382", "+0.026R", "+0.009 / +0.043"],
+                    ["Strong volume (2.5&times;)", "7,625", "+0.017R", "+0.021 / +0.013"],
+                    ["First hour + strong volume", "6,663", "+0.030R", "+0.032 / +0.027"],
+                    ["Skip chop + daily mid-range", "7,551", "+0.005R", "+0.023 / &minus;0.012"]]},
+ "notes": ["First-hour entries after a strong-volume move were the steadiest version, but +0.03R per trade is about the size of a slightly worse fill, and it drops to about zero at 1 bp a side in costs.",
+           "The test can't pick stocks in play the way the page asks, so it ran on the same 10 large-cap stocks plus SPY and QQQ every day.",
            "The full breakdown by side, time of day, year and stock is in the blog post <a href=\"/blog/does-the-hitchhiker-scalp-work.html\">Does the hitchhiker scalp work?</a>"],
- "how": LOCAL.replace("on SPY, QQQ and 10 large-cap stocks", "on 10 large-cap stocks"),
+ "how": ("5 years of 2-minute bars, Nov 2021 to Nov 2026, on SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, "
+         "HOOD, META, MSFT, MU, NVDA, TSLA). This page's indicator ported line for line at its default settings: entry a tick "
+         "past the prior bar, stop on a close past the 21 EMA, 70% trimmed and 30% trailed, flat at the close. 0.5 bp a side "
+         "for the spread, results in R capped at &plusmn;10R. Trades before June 2024 are the training half, after it the holdout."),
 },
 {
  "path": "setups/volume-profile-system.html", "name": "Volume Profile System", "group": "Setups",
