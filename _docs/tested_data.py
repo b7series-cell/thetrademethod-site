@@ -95,10 +95,13 @@ PAGES = [
                     ["Before June 2024 / after", "", "+0.38R / &minus;0.01R"],
                     ["Without the base-volume filter", "547", "&minus;0.02R"],
                     ["Without all four filters", "1,358", "&minus;0.02R"],
-                    ["Second target at the full measured move", "226", "+0.19R"]]},
+                    ["Second target at the full measured move", "226", "+0.19R"],
+                    ["The video's trailing stop instead of breakeven", "229", "+0.09R"]]},
  "notes": ["All of the profit came before mid-2024. Since then it's flat.",
            "The volume taper into the base is the filter that matters. Without it the setup loses.",
-           "On intraday charts the exact rules found almost no trades, and a scaled-down version didn't beat random entries."],
+           "On intraday charts the exact rules found almost no trades, and a scaled-down version didn't beat random entries.",
+           "The video's 1.5&times; ATR trailing stop did worse than a fixed stop with breakeven: most trades were trailed out "
+           "within a few days, and only 20 of 229 reached target 2."],
  "how": ("Every US common stock over $10 trading at least $20M a day, delisted ones included, Nov 2021 to Nov 2026. Rules "
          "coded line for line from this page's indicator, 5 bp a side."),
 },

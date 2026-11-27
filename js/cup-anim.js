@@ -2,7 +2,7 @@
    cup-anim.js — animated walkthrough of the Cup and Handle trade plan.
 
    Plays the page's worked example (cup low ~280, resistance 340, ATR 8,
-   buy stop 340.25, stop 328.25, half off at 360, rest at 380) through six
+   buy stop 340 limit 340.25, 12-point trailing stop from 328.25, half off at 360, rest at 380) through six
    stages: uptrend → the cup read by volume → the handle → clean air and
    the trifecta → trigger on the break → stop and two targets.
 
@@ -69,8 +69,8 @@
     { at: 4,  title: "The cup, read by its volume", text: "Heavy selling volume on the way down from " + RES + ", volume drying up as the base forms near " + LOW + ", then volume returning as price recovers to the old high. The rising 50-day sits right under the base." },
     { at: 12, title: "The handle tightens", text: "Price pulls back a little below " + RES + " and holds the upper half of the cup, on volume below its average. Sellers are running out right before they need to." },
     { at: 16, title: "Clean air and the trifecta", text: "Nothing to the left above " + RES + " to cap the move, and the stock, its sector and the market are all bullish together." },
-    { at: 20, title: "Trigger on the break", text: "A buy stop at " + TRIG.toFixed(2) + ", a quarter point over resistance. The order fills only when price proves the break, here on more than twice the average volume." },
-    { at: 24, title: "Stop and two targets", text: "Stop " + STOP.toFixed(2) + " (1.5 × the " + ATR + "-point ATR). Half off at " + T1 + ", stop to breakeven, the rest at " + T2 + ", short of the textbook " + MM + ". About " + (((T1 - TRIG) + (T2 - TRIG)) / 2 / RISK).toFixed(1) + "R on the whole position." }
+    { at: 20, title: "Trigger on the break", text: "A buy stop-limit order: it triggers when price breaks " + RES + ", the last two candles' highs, and pays no more than " + TRIG.toFixed(2) + ". It fills only when price proves the break, here on more than twice the average volume." },
+    { at: 24, title: "Stop and two targets", text: "A trailing stop 1.5 × the " + ATR + "-point ATR = 12 points below, starting at " + STOP.toFixed(2) + ". Half off at " + T1 + ", where the trail already sits above the entry, the rest at " + T2 + ", short of the textbook " + MM + ". About " + (((T1 - TRIG) + (T2 - TRIG)) / 2 / RISK).toFixed(1) + "R on the whole position." }
   ];
   var END = 34;
   var TB = [];
@@ -199,7 +199,7 @@
 
     /* stage 5: the trigger */
     a = fade(T, 20.2, 0.4);
-    s += hline(x(BREAK) - 30, XEND, TRIG, "#2997ff", "6 4", 1.6, a) + tag(TRIG, "Buy stop " + TRIG.toFixed(2), "#2997ff", a, -12, "#fff");
+    s += hline(x(BREAK) - 30, XEND, TRIG, "#2997ff", "6 4", 1.6, a) + tag(TRIG, "Buy stop " + RES, "#2997ff", a * ((T1_BAR >= 0 && T >= TB[T1_BAR][1]) ? 0 : 1), -12, "#fff");
     a = fade(T, TB[BREAK][1], 0.3);
     if (a > 0) {
       s += '<circle cx="' + x(BREAK) + '" cy="' + y(TRIG).toFixed(1) + '" r="6" fill="none" stroke="#2997ff" stroke-width="2" opacity="' + a.toFixed(3) + '"/>';
@@ -210,12 +210,12 @@
     var xe = x(BREAK);
     a = fade(T, 24.1, 0.4);
     var trimmed = T1_BAR >= 0 && T >= TB[T1_BAR][1];
-    s += hline(xe, XEND, trimmed ? TRIG : STOP, "#ff453a", "5 4", 1.6, a) + tag(trimmed ? TRIG : STOP, trimmed ? "Stop → breakeven" : "Stop " + STOP.toFixed(2), "#ff453a", a, trimmed ? 12 : 0, "#fff");
+    s += hline(xe, XEND, trimmed ? T1 - 1.5 * ATR : STOP, "#ff453a", "5 4", 1.6, a) + tag(trimmed ? T1 - 1.5 * ATR : STOP, trimmed ? "Trail " + (T1 - 1.5 * ATR).toFixed(2) : "Trail " + STOP.toFixed(2), "#ff453a", a, 0, "#fff");
     a = fade(T, 24.5, 0.4);
     s += hline(xe, XEND, T1, "#30d158", null, 1.6, a) + tag(T1, "Target 1 · " + T1, "#30d158", a);
     s += hline(xe, XEND, T2, "#30d158", null, 1.6, a) + tag(T2, "Target 2 · " + T2, "#30d158", a);
     s += hline(xe, XEND, MM, "#8e8e93", "2 4", 1.2, a) + tag(MM, "Measured " + MM, "#48484a", a, 0, "#f5f5f7");
-    s += callout(xe + 40, y(STOP) + 8, ["Stop " + STOP.toFixed(2) + " · 1.5 × ATR " + ATR, "Risk " + RISK.toFixed(2) + " a share"], "#ff6961", fade(T, 24.8, 0.4) * (1 - fade(T, 28.6, 0.5)));
+    s += callout(xe + 40, y(STOP) + 8, ["Trail stop " + STOP.toFixed(2) + " · 1.5 × ATR " + ATR, "Risk " + RISK.toFixed(2) + " a share"], "#ff6961", fade(T, 24.8, 0.4) * (1 - fade(T, 28.6, 0.5)));
     if (T1_BAR >= 0) {
       a = fade(T, TB[T1_BAR][1], 0.3);
       s += callout(x(T1_BAR) - 10, y(T1) - 64, ["Half off at " + T1, "+" + ((T1 - TRIG) / RISK).toFixed(2) + "R · rest risk-free"], "#30d158", a * (1 - fade(T, TB[Math.min(N - 1, T1_BAR + 5)][1], 0.5)), true);
