@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/anchored-vwap.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/anchored-vwap.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-11-22",
+ "dateModified": "2026-11-27",
  "inLanguage": "en",
  "author": {
   "@type": "Person",
@@ -219,15 +219,39 @@
     .panel,.filter,.rule,.stage,table { break-inside:avoid; }
     @page { size:A3 landscape; margin:12mm; }
   }
+  .ind-sec { margin-top:56px; scroll-margin-top:110px; }
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .code-wrap { background:var(--panel); border:1px solid var(--line); border-radius:12px; margin-top:16px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--faint); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#1b2a3e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#26394f; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d9e3; tab-size:4; }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-sec { margin-top:44px; } }
 </style>
 <!-- site shell (Apple style) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=28">
-<script src="/js/nav.js?v=37" defer></script>
+<script src="/js/nav.js?v=38" defer></script>
 <script src="/js/site.js?v=78" defer></script>
-<script src="/js/av-anim.js?v=1" defer></script>
+<script src="/js/av-anim.js?v=3" defer></script>
 <style>
   /* steps across the page, the two panels side by side under them */
   .av-main { grid-template-columns:1fr; gap:22px; }
@@ -457,7 +481,7 @@
 <div class="sheet">
 
   <a class="back" href="/setups/">&lsaquo; All setups</a>
-  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-22">Nov 22, 2026</time></p><!-- /byline -->
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-27">Nov 27, 2026</time></p><!-- /byline -->
 
   <header class="top" data-candle-bg="anchored-vwap">
     <div>
@@ -596,7 +620,7 @@
 
       <div class="panel">
         <h4>What kills it</h4>
-        <p class="lead">Any one of these and there's no trade, a smaller one, or a cut.</p>
+        <p class="lead">Any one of these and there's no trade, a smaller one, or a cut. The 20% minimum and holding below the line come from the video; the other two are our reading of it.</p>
         <div class="filters kills" style="grid-template-columns:repeat(2,1fr); margin-top:14px;">
     <div class="filter" style="background:var(--panel2)"><h3>A thin reaction</h3><p>Under 20% of an average day trades after hours. The report didn't bring in real size, so the line carries little weight.</p><p class="kill">Below 20%: lower expectations or pass.</p></div>
     <div class="filter" style="background:var(--panel2)"><h3>No base, no breakout</h3><p>A choppy daily chart with no long base to break. The catalyst has nothing to release.</p><p class="kill">No daily breakout: it's just news.</p></div>
@@ -633,7 +657,7 @@
 
   <div class="section-head">
     <h2>Grade the report first</h2>
-    <p>After-hours volume as a share of the average day is a metric SMB has tested and uses in its live models. Type in your stock's numbers, in millions of shares.
+    <p>After-hours volume as a share of the average day is a metric the trader in the video says he has tested and uses in his live models. Type in your stock's numbers, in millions of shares.
     It starts with the walkthrough's.</p>
   </div>
   <div class="risk">
@@ -693,7 +717,7 @@
       <p>That's the systematic trailing stop for the swing. It doesn't need an opinion about the news, the market or the analyst calls. The line answers whether
       buyers are still in control.</p>
       <p class="big">The best ones hold this level and keep going.</p>
-      <p>The rest of the position is your call. Many traders give it one more day to reclaim, others trail it under the next higher low. Write your rule down
+      <p>The video doesn't say what to do with the rest of the position, only that the line is how you keep a runner. Write your own rule down
       before you're in the trade.</p>
     </div>
   </div>
@@ -711,7 +735,7 @@
         <tr><th>Oracle</th><td class="txt">Earnings</td><td class="txt">Respected the VWAP from the release for months. Bought on day one and trailed on closes below the line, it kept the trade on.</td></tr>
         <tr><th>Palantir</th><td class="txt">Earnings</td><td class="txt">A day-one dip and reclaim at the open, heading toward the line without quite reaching it. Long from day one, there was no reason to think sellers had taken over.</td></tr>
         <tr><th>AppLovin</th><td class="txt">Earnings</td><td class="txt">Looked extended on the daily after a big gap. It tested the line on day one and rallied into the close, then dipped toward it and reclaimed at the day-two open.</td></tr>
-        <tr><th>Root</th><td class="txt">Earnings</td><td class="txt">Ran from about 80 to 160 before it topped. It broke down from a lower-high consolidation through the line and kept holding below it: the place to cut.</td></tr>
+        <tr><th>Root</th><td class="txt">Earnings</td><td class="txt">Ran from the low 40s to about 116 within a day of the report before it topped (the chart's prices; the audio says &ldquo;80 to 160&rdquo;). It broke down from a lower-high consolidation through the line and kept holding below it: the place to cut.</td></tr>
         <tr><th>Bitcoin</th><td class="txt">Election</td><td class="txt">Broke out to all-time highs overnight. The first pullback retested and held the VWAP from the catalyst, consolidated on it for days, then broke out again.</td></tr>
         <tr><th>Tesla</th><td class="txt">Election</td><td class="txt">Sold into the line on day one, dipped below and reclaimed immediately, then held it in a tight range into the next session.</td></tr>
         <tr><th>GEO Group</th><td class="txt">Election</td><td class="txt">Held the line in premarket, traded off it on day one, dipped back through it in the next premarket and opened right at it for a day-two drive.</td></tr>
@@ -743,6 +767,193 @@
       <li>Check it on the daily chart too. That's where the trailing rule lives: a daily close below means cut at least half.</li>
     </ol>
   </div>
+
+  <section class="ind-sec" id="indicator" aria-label="TradingView indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for the setup (Pine Script v6). You click the release candle and it draws the anchored VWAP from there, grades the after-hours volume,
+    marks the day-one or day-two dip and reclaim, and marks each daily close below the line (cut at least half) and back above it. It marks and alerts. It does not place trades.</p>
+    <ul class="ind-list">
+      <li class="ind-card">
+        <div class="ind-card-top">
+          <h3 class="ind-name">Anchored VWAP (Earnings and Catalysts)</h3>
+          <span class="ind-alerts">alerts</span>
+        </div>
+        <p class="ind-blurb">When you add it, TradingView asks you to click the anchor bar: the candle where the report or the catalyst hit. The line uses the low of each bar by default, the video's tweak for strong stocks, and the normal VWAP can be drawn beside it.
+        On an intraday chart with extended hours it adds up the volume from the anchor to the next 9:30 open and shows it as a share of the 20-day average day: under 20% is thin, 20% is the minimum, 50% and up is strong. Without extended hours on, it asks you to turn them on instead of guessing.
+        In the first 30 minutes of day one or day two, a dip to within half an ATR of the line that closes back above the day's open and the line is marked as the entry, with the stop under the line and a share size from your risk.
+        On any chart, the first daily close under the line is marked "cut at least half", and a later daily close back above it "back on the table".</p>
+        <p class="ind-blurb" style="color:var(--dim)">The anchor, the low source, the 20% and 50 to 70% grades and the cut-half rule are from the video. The half-ATR "near the line" distance, the 30-minute window, the stop buffer and the 20-day average are ours, and every one is a setting.
+        The video's own tools anchor to swing highs and lows automatically; this one doesn't.</p>
+        <div class="ind-links">
+          <a class="ind-link ind-link--quiet" href="/pine/anchored-vwap.pine" download>Download source (.pine)</a>
+        </div>
+      </li>
+    </ul>
+    <div class="code-wrap">
+      <div class="code-top">
+        <span>anchored-vwap.pine &middot; Pine Script v6</span>
+        <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/anchored-vwap.pine" download>Download</a></div>
+      </div>
+      <pre class="pine" tabindex="0"><code>//@version=6
+// =====================================================================
+// Anchored VWAP (earnings and catalysts) — thetrademethod.com
+//
+// From an SMB Capital lesson on anchoring VWAP to the event that started
+// the move. Works on any time frame; a 15-minute chart with extended
+// hours on shows the after-hours reaction, the daily chart runs the trail.
+//
+//   1. Anchor     Click the bar where the news hit (the earnings release,
+//                 or the bar where a catalyst like an election-night rally
+//                 began). The VWAP runs from that bar on.
+//   2. Source     Low of each bar by default, the video's tweak for strong
+//                 stocks in an uptrend (it sits about half an intraday ATR
+//                 under the normal VWAP). The normal VWAP can be shown too.
+//   3. The report After-hours volume from the anchor to the next 9:30 open,
+//                 as a share of the 20-day average daily volume. The video
+//                 wants 20% at least; 50 to 70% is better.
+//   4. The read   Above the line: buyers in control since the news.
+//   5. Entry      Day one or day two after the anchor: a bar in the first
+//      (marked)   N minutes dips to within a set distance of the line and
+//                 closes back above the day's open (the dip and reclaim).
+//                 Stop a set buffer under the line.
+//   6. Trail      A DAILY close below the line: cut at least half. A later
+//                 daily close back above it: back on the table.
+//
+// The anchor, the low source, the 20% / 50-70% volume grades and the
+// cut-half rule are from the video. The "near the line" distance, the
+// opening window, the stop buffer and the 20-day average are ours.
+// Draws and alerts only; it places no orders.
+// =====================================================================
+indicator("Anchored VWAP (Earnings and Catalysts)", shorttitle = "AVWAP Catalyst", overlay = true, max_labels_count = 200, max_lines_count = 50)
+
+// ---------------- inputs ----------------
+anchorT  = input.time(timestamp("2024-10-30T16:00:00-04:00"), "Anchor bar (click the release candle)", confirm = true, group = "Anchor")
+useLow   = input.bool(true, "Source: low of each bar (for strong stocks)", group = "Lines")
+showNorm = input.bool(true, "Also draw the normal VWAP (typical price)", group = "Lines")
+tz       = "America/New_York"
+rth      = input.session("0930-1600", "Regular session (New York)", group = "Session")
+advLen   = input.int(20, "Average daily volume length (days)", minval = 1, group = "The report")
+nearAtr  = input.float(0.5, "Dip counts if within × ATR(14) of the line", minval = 0.0, step = 0.05, group = "Entry (ours)")
+winMin   = input.int(30, "Opening window for the dip and reclaim (minutes)", minval = 1, group = "Entry (ours)")
+bufAtr   = input.float(0.1, "Stop buffer under the line (× ATR 14)", minval = 0.0, step = 0.05, group = "Entry (ours)")
+riskUsd  = input.float(500.0, "Risk per trade ($) for share size", minval = 0.0, group = "Entry (ours)")
+showPanel = input.bool(true, "Show status panel", group = "Display")
+
+// ---------------- anchored VWAPs ----------------
+started = time &gt;= anchorT
+var float sv   = 0.0
+var float spvL = 0.0
+var float spvN = 0.0
+if started
+    sv   += volume
+    spvL += low * volume
+    spvN += hlc3 * volume
+avLow  = started and sv &gt; 0 ? spvL / sv : na
+avNorm = started and sv &gt; 0 ? spvN / sv : na
+av     = useLow ? avLow : avNorm
+
+plot(av, "Anchored VWAP", color = #5ac8fa, linewidth = 2)
+plot(showNorm and useLow ? avNorm : na, "Normal VWAP", color = color.new(#8e8e93, 30), linewidth = 1, style = plot.style_circles)
+plotshape(started and not started[1], "Anchor", shape.circle, location.belowbar, color.new(#bf5af2, 0), size = size.small, text = "anchor", textcolor = #bf5af2)
+
+// ---------------- session and daily facts ----------------
+intraday  = timeframe.isintraday
+inRth     = not na(time(timeframe.period, rth, tz))
+newDay    = dayofmonth(time, tz) != dayofmonth(time[1], tz)
+rthOpenBar = inRth and (not inRth[1] or newDay)
+var float dayOpen = na
+if rthOpenBar
+    dayOpen := open
+minsIn = (time - timestamp(tz, year(time, tz), month(time, tz), dayofmonth(time, tz), 9, 30)) / 60000
+nextT  = time + timeframe.in_seconds() * 1000
+endMs  = timestamp(tz, year(time, tz), month(time, tz), dayofmonth(time, tz), 16, 0)
+lastRth = intraday ? inRth and nextT &gt;= endMs : true   // on a daily chart every bar is a daily close
+advD   = request.security(syminfo.tickerid, "D", ta.sma(volume, advLen)[1], lookahead = barmerge.lookahead_on)
+atr14  = ta.atr(14)
+isAnchor = started and not started[1]
+var int anchorBar = na
+if isAnchor
+    anchorBar := bar_index
+
+// ---------------- the report: after-hours volume share ----------------
+var float ahVol = 0.0
+var int   ahBars = 0
+var bool  ahDone = false
+var label ahLab = na
+if started and intraday and not ahDone
+    if rthOpenBar and not isAnchor
+        ahDone := true
+        pct = advD &gt; 0 and ahBars &gt; 0 ? ahVol / advD * 100 : na
+        grade = na(pct) ? "" : pct &gt;= 50 ? "strong" : pct &gt;= 20 ? "ok" : "thin"
+        txt = na(pct) ? "Turn on extended hours to grade the report's after-hours volume" : "After hours: " + str.tostring(pct, "0") + "% of avg day (" + grade + ")\n20% minimum · 50-70% better"
+        ahLab := label.new(bar_index, high, txt,
+             style = label.style_label_down, color = color.new(na(pct) ? #636366 : pct &gt;= 50 ? #30d158 : pct &gt;= 20 ? #2997ff : #ff453a, 15), textcolor = color.white, size = size.small)
+    else
+        ahVol += volume
+        if not inRth
+            ahBars += 1
+
+// ---------------- count sessions since the anchor ----------------
+var int dayN = 0      // 1 = day one, 2 = day two
+if started and rthOpenBar
+    dayN += 1
+
+// ---------------- entry: the dip and reclaim, day one or two ----------------
+var bool tookDay = false
+var bool dipped  = false
+if rthOpenBar
+    tookDay := false
+    dipped  := false
+evEntry = false
+float ePx = na
+float sPx = na
+if intraday and started and bar_index &gt; anchorBar and inRth and (dayN == 1 or dayN == 2) and minsIn &lt; winMin and not tookDay and not na(av)
+    dipNear = low &lt;= av + nearAtr * atr14
+    held    = close &gt; av
+    reclaim = close &gt; dayOpen and close &gt; open
+    // a dip during the window that reclaims the open on this bar or a later one
+    if dipNear
+        dipped := true
+    if dipped and held and reclaim
+        evEntry := true
+        tookDay := true
+        ePx := close
+        sPx := av - bufAtr * atr14
+        risk = ePx - sPx
+        sh = risk &gt; 0 ? math.floor(riskUsd / risk) : 0
+        label.new(bar_index, low, "Dip &amp; reclaim · day " + str.tostring(dayN) + "\nbuy " + str.tostring(ePx, format.mintick) + " · stop " + str.tostring(sPx, format.mintick) + (riskUsd &gt; 0 ? "\n" + str.tostring(sh) + " sh" : ""),
+             style = label.style_label_up, color = color.new(#2997ff, 10), textcolor = color.white, size = size.small)
+
+// ---------------- the trail: daily closes ----------------
+var bool below = false
+evCut  = false
+evBack = false
+if started and lastRth and not na(av) and not isAnchor
+    if not below and close &lt; av
+        below := true
+        evCut := true
+        label.new(bar_index, high, "Daily close below\ncut at least half", style = label.style_label_down, color = color.new(#ff9f0a, 10), textcolor = color.white, size = size.small)
+    else if below and close &gt; av
+        below := false
+        evBack := true
+        label.new(bar_index, low, "Daily close back above\nback on the table", style = label.style_label_up, color = color.new(#30d158, 20), textcolor = color.white, size = size.small)
+
+// ---------------- status panel ----------------
+var table pnl = table.new(position.top_right, 1, 3, bgcolor = color.new(#1c1c1e, 10))
+if showPanel and barstate.islast
+    st = na(av) ? "Pick the anchor bar in the settings" : below ? "Below the line: sellers in control. No long until it reclaims." : close &gt;= av ? "Above the line: buyers in control since the anchor" : "Under the line intraday; the daily close decides"
+    dist = na(av) ? "" : "Line " + str.tostring(av, format.mintick) + " · price " + str.tostring((close - av) / av * 100, "+0.0;-0.0") + "% from it"
+    table.cell(pnl, 0, 0, "Anchored VWAP" + (useLow ? " · source low" : ""), text_color = color.new(#f5f5f7, 0), text_size = size.small, text_halign = text.align_left)
+    table.cell(pnl, 0, 1, st, text_color = color.new(#a1a1a6, 0), text_size = size.small, text_halign = text.align_left)
+    table.cell(pnl, 0, 2, dist, text_color = color.new(#a1a1a6, 0), text_size = size.small, text_halign = text.align_left)
+
+// ---------------- alerts ----------------
+alertcondition(evEntry, "Dip and reclaim at the line", "Anchored VWAP: {{ticker}} dipped toward the line and reclaimed the open. Stop under the line.")
+alertcondition(evCut, "Daily close below the line", "Anchored VWAP: {{ticker}} closed the day below the anchored VWAP. Cut at least half.")
+alertcondition(evBack, "Daily close back above the line", "Anchored VWAP: {{ticker}} closed back above the anchored VWAP.")
+</code></pre>
+    </div>
+  </section>
 
   <section class="video" id="video" aria-label="Video">
     <div class="video-frame">
@@ -786,10 +997,24 @@
     </div>
   </div>
 
-  <p class="src">From an SMB Capital video on anchored VWAP for earnings and catalyst trades. The after-hours volume thresholds, the low-source tweak, the cut-half rule and the
-  stock examples are as told in the video. The walkthrough, the two trail charts, the table's bars and the calculators' default numbers are illustrative, made-up bars, not any stock's actual prints.</p>
+  <p class="src">From an SMB Capital video on anchored VWAP for earnings and catalyst trades: SMB co-founder Mike Bellafiore introduces it as a lesson from one of the firm's seasoned traders, who isn't named. The after-hours volume thresholds, the low-source tweak, the cut-half rule and the
+  stock examples are as told in the video; the Root prices are read off its chart. The &ldquo;What kills it&rdquo; filters beyond the 20% minimum and holding below the line, the stop a dime under the line and the indicator's entry settings are ours. The walkthrough, the two trail charts, the table's bars and the calculators' default numbers are illustrative, made-up bars, not any stock's actual prints.</p>
 </div>
 <footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
+
+<script>
+  /* copy the Pine code */
+  (function () {
+    var b = document.querySelector("[data-copy]"), code = document.querySelector("pre.pine code");
+    if (!b || !code) return;
+    b.addEventListener("click", function () {
+      var t = code.textContent;
+      function done(ok) { b.textContent = ok ? "Copied" : "Select and copy"; setTimeout(function () { b.textContent = "Copy code"; }, 1800); }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { done(true); }, function () { done(false); });
+      else done(false);
+    });
+  })();
+</script>
 
 </body>
 </html>
