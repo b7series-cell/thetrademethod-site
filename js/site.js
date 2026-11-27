@@ -109,6 +109,7 @@
     "/setups/qullamaggie.html": ["edge", "Beat random entries"],
     "/setups/energy-in-the-tank.html": ["mixed", "The exit works, not the signal"],
     "/setups/cup-and-handle.html": ["none", "No better than random"],
+    "/setups/day-three-breakout.html": ["edge", "Beat random entries"],
     "/setups/zero-lag-pullback.html": ["none", "No edge vs random"],
     "/setups/fib-ote.html": ["none", "No edge vs random"],
     "/setups/ict-made-simple.html": ["none", "No edge on any time frame"],

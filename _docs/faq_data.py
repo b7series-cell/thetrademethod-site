@@ -103,7 +103,7 @@ FAQ = {
   ("How much does Qullamaggie risk per trade?", "About 0.5% of the account, and never more than 1%. Skip the trade if the low of the day is further from the entry than the stock's average daily range."),
   ("What makes a good base?", "Two weeks to two months of sideways action after a big move, with higher lows, tighter ranges, drying volume, and price riding on top of the 10 and 20-day averages."),
   ("When do you sell the rest of the position?", "On the first daily close below the trailing average: the 10-day for faster, more extended stocks and the 20-day for slower ones. There are no price targets."),
-  ("Does the Qullamaggie breakout work?", "It was the only setup on this site that clearly beat random entries in our tests: 158 trades with a 5-minute opening range entry averaged +0.63R against -0.21R for random entries with the same exits, though only 35% of trades won."),
+  ("Does the Qullamaggie breakout work?", "It was one of two setups on this site (with Day Three Breakout) that clearly beat random entries in our tests: 158 trades with a 5-minute opening range entry averaged +0.63R against -0.21R for random entries with the same exits, though only 35% of trades won."),
  ],
 },
 "/setups/pmh-break.html": {
@@ -263,8 +263,9 @@ FAQ = {
  "faq": [
   ("What should day two look like?", "A quiet, low-volume day that stays inside day one's range. A wide, heavy-volume day two is distribution, not accumulation."),
   ("Where does the stop go?", "Either a few cents below the 5-minute bar that broke the day-two high, or low of day for a wider version. Pick one before the entry and stay with it."),
-  ("How do you take profits?", "Scale out in thirds into blow-off volume, whole-dollar levels and higher time frame resistance. Trail the rest above the 9 EMA on the 2 or 5-minute chart and exit on the first close below it."),
+  ("How do you take profits?", "Sell a third or a quarter at a time into blow-off volume, whole-dollar levels and higher time frame resistance. Ride the rest above the 9 EMA on the 2-minute chart and take another piece on its first close below; cut the last piece on the first close below the 9 EMA on the 5-minute chart."),
   ("What if you miss the break at the open?", "Don't chase an extended move. Wait for a pullback toward VWAP or the day-two high that holds, and get long against low of day."),
+  ("Does the day three breakout work?", "In our test, yes. On 445 liquid day threes from 2021 to 2026, the indicator's rules made +0.50R a trade with a 40% win rate, positive before and after June 2024, while random entries on the same days with the same exits made about +0.10R. Most trades lose; a few big runners carry the result."),
  ],
 },
 "/setups/cup-and-handle.html": {
