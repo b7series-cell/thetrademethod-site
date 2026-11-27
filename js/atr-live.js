@@ -15,7 +15,8 @@
        PREVIOUS candle's ATR. It is fixed before the candle opens and
        rounded down to the cent (the buy limit price).
      · NEVER TRADE THE OPENING CANDLE: the session's first candle on the
-       chart is skipped for both playbooks (marked "open · skip").
+       chart is skipped (marked "open · skip"). The video gives this rule
+       for the longs; skipping it for shorts too is ours.
      · LONG = any later candle whose low touches the band (low ≤ band). No
        other filter. Filled at the band, or at the open if the candle opens
        below it. Target = entry + 2 × that same previous-candle ATR, stop =
@@ -25,9 +26,9 @@
        the target when the candle CLOSES at or beyond it (price must have
        crossed it after the fill). Held until one is hit, however long.
      · SHORT = a candle (green or red) whose upper wick ≥ 2 × its body and
-       whose lower wick is negligible — taken here as ≤ 10% of the candle's
-       range (the page doesn't give a number) — on a day whose PRIOR regular
-       session closed red (its last close below its first open). Short at the
+       whose lower wick is ≤ 1/10 of its upper wick (the video presenter's
+       test version; the trader judges it by eye) — on a day whose PRIOR
+       regular session closed red (the presenter's optional filter) (its last close below its first open). Short at the
        next candle's open, cover at that same candle's close: no target, no
        stop. A pattern on the session's last candle has no next candle and is
        skipped.
@@ -126,7 +127,7 @@
     }
     function isWick(c) {
       var rng = c.h - c.l, body = Math.abs(c.c - c.o), up = c.h - Math.max(c.o, c.c), lo = Math.min(c.o, c.c) - c.l;
-      return rng > 0 && up >= o.wick * body && lo <= o.lowWick * rng;
+      return rng > 0 && up >= o.wick * body && lo <= o.lowWick * up;
     }
     var all = trades.slice();
     if (long) { var c = {}; for (q in long) c[q] = long[q]; c.xt = n - 1; c.x = B[n - 1].c; c.why = "open"; c.pts = c.x - c.e; c.r = c.pts / (c.e - c.sl); all.push(c); }
@@ -326,7 +327,7 @@
     }
     renderSide(r, B, forming, nClosed);
     var upd = new Date(data.updated * 1000).toLocaleTimeString("en-US", { timeZone: "America/New_York", hour: "numeric", minute: "2-digit" });
-    els.status.textContent = data.symbol + " · " + LiveKit.tfLabel(MULT) + " · regular session · QQQ is the default equity proxy for the page's Nasdaq futures · blue = previous close − 3.1 × ATR(14) of the previous candle · gold = ATR(14) · opening candle skipped · longs +2 / −1.5 ATR · shorts: upper wick ≥ 2× body, lower wick ≤ 10% of the range, prior day red, one candle" +
+    els.status.textContent = data.symbol + " · " + LiveKit.tfLabel(MULT) + " · regular session · QQQ is the default equity proxy for the page's Nasdaq futures · blue = previous close − 3.1 × ATR(14) of the previous candle · gold = ATR(14) · opening candle skipped · longs +2 / −1.5 ATR · shorts: upper wick ≥ 2× body, lower wick ≤ 1/10 of the upper wick, prior day red (the presenter's test version), one candle" +
       (data.delay ? " · " + data.delay : "") + " · Updated " + upd + " ET" + (data.stale ? " (last good copy)" : "");
   }
 

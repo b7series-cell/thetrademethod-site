@@ -43,7 +43,7 @@
   var main = root.querySelector(".live-main") || root;
   var note = document.createElement("p");
   note.className = "live-example-note";
-  note.innerHTML = "<b>" + (X.note || "Example session.") + "</b> Made-up bars drawn to show this setup clearly, run through the page's own indicator rules. Not market data.";
+  note.innerHTML = "<b>" + (X.note || "Example session.") + "</b> Made-up bars drawn to show this setup clearly, run through the page's own rules. Not market data.";
   var chartEl = root.querySelector(".live-chart");
   if (chartEl && chartEl.parentNode) chartEl.parentNode.insertBefore(note, chartEl); else main.insertBefore(note, main.firstChild);
 

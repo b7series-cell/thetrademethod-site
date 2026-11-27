@@ -312,8 +312,8 @@ FAQ = {
  "a": "The ATR Hybrid Scalp is a 5-minute Micro Nasdaq futures (MNQ) system where longs and shorts are different strategies. Longs buy a touch of a band 3.1 times the ATR below the previous close, with a 2 ATR target and a 1.5 ATR stop. Shorts sell after a candle with a long upper wick and exit at the close of the next candle.",
  "faq": [
   ("Why is the band anchored to the previous close?", "A band that moves with live price can never be caught. Measuring from the last closed candle makes it a fixed level for the next 5 minutes."),
-  ("What is the short signal?", "A candle with an upper wick about twice its body and little or no lower wick. Enter at the next candle's open and close at that candle's close, with no target or stop."),
-  ("Why don't the shorts mirror the longs?", "Inverting the long model for shorts was tested in the source and didn't work. Shorts did better when only taken after a red prior day."),
+  ("What is the short signal?", "A candle with a long upper wick, a rejection off the highs. The presenter's test version needs an upper wick at least twice the body and a lower wick no more than about a tenth of the upper wick. Enter at the next candle's open and close at that candle's close, with no target or stop."),
+  ("Why don't the shorts mirror the longs?", "Inverting the long model for shorts was tested in the source and didn't work. In the presenter's test, shorts did better after a red prior day, but on only about 60 trades."),
   ("Does the ATR Hybrid Scalp work?", "Not on our stand-in test: on QQQ and SPY 5-minute bars, 2,725 trades had a 41% win rate, a 0.76 profit factor and -0.11R per trade. A test on MNQ futures could come out differently."),
  ],
 },

@@ -298,7 +298,8 @@ PAGES = [
  "lead": "Run on QQQ and SPY 5-minute bars in place of MNQ futures, the long band touch and the short wick fade lost about a "
          "tenth of their risk per trade.",
  "stats": [["2,725", "trades, 5-minute"], ["41%", "win rate"], ["0.76", "profit factor"], ["&minus;0.11R", "average per trade", "neg"]],
- "notes": ["The page is built for MNQ futures. QQQ and SPY are a stand-in, so a futures test could come out differently."],
+ "notes": ["The page is built for MNQ futures. QQQ and SPY are a stand-in, so a futures test could come out differently.",
+           "Most of the loss came from the shorts. The longs alone were about flat (&minus;0.02R on QQQ, +0.06R on SPY). The shorts were re-run exactly as the video has them (no stop, out at the next candle&#x27;s close, lower wick under a tenth of the upper wick) and still lost: &minus;0.09R a trade on QQQ, &minus;0.16R on SPY."],
  "how": LOCAL,
 },
 {

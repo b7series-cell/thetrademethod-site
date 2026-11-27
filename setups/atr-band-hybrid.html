@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/atr-band-hybrid.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/atr-band-hybrid.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-11-22",
+ "dateModified": "2026-11-27",
  "inLanguage": "en",
  "author": {
   "@type": "Person",
@@ -211,11 +211,11 @@
 <script src="/js/nav.js?v=38" defer></script>
 <script src="/js/site.js?v=78" defer></script>
 <script src="/js/anim-kit.js?v=2" defer></script>
-<script src="/js/atr-anim.js?v=1" defer></script>
+<script src="/js/atr-anim.js?v=2" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
 <script src="/js/live-kit.js?v=3" defer></script>
-<script src="/js/examples/atr.js?v=1" defer></script><script src="/js/example-kit.js?v=1" defer></script>
-<script src="/js/atr-live.js?v=1" defer></script>
+<script src="/js/examples/atr.js?v=1" defer></script><script src="/js/example-kit.js?v=2" defer></script>
+<script src="/js/atr-live.js?v=2" defer></script>
 <style>
   /* video (same as relative-volume.html) */
   .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
@@ -234,7 +234,7 @@
   }
 </style>
 <link rel="stylesheet" href="/css/candle-bg.css?v=2">
-<script src="/js/candle-bg.js?v=2" defer></script>
+<script src="/js/candle-bg.js?v=51" defer></script>
 <!-- faq-ld --><script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -261,7 +261,7 @@
    "name": "What is the short signal?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "A candle with an upper wick about twice its body and little or no lower wick. Enter at the next candle's open and close at that candle's close, with no target or stop."
+    "text": "A candle with a long upper wick, a rejection off the highs. The presenter's test version needs an upper wick at least twice the body and a lower wick no more than about a tenth of the upper wick. Enter at the next candle's open and close at that candle's close, with no target or stop."
    }
   },
   {
@@ -269,7 +269,7 @@
    "name": "Why don't the shorts mirror the longs?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Inverting the long model for shorts was tested in the source and didn't work. Shorts did better when only taken after a red prior day."
+    "text": "Inverting the long model for shorts was tested in the source and didn't work. In the presenter's test, shorts did better after a red prior day, but on only about 60 trades."
    }
   },
   {
@@ -317,7 +317,7 @@
 <div class="sheet">
 
   <a class="back" href="/setups/">&lsaquo; All setups</a>
-  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-22">Nov 22, 2026</time></p><!-- /byline -->
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-27">Nov 27, 2026</time></p><!-- /byline -->
 
   <header class="top" data-candle-bg="atr-band-hybrid">
     <div>
@@ -347,7 +347,7 @@
     <div><div class="t">shorts</div><div class="n">Exit on time, not price</div></div>
   </nav>
 
-  <section class="anim" data-tm-anim="atr" aria-label="Animated walkthrough on illustrative 5-minute index-futures bars: ATR is computed candle by candle, the lower band sits 3.1 times the previous ATR under the previous close, the opening candle touches it and is skipped, then with ATR at 17.85 a wick clips the band for a long at 20894.50 with a target of plus 35.70 and a stop of minus 26.75, the target fills, and after a red prior day an upper-wick rejection is shorted at 20962 and closed one candle later at 20947 for plus 15 points.">
+  <section class="anim" data-tm-anim="atr" aria-label="Animated walkthrough on illustrative 5-minute index-futures bars: ATR is computed candle by candle, the lower band sits 3.1 times the previous ATR under the previous close, the opening candle touches it and is skipped, then with ATR at 17.85 a wick clips the band for a long at 20894.50 with a target of plus 35.75 and a stop of minus 26.75, the target fills, and after a red prior day an upper-wick rejection is shorted at 20962 and closed one candle later at 20947 for plus 15 points.">
     <div class="anim-head">
       <div>
         <p class="anim-n"></p>
@@ -359,7 +359,7 @@
         <button type="button" class="pill anim-replay">Replay</button>
       </div>
     </div>
-    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Animated walkthrough on illustrative 5-minute index-futures bars: ATR is computed candle by candle, the lower band sits 3.1 times the previous ATR under the previous close, the opening candle touches it and is skipped, then with ATR at 17.85 a wick clips the band for a long at 20894.50 with a target of plus 35.70 and a stop of minus 26.75, the target fills, and after a red prior day an upper-wick rejection is shorted at 20962 and closed one candle later at 20947 for plus 15 points."></svg></div>
+    <div class="anim-scroll"><svg viewBox="0 0 1180 520" role="img" aria-label="Animated walkthrough on illustrative 5-minute index-futures bars: ATR is computed candle by candle, the lower band sits 3.1 times the previous ATR under the previous close, the opening candle touches it and is skipped, then with ATR at 17.85 a wick clips the band for a long at 20894.50 with a target of plus 35.75 and a stop of minus 26.75, the target fills, and after a red prior day an upper-wick rejection is shorted at 20962 and closed one candle later at 20947 for plus 15 points."></svg></div>
     <div class="anim-chips" role="group" aria-label="Jump to a stage"></div>
   </section>
 
@@ -407,7 +407,7 @@
           <h3>Longs: a fixed 2 / 1.5 ATR exit, decided before the trade</h3>
           <ul>
             <li>Target: 2&times; the previous candle's ATR reading, added to the entry. Stop: 1.5&times; the same ATR reading, subtracted from the entry. Both are fixed the moment the trade is taken and don't move afterward.</li>
-            <li>One hard rule that makes or breaks it: never trade the opening candle. Volatility right at the open is too unpredictable for the band and the ATR reading behind it to be trusted yet.</li>
+            <li>The trader calls this one extremely important: never trade the opening candle. Volatility right at the open is too unpredictable for the band and the ATR reading behind it to be trusted yet. (He calls the 3.1 multiple crucial too.)</li>
           </ul>
           <p class="why">Because both the target and the stop scale with current volatility, the trade's risk and reward automatically resize themselves to the market's actual conditions instead of using a fixed dollar or point value.</p>
         </div>
@@ -418,7 +418,7 @@
         <div>
           <h3>Shorts: a completely different trigger</h3>
           <ul>
-            <li>No band, no ATR multiple. The short side looks for one candle shape: a long upper wick, roughly twice the size of the candle's body, with a lower wick that's negligible or non-existent &mdash; a rejection off the highs, whether the candle itself closes green or red.</li>
+            <li>No band, no ATR multiple. The short side looks for one candle shape: a long upper wick &mdash; a rejection off the highs, whether the candle itself closes green or red. The trader judges that wick by eye. To test it, the video's presenter made it exact: an upper wick at least 2&times; the body, and a lower wick no bigger than about a tenth of the upper wick.</li>
             <li>Entered at the market, generally at the open of the very next candle after the pattern completes &mdash; no order flow, no secondary indicator, no confirmation layer beyond the candle itself.</li>
           </ul>
           <p class="why">Inverting the long model for shorts was tested directly and simply didn't work. This is why: shorts here run on price-action structure, not on a volatility band, because the two directions of this market don't behave symmetrically.</p>
@@ -431,7 +431,7 @@
           <h3>Shorts: exit on time, not on price</h3>
           <ul>
             <li>There is no profit target and no stop-loss on this side. The trade is closed no matter what at the close of the very next candle after entry &mdash; a single 5-minute hold, full stop.</li>
-            <li>A discovered improvement: shorts perform meaningfully better when only taken after the prior day's candle closed red &mdash; a simple higher-timeframe filter for a bearish-leaning environment.</li>
+            <li>The presenter tried one extra filter: only short after the prior day's candle closed red. It looked better, but on only about 60 trades, too few to trust. It's the presenter's idea, not the trader's.</li>
           </ul>
           <p class="why">A time-based exit only makes sense because the entry is a specific, short-lived structural read, not a directional thesis meant to play out over hours. Once that one candle is over, the edge the pattern gave you is already spent.</p>
         </div>
@@ -442,43 +442,77 @@
       <div class="panel">
         <h4>The long side, on one chart</h4>
         <p class="lead">ATR expanding, the band stretching further from price as it does, the lower wick clipping the band, and the fixed 2 / 1.5 ATR target and stop set the instant the trade is taken.</p>
-        <svg viewBox="0 0 1180 620" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Annotated chart showing the lower ATR band widening as volatility increases, a candle's lower wick touching the band for a long entry, and a fixed target and stop set as multiples of ATR">
-<defs><marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8fa6bd"/></marker><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2ecf7a"/></marker><marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#e0505a"/></marker></defs>
-<rect x="32" y="20" width="1062" height="360" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
-<rect x="32" y="392" width="1062" height="90" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
-<rect x="32" y="494" width="1062" height="108" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
-<text x="46" y="415" fill="#7d93ad" font-size="13">ATR (widening)</text>
-<polyline points="60,450 200,442 350,428 460,405 600,388 750,398 900,406 1046,410" fill="none" stroke="#f4b942" stroke-width="1.8"/>
-<text x="46" y="518" fill="#7d93ad" font-size="13">Price</text>
-<polyline points="60,290 200,270 350,240 460,300 600,150 750,175 900,195 1046,205" fill="none" stroke="#c8d8e8" stroke-width="1.6" opacity="0.55"/>
-<polyline points="60,320 200,300 350,272 460,335 600,178 750,205 900,225 1046,238" fill="none" stroke="var(--blue)" stroke-width="1.8" stroke-dasharray="3 4" opacity="0.9"/>
-<text x="700" y="168" fill="#5aa9ff" font-size="13" font-weight="700">lower ATR band (3.1&times; ATR, off prior close)</text>
-<line x1="90" y1="240" x2="90" y2="270" stroke="#54697f" stroke-width="1.8"/><rect x="76" y="245" width="28" height="22" fill="#54697f" rx="1"/>
-<line x1="150" y1="220" x2="150" y2="255" stroke="#54697f" stroke-width="1.8"/><rect x="136" y="225" width="28" height="26" fill="#54697f" rx="1"/>
-<line x1="210" y1="200" x2="210" y2="235" stroke="#7d343c" stroke-width="1.8"/><rect x="196" y="205" width="28" height="24" fill="#7d343c" rx="1"/>
-<text x="150" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">volatility expanding</text>
-<line x1="270" y1="230" x2="270" y2="270" stroke="#7d343c" stroke-width="2.0"/><rect x="256" y="235" width="28" height="30" fill="#7d343c" rx="1"/>
-<line x1="330" y1="260" x2="330" y2="340" stroke="#7d343c" stroke-width="2.4"/><rect x="316" y="266" width="28" height="20" fill="#7d343c" rx="1"/>
-<text x="330" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">lower wick touches band</text>
-<line x1="390" y1="200" x2="390" y2="280" stroke="#1d6f47" stroke-width="2.4"/><rect x="376" y="210" width="28" height="45" fill="#1d6f47" rx="1"/>
-<text x="390" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">entry</text>
-<line x1="450" y1="140" x2="450" y2="200" stroke="#1d6f47" stroke-width="2.0"/><rect x="436" y="150" width="28" height="35" fill="#1d6f47" rx="1"/>
-<line x1="510" y1="105" x2="510" y2="160" stroke="#1d6f47" stroke-width="2.2"/><rect x="496" y="115" width="28" height="35" fill="#1d6f47" rx="1"/>
-<text x="510" y="608" fill="#7d93ad" font-size="12" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, monospace">2&times; ATR target</text>
-<line x1="570" y1="140" x2="570" y2="185" stroke="#54697f" stroke-width="1.8"/><rect x="556" y="145" width="28" height="30" fill="#54697f" rx="1"/>
-<line x1="630" y1="160" x2="630" y2="205" stroke="#54697f" stroke-width="1.8"/><rect x="616" y="165" width="28" height="30" fill="#54697f" rx="1"/>
-<rect x="90" y="60" width="300" height="46" rx="7" fill="#0d1a2b" stroke="#8fa6bd" stroke-width="1.7"/>
-<text x="104" y="83" fill="#c8d8e8" font-size="13" font-weight="600">As ATR rises, the band stretches</text>
-<text x="104" y="101" fill="#c8d8e8" font-size="13" font-weight="600">further from the prior close.</text>
-<line x1="240" y1="106" x2="200" y2="220" stroke="#8fa6bd" stroke-width="1.5" marker-end="url(#a1)"/>
-<rect x="330" y="360" width="300" height="46" rx="7" fill="#0d1a2b" stroke="#2ecf7a" stroke-width="1.7"/>
-<text x="344" y="383" fill="#9ff0c4" font-size="13" font-weight="600">Lower wick clips the band &mdash;</text>
-<text x="344" y="401" fill="#9ff0c4" font-size="13" font-weight="600">that touch alone is the entry.</text>
-<line x1="420" y1="360" x2="340" y2="300" stroke="#2ecf7a" stroke-width="1.5" marker-end="url(#a2)"/>
-<rect x="700" y="60" width="330" height="46" rx="7" fill="#0d1a2b" stroke="#e0505a" stroke-width="1.7"/>
-<text x="714" y="83" fill="#f2a9ae" font-size="13" font-weight="600">Target and stop are both fixed at</text>
-<text x="714" y="101" fill="#f2a9ae" font-size="13" font-weight="600">entry &mdash; multiples of that same ATR.</text>
-<line x1="750" y1="106" x2="520" y2="130" stroke="#e0505a" stroke-width="1.5" marker-end="url(#a3)"/>
+        <svg viewBox="0 0 1180 620" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Annotated chart showing the lower ATR band widening as volatility increases, a candle's low touching the band for a limit buy, and a fixed target of 2 ATR and stop of 1.5 ATR that the bounce reaches on the next candle">
+<defs><marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#8fa6bd"/></marker><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2ecf7a"/></marker></defs>
+<rect x="32" y="20" width="1116" height="400" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<rect x="32" y="432" width="1116" height="168" rx="10" fill="#0c1626" stroke="#1b2a3e"/>
+<text x="46" y="44" fill="#7d93ad" font-size="13">Price (illustrative 5-minute bars)</text>
+<line x1="143.0" y1="256.1" x2="209.0" y2="256.1" stroke="#5aa9ff" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="209.0" y1="252.2" x2="275.0" y2="252.2" stroke="#5aa9ff" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="209.0" y1="256.1" x2="209.0" y2="252.2" stroke="#5aa9ff" stroke-width="1" stroke-dasharray="2 3" opacity="0.6"/>
+<line x1="275.0" y1="262.5" x2="341.0" y2="262.5" stroke="#5aa9ff" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="275.0" y1="252.2" x2="275.0" y2="262.5" stroke="#5aa9ff" stroke-width="1" stroke-dasharray="2 3" opacity="0.6"/>
+<line x1="341.0" y1="253.5" x2="407.0" y2="253.5" stroke="#5aa9ff" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="341.0" y1="262.5" x2="341.0" y2="253.5" stroke="#5aa9ff" stroke-width="1" stroke-dasharray="2 3" opacity="0.6"/>
+<line x1="407.0" y1="279.6" x2="473.0" y2="279.6" stroke="#5aa9ff" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="407.0" y1="253.5" x2="407.0" y2="279.6" stroke="#5aa9ff" stroke-width="1" stroke-dasharray="2 3" opacity="0.6"/>
+<line x1="473.0" y1="302.6" x2="539.0" y2="302.6" stroke="#5aa9ff" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="473.0" y1="279.6" x2="473.0" y2="302.6" stroke="#5aa9ff" stroke-width="1" stroke-dasharray="2 3" opacity="0.6"/>
+<line x1="539.0" y1="346.9" x2="605.0" y2="346.9" stroke="#5aa9ff" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="539.0" y1="302.6" x2="539.0" y2="346.9" stroke="#5aa9ff" stroke-width="1" stroke-dasharray="2 3" opacity="0.6"/>
+<line x1="605.0" y1="333.9" x2="671.0" y2="333.9" stroke="#5aa9ff" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="605.0" y1="346.9" x2="605.0" y2="333.9" stroke="#5aa9ff" stroke-width="1" stroke-dasharray="2 3" opacity="0.6"/>
+<line x1="671.0" y1="381.5" x2="737.0" y2="381.5" stroke="#5aa9ff" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="671.0" y1="333.9" x2="671.0" y2="381.5" stroke="#5aa9ff" stroke-width="1" stroke-dasharray="2 3" opacity="0.6"/>
+<line x1="737.0" y1="334.2" x2="803.0" y2="334.2" stroke="#5aa9ff" stroke-width="2" stroke-dasharray="5 4"/>
+<line x1="737.0" y1="381.5" x2="737.0" y2="334.2" stroke="#5aa9ff" stroke-width="1" stroke-dasharray="2 3" opacity="0.6"/>
+<text x="143.0" y="276.1" fill="#5aa9ff" font-size="13" font-weight="700">lower band = prior close &minus; 3.1 &times; prior ATR</text>
+<line x1="620.0" y1="272.2" x2="932.0" y2="272.2" stroke="#2ecf7a" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="940.0" y="276.2" fill="#2ecf7a" font-size="13" font-weight="700">target +2 ATR</text>
+<line x1="620.0" y1="333.9" x2="932.0" y2="333.9" stroke="#5aa9ff" stroke-width="1.6" stroke-dasharray=""/>
+<text x="940.0" y="337.9" fill="#5aa9ff" font-size="13" font-weight="700">buy at the band</text>
+<line x1="620.0" y1="380.2" x2="932.0" y2="380.2" stroke="#e0505a" stroke-width="1.6" stroke-dasharray="6 4"/>
+<text x="940.0" y="384.2" fill="#e0505a" font-size="13" font-weight="700">stop &minus;1.5 ATR</text>
+<line x1="110.0" y1="183.7" x2="110.0" y2="208.5" stroke="#2ecf7a" stroke-width="2"/>
+<rect x="97.0" y="193.6" width="26" height="4.9" fill="#2ecf7a" rx="1"/>
+<line x1="176.0" y1="178.8" x2="176.0" y2="203.5" stroke="#2ecf7a" stroke-width="2"/>
+<rect x="163.0" y="188.7" width="26" height="4.9" fill="#2ecf7a" rx="1"/>
+<line x1="242.0" y1="178.8" x2="242.0" y2="201.1" stroke="#e0505a" stroke-width="2"/>
+<rect x="229.0" y="188.7" width="26" height="9.9" fill="#e0505a" rx="1"/>
+<line x1="308.0" y1="183.7" x2="308.0" y2="208.5" stroke="#2ecf7a" stroke-width="2"/>
+<rect x="295.0" y="188.7" width="26" height="9.9" fill="#2ecf7a" rx="1"/>
+<line x1="374.0" y1="163.9" x2="374.0" y2="213.4" stroke="#e0505a" stroke-width="2"/>
+<rect x="361.0" y="188.7" width="26" height="19.8" fill="#e0505a" rx="1"/>
+<line x1="440.0" y1="183.7" x2="440.0" y2="243.1" stroke="#e0505a" stroke-width="2"/>
+<rect x="427.0" y="208.5" width="26" height="14.8" fill="#e0505a" rx="1"/>
+<line x1="506.0" y1="198.6" x2="506.0" y2="267.9" stroke="#e0505a" stroke-width="2"/>
+<rect x="493.0" y="223.3" width="26" height="34.6" fill="#e0505a" rx="1"/>
+<line x1="572.0" y1="218.4" x2="572.0" y2="277.8" stroke="#2ecf7a" stroke-width="2"/>
+<rect x="559.0" y="238.2" width="26" height="19.8" fill="#2ecf7a" rx="1"/>
+<line x1="638.0" y1="228.3" x2="638.0" y2="339.8" stroke="#e0505a" stroke-width="2"/>
+<rect x="625.0" y="238.2" width="26" height="29.7" fill="#e0505a" rx="1"/>
+<line x1="704.0" y1="203.5" x2="704.0" y2="272.8" stroke="#2ecf7a" stroke-width="2"/>
+<rect x="691.0" y="213.4" width="26" height="54.4" fill="#2ecf7a" rx="1"/>
+<line x1="770.0" y1="159.0" x2="770.0" y2="223.3" stroke="#2ecf7a" stroke-width="2"/>
+<rect x="757.0" y="168.9" width="26" height="44.5" fill="#2ecf7a" rx="1"/>
+<line x1="836.0" y1="89.7" x2="836.0" y2="178.8" stroke="#2ecf7a" stroke-width="2"/>
+<rect x="823.0" y="104.5" width="26" height="64.3" fill="#2ecf7a" rx="1"/>
+<line x1="902.0" y1="94.6" x2="902.0" y2="139.2" stroke="#e0505a" stroke-width="2"/>
+<rect x="889.0" y="104.5" width="26" height="19.8" fill="#e0505a" rx="1"/>
+<circle cx="638.0" cy="333.9" r="9" fill="none" stroke="#2ecf7a" stroke-width="2"/>
+<circle cx="704.0" cy="272.2" r="9" fill="none" stroke="#2ecf7a" stroke-width="2"/>
+<rect x="120" y="64" width="330" height="46" rx="7" fill="#0d1a2b" stroke="#8fa6bd" stroke-width="1.5"/>
+<text x="134" y="87" fill="#c8d8e8" font-size="13" font-weight="600">As ATR rises, the band drops further</text>
+<text x="134" y="104" fill="#c8d8e8" font-size="13" font-weight="600">below the prior close.</text>
+<line x1="300" y1="110" x2="506.0" y2="296.6" stroke="#8fa6bd" stroke-width="1.5" marker-end="url(#a1)"/>
+<rect x="388.0" y="322.2" width="230" height="46" rx="7" fill="#0d1a2b" stroke="#2ecf7a" stroke-width="1.5"/>
+<text x="402.0" y="345.2" fill="#9ff0c4" font-size="13" font-weight="600">The low touches the band:</text>
+<text x="402.0" y="362.2" fill="#9ff0c4" font-size="13" font-weight="600">the limit buy fills there.</text>
+<line x1="618.0" y1="345.2" x2="626.0" y2="339.9" stroke="#2ecf7a" stroke-width="1.5" marker-end="url(#a2)"/>
+<text x="46" y="456" fill="#7d93ad" font-size="13">ATR(14), points</text>
+<polyline points="110.0,572.2 176.0,570.9 242.0,570.4 308.0,569.3 374.0,561.3 440.0,551.2 506.0,539.1 572.0,530.6 638.0,508.2 704.0,499.1 770.0,492.1 836.0,478.7 902.0,478.6" fill="none" stroke="#f4b942" stroke-width="2"/>
+<circle cx="572.0" cy="530.6" r="5" fill="#f4b942"/>
+<text x="552.0" y="496.6" text-anchor="end" fill="#f4b942" font-size="13" font-weight="700">ATR at entry: target and stop are 2&times; and 1.5&times; this, fixed</text>
 </svg>
       </div>
 
@@ -509,8 +543,8 @@
 <line x1="913" y1="240" x2="1152" y2="240" stroke="#54697f" stroke-width="1.2" stroke-dasharray="2 4" opacity="0.6"/>
 <line x1="955" y1="60" x2="955" y2="140" stroke="#1d6f47" stroke-width="2.2"/><rect x="941" y="140" width="28" height="16" fill="#1d6f47" rx="1"/>
 <text x="913.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
-<text x="913.0" y="196" fill="#9fb3c8" font-size="12.6">Clean wick, but the prior day</text>
-<text x="913.0" y="212" fill="#9fb3c8" font-size="12.6">closed green &mdash; wrong context.</text>
+<text x="913.0" y="196" fill="#9fb3c8" font-size="12.6">Clean wick, prior day green: the</text>
+<text x="913.0" y="212" fill="#9fb3c8" font-size="12.6">presenter&#x27;s red-day filter skips it.</text>
 </svg>
       </div>
 
@@ -533,7 +567,7 @@
   <div class="filters">
     <div class="filter">
       <h3>1 &nbsp;Trading the opening candle</h3>
-      <p>Volatility right at the open is too unpredictable for the ATR reading behind the band, or the target and stop built from it, to be trusted yet.</p>
+      <p>Volatility right at the open is too unpredictable for the ATR reading behind the band, or the target and stop built from it, to be trusted yet. The video gives this rule for the longs. We skip the opening candle for shorts too.</p>
       <p class="kill">Kills: a band touch or wick pattern that formed on unreliable data.</p>
     </div>
     <div class="filter">
@@ -548,7 +582,7 @@
     </div>
     <div class="filter">
       <h3>4 &nbsp;Every upper wick, regardless of daily trend</h3>
-      <p>The short pattern performs meaningfully better when the prior day's candle closed red. Taken in a straight-up trend, it fights the higher-timeframe bias.</p>
+      <p>In the presenter's test the short pattern did better when the prior day's candle closed red, but on only about 60 trades. Treat it as a lead to test, not a proven rule. It's the presenter's idea, not the trader's.</p>
       <p class="kill">Kills: a valid-looking wick taken in the wrong broader context.</p>
     </div>
   </div>
@@ -561,9 +595,9 @@
     <div class="panel">
       <div class="calc">
         <div class="row"><span>Previous candle's ATR (the static reference)</span><b>17.85</b></div>
-        <div class="row"><span>Target &mdash; entry + (ATR &times; 2)</span><b>+35.70</b></div>
+        <div class="row"><span>Target &mdash; entry + (ATR &times; 2)</span><b>+35.75</b></div>
         <div class="row"><span>Stop &mdash; entry &minus; (ATR &times; 1.5)</span><b>&minus;26.75</b></div>
-        <div class="row tot"><span>Reward-to-risk on this trade</span><b>1.33 : 1</b></div>
+        <div class="row tot"><span>Reward-to-risk on this trade</span><b>1.34 : 1</b></div>
       </div>
     </div>
     <div class="warn">
@@ -589,7 +623,7 @@
     <tbody>
       <tr><th>Trigger</th>
         <td class="txt">Lower wick touches the lower ATR band (3.1&times; the previous candle's ATR, off its close). No additional filter.</td>
-        <td class="txt">A candle's upper wick is at least 2&times; its body, with a negligible lower wick &mdash; a rejection off the highs.</td></tr>
+        <td class="txt">A long upper wick, a rejection off the highs. In the presenter's test version: upper wick at least 2&times; the body, lower wick no more than about a tenth of the upper wick.</td></tr>
       <tr><th>Entry</th>
         <td class="txt">A limit order at the band, updating every 5 minutes as the band's anchor shifts.</td>
         <td class="txt">A market order, generally at the open of the very next candle after the pattern completes.</td></tr>
@@ -607,7 +641,7 @@
 
   <div class="section-head">
     <h2>Example: the wick short and the band long in one session</h2>
-    <p>An example session run through the indicator&#x27;s own rules. The day before closed red, so at 10:35 a candle with a long upper wick and almost no lower wick is a short at the next candle&#x27;s open, covered at that candle&#x27;s close. At 12:30 a flush drops through the blue band (the previous close minus 3.1 × the previous candle&#x27;s ATR): the buy fills at the band and the bounce reaches the +2 ATR target two candles later. The bars are made up to show the setup clearly. They aren&#x27;t a real ticker.</p>
+    <p>An example session run through the page&#x27;s rules, with the presenter&#x27;s prior-day-red filter on. The day before closed red, so at 10:35 a candle with a long upper wick and almost no lower wick is a short at the next candle&#x27;s open, covered at that candle&#x27;s close. At 12:30 a flush drops through the blue band (the previous close minus 3.1 × the previous candle&#x27;s ATR): the buy fills at the band and the bounce reaches the +2 ATR target two candles later. The bars are made up to show the setup clearly. They aren&#x27;t a real ticker.</p>
   </div>
   <section class="live" data-atr-live data-example data-symbol="QQQ" aria-label="Example ATR band hybrid scalp chart">
     <div class="live-main">
@@ -643,6 +677,7 @@
     </ul>
     <ul class="tested-notes">
       <li>The page is built for MNQ futures. QQQ and SPY are a stand-in, so a futures test could come out differently.</li>
+      <li>Most of the loss came from the shorts. The longs alone were about flat (&minus;0.02R on QQQ, +0.06R on SPY). The shorts were re-run exactly as the video has them (no stop, out at the next candle&#x27;s close, lower wick under a tenth of the upper wick) and still lost: &minus;0.09R a trade on QQQ, &minus;0.16R on SPY.</li>
     </ul>
     <p class="tested-how"><b>How we tested.</b> 5 years of price history, Nov 2021 to Nov 2026, on SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA). Rules coded from this page at its default settings. Fills at the bar close, the stop wins when stop and target are hit in the same bar, 0.5 bp a side for the spread, results in R capped at +10R. Trades before June 2024 are the training half, after it the holdout. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
   </section>
@@ -651,8 +686,8 @@
   <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
   <div class="faq">
     <div class="qa"><h3>Why is the band anchored to the previous close?</h3><p>A band that moves with live price can never be caught. Measuring from the last closed candle makes it a fixed level for the next 5 minutes.</p></div>
-    <div class="qa"><h3>What is the short signal?</h3><p>A candle with an upper wick about twice its body and little or no lower wick. Enter at the next candle's open and close at that candle's close, with no target or stop.</p></div>
-    <div class="qa"><h3>Why don't the shorts mirror the longs?</h3><p>Inverting the long model for shorts was tested in the source and didn't work. Shorts did better when only taken after a red prior day.</p></div>
+    <div class="qa"><h3>What is the short signal?</h3><p>A candle with a long upper wick, a rejection off the highs. The presenter's test version needs an upper wick at least twice the body and a lower wick no more than about a tenth of the upper wick. Enter at the next candle's open and close at that candle's close, with no target or stop.</p></div>
+    <div class="qa"><h3>Why don't the shorts mirror the longs?</h3><p>Inverting the long model for shorts was tested in the source and didn't work. In the presenter's test, shorts did better after a red prior day, but on only about 60 trades.</p></div>
     <div class="qa"><h3>Does the ATR Hybrid Scalp work?</h3><p>Not on our stand-in test: on QQQ and SPY 5-minute bars, 2,725 trades had a 41% win rate, a 0.76 profit factor and -0.11R per trade. A test on MNQ futures could come out differently.</p></div>
   </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
@@ -676,7 +711,7 @@
     </div>
   </div>
 
-  <p class="src">Model built around an ATR-band long strategy and a separate upper-wick-rejection short strategy on Micro Nasdaq futures (MNQ), as reverse-engineered in a trading-education video from the account of a prop-firm trader referred to there by a pseudonym. The reconstructed trade example is drawn from that video and is not independently verified. <a href="https://www.youtube.com/watch?v=snaP5117MxI" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+  <p class="src">Model built around an ATR-band long strategy and a separate upper-wick-rejection short strategy on Micro Nasdaq futures (MNQ), as reverse-engineered in a trading-education video from the account of a prop-firm trader referred to there by a pseudonym. The trader's account showed 703 trades, a 1.25 profit factor and four payouts in two months. The video's presenter rebuilt and tested his rules: the longs came out at a 1.53 profit factor, just over half winners, and the shorts at 1.41 with 52% winners. The trader uses discretion and doesn't follow the exits mechanically. The exact short-wick numbers are the presenter's; the opening-candle skip on shorts and the example chart are ours. The reconstructed trade example is drawn from that video and is not independently verified. <a href="https://www.youtube.com/watch?v=snaP5117MxI" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
 </div>
 <footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
 
