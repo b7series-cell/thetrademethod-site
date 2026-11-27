@@ -207,7 +207,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=28">
-<script src="/js/nav.js?v=39" defer></script>
+<link rel="stylesheet" href="/css/tested.css?v=3">
+<script src="/js/nav.js?v=40" defer></script>
 <script src="/js/site.js?v=78" defer></script>
 <script src="/js/anim-kit.js?v=2" defer></script>
 <script src="/js/d3b-anim.js?v=1" defer></script>
@@ -286,6 +287,14 @@
     "@type": "Answer",
     "text": "Don't chase an extended move. Wait for a pullback toward VWAP or the day-two high that holds, and get long against low of day."
    }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the day three breakout work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "In our test, yes. On 445 liquid day threes from 2021 to 2026, the indicator's rules made +0.50R a trade with a 40% win rate, positive before and after June 2024, while random entries on the same days with the same exits made about +0.10R. Most trades lose; a few big runners carry the result."
+   }
   }
  ]
 }
@@ -340,6 +349,7 @@
         <div><b>4</b><small>filters</small></div>
         <div><b>48&ndash;695%</b><small>day-one gains across examples</small></div>
       </div>
+      <!--tested-chip--><a class="tested-chip v-edge" href="#tested"><i aria-hidden="true"></i>Tested: <b>Beat random entries</b></a><!--/tested-chip-->
     </div>
   </header>
   <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is a day three breakout?</h2><p>A day three breakout is a long-biased momentum trade over three days. A real catalyst drives a big move on day one, day two is a tight, low-volume inside day, and the entry is the break of the day-two high on day three, often right off the open.</p></section><!-- /define -->
@@ -811,12 +821,68 @@
     </div>
   </section>
 
+  <!--tested:start-->
+  <section class="tested v-edge" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>Beat random entries</span></div>
+    <h2 id="tested-h">Positive, and better than random entries on the same days</h2>
+    <p class="tested-lead">Run on every US stock that had a day one and a quiet inside day two over five years, the indicator's rules made money in both halves of the test and in every full year. Random entries in the first 30 minutes of the same days made far less.</p>
+    <ul class="tested-stats">
+      <li><b>445</b><span>trades, whole US market, 5-minute</span></li>
+      <li><b>40%</b><span>win rate</span></li>
+      <li><b class="pos">+0.50R</b><span>average per trade</span></li>
+      <li><b>+0.10R</b><span>random entries, same days (extremes trimmed)</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Version</th><th scope="col">Trades</th><th scope="col">Avg R</th></tr></thead>
+      <tbody>
+        <tr><td>Indicator rules (stop under the breakout bar)</td><td>445</td><td>+0.50R</td></tr>
+        <tr><td>Before June 2024 / after</td><td>193 / 252</td><td>+0.43R / +0.56R</td></tr>
+        <tr><td>Low-of-day stop instead</td><td>445</td><td>+0.44R</td></tr>
+        <tr><td>Stocks over $10</td><td>240</td><td>+0.56R</td></tr>
+        <tr><td>Random entry in the first 30 minutes, same days (1% extremes trimmed; untrimmed &minus;0.63R)</td><td>4,450</td><td>+0.10R</td></tr>
+        <tr><td>Thin names (day one under $10M traded)</td><td>324</td><td>Gapped through stops</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tested-notes">
+      <li>Positive every full year from 2022 to 2026 (+0.38R to +0.76R). Per trade it made about 1.1% of the entry price on average.</li>
+      <li>Most trades lose: the median is a 0.44R loss and 157 of 445 were stopped out. The profit comes from the runners; the 10 best trades made 100R of the 225R total.</li>
+      <li>287 of the 733 day threes broke the day-two high after 10:00 and were skipped, as the rules say.</li>
+      <li>Thinly traded names don't work with a stop a few cents under a 5-minute bar: their bars gap straight through it. The test only counts stocks that traded $10M or more on day one.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> Every US common stock over $1 with a day one up 20% on 3&times; volume and an inside day two, delisted ones included, Nov 2021 to Nov 2026, 5-minute bars on day three. Rules coded line for line from this page's indicator, 5 bp a side. The catalyst check can't be coded, so this tests the price and volume pattern only. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
+
+  <div class="section-head" id="indicator">
+    <h2 class="ind-heading">Indicator for this setup</h2>
+    <p class="ind-note">Add this to a 5-minute TradingView chart (regular hours) of a stock you're watching. It uses the same rules as the example
+    chart above. It draws and alerts on the setup &mdash; it does not place trades, and it can't read the news, so the catalyst check is yours.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">Day Three Breakout &mdash; The Trade Method</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">Checks the last two daily bars for the sequence: a day one up 20% or more on 3&times; its average volume, then an inside
+      day two on lower volume that didn't open in the lower half of day one. On day three it arms a buy stop at the day-two high and takes the
+      break if it starts in the first 30 minutes. The stop goes a few cents under the breakout bar (or at low of day, a setting). It sells a third
+      into blow-off volume, a third at the next whole dollar after a VWAP dip holds, and the rest on the first close below the 9 EMA or at the
+      close. A status panel shows the day one and day two checks; alerts for armed, entry and exit, with JSON webhook versions.
+      The thirds and the volume and time cut-offs are our objective version of the video's judgment calls.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/day-three-breakout.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+  </ul>
+
   <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
   <div class="faq">
     <div class="qa"><h3>What should day two look like?</h3><p>A quiet, low-volume day that stays inside day one's range. A wide, heavy-volume day two is distribution, not accumulation.</p></div>
     <div class="qa"><h3>Where does the stop go?</h3><p>Either a few cents below the 5-minute bar that broke the day-two high, or low of day for a wider version. Pick one before the entry and stay with it.</p></div>
     <div class="qa"><h3>How do you take profits?</h3><p>Sell a third or a quarter at a time into blow-off volume, whole-dollar levels and higher time frame resistance. Ride the rest above the 9 EMA on the 2-minute chart and take another piece on its first close below; cut the last piece on the first close below the 9 EMA on the 5-minute chart.</p></div>
     <div class="qa"><h3>What if you miss the break at the open?</h3><p>Don't chase an extended move. Wait for a pullback toward VWAP or the day-two high that holds, and get long against low of day.</p></div>
+    <div class="qa"><h3>Does the day three breakout work?</h3><p>In our test, yes. On 445 liquid day threes from 2021 to 2026, the indicator's rules made +0.50R a trade with a 40% win rate, positive before and after June 2024, while random entries on the same days with the same exits made about +0.10R. Most trades lose; a few big runners carry the result.</p></div>
   </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">

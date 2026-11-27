@@ -40,8 +40,8 @@ PAGES = [
 {
  "path": "setups/qullamaggie.html", "name": "Qullamaggie Breakout", "group": "Setups",
  "verdict": "edge", "chip": "Beat random entries",
- "headline": "The one setup that beat random entries",
- "lead": "Of every setup on this site we could code, this is the only one that clearly did better than random entries with the "
+ "headline": "One of two setups that beat random entries",
+ "lead": "Of every setup on this site we could code, this is one of two (with Day Three Breakout) that clearly did better than random entries with the "
          "same exits. It still loses on most trades: the profit comes from a few big trend trades.",
  "stats": [["158", "trades, daily + 5-minute ORH"], ["35%", "win rate"], ["+0.63R", "average per trade", "pos"],
            ["&minus;0.21R", "random entries, same exits", "neg"]],
@@ -104,6 +104,31 @@ PAGES = [
            "within a few days, and only 20 of 229 reached target 2."],
  "how": ("Every US common stock over $10 trading at least $20M a day, delisted ones included, Nov 2021 to Nov 2026. Rules "
          "coded line for line from this page's indicator, 5 bp a side."),
+},
+{
+ "path": "setups/day-three-breakout.html", "name": "Day Three Breakout", "group": "Setups",
+ "verdict": "edge", "chip": "Beat random entries",
+ "headline": "Positive, and better than random entries on the same days",
+ "lead": "Run on every US stock that had a day one and a quiet inside day two over five years, the indicator's rules made money "
+         "in both halves of the test and in every full year. Random entries in the first 30 minutes of the same days made far less.",
+ "stats": [["445", "trades, whole US market, 5-minute"], ["40%", "win rate"], ["+0.50R", "average per trade", "pos"],
+           ["+0.10R", "random entries, same days (extremes trimmed)"]],
+ "table": {"head": ["Version", "Trades", "Avg R"],
+           "rows": [["Indicator rules (stop under the breakout bar)", "445", "+0.50R"],
+                    ["Before June 2024 / after", "193 / 252", "+0.43R / +0.56R"],
+                    ["Low-of-day stop instead", "445", "+0.44R"],
+                    ["Stocks over $10", "240", "+0.56R"],
+                    ["Random entry in the first 30 minutes, same days (1% extremes trimmed; untrimmed &minus;0.63R)", "4,450", "+0.10R"],
+                    ["Thin names (day one under $10M traded)", "324", "Gapped through stops"]]},
+ "notes": ["Positive every full year from 2022 to 2026 (+0.38R to +0.76R). Per trade it made about 1.1% of the entry price on average.",
+           "Most trades lose: the median is a 0.44R loss and 157 of 445 were stopped out. The profit comes from the runners; "
+           "the 10 best trades made 100R of the 225R total.",
+           "287 of the 733 day threes broke the day-two high after 10:00 and were skipped, as the rules say.",
+           "Thinly traded names don't work with a stop a few cents under a 5-minute bar: their bars gap straight through it. "
+           "The test only counts stocks that traded $10M or more on day one."],
+ "how": ("Every US common stock over $1 with a day one up 20% on 3&times; volume and an inside day two, delisted ones included, "
+         "Nov 2021 to Nov 2026, 5-minute bars on day three. Rules coded line for line from this page's indicator, 5 bp a side. "
+         "The catalyst check can't be coded, so this tests the price and volume pattern only."),
 },
 {
  "path": "setups/zero-lag-pullback.html", "name": "Zero Lag Pullback", "group": "Setups",
