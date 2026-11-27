@@ -201,6 +201,30 @@
     .panel,.filter,.rule,.stage,table { break-inside:avoid; }
     @page { size:A3 landscape; margin:12mm; }
   }
+  .ind-sec { margin-top:56px; scroll-margin-top:110px; }
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .code-wrap { background:var(--panel); border:1px solid var(--line); border-radius:12px; margin-top:16px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--faint); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#1b2a3e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#26394f; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d9e3; tab-size:4; }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-sec { margin-top:44px; } }
 </style>
 <!-- site shell (Apple style) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -208,7 +232,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=28">
 <link rel="stylesheet" href="/css/tested.css?v=3">
-<script src="/js/nav.js?v=38" defer></script>
+<script src="/js/nav.js?v=39" defer></script>
 <script src="/js/site.js?v=78" defer></script>
 <script src="/js/anim-kit.js?v=2" defer></script>
 <script src="/js/atr-anim.js?v=2" defer></script>
@@ -683,6 +707,233 @@
   </section>
   <!--tested:end-->
 
+  <section class="ind-sec" id="indicator" aria-label="TradingView indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for both playbooks (Pine Script v6), with the same rules as the example chart above. It draws the band, marks each long with its target and stop, marks each rejection wick and the one-candle short after it, and sizes the long from your risk. It marks and alerts. It does not place trades.</p>
+    <ul class="ind-list">
+      <li class="ind-card">
+        <div class="ind-card-top">
+          <h3 class="ind-name">ATR Hybrid Scalp</h3>
+          <span class="ind-alerts">alerts</span>
+        </div>
+        <p class="ind-blurb">Longs: the blue step line is the previous close minus 3.1 &times; the previous candle&#x27;s ATR(14). A candle whose low reaches it is a buy at the band, with a target 2 ATR above and a stop 1.5 ATR below, rounded to the tick. The opening candle is never traded. The label shows the contracts (or shares) that fit your risk per trade.
+        Shorts: a candle with an upper wick at least 2&times; its body and a lower wick no more than a tenth of the upper wick is marked, and the next candle is the short: in at its open, out at its close, with the points it made.</p>
+        <p class="ind-blurb" style="color:var(--dim)">The 3.1 band, the 2 and 1.5 ATR exits, the opening-candle rule and the one-candle short are the trader&#x27;s. The exact wick numbers and the prior-day-red filter are the video presenter&#x27;s test version (the filter can be switched off). Skipping the opening candle for shorts too and one trade at a time are ours. Use a regular-hours chart so ATR comes from regular-session candles.</p>
+        <div class="ind-links">
+          <a class="ind-link ind-link--quiet" href="/pine/atr-band-hybrid.pine" download>Download source (.pine)</a>
+        </div>
+      </li>
+    </ul>
+    <div class="code-wrap">
+      <div class="code-top">
+        <span>atr-band-hybrid.pine &middot; Pine Script v6</span>
+        <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/atr-band-hybrid.pine" download>Download</a></div>
+      </div>
+      <pre class="pine" tabindex="0"><code>//@version=6
+// =====================================================================
+// ATR Hybrid Scalp — thetrademethod.com
+//
+// Two playbooks on one chart, from a prop-firm trader's MNQ account as
+// rebuilt in an IQCapital video. Made for a 5-minute chart (MNQ or any
+// US futures; it works on stocks and ETFs too).
+//
+//   LONGS (the trader's model)
+//   1. Band      For every candle: the PREVIOUS close minus 3.1 x the
+//                previous candle's ATR(14). Fixed before the candle opens.
+//   2. Entry     A limit buy at the band. Any candle whose low reaches it
+//                is a buy (at the band, or at the open if it opens below).
+//                No other filter.
+//   3. Exits     Target = entry + 2 x that same ATR, stop = entry - 1.5 x
+//                it, rounded to the tick and fixed at entry. Stop first,
+//                gaps fill at the open. On the entry candle only the stop,
+//                plus the target if the candle CLOSES at or past it.
+//   4. Never trade the opening candle (the trader's "extremely
+//                important" rule).
+//
+//   SHORTS (a different trigger, not the band)
+//   5. Wick      A candle (green or red) with an upper wick at least 2x its
+//                body and a lower wick no more than 1/10 of the upper wick.
+//                The trader judges the wick by eye; these numbers are the
+//                video presenter's test version.
+//   6. Trade     Short the next candle's open, cover at that candle's
+//                close. No target, no stop.
+//   7. Filter    Prior regular session closed red (its last close under its
+//                first open). The presenter's test, on only about 60
+//                trades, so it can be switched off.
+//
+// Use a chart with regular trading hours only (on futures, set the chart's
+// session to regular), so ATR and the band come from regular-session
+// candles like the page's chart. On a 24-hour chart the overnight candles
+// feed ATR too, though trades are still only marked inside the session.
+//
+// Ours: skipping the opening candle for shorts too, the 9:30-16:00 New
+// York session used for "opening candle" and "prior day", and one trade
+// at a time. Same rules as the page's example chart (js/atr-live.js).
+// Signals use closed candles only. Draws and alerts; it places no orders.
+// =====================================================================
+indicator("ATR Hybrid Scalp", shorttitle = "ATR Hybrid", overlay = true, max_labels_count = 500, max_lines_count = 500)
+
+// ---------------- inputs ----------------
+atrLen    = input.int(14, "ATR length", minval = 1, group = "Longs")
+kMult     = input.float(3.1, "Band = previous close − ATR ×", minval = 0.1, step = 0.1, group = "Longs")
+tgtMult   = input.float(2.0, "Target (× ATR)", minval = 0.1, step = 0.1, group = "Longs")
+stpMult   = input.float(1.5, "Stop (× ATR)", minval = 0.1, step = 0.1, group = "Longs")
+doLongs   = input.bool(true, "Mark longs", group = "Longs")
+doShorts  = input.bool(true, "Mark shorts", group = "Shorts")
+wickX     = input.float(2.0, "Upper wick ≥ body ×", minval = 0.1, step = 0.1, group = "Shorts")
+lowFrac   = input.float(0.1, "Lower wick ≤ upper wick ×", minval = 0.0, step = 0.05, group = "Shorts")
+needRed   = input.bool(true, "Only after a red prior day (presenter's test)", group = "Shorts")
+skipOpenS = input.bool(true, "Skip the opening candle for shorts too (ours)", group = "Shorts")
+sess      = input.session("0930-1600", "Regular session (New York)", group = "Session")
+riskUsd   = input.float(500.0, "Risk per trade ($) for contract size", minval = 0.0, group = "Display")
+showBand  = input.bool(true, "Draw the band", group = "Display")
+showPanel = input.bool(true, "Show status panel", group = "Display")
+
+// ---------------- series ----------------
+tz     = "America/New_York"
+atr    = ta.atr(atrLen)                      // Wilder (RMA), like the page
+tick   = syminfo.mintick
+band   = na(atr[1]) ? na : math.floor((close[1] - kMult * atr[1]) / tick + 1e-7) * tick
+inSess = not na(time(timeframe.period, sess, tz))
+newDay = dayofmonth(time, tz) != dayofmonth(time[1], tz)
+openBar = inSess and (not inSess[1] or newDay)
+nextT  = time + timeframe.in_seconds() * 1000
+endMs  = timestamp(tz, year(time, tz), month(time, tz), dayofmonth(time, tz), 16, 0)
+lastBar = inSess and nextT &gt;= endMs
+rnd(x) =&gt; math.round(x / tick) * tick
+
+plot(showBand ? band : na, "Band (prev close − 3.1 ATR)", color = color.new(#2997ff, 0), linewidth = 2, style = plot.style_stepline)
+
+// ---------------- prior regular session: red or green ----------------
+var float sO = na
+var float sC = na
+var float pO = na
+var float pC = na
+var bool  pFull = false
+var bool  sFull = false
+if openBar
+    pO := sO, pC := sC, pFull := sFull
+    sO := open, sFull := false
+if inSess
+    sC := close
+    sFull := true                     // the session traded (half days count too)
+priorRed = pFull and not na(pO) and pC &lt; pO
+priorTxt = not pFull or na(pO) ? "unknown" : pC &lt; pO ? "red" : pC &gt; pO ? "green" : "flat"
+
+// ---------------- state ----------------
+var int   lPos  = 0
+var int   lBar  = na
+var float lE    = na
+var float lT    = na
+var float lS    = na
+var line  eLn   = na
+var line  tLn   = na
+var line  sLn   = na
+var bool  sNext = false            // a short is on for the candle after the signal
+bool evBuy = false, evTgt = false, evStop = false, evWick = false, evShortOut = false
+string skipWhy = ""
+
+body  = math.abs(close - open)
+upW   = high - math.max(open, close)
+loW   = math.min(open, close) - low
+isWick = high &gt; low and upW &gt;= wickX * body and loW &lt;= lowFrac * upW
+touch = not na(band) and low &lt;= band
+
+// ---------------- 1. a short from the last candle: in at this open, out at this close ----------------
+busy = false
+if barstate.isconfirmed and sNext
+    sNext := false
+    busy := true
+    evShortOut := true
+    pts = open - close
+    label.new(bar_index, high, "Short " + str.tostring(open, format.mintick) + " → " + str.tostring(close, format.mintick) + "\n" + (pts &gt;= 0 ? "+" : "") + str.tostring(pts, format.mintick) + " pts",
+         style = label.style_label_down, color = color.new(pts &gt;= 0 ? #30d158 : #ff453a, 15), textcolor = color.white, size = size.small)
+
+// ---------------- 2. the open long ----------------
+if barstate.isconfirmed and lPos == 1 and not busy
+    float x = na
+    string why = ""
+    if bar_index &gt; lBar and open &lt;= lS
+        x := open, why := "stop"
+    else if low &lt;= lS
+        x := lS, why := "stop"
+    else if bar_index &gt; lBar and open &gt;= lT
+        x := open, why := "target"
+    else if bar_index &gt; lBar and high &gt;= lT
+        x := lT, why := "target"
+    if why != ""
+        r = (x - lE) / (lE - lS)
+        evTgt := why == "target"
+        evStop := why == "stop"
+        label.new(bar_index, why == "target" ? high : low, (why == "target" ? "Target " : "Stop ") + str.tostring(x, format.mintick) + "\n" + (r &gt;= 0 ? "+" : "") + str.tostring(r, "0.00") + "R",
+             style = why == "target" ? label.style_label_down : label.style_label_up, color = color.new(why == "target" ? #30d158 : #ff453a, 15), textcolor = color.white, size = size.small)
+        line.set_x2(eLn, bar_index), line.set_x2(tLn, bar_index), line.set_x2(sLn, bar_index)
+        lPos := 0
+    else
+        line.set_x2(eLn, bar_index + 1), line.set_x2(tLn, bar_index + 1), line.set_x2(sLn, bar_index + 1)
+    busy := true                       // in a trade, or out on this very candle: no new entries on it
+
+// ---------------- 3. new entries (flat, closed candle) ----------------
+if barstate.isconfirmed and not busy
+    tookLong = false
+    if doLongs and touch and inSess
+        if openBar
+            skipWhy := "open"
+            label.new(bar_index, low, "open · skip", style = label.style_label_up, color = color.new(#636366, 30), textcolor = color.white, size = size.tiny)
+        else
+            A = atr[1]
+            lE := math.min(open, band)
+            lT := rnd(lE + tgtMult * A)
+            lS := rnd(lE - stpMult * A)
+            lBar := bar_index, lPos := 1, tookLong := true
+            evBuy := true
+            risk = lE - lS
+            n = risk &gt; 0 and syminfo.pointvalue &gt; 0 ? math.floor(riskUsd / (risk * syminfo.pointvalue)) : 0
+            label.new(bar_index, low, "Buy " + str.tostring(lE, format.mintick) + "\ntarget " + str.tostring(lT, format.mintick) + " · stop " + str.tostring(lS, format.mintick) + (riskUsd &gt; 0 ? "\n" + str.tostring(n) + (syminfo.type == "futures" ? " contracts" : " sh") : ""),
+                 style = label.style_label_up, color = color.new(#2997ff, 10), textcolor = color.white, size = size.small)
+            eLn := line.new(bar_index, lE, bar_index + 1, lE, color = #2997ff, width = 2)
+            tLn := line.new(bar_index, lT, bar_index + 1, lT, color = #30d158, style = line.style_dashed)
+            sLn := line.new(bar_index, lS, bar_index + 1, lS, color = #ff453a, style = line.style_dashed)
+            // the entry candle: the stop, or the target if it closed at or past it
+            if low &lt;= lS
+                label.new(bar_index, low, "Stop on the entry candle\n-1.00R", style = label.style_label_up, color = color.new(#ff453a, 15), textcolor = color.white, size = size.small)
+                evStop := true, lPos := 0
+            else if close &gt;= lT
+                label.new(bar_index, high, "Target on the entry candle", style = label.style_label_down, color = color.new(#30d158, 15), textcolor = color.white, size = size.small)
+                evTgt := true, lPos := 0
+    // the wick test doesn't apply on a long's entry candle
+    if doShorts and not tookLong and isWick and inSess
+        if openBar and skipOpenS
+            skipWhy := "open"
+        else if needRed and not priorRed
+            skipWhy := "prior day " + priorTxt
+        else if lastBar
+            skipWhy := "last candle"
+        else
+            sNext := true
+            evWick := true
+            label.new(bar_index, high, "Wick · short the next open", style = label.style_label_down, color = color.new(#ff9f0a, 10), textcolor = color.white, size = size.small)
+
+plotshape(doShorts and barstate.isconfirmed and isWick and inSess and not evWick and skipWhy != "", "Wick skipped", shape.xcross, location.abovebar, color.new(#8e8e93, 0), size = size.tiny)
+
+// ---------------- status panel ----------------
+var table pnl = table.new(position.top_right, 1, 3, bgcolor = color.new(#1c1c1e, 10))
+if showPanel and barstate.islast
+    st = lPos == 1 ? "Long " + str.tostring(lE, format.mintick) + " · target " + str.tostring(lT, format.mintick) + " · stop " + str.tostring(lS, format.mintick) :
+         sNext ? "Short at the next open, out at its close" : "Flat · limit buy at the next band"
+    nb = close - kMult * atr
+    table.cell(pnl, 0, 0, "ATR Hybrid Scalp", text_color = color.new(#f5f5f7, 0), text_size = size.small, text_halign = text.align_left)
+    table.cell(pnl, 0, 1, st, text_color = color.new(#a1a1a6, 0), text_size = size.small, text_halign = text.align_left)
+    table.cell(pnl, 0, 2, "ATR " + str.tostring(atr, "0.00") + " · next band " + str.tostring(nb, format.mintick) + " · prior day " + priorTxt, text_color = color.new(#a1a1a6, 0), text_size = size.small, text_halign = text.align_left)
+
+// ---------------- alerts ----------------
+alertcondition(evBuy, "Long: band touched", "ATR Hybrid: {{ticker}} touched the band. Long with a 2 ATR target and 1.5 ATR stop.")
+alertcondition(evTgt or evStop, "Long: target or stop", "ATR Hybrid: {{ticker}} long hit its target or stop.")
+alertcondition(evWick, "Short: rejection wick", "ATR Hybrid: {{ticker}} rejection wick. Short the next open, cover at its close.")
+</code></pre>
+    </div>
+  </section>
+
   <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
   <div class="faq">
     <div class="qa"><h3>Why is the band anchored to the previous close?</h3><p>A band that moves with live price can never be caught. Measuring from the last closed candle makes it a fixed level for the next 5 minutes.</p></div>
@@ -714,6 +965,20 @@
   <p class="src">Model built around an ATR-band long strategy and a separate upper-wick-rejection short strategy on Micro Nasdaq futures (MNQ), as reverse-engineered in a trading-education video from the account of a prop-firm trader referred to there by a pseudonym. The trader's account showed 703 trades, a 1.25 profit factor and four payouts in two months. The video's presenter rebuilt and tested his rules: the longs came out at a 1.53 profit factor, just over half winners, and the shorts at 1.41 with 52% winners. The trader uses discretion and doesn't follow the exits mechanically. The exact short-wick numbers are the presenter's; the opening-candle skip on shorts and the example chart are ours. The reconstructed trade example is drawn from that video and is not independently verified. <a href="https://www.youtube.com/watch?v=snaP5117MxI" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
 </div>
 <footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
+
+<script>
+  /* copy the Pine code */
+  (function () {
+    var b = document.querySelector("[data-copy]"), code = document.querySelector("pre.pine code");
+    if (!b || !code) return;
+    b.addEventListener("click", function () {
+      var t = code.textContent;
+      function done(ok) { b.textContent = ok ? "Copied" : "Select and copy"; setTimeout(function () { b.textContent = "Copy code"; }, 1800); }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { done(true); }, function () { done(false); });
+      else done(false);
+    });
+  })();
+</script>
 
 </body>
 </html>
