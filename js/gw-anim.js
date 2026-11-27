@@ -531,10 +531,10 @@
     },
     call: {
       B: makeBars(25348, [25352, 25358, 25356, 25366, 25372, 25370, 25394, 25414, 25436, 25452, 25446, 25440, 25438, 25426, 25418, 25404, 25392, 25381, 25386, 25372, 25362, 25350, 25344, 25334, 25326, 25321, 25324],
-        5, { 9: [25436, 25454, 25434, 25452], 10: [25452, 25457, 25445, 25446], 11: [25446, 25449, 25438, 25440], 17: [25392, 25394, 25378, 25381], 25: [25326, 25328, 25319, 25321] }),
+        5, { 9: [25436, 25454, 25434, 25452], 10: [25452, 25458, 25445, 25446], 11: [25446, 25449, 25438, 25440], 17: [25392, 25394, 25378, 25381], 25: [25326, 25328, 25319, 25321] }),
       pmin: 25300, pmax: 25475,
       levels: [[25450, "call wall 25,450", C.up, null], [25320, "zero gamma 25,320", C2.indigo, "8 5"]],
-      entry: [11, 25447, false], stop: 25459, marks: [[4, 25386, "fast: big candles", C.gold, -40, 8], [10, 25457, "6,000+ bought above, nothing", C.gold, -14], [11, 25441, "trapped", C.dn, 32], [17, 25380, "½ off 25,380", C.gold, 26], [25, 25320, "+127", C.cyan, 28]],
+      entry: [11, 25447, false], stop: 25459, marks: [[4, 25386, "fast: big candles", C.gold, -40, 8], [10, 25458, "6,000+ bought above, nothing", C.gold, -14], [11, 25441, "trapped", C.dn, 32], [17, 25380, "½ off 25,380", C.gold, 26], [25, 25320, "+127", C.cyan, 28]],
       note: "<b>Call wall, fast approach, short.</b> Price rips into 25,450 in big green candles, so you don't catch the ball while it's stretching the net. It overshoots with over 6,000 contracts bought above the wall and no follow-through, then falls back under it: the buyers are trapped, sellers stack the bid, delta flips hard negative. Short 25,447 on the close back under the wall, stop 48 ticks higher at 25,459 above the overshoot high, half off 25,380, the rest into zero gamma at 25,320: +127, about 10R."
     },
     zero: {
