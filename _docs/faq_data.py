@@ -223,7 +223,7 @@ FAQ = {
  "faq": [
   ("What are the call wall, put wall and zero gamma?", "The call wall is the strike with the most positive gamma, where dealers tend to sell rallies. The put wall is the strike with the most negative gamma, where dealers tend to buy dips. Zero gamma is the border: above it dealer hedging absorbs moves, below it the hedging adds fuel and moves stretch."),
   ("Why not just buy or sell at the wall?", "Because the wall tells you where, not when. Price can run straight through it, especially on a fast approach. You wait for the footprint to show someone defending the level, or for a fast move to overshoot and come back (the reclaim)."),
-  ("Where does the stop go?", "Where the wall idea is proven wrong: past the failed low or the overshoot high, often 30 to 50 ticks on NQ. The target is the next level. Entering close to the level is what makes the reward big: in the video's example, entering at the wall was about 8R, chasing it later was under 1R."),
+  ("Where does the stop go?", "Where the wall idea is proven wrong: past the failed low or the overshoot high, often 30 to 50 ticks on NQ. The target is the next level. Entering close to the level is what makes the reward big: in the video's first example, entering at the wall was about 8.5R to the next level; the video shows the same trade chased late at 0.5R."),
   ("When should you not trade the levels?", "On a single big options print without context, when a wall has broken and price accepted beyond it, on OPEX, triple witching and VIX expiration days when the levels move, and right after a loss if the next trade isn't from the plan."),
  ],
 },
