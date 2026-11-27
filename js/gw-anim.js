@@ -153,17 +153,17 @@
 
   /* =====================================================================
      The data: example 1 from the video, put wall 25,150, zero gamma 25,250.
-     Prices of the trade are the video's; the candles and footprint numbers
-     are made up to fit them.
+     Prices of the trade and the footprint deltas are the video's (a synthetic
+     replay in the video too); the candles and row numbers are drawn to fit.
      ===================================================================== */
   var PW = 25150, ZG = 25250, E1 = 25156, S1 = 25145, H1 = 25200, X1 = 25250;
   var CL1 = [25232, 25236, 25228, 25224, 25226, 25218, 25212, 25214, 25204, 25198, 25192, 25194, 25184, 25176, 25170, 25163, 25158,
              25153, 25164, 25170, 25176, 25184, 25192, 25201, 25196, 25205, 25214, 25222, 25228, 25236, 25244, 25251, 25246, 25248];
   var B1 = makeBars(25238, CL1, 9, { 17: [25158, 25160.5, 25146, 25153], 18: [25153, 25166.5, 25151, 25164], 23: [25192, 25204, 25190.5, 25201], 31: [25244, 25253, 25242, 25251] });
-  var WALLBAR = { rows: { 25160: [42, 61], 25158: [118, 96], 25156: [240, 132], 25154: [386, 141], 25152: [512, 118], 25150: [864, 106], 25148: [702, 64], 25146: [391, 22] } };
-  var KNOCK = { rows: { 25166: [38, 210], 25164: [64, 342], 25162: [96, 418], 25160: [120, 466], 25158: [134, 430], 25156: [210, 520], 25154: [188, 240], 25152: [96, 74] } };
-  var PREVBAR = { rows: { 25170: [96, 88], 25168: [164, 120], 25166: [210, 142], 25164: [236, 150], 25162: [198, 101], 25160: [160, 84], 25158: [92, 40] } };
-  var FP_PRICES = range(25166, 25146, 2);
+  var WALLBAR = { rows: { 25160: [210, 262], 25155: [1040, 388], 25150: [2010, 330], 25145: [860, 64] } };
+  var KNOCK = { rows: { 25170: [90, 240], 25165: [160, 1200], 25160: [210, 1500], 25155: [180, 1200], 25150: [310, 270] } };
+  var PREVBAR = { rows: { 25175: [300, 250], 25170: [520, 380], 25165: [810, 420], 25160: [683, 300], 25155: [200, 120] } };
+  var FP_PRICES = range(25170, 25145, 5);
   function times(i) { var m = 9 * 60 + 30 + i * 5; return Math.floor(m / 60) + ":" + ("0" + (m % 60)).slice(-2); }
 
   /* =====================================================================
@@ -177,7 +177,7 @@
       { at: 0,    title: "The map before the open", text: "The GEX map for the day puts the put wall at " + pt(PW) + " and zero gamma at " + pt(ZG) + ". The call wall is far above. Location first: these are the prices this plan cares about." },
       { at: 3.2,  title: "A slow approach", text: "Price grinds lower in small, steady candles. No momentum. A slow approach means you look for the reaction right at the wall, not past it." },
       { at: 7.4,  title: "It tags the wall: absorption", text: "Price tags " + pt(PW) + ". The footprint shows over 3,000 contracts sold into the wall, and price won't go lower. The goalkeeper is catching every shot." },
-      { at: 10.2, title: "The knock", text: "Next bar: stacked buy imbalances, four rows where the buyers are more than three times the sellers, a big buy print at 25,156, and delta flips from −2,515 to +1,754." },
+      { at: 10.2, title: "The knock", text: "Next bar: stacked buy imbalances, three rows where the buyers are more than three times the sellers, a big buy print at 25,156, and delta flips from −3,076 to +3,460." },
       { at: 13.0, title: "Long " + pt(E1) + ", stop " + pt(S1), text: "Long at " + pt(E1) + ". The stop goes 11 points lower at " + pt(S1) + ", under the failed low: if the wall is real, price shouldn't trade there again." },
       { at: 15.4, title: "Half off at " + pt(H1), text: "The first reaction carries price to " + pt(H1) + ". Half comes off there: +44 points on that half. The rest rides." },
       { at: 18.0, title: "The rest to zero gamma: +94", text: "The rest goes to the next level, zero gamma at " + pt(ZG) + ": +94 points from an 11-point stop. Location, approach, confirmation." }
@@ -258,8 +258,8 @@
         s += priceCol(FP_PRICES, pxCol, fy, rh, fo);
         s += hl(fx - 2, fx + cw * 4 + 14, fy + FP_PRICES.indexOf(PW) * rh + rh / 2, C.dn, "4 4", 1.2, fo * 0.6);
         var hiOp = T < 13 ? 1 : 0.45;
-        s += ladder(FP_PRICES, WALLBAR, { x: fx, y0: fy, rowH: rh, cw: cw, reveal: r1, maxv: 700, title: times(17) + " · wall bar", tcol: C.dn, hiBid: T >= 9.0 ? [25150, 25148, 25146] : null, hiOp: hiOp, dHi: T >= 10.4 && T < 13 });
-        if (T >= 10.4) s += ladder(FP_PRICES, KNOCK, { x: fx + cw * 2 + 14, y0: fy, rowH: rh, cw: cw, reveal: r2, maxv: 700, title: times(18) + " · next bar", tcol: C.up, hiAsk: [25164, 25162, 25160, 25158], hiOp: hiOp, dHi: T < 13 });
+        s += ladder(FP_PRICES, WALLBAR, { x: fx, y0: fy, rowH: rh, cw: cw, reveal: r1, maxv: 1600, title: times(17) + " · wall bar", tcol: C.dn, hiBid: T >= 9.0 ? [25155, 25150, 25145] : null, hiOp: hiOp, dHi: T >= 10.4 && T < 13 });
+        if (T >= 10.4) s += ladder(FP_PRICES, KNOCK, { x: fx + cw * 2 + 14, y0: fy, rowH: rh, cw: cw, reveal: r2, maxv: 1600, title: times(18) + " · next bar", tcol: C.up, hiAsk: [25165, 25160, 25155], hiOp: hiOp, dHi: T < 13 });
       }
 
       var sumo = fade(T, 20.0, 0.3);
@@ -269,7 +269,7 @@
       s += callout(cx0, cy0, ["The map · before the open", "Put wall " + pt(PW), "Zero gamma " + pt(ZG), "Call wall far above"], C2.indigo, fade(T, 0.2, 0.3) * (1 - fade(T, 3.2, 0.3)));
       s += callout(cx0, cy0, ["A slow approach", "Small candles", "A steady drift down", "Look for the reaction at the wall"], C.gold, fade(T, 3.4, 0.3) * (1 - fade(T, 7.4, 0.3)));
       s += callout(cx0, cy0, ["It tags the wall", "3,255 sold at the bid", "Price won't go lower", "Absorption"], C.dn, fade(T, 7.6, 0.3) * (1 - fade(T, 10.2, 0.3)));
-      s += callout(cx0, cy0, ["The knock", "4 stacked buy imbalances", "A big buy print at 25,156", "Delta −2,515 → +1,754"], C.up, fade(T, 10.4, 0.3) * (1 - fade(T, 13.0, 0.3)));
+      s += callout(cx0, cy0, ["The knock", "3 stacked buy imbalances", "A big buy print at 25,156", "Delta −3,076 → +3,460"], C.up, fade(T, 10.4, 0.3) * (1 - fade(T, 13.0, 0.3)));
       s += callout(cx0, cy0, ["Long " + pt(E1), "Stop " + pt(S1) + ": 11 points", "Under the failed low", "Target: the next level"], C.up, fade(T, 13.2, 0.3) * (1 - fade(T, 15.4, 0.3)));
       s += callout(cx0, cy0, ["Half off · " + pt(H1), "The first reaction", "+44 on that half", "The rest rides"], C.gold, fade(T, 15.6, 0.3) * (1 - fade(T, 18.0, 0.3)));
       s += callout(cx0, cy0, ["Zero gamma · " + pt(X1), "The next level", "+94 points", "From an 11-point stop"], C.cyan, fade(T, 18.2, 0.3));
@@ -446,8 +446,8 @@
       s += tile(20, 184, "A delta flip", function (ox, oy) {
         var r = "", base = oy + 82;
         r += hl(ox + 14, ox + 160, base, C.gray, null, 1);
-        r += rect(ox + 30, base, 40, 40, C.dn, 0.85, null, 3) + t(ox + 50, base - 6, "−2,515", C.dn, "middle", 700, 11);
-        r += rect(ox + 100, base - 30, 40, 30, C.up, 0.85, null, 3) + t(ox + 120, base - 36, "+1,754", C.up, "middle", 700, 11);
+        r += rect(ox + 30, base, 40, 40, C.dn, 0.85, null, 3) + t(ox + 50, base - 6, "−3,076", C.dn, "middle", 700, 11);
+        r += rect(ox + 100, base - 30, 40, 30, C.up, 0.85, null, 3) + t(ox + 120, base - 36, "+3,460", C.up, "middle", 700, 11);
         r += t(ox + 170, oy + 70, "big minus,", C.dim, "start", null, 12) + t(ox + 170, oy + 88, "then big plus", C.dim, "start", null, 12);
         return r;
       });
@@ -527,15 +527,15 @@
       B: B1, pmin: 25130, pmax: 25262,
       levels: [[PW, "put wall " + pt(PW), C.dn, null], [ZG, "zero gamma " + pt(ZG), C2.indigo, "8 5"]],
       entry: [18, E1, true], stop: S1, marks: [[16, 25168, "slow drift", C.gold, -30], [17, 25146, "absorbed", C.dn, 30], [23, H1, "½ off " + pt(H1), C.gold, -20], [31, X1, "+94", C.cyan, -20]],
-      note: "<b>Put wall, slow approach, long.</b> Small candles drift into the wall, so the reaction comes right at it: over 3,000 contracts sold into " + pt(PW) + " and price won't go lower, then stacked buy imbalances and delta flips positive. Long " + pt(E1) + ", stop " + pt(S1) + " under the failed low, half off " + pt(H1) + ", the rest to zero gamma: +94."
+      note: "<b>Put wall, slow approach, long.</b> Small candles drift into the wall, so the reaction comes right at it: over 3,000 contracts sold into " + pt(PW) + " and price won't go lower, then stacked buy imbalances and delta flips positive. Long " + pt(E1) + ", stop " + pt(S1) + " under the failed low, half off " + pt(H1) + ", the rest to zero gamma: +94, about 8.5R."
     },
     call: {
-      B: makeBars(25348, [25352, 25358, 25356, 25366, 25372, 25370, 25394, 25414, 25436, 25466, 25458, 25444, 25438, 25426, 25418, 25404, 25392, 25381, 25386, 25372, 25362, 25350, 25344, 25334, 25326, 25321, 25324],
-        5, { 9: [25436, 25474, 25434, 25466], 10: [25466, 25476, 25455, 25458], 11: [25458, 25460, 25441, 25444], 17: [25392, 25394, 25378, 25381], 25: [25326, 25328, 25319, 25321] }),
-      pmin: 25300, pmax: 25490,
+      B: makeBars(25348, [25352, 25358, 25356, 25366, 25372, 25370, 25394, 25414, 25436, 25452, 25446, 25440, 25438, 25426, 25418, 25404, 25392, 25381, 25386, 25372, 25362, 25350, 25344, 25334, 25326, 25321, 25324],
+        5, { 9: [25436, 25454, 25434, 25452], 10: [25452, 25457, 25445, 25446], 11: [25446, 25449, 25438, 25440], 17: [25392, 25394, 25378, 25381], 25: [25326, 25328, 25319, 25321] }),
+      pmin: 25300, pmax: 25475,
       levels: [[25450, "call wall 25,450", C.up, null], [25320, "zero gamma 25,320", C2.indigo, "8 5"]],
-      entry: [11, 25447, false], stop: 25478, marks: [[4, 25386, "fast: big candles", C.gold, -40, 8], [10, 25476, "6,000+ bought above, nothing", C.gold, -14], [11, 25441, "trapped", C.dn, 32], [17, 25380, "½ off 25,380", C.gold, 26], [25, 25320, "+127", C.cyan, 28]],
-      note: "<b>Call wall, fast approach, short.</b> Price rips into 25,450 in big green candles, so you don't catch the ball while it's stretching the net. It overshoots with over 6,000 contracts bought above the wall and no follow-through, then falls back under it: the buyers are trapped, sellers stack the bid, delta flips hard negative. Short 25,447, stop above the overshoot high, half off 25,380, the rest into zero gamma: +127. Zero gamma's price is worked out from his +127."
+      entry: [11, 25447, false], stop: 25459, marks: [[4, 25386, "fast: big candles", C.gold, -40, 8], [10, 25457, "6,000+ bought above, nothing", C.gold, -14], [11, 25441, "trapped", C.dn, 32], [17, 25380, "½ off 25,380", C.gold, 26], [25, 25320, "+127", C.cyan, 28]],
+      note: "<b>Call wall, fast approach, short.</b> Price rips into 25,450 in big green candles, so you don't catch the ball while it's stretching the net. It overshoots with over 6,000 contracts bought above the wall and no follow-through, then falls back under it: the buyers are trapped, sellers stack the bid, delta flips hard negative. Short 25,447 on the close back under the wall, stop 48 ticks higher at 25,459 above the overshoot high, half off 25,380, the rest into zero gamma at 25,320: +127, about 10R."
     },
     zero: {
       B: makeBars(25352, [25348, 25344, 25346, 25338, 25334, 25336, 25328, 25322, 25318, 25312, 25308, 25304, 25292, 25296, 25288, 25274, 25279, 25262, 25248, 25254, 25236, 25222, 25228, 25208, 25194, 25186, 25182, 25188],
@@ -613,17 +613,17 @@
     var root = document.querySelector("[data-gw-read]");
     if (!root) return;
     var svg = root.querySelector("svg"), btns = root.querySelectorAll("[data-case]"), note = root.querySelector(".gw-note"), again = root.querySelector("[data-play]");
-    var OVER = { rows: { 25476: [210, 640], 25472: [380, 1120], 25468: [520, 1480], 25464: [610, 1290], 25460: [540, 980], 25456: [320, 610], 25452: [180, 290] } };
-    var BACK = { rows: { 25464: [360, 120], 25460: [820, 210], 25456: [1040, 260], 25452: [1180, 240], 25448: [960, 180], 25444: [610, 150], 25440: [220, 90] } };
+    var OVER = { rows: { 25455: [590, 3200], 25450: [760, 3000], 25445: [520, 1200], 25440: [210, 240] } };
+    var BACK = { rows: { 25455: [420, 310], 25450: [2700, 390], 25445: [2200, 510], 25440: [1300, 420], 25435: [640, 600] } };
     var CASES = {
-      absorb: { prices: range(25170, 25146, 2), bars: [[PREVBAR, "the bar before"], [WALLBAR, "the wall bar"]], wall: [PW, "put wall", C.dn], hiBid: [[], [25150, 25148, 25146]], maxv: 700,
-        verdict: "<b>Absorption.</b> In the bar before, selling moved price down. At the wall the sellers hit even harder (3,255 contracts at the bid, most of them at 25,146 to 25,150) and price won't go lower. A goalkeeper catching every shot: someone is soaking up the selling." },
-      stack: { prices: range(25166, 25146, 2), bars: [[WALLBAR, "the wall bar"], [KNOCK, "the next bar"]], wall: [PW, "put wall", C.dn], hiAsk: [[], [25164, 25162, 25160, 25158]], maxv: 700,
-        verdict: "<b>Stacked imbalances.</b> Four rows in a row where the buyers at the ask are more than three times the sellers at the bid. Three or more stacked means someone just took control. Here it's the buyers, right off the put wall." },
-      flip: { prices: range(25166, 25146, 2), bars: [[WALLBAR, "the wall bar"], [KNOCK, "the next bar"]], wall: [PW, "put wall", C.dn], dHi: true, maxv: 700,
-        verdict: "<b>A delta flip.</b> Delta is buys at the ask minus sells at the bid. Big negative (−2,515) on the bar that tags the wall, then big positive (+1,754) on the next one, right at the level. The pressure changed hands." },
-      trap: { prices: range(25476, 25440, 4), bars: [[OVER, "the overshoot bar"], [BACK, "back under the wall"]], wall: [25450, "call wall", C.up], hiAsk: [[25472, 25468, 25464, 25460], []], hiBid: [[], [25456, 25452, 25448]], maxv: 1100,
-        verdict: "<b>Trapped traders.</b> A fast move through the call wall: over 6,000 contracts bought above 25,450 and no follow-through. When price falls back under the wall, every one of those buyers is underwater. They rushed through the door just before it slammed shut. Their exits are fuel for the short." }
+      absorb: { prices: range(25175, 25145, 5), bars: [[PREVBAR, "the bar before"], [WALLBAR, "the wall bar"]], wall: [PW, "put wall", C.dn], hiBid: [[], [25155, 25150, 25145]], maxv: 1600,
+        verdict: "<b>Absorption.</b> In the bar before, selling moved price down. At the wall the sellers hit even harder (4,120 contracts at the bid, 3,910 of them in the bottom three rows, delta −3,076) and price won't go lower. A goalkeeper catching every shot: someone is soaking up the selling." },
+      stack: { prices: range(25170, 25145, 5), bars: [[WALLBAR, "the wall bar"], [KNOCK, "the next bar"]], wall: [PW, "put wall", C.dn], hiAsk: [[], [25165, 25160, 25155]], maxv: 1600,
+        verdict: "<b>Stacked imbalances.</b> Three rows in a row where the buyers at the ask are more than three times the sellers at the bid. Three or more stacked means someone just took control. Here it's the buyers, right off the put wall." },
+      flip: { prices: range(25170, 25145, 5), bars: [[WALLBAR, "the wall bar"], [KNOCK, "the next bar"]], wall: [PW, "put wall", C.dn], dHi: true, maxv: 1600,
+        verdict: "<b>A delta flip.</b> Delta is buys at the ask minus sells at the bid. Big negative (−3,076) on the bar that tags the wall, then big positive (+3,460) on the next one, right at the level. The pressure changed hands." },
+      trap: { prices: range(25460, 25435, 5), bars: [[OVER, "the overshoot bar"], [BACK, "back under the wall"]], wall: [25450, "call wall", C.up], hiAsk: [[25455, 25450, 25445], []], hiBid: [[], [25450, 25445, 25440]], maxv: 2400,
+        verdict: "<b>Trapped traders.</b> A fast move through the call wall: over 6,000 contracts bought at and above 25,450 (delta +5,560) and no follow-through. When price falls back under the wall, every one of those buyers is underwater. They rushed through the door just before it slammed shut. Their exits are fuel for the short: the next bar's delta is −5,030." }
     };
     function sumRows(b) { var a = 0, d = 0; Object.keys(b.rows).forEach(function (k) { a += b.rows[k][1]; d += b.rows[k][0]; }); return [d, a]; }
     var which = "absorb", T = 99, playing = false, raf = 0, last = 0, DUR = 3.2;
@@ -652,9 +652,9 @@
         var tx = xEnd + 6, ty = wy + 40;
         var sums = cs.bars.map(function (b) { return sumRows(b[0]); });
         var lines = which === "absorb" ? ["Sold at the bid: " + n0(sums[1][0]), "Price at the wall: holds"] :
-                    which === "stack" ? ["4 rows, buyers ≥ 3×", "Someone took control"] :
+                    which === "stack" ? ["3 rows, buyers ≥ 3×", "Someone took control"] :
                     which === "flip" ? ["Δ " + sgn(sums[0][1] - sums[0][0]) + " → " + sgn(sums[1][1] - sums[1][0]), "At the level"] :
-                    ["Bought above: " + n0(sums[0][1]), "Now under the wall"];
+                    ["Bought at 25,450+: " + n0(cs.bars[0][0].rows[25455][1] + cs.bars[0][0].rows[25450][1]), "Now under the wall"];
         s += callout(Math.min(tx, W - 230), Math.min(ty, H - 70), lines, which === "absorb" ? C.dn : which === "trap" ? C.gold : C.up, 1);
       }
       svg.innerHTML = s; FS = 1;
@@ -745,8 +745,8 @@
     var out = root.querySelector(".gw-cout"), calc = root.querySelector(".gw-ccalc"), pres = root.querySelectorAll("[data-pre]");
     var PRE = {
       close: { side: "long", entry: 25156, stop: 25145, tp1: 25200, tp2: 25250 },
-      chase: { side: "long", entry: 25200, stop: 25145, tp1: 25225, tp2: 25250 },
-      "short": { side: "short", entry: 25447, stop: 25478, tp1: 25380, tp2: 25320 }
+      chase: { side: "long", entry: 25214, stop: 25145, tp1: 25230, tp2: 25250 },
+      "short": { side: "short", entry: 25447, stop: 25459, tp1: 25380, tp2: 25320 }
     };
     function el(n) { return root.querySelector('[name="' + n + '"]'); }
     function v(n) { return parseFloat(el(n).value); }

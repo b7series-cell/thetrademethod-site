@@ -258,7 +258,7 @@
 <link rel="stylesheet" href="/css/apple.css?v=28">
 <script src="/js/nav.js?v=36" defer></script>
 <script src="/js/site.js?v=77" defer></script>
-<script src="/js/gw-anim.js?v=1" defer></script>
+<script src="/js/gw-anim.js?v=2" defer></script>
 <style>
   /* steps across the page, the two panels side by side under them (same as heatmap-scalp.html) */
   .gw-main { grid-template-columns:1fr; gap:22px; }
@@ -267,6 +267,21 @@
   .gw-side { display:grid; grid-template-columns:1fr 1.4fr; gap:16px; align-items:stretch; }
   .gw-side .panel + .panel { margin-top:0; }
   .gw-side .timing { grid-template-columns:1fr 1fr; }
+  .gw-rules { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .gw-rules .panel { margin:0; display:flex; flex-direction:column; }
+  .gw-rules h3 { margin:0 0 2px; font-size:19px; }
+  .gw-rules .sub { margin:0 0 14px; color:var(--dim); font-size:13.5px; }
+  .gw-rules dl { margin:0; display:grid; gap:10px; }
+  .gw-rules dl div { background:var(--panel2); border:1px solid var(--line); border-left:3px solid var(--line); border-radius:9px; padding:11px 13px; }
+  .gw-rules dt { font-family:var(--mono); font-size:11.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; margin-bottom:4px; }
+  .gw-rules dd { margin:0; font-size:14.2px; line-height:1.5; }
+  .gw-rules dd small { display:block; margin-top:5px; color:var(--dim); font-size:13px; }
+  .gw-rules .r-when { border-left-color:#7d7aff; } .gw-rules .r-when dt { color:#7d7aff; }
+  .gw-rules .r-in { border-left-color:var(--up); } .gw-rules .r-in dt { color:var(--up); }
+  .gw-rules .r-stop { border-left-color:var(--down); } .gw-rules .r-stop dt { color:var(--down); }
+  .gw-rules .r-out { border-left-color:var(--gold); } .gw-rules .r-out dt { color:var(--gold); }
+  .gw-rules .r-skip dt { color:var(--dim); }
+  @media (max-width:1100px) { .gw-rules { grid-template-columns:1fr; } }
   @media (max-width:1100px) { .gw-stages { grid-template-columns:1fr 1fr; } .gw-side { grid-template-columns:1fr; } }
   @media (max-width:680px) { .gw-stages { grid-template-columns:1fr; } }
   /* the stepper (js/gw-anim.js builds it from the six steps) */
@@ -486,7 +501,7 @@
    "name": "Where does the stop go?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Where the wall idea is proven wrong: past the failed low or the overshoot high, often 30 to 50 ticks on NQ. The target is the next level. Entering close to the level is what makes the reward big: in the video's example, entering at the wall was about 8R, chasing it later was under 1R."
+    "text": "Where the wall idea is proven wrong: past the failed low or the overshoot high, often 30 to 50 ticks on NQ. The target is the next level. Entering close to the level is what makes the reward big: in the video's first example, entering at the wall was about 8.5R to the next level; the video shows the same trade chased late at 0.5R."
    }
   },
   {
@@ -548,7 +563,7 @@
       <div class="counts">
         <div><b>3</b><small>setups: a long, a short, a regime break</small></div>
         <div><b>4</b><small>footprint signs that say when</small></div>
-        <div><b>8R</b><small>entered close; chased, it's under 1R</small></div>
+        <div><b>8.5R</b><small>entered at the wall; chased late, it's 0.5R</small></div>
       </div>
     </div>
   </header>
@@ -649,7 +664,7 @@
           <ul>
             <li>Ask: if this wall is supposed to hold, where would price have to go to prove me wrong? On NQ that's often 30 to 50 ticks.</li>
             <li>The target is the next level. Small stop, big target, but only if you enter near the level.</li>
-            <li>Same wall, same target: enter close and it's 8R. Chase it late and it's not even 1R.</li>
+            <li>Same wall, same target: enter close and it's 8.5R. Chase it late and it's 0.5R.</li>
           </ul>
           <p class="why">The level gives you a short distance to being wrong. Enter far from it and you've thrown that away.</p>
         </div>
@@ -695,7 +710,7 @@
 
   <div class="section-head">
     <h2>The three setups</h2>
-    <p>Different direction, same recipe: location, approach, confirmation. Pick one to play it. The first two are the video's replays on 5-minute NQ; the third is drawn with made-up prices.</p>
+    <p>Different direction, same recipe: location, approach, confirmation. Pick one to play it. The first two follow the video's two examples on 5-minute NQ (the video labels them synthetic replays); the third is drawn with made-up prices.</p>
   </div>
   <div class="panel gw-plays" data-gw-plays>
     <div class="pre" role="group" aria-label="Pick a setup">
@@ -706,6 +721,46 @@
     <svg viewBox="0 0 1180 420" role="img" aria-label="An illustrative 5-minute chart that plays the picked setup."></svg>
     <p class="gw-note" aria-live="polite"></p>
     <button type="button" class="reset" data-play>Play again</button>
+  </div>
+
+  <div class="section-head" id="rules">
+    <h2>The rules: entry, stop and exit</h2>
+    <p>Each setup from start to finish. The put wall and call wall prices are the video's two examples. The video gives no chart for the third play, so its prices come from our drawing.</p>
+  </div>
+  <div class="gw-rules">
+    <div class="panel">
+      <h3>Put wall &middot; long</h3>
+      <p class="sub">Slow approach, react at the level</p>
+      <dl>
+        <div class="r-when"><dt>Setup</dt><dd>Price drifts down into the put wall in small, steady candles. No momentum.</dd></div>
+        <div class="r-in"><dt>Entry</dt><dd>Wait for the bar that tags the wall to show absorption: heavy selling at the bid and no new low. Go long on the next bar once it prints stacked buy imbalances (3 or more rows, buyers 3&times; sellers) and delta flips positive. Enter within a few points of the wall.<small>Video: wall 25,150, delta &minus;3,076 then +3,460, long 25,156.</small></dd></div>
+        <div class="r-stop"><dt>Stop</dt><dd>Under the failed low, where the wall is proven wrong. Usually 30 to 50 ticks on NQ.<small>Video: about 44 ticks (11 points), 25,145.</small></dd></div>
+        <div class="r-out"><dt>Exit</dt><dd>Half off at the first reaction. The rest at the next level up, zero gamma.<small>Video: half at 25,200 (+44), the rest at 25,250 (+94, about 8.5R).</small></dd></div>
+        <div class="r-skip"><dt>No trade if</dt><dd>Price slices through the wall with no absorption, or it has already bounced far enough that the stop is bigger than the room left to the target.</dd></div>
+      </dl>
+    </div>
+    <div class="panel">
+      <h3>Call wall &middot; short</h3>
+      <p class="sub">Fast approach, wait for the overshoot</p>
+      <dl>
+        <div class="r-when"><dt>Setup</dt><dd>Price rips up into the call wall in big, fast candles. Don't short the first touch: let it overshoot.</dd></div>
+        <div class="r-in"><dt>Entry</dt><dd>Short when price gets back below the wall and the footprint shows the buyers trapped: heavy buying above the wall that went nowhere, then sellers stacking the bid and delta flipping hard negative.<small>Video: wall 25,450, 6,000+ bought above it (delta +5,560), then &minus;1,340 and &minus;5,030. Short 25,447.</small></dd></div>
+        <div class="r-stop"><dt>Stop</dt><dd>Above the overshoot high.<small>Video: +48 ticks (12 points), 25,459.</small></dd></div>
+        <div class="r-out"><dt>Exit</dt><dd>Half off at the first reaction. The rest at the next level down, zero gamma.<small>Video: half at 25,380 (+67), the rest at 25,320 (+127, about 10R).</small></dd></div>
+        <div class="r-skip"><dt>No trade if</dt><dd>Price holds above the wall and accepts there. That's a broken dam: don't stand in front of it, reassess.</dd></div>
+      </dl>
+    </div>
+    <div class="panel">
+      <h3>Zero gamma &middot; short</h3>
+      <p class="sub">The regime breaks, go with it</p>
+      <dl>
+        <div class="r-when"><dt>Setup</dt><dd>Price drifts toward zero gamma. The GEX is shrinking and gamma is building at lower strikes.</dd></div>
+        <div class="r-in"><dt>Entry</dt><dd>Short only after price breaks below zero gamma and holds there, with the ranges getting bigger. Go with the momentum; don't fade anything.<small>Our drawing: zero gamma 25,300, short 25,288 after a retest holds under it.</small></dd></div>
+        <div class="r-stop"><dt>Stop</dt><dd>Back above zero gamma, wider than the wall trades. You're wrong if price reclaims zero gamma and holds above it on the retest.<small>Our drawing: 25,318 (30 points).</small></dd></div>
+        <div class="r-out"><dt>Exit</dt><dd>The put wall below is the target.<small>Our drawing: 25,180 (+108).</small></dd></div>
+        <div class="r-skip"><dt>No trade if</dt><dd>Price only pokes under zero gamma and snaps back. No hold, no rapids.</dd></div>
+      </dl>
+    </div>
   </div>
 
   <div class="section-head">
@@ -756,7 +811,7 @@
     <div class="panel" data-gw-calc>
       <div class="pre" role="group" aria-label="Presets">
         <button type="button" data-pre="close" aria-pressed="true">Enter close: 25,156</button>
-        <button type="button" data-pre="chase" aria-pressed="false">Chase it: 25,200</button>
+        <button type="button" data-pre="chase" aria-pressed="false">Chase it: 25,214</button>
         <button type="button" data-pre="short" aria-pressed="false">The call wall short</button>
       </div>
       <div class="calc-in">
@@ -787,7 +842,7 @@
 
   <div class="section-head">
     <h2>The trades in the video</h2>
-    <p>Two replays on the 5-minute NQ chart, plus the third play he describes without a chart. Prices are as he read them out.</p>
+    <p>Two examples on the 5-minute NQ chart, plus the third play he describes without a chart. The video labels the two examples &ldquo;synthetic replay, educational&rdquo;: teaching charts, not trades from his account. Prices are as shown in the video.</p>
   </div>
   <div class="tscroll">
     <table class="vcase">
@@ -795,12 +850,12 @@
       <tbody>
         <tr><th>Example 1 &middot; long<br><small>the put wall</small></th>
           <td class="txt">Put wall 25,150, zero gamma 25,250. Price grinds lower in small, steady candles: a slow approach, so watch for the reaction right at the wall.</td>
-          <td class="txt">Over 3,000 contracts sold into the wall and price won't go lower: absorption. Next bar: stacked buy imbalances, a big buy print, delta flips positive.</td>
-          <td class="txt">Long 25,156, stop 11 points lower under the failed low. Half off at 25,200, the rest to zero gamma: +94 points.</td></tr>
+          <td class="txt">Over 3,000 contracts sold into the wall and price won't go lower: absorption. The bar before the wall had delta &minus;1,043; the wall bar &minus;3,076. Next bar: three stacked buy imbalances, a big buy print, delta +3,460.</td>
+          <td class="txt">Long 25,156, stop about 44 ticks (11 points) lower at 25,145, under the failed low. Half off at 25,200, the rest to zero gamma 25,250: +94 points, about 8.5R.</td></tr>
         <tr><th>Example 2 &middot; short<br><small>the call wall</small></th>
           <td class="txt">Call wall 25,450. This time price rips in big green candles: a fast approach, so don't catch the ball while it's stretching the net.</td>
-          <td class="txt">It overshoots the wall with over 6,000 contracts bought above it and no follow-through. Back under the wall the buyers are trapped; sellers stack the bid and delta flips hard negative.</td>
-          <td class="txt">Short 25,447, stop above the overshoot high. Half off at 25,380, the rest into zero gamma: +127 points.</td></tr>
+          <td class="txt">It overshoots the wall with over 6,000 contracts bought above it and no follow-through. Delta runs +1,243, +1,635, then +5,560 on the overshoot. Back under the wall the buyers are trapped; sellers stack the bid and delta flips to &minus;1,340, then &minus;5,030.</td>
+          <td class="txt">Short 25,447 once price is back below the wall, stop +48 ticks (12 points) at 25,459, above the overshoot high. Half off at 25,380, the rest into zero gamma 25,320: +127 points, about 10R.</td></tr>
         <tr><th>The third play<br><small>zero gamma</small></th>
           <td class="txt">Late morning, price drifts down toward zero gamma. The GEX is shrinking and gamma is building at lower strikes.</td>
           <td class="txt">Price breaks below zero gamma and holds. The ranges get bigger: you've left the lake.</td>
@@ -832,7 +887,7 @@
     </div>
     <div>
       <h2>Watch the video</h2>
-      <p>Skydweller.trades explains dealer hedging with a bookmaker, a car and a goalkeeper, then walks through the GEX map, the three ways to find levels, and two replays on 5-minute NQ with the footprint.</p>
+      <p>Skydweller.trades explains dealer hedging with a bookmaker, a car and a goalkeeper, then walks through the GEX map, the three ways to find levels, and two synthetic replays on 5-minute NQ with the footprint.</p>
       <a class="more" href="https://www.youtube.com/watch?v=vT3javtAde8" target="_blank" rel="noopener">Open on YouTube &rsaquo;</a>
     </div>
   </section>
@@ -841,7 +896,7 @@
   <div class="faq">
     <div class="qa"><h3>What are the call wall, put wall and zero gamma?</h3><p>The call wall is the strike with the most positive gamma, where dealers tend to sell rallies. The put wall is the strike with the most negative gamma, where dealers tend to buy dips. Zero gamma is the border: above it dealer hedging absorbs moves, below it the hedging adds fuel and moves stretch.</p></div>
     <div class="qa"><h3>Why not just buy or sell at the wall?</h3><p>Because the wall tells you where, not when. Price can run straight through it, especially on a fast approach. You wait for the footprint to show someone defending the level, or for a fast move to overshoot and come back (the reclaim).</p></div>
-    <div class="qa"><h3>Where does the stop go?</h3><p>Where the wall idea is proven wrong: past the failed low or the overshoot high, often 30 to 50 ticks on NQ. The target is the next level. Entering close to the level is what makes the reward big: in the video's example, entering at the wall was about 8R, chasing it later was under 1R.</p></div>
+    <div class="qa"><h3>Where does the stop go?</h3><p>Where the wall idea is proven wrong: past the failed low or the overshoot high, often 30 to 50 ticks on NQ. The target is the next level. Entering close to the level is what makes the reward big: in the video's first example, entering at the wall was about 8.5R to the next level; the video shows the same trade chased late at 0.5R.</p></div>
     <div class="qa"><h3>When should you not trade the levels?</h3><p>On a single big options print without context, when a wall has broken and price accepted beyond it, on OPEX, triple witching and VIX expiration days when the levels move, and right after a loss if the next trade isn't from the plan.</p></div>
   </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
