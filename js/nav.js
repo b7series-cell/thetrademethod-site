@@ -127,7 +127,11 @@ const SETUPS = [
     stages:  6,
     filters: 4,
     status:  "live",
-    indicators: []
+    indicators: [
+      { name: "9 EMA Continuation",
+        blurb: "Marks the breakout on volume, the touch of the 9 EMA, the failed tests and the reclaim entry, with the stop under the pullback low, half off at 2R and the exit on a close under the 9 EMA.",
+        url: "", file: "/pine/nine-ema-continuation.pine", alerts: true }
+    ]
   },
   {
     slug:    "macd-continuation-scalp",

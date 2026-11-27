@@ -201,6 +201,30 @@
     .panel,.filter,.rule,.stage,table { break-inside:avoid; }
     @page { size:A3 landscape; margin:12mm; }
   }
+  .ind-sec { margin-top:56px; scroll-margin-top:110px; }
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+  .code-wrap { background:var(--panel); border:1px solid var(--line); border-radius:12px; margin-top:16px; overflow:hidden; }
+  .code-top { display:flex; justify-content:space-between; align-items:center; gap:12px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .code-top span { font-family:var(--mono); font-size:12.5px; color:var(--faint); }
+  .code-top .acts { display:flex; gap:8px; }
+  .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#1b2a3e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
+  .code-top button:hover, .code-top a:hover { background:#26394f; }
+  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d9e3; tab-size:4; }
+  @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-sec { margin-top:44px; } }
 </style>
 <!-- site shell (Apple style) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -208,7 +232,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=28">
 <link rel="stylesheet" href="/css/tested.css?v=3">
-<script src="/js/nav.js?v=36" defer></script>
+<script src="/js/nav.js?v=37" defer></script>
 <script src="/js/site.js?v=78" defer></script>
 <script src="/js/anim-kit.js?v=2" defer></script>
 <script src="/js/ema9-anim.js?v=1" defer></script>
@@ -673,7 +697,7 @@
 
   <div class="section-head">
     <h2>The 9 EMA continuation on an example chart</h2>
-    <p>An example session run through this page&#x27;s rules (there&#x27;s no indicator for this setup): a close over the morning&#x27;s 64.05 high on about 2.4× average volume (the breakout, no entry), a pullback whose low touches the 9 EMA, one failed test that closes under it, then the green candle that closes back over it (the buy at 64.50, stop 64.20 under the pullback low). Half comes off at +2R (our fixed stand-in for the video's &ldquo;acceleration after an acceleration&rdquo;) and the rest goes on the first close under the 9 EMA. The bars are made up to show the setup clearly. They aren&#x27;t a real ticker.</p>
+    <p>An example session run through the page&#x27;s rules (the same rules as the indicator below): a close over the morning&#x27;s 64.05 high on about 2.4× average volume (the breakout, no entry), a pullback whose low touches the 9 EMA, one failed test that closes under it, then the green candle that closes back over it (the buy at 64.50, stop 64.20 under the pullback low). Half comes off at +2R (our fixed stand-in for the video's &ldquo;acceleration after an acceleration&rdquo;) and the rest goes on the first close under the 9 EMA. The bars are made up to show the setup clearly. They aren&#x27;t a real ticker.</p>
   </div>
   <section class="live" data-ema9-live data-example data-symbol="TSLA" aria-label="Example 9 EMA continuation chart">
     <div class="live-main">
@@ -714,6 +738,236 @@
   </section>
   <!--tested:end-->
 
+  <section class="ind-sec" id="indicator" aria-label="TradingView indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for the setup (Pine Script v6), for intraday charts, 5-minute by default. It follows the same rules as the example chart above:
+    the breakout on volume, the touch, the failed tests, the reclaim entry with its stop, half off at 2R and the rest out on a close under the 9 EMA. It marks and alerts. It does not place trades.</p>
+    <ul class="ind-list">
+      <li class="ind-card">
+        <div class="ind-card-top">
+          <h3 class="ind-name">9 EMA Continuation</h3>
+          <span class="ind-alerts">alerts</span>
+        </div>
+        <p class="ind-blurb">A breakout is a close over the high of the last 12 bars, above the 9 EMA, on at least 1.5&times; the 20-bar average volume. It isn't bought. The first later bar whose low reaches the 9 EMA
+        (within 12 bars) is the touch, and each close back under the line after that is marked as a failed test. The first green candle that closes back over the 9 EMA is the entry, with the stop one tick under the pullback low
+        and share size worked out from the risk you type in. A close under the breakout bar's low, or the end of the session, cancels the setup. The status panel says which stage you're in.</p>
+        <p class="ind-blurb" style="color:var(--dim)">The 12-bar range, the 1.5&times; volume, the 12-bar wait and the 2R half are ours, not the video's. It can't judge the catalyst (earnings, news, a 52-week break), so check that yourself.
+        Long only by default, as the page shows it; a setting marks the short mirror. An optional entry window (off by default) limits entries to the morning. It runs on the regular session (9:30 to 4:00 New York).</p>
+        <div class="ind-links">
+          <a class="ind-link ind-link--quiet" href="/pine/nine-ema-continuation.pine" download>Download source (.pine)</a>
+        </div>
+      </li>
+    </ul>
+    <div class="code-wrap">
+      <div class="code-top">
+        <span>nine-ema-continuation.pine &middot; Pine Script v6</span>
+        <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/nine-ema-continuation.pine" download>Download</a></div>
+      </div>
+      <pre class="pine" tabindex="0"><code>//@version=6
+// =====================================================================
+// 9 EMA Continuation — thetrademethod.com
+//
+// Don't chase the breakout. Wait for the pullback into the 9 EMA, then buy
+// the reclaim, not the touch. For intraday charts (5-minute, like the
+// page's walkthrough and example chart). Long only by default, as the page
+// shows it; shorts are an optional mirror.
+//
+//   1. Breakout   A bar CLOSES above the highest high of the 12 bars before
+//                 it, above the 9 EMA, on volume at least 1.5x the average
+//                 of the 20 bars before it. No entry on that bar.
+//   2. Touch      The first later bar whose LOW reaches the 9 EMA, within 12
+//                 bars of the breakout. No touch in time = "no touch" (the
+//                 move ran without you), setup dropped.
+//   3. Failed     After the touch, every close under the 9 EMA is a failed
+//      tests      test. Not a reason to quit.
+//   4. Reclaim    The first GREEN candle after the touch that closes back
+//                 above the 9 EMA. Buy that close. Stop one tick under the
+//                 pullback low (lowest low from the touch to the reclaim).
+//   5. Void       A close under the breakout bar's low, or the session's
+//                 last bar, ends the setup.
+//   6. Exits      Half off at +2R (our fixed stand-in for the video's
+//                 "acceleration after an acceleration"). The rest comes out
+//                 on the first CLOSE under the 9 EMA, or at the session's
+//                 last bar. Stop first, then the half target, then the
+//                 close. One trade at a time.
+//
+// Same rules as the page's example chart (js/ema9-live.js). The 12-bar
+// range, 1.5x volume, 12-bar wait and the 2R half are ours, not the
+// video's. Not coded: the catalyst (news, earnings, a 52-week break), so
+// check that yourself. Signals use closed bars only. Draws and alerts;
+// it places no orders.
+// =====================================================================
+indicator("9 EMA Continuation", shorttitle = "9 EMA Cont", overlay = true, max_lines_count = 500, max_labels_count = 500)
+
+// ---------------- inputs ----------------
+emaLen    = input.int(9, "EMA length", minval = 1, group = "Rules")
+rangeLen  = input.int(12, "Breakout: close over the high of the last N bars", minval = 2, group = "Rules")
+volLen    = input.int(20, "Volume average length", minval = 1, group = "Rules")
+volX      = input.float(1.5, "Breakout volume ≥ average ×", minval = 0.0, step = 0.1, group = "Rules")
+touchWait = input.int(12, "Bars allowed for the pullback to touch the EMA", minval = 1, group = "Rules")
+needGreen = input.bool(true, "Reclaim candle must be green (red for shorts)", group = "Rules")
+halfR     = input.float(2.0, "Half off at (R)", minval = 0.1, step = 0.1, group = "Exits")
+doShorts  = input.bool(false, "Also mark shorts (the mirror)", group = "Rules", tooltip = "The page shows the long side. Shorts mirror every rule: breakdown under the low of the last N bars, rally up to the EMA, the first red close back under it.")
+sess      = input.session("0930-1600", "Regular session (New York)", group = "Session")
+useWin    = input.bool(false, "Only take entries inside a window", group = "Session", tooltip = "Off by default, like the page's example chart and test.")
+winSess   = input.session("0930-1100", "Entry window (New York)", group = "Session")
+riskUsd   = input.float(500.0, "Risk per trade ($) for share size", minval = 0.0, group = "Display")
+showLv    = input.bool(true, "Draw entry, stop and the half target", group = "Display")
+showRange = input.bool(true, "Draw the breakout level", group = "Display")
+showPanel = input.bool(true, "Show status panel", group = "Display")
+
+// ---------------- series ----------------
+ema    = ta.ema(close, emaLen)
+volAvg = ta.sma(volume, volLen)[1]
+hiN    = ta.highest(high, rangeLen)[1]
+loN    = ta.lowest(low, rangeLen)[1]
+tz     = "America/New_York"
+inSess = not na(time(timeframe.period, sess, tz))
+inWin  = not useWin or not na(time(timeframe.period, winSess, tz))
+// last regular-session bar: the next bar would start at or after the close
+nextT  = time + timeframe.in_seconds() * 1000
+endMs  = timestamp(tz, year(time, tz), month(time, tz), dayofmonth(time, tz), 16, 0)
+lastBar = inSess and nextT &gt;= endMs
+warm   = bar_index &gt;= 30
+
+plot(ema, "9 EMA", color = color.new(#f4b942, 0), linewidth = 2)
+
+// ---------------- state ----------------
+var int   sDir   = 0       // setup side: 1 long, -1 short, 0 none
+var int   sPhase = 0       // 1 = after breakout, 2 = after touch
+var int   sBo    = na
+var float sLvl   = na      // breakout level (range high / low)
+var float sBoX   = na      // breakout bar's low (long) / high (short)
+var float sExt   = na      // pullback low (long) / high (short)
+var int   sFails = 0
+var line  lvlLn  = na
+
+var int   pos   = 0
+var int   eBar  = na
+var float ePx   = na
+var float sPx   = na
+var float tPx   = na
+var bool  half  = false
+var line  eLn   = na
+var line  sLn   = na
+var line  tLn   = na
+
+bool evBo = false, evTouch = false, evFail = false, evBuy = false, evHalf = false, evExit = false, evNoTouch = false, evVoid = false
+float exitPx = na
+string exitWhy = ""
+
+closeLines() =&gt;
+    if not na(eLn)
+        line.set_x2(eLn, bar_index)
+    if not na(sLn)
+        line.set_x2(sLn, bar_index)
+    if not na(tLn)
+        line.set_x2(tLn, bar_index)
+
+// ---------------- manage the open trade (from the bar after entry) ----------------
+if barstate.isconfirmed and pos != 0 and bar_index &gt; eBar
+    stopHit = pos == 1 ? low &lt;= sPx : high &gt;= sPx
+    if stopHit
+        exitPx := sPx, exitWhy := "stop"
+    else
+        if not half and (pos == 1 ? high &gt;= tPx : low &lt;= tPx)
+            half := true
+            evHalf := true
+            label.new(bar_index, pos == 1 ? high : low, "Half off +" + str.tostring(halfR, "0.#") + "R", style = pos == 1 ? label.style_label_down : label.style_label_up,
+                 color = color.new(#30d158, 20), textcolor = color.white, size = size.tiny)
+        if pos == 1 ? close &lt; ema : close &gt; ema
+            exitPx := close, exitWhy := "trail"
+        else if lastBar
+            exitPx := close, exitWhy := "end of day"
+    if exitWhy != ""
+        evExit := true
+        r1 = (exitPx - ePx) / (ePx - sPx)
+        rr = half ? 0.5 * halfR + 0.5 * r1 : r1
+        label.new(bar_index, pos == 1 ? high : low, "Out " + str.tostring(exitPx, format.mintick) + "\n" + (rr &gt;= 0 ? "+" : "") + str.tostring(rr, "0.0") + "R (" + exitWhy + ")",
+             style = pos == 1 ? label.style_label_down : label.style_label_up, color = color.new(#ff9f0a, 15), textcolor = color.white, size = size.small)
+        closeLines()
+        pos := 0, eLn := na, sLn := na, tLn := na
+
+// ---------------- find setups (flat only, closed bars) ----------------
+if barstate.isconfirmed and pos == 0 and not evExit and warm and inSess
+    boL = not na(hiN) and not na(volAvg) and close &gt; hiN and close &gt; ema and volume &gt;= volX * volAvg
+    boS = doShorts and not na(loN) and not na(volAvg) and close &lt; loN and close &lt; ema and volume &gt;= volX * volAvg
+    if sDir == 0 and (boL or boS)
+        sDir := boL ? 1 : -1
+        sPhase := 1, sBo := bar_index, sLvl := boL ? hiN : loN, sBoX := boL ? low : high, sFails := 0, sExt := na
+        evBo := true
+        if showRange
+            lvlLn := line.new(bar_index - rangeLen, sLvl, bar_index + 1, sLvl, color = color.new(#8e8e93, 20), style = line.style_dashed)
+        label.new(bar_index, sDir == 1 ? high : low, "Breakout " + str.tostring(volume / volAvg, "0.0") + "x vol\ndon't chase",
+             style = sDir == 1 ? label.style_label_down : label.style_label_up, color = color.new(#30d158, 25), textcolor = color.white, size = size.small)
+    else if sDir != 0 and sPhase == 1
+        if not na(lvlLn)
+            line.set_x2(lvlLn, bar_index)
+        if sDir == 1 ? close &lt; sBoX : close &gt; sBoX
+            evVoid := true, sDir := 0
+        else if sDir == 1 ? low &lt;= ema : high &gt;= ema
+            sPhase := 2, sExt := sDir == 1 ? low : high
+            evTouch := true
+        else if bar_index - sBo &gt;= touchWait
+            evNoTouch := true, sDir := 0
+    else if sDir != 0 and sPhase == 2
+        sExt := sDir == 1 ? math.min(sExt, low) : math.max(sExt, high)
+        colOk = not needGreen or (sDir == 1 ? close &gt; open : close &lt; open)
+        if sDir == 1 ? close &lt; sBoX : close &gt; sBoX
+            evVoid := true, sDir := 0
+        else if (sDir == 1 ? close &gt; ema : close &lt; ema) and colOk and not lastBar and inWin
+            pos := sDir, eBar := bar_index, ePx := close
+            sPx := sDir == 1 ? sExt - syminfo.mintick : sExt + syminfo.mintick
+            tPx := ePx + halfR * (ePx - sPx)
+            half := false
+            evBuy := true
+            risk = math.abs(ePx - sPx)
+            sh = risk &gt; 0 ? math.floor(riskUsd / risk) : 0
+            label.new(bar_index, sDir == 1 ? low : high, (sDir == 1 ? "Buy " : "Sell ") + str.tostring(ePx, format.mintick) + "\nstop " + str.tostring(sPx, format.mintick) + (riskUsd &gt; 0 ? "\n" + str.tostring(sh) + " sh" : ""),
+                 style = sDir == 1 ? label.style_label_up : label.style_label_down, color = color.new(#2997ff, 10), textcolor = color.white, size = size.small)
+            if showLv
+                eLn := line.new(bar_index, ePx, bar_index + 1, ePx, color = #2997ff, width = 2)
+                sLn := line.new(bar_index, sPx, bar_index + 1, sPx, color = #ff453a, style = line.style_dashed)
+                tLn := line.new(bar_index, tPx, bar_index + 1, tPx, color = #30d158, style = line.style_dotted)
+            sDir := 0
+        else if sDir == 1 ? close &lt; ema : close &gt; ema
+            sFails += 1
+            evFail := true
+    if sDir != 0 and lastBar
+        evVoid := true, sDir := 0
+    if evVoid or evNoTouch or evBuy
+        sPhase := 0
+
+if pos != 0 and not evBuy
+    closeLines()
+
+plotshape(evTouch, "Touch", shape.circle, location.belowbar, color.new(#f4b942, 0), size = size.tiny)
+plotshape(evFail, "Failed test", shape.xcross, location.belowbar, color.new(#ff453a, 0), size = size.tiny)
+plotshape(evNoTouch, "No touch", shape.diamond, location.abovebar, color.new(#8e8e93, 0), size = size.tiny)
+plotshape(evVoid, "Setup void", shape.square, location.abovebar, color.new(#8e8e93, 0), size = size.tiny)
+
+// ---------------- status panel ----------------
+var table pnl = table.new(position.top_right, 1, 2, bgcolor = color.new(#1c1c1e, 10), border_width = 0)
+if showPanel and barstate.islast
+    txt = pos != 0 ? (pos == 1 ? "In long" : "In short") + " · entry " + str.tostring(ePx, format.mintick) + " · stop " + str.tostring(sPx, format.mintick) + (half ? " · half off" : "") :
+         sDir != 0 and sPhase == 1 ? "Breakout · waiting for the pullback to the 9 EMA" :
+         sDir != 0 and sPhase == 2 ? "Touched the 9 EMA · " + str.tostring(sFails) + " failed test(s) · waiting for the reclaim" :
+         "Waiting for a breakout on volume"
+    table.cell(pnl, 0, 0, "9 EMA Continuation", text_color = color.new(#f5f5f7, 0), text_size = size.small, text_halign = text.align_left)
+    table.cell(pnl, 0, 1, txt, text_color = color.new(#a1a1a6, 0), text_size = size.small, text_halign = text.align_left)
+
+// ---------------- alerts ----------------
+alertcondition(evBo, "Breakout on volume", "9 EMA Continuation: breakout on volume on {{ticker}}. Wait for the pullback.")
+alertcondition(evTouch, "Pullback touched the 9 EMA", "9 EMA Continuation: {{ticker}} pulled back to the 9 EMA. Watch for the reclaim.")
+alertcondition(evBuy, "Reclaim entry", "9 EMA Continuation: reclaim entry on {{ticker}} at {{close}}.")
+alertcondition(evHalf, "Half off at the target", "9 EMA Continuation: {{ticker}} hit the half-off target.")
+alertcondition(evExit, "Exit", "9 EMA Continuation: {{ticker}} exit (stop, close through the 9 EMA, or end of day).")
+if evBuy
+    alert("9 EMA Continuation: reclaim entry at " + str.tostring(ePx, format.mintick) + ", stop " + str.tostring(sPx, format.mintick), alert.freq_once_per_bar_close)
+</code></pre>
+    </div>
+  </section>
+
   <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
   <div class="faq">
     <div class="qa"><h3>Do you buy the first touch of the 9 EMA?</h3><p>No. The touch only tells you where to watch. The trigger is buyers stepping back in and price reclaiming the 9 EMA. A mechanical version buys the first candle that closes back above the 9 EMA after the first touch.</p></div>
@@ -742,9 +996,23 @@
     </div>
   </div>
 
-  <p class="src">Built from an SMB Capital video in which Jeff Holden and Enrique, a trader on the SMB desk, each walk through how they take the 9 EMA continuation (Jeff on the 1-minute chart, Enrique on the 2- and 5-minute). The GM and RGTI details are read off the video's own charts and are not independently verified. The 64.50 walkthrough, the +2R half-off in the example chart and the test are ours. <a href="https://youtu.be/LDavMu7hxcM" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+  <p class="src">Built from an SMB Capital video in which Jeff Holden and Enrique, a trader on the SMB desk, each walk through how they take the 9 EMA continuation (Jeff on the 1-minute chart, Enrique on the 2- and 5-minute). The GM and RGTI details are read off the video's own charts and are not independently verified. The 64.50 walkthrough, the +2R half-off in the example chart, the indicator's thresholds and the test are ours. <a href="https://youtu.be/LDavMu7hxcM" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
 </div>
 <footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
+
+<script>
+  /* copy the Pine code */
+  (function () {
+    var b = document.querySelector("[data-copy]"), code = document.querySelector("pre.pine code");
+    if (!b || !code) return;
+    b.addEventListener("click", function () {
+      var t = code.textContent;
+      function done(ok) { b.textContent = ok ? "Copied" : "Select and copy"; setTimeout(function () { b.textContent = "Copy code"; }, 1800); }
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { done(true); }, function () { done(false); });
+      else done(false);
+    });
+  })();
+</script>
 
 </body>
 </html>

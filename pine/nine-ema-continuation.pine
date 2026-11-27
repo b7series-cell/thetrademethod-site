@@ -1,0 +1,201 @@
+//@version=6
+// =====================================================================
+// 9 EMA Continuation — thetrademethod.com
+//
+// Don't chase the breakout. Wait for the pullback into the 9 EMA, then buy
+// the reclaim, not the touch. For intraday charts (5-minute, like the
+// page's walkthrough and example chart). Long only by default, as the page
+// shows it; shorts are an optional mirror.
+//
+//   1. Breakout   A bar CLOSES above the highest high of the 12 bars before
+//                 it, above the 9 EMA, on volume at least 1.5x the average
+//                 of the 20 bars before it. No entry on that bar.
+//   2. Touch      The first later bar whose LOW reaches the 9 EMA, within 12
+//                 bars of the breakout. No touch in time = "no touch" (the
+//                 move ran without you), setup dropped.
+//   3. Failed     After the touch, every close under the 9 EMA is a failed
+//      tests      test. Not a reason to quit.
+//   4. Reclaim    The first GREEN candle after the touch that closes back
+//                 above the 9 EMA. Buy that close. Stop one tick under the
+//                 pullback low (lowest low from the touch to the reclaim).
+//   5. Void       A close under the breakout bar's low, or the session's
+//                 last bar, ends the setup.
+//   6. Exits      Half off at +2R (our fixed stand-in for the video's
+//                 "acceleration after an acceleration"). The rest comes out
+//                 on the first CLOSE under the 9 EMA, or at the session's
+//                 last bar. Stop first, then the half target, then the
+//                 close. One trade at a time.
+//
+// Same rules as the page's example chart (js/ema9-live.js). The 12-bar
+// range, 1.5x volume, 12-bar wait and the 2R half are ours, not the
+// video's. Not coded: the catalyst (news, earnings, a 52-week break), so
+// check that yourself. Signals use closed bars only. Draws and alerts;
+// it places no orders.
+// =====================================================================
+indicator("9 EMA Continuation", shorttitle = "9 EMA Cont", overlay = true, max_lines_count = 500, max_labels_count = 500)
+
+// ---------------- inputs ----------------
+emaLen    = input.int(9, "EMA length", minval = 1, group = "Rules")
+rangeLen  = input.int(12, "Breakout: close over the high of the last N bars", minval = 2, group = "Rules")
+volLen    = input.int(20, "Volume average length", minval = 1, group = "Rules")
+volX      = input.float(1.5, "Breakout volume ≥ average ×", minval = 0.0, step = 0.1, group = "Rules")
+touchWait = input.int(12, "Bars allowed for the pullback to touch the EMA", minval = 1, group = "Rules")
+needGreen = input.bool(true, "Reclaim candle must be green (red for shorts)", group = "Rules")
+halfR     = input.float(2.0, "Half off at (R)", minval = 0.1, step = 0.1, group = "Exits")
+doShorts  = input.bool(false, "Also mark shorts (the mirror)", group = "Rules", tooltip = "The page shows the long side. Shorts mirror every rule: breakdown under the low of the last N bars, rally up to the EMA, the first red close back under it.")
+sess      = input.session("0930-1600", "Regular session (New York)", group = "Session")
+useWin    = input.bool(false, "Only take entries inside a window", group = "Session", tooltip = "Off by default, like the page's example chart and test.")
+winSess   = input.session("0930-1100", "Entry window (New York)", group = "Session")
+riskUsd   = input.float(500.0, "Risk per trade ($) for share size", minval = 0.0, group = "Display")
+showLv    = input.bool(true, "Draw entry, stop and the half target", group = "Display")
+showRange = input.bool(true, "Draw the breakout level", group = "Display")
+showPanel = input.bool(true, "Show status panel", group = "Display")
+
+// ---------------- series ----------------
+ema    = ta.ema(close, emaLen)
+volAvg = ta.sma(volume, volLen)[1]
+hiN    = ta.highest(high, rangeLen)[1]
+loN    = ta.lowest(low, rangeLen)[1]
+tz     = "America/New_York"
+inSess = not na(time(timeframe.period, sess, tz))
+inWin  = not useWin or not na(time(timeframe.period, winSess, tz))
+// last regular-session bar: the next bar would start at or after the close
+nextT  = time + timeframe.in_seconds() * 1000
+endMs  = timestamp(tz, year(time, tz), month(time, tz), dayofmonth(time, tz), 16, 0)
+lastBar = inSess and nextT >= endMs
+warm   = bar_index >= 30
+
+plot(ema, "9 EMA", color = color.new(#f4b942, 0), linewidth = 2)
+
+// ---------------- state ----------------
+var int   sDir   = 0       // setup side: 1 long, -1 short, 0 none
+var int   sPhase = 0       // 1 = after breakout, 2 = after touch
+var int   sBo    = na
+var float sLvl   = na      // breakout level (range high / low)
+var float sBoX   = na      // breakout bar's low (long) / high (short)
+var float sExt   = na      // pullback low (long) / high (short)
+var int   sFails = 0
+var line  lvlLn  = na
+
+var int   pos   = 0
+var int   eBar  = na
+var float ePx   = na
+var float sPx   = na
+var float tPx   = na
+var bool  half  = false
+var line  eLn   = na
+var line  sLn   = na
+var line  tLn   = na
+
+bool evBo = false, evTouch = false, evFail = false, evBuy = false, evHalf = false, evExit = false, evNoTouch = false, evVoid = false
+float exitPx = na
+string exitWhy = ""
+
+closeLines() =>
+    if not na(eLn)
+        line.set_x2(eLn, bar_index)
+    if not na(sLn)
+        line.set_x2(sLn, bar_index)
+    if not na(tLn)
+        line.set_x2(tLn, bar_index)
+
+// ---------------- manage the open trade (from the bar after entry) ----------------
+if barstate.isconfirmed and pos != 0 and bar_index > eBar
+    stopHit = pos == 1 ? low <= sPx : high >= sPx
+    if stopHit
+        exitPx := sPx, exitWhy := "stop"
+    else
+        if not half and (pos == 1 ? high >= tPx : low <= tPx)
+            half := true
+            evHalf := true
+            label.new(bar_index, pos == 1 ? high : low, "Half off +" + str.tostring(halfR, "0.#") + "R", style = pos == 1 ? label.style_label_down : label.style_label_up,
+                 color = color.new(#30d158, 20), textcolor = color.white, size = size.tiny)
+        if pos == 1 ? close < ema : close > ema
+            exitPx := close, exitWhy := "trail"
+        else if lastBar
+            exitPx := close, exitWhy := "end of day"
+    if exitWhy != ""
+        evExit := true
+        r1 = (exitPx - ePx) / (ePx - sPx)
+        rr = half ? 0.5 * halfR + 0.5 * r1 : r1
+        label.new(bar_index, pos == 1 ? high : low, "Out " + str.tostring(exitPx, format.mintick) + "\n" + (rr >= 0 ? "+" : "") + str.tostring(rr, "0.0") + "R (" + exitWhy + ")",
+             style = pos == 1 ? label.style_label_down : label.style_label_up, color = color.new(#ff9f0a, 15), textcolor = color.white, size = size.small)
+        closeLines()
+        pos := 0, eLn := na, sLn := na, tLn := na
+
+// ---------------- find setups (flat only, closed bars) ----------------
+if barstate.isconfirmed and pos == 0 and not evExit and warm and inSess
+    boL = not na(hiN) and not na(volAvg) and close > hiN and close > ema and volume >= volX * volAvg
+    boS = doShorts and not na(loN) and not na(volAvg) and close < loN and close < ema and volume >= volX * volAvg
+    if sDir == 0 and (boL or boS)
+        sDir := boL ? 1 : -1
+        sPhase := 1, sBo := bar_index, sLvl := boL ? hiN : loN, sBoX := boL ? low : high, sFails := 0, sExt := na
+        evBo := true
+        if showRange
+            lvlLn := line.new(bar_index - rangeLen, sLvl, bar_index + 1, sLvl, color = color.new(#8e8e93, 20), style = line.style_dashed)
+        label.new(bar_index, sDir == 1 ? high : low, "Breakout " + str.tostring(volume / volAvg, "0.0") + "x vol\ndon't chase",
+             style = sDir == 1 ? label.style_label_down : label.style_label_up, color = color.new(#30d158, 25), textcolor = color.white, size = size.small)
+    else if sDir != 0 and sPhase == 1
+        if not na(lvlLn)
+            line.set_x2(lvlLn, bar_index)
+        if sDir == 1 ? close < sBoX : close > sBoX
+            evVoid := true, sDir := 0
+        else if sDir == 1 ? low <= ema : high >= ema
+            sPhase := 2, sExt := sDir == 1 ? low : high
+            evTouch := true
+        else if bar_index - sBo >= touchWait
+            evNoTouch := true, sDir := 0
+    else if sDir != 0 and sPhase == 2
+        sExt := sDir == 1 ? math.min(sExt, low) : math.max(sExt, high)
+        colOk = not needGreen or (sDir == 1 ? close > open : close < open)
+        if sDir == 1 ? close < sBoX : close > sBoX
+            evVoid := true, sDir := 0
+        else if (sDir == 1 ? close > ema : close < ema) and colOk and not lastBar and inWin
+            pos := sDir, eBar := bar_index, ePx := close
+            sPx := sDir == 1 ? sExt - syminfo.mintick : sExt + syminfo.mintick
+            tPx := ePx + halfR * (ePx - sPx)
+            half := false
+            evBuy := true
+            risk = math.abs(ePx - sPx)
+            sh = risk > 0 ? math.floor(riskUsd / risk) : 0
+            label.new(bar_index, sDir == 1 ? low : high, (sDir == 1 ? "Buy " : "Sell ") + str.tostring(ePx, format.mintick) + "\nstop " + str.tostring(sPx, format.mintick) + (riskUsd > 0 ? "\n" + str.tostring(sh) + " sh" : ""),
+                 style = sDir == 1 ? label.style_label_up : label.style_label_down, color = color.new(#2997ff, 10), textcolor = color.white, size = size.small)
+            if showLv
+                eLn := line.new(bar_index, ePx, bar_index + 1, ePx, color = #2997ff, width = 2)
+                sLn := line.new(bar_index, sPx, bar_index + 1, sPx, color = #ff453a, style = line.style_dashed)
+                tLn := line.new(bar_index, tPx, bar_index + 1, tPx, color = #30d158, style = line.style_dotted)
+            sDir := 0
+        else if sDir == 1 ? close < ema : close > ema
+            sFails += 1
+            evFail := true
+    if sDir != 0 and lastBar
+        evVoid := true, sDir := 0
+    if evVoid or evNoTouch or evBuy
+        sPhase := 0
+
+if pos != 0 and not evBuy
+    closeLines()
+
+plotshape(evTouch, "Touch", shape.circle, location.belowbar, color.new(#f4b942, 0), size = size.tiny)
+plotshape(evFail, "Failed test", shape.xcross, location.belowbar, color.new(#ff453a, 0), size = size.tiny)
+plotshape(evNoTouch, "No touch", shape.diamond, location.abovebar, color.new(#8e8e93, 0), size = size.tiny)
+plotshape(evVoid, "Setup void", shape.square, location.abovebar, color.new(#8e8e93, 0), size = size.tiny)
+
+// ---------------- status panel ----------------
+var table pnl = table.new(position.top_right, 1, 2, bgcolor = color.new(#1c1c1e, 10), border_width = 0)
+if showPanel and barstate.islast
+    txt = pos != 0 ? (pos == 1 ? "In long" : "In short") + " · entry " + str.tostring(ePx, format.mintick) + " · stop " + str.tostring(sPx, format.mintick) + (half ? " · half off" : "") :
+         sDir != 0 and sPhase == 1 ? "Breakout · waiting for the pullback to the 9 EMA" :
+         sDir != 0 and sPhase == 2 ? "Touched the 9 EMA · " + str.tostring(sFails) + " failed test(s) · waiting for the reclaim" :
+         "Waiting for a breakout on volume"
+    table.cell(pnl, 0, 0, "9 EMA Continuation", text_color = color.new(#f5f5f7, 0), text_size = size.small, text_halign = text.align_left)
+    table.cell(pnl, 0, 1, txt, text_color = color.new(#a1a1a6, 0), text_size = size.small, text_halign = text.align_left)
+
+// ---------------- alerts ----------------
+alertcondition(evBo, "Breakout on volume", "9 EMA Continuation: breakout on volume on {{ticker}}. Wait for the pullback.")
+alertcondition(evTouch, "Pullback touched the 9 EMA", "9 EMA Continuation: {{ticker}} pulled back to the 9 EMA. Watch for the reclaim.")
+alertcondition(evBuy, "Reclaim entry", "9 EMA Continuation: reclaim entry on {{ticker}} at {{close}}.")
+alertcondition(evHalf, "Half off at the target", "9 EMA Continuation: {{ticker}} hit the half-off target.")
+alertcondition(evExit, "Exit", "9 EMA Continuation: {{ticker}} exit (stop, close through the 9 EMA, or end of day).")
+if evBuy
+    alert("9 EMA Continuation: reclaim entry at " + str.tostring(ePx, format.mintick) + ", stop " + str.tostring(sPx, format.mintick), alert.freq_once_per_bar_close)
