@@ -13,7 +13,7 @@ FAQ = {
   ("What time frame does the Hitchhiker Scalp use?", "The 2-minute chart. The 9 EMA marks the entry area and a 2-minute close past the 21 EMA is the stop."),
   ("Why not just buy the breakout?", "After an outsized move the stock is stretched from its short-term moving averages. A stop wide enough to survive the pullback makes a scalp not worth taking, so you wait for the first pullback to the 9 EMA on lighter volume instead."),
   ("How do you take profits on the Hitchhiker Scalp?", "Sell about 70% into momentum, roughly 5% at a time, and trail the last 30% on the prior 2-minute bar."),
-  ("Does the Hitchhiker Scalp work?", "In our test it was break-even: 2,291 trades on the 2-minute chart across SPY, QQQ and 10 large-cap stocks from Nov 2021 to Nov 2026 had a 40% win rate, a 1.03 profit factor and +0.01R per trade. The test couldn't pick stocks in play the way the setup asks."),
+  ("Does the Hitchhiker Scalp work?", "In our test it was break-even: 2,291 trades on the 2-minute chart across 10 large-cap stocks from Nov 2021 to Nov 2026 had a 40% win rate, a 1.03 profit factor and +0.01R per trade. The test couldn't pick stocks in play the way the setup asks."),
  ],
 },
 "/setups/technical-catalyst-breakout.html": {
