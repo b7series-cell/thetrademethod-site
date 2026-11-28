@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/energy-in-the-tank.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/energy-in-the-tank.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-11-27",
+ "dateModified": "2026-11-28",
  "inLanguage": "en",
  "author": {
   "@type": "Person",
@@ -209,7 +209,7 @@
 <link rel="stylesheet" href="/css/apple.css?v=28">
 <link rel="stylesheet" href="/css/tested.css?v=3">
 <script src="/js/nav.js?v=43" defer></script>
-<script src="/js/site.js?v=78" defer></script>
+<script src="/js/site.js?v=79" defer></script>
 <script src="/js/anim-kit.js?v=2" defer></script>
 <script src="/js/eit-anim.js?v=1" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
@@ -277,7 +277,7 @@
    "name": "Does Energy in the Tank work?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Partly. On 13 large caps it made +2.3% a trade over 126 trades with a 22% win rate, mostly from a few multi-year holds. A plain 20-day breakout with the same exits did better (+3.5%), so the exit works but the squeeze signal isn't why."
+    "text": "No. Run on every US stock from 2022 to 2026 with this page's indicator, it lost 2.2% a trade over 21,401 trades with a 15% win rate, and random entries on the same stocks with the same exits made +1.5%. An earlier profit on 13 large caps came from stocks picked with hindsight."
    }
   }
  ]
@@ -333,7 +333,7 @@
         <div><b>4</b><small>filters</small></div>
         <div><b>2&sigma;</b><small>volume outlier bar</small></div>
       </div>
-      <!--tested-chip--><a class="tested-chip v-mixed" href="#tested"><i aria-hidden="true"></i>Tested: <b>The exit works, not the signal</b></a><!--/tested-chip-->
+      <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Worse than random entries</b></a><!--/tested-chip-->
     </div>
   </header>
   <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the Energy in the Tank setup?</h2><p>Energy in the Tank is a volatility cycle breakout on the daily chart or higher. A squeeze on the higher time frame means volatility is compressed and energy is stored. You buy the close above the range top on an outlier volume bar, more than two standard deviations above average, and invalidate on a close back below the level.</p></section><!-- /define -->
@@ -692,33 +692,36 @@
   </section>
 
   <!--tested:start-->
-  <section class="tested v-mixed" id="tested" aria-labelledby="tested-h">
-    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>The exit works, not the signal</span></div>
-    <h2 id="tested-h">Profitable, but the squeeze signal isn't why</h2>
-    <p class="tested-lead">On 13 large caps it made money, mostly from a handful of multi-year holds. A plain 20-day breakout with the same exits did better than the squeeze and volume signal.</p>
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>Worse than random entries</span></div>
+    <h2 id="tested-h">Loses, and random entries did better</h2>
+    <p class="tested-lead">Run on every US stock for five years with this page's indicator, the squeeze breakout lost money. Random entries on the same stocks with the same exits did better, so the signal adds nothing. The earlier profit came from 13 stocks picked with hindsight.</p>
     <ul class="tested-stats">
-      <li><b>126</b><span>trades, 13 large caps, daily</span></li>
-      <li><b>22%</b><span>win rate</span></li>
-      <li><b class="pos">+2.3%</b><span>a trade 2020&ndash;26, capped at +50%</span></li>
-      <li><b class="pos">+3.5%</b><span>plain 20-day breakout, same exits</span></li>
+      <li><b>21,401</b><span>trades, every US stock, daily</span></li>
+      <li><b>15%</b><span>win rate</span></li>
+      <li><b class="neg">&minus;2.2%</b><span>a trade after costs</span></li>
+      <li><b class="pos">+1.5%</b><span>random entries, same exits</span></li>
     </ul>
     <div class="tested-table-wrap"><table>
       <thead><tr><th scope="col">Version</th><th scope="col">Trades</th><th scope="col">Win %</th><th scope="col">Avg a trade</th></tr></thead>
       <tbody>
-        <tr><td>Setup exits, capped at +50%, 2010&ndash;19</td><td>71</td><td>25%</td><td>+3.9%</td></tr>
-        <tr><td>Setup exits, capped at +50%, 2020&ndash;26</td><td>55</td><td>18%</td><td>+2.3%</td></tr>
-        <tr><td>Plain 20-day breakout, same exits, 2020&ndash;26</td><td>167</td><td>17%</td><td>+3.5%</td></tr>
-        <tr><td>Setup + ATR trail (Let Winners Run)</td><td>166</td><td>45%</td><td>+0.36%</td></tr>
-        <tr><td>Setup exits, 13 sector and index ETFs</td><td>69</td><td>6%</td><td>+3.7%</td></tr>
+        <tr><td>Every signal, both sides</td><td>21,401</td><td>15%</td><td>&minus;2.2%</td></tr>
+        <tr><td>Random entries, same stocks and exits</td><td>107,005</td><td>17%</td><td>+1.5%</td></tr>
+        <tr><td>Longs only</td><td>9,872</td><td>14%</td><td>&minus;0.1%</td></tr>
+        <tr><td>Random longs</td><td>49,360</td><td>16%</td><td>+4.6%</td></tr>
+        <tr><td>Liquid longs ($5+, $10M a day)</td><td>3,750</td><td>14%</td><td>+1.3%</td></tr>
+        <tr><td>Liquid longs, each trade capped at +50%</td><td>3,750</td><td>14%</td><td>&minus;1.4%</td></tr>
+        <tr><td>Shorts only</td><td>11,529</td><td>16%</td><td>&minus;3.9%</td></tr>
+        <tr><td>Earlier test: 13 hindsight large caps, capped</td><td>126</td><td>22%</td><td>+2.3%</td></tr>
       </tbody>
     </table></div>
     <ul class="tested-notes">
-      <li>Uncapped, the average trade was +36%, but that's NVDA, TSLA and AVGO held for years. Capping each trade shows the everyday result.</li>
-      <li>The setup's own exit, holding until a daily close back under the breakout, beat an ATR trail by a wide margin.</li>
-      <li>On ETFs, 4 winners carried the whole result and only 4 of the 13 were positive.</li>
-      <li>The 13 stocks are today's winners, picked with hindsight. It needs a run on an unbiased stock list before it can be trusted.</li>
+      <li>About 83% of trades end on the stop, a daily close back through the level, with a median hold of 10 trading days.</li>
+      <li>The 6&times; trim cue is rare: only about 7% of longs ever reach it before the stop.</li>
+      <li>Among liquid longs, the top 5% of trades made more than the whole total; without them it loses. Capped at +50% a trade, every year was negative except 2023, which broke even.</li>
+      <li>The earlier +2.3% came from 13 of today's winners picked with hindsight. On every stock the same rules lose.</li>
     </ul>
-    <p class="tested-how"><b>How we tested.</b> TradingView backtest of 13 large caps together on daily bars, 2010 to 2026, 1 bp a side, fixed position size. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+    <p class="tested-how"><b>How we tested.</b> Every US common stock, delisted ones included, on daily bars from Nov 2021 to Nov 27, 2026 (signals from April 2022 after the weekly warm-up). Rules coded line for line from this page's indicator at its default settings: a weekly squeeze arms it, a daily close beyond the top or bottom of the 20-week closing range on 2&sigma; volume enters, a close back through the level or the measure above 6 exits. 5 bp a side. Random entries: five random days on the same stock and side for every trade, with the level the same distance away and the same exits. Results are in % because the stop is a close, which can land well past the level. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
   </section>
   <!--tested:end-->
 
@@ -750,7 +753,7 @@
     <div class="qa"><h3>What counts as a squeeze?</h3><p>Two standard deviations of closing prices over 20 bars falling below roughly 1.5 times the ATR, one time frame up from the one you trade: weekly for a daily breakout, monthly for a multi-quarter position.</p></div>
     <div class="qa"><h3>Why does the breakout need outlier volume?</h3><p>Compressed volatility is the stored energy and heavy volume on the break is the fuel. A breakout on thin volume is a poke, not a launch.</p></div>
     <div class="qa"><h3>When do you take profits?</h3><p>When the same volatility measure swings to its expansion extreme, 6 times the ATR, the presenter's expansion line. Most of the stored energy is spent, so he prepares for mean reversion; trimming there is our reading.</p></div>
-    <div class="qa"><h3>Does Energy in the Tank work?</h3><p>Partly. On 13 large caps it made +2.3% a trade over 126 trades with a 22% win rate, mostly from a few multi-year holds. A plain 20-day breakout with the same exits did better (+3.5%), so the exit works but the squeeze signal isn't why.</p></div>
+    <div class="qa"><h3>Does Energy in the Tank work?</h3><p>No. Run on every US stock from 2022 to 2026 with this page's indicator, it lost 2.2% a trade over 21,401 trades with a 15% win rate, and random entries on the same stocks with the same exits made +1.5%. An earlier profit on 13 large caps came from stocks picked with hindsight.</p></div>
   </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">

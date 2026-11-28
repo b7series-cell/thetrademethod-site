@@ -62,25 +62,33 @@ PAGES = [
 },
 {
  "path": "setups/energy-in-the-tank.html", "name": "Energy in the Tank", "group": "Setups",
- "verdict": "mixed", "chip": "The exit works, not the signal",
- "headline": "Profitable, but the squeeze signal isn't why",
- "lead": "On 13 large caps it made money, mostly from a handful of multi-year holds. A plain 20-day breakout with the same exits "
-         "did better than the squeeze and volume signal.",
- "stats": [["126", "trades, 13 large caps, daily"], ["22%", "win rate"], ["+2.3%", "a trade 2020&ndash;26, capped at +50%", "pos"],
-           ["+3.5%", "plain 20-day breakout, same exits", "pos"]],
+ "verdict": "none", "chip": "Worse than random entries",
+ "headline": "Loses, and random entries did better",
+ "lead": "Run on every US stock for five years with this page's indicator, the squeeze breakout lost money. Random entries on "
+         "the same stocks with the same exits did better, so the signal adds nothing. The earlier profit came from 13 stocks "
+         "picked with hindsight.",
+ "stats": [["21,401", "trades, every US stock, daily"], ["15%", "win rate"], ["&minus;2.2%", "a trade after costs", "neg"],
+           ["+1.5%", "random entries, same exits", "pos"]],
  "table": {"head": ["Version", "Trades", "Win %", "Avg a trade"],
-           "rows": [["Setup exits, capped at +50%, 2010&ndash;19", "71", "25%", "+3.9%"],
-                    ["Setup exits, capped at +50%, 2020&ndash;26", "55", "18%", "+2.3%"],
-                    ["Plain 20-day breakout, same exits, 2020&ndash;26", "167", "17%", "+3.5%"],
-                    ["Setup + ATR trail (Let Winners Run)", "166", "45%", "+0.36%"],
-                    ["Setup exits, 13 sector and index ETFs", "69", "6%", "+3.7%"]]},
- "notes": ["Uncapped, the average trade was +36%, but that's NVDA, TSLA and AVGO held for years. Capping each trade shows the "
-           "everyday result.",
-           "The setup's own exit, holding until a daily close back under the breakout, beat an ATR trail by a wide margin.",
-           "On ETFs, 4 winners carried the whole result and only 4 of the 13 were positive.",
-           "The 13 stocks are today's winners, picked with hindsight. It needs a run on an unbiased stock list before it can "
-           "be trusted."],
- "how": "TradingView backtest of 13 large caps together on daily bars, 2010 to 2026, 1 bp a side, fixed position size.",
+           "rows": [["Every signal, both sides", "21,401", "15%", "&minus;2.2%"],
+                    ["Random entries, same stocks and exits", "107,005", "17%", "+1.5%"],
+                    ["Longs only", "9,872", "14%", "&minus;0.1%"],
+                    ["Random longs", "49,360", "16%", "+4.6%"],
+                    ["Liquid longs ($5+, $10M a day)", "3,750", "14%", "+1.3%"],
+                    ["Liquid longs, each trade capped at +50%", "3,750", "14%", "&minus;1.4%"],
+                    ["Shorts only", "11,529", "16%", "&minus;3.9%"],
+                    ["Earlier test: 13 hindsight large caps, capped", "126", "22%", "+2.3%"]]},
+ "notes": ["About 83% of trades end on the stop, a daily close back through the level, with a median hold of 10 trading days.",
+           "The 6&times; trim cue is rare: only about 7% of longs ever reach it before the stop.",
+           "Among liquid longs, the top 5% of trades made more than the whole total; without them it loses. Capped at +50% a "
+           "trade, every year was negative except 2023, which broke even.",
+           "The earlier +2.3% came from 13 of today's winners picked with hindsight. On every stock the same rules lose."],
+ "how": "Every US common stock, delisted ones included, on daily bars from Nov 2021 to Nov 27, 2026 (signals from April 2022 "
+        "after the weekly warm-up). Rules coded line for line from this page's indicator at its default settings: a weekly "
+        "squeeze arms it, a daily close beyond the top or bottom of the 20-week closing range on 2&sigma; volume enters, a close "
+        "back through the level or the measure above 6 exits. 5 bp a side. Random entries: five random days on the same stock "
+        "and side for every trade, with the level the same distance away and the same exits. Results are in % because the "
+        "stop is a close, which can land well past the level.",
 },
 {
  "path": "setups/cup-and-handle.html", "name": "Cup and Handle", "group": "Setups",

@@ -297,7 +297,7 @@ FAQ = {
   ("What counts as a squeeze?", "Two standard deviations of closing prices over 20 bars falling below roughly 1.5 times the ATR, one time frame up from the one you trade: weekly for a daily breakout, monthly for a multi-quarter position."),
   ("Why does the breakout need outlier volume?", "Compressed volatility is the stored energy and heavy volume on the break is the fuel. A breakout on thin volume is a poke, not a launch."),
   ("When do you take profits?", "When the same volatility measure swings to its expansion extreme, 6 times the ATR, the presenter's expansion line. Most of the stored energy is spent, so he prepares for mean reversion; trimming there is our reading."),
-  ("Does Energy in the Tank work?", "Partly. On 13 large caps it made +2.3% a trade over 126 trades with a 22% win rate, mostly from a few multi-year holds. A plain 20-day breakout with the same exits did better (+3.5%), so the exit works but the squeeze signal isn't why."),
+  ("Does Energy in the Tank work?", "No. Run on every US stock from 2022 to 2026 with this page's indicator, it lost 2.2% a trade over 21,401 trades with a 15% win rate, and random entries on the same stocks with the same exits made +1.5%. An earlier profit on 13 large caps came from stocks picked with hindsight."),
  ],
 },
 "/setups/market-memory.html": {
