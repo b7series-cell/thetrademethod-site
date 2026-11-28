@@ -19,7 +19,8 @@
 //                  aggressive entry, marked at the edge. A later retest
 //                  of the edge that closes back inside without a new
 //                  extreme is the conservative entry.
-//   5. The stop    Past the extreme of the poke, or half the poke.
+//   5. The stop    Past the extreme of the poke, or half the poke when
+//                  the extreme leaves under the minimum R (the video).
 //   6. Targets     POC (partial, then break even), then the other side
 //                  of value. Trades under the minimum R to the other
 //                  side are skipped.
@@ -54,7 +55,7 @@ deltaPct = input.float(15, "Delta at least (% of volume)", minval = 0, maxval = 
 spikeX   = input.float(1.5, "Or volume at least (x 20-bar average)", minval = 1, step = 0.1, group = grpS)
 
 grpR = "Risk and targets"
-stopMode = input.string("Past the extreme", "Stop", options = ["Past the extreme", "Half the poke"], group = grpR)
+stopMode = input.string("Extreme, else half", "Stop", options = ["Extreme, else half", "Past the extreme", "Half the poke"], group = grpR, tooltip = "Extreme, else half (the video): past the poke's extreme, or half the poke when the extreme leaves less than the minimum R to the other side. The video puts it just past the big trades, which Pine can't see.")
 bufTk    = input.int(2, "Stop buffer (ticks)", minval = 0, group = grpR)
 minR     = input.float(2.0, "Minimum R to the other side", minval = 0, step = 0.1, group = grpR)
 partPct  = input.float(50, "Partial at POC (%)", minval = 0, maxval = 100, group = grpR)
@@ -271,11 +272,16 @@ if not na(closedR)
 planTrade(int dir, float entry, float ext, float edge) =>
     // dir = -1 short (stop above), +1 long (stop below)
     float half = edge + (ext - edge) / 2
-    float base = stopMode == "Past the extreme" ? ext : half
+    float other = dir == -1 ? eVal : eVah
+    float base = stopMode == "Half the poke" ? half : ext
     float stop = dir == -1 ? base + bufTk * tick : base - bufTk * tick
     float risk = math.abs(entry - stop)
-    float other = dir == -1 ? eVal : eVah
     float rr = risk > 0 ? (other - entry) * dir / risk : 0.0
+    // the video: when the extreme is too far for the minimum R, risk half the poke instead
+    if stopMode == "Extreme, else half" and rr < minR
+        stop := dir == -1 ? half + bufTk * tick : half - bufTk * tick
+        risk := math.abs(entry - stop)
+        rr := risk > 0 ? (other - entry) * dir / risk : 0.0
     [risk > 0 and rr >= minR, stop, risk, other, rr]
 
 // --- new pokes
