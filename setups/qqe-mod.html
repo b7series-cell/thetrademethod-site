@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/qqe-mod.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/qqe-mod.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-11-22",
+ "dateModified": "2026-11-28",
  "inLanguage": "en",
  "author": {
   "@type": "Person",
@@ -397,7 +397,7 @@
    "name": "Does the QQE Mod strategy work?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "In our test it came out just under break-even: 256 trades on 5-minute bars across 10 large-cap stocks, Aug to Nov 2026, with a 48% win rate, a 0.97 profit factor and -0.01R per trade. That was on stocks, not the gold futures from the video."
+    "text": "In our test it came out just under break-even: 256 trades on 5-minute bars across 10 large-cap stocks, Aug to Nov 2026, with a 48% win rate, a 0.97 profit factor and -0.01R per trade. That was on stocks, not the 5-minute gold chart from the video."
    }
   }
  ]
@@ -437,7 +437,7 @@
 <div class="sheet">
 
   <a class="back" href="/setups/">&lsaquo; All setups</a>
-  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-22">Nov 22, 2026</time></p><!-- /byline -->
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-28">Nov 28, 2026</time></p><!-- /byline -->
 
   <header class="top" data-candle-bg="qqe-mod">
     <div>
@@ -670,7 +670,7 @@
       <li><b>&minus;0.01R</b><span>average per trade</span></li>
     </ul>
     <ul class="tested-notes">
-      <li>4 of the 10 stocks were positive. About 3.5 months of data, on stocks rather than the gold futures in the video.</li>
+      <li>4 of the 10 stocks were positive. About 3.5 months of data, on stocks rather than the 5-minute gold chart in the video.</li>
     </ul>
     <p class="tested-how"><b>How we tested.</b> TradingView backtest of the 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA) together on 5-minute bars, Aug to Nov 2026 (the last 5,000 bars, so about 3.5 months). Rules coded from this page, 0.5 bp a side for the spread. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
   </section>
@@ -948,7 +948,7 @@ if sellSignal
     <div class="qa"><h3>What QQE Mod settings does it use?</h3><p>Mihkel00's QQE Mod with RSI length 8 and RSI smoothing 5, everything else at default, plus a 50-period EMA.</p></div>
     <div class="qa"><h3>What do the QQE Mod colors mean?</h3><p>Blue means both of the indicator's RSI calculations agree on bullish momentum, red means they agree on bearish momentum, and gray or nothing means they don't agree or the RSI is near 50.</p></div>
     <div class="qa"><h3>When should you skip a QQE Mod signal?</h3><p>When price is chopping across the EMA 50, when the stop beyond the last swing is too big for your risk limit, or when the next support or resistance sits between the entry and the 2R target.</p></div>
-    <div class="qa"><h3>Does the QQE Mod strategy work?</h3><p>In our test it came out just under break-even: 256 trades on 5-minute bars across 10 large-cap stocks, Aug to Nov 2026, with a 48% win rate, a 0.97 profit factor and -0.01R per trade. That was on stocks, not the gold futures from the video.</p></div>
+    <div class="qa"><h3>Does the QQE Mod strategy work?</h3><p>In our test it came out just under break-even: 256 trades on 5-minute bars across 10 large-cap stocks, Aug to Nov 2026, with a 48% win rate, a 0.97 profit factor and -0.01R per trade. That was on stocks, not the 5-minute gold chart from the video.</p></div>
   </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
@@ -972,7 +972,7 @@ if sellSignal
     </div>
   </div>
 
-  <p class="src">Based on a video walkthrough of QQE Mod (Mihkel00's TradingView indicator) with an EMA 50 on 5-minute gold, and the Pine Script
+  <p class="src">Based on the RSI Pro video &ldquo;I Replaced RSI With This New Trading Indicator,&rdquo; a walkthrough of QQE Mod (Mihkel00's TradingView indicator) with an EMA 50 on 5-minute gold, and the Pine Script
   code above. The walkthrough, the stepper chart, the sell charts and the stay-out loops are illustrative, not real prices; the histograms
   on the walkthrough, stepper and sell charts are calculated from those made-up bars with the same math as the code.</p>
 </div>

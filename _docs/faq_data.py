@@ -73,7 +73,7 @@ FAQ = {
   ("What QQE Mod settings does it use?", "Mihkel00's QQE Mod with RSI length 8 and RSI smoothing 5, everything else at default, plus a 50-period EMA."),
   ("What do the QQE Mod colors mean?", "Blue means both of the indicator's RSI calculations agree on bullish momentum, red means they agree on bearish momentum, and gray or nothing means they don't agree or the RSI is near 50."),
   ("When should you skip a QQE Mod signal?", "When price is chopping across the EMA 50, when the stop beyond the last swing is too big for your risk limit, or when the next support or resistance sits between the entry and the 2R target."),
-  ("Does the QQE Mod strategy work?", "In our test it came out just under break-even: 256 trades on 5-minute bars across 10 large-cap stocks, Aug to Nov 2026, with a 48% win rate, a 0.97 profit factor and -0.01R per trade. That was on stocks, not the gold futures from the video."),
+  ("Does the QQE Mod strategy work?", "In our test it came out just under break-even: 256 trades on 5-minute bars across 10 large-cap stocks, Aug to Nov 2026, with a 48% win rate, a 0.97 profit factor and -0.01R per trade. That was on stocks, not the 5-minute gold chart from the video."),
  ],
 },
 "/stacked-imbalances.html": {
