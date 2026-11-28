@@ -27,21 +27,21 @@
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Heatmap Scalp — order flow with the trend and VWAP | The Trade Method</title>
-<meta name="description" content="Matthias&#x27;s order flow scalp: trend and VWAP for the bias, a liquidity heatmap for the trigger, enter on the bid, add on pullbacks, out before the wall.">
+<title>Heatmap Scalp: Order Flow Scalping with VWAP | The Trade Method</title>
+<meta name="description" content="Heatmap Scalp, an order flow scalping strategy for NQ and ES: trend and VWAP pick the side, a liquidity heatmap times the entry, and you exit before the wall.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://thetrademethod.com/setups/heatmap-scalp.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="The Trade Method">
-<meta property="og:title" content="Heatmap Scalp — order flow with the trend and VWAP">
-<meta property="og:description" content="Matthias&#x27;s order flow scalp: trend and VWAP for the bias, a liquidity heatmap for the trigger, enter on the bid, add on pullbacks, out before the wall.">
+<meta property="og:title" content="Heatmap Scalp: Order Flow Scalping with VWAP">
+<meta property="og:description" content="Heatmap Scalp, an order flow scalping strategy for NQ and ES: trend and VWAP pick the side, a liquidity heatmap times the entry, and you exit before the wall.">
 <meta property="og:url" content="https://thetrademethod.com/setups/heatmap-scalp.html">
 <meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Heatmap Scalp — order flow with the trend and VWAP">
-<meta name="twitter:description" content="Matthias&#x27;s order flow scalp: trend and VWAP for the bias, a liquidity heatmap for the trigger, enter on the bid, add on pullbacks, out before the wall.">
+<meta name="twitter:title" content="Heatmap Scalp: Order Flow Scalping with VWAP">
+<meta name="twitter:description" content="Heatmap Scalp, an order flow scalping strategy for NQ and ES: trend and VWAP pick the side, a liquidity heatmap times the entry, and you exit before the wall.">
 <meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
 <link rel="icon" href="/favicon.ico?v=2" sizes="any">
 <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
@@ -56,9 +56,9 @@
 {
  "@context": "https://schema.org",
  "@type": "Article",
- "headline": "Heatmap Scalp — trend, VWAP and the liquidity on the book",
+ "headline": "Heatmap Scalp: Order Flow Scalping with VWAP",
  "name": "Heatmap Scalp",
- "description": "Matthias's order flow scalping method on NQ and ES futures, from an IQ Capital live trading session: the trend from market structure (higher highs and higher lows) and price on the right side of VWAP set the bias, a liquidity heatmap (Bookmap) shows resting limit orders and big market orders, and the entry comes on a pullback when the other side's aggression stops working, filled on the bid. A fixed dollar stop, cut early when big orders stack against the trade, add on pullbacks while in profit, take partials into liquidity and get out before the big wall. Three trades a day at most.",
+ "description": "Heatmap Scalp, an order flow scalping strategy for NQ and ES: trend and VWAP pick the side, a liquidity heatmap times the entry, and you exit before the wall.",
  "url": "https://thetrademethod.com/setups/heatmap-scalp.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/heatmap-scalp.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
@@ -256,8 +256,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=28">
-<script src="/js/nav.js?v=44" defer></script>
-<script src="/js/site.js?v=80" defer></script>
+<link rel="stylesheet" href="/css/tested.css?v=3">
+<script src="/js/nav.js?v=45" defer></script>
+<script src="/js/site.js?v=81" defer></script>
 <script src="/js/hs-anim.js?v=1" defer></script>
 <style>
   /* steps across the page, the two panels side by side under them (same as hitchhiker-scalp.html) */
@@ -459,7 +460,7 @@
    "name": "What is the Heatmap Scalp?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "The Heatmap Scalp is an order flow day trade on NQ and ES futures from a funded trader's live session. Market structure and VWAP set the side: higher lows above VWAP means longs only. A liquidity heatmap such as Bookmap times the entry: on a pullback, the other side's big market orders stop moving price and the resting liquidity holds, so you get in on the bid. The stop is a fixed dollar amount, you add on pullbacks while in profit, and you exit just before a big wall of liquidity."
+    "text": "The Heatmap Scalp is an order flow day trade on NQ and ES futures. Higher lows above VWAP means longs only, and shorts are the mirror. On a pullback, a liquidity heatmap such as Bookmap shows when the other side's big orders stop moving price and the bid holds. Fixed dollar stop, add on pullbacks, exit before the wall."
    }
   },
   {
@@ -488,10 +489,10 @@
   },
   {
    "@type": "Question",
-   "name": "How many trades a day?",
+   "name": "Does the Heatmap Scalp work?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Three at most for a day trader. A fourth is usually a re-entry for the adrenaline, and after a green morning he only risks what keeps the day green."
+    "text": "We tested the video's rules on a year of NQ futures with real buy and sell orders, and they broke even: 163 trades, 29% wins, -0.01R a trade, against -0.04R for random entries with the same stop and target. The order-flow trigger beat the same pullbacks without it (-0.08R), but the sample is too small to call an edge. The heatmap's resting orders weren't tested."
    }
   }
  ]
@@ -547,9 +548,10 @@
         <div><b>2:1</b><small>his starting reward for a newer trader</small></div>
         <div><b>55&ndash;60%</b><small>his win rate, profit factor about 1.7</small></div>
       </div>
+      <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Breaks even</b></a><!--/tested-chip-->
     </div>
   </header>
-  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the Heatmap Scalp?</h2><p>The Heatmap Scalp is an order flow day trade on NQ and ES futures from a funded trader's live session. Market structure and VWAP set the side: higher lows above VWAP means longs only. A liquidity heatmap such as Bookmap times the entry: on a pullback, the other side's big market orders stop moving price and the resting liquidity holds, so you get in on the bid. The stop is a fixed dollar amount, you add on pullbacks while in profit, and you exit just before a big wall of liquidity.</p></section><!-- /define -->
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the Heatmap Scalp?</h2><p>The Heatmap Scalp is an order flow day trade on NQ and ES futures. Higher lows above VWAP means longs only, and shorts are the mirror. On a pullback, a liquidity heatmap such as Bookmap shows when the other side's big orders stop moving price and the bid holds. Fixed dollar stop, add on pullbacks, exit before the wall.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">1 &middot; bias</div><div class="n">Structure plus VWAP</div></div>
@@ -690,7 +692,7 @@
 
   <div class="section-head">
     <h2>Read the book</h2>
-    <p>Four things the heatmap does, and what he does about each one. Pick one to play it. The orange and yellow bars are resting limit orders; the bubbles are market orders.</p>
+    <p>Four things the heatmap does, and what he does about each one. Pick one to play it. The orange and yellow bars are resting limit orders; the bubbles are market orders. New to this? Start with <a href="/order-flow.html">order flow for beginners</a>; <a href="/stacked-imbalances.html">stacked imbalances</a> and the <a href="/setups/liquidity-refill.html">Liquidity Refill</a> read the same tape from a footprint.</p>
   </div>
   <div class="panel hs-read" data-hs-read>
     <div class="pre" role="group" aria-label="Pick what the book is doing">
@@ -828,6 +830,56 @@
     </ol>
   </div>
 
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>Breaks even</span></div>
+    <h2 id="tested-h">With real order flow it breaks even, no clear edge</h2>
+    <p class="tested-lead">We tested the video's rules on NQ futures with real buy and sell market orders: higher lows above VWAP, a pullback where heavy selling stops moving price and the next minute is net buying, a 20-point stop, 2:1, cut early, add on a pullback. It broke even. The order-flow trigger did better than the same pullbacks without it, but not by enough to trust.</p>
+    <ul class="tested-stats">
+      <li><b>163</b><span>trades, NQ 1-minute, 279 days</span></li>
+      <li><b>29%</b><span>win rate</span></li>
+      <li><b>&minus;0.01R</b><span>average per trade</span></li>
+      <li><b>&minus;0.04R</b><span>random entries, same stop and target</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Version</th><th scope="col">Rules</th><th scope="col">Random entries</th></tr></thead>
+      <tbody>
+        <tr><td>The video's rules (20-point stop, 2:1)</td><td>&minus;0.01R (163)</td><td>&minus;0.04R</td></tr>
+        <tr><td>Same pullbacks, no order-flow trigger</td><td>&minus;0.08R (727)</td><td>&ndash;</td></tr>
+        <tr><td>40-point stop (his wider NY stop)</td><td>+0.03R (159)</td><td>+0.01R</td></tr>
+        <tr><td>Heavier selling (2x average)</td><td>+0.02R (85)</td><td>&minus;0.07R</td></tr>
+        <tr><td>Lighter selling (1x average)</td><td>&minus;0.01R (254)</td><td>&minus;0.07R</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tested-notes">
+      <li>163 trades is a small sample: the likely range for the average runs from about &minus;0.20R to +0.18R. Nothing here is clearly better than random.</li>
+      <li>Adds almost never happened (1 in 163): by the time a second trigger came, the trade had usually hit its stop or target.</li>
+      <li>Not tested: the resting limit orders (the heatmap's bright bars), &ldquo;the bid holds&rdquo; and exiting before the wall. That needs order-book data. Also not tested: London and ES. Our data covers 9:30 to noon New York on NQ.</li>
+      <li>Our earlier chart-only version on QQQ and SPY (wick into VWAP, 0.08% stop, target at the high of day) lost &minus;0.11R over 2,344 trades.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> NQ futures 1-minute bars and footprints with the real CME buy and sell side (Databento), Oct 2025 to Nov 2026, 279 days, entries 9:30 to noon New York. Rules from this page's indicator: long when price is above VWAP (from 9:30) and the last two swing lows rise (5 bars left, 2 right, ours); short is the mirror with lower highs. A minute in the pullback zone (within 5 points of VWAP or the last swing low, ours) with sell volume over buy volume by at least 1.5x the last 20 minutes' average (ours), then a minute that holds its low and is net buying: buy its close. Stop 20 points, target 2:1, out early on another heavy-selling minute while under water, add once on a new trigger in profit with the stop under VWAP, three trades a day, two losses on one side ends that side. 0.5 points a lot round trip. Random entries: 20 per rules trade at random minutes and sides, same stop, target and cut-early rule. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
+
+  <section class="ind-sec" id="indicator" aria-label="TradingView indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for the setup (Pine Script v6), with the same rules as our test. A chart can't see the heatmap's resting orders, so it reads the bubbles, the market orders, from TradingView's footprint. It marks and alerts. It does not place trades.</p>
+    <ul class="ind-list">
+      <li class="ind-card">
+        <div class="ind-card-top">
+          <h3 class="ind-name">Heatmap Scalp</h3>
+          <span class="ind-alerts">alerts</span>
+        </div>
+        <p class="ind-blurb">It draws VWAP from the open and shades the chart green when price is above it with higher lows, red below it with lower highs. In that bias, a pullback to VWAP or the last swing low that meets a minute of heavy selling gets a dot. If the next minute holds that low and is net buying, their push failed: it marks a "LONG" with a 20-point stop and a 2:1 target (short: the mirror).
+        Another heavy-selling minute while you're under water marks "Cut early". In profit, a new trigger on a pullback marks "ADD", moves the stop under VWAP, and once price takes out the high before the pullback, moves it a tick above the first entry.</p>
+        <p class="ind-blurb" style="color:var(--dim)">The bias, the 20-point stop, 2:1, cutting early, adding on pullbacks and three trades a day are from the video. The swing lengths (5 bars left, 2 right), the 5-point pullback zone, "heavy" as 1.5x the last 20 minutes' average delta, and the 9:30 to noon window are ours, and every one is a setting. Use 180 as the start for London. It needs a TradingView plan with footprint data.</p>
+        <div class="ind-links">
+          <a class="ind-link ind-link--quiet" href="/pine/heatmap-scalp.pine" download>Download source (.pine)</a>
+        </div>
+      </li>
+    </ul>
+  </section>
+
   <section class="video" id="video" aria-label="Video">
     <div class="video-frame">
       <iframe src="https://www.youtube-nocookie.com/embed/3hpEo_n8Ohw" title="$520k Payout Trader Trades His BANNED Orderflow Strategy LIVE (video)" loading="lazy"
@@ -845,7 +897,7 @@
     <div class="qa"><h3>What does a liquidity heatmap show?</h3><p>Resting limit orders as bright horizontal bars (brighter means more contracts at that price) and filled market orders as bubbles, green for buyers and red for sellers. It shows where the size is and whether it's being taken or pulled.</p></div>
     <div class="qa"><h3>When do you get out early?</h3><p>When big orders stack against the trade: large red bubbles on a long and the bid liquidity under you keeps getting taken. In the video that cut the first loss to about half the planned risk.</p></div>
     <div class="qa"><h3>When do you add to the trade?</h3><p>Only on a pullback while you're already in profit and the trend still holds, not on a breakout. The stop for both goes under VWAP, then to just above the first entry once the local high breaks.</p></div>
-    <div class="qa"><h3>How many trades a day?</h3><p>Three at most for a day trader. A fourth is usually a re-entry for the adrenaline, and after a green morning he only risks what keeps the day green.</p></div>
+    <div class="qa"><h3>Does the Heatmap Scalp work?</h3><p>We tested the video's rules on a year of NQ futures with real buy and sell orders, and they broke even: 163 trades, 29% wins, &minus;0.01R a trade, against &minus;0.04R for random entries with the same stop and target. The order-flow trigger beat the same pullbacks without it (&minus;0.08R), but the sample is too small to call an edge. The heatmap's resting orders weren't tested. <a href="#tested">See the test</a>.</p></div>
   </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
@@ -854,6 +906,7 @@
     <a href="/setups/fib-ote.html"><span class="k">All session</span><h3>Fibonacci OTE</h3><p>Price moves in waves, so don't buy the impulse.</p></a>
     <a href="/setups/micro-range.html"><span class="k">All session</span><h3>Micro Range</h3><p>Price isn't value.</p></a>
   </div><!-- /related -->
+
   <div class="rule">
     <div>
       <h2>The chart picks the side. The book picks the moment.</h2>

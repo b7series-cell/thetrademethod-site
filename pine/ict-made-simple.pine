@@ -3,7 +3,8 @@ indicator("ICT Made Simple · The Trade Method", "ICT Simple", overlay = true, m
 
 // Built from thetrademethod.com/setups/ict-made-simple.html
 // HTF maps the trade (trend, structure, range, POIs). The chart time frame times the entry
-// (low taken -> close through the high = MSS -> enter at the breaker).
+// (low taken -> close through the high = MSS -> enter on that close, the video's way;
+// a stopped trade counts as a new low taken). Defaults are the video's numbers.
 // HTF data is read from closed HTF candles only, so nothing here repaints.
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -17,7 +18,7 @@ string MSSCLOSE = "MSS close"
 string G1 = "1 · Trend and structure (high time frame)"
 string htfMode    = input.string("Auto", "High time frame", options = ["Auto", "Manual"], group = G1, tooltip = "Auto uses the page's pairs: 5m chart -> 1H, 15m -> 4H, 1H/4H -> Daily, Daily -> Weekly, Weekly -> Monthly.")
 string htfManual  = input.timeframe("60", "Manual HTF", group = G1)
-int    htfL       = input.int(2, "HTF swing strength (candles each side)", minval = 1, maxval = 10, group = G1, tooltip = "The page defines a swing as one lower/higher candle on each side (1). 2 keeps only the more obvious swings.")
+int    htfL       = input.int(1, "HTF swing strength (candles each side)", minval = 1, maxval = 10, group = G1, tooltip = "The video: a swing is three candles, one lower (higher) candle on each side, so 1. Raise it to keep only the more obvious swings.")
 bool   showStruct = input.bool(true, "Show MSB / MSS labels", group = G1)
 
 string G2 = "2 · Range, premium and discount"
@@ -28,7 +29,7 @@ string G3 = "3 · Points of interest"
 bool  showFvg     = input.bool(true, "Fair value gaps", group = G3)
 bool  showOb      = input.bool(true, "Order blocks", group = G3)
 bool  showBrk     = input.bool(true, "Breaker blocks", group = G3)
-float fvgMinAtr   = input.float(0.10, "Minimum FVG size (x HTF ATR)", minval = 0.0, step = 0.05, group = G3)
+float fvgMinAtr   = input.float(0.0, "Minimum FVG size (x HTF ATR)", minval = 0.0, step = 0.05, group = G3, tooltip = "The video takes any gap (0). A minimum is our filter.")
 int   maxPoi      = input.int(12, "Maximum POIs kept on chart", minval = 3, maxval = 40, group = G3)
 bool  poiNeedZone = input.bool(true, "Only trade POIs in discount (longs) / premium (shorts)", group = G3)
 color colBull     = input.color(#2ecf7a, "Bullish", group = G3)
@@ -38,14 +39,14 @@ color colBrk      = input.color(#f4b942, "Breaker", group = G3)
 string G4 = "4 · Entry"
 string entryMethod = input.string(ZOOM, "Entry method", options = [ZOOM, HTFONLY], group = G4)
 string tradeDir    = input.string("Both", "Direction", options = ["Both", "Long only", "Short only"], group = G4)
-int    ltfL        = input.int(2, "LTF swing strength", minval = 1, maxval = 10, group = G4)
-string ltfEntry    = input.string(RETEST, "LTF entry price", options = [RETEST, MSSCLOSE], group = G4, tooltip = "Breaker retest waits for price to come back to the breaker. MSS close enters on the candle that closes through the high (low for shorts).")
+int    ltfL        = input.int(1, "LTF swing strength", minval = 1, maxval = 10, group = G4)
+string ltfEntry    = input.string(MSSCLOSE, "LTF entry price", options = [RETEST, MSSCLOSE], group = G4, tooltip = "Breaker retest waits for price to come back to the breaker. MSS close enters on the candle that closes through the high (low for shorts).")
 int    armBars     = input.int(60, "Bars to wait for the LTF flip after a POI tag", minval = 5, group = G4)
 int    retestBars  = input.int(20, "Bars to wait for the breaker retest", minval = 1, group = G4)
 
 string G5 = "5 · Stop, target and size"
 float minRR    = input.float(1.5, "Minimum reward-to-risk to external liquidity", minval = 0.0, step = 0.1, group = G5)
-float stopBuf  = input.float(0.10, "Stop buffer (x ATR)", minval = 0.0, step = 0.05, group = G5)
+float stopBuf  = input.float(0.0, "Stop buffer (x ATR)", minval = 0.0, step = 0.05, group = G5, tooltip = "The video: the stop goes at the low before the reversal (high for shorts), so 0. A buffer is ours.")
 float riskUsd  = input.float(100.0, "Dollar risk per trade (for share size)", minval = 1.0, group = G5)
 
 string G6 = "6 · Display"
@@ -444,7 +445,7 @@ if not na(tagP) and posDir == 0 and pendDir == 0 and openDir == 0
             openT := t
             openLimit := true
 
-// 3) LTF flip: low taken, then a close through the high (MSS). Enter at the breaker.
+// 3) LTF flip: low taken, then a close through the high (MSS). Enter on that close (or at the breaker).
 if useLtf and armedDir != 0 and posDir == 0 and pendDir == 0 and openDir == 0
     if st == 0
         if armedDir == 1 and not na(lplP) and not na(lphP) and lphI > lplI and low < lplP
@@ -558,6 +559,16 @@ if posDir != 0
             hitT := true
         if showTrades
             label.new(bar_index, sHit ? posS : posT, sHit ? "−1R" : "+" + str.tostring(r, "#.#") + "R", style = label.style_none, textcolor = sHit ? colBear : colBull, size = size.small)
+        // A stop-out takes the low (high for shorts) the trade sat on: that is a new "low taken",
+        // so the LTF flip starts again from here (video: low taken, then a close through the high).
+        if sHit and useLtf and trend == posDir
+            armedDir := posDir
+            armedBar := bar_index
+            st := 1
+            swExt := posDir == 1 ? low : high
+            refP := posDir == 1 ? lphP : lplP
+            refI := posDir == 1 ? lphI : lplI
+            swBar := bar_index
         posDir := 0
 
 // ─────────────────────────────────────────────────────────────────────────────

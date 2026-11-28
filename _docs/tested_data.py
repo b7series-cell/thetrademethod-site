@@ -213,33 +213,36 @@ PAGES = [
 },
 {
  "path": "setups/ict-made-simple.html", "name": "ICT Made Simple", "group": "Setups",
- "verdict": "none", "chip": "No edge on any time frame",
- "headline": "Lost on every intraday pairing and on the whole market",
- "lead": "The indicator's rules, coded line for line, lost on every intraday chart and higher time frame pairing. Daily into "
-         "weekly looked positive on 12 tickers, but across every liquid US stock all three entry methods lost.",
- "stats": [["14,525", "trades, whole US market, daily / weekly"], ["27%", "win rate"], ["0.90", "profit factor"],
-           ["&minus;0.08R", "average per trade, MSS close", "neg"]],
- "table": {"head": ["Chart &rarr; HTF", "Breaker retest", "MSS close", "HTF only"],
-           "rows": [["5-minute &rarr; 1-hour", "&minus;0.18R (6,193)", "&minus;0.16R (5,914)", "&minus;0.33R (3,814)"],
-                    ["15-minute &rarr; 4-hour", "&minus;0.16R (2,182)", "&minus;0.12R (2,123)", "&minus;0.15R (1,220)"],
-                    ["1-hour &rarr; daily", "&minus;0.07R (598)", "+0.01R (543)", "&minus;0.30R (645)"],
-                    ["4-hour &rarr; daily", "+0.02R (121)", "&minus;0.08R (102)", "&minus;0.17R (563)"],
-                    ["Daily &rarr; weekly, 12 tickers", "&minus;0.06R (89)", "+0.21R (77)", "+0.15R (119)"],
-                    ["Daily &rarr; weekly, whole US market", "&minus;0.08R (16,627)", "&minus;0.08R (14,525)", "&minus;0.14R (21,544)"]]},
- "notes": ["Intraday it wins only 20 to 27% of the time against planned rewards of 4 to 10R. The far liquidity targets are "
-           "rarely reached.",
-           "The positive daily / weekly rows on 12 tickers rest on 77 to 119 trades. On the whole market, with 14,500 to "
-           "21,500 trades, every entry method lost.",
-           "On the whole market it lost in both halves of the data, and a little more since mid-2024 (MSS close &minus;0.01R "
-           "before, &minus;0.14R after). Longs were slightly positive (+0.09R); shorts lost (&minus;0.25R).",
-           "Only 1,148 of 2,526 stocks came out positive on the MSS close entry."],
- "how": ("The indicator's default rules: closed higher-time-frame candles, 2-candle swings, MSB and MSS on closes, POIs (order "
-         "blocks, breakers, fair value gaps) in discount for longs and premium for shorts, a low taken then an MSS close on the "
-         "chart, stop past the turn plus 0.1 ATR, target the external range liquidity with a 1.5R minimum. All three entry "
-         "methods tested. Intraday: 1-minute bars on SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, "
-         "MSFT, MU, NVDA, TSLA), Nov 2021 to Nov 2026, 0.5 bp a side. Daily / weekly also on every liquid US stock, delisted "
-         "ones included, 5 bp a side. The stop wins when stop and target share a bar, and a gap past the stop fills at the "
-         "open. Trades before June 2024 are the training half, after it the holdout."),
+ "verdict": "none", "chip": "No edge on stocks",
+ "headline": "The video's rules made money on Bitcoin and lost on US stocks",
+ "lead": "We coded the video's own rules, and they take both of its Bitcoin trades. On Bitcoin, the video's market, they "
+         "made money, but only 28 trades since 2016. Across every liquid US stock they lost, and they lost on every intraday pairing.",
+ "stats": [["26,629", "trades, whole US market, daily / weekly"], ["26%", "win rate"], ["0.93", "profit factor"],
+           ["&minus;0.05R", "average per trade", "neg"]],
+ "table": {"head": ["Market", "Chart &rarr; HTF", "Trades", "Avg R"],
+           "rows": [["Bitcoin, the video's market", "Daily &rarr; weekly", "28", "+2.45R, no costs"],
+                    ["Every liquid US stock", "Daily &rarr; weekly", "26,629", "&minus;0.05R"],
+                    ["12 tickers", "Daily &rarr; weekly", "137", "+0.30R"],
+                    ["12 tickers", "4-hour &rarr; daily", "233", "+0.05R"],
+                    ["12 tickers", "1-hour &rarr; daily", "994", "&minus;0.02R"],
+                    ["12 tickers", "15-minute &rarr; 4-hour", "3,452", "&minus;0.18R"],
+                    ["12 tickers", "5-minute &rarr; 1-hour", "9,052", "&minus;0.17R"]]},
+ "notes": ["On Bitcoin it won 13 of 28 trades for +68.6R in total, almost all of it from longs (14 trades, +62.4R). That is "
+           "too few trades to call an edge.",
+           "On US stocks it made +0.02R a trade before June 2024 and lost &minus;0.13R after. Longs made +0.07R; shorts lost "
+           "&minus;0.18R. Only 1,206 of 2,622 stocks came out positive.",
+           "The 12-ticker daily / weekly row (+0.30R) rests on 137 trades and lost after June 2024 (&minus;0.08R).",
+           "The earlier test used our indicator's old numbers (2-candle swings, a 0.1 ATR stop buffer, a minimum gap size, "
+           "breaker retest entries) and lost &minus;0.08R on the whole market."],
+ "how": ("The video's rules, as the indicator now runs them by default: closed higher-time-frame candles, 3-candle swings "
+         "(the video's \"I like three\"), MSB and MSS on closes, POIs (order blocks, breakers, any fair value gap) in discount "
+         "for longs and premium for shorts. On the chart: a low taken, then a close through the high (the MSS), entry on that "
+         "close, stop at the low before the turn, target the external range liquidity, skipped under 1.5R. A stopped trade "
+         "counts as a new low taken. Ours: 12 POIs kept and a 60-bar wait after a POI tag. It takes both of the video's "
+         "trades: the April 2025 long and the May 2026 short on Bitcoin. Bitcoin: the indicator in TradingView on Coinbase "
+         "daily bars, 2016 to Nov 2026, no costs. Stocks: every liquid US stock, delisted ones included, daily bars, 2021 to "
+         "Nov 2026, 5 bp a side. Intraday: 1-minute bars on SPY, QQQ and 10 large-cap stocks, Nov 2021 to Nov 2026, 0.5 bp a "
+         "side. The stop wins when stop and target share a bar, and a gap past the stop fills at the open."),
 },
 {
  "path": "setups/look-above-and-fail.html", "name": "Look Above and Fail", "group": "Setups",
@@ -259,6 +262,37 @@ PAGES = [
  "how": ("SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA), Nov 2021 to Nov 2026, on "
          "1, 2 and 5-minute bars. Rules from this page's indicator at its defaults, 0.5 bp a side. Fake edges: the same rules "
          "with the value area high and low moved out or in by 25% or 50% of its width."),
+},
+{
+ "path": "setups/heatmap-scalp.html", "name": "Heatmap Scalp", "group": "Setups",
+ "verdict": "none", "chip": "Breaks even",
+ "headline": "With real order flow it breaks even, no clear edge",
+ "lead": "We tested the video's rules on NQ futures with real buy and sell market orders: higher lows above VWAP, a pullback "
+         "where heavy selling stops moving price and the next minute is net buying, a 20-point stop, 2:1, cut early, add on a "
+         "pullback. It broke even. The order-flow trigger did better than the same pullbacks without it, but not by enough to trust.",
+ "stats": [["163", "trades, NQ 1-minute, 279 days"], ["29%", "win rate"], ["&minus;0.01R", "average per trade"],
+           ["&minus;0.04R", "random entries, same stop and target"]],
+ "table": {"head": ["Version", "Rules", "Random entries"],
+           "rows": [["The video's rules (20-point stop, 2:1)", "&minus;0.01R (163)", "&minus;0.04R"],
+                    ["Same pullbacks, no order-flow trigger", "&minus;0.08R (727)", ""],
+                    ["40-point stop (his wider NY stop)", "+0.03R (159)", "+0.01R"],
+                    ["Heavier selling (2x average)", "+0.02R (85)", "&minus;0.07R"],
+                    ["Lighter selling (1x average)", "&minus;0.01R (254)", "&minus;0.07R"]]},
+ "notes": ["163 trades is a small sample: the likely range for the average runs from about &minus;0.20R to +0.18R. Nothing here is "
+           "clearly better than random.",
+           "Adds almost never happened (1 in 163): by the time a second trigger came, the trade had usually hit its stop or target.",
+           "Not tested: the resting limit orders (the heatmap's bright bars), &ldquo;the bid holds&rdquo; and exiting before the wall. "
+           "That needs order-book data. Also not tested: London and ES. Our data covers 9:30 to noon New York on NQ.",
+           "Our earlier chart-only version on QQQ and SPY (wick into VWAP, 0.08% stop, target at the high of day) lost &minus;0.11R over "
+           "2,344 trades."],
+ "how": ("NQ futures 1-minute bars and footprints with the real CME buy and sell side (Databento), Oct 2025 to Nov 2026, 279 days, "
+         "entries 9:30 to noon New York. Rules from this page's indicator: long when price is above VWAP (from 9:30) and the last two "
+         "swing lows rise (5 bars left, 2 right, ours); short is the mirror with lower highs. A minute in the pullback zone (within 5 points "
+         "of VWAP or the last swing low, ours) with sell volume over buy volume by at least 1.5x the last 20 minutes' average (ours), then "
+         "a minute that holds its low and is net buying: buy its close. Stop 20 points, target 2:1, out early on another heavy-selling "
+         "minute while under water, add once on a new trigger in profit with the stop under VWAP, three trades a day, two losses on one "
+         "side ends that side. 0.5 points a lot round trip. Random entries: 20 per rules trade at random minutes and sides, same stop, "
+         "target and cut-early rule."),
 },
 {
  "path": "setups/three-candle-crt.html", "name": "3-Candle CRT", "group": "Setups",

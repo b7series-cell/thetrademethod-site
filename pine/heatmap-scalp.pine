@@ -1,0 +1,200 @@
+//@version=6
+// =====================================================================
+// Heatmap Scalp — thetrademethod.com
+// https://thetrademethod.com/setups/heatmap-scalp.html
+//
+// The video's rules on a 1-minute NQ or ES chart, with TradingView's
+// footprint standing in for the heatmap's bubbles (market orders).
+// A chart can't see resting limit orders, so "the bid holds" is read
+// from the bars. Numbers marked (ours) are our stand-ins.
+//
+// 1. Bias      Long: price above VWAP and higher lows (the last two
+//              swing lows rising). Short: below VWAP, lower highs.
+//              Swings 5 bars left, 2 right (ours). VWAP from 9:30.
+// 2. Location  A pullback to VWAP or the last swing low, within
+//              5 points (ours).
+// 3. Trigger   Their push fails: a minute of heavy selling (sell
+//              minus buy volume at least 1.5x the average size of the
+//              last 20 minutes, ours) that the next minute doesn't
+//              break, and the next minute is net buying. Buy its close.
+// 4. Stop      Fixed: 20 NQ points (the video's $400 an account).
+//              Cut early on another heavy-selling minute while you're
+//              under water.
+// 5. Target    2:1, the video's start for a newer trader.
+// 6. Add       In profit, a new trigger on a pullback: add a lot, stop
+//              for both under VWAP; once price takes out the high
+//              before the pullback, stop a tick above the first entry.
+//
+// 9:30 to 12:00 New York (ours), three a day, two losses on one side
+// ends that side. Footprint needs a TradingView plan with footprint
+// data. It marks and alerts. It does not place trades.
+// =====================================================================
+indicator("Heatmap Scalp [TTM]", shorttitle = "HS [TTM]", overlay = true, max_lines_count = 400, max_labels_count = 400)
+
+stopPts = input.float(20.0, "Stop (points)", minval = 1, step = 1, tooltip = "The video: about $400 an account, 20 NQ points in London. He trades micros in New York to allow a wider stop.")
+rr = input.float(2.0, "Target (x the stop)", minval = 0.5, step = 0.5)
+k = input.float(1.5, "Heavy minute: delta at least (x average)", minval = 0.5, step = 0.1)
+zonePts = input.float(5.0, "Pullback zone (points from VWAP or the swing low)", minval = 0, step = 1)
+doAdd = input.bool(true, "Add on a pullback while in profit")
+pl = input.int(5, "Swing: bars left", minval = 1)
+pr = input.int(2, "Swing: bars right", minval = 1)
+maxTrades = input.int(3, "Trades a day at most", minval = 1, maxval = 10)
+startMin = input.int(570, "First entry (minutes after midnight NY)", tooltip = "570 = 9:30. Use 180 (3:00) for London.")
+endMin = input.int(720, "Last entry (minutes after midnight NY)", tooltip = "720 = 12:00, the end of our footprint data.")
+ticksPerRow = input.int(4, "Footprint ticks per row", minval = 1)
+cUp = input.color(#30d158, "Long")
+cDn = input.color(#ff453a, "Short")
+
+TZ = "America/New_York"
+TICK = syminfo.mintick
+mod = hour(time, TZ) * 60 + minute(time, TZ)
+inDay = mod >= startMin and mod < 960
+
+footprint fp = request.footprint(ticksPerRow, 70)
+float dlt = not na(fp) ? fp.delta() : na
+
+// session VWAP from the start time
+var float pv = 0.0
+var float vv = 0.0
+bool first = inDay and not inDay[1]
+if first
+    pv := 0.0
+    vv := 0.0
+if inDay
+    pv += hlc3 * volume
+    vv += volume
+float vw = inDay and vv > 0 ? pv / vv : na
+
+// swings, today's only
+ph = ta.pivothigh(high, pl, pr)
+plo = ta.pivotlow(low, pl, pr)
+var float h1 = na
+var float h0 = na
+var float l1 = na
+var float l0 = na
+var array<float> absd = array.new<float>()
+var int n = 0
+var int lossL = 0
+var int lossS = 0
+if first
+    h1 := na, h0 := na, l1 := na, l0 := na
+    absd.clear()
+    n := 0, lossL := 0, lossS := 0
+pivOk = inDay and mod[pr] >= startMin + pl
+if pivOk and not na(ph)
+    h0 := h1
+    h1 := ph
+if pivOk and not na(plo)
+    l0 := l1
+    l1 := plo
+int bias = not inDay ? 0 : close > vw and l1 > l0 ? 1 : close < vw and h1 < h0 ? -1 : 0
+float avgd = absd.size() >= 5 ? absd.avg() : na
+bool heavyL = not na(dlt) and not na(avgd) and -dlt >= k * avgd
+bool heavyS = not na(dlt) and not na(avgd) and dlt >= k * avgd
+bool zoneL = inDay and (low <= vw + zonePts or (not na(l1) and low <= l1 + zonePts))
+bool zoneS = inDay and (high >= vw - zonePts or (not na(h1) and high >= h1 - zonePts))
+bool trigL = mod < endMin and bias[1] == 1 and zoneL[1] and heavyL[1] and low >= low[1] and not na(dlt) and dlt > 0
+bool trigS = mod < endMin and bias[1] == -1 and zoneS[1] and heavyS[1] and high <= high[1] and not na(dlt) and dlt < 0
+
+// trade state
+var int side = 0
+var float e1 = na
+var float e2 = na
+var float sl = na
+var float tg = na
+var float hiB = na
+var bool moved = false
+var int lots = 0
+var line slLn = na
+var line tgLn = na
+bool evIn = false
+bool evAdd = false
+bool evOut = false
+bool exitedNow = false
+var float runHi = na
+
+f_r(float px) =>
+    float r = side * (px - e1) / stopPts
+    if lots > 1
+        r += side * (px - e2) / stopPts
+    r
+
+if side != 0 and inDay
+    float px = na
+    string why = ""
+    if side == 1 ? low <= sl : high >= sl
+        px := side == 1 ? math.min(open, sl) : math.max(open, sl)
+        why := "Stop"
+    else if side == 1 ? high >= tg : low <= tg
+        px := side == 1 ? math.max(open, tg) : math.min(open, tg)
+        why := "Target"
+    else if mod < endMin and (side == 1 ? heavyL : heavyS) and side * (close - e1) < 0
+        px := close
+        why := "Cut early"
+    else if mod >= 959
+        px := close
+        why := "Close"
+    if not na(px)
+        float r = f_r(px)
+        if r < 0
+            if side == 1
+                lossL += 1
+            else
+                lossS += 1
+        label.new(bar_index, side == 1 ? high : low, why + "\n" + (r >= 0 ? "+" : "") + str.tostring(r, "#.##") + "R", style = side == 1 ? label.style_label_down : label.style_label_up, color = color.new(why == "Target" ? cUp : why == "Stop" ? cDn : color.gray, 15), textcolor = color.white, size = size.small)
+        side := 0
+        evOut := true
+        exitedNow := true
+    else
+        if doAdd and lots == 1 and side * (close - e1) > 0 and (side == 1 ? trigL : trigS)
+            hiB := runHi
+            e2 := close
+            lots := 2
+            float st2 = vw - side * 2 * TICK
+            if side * (st2 - sl) > 0
+                sl := st2
+            evAdd := true
+            label.new(bar_index, side == 1 ? low : high, "ADD " + str.tostring(close, format.mintick), style = side == 1 ? label.style_label_up : label.style_label_down, color = color.new(side == 1 ? cUp : cDn, 30), textcolor = color.white, size = size.small)
+        else if lots == 2 and not moved and (side == 1 ? high > hiB : low < hiB)
+            float be = e1 + side * TICK
+            if side * (be - sl) > 0
+                sl := be
+            moved := true
+    if side != 0
+        line.set_xy1(slLn, bar_index, sl)
+        line.set_xy2(slLn, bar_index + 1, sl)
+        line.set_x2(tgLn, bar_index + 1)
+
+// the high (low for a short) since entry, for the break-even move after an add
+if side != 0 and not evIn
+    runHi := side == 1 ? math.max(runHi, high) : math.min(runHi, low)
+
+if side == 0 and not exitedNow and inDay and n < maxTrades and barstate.isconfirmed
+    int s = trigL and lossL < 2 ? 1 : trigS and lossS < 2 ? -1 : 0
+    if s != 0
+        side := s
+        e1 := close
+        lots := 1
+        moved := false
+        runHi := s == 1 ? high : low
+        sl := close - s * stopPts
+        tg := close + s * rr * stopPts
+        n += 1
+        evIn := true
+        label.new(bar_index, s == 1 ? low : high, (s == 1 ? "LONG " : "SHORT ") + str.tostring(close, format.mintick) + "\nstop " + str.tostring(sl, format.mintick), style = s == 1 ? label.style_label_up : label.style_label_down, color = s == 1 ? cUp : cDn, textcolor = color.white, size = size.small)
+        slLn := line.new(bar_index, sl, bar_index + 1, sl, color = cDn, style = line.style_dashed)
+        tgLn := line.new(bar_index, tg, bar_index + 1, tg, color = cUp, style = line.style_dashed)
+
+// this minute's |delta| joins the average after it's used
+if inDay and not na(dlt)
+    absd.push(math.abs(dlt))
+    if absd.size() > 20
+        absd.shift()
+
+plot(vw, "VWAP from the open", color = color.new(#2997ff, 0), linewidth = 2, style = plot.style_linebr)
+bgcolor(bias == 1 ? color.new(cUp, 94) : bias == -1 ? color.new(cDn, 94) : na, title = "Bias")
+plotshape(heavyL and bias == 1 and zoneL, "Heavy selling into support", shape.circle, location.belowbar, color.new(cDn, 30), size = size.tiny)
+plotshape(heavyS and bias == -1 and zoneS, "Heavy buying into resistance", shape.circle, location.abovebar, color.new(cUp, 30), size = size.tiny)
+alertcondition(evIn, "HS entry", "Heatmap Scalp: their push failed. Entry on the close.")
+alertcondition(evAdd, "HS add", "Heatmap Scalp: add on the pullback. Stop under VWAP.")
+alertcondition(evOut, "HS exit", "Heatmap Scalp: trade closed.")

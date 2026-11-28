@@ -624,7 +624,11 @@ const SETUPS = [
     stages:  6,
     filters: 4,
     status:  "live",
-    indicators: []
+    indicators: [
+      { name: "Heatmap Scalp",
+        blurb: "The video's rules with TradingView's footprint: higher lows above VWAP, a pullback where heavy selling stops moving price and the next minute is net buying, a 20-point stop, 2:1, cut early, add on a pullback.",
+        url: "", file: "/pine/heatmap-scalp.pine", alerts: true }
+    ]
   }
 
   ,{

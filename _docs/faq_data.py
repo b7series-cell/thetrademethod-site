@@ -153,7 +153,7 @@ FAQ = {
  "faq": [
   ("What is a market structure break?", "A candle body closing through the last swing high in an uptrend (or swing low in a downtrend). A wick doesn't count. A market structure shift is price breaking the last higher low instead, a sign the trend may be turning."),
   ("What are premium and discount?", "Draw a Fibonacci from the significant low to the significant high of the current leg. Above the 0.5 is premium, where you sell; below it is discount, where you buy. 0.618 to 0.786 is the optimal trade entry."),
-  ("What are the three points of interest?", "An order block (the move before the move that broke structure), a breaker (an order block that failed and flipped), and a fair value gap (three candles where price only went one way)."),
+  ("Does ICT Made Simple work?", "Not on stocks. We coded the video's rules, which take both of its Bitcoin trades. On Bitcoin they made +2.45R a trade, but on only 28 trades since 2016. Across every liquid US stock they lost 0.05R a trade over 26,629 trades, and every intraday pairing lost too."),
   ("How do you enter with two time frames?", "When price reaches the high time frame point of interest, zoom in and wait for the low time frame to flip back in line. Enter on its breaker, stop under the turn, and target external range liquidity."),
  ],
 },
@@ -231,12 +231,12 @@ FAQ = {
 },
 "/setups/heatmap-scalp.html": {
  "q": "What is the Heatmap Scalp?",
- "a": "The Heatmap Scalp is an order flow day trade on NQ and ES futures from a funded trader's live session. Market structure and VWAP set the side: higher lows above VWAP means longs only. A liquidity heatmap such as Bookmap times the entry: on a pullback, the other side's big market orders stop moving price and the resting liquidity holds, so you get in on the bid. The stop is a fixed dollar amount, you add on pullbacks while in profit, and you exit just before a big wall of liquidity.",
+ "a": "The Heatmap Scalp is an order flow day trade on NQ and ES futures. Higher lows above VWAP means longs only, and shorts are the mirror. On a pullback, a liquidity heatmap such as Bookmap shows when the other side's big orders stop moving price and the bid holds. Fixed dollar stop, add on pullbacks, exit before the wall.",
  "faq": [
   ("What does a liquidity heatmap show?", "Resting limit orders as bright horizontal bars (brighter means more contracts at that price) and filled market orders as bubbles, green for buyers and red for sellers. It shows where the size is and whether it's being taken or pulled."),
   ("When do you get out early?", "When big orders stack against the trade: large red bubbles on a long and the bid liquidity under you keeps getting taken. In the video that cut the first loss to about half the planned risk."),
   ("When do you add to the trade?", "Only on a pullback while you're already in profit and the trend still holds, not on a breakout. The stop for both goes under VWAP, then to just above the first entry once the local high breaks."),
-  ("How many trades a day?", "Three at most for a day trader. A fourth is usually a re-entry for the adrenaline, and after a green morning he only risks what keeps the day green."),
+  ("Does the Heatmap Scalp work?", "We tested the video's rules on a year of NQ futures with real buy and sell orders, and they broke even: 163 trades, 29% wins, -0.01R a trade, against -0.04R for random entries with the same stop and target. The order-flow trigger beat the same pullbacks without it (-0.08R), but the sample is too small to call an edge. The heatmap's resting orders weren't tested."),
  ],
 },
 "/setups/ready-aim-fire.html": {
