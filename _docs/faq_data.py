@@ -48,12 +48,12 @@ FAQ = {
 },
 "/setups/liquidity-refill.html": {
  "q": "What is a liquidity refill setup?",
- "a": "A liquidity refill is a two-candle pattern from a quant trader's order book research. After a relatively big candle (C1) out of compression, the next candle (C2) dips early and shallow, in the top 10 to 20% of C1, and gets absorbed fast. You buy when C2 breaks C1's high, stop past the wick, and exit after three or four candles.",
+ "a": "A liquidity refill is a two-candle pattern from a quant trader's order book research. After a relatively big candle (C1), the next candle (C2) dips early and shallow, in the top 10 to 20% of C1, and gets absorbed fast. Buy when C2 breaks C1's high, stop past the wick, and exit after three or four candles.",
  "faq": [
   ("What does liquidity refill mean?", "It's the rate at which new limit orders are added back as old ones get taken. When buyers take liquidity faster than sellers can refill it, price has only one way to go."),
   ("How early does the C2 wick have to come?", "On a 1-minute chart, in the first 10 to 15 seconds of C2. On a 5-minute chart roughly the first minute, on a 15-minute chart the first couple of minutes, and on a daily chart the first few hours."),
   ("When should you skip a liquidity refill?", "In chop with same-size big candles, when the wick comes late in C2, when it goes past C1's 50% level, or when C2 never breaks C1's high. A break on C3 doesn't count."),
-  ("Has the liquidity refill been backtested?", "Not fairly. On 5-minute bars it made +0.83R a trade over 73 trades, but bars can't show whether the wick came first. On 1-minute bars only 10 trades clearly did, so a real test needs tick or second-by-second data."),
+  ("Does the liquidity refill strategy work?", "Not in our test. We coded the video's rules on a year of NQ futures, using every trade to time the wick to the second (9:30 to noon ET, Oct 2025 to Nov 2026). On the 1-minute chart, 193 trades lost 0.36R each, worse than random entries; 5-minute made +0.15R on 64 trades and 15-minute lost 0.07R on 65. Most trades are stopped out: the wins are rare and big."),
  ],
 },
 "/four-pillars.html": {

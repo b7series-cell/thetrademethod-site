@@ -9,6 +9,8 @@
 //                  is a multiple of the quiet bars before it, it has a
 //                  real body and closes near its extreme. Chop (another
 //                  bar about as big among the quiet bars) is skipped.
+//                  A second imbalance candle right after the first
+//                  counts too (the video's live trade).
 //   2. C2's wick   The NEXT candle opens with a quick move against C1
 //                  (a sell-off after a green C1) that is done in the
 //                  first moments of the bar and stays in the top 10-20%
@@ -40,7 +42,7 @@ bigX    = input.float(2.0, "C1 range ≥ × their average range", minval = 1.0, 
 bodyMin = input.float(0.6, "C1 body ≥ share of its range", minval = 0.0, maxval = 1.0, step = 0.05, group = grpC)
 closeIn = input.float(0.25, "C1 closes within this share of its extreme", minval = 0.05, maxval = 0.5, step = 0.05, group = grpC)
 chopX   = input.float(0.75, "Chop: skip if a quiet bar's range ≥ × C1's", minval = 0.3, maxval = 1.0, step = 0.05, group = grpC)
-useCmp  = input.bool(true, "Require compression", group = grpC, tooltip = "The quiet bars' average range must be at or below this multiple of ATR(50).")
+useCmp  = input.bool(false, "Require compression", group = grpC, tooltip = "Ours, off by default: the video says C1 often comes out of compression but gives no number. On: the quiet bars' average range must be at or below this multiple of ATR(50).")
 cmpX    = input.float(1.0, "Quiet average range ≤ × ATR(50)", minval = 0.2, step = 0.1, group = grpC)
 
 grpW = "C2 · the early wick"
@@ -107,8 +109,13 @@ atr50 = ta.atr(50)[1]
 big   = rng > 0 and rng >= bigX * qAvg and math.abs(close - open) >= bodyMin * rng
 cmpOK = not useCmp or qAvg <= cmpX * atr50
 chopOK = qMax < chopX * rng
-isC1Up = big and close > open and (high - close) <= closeIn * rng and cmpOK and chopOK
-isC1Dn = big and close < open and (close - low) <= closeIn * rng and cmpOK and chopOK
+isC1UpA = big and close > open and (high - close) <= closeIn * rng and cmpOK and chopOK
+isC1DnA = big and close < open and (close - low) <= closeIn * rng and cmpOK and chopOK
+// a second imbalance candle right after the first also counts (the video: "now we have two imbalance candles"),
+// judged against the quiet bars before the first one
+big2   = rng > 0 and rng >= bigX * qAvg[1] and math.abs(close - open) >= bodyMin * rng and qMax[1] < chopX * rng
+isC1Up = isC1UpA or (isC1UpA[1] and big2 and close > open and (high - close) <= closeIn * rng)
+isC1Dn = isC1DnA or (isC1DnA[1] and big2 and close < open and (close - low) <= closeIn * rng)
 
 if showC1 and barstate.isconfirmed and (isC1Up or isC1Dn)
     label.new(bar_index, isC1Up ? low : high, "C1", yloc = yloc.price, style = isC1Up ? label.style_label_up : label.style_label_down,
