@@ -1,0 +1,258 @@
+//@version=6
+// Energy in the Tank — The Trade Method
+// thetrademethod.com/setups/energy-in-the-tank.html
+//
+// The video's rules made objective, with the page's example chart (js/eit-live.js) as a second mode. Built for daily
+// bars; it works on any time frame, with the "higher time frame" input set one step up.
+//   The measure     2 x the standard deviation of the last 20 closes / ATR(14) (a simple 14-bar average of true range).
+//                   It reads magnitude only, never direction. It is drawn in this pane.
+//   Squeeze         the measure below 1.5 (the classic squeeze threshold). Expansion: above 6.
+//   Arm on          by default (the video) a squeeze on the higher time frame arms it: the measure on weekly bars below
+//                   1.5 in any of the last 8 completed weeks, and the level is the top of the weekly range, the highest
+//                   weekly CLOSE of the last 20 completed weeks (the presenter drew his levels by eye; this is our
+//                   objective version). One break per squeeze. The other mode is the page's example chart:
+//   The level       the top of the coil: the highest CLOSE of the 20 bars the measure was reading when the squeeze began
+//                   and of every bar since (mirrored: the lowest close). The setup stays armed while the squeeze is on
+//                   and for 10 bars after the measure last read below 1.5.
+//   Outlier volume  volume at least the average + 2 standard deviations of the 20 bars before it.
+//   Buy             an armed bar CLOSES above the level on outlier volume: buy that close. Sell is the mirror (a squeeze
+//                   can resolve either way; set "Sides" to long only if you only trade the long side).
+//   Higher TF       in the example-chart mode, the same weekly check is also required by default (the page's first filter).
+//   Skipped         a close through the level on ordinary volume ("low vol", first one per side of each squeeze), an
+//                   outlier-volume bar that only wicks through ("poke"), an outlier-volume close beyond the 20-bar closing
+//                   range with no squeeze behind it ("no squeeze").
+//   Stop            a CLOSE back below the level (above it, short). Never the breakout bar's intrabar low. The video gives
+//                   no stop; this one is ours.
+//   Trim cue        the first close after entry with the measure above 6 (the presenter's expansion line). The trade the
+//                   script tracks ends there; managing the rest is up to you.
+// Signals use closed bars only. Exits are checked from the bar after entry, the stop before the trim. One trade at a time.
+indicator("Energy in the Tank — The Trade Method", shorttitle="EIT", overlay=false, max_labels_count=300, max_lines_count=300)
+
+// ---------- inputs ----------
+gM = "The measure"
+len     = input.int(20, "Closes in the standard deviation", minval=5, group=gM)
+mult    = input.float(2.0, "Standard deviations", minval=0.5, step=0.5, group=gM)
+atrLen  = input.int(14, "ATR length", minval=2, group=gM)
+sqLvl   = input.float(1.5, "Squeeze: below (x ATR)", minval=0.1, step=0.1, group=gM)
+exLvl   = input.float(6.0, "Expansion / trim cue: above (x ATR)", minval=1, step=0.5, group=gM)
+grace   = input.int(10, "Stay armed after the squeeze ends (bars)", minval=0, group=gM)
+gV = "Volume"
+vLen    = input.int(20, "Volume average length", minval=5, group=gV)
+vK      = input.float(2.0, "Outlier: above average + (standard deviations)", minval=0.5, step=0.5, group=gV)
+gH = "Higher time frame"
+armOn   = input.string("Higher time frame squeeze (the video)", "Arm on", options=["Higher time frame squeeze (the video)", "This time frame's squeeze (the page's example chart)"], group=gH,
+     tooltip="The video: a weekly squeeze arms it and the level is the top of the weekly range (the highest weekly close of the last 20 completed weeks). The page's example chart: a squeeze on this time frame arms it and the level is the top of that coil.")
+useHtf  = input.bool(true, "This time frame mode: also require a higher time frame squeeze", group=gH)
+htfTf   = input.timeframe("W", "Higher time frame", group=gH)
+htfLook = input.int(8, "Squeeze in any of the last (completed bars)", minval=1, group=gH)
+gT = "Trades"
+sides   = input.string("Both", "Sides", options=["Both", "Long only", "Short only"], group=gT)
+gD = "Display"
+showLvl = input.bool(true, "Draw the level on the chart", group=gD)
+showRej = input.bool(true, "Mark skipped breaks", group=gD)
+showPan = input.bool(true, "Status panel", group=gD)
+colM    = input.color(#64d2ff, "Measure", group=gD)
+colSq   = input.color(#f4b942, "Squeeze / level", group=gD)
+colEx   = input.color(#30d158, "Expansion", group=gD)
+colBuy  = input.color(#30d158, "Buy", group=gD)
+colSell = input.color(#ff453a, "Sell / stop", group=gD)
+colRej  = input.color(#8e8e93, "Skipped", group=gD)
+
+// ---------- the measure ----------
+f_measure() =>
+    a = ta.sma(ta.tr(true), atrLen)
+    sd = ta.stdev(close, len)
+    a > 0 ? mult * sd / a : na
+m = f_measure()
+// higher time frame: completed bars only (the [1] with lookahead on returns the last closed bar, no repainting)
+htfM   = request.security(syminfo.tickerid, htfTf, f_measure()[1], lookahead=barmerge.lookahead_on)
+htfNew = ta.change(time(htfTf)) != 0
+var float[] htfHist = array.new_float()
+if htfNew and not na(htfM)
+    array.push(htfHist, htfM)
+    if array.size(htfHist) > htfLook
+        array.shift(htfHist)
+htfMin = array.size(htfHist) > 0 ? array.min(htfHist) : na
+[htfHi, htfLo] = request.security(syminfo.tickerid, htfTf, [ta.highest(close, len)[1], ta.lowest(close, len)[1]], lookahead=barmerge.lookahead_on)
+htfMode = str.startswith(armOn, "Higher")
+htfOk  = not na(htfMin) and htfMin < sqLvl
+
+// ---------- volume line: the 20 bars before this one ----------
+vAvg = ta.sma(volume, vLen)[1]
+vLine = vAvg + vK * ta.stdev(volume, vLen)[1]
+outV = not na(vLine) and volume >= vLine
+
+// ---------- state ----------
+var bool   armed   = false
+var float  sHi     = na
+var float  sLo     = na
+var int    sLast   = na
+var int    sEnd    = na
+var bool   vRejL   = false
+var bool   vRejS   = false
+var bool   spent   = false      // higher time frame mode: this squeeze already broke
+var int    tSide   = 0          // 1 long, -1 short, 0 flat
+var float  tEntry  = na
+var float  tLvl    = na
+var int    tBar    = na
+var int    nTrades = 0
+var int    nWins   = 0
+var float  sumPct  = 0.0
+var string lastMsg = "Waiting for a squeeze"
+
+okL = sides != "Short only"
+okS = sides != "Long only"
+cl = barstate.isconfirmed
+// closing ranges, computed on every bar
+hiNow = ta.highest(close, len)
+loNow = ta.lowest(close, len)
+hiPrev = hiNow[1]
+loPrev = loNow[1]
+buySig = false
+sellSig = false
+stopSig = false
+trimSig = false
+sqStart = false
+string exitTxt = na
+
+if cl
+    // exits first, from the bar after entry
+    if tSide != 0 and bar_index > tBar
+        back = tSide == 1 ? close < tLvl : close > tLvl
+        pct = tSide == 1 ? (close / tEntry - 1) * 100 : (1 - close / tEntry) * 100
+        if back or (not na(m) and m > exLvl)
+            nTrades += 1
+            nWins += pct > 0 ? 1 : 0
+            sumPct += pct
+            exitTxt := (back ? "Stop " : "Trim ") + (pct >= 0 ? "+" : "") + str.tostring(pct, "#.0") + "%"
+            stopSig := back
+            trimSig := not back
+            label.new(bar_index, tSide == 1 ? (back ? low : high) : (back ? high : low), exitTxt, force_overlay=true,
+                 style=(tSide == 1) == back ? label.style_label_up : label.style_label_down,
+                 color=back ? colSell : colEx, textcolor=color.white, size=size.small)
+            lastMsg := exitTxt + " (" + (back ? "close back through the level" : "measure above " + str.tostring(exLvl)) + ")"
+            tSide := 0
+    if htfMode and not htfOk
+        spent := false
+        vRejL := false
+        vRejS := false
+    aOn = htfMode ? htfOk and not spent and not na(htfHi) : armed
+    aHi = htfMode ? htfHi : sHi
+    aLo = htfMode ? htfLo : sLo
+    if not na(m)
+        if aOn
+            up = close > aHi
+            dn = close < aLo
+            if up or dn
+                isL = up
+                lvl = up ? aHi : aLo
+                sideOk = isL ? okL : okS
+                if outV
+                    if htfMode
+                        spent := true
+                    else
+                        sEnd := bar_index
+                        armed := false
+                    if tSide == 0 and sideOk and (htfOk or not useHtf or htfMode)
+                        tSide := isL ? 1 : -1
+                        tEntry := close
+                        tLvl := lvl
+                        tBar := bar_index
+                        buySig := isL
+                        sellSig := not isL
+                        vx = vAvg > 0 ? volume / vAvg : na
+                        txt = (isL ? "BUY " : "SELL ") + str.tostring(close, format.mintick) + "\n" + str.tostring(vx, "#.0") + "x vol"
+                        label.new(bar_index, isL ? low : high, txt, force_overlay=true, style=isL ? label.style_label_up : label.style_label_down,
+                             color=isL ? colBuy : colSell, textcolor=color.white, size=size.small)
+                        lastMsg := (isL ? "Bought " : "Sold ") + str.tostring(close, format.mintick) + ", stop a close " + (isL ? "below " : "above ") + str.tostring(lvl, format.mintick)
+                    else if showRej and tSide == 0 and sideOk
+                        label.new(bar_index, isL ? high : low, "no HTF squeeze", force_overlay=true, style=isL ? label.style_label_down : label.style_label_up,
+                             color=color.new(colRej, 60), textcolor=color.white, size=size.tiny)
+                else if (isL ? not vRejL : not vRejS) and sideOk
+                    if isL
+                        vRejL := true
+                    else
+                        vRejS := true
+                    if showRej
+                        label.new(bar_index, isL ? high : low, "low vol", force_overlay=true, style=isL ? label.style_label_down : label.style_label_up,
+                             color=color.new(colRej, 60), textcolor=color.white, size=size.tiny)
+            else if outV and (high > aHi or low < aLo) and showRej
+                pL = high > aHi
+                if pL ? okL : okS
+                    label.new(bar_index, pL ? high : low, "poke", force_overlay=true, style=pL ? label.style_label_down : label.style_label_up,
+                         color=color.new(colRej, 60), textcolor=color.white, size=size.tiny)
+        else if outV and tSide == 0 and showRej and bar_index >= len and not (htfMode and htfOk)
+            if close > hiPrev and okL
+                label.new(bar_index, high, "no squeeze", force_overlay=true, style=label.style_label_down, color=color.new(colRej, 60), textcolor=color.white, size=size.tiny)
+            else if close < loPrev and okS
+                label.new(bar_index, low, "no squeeze", force_overlay=true, style=label.style_label_up, color=color.new(colRej, 60), textcolor=color.white, size=size.tiny)
+        // carry the setup: start on a squeeze reading, ratchet the range, lapse after the grace period
+        inSq = m < sqLvl
+        if htfMode
+            armed := false
+        else if armed
+            sHi := math.max(sHi, close)
+            sLo := math.min(sLo, close)
+            if inSq
+                sLast := bar_index
+            else if bar_index - sLast > grace
+                armed := false
+                sEnd := bar_index
+                lastMsg := "Squeeze lapsed without a break"
+        else if inSq and not (sEnd == bar_index) and not htfMode
+            armed := true
+            sHi := hiNow
+            sLo := loNow
+            sLast := bar_index
+            vRejL := false
+            vRejS := false
+            sqStart := true
+            lastMsg := "Squeeze on: watching a close above " + str.tostring(sHi, format.mintick) + " on outlier volume"
+
+if cl and htfMode and htfOk and not htfOk[1]
+    sqStart := true
+    lastMsg := "Higher time frame squeeze: watching a close above " + str.tostring(htfHi, format.mintick) + " on outlier volume"
+
+// ---------- plots: this pane ----------
+plot(m, "Measure", color=colM, linewidth=2)
+hline(sqLvl, "Squeeze", color=colSq, linestyle=hline.style_dashed)
+hline(exLvl, "Expansion", color=colEx, linestyle=hline.style_dashed)
+bgcolor(not na(m) and m < sqLvl ? color.new(colSq, 85) : na, title="Squeeze shading")
+// ---------- plots: the price chart ----------
+lvlOn = htfMode ? htfOk and not spent : armed
+plot(showLvl and lvlOn and okL ? (htfMode ? htfHi : sHi) : na, "Level (top of the coil)", color=colSq, style=plot.style_linebr, linewidth=2, force_overlay=true)
+plot(showLvl and lvlOn and okS ? (htfMode ? htfLo : sLo) : na, "Level (bottom of the coil)", color=color.new(colSq, 40), style=plot.style_linebr, linewidth=1, force_overlay=true)
+plot(tSide != 0 ? tLvl : na, "Stop: a close through the level", color=colSell, style=plot.style_linebr, linewidth=1, force_overlay=true)
+bgcolor(not na(m) and m < sqLvl ? color.new(colSq, 90) : na, title="Squeeze shading (price)", force_overlay=true)
+
+// ---------- status panel ----------
+var table pan = table.new(position.top_right, 2, 6, bgcolor=color.new(#1d1d1f, 10), border_width=0)
+if showPan and barstate.islast
+    cyc = na(m) ? "—" : m < sqLvl ? "Squeeze (energy building)" : m > exLvl ? "Expansion (energy spent)" : "Middle"
+    table.cell(pan, 0, 0, "Energy in the Tank", text_color=color.white, text_size=size.small)
+    table.cell(pan, 1, 0, "", text_color=color.white)
+    table.cell(pan, 0, 1, "Measure", text_color=#a1a1a6, text_size=size.small)
+    table.cell(pan, 1, 1, na(m) ? "—" : str.tostring(m, "#.00") + "  " + cyc, text_color=color.white, text_size=size.small)
+    table.cell(pan, 0, 2, "Higher TF", text_color=#a1a1a6, text_size=size.small)
+    table.cell(pan, 1, 2, na(htfMin) ? "—" : (htfOk ? "squeeze (" : "no squeeze (") + str.tostring(htfMin, "#.00") + ")", text_color=htfOk ? colSq : color.white, text_size=size.small)
+    table.cell(pan, 0, 3, "Level", text_color=#a1a1a6, text_size=size.small)
+    table.cell(pan, 1, 3, lvlOn ? str.tostring(htfMode ? htfHi : sHi, format.mintick) + " / " + str.tostring(htfMode ? htfLo : sLo, format.mintick) : "not armed", text_color=color.white, text_size=size.small)
+    table.cell(pan, 0, 4, "Last", text_color=#a1a1a6, text_size=size.small)
+    table.cell(pan, 1, 4, lastMsg, text_color=color.white, text_size=size.small)
+    table.cell(pan, 0, 5, "Closed trades", text_color=#a1a1a6, text_size=size.small)
+    table.cell(pan, 1, 5, str.tostring(nTrades) + (nTrades > 0 ? " · " + str.tostring(nWins) + " won · avg " + str.tostring(sumPct / nTrades, "#.0") + "%" : ""), text_color=color.white, text_size=size.small)
+
+// ---------- alerts (fire once per closed bar) ----------
+if buySig
+    alert("Energy in the Tank BUY " + syminfo.ticker + " at " + str.tostring(close, format.mintick) + ", stop a close below " + str.tostring(tLvl, format.mintick), alert.freq_once_per_bar_close)
+if sellSig
+    alert("Energy in the Tank SELL " + syminfo.ticker + " at " + str.tostring(close, format.mintick) + ", stop a close above " + str.tostring(tLvl, format.mintick), alert.freq_once_per_bar_close)
+if stopSig or trimSig
+    alert("Energy in the Tank " + syminfo.ticker + ": " + exitTxt, alert.freq_once_per_bar_close)
+if sqStart
+    alert("Energy in the Tank " + syminfo.ticker + ": squeeze on, level " + str.tostring(htfMode ? htfHi : sHi, format.mintick), alert.freq_once_per_bar_close)
+alertcondition(buySig, "Buy", "Energy in the Tank: buy {{ticker}} at {{close}}")
+alertcondition(sellSig, "Sell", "Energy in the Tank: sell {{ticker}} at {{close}}")
+alertcondition(stopSig, "Stop", "Energy in the Tank: {{ticker}} closed back through the level")
+alertcondition(trimSig, "Trim cue", "Energy in the Tank: {{ticker}} measure above the expansion line")
+alertcondition(sqStart, "Squeeze on", "Energy in the Tank: {{ticker}} squeeze on")

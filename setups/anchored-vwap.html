@@ -249,8 +249,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=28">
-<script src="/js/nav.js?v=42" defer></script>
-<script src="/js/site.js?v=78" defer></script>
+<link rel="stylesheet" href="/css/tested.css?v=3">
+<script src="/js/nav.js?v=43" defer></script>
+<script src="/js/site.js?v=79" defer></script>
 <script src="/js/av-anim.js?v=3" defer></script>
 <style>
   /* steps across the page, the two panels side by side under them */
@@ -443,6 +444,14 @@
     "@type": "Answer",
     "text": "Cut at least half on a daily close below the anchored VWAP. An intraday dip under it isn't enough."
    }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the anchored VWAP earnings setup work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not in our test. Over 5,126 earnings trades on 450 heavily traded stocks from 2021 to 2026, the indicator's rules lost 0.15R a trade with a 29% win rate, and 0.09R at the 20% after-hours minimum. The same rules on random days lost 0.72R, so the earnings anchor helps, but about 40% of trades are stopped out on the entry day."
+   }
   }
  ]
 }
@@ -497,6 +506,7 @@
         <div><b>Low</b><small>the source for strong stocks</small></div>
         <div><b>&frac12;</b><small>cut on a daily close below</small></div>
       </div>
+      <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Loses</b></a><!--/tested-chip-->
     </div>
   </header>
   <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is an anchored VWAP?</h2><p>An anchored VWAP is a volume-weighted average price that starts at an event you choose, such as an earnings release, instead of the start of the day. It shows the average price everyone has paid since the news, so price above it means buyers have been in control since then and price below it means sellers have.</p></section><!-- /define -->
@@ -768,6 +778,38 @@
     </ol>
   </div>
 
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>Loses</span></div>
+    <h2 id="tested-h">Loses, though the earnings anchor beats a random one</h2>
+    <p class="tested-lead">Run on five years of earnings releases from 450 heavily traded stocks, the indicator's rules lost money. The same rules anchored on random days lost far more, so the earnings line carries real information, just not enough to pay for the stop-outs.</p>
+    <ul class="tested-stats">
+      <li><b>5,126</b><span>trades, 450 stocks, 15-minute + daily</span></li>
+      <li><b>29%</b><span>win rate</span></li>
+      <li><b class="neg">&minus;0.15R</b><span>average per trade</span></li>
+      <li><b>&minus;0.72R</b><span>same rules, random anchors</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Version</th><th scope="col">Trades</th><th scope="col">Avg R</th></tr></thead>
+      <tbody>
+        <tr><td>Indicator rules, every release</td><td>5,126</td><td>&minus;0.15R</td></tr>
+        <tr><td>After-hours volume &ge; 20% (the minimum)</td><td>1,000</td><td>&minus;0.09R</td></tr>
+        <tr><td>Before June 2024 / after (&ge; 20%)</td><td>&ndash;</td><td>&minus;0.03R / &minus;0.15R</td></tr>
+        <tr><td>After-hours volume &ge; 50% (strong)</td><td>484</td><td>&minus;0.24R</td></tr>
+        <tr><td>No intraday stop, daily closes only (&ge; 20%)</td><td>1,000</td><td>&minus;0.71R</td></tr>
+        <tr><td>Random anchors, same rules</td><td>5,187</td><td>&minus;0.72R</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tested-notes">
+      <li>About 40% of trades are stopped out on the entry day, at about &minus;1.1R. The stop just under the line gets hit by normal post-earnings swings.</li>
+      <li>Trades that survive the first day go on to make +0.4R (+0.8R at &ge; 20% after-hours), but that doesn't cover the stop-outs.</li>
+      <li>Heavier report volume didn't help, and on 18 mega caps with earnings-surprise data, big beats were the worst group (&minus;0.79R, 33 trades).</li>
+      <li>Not tested: the page's &ldquo;daily chart breaking out of a long base&rdquo; condition, which is a judgment call.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> 8,579 earnings releases from 450 of the 500 most-traded US stocks, Dec 2021 to Oct 2026, 15-minute bars with extended hours. Anchor at the release time from the SEC 8-K filing. Rules coded from this page's indicator with default settings; after the entry day, the first daily close below the line sells half and the next sells the rest (ours), 60-day cap. 5 bp a side. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
+
   <section class="ind-sec" id="indicator" aria-label="TradingView indicator">
     <h2 class="ind-heading">The indicator</h2>
     <p class="ind-note">One TradingView script for the setup (Pine Script v6). You click the release candle and it draws the anchored VWAP from there, grades the after-hours volume,
@@ -809,6 +851,7 @@
     <div class="qa"><h3>How much after-hours volume do you want?</h3><p>At least 20% of the stock's average daily volume in the after-hours session, and 50 to 70% is better.</p></div>
     <div class="qa"><h3>What is the anchored VWAP entry?</h3><p>On day one or day two, the stock dips off the open toward the anchored VWAP and reclaims. Buy the strength after the dip, not the dip itself.</p></div>
     <div class="qa"><h3>When do you sell?</h3><p>Cut at least half on a daily close below the anchored VWAP. An intraday dip under it isn't enough.</p></div>
+    <div class="qa"><h3>Does the anchored VWAP earnings setup work?</h3><p>Not in our test. Over 5,126 earnings trades on 450 heavily traded stocks from 2021 to 2026, the indicator's rules lost 0.15R a trade with a 29% win rate, and 0.09R at the 20% after-hours minimum. The same rules on random days lost 0.72R, so the earnings anchor helps, but about 40% of trades are stopped out on the entry day.</p></div>
   </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">

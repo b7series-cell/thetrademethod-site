@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/energy-in-the-tank.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/energy-in-the-tank.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-11-22",
+ "dateModified": "2026-11-28",
  "inLanguage": "en",
  "author": {
   "@type": "Person",
@@ -208,14 +208,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=28">
 <link rel="stylesheet" href="/css/tested.css?v=3">
-<script src="/js/nav.js?v=42" defer></script>
-<script src="/js/site.js?v=78" defer></script>
+<script src="/js/nav.js?v=43" defer></script>
+<script src="/js/site.js?v=79" defer></script>
 <script src="/js/anim-kit.js?v=2" defer></script>
 <script src="/js/eit-anim.js?v=1" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js" defer></script>
 <script src="/js/live-kit.js?v=3" defer></script>
 <script src="/js/examples/eit.js?v=1" defer></script><script src="/js/example-kit.js?v=2" defer></script>
-<script src="/js/eit-live.js?v=1" defer></script>
+<script src="/js/eit-live.js?v=2" defer></script>
 <style>
   /* video (same as relative-volume.html) */
   .video { background:var(--charcoal); border-radius:28px; padding:24px; margin:72px 0 0;
@@ -269,7 +269,7 @@
    "name": "When do you take profits?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "When the same volatility measure swings to its expansion extreme, roughly 6 times the ATR in the page's examples. Most of the stored energy is spent, so trim or expect mean reversion."
+    "text": "When the same volatility measure swings to its expansion extreme, 6 times the ATR, the presenter's expansion line. Most of the stored energy is spent, so he prepares for mean reversion; trimming there is our reading."
    }
   },
   {
@@ -277,7 +277,7 @@
    "name": "Does Energy in the Tank work?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Partly. On 13 large caps it made +2.3% a trade over 126 trades with a 22% win rate, mostly from a few multi-year holds. A plain 20-day breakout with the same exits did better (+3.5%), so the exit works but the squeeze signal isn't why."
+    "text": "No. Run on every US stock from 2022 to 2026 with this page's indicator, it lost 2.2% a trade over 21,401 trades with a 15% win rate, and random entries on the same stocks with the same exits made +1.5%. An earlier profit on 13 large caps came from stocks picked with hindsight."
    }
   }
  ]
@@ -317,11 +317,11 @@
 <div class="sheet">
 
   <a class="back" href="/setups/">&lsaquo; All setups</a>
-  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-22">Nov 22, 2026</time></p><!-- /byline -->
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-27">Nov 27, 2026</time></p><!-- /byline -->
 
   <header class="top" data-candle-bg="energy-in-the-tank">
     <div>
-      <p class="kicker">Volatility cycle &middot; multi-timeframe squeeze + volume &middot; daily or higher</p>
+      <p class="kicker">Volatility cycle &middot; multi-timeframe squeeze + volume &middot; any time frame, daily favored</p>
       <h1>Energy in the <span>Tank</span></h1>
     </div>
     <div>
@@ -333,7 +333,7 @@
         <div><b>4</b><small>filters</small></div>
         <div><b>2&sigma;</b><small>volume outlier bar</small></div>
       </div>
-      <!--tested-chip--><a class="tested-chip v-mixed" href="#tested"><i aria-hidden="true"></i>Tested: <b>The exit works, not the signal</b></a><!--/tested-chip-->
+      <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Worse than random entries</b></a><!--/tested-chip-->
     </div>
   </header>
   <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the Energy in the Tank setup?</h2><p>Energy in the Tank is a volatility cycle breakout on the daily chart or higher. A squeeze on the higher time frame means volatility is compressed and energy is stored. You buy the close above the range top on an outlier volume bar, more than two standard deviations above average, and invalidate on a close back below the level.</p></section><!-- /define -->
@@ -420,7 +420,7 @@
           <h3>Enter on the close, not the poke</h3>
           <ul>
             <li>Wait for the close above the level on that outlier-volume bar &mdash; not an intrabar touch.</li>
-            <li>Invalidation is a close back below the breakout level. That's the level giving back the argument that just got made.</li>
+            <li>Invalidation (ours; the video doesn't give a stop) is a close back below the breakout level. That's the level giving back the argument that just got made.</li>
           </ul>
           <p class="why">The level that triggered the trade is also what disproves it. If price can't hold above it, the fuel didn't actually ignite anything.</p>
         </div>
@@ -431,8 +431,8 @@
         <div>
           <h3>Use the expansion side to take profits</h3>
           <ul>
-            <li>As the move runs, the same volatility measure rises too. Track a high-side threshold &mdash; roughly 6&times; ATR in the examples here &mdash; for the expansion extreme.</li>
-            <li>Once expansion reaches that extreme, the stock has spent a large share of its stored energy. That's a cue to trim or expect mean reversion, not necessarily an exact top.</li>
+            <li>As the move runs, the same volatility measure rises too. The presenter marks the expansion extreme at 6&times; ATR, mirroring the 1.5&times; squeeze line on the other side.</li>
+            <li>Once expansion reaches that extreme, the stock has spent a large share of its stored energy. In the video that's when to prepare for mean reversion; taking a trim there is our reading of it, not an exact top.</li>
           </ul>
           <p class="why">A squeeze tells you when energy built up. The same tool, read the other way, tells you when most of it has already been spent.</p>
         </div>
@@ -507,10 +507,10 @@
 <line x1="74" y1="560" x2="1050" y2="560" stroke="#f4b942" stroke-width="1.6" stroke-dasharray="6 5"/>
 <text x="82" y="551" fill="#f4b942" font-size="12.5" font-weight="700">Expansion threshold &mdash; ~6&times; ATR</text>
 <line x1="74" y1="660" x2="1050" y2="660" stroke="#c77dff" stroke-width="1.6" stroke-dasharray="6 5"/>
-<text x="82" y="678" fill="#e6c8ff" font-size="12.5" font-weight="700">Squeeze threshold &mdash; ~1.5&times; ATR</text>
-<polyline points="101.1,605 155.3,615 209.6,625 263.8,635 318.0,645 372.2,655 426.4,663 480.7,670 534.9,676 589.1,672 643.3,640 697.6,600 751.8,565 806.0,545 860.2,530 914.4,520 968.7,515 1022.9,512" fill="none" stroke="#5aa9ff" stroke-width="2.3"/>
-<circle cx="480.7" cy="670" r="4.5" fill="#c77dff"/>
-<circle cx="534.9" cy="676" r="4.5" fill="#c77dff"/>
+<text x="1046" y="678" text-anchor="end" fill="#e6c8ff" font-size="12.5" font-weight="700">Squeeze threshold &mdash; ~1.5&times; ATR</text>
+<polyline points="101.1,632 155.3,654 209.6,666 263.8,671 318.0,674 372.2,676 426.4,675 480.7,677 534.9,678 589.1,674 643.3,640 697.6,600 751.8,565 806.0,545 860.2,530 914.4,520 968.7,515 1022.9,512" fill="none" stroke="#5aa9ff" stroke-width="2.3"/>
+<circle cx="209.6" cy="666" r="4.5" fill="#c77dff"/>
+<circle cx="534.9" cy="678" r="4.5" fill="#c77dff"/>
 <circle cx="806.0" cy="545" r="4.5" fill="#f4b942"/>
 <rect x="700" y="590" width="320" height="60" rx="7" fill="#0d1a2b" stroke="#f4b942" stroke-width="1.7"/>
 <text x="714" y="613" fill="#f4b942" font-size="13" font-weight="600">Crosses its own expansion extreme &mdash;</text>
@@ -525,46 +525,46 @@
         <svg viewBox="0 0 1180 300" xmlns="http://www.w3.org/2000/svg" font-family="Inter, Helvetica Neue, Arial, sans-serif" role="img" aria-label="Four squeeze-and-breakout scenarios compared: one with real outlier volume and three without">
 <rect x="10.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#22855a" stroke-width="2"/>
 <line x1="28" y1="130.4" x2="267" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
-<text x="28" y="121.4" fill="#9fb3c8" font-size="11.5">breakout level</text>
+<text x="28" y="121.4" fill="#9fb3c8" font-size="11.5">breakout level</text><line x1="28" y1="222.5" x2="267" y2="222.5" stroke="#2a3a50" stroke-width="1"/><text x="267" y="216" fill="#6b7f95" font-size="10.5" text-anchor="end">volume</text>
 <rect x="45" y="140" width="18" height="12" fill="#1d6f47" rx="1"/>
 <rect x="70" y="138" width="18" height="14" fill="#7d343c" rx="1"/>
 <line x1="147.5" y1="70" x2="147.5" y2="140" stroke="#1d6f47" stroke-width="2.4"/>
 <rect x="131.5" y="80" width="32" height="55" fill="#1d6f47" rx="2"/>
-<rect x="131.5" y="205" width="32" height="55" fill="#f4b942" rx="2"/>
+<rect x="131.5" y="167" width="32" height="55" fill="#f4b942" rx="2"/>
 <text x="28.0" y="42" fill="#2ecf7a" font-size="16" font-weight="800">Take it</text>
-<text x="28.0" y="244" fill="#9fb3c8" font-size="12.6">Breaks the level on volume more than</text>
-<text x="28.0" y="262" fill="#9fb3c8" font-size="12.6">two standard deviations above average.</text>
+<text x="28.0" y="254" fill="#9fb3c8" font-size="12.6">Breaks the level on volume more than</text>
+<text x="28.0" y="272" fill="#9fb3c8" font-size="12.6">two standard deviations above average.</text>
 <rect x="305.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
 <line x1="323" y1="130.4" x2="562" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
-<text x="323" y="121.4" fill="#9fb3c8" font-size="11.5">breakout level</text>
+<text x="323" y="121.4" fill="#9fb3c8" font-size="11.5">breakout level</text><line x1="323" y1="222.5" x2="562" y2="222.5" stroke="#2a3a50" stroke-width="1"/><text x="562" y="216" fill="#6b7f95" font-size="10.5" text-anchor="end">volume</text>
 <rect x="340" y="120" width="18" height="14" fill="#1d6f47" rx="1"/>
 <rect x="365" y="122" width="18" height="12" fill="#7d343c" rx="1"/>
 <rect x="390" y="119" width="18" height="15" fill="#1d6f47" rx="1"/>
-<rect x="340" y="230" width="18" height="30" fill="#54697f" rx="1"/>
-<rect x="365" y="232" width="18" height="28" fill="#54697f" rx="1"/>
+<rect x="340" y="200" width="18" height="22" fill="#54697f" rx="1"/>
+<rect x="365" y="203" width="18" height="19" fill="#54697f" rx="1"/>
 <text x="323.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
-<text x="323.0" y="244" fill="#9fb3c8" font-size="12.6">Still chopping under the level.</text>
-<text x="323.0" y="262" fill="#9fb3c8" font-size="12.6">Stored energy that hasn't been spent.</text>
+<text x="323.0" y="254" fill="#9fb3c8" font-size="12.6">Still chopping under the level.</text>
+<text x="323.0" y="272" fill="#9fb3c8" font-size="12.6">Stored energy that hasn't been spent.</text>
 <rect x="600.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
 <line x1="618" y1="130.4" x2="857" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
-<text x="618" y="121.4" fill="#9fb3c8" font-size="11.5">breakout level</text>
+<text x="618" y="121.4" fill="#9fb3c8" font-size="11.5">breakout level</text><line x1="618" y1="222.5" x2="857" y2="222.5" stroke="#2a3a50" stroke-width="1"/><text x="857" y="216" fill="#6b7f95" font-size="10.5" text-anchor="end">volume</text>
 <line x1="742.5" y1="75" x2="742.5" y2="140" stroke="#1d6f47" stroke-width="2.4"/>
 <rect x="726.5" y="85" width="32" height="50" fill="#1d6f47" rx="2"/>
-<rect x="726.5" y="235" width="32" height="25" fill="#54697f" rx="2"/>
+<rect x="726.5" y="198" width="32" height="24" fill="#54697f" rx="2"/>
 <text x="618.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
-<text x="618.0" y="244" fill="#9fb3c8" font-size="12.6">Clears the level, but volume is</text>
-<text x="618.0" y="262" fill="#9fb3c8" font-size="12.6">completely ordinary. No fuel behind it.</text>
+<text x="618.0" y="254" fill="#9fb3c8" font-size="12.6">Clears the level, but volume is</text>
+<text x="618.0" y="272" fill="#9fb3c8" font-size="12.6">completely ordinary. No fuel behind it.</text>
 <rect x="895.0" y="14" width="275.0" height="272" rx="10" fill="#0c1626" stroke="#1b2a3e" stroke-width="1"/>
 <line x1="913" y1="130.4" x2="1152" y2="130.4" stroke="#f4f7fb" stroke-width="1.8" stroke-dasharray="7 5"/>
-<text x="913" y="121.4" fill="#9fb3c8" font-size="11.5">breakout level</text>
+<text x="913" y="121.4" fill="#9fb3c8" font-size="11.5">breakout level</text><line x1="913" y1="222.5" x2="1152" y2="222.5" stroke="#2a3a50" stroke-width="1"/><text x="1152" y="216" fill="#6b7f95" font-size="10.5" text-anchor="end">volume</text>
 <rect x="930" y="95" width="18" height="60" fill="#7d343c" rx="1"/>
 <rect x="955" y="150" width="18" height="60" fill="#1d6f47" rx="1"/>
 <line x1="1032.5" y1="70" x2="1032.5" y2="140" stroke="#1d6f47" stroke-width="2.4"/>
 <rect x="1016.5" y="80" width="32" height="55" fill="#1d6f47" rx="2"/>
-<rect x="1016.5" y="205" width="32" height="55" fill="#f4b942" rx="2"/>
+<rect x="1016.5" y="167" width="32" height="55" fill="#f4b942" rx="2"/>
 <text x="913.0" y="42" fill="#e0505a" font-size="16" font-weight="800">Skip</text>
-<text x="913.0" y="244" fill="#9fb3c8" font-size="12.6">Volume spikes, but there was no squeeze</text>
-<text x="913.0" y="262" fill="#9fb3c8" font-size="12.6">first &mdash; nothing was stored to spend.</text>
+<text x="913.0" y="254" fill="#9fb3c8" font-size="12.6">Volume spikes, but there was no squeeze</text>
+<text x="913.0" y="272" fill="#9fb3c8" font-size="12.6">first &mdash; nothing was stored to spend.</text>
 </svg>
       </div>
 
@@ -609,14 +609,14 @@
 
   <div class="section-head">
     <h2>Size off the level, never off the wick</h2>
-    <p>Invalidation is a close back below the breakout level &mdash; not the intrabar low of the breakout candle. Numbers below are illustrative, built around the levels discussed for MSTR.</p>
+    <p>The video doesn't give a stop. Ours: invalidation is a close back below the breakout level &mdash; not the intrabar low of the breakout candle &mdash; sized to a dollar under the level to allow for the close. Numbers below are illustrative, built around the MSTR 200 level.</p>
   </div>
   <div class="risk">
     <div class="panel">
       <div class="calc">
         <div class="row"><span>Risk budget for the trade</span><b>$500.00</b></div>
         <div class="row"><span>Entry &mdash; close above the breakout level</span><b>204.00</b></div>
-        <div class="row"><span>Stop &mdash; close back below the level</span><b>199.00</b></div>
+        <div class="row"><span>Stop &mdash; a close below 200, sized at</span><b>199.00</b></div>
         <div class="row"><span>Risk per share</span><b>$5.00</b></div>
         <div class="row tot"><span>Position size</span><b>100 shares</b></div>
       </div>
@@ -631,7 +631,7 @@
 
   <div class="section-head">
     <h2>Three breakouts, same signal</h2>
-    <p>Weekly squeeze, daily trigger, outlier volume on the break. Levels below are the presenter's own stated numbers from the reference video, not independently verified fills.</p>
+    <p>Weekly squeeze, daily trigger, outlier volume on the break. The presenter's tweet on the MSTR break (shown in the video) lists three shared factors: a long weekly Bollinger Band squeeze, a daily volume bar more than 2 standard deviations above average, and massive higher-time-frame relative strength. Levels below are his stated numbers, not independently verified fills.</p>
   </div>
   <table>
     <thead>
@@ -659,7 +659,7 @@
 
   <div class="panel" style="margin-top:20px;">
     <h4>The forward-looking case, and the reminder that this doesn't always work</h4>
-    <p class="lead">On the monthly chart, one name discussed in the video had been in a squeeze for the better part of a year and was testing a breakout level near $415 at the time of recording &mdash; the same pattern, playing out on the highest time frame this page covers.</p>
+    <p class="lead">On the monthly chart, Tesla had been in a squeeze all year and was testing a breakout level near $415 at the time of recording (December 2024). The trigger he named: a weekly or daily bar on volume more than 2 standard deviations above average that closes above 415.</p>
     <p style="color:var(--dim); font-size:14px; margin:0;">Its prior monthly squeeze resolved into a split-adjusted run from roughly $26 to just over $400. The squeeze after <em style="color:var(--up); font-style:normal;">that</em> one resolved to the downside instead &mdash; and the stock held, chopping sideways for a long stretch rather than continuing lower, read as a sign of real strength, not a failed signal to ignore. A squeeze is stored potential, not a promise of direction, and this level and date are from the reference video, not a current call &mdash; check where price actually sits before treating it as live.</p>
   </div>
 
@@ -692,42 +692,68 @@
   </section>
 
   <!--tested:start-->
-  <section class="tested v-mixed" id="tested" aria-labelledby="tested-h">
-    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>The exit works, not the signal</span></div>
-    <h2 id="tested-h">Profitable, but the squeeze signal isn't why</h2>
-    <p class="tested-lead">On 13 large caps it made money, mostly from a handful of multi-year holds. A plain 20-day breakout with the same exits did better than the squeeze and volume signal.</p>
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>Worse than random entries</span></div>
+    <h2 id="tested-h">Loses, and random entries did better</h2>
+    <p class="tested-lead">Run on every US stock for five years with this page's indicator, the squeeze breakout lost money. Random entries on the same stocks with the same exits did better, so the signal adds nothing. The earlier profit came from 13 stocks picked with hindsight.</p>
     <ul class="tested-stats">
-      <li><b>126</b><span>trades, 13 large caps, daily</span></li>
-      <li><b>22%</b><span>win rate</span></li>
-      <li><b class="pos">+2.3%</b><span>a trade 2020&ndash;26, capped at +50%</span></li>
-      <li><b class="pos">+3.5%</b><span>plain 20-day breakout, same exits</span></li>
+      <li><b>21,401</b><span>trades, every US stock, daily</span></li>
+      <li><b>15%</b><span>win rate</span></li>
+      <li><b class="neg">&minus;2.2%</b><span>a trade after costs</span></li>
+      <li><b class="pos">+1.5%</b><span>random entries, same exits</span></li>
     </ul>
     <div class="tested-table-wrap"><table>
       <thead><tr><th scope="col">Version</th><th scope="col">Trades</th><th scope="col">Win %</th><th scope="col">Avg a trade</th></tr></thead>
       <tbody>
-        <tr><td>Setup exits, capped at +50%, 2010&ndash;19</td><td>71</td><td>25%</td><td>+3.9%</td></tr>
-        <tr><td>Setup exits, capped at +50%, 2020&ndash;26</td><td>55</td><td>18%</td><td>+2.3%</td></tr>
-        <tr><td>Plain 20-day breakout, same exits, 2020&ndash;26</td><td>167</td><td>17%</td><td>+3.5%</td></tr>
-        <tr><td>Setup + ATR trail (Let Winners Run)</td><td>166</td><td>45%</td><td>+0.36%</td></tr>
-        <tr><td>Setup exits, 13 sector and index ETFs</td><td>69</td><td>6%</td><td>+3.7%</td></tr>
+        <tr><td>Every signal, both sides</td><td>21,401</td><td>15%</td><td>&minus;2.2%</td></tr>
+        <tr><td>Random entries, same stocks and exits</td><td>107,005</td><td>17%</td><td>+1.5%</td></tr>
+        <tr><td>Longs only</td><td>9,872</td><td>14%</td><td>&minus;0.1%</td></tr>
+        <tr><td>Random longs</td><td>49,360</td><td>16%</td><td>+4.6%</td></tr>
+        <tr><td>Liquid longs ($5+, $10M a day)</td><td>3,750</td><td>14%</td><td>+1.3%</td></tr>
+        <tr><td>Liquid longs, each trade capped at +50%</td><td>3,750</td><td>14%</td><td>&minus;1.4%</td></tr>
+        <tr><td>Shorts only</td><td>11,529</td><td>16%</td><td>&minus;3.9%</td></tr>
+        <tr><td>Earlier test: 13 hindsight large caps, capped</td><td>126</td><td>22%</td><td>+2.3%</td></tr>
       </tbody>
     </table></div>
     <ul class="tested-notes">
-      <li>Uncapped, the average trade was +36%, but that's NVDA, TSLA and AVGO held for years. Capping each trade shows the everyday result.</li>
-      <li>The setup's own exit, holding until a daily close back under the breakout, beat an ATR trail by a wide margin.</li>
-      <li>On ETFs, 4 winners carried the whole result and only 4 of the 13 were positive.</li>
-      <li>The 13 stocks are today's winners, picked with hindsight. It needs a run on an unbiased stock list before it can be trusted.</li>
+      <li>About 83% of trades end on the stop, a daily close back through the level, with a median hold of 10 trading days.</li>
+      <li>The 6&times; trim cue is rare: only about 7% of longs ever reach it before the stop.</li>
+      <li>Among liquid longs, the top 5% of trades made more than the whole total; without them it loses. Capped at +50% a trade, every year was negative except 2023, which broke even.</li>
+      <li>The earlier +2.3% came from 13 of today's winners picked with hindsight. On every stock the same rules lose.</li>
     </ul>
-    <p class="tested-how"><b>How we tested.</b> TradingView backtest of 13 large caps together on daily bars, 2010 to 2026, 1 bp a side, fixed position size. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+    <p class="tested-how"><b>How we tested.</b> Every US common stock, delisted ones included, on daily bars from Nov 2021 to Nov 27, 2026 (signals from April 2022 after the weekly warm-up). Rules coded line for line from this page's indicator at its default settings: a weekly squeeze arms it, a daily close beyond the top or bottom of the 20-week closing range on 2&sigma; volume enters, a close back through the level or the measure above 6 exits. 5 bp a side. Random entries: five random days on the same stock and side for every trade, with the level the same distance away and the same exits. Results are in % because the stop is a close, which can land well past the level. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
   </section>
   <!--tested:end-->
+
+  <div class="section-head" id="indicator">
+    <h2 class="ind-heading">Indicator for this setup</h2>
+    <p class="ind-note">Add this to a daily TradingView chart of a stock you're watching. It draws and alerts on the setup &mdash; it does not place trades.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">Energy in the Tank &mdash; The Trade Method</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">Plots the measure (2 standard deviations of 20 closes divided by the 14-day ATR) with the 1.5&times; squeeze and
+      6&times; expansion lines, and shades every squeeze. By default it works the way the video does: a weekly squeeze arms it, the level is the
+      top of the weekly range (the highest weekly close of the last 20 weeks), and a daily close above it on volume more than two standard
+      deviations over average is the buy. It marks low-volume closes, pokes and breaks with no squeeze, holds until a close back below the level,
+      and flags the first close with the measure above 6. A setting switches it to the example chart's rules instead, where a daily squeeze
+      arms it. The level, the stop and the trim are our objective version; the video draws its levels by eye and gives no stop. Alerts for
+      squeeze on, buy, stop and trim cue.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/energy-in-the-tank.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+  </ul>
 
   <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
   <div class="faq">
     <div class="qa"><h3>What counts as a squeeze?</h3><p>Two standard deviations of closing prices over 20 bars falling below roughly 1.5 times the ATR, one time frame up from the one you trade: weekly for a daily breakout, monthly for a multi-quarter position.</p></div>
     <div class="qa"><h3>Why does the breakout need outlier volume?</h3><p>Compressed volatility is the stored energy and heavy volume on the break is the fuel. A breakout on thin volume is a poke, not a launch.</p></div>
-    <div class="qa"><h3>When do you take profits?</h3><p>When the same volatility measure swings to its expansion extreme, roughly 6 times the ATR in the page's examples. Most of the stored energy is spent, so trim or expect mean reversion.</p></div>
-    <div class="qa"><h3>Does Energy in the Tank work?</h3><p>Partly. On 13 large caps it made +2.3% a trade over 126 trades with a 22% win rate, mostly from a few multi-year holds. A plain 20-day breakout with the same exits did better (+3.5%), so the exit works but the squeeze signal isn't why.</p></div>
+    <div class="qa"><h3>When do you take profits?</h3><p>When the same volatility measure swings to its expansion extreme, 6 times the ATR, the presenter's expansion line. Most of the stored energy is spent, so he prepares for mean reversion; trimming there is our reading.</p></div>
+    <div class="qa"><h3>Does Energy in the Tank work?</h3><p>No. Run on every US stock from 2022 to 2026 with this page's indicator, it lost 2.2% a trade over 21,401 trades with a 15% win rate, and random entries on the same stocks with the same exits made +1.5%. An earlier profit on 13 large caps came from stocks picked with hindsight.</p></div>
   </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
@@ -750,7 +776,7 @@
     </div>
   </div>
 
-  <p class="src">Model built around a volatility-cycle read &mdash; the standard deviation of closing prices over 20 bars, normalized by ATR, the same math behind the classic Bollinger Band / Keltner Channel volatility squeeze &mdash; combined with an outlier-volume breakout filter, as taught in a trading-education video. Breakout levels cited for MSTR, NVDA, SMCI, and the forward-looking example are the presenter's own stated levels from that video, not independently verified, and reflect a date from that recording, not a current signal. <a href="https://youtu.be/pyS_jw8ygJo" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
+  <p class="src">Model built around a volatility-cycle read &mdash; the standard deviation of closing prices over 20 bars, normalized by ATR, the same math behind the classic Bollinger Band / Keltner Channel volatility squeeze &mdash; combined with an outlier-volume breakout filter, as taught by Garrett Drinon of SMB Capital (introduced by Jeff Holden) in SMB's Dec 2024 video. The 6&times; expansion line, the 2&sigma; volume rule and the weekly-to-daily pairing are his; the stop, the trim, the ATR(14) and 20-day volume lookbacks in the examples, and the filter wording are ours. Breakout levels cited for MSTR, NVDA, SMCI, and the forward-looking example are the presenter's own stated levels from that video, not independently verified, and reflect a date from that recording, not a current signal. <a href="https://youtu.be/pyS_jw8ygJo" target="_blank" rel="noopener" style="color:#5aa9ff;">Watch the reference video &rarr;</a></p>
 </div>
 <footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
 
