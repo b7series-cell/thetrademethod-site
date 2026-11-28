@@ -270,22 +270,30 @@ PAGES = [
 },
 {
  "path": "setups/look-above-and-fail.html", "name": "Look Above and Fail", "group": "Setups",
- "verdict": "none", "chip": "Fake levels did as well",
- "headline": "Fake value areas made as much as the real ones",
- "lead": "On 5-minute bars it looked profitable. Then the same rules ran on fake value-area edges, moved in or out by a quarter "
-         "of the range, and made the same. On 1-minute bars, the most realistic test, it lost on SPY and QQQ.",
- "stats": [["30,489", "trades, 10 stocks, 5-minute"], ["+0.21R", "real value area, 5-minute"],
-           ["+0.26R", "fake edges moved in 25%", "neg"], ["&minus;0.07R", "SPY/QQQ, 1-minute", "neg"]],
- "table": {"head": ["Bars", "SPY / QQQ", "10 stocks"],
-           "rows": [["1-minute", "&minus;0.07R (9,436)", "0.00R (40,155)"],
-                    ["2-minute", "+0.02R (8,740)", "+0.07R (36,193)"],
-                    ["5-minute", "+0.20R (7,167)", "+0.22R (30,489)"]]},
- "notes": ["The profit comes from bar size, not the value area: the entry fills inside the edge partway through a bar, and the "
-           "trade is only managed from the next bar. Coarser bars flatter that.",
-           "It's built for NQ and ES futures. SPY and QQQ stood in for them. A fair test needs tick data on the futures."],
- "how": ("SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA), Nov 2021 to Nov 2026, on "
-         "1, 2 and 5-minute bars. Rules from this page's indicator at its defaults, 0.5 bp a side. Fake edges: the same rules "
-         "with the value area high and low moved out or in by 25% or 50% of its width."),
+ "verdict": "none", "chip": "Worse than random entries",
+ "headline": "On NQ with real order flow, it lost more than random entries",
+ "lead": "We tested the video's rules on a year of NQ futures, using every trade to see the big orders and the buying or selling "
+         "past the value area edge. The test took the video's own trade, but over the year about four in five trades were stopped out, "
+         "and the setup did worse than random entries with the same stops.",
+ "stats": [["874", "trades, NQ 2-minute, 1 year"], ["20%", "win rate"], ["&minus;0.33R", "average per trade", "neg"],
+           ["&minus;0.15R", "random entries, same days and stop size"]],
+ "table": {"head": ["Version", "Trades", "Avg R", "Random entries"],
+           "rows": [["Half at POC, stop to break even, rest at the other side", "874", "&minus;0.33R", "&minus;0.15R"],
+                    ["Out full at the other side (his choppy-day exit)", "790", "&minus;0.46R", "&minus;0.26R"],
+                    ["Same, stop at least 15 points (his usual NQ stop)", "757", "&minus;0.23R", "&minus;0.19R"],
+                    ["Same, big trades 75 lots and up", "673", "&minus;0.36R", "&minus;0.27R"]]},
+ "notes": ["The video's trade, NQ 2-minute on Oct 21, 2026: buyers pushed over the value area high at 10:02 with 66, 76 and 87-lot "
+           "market orders, then price fell back under it. The test shorted 29,901.75 at 10:04, stop 29,924.25 just past the big "
+           "trades, and hit the value area low 94 seconds later: +2.5R.",
+           "Untested: the trend filter (he judges a balanced day by eye from the profile's shape), news times, and the conservative "
+           "retest entry. Only 9:30 to noon ET could be tested, because the trade data covers the morning. ES wasn't tested."],
+ "how": ("NQ futures, 273 days from Oct 2025 to Nov 2026, every trade (Databento, CME aggressor side). The developing regular-hours "
+         "profile in ticks, 70% value area, recalculated every 2 minutes, trades from 10:00 (the video). Look above: price trades past "
+         "the value area high with a big buy order past it (40 lots or more in one order, ours) or net buying of at least a quarter "
+         "of the volume traded there (ours), then trades back inside within 4 minutes (ours): short at the first price back inside. Stop 2 ticks "
+         "past the highest big order, or past the high; half the poke if that leaves under 2R; no trade under 2R to the other side "
+         "(the video). Three stops in a day and it's done. Mirror for look below. 1 tick a side in costs, R capped at +10R. Random "
+         "entries: 10 per trade, a random second the same morning, same side, stop size and targets."),
 },
 {
  "path": "setups/heatmap-scalp.html", "name": "Heatmap Scalp", "group": "Setups",

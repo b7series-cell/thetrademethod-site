@@ -200,12 +200,12 @@ FAQ = {
 },
 "/setups/look-above-and-fail.html": {
  "q": "What is a look above and fail?",
- "a": "A look above and fail is a value area fade for balanced days on NQ and ES. Let the day's volume profile build for 30 minutes, mark the value area high and low, and wait. When aggressive buyers push over the high (or sellers under the low) and price comes right back inside, they're trapped. You trade the reclaim to the point of control, then the other side of value.",
+ "a": "A look above and fail is a value area fade for balanced days on NQ and ES. Let the volume profile build for 30 minutes, then wait at the value area high or low. When aggressive orders push past an edge and price comes right back inside, they're trapped: trade the reclaim to the other side of value.",
  "faq": [
   ("Why wait 30 minutes?", "A fresh profile's edges shift a lot early on. Before 10:00, use the previous day's regular-hours value area high and low instead."),
   ("Where does the stop go?", "Just past the big trades that made the push. If those traders get back to profit, the idea is likely wrong. Every trade is planned for at least 2R."),
   ("When should you not trade it?", "On a trending day, within 5 to 10 minutes of scheduled news, after three stop-outs in the same range, or anywhere between the value area edges."),
-  ("Does the look above and fail work?", "Not in our test. On 5-minute bars it looked profitable, but fake value area edges moved by a quarter of the range made as much. On 1-minute bars it lost on SPY and QQQ (-0.07R)."),
+  ("Does the look above and fail work?", "Not in our test. We coded the video's rules on a year of NQ futures, using every trade to see the big orders past the edge (9:30 to noon ET). It took the video's own trade for +2.5R, but 874 trades lost 0.33R each, worse than random entries (-0.15R). About four in five were stopped out."),
  ],
 },
 "/setups/ten-am-orb.html": {
