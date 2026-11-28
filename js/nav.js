@@ -118,7 +118,7 @@ const SETUPS = [
     title:   "Day Three Breakout — catalyst, inside day, and the break",
     thesis:  "A real catalyst drives day one, a quiet low-volume day sets up day two, and the break of that day-two high on day three is the entry \u2014 the same three-day sequence, six different tickers.",
     session: "09:30 \u2013 10:00",
-    side:    "both",
+    side:    "long",
     stages:  6,
     filters: 4,
     status:  "live",
