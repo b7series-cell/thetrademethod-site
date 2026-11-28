@@ -185,21 +185,22 @@ PAGES = [
  "path": "setups/fib-ote.html", "name": "Fibonacci OTE", "group": "Setups",
  "verdict": "none", "chip": "No edge vs random",
  "headline": "No better than a random entry on the same impulse",
- "lead": "On the 1-hour chart, the timeframe it's taught on, the 0.702 limit made almost exactly what a random entry made while "
-         "the same impulse was armed, with the same stop and targets.",
- "stats": [["856", "trades, 1-hour"], ["34%", "win rate"], ["+0.02R", "average per trade"],
-           ["+0.01R", "random entries, same stop and targets"]],
+ "lead": "Run with the indicator's own rules on the 1-hour chart, the timeframe it's taught on, the 0.702 limit made almost exactly "
+         "what a random entry made while the same impulse was armed, with the same stop and targets.",
+ "stats": [["892", "trades, 1-hour"], ["34%", "win rate"], ["+0.02R", "average per trade"],
+           ["&minus;0.01R", "random entries, same stop and targets"]],
  "table": {"head": ["Version", "Trades", "Avg R"],
-           "rows": [["Site default, limit at 0.702", "856", "+0.02R"],
-                    ["Limit at 0.618", "947", "+0.03R"],
-                    ["Limit at 0.786", "750", "+0.05R"],
-                    ["Longs only, 0.786", "359", "+0.21R (random longs +0.05R)"],
-                    ["Shorts, any version", "", "&minus;0.08 to &minus;0.11R"]]},
- "notes": ["SPY and QQQ lost (&minus;0.08R). Five of the 12 tickers were negative, NVDA worst at &minus;0.34R.",
-           "By year: &minus;0.24, &minus;0.06, +0.01, +0.14, &minus;0.08 and +0.17R. No steady pattern.",
-           "The long side at 0.786 sits about 0.16R above random. That's possible, not proven, and it's the same pattern as "
+           "rows": [["Site default, limit at 0.702", "892", "+0.02R"],
+                    ["Limit at 0.618", "984", "+0.01R"],
+                    ["Limit at 0.786", "780", "+0.04R"],
+                    ["Longs only, 0.786", "369", "+0.16R (random longs +0.07R)"],
+                    ["Shorts, any version", "", "&minus;0.01 to &minus;0.07R"]]},
+ "notes": ["SPY and QQQ together lost &minus;0.07R. Four of the 12 tickers were negative, NVDA worst at &minus;0.40R.",
+           "By year: &minus;0.17, &minus;0.07, +0.01, +0.10, &minus;0.07 and +0.25R. No steady pattern.",
+           "The long side at 0.786 sits about 0.09R above random. That's possible, not proven, and it's the same pattern as "
            "other long-only trend rules on hand-picked winners in a bull market.",
-           "One change from the indicator: an open trade keeps its own direction instead of flipping on an opposite break."],
+           "Re-run Nov 28, 2026 with the fixed indicator (a break the other way no longer touches an open trade, and the new "
+           "direction is measured from the swing the break started at). The old run made +0.02R over 856 trades."],
  "how": LOCAL + " Trades managed on 5-minute bars inside each hour.",
 },
 {

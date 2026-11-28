@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/fib-ote.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/fib-ote.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-11-22",
+ "dateModified": "2026-11-28",
  "inLanguage": "en",
  "author": {
   "@type": "Person",
@@ -259,7 +259,7 @@
 <link rel="stylesheet" href="/css/tested.css?v=3">
 <script src="/js/nav.js?v=44" defer></script>
 <script src="/js/site.js?v=80" defer></script>
-<script src="/js/ote-anim.js?v=1" defer></script>
+<script src="/js/ote-anim.js?v=2" defer></script>
 <style>
   /* steps across the page, the two panels side by side under them (same as hitchhiker-scalp.html) */
   .ote-main { grid-template-columns:1fr; gap:22px; }
@@ -483,7 +483,7 @@
    "name": "Does the Fibonacci OTE work?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Not better than chance in our test. On the 1-hour chart the 0.702 limit made +0.02R a trade over 856 trades with a 34% win rate, about the same as random entries on the same impulse with the same stop and targets (+0.01R)."
+    "text": "Not better than chance in our test. Run with the indicator's own rules on the 1-hour chart, the 0.702 limit made +0.02R a trade over 892 trades with a 34% win rate, about the same as random entries on the same impulse with the same stop and targets (−0.01R)."
    }
   }
  ]
@@ -523,7 +523,7 @@
 <div class="sheet">
 
   <a class="back" href="/setups/">&lsaquo; All setups</a>
-  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-22">Nov 22, 2026</time></p><!-- /byline -->
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-28">Nov 28, 2026</time></p><!-- /byline -->
 
   <header class="top" data-candle-bg="fib-ote">
     <div>
@@ -533,7 +533,7 @@
     <div>
       <p class="thesis">Price moves in waves: an impulse, then a pullback. Don't buy the impulse. Draw the Fibonacci retracement on it and let the pullback
       come to you, deep in discount, into the <em>Optimal Trade Entry</em> between 0.618 and 0.786. One limit order at 0.702, the stop past the swing,
-      half off at the old high.</p>
+      half off just under the old high.</p>
       <div class="counts">
         <div><b>0.618&ndash;0.786</b><small>the OTE zone, on classic fib levels</small></div>
         <div><b>0.702</b><small>where the limit order sits</small></div>
@@ -721,7 +721,7 @@
     <p>The same retracement, used to get a better price after a confirmation. Find a major level, drop one time frame to see sellers (or buyers) actually step in, and once the pattern confirms, don't chase it: wait for the pullback to 0.618 of the break.</p>
   </div>
   <div class="panel ote-two" data-ote-two>
-    <svg viewBox="0 0 1180 420" role="img" aria-label="Two illustrative charts. Left, a 1-hour euro dollar chart with a level at 1.0850 to 1.0860 that has held as support, then as resistance, broke lower and is being retested from below. Right, the 5-minute chart at that level: a double top at 1.0858 and 1.0857, a neckline at 1.0838 that breaks, a bearish impulse down to 1.0826, a Fibonacci retracement from 1.0858 to 1.0826, a sell limit at 0.618 (1.0846) that fills, a stop above the swing high at 1.0861, and a target at the next level, 1.0790."></svg>
+    <svg viewBox="0 0 1180 420" role="img" aria-label="Two illustrative charts. Left, a 1-hour euro dollar chart with a level at 1.1520 to 1.1530 that has held as support, then as resistance, broke lower and is being retested from below. Right, the 5-minute chart at that level: a double top at 1.1528 and 1.1527, a neckline at 1.1508 that breaks, a bearish impulse down to 1.1496, a Fibonacci retracement from 1.1528 to 1.1496, a sell limit at 0.618 (1.1516) that fills, a stop above the swing high at 1.1531, and a target at the next level, 1.1460."></svg>
     <button type="button" class="reset" data-play>Play again</button>
   </div>
   <div class="vs ote-vs" style="margin-top:20px">
@@ -771,7 +771,7 @@
 
   <div class="section-head">
     <h2>The examples from the video</h2>
-    <p>Both are real charts in the video, walked forward bar by bar. The prices aren't read out, so this table keeps to what happened.</p>
+    <p>Both are real charts in the video, walked forward bar by bar. The prices aren't read out; the ones below are read off the chart frames (gold, March 26 to 31, 2026; euro dollar, March 18, 2026), so they're close, not exact.</p>
   </div>
   <div class="tscroll">
     <table class="vcase">
@@ -779,16 +779,16 @@
       <tbody>
         <tr><th>Gold, 1-hour<br><small>strategy one</small></th>
           <td class="txt">A downtrend whose latest move failed to make a lower low, then broke above the previous structure: direction shifted bullish.</td>
-          <td class="txt">Fib on the latest impulse, buy limit in the OTE, stop below the swing low, first target a few pips under the recent high, the longer target at the next major turning point.</td>
-          <td class="txt">Filled and hit the target. A winner.</td></tr>
+          <td class="txt">Fib from the swing low that started the break, about 4,403, to the high, about 4,556. A buy limit in the OTE, drawn at the 0.618 line (about 4,462) though the rule is 0.702. Stop just under the swing low, about 4,401. The first box ran to the old high (1:1.5); the target was then the key higher time frame level, about 4,579.</td>
+          <td class="txt">The pullback dipped to about 4,417, filled the order and ran to about 4,579. A winner, roughly 1.9R. No half-off is shown on the chart.</td></tr>
         <tr><th>Gold, 1-hour<br><small>the next impulse</small></th>
           <td class="txt">Another impulse broke structure to the upside.</td>
-          <td class="txt">Fib redrawn on the new impulse, a new buy limit.</td>
-          <td class="txt">Price never reached 0.618. Not filled, no trade.</td></tr>
+          <td class="txt">Fib redrawn from the higher low, about 4,417, to the new high, about 4,581. A new buy limit at 0.618, about 4,480.</td>
+          <td class="txt">The pullback stopped a few dollars short, about 4,483. Not filled, no trade. Price then pushed on past 4,600.</td></tr>
         <tr><th>Euro dollar, 1-hour &rarr; 5-minute<br><small>strategy two</small></th>
-          <td class="txt">A level price had reacted to many times as support and resistance broke lower, then price pulled back into it. On the 5-minute, a double top.</td>
-          <td class="txt">Waited for the neckline break, then fibbed the bearish impulse and set a sell limit at 0.618, stop above the swing high, target the next level.</td>
-          <td class="txt">The break confirmed the pattern; the setup is shown as the plan, with the target the next important level.</td></tr>
+          <td class="txt">A level around 1.152 that price had reacted to many times as support and resistance broke lower, then price pulled back into it. On the 5-minute, a double top whose second top swept the first (marked "liquidity sweep").</td>
+          <td class="txt">Waited for the neckline break, then fibbed the bearish impulse and set a sell limit at 0.618, about 1.1520. Stop above the swing high, about 1.1531. Target the next level: the earlier low, marked "external liquidity", about 1.1491 (1:2.6).</td>
+          <td class="txt">Price rallied back into the order, filled it, then fell through the target that afternoon. A winner, about 2.6R.</td></tr>
       </tbody>
     </table>
   </div>
@@ -813,28 +813,28 @@
   <section class="tested v-none" id="tested" aria-labelledby="tested-h">
     <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>No edge vs random</span></div>
     <h2 id="tested-h">No better than a random entry on the same impulse</h2>
-    <p class="tested-lead">On the 1-hour chart, the timeframe it's taught on, the 0.702 limit made almost exactly what a random entry made while the same impulse was armed, with the same stop and targets.</p>
+    <p class="tested-lead">Run with the indicator's own rules on the 1-hour chart, the timeframe it's taught on, the 0.702 limit made almost exactly what a random entry made while the same impulse was armed, with the same stop and targets.</p>
     <ul class="tested-stats">
-      <li><b>856</b><span>trades, 1-hour</span></li>
+      <li><b>892</b><span>trades, 1-hour</span></li>
       <li><b>34%</b><span>win rate</span></li>
       <li><b>+0.02R</b><span>average per trade</span></li>
-      <li><b>+0.01R</b><span>random entries, same stop and targets</span></li>
+      <li><b>&minus;0.01R</b><span>random entries, same stop and targets</span></li>
     </ul>
     <div class="tested-table-wrap"><table>
       <thead><tr><th scope="col">Version</th><th scope="col">Trades</th><th scope="col">Avg R</th></tr></thead>
       <tbody>
-        <tr><td>Site default, limit at 0.702</td><td>856</td><td>+0.02R</td></tr>
-        <tr><td>Limit at 0.618</td><td>947</td><td>+0.03R</td></tr>
-        <tr><td>Limit at 0.786</td><td>750</td><td>+0.05R</td></tr>
-        <tr><td>Longs only, 0.786</td><td>359</td><td>+0.21R (random longs +0.05R)</td></tr>
-        <tr><td>Shorts, any version</td><td>&ndash;</td><td>&minus;0.08 to &minus;0.11R</td></tr>
+        <tr><td>Site default, limit at 0.702</td><td>892</td><td>+0.02R</td></tr>
+        <tr><td>Limit at 0.618</td><td>984</td><td>+0.01R</td></tr>
+        <tr><td>Limit at 0.786</td><td>780</td><td>+0.04R</td></tr>
+        <tr><td>Longs only, 0.786</td><td>369</td><td>+0.16R (random longs +0.07R)</td></tr>
+        <tr><td>Shorts, any version</td><td>&ndash;</td><td>&minus;0.01 to &minus;0.07R</td></tr>
       </tbody>
     </table></div>
     <ul class="tested-notes">
-      <li>SPY and QQQ lost (&minus;0.08R). Five of the 12 tickers were negative, NVDA worst at &minus;0.34R.</li>
-      <li>By year: &minus;0.24, &minus;0.06, +0.01, +0.14, &minus;0.08 and +0.17R. No steady pattern.</li>
-      <li>The long side at 0.786 sits about 0.16R above random. That's possible, not proven, and it's the same pattern as other long-only trend rules on hand-picked winners in a bull market.</li>
-      <li>One change from the indicator: an open trade keeps its own direction instead of flipping on an opposite break.</li>
+      <li>SPY and QQQ together lost &minus;0.07R. Four of the 12 tickers were negative, NVDA worst at &minus;0.40R.</li>
+      <li>By year: &minus;0.17, &minus;0.07, +0.01, +0.10, &minus;0.07 and +0.25R. No steady pattern.</li>
+      <li>The long side at 0.786 sits about 0.09R above random. That's possible, not proven, and it's the same pattern as other long-only trend rules on hand-picked winners in a bull market.</li>
+      <li>Re-run Nov 28, 2026 with the fixed indicator (a break the other way no longer touches an open trade, and the new direction is measured from the swing the break started at). The old run made +0.02R over 856 trades.</li>
     </ul>
     <p class="tested-how"><b>How we tested.</b> 5 years of price history, Nov 2021 to Nov 2026, on SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA). Rules coded from this page at its default settings. Fills at the bar close, the stop wins when stop and target are hit in the same bar, 0.5 bp a side for the spread, results in R capped at +10R. Trades before June 2024 are the training half, after it the holdout. Trades managed on 5-minute bars inside each hour. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
   </section>
@@ -843,7 +843,7 @@
   <section class="ind-sec" id="indicator" aria-label="TradingView indicator">
     <h2 class="ind-heading">The indicator</h2>
     <p class="ind-note">One TradingView script for strategy one (Pine Script v6), for any market and time frame. It finds the break of structure, draws the fib on the latest impulse
-    with the OTE and premium and discount, works the limit at 0.702, and follows the trade to TP1 and TP2. It marks and alerts. It does not place trades.</p>
+    with the OTE and premium and discount, works the limit at 0.702, and follows the trade to TP1 and TP2. It marks and alerts. It does not place trades. On the video's gold chart it takes the same long (filled at 0.702, about 4,450) and, like the video, skips the next one when the pullback stops short of the order.</p>
     <ul class="ind-list">
       <li class="ind-card">
         <div class="ind-card-top">
@@ -854,7 +854,7 @@
         The fib goes from the swing the impulse started at (the 1) to its extreme (the 0), and the 0 moves while price keeps going. The order sits at 0.702 (or 0.618 or 0.786, your pick), the stop a
         few ticks past the 1, TP1 a little short of the old extreme (half, then the stop moves to entry) and TP2 at the nearest higher time frame swing level ahead (4-hour by default), or an extension
         if there is none. If that level is too close to the 0, the setup is skipped for room. A pullback that reaches 0.382 and then a new extreme without a fill is marked "no fill", and the next fib is
-        drawn from that pullback, as in the video. A table shows the trend, the working order and the running count of wins, break evens, losses and no fills.</p>
+        drawn from that pullback, as in the video. A break the other way while a trade is open leaves that trade alone; when it closes, the new direction is measured from the swing the break started at. A table shows the trend, the working order and the running count of wins, break evens, losses and no fills.</p>
         <p class="ind-blurb" style="color:var(--dim)">"A clean trend" is a judgement call; pivots are a stand-in, so a choppy chart will still draw setups. Close the chart if the waves aren't clear.
         Strategy two (the double top or bottom at a major level) isn't in the script. The swing strength, the buffer, the TP1 offset, the room and the higher time frame are settings, and the defaults are ours, not the video's.</p>
         <div class="ind-links">
@@ -862,410 +862,6 @@
         </div>
       </li>
     </ul>
-    <div class="code-wrap">
-      <div class="code-top">
-        <span>fib-ote.pine &middot; Pine Script v6</span>
-        <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/fib-ote.pine" download>Download</a></div>
-      </div>
-      <pre class="pine" tabindex="0"><code>//@version=6
-// =====================================================================
-// Fibonacci OTE — thetrademethod.com
-//
-// Strategy one from the Fibonacci OTE page (Com Lucro Trader's
-// "Fibonacci Retracement + OTE"), for any market and time frame
-// (1-hour in the video):
-//
-//   1. Trend      Swing highs and lows (pivots). A close above the last
-//                 swing high is a break of structure up: buys only. A
-//                 close below the last swing low: sells only.
-//   2. The fib    On the latest impulse: 1 on the swing it started from
-//                 (A), 0 on its end (B). While price keeps making new
-//                 extremes, B moves with it.
-//   3. Room       Higher time frame swing levels. If the nearest one
-//                 ahead of B is too close, the setup is skipped.
-//   4. The order  A limit at 0.702, the middle of the OTE (0.618 to
-//                 0.786), in discount for a buy, premium for a sell.
-//   5. The stop   Past A, by a buffer.
-//   6. Targets    TP1 a little short of B (half, then the stop goes to
-//                 entry), TP2 the next higher time frame level (or a
-//                 fib extension if there is none).
-//
-//   A pullback that reaches 0.382 fixes the range. If price then makes
-//   a new extreme without filling the order, that setup is marked
-//   "no fill" and the next impulse is measured from the pullback.
-//
-//   It marks and alerts. It does not place trades.
-// =====================================================================
-indicator("Fibonacci OTE [TTM]", shorttitle = "Fib OTE", overlay = true, max_lines_count = 300, max_labels_count = 300, max_boxes_count = 50, max_bars_back = 1000)
-
-// ---------------------------------------------------------------- inputs
-grpT = "Trend and swings"
-pivLen   = input.int(5, "Swing strength (bars each side)", minval = 1, maxval = 50, group = grpT)
-maxLook  = input.int(300, "Look back for the swing (bars)", minval = 20, maxval = 990, group = grpT)
-
-grpF = "Fib and order"
-entryLvl = input.float(0.702, "Entry level", options = [0.618, 0.702, 0.786], group = grpF, tooltip = "0.702 is the middle of the OTE, the strategy's limit order. 0.618 fills more often; 0.786 has the best ratio and misses more.")
-validLvl = input.float(0.382, "A real pullback reaches", minval = 0.1, maxval = 0.6, step = 0.001, group = grpF, tooltip = "Pullbacks that never reach this are noise: the impulse is still one leg.")
-minImp   = input.float(0.0, "Smallest impulse (x ATR 14)", minval = 0, step = 0.5, group = grpF, tooltip = "0 = any size. Skips impulses smaller than this many ATRs.")
-
-grpR = "Risk and targets"
-bufTk    = input.int(10, "Stop past the swing by (ticks)", minval = 0, group = grpR)
-tp1Pct   = input.float(6.0, "TP1: short of the old extreme by (% of the impulse)", minval = 0, maxval = 50, step = 0.5, group = grpR)
-htfIn    = input.timeframe("240", "Higher time frame for room and TP2", group = grpR)
-htfLen   = input.int(3, "Higher time frame swing strength", minval = 1, maxval = 20, group = grpR)
-roomPct  = input.float(30, "Need room of at least (% of the impulse)", minval = 0, maxval = 300, group = grpR, tooltip = "Distance from B to the nearest higher time frame level ahead. Less than this and the setup is skipped. 0 turns the check off.")
-extMult  = input.float(0.618, "TP2 if no level ahead: extension (x impulse)", minval = 0.1, step = 0.1, group = grpR)
-
-grpD = "Display"
-showFib  = input.bool(true, "Fib levels", group = grpD)
-showPD   = input.bool(true, "Premium and discount shading", group = grpD)
-showBos  = input.bool(true, "Break of structure labels", group = grpD)
-showTbl  = input.bool(true, "Status table", group = grpD)
-extBars  = input.int(15, "Extend lines right (bars)", minval = 0, maxval = 100, group = grpD)
-cUp      = input.color(color.new(#30d158, 0), "Long", group = grpD)
-cDn      = input.color(color.new(#ff453a, 0), "Short", group = grpD)
-cGold    = input.color(color.new(#f4b942, 0), "OTE", group = grpD)
-cTgt     = input.color(color.new(#22d3ee, 0), "Targets", group = grpD)
-
-// ---------------------------------------------------------------- helpers
-tick = syminfo.mintick
-fibAt(float a, float b, float r) =&gt; b - r * (b - a)      // a = the 1, b = the 0
-fmt(float v) =&gt; str.tostring(v, format.mintick)
-atr14 = ta.atr(14)
-
-// ---------------------------------------------------------------- swings on the chart
-ph = ta.pivothigh(high, pivLen, pivLen)
-pl = ta.pivotlow(low, pivLen, pivLen)
-var float lastPH = na
-var int   lastPHb = na
-var float lastPL = na
-var int   lastPLb = na
-if not na(ph)
-    lastPH := ph
-    lastPHb := bar_index - pivLen
-if not na(pl)
-    lastPL := pl
-    lastPLb := bar_index - pivLen
-
-// ---------------------------------------------------------------- higher time frame levels
-[hPH, hPL] = request.security(syminfo.tickerid, htfIn, [ta.pivothigh(high, htfLen, htfLen), ta.pivotlow(low, htfLen, htfLen)], lookahead = barmerge.lookahead_off)
-var array&lt;float&gt; htfHi = array.new&lt;float&gt;()
-var array&lt;float&gt; htfLo = array.new&lt;float&gt;()
-if not na(hPH) and (htfHi.size() == 0 or htfHi.last() != hPH)
-    htfHi.push(hPH)
-    if htfHi.size() &gt; 40
-        htfHi.shift()
-if not na(hPL) and (htfLo.size() == 0 or htfLo.last() != hPL)
-    htfLo.push(hPL)
-    if htfLo.size() &gt; 40
-        htfLo.shift()
-
-// nearest higher time frame level ahead of x (above for d = 1, below for d = -1)
-nearestAhead(float x, int d) =&gt;
-    float best = na
-    if d == 1
-        for v in htfHi
-            if v &gt; x and (na(best) or v &lt; best)
-                best := v
-    else
-        for v in htfLo
-            if v &lt; x and (na(best) or v &gt; best)
-                best := v
-    best
-
-// extreme over the last n bars (n &gt;= 0), and how many bars back it was
-lowestBack(int n) =&gt;
-    float m = low
-    int k = 0
-    for i = 0 to math.min(n, 990)
-        if low[i] &lt; m
-            m := low[i]
-            k := i
-    [m, k]
-highestBack(int n) =&gt;
-    float m = high
-    int k = 0
-    for i = 0 to math.min(n, 990)
-        if high[i] &gt; m
-            m := high[i]
-            k := i
-    [m, k]
-
-// ---------------------------------------------------------------- state
-// st: 0 = nothing, 1 = order working (the leg), 2 = in the trade
-var int   dir   = 0
-var int   st    = 0
-var float A     = na
-var int   aBar  = na
-var float B     = na
-var int   bBar  = na
-var float pbX   = na      // pullback extreme since B
-var int   pbBar = na
-var bool  valid = false   // pullback reached the 0.382
-var float E     = na
-var float S     = na
-var float T1    = na
-var float T2    = na
-var bool  room  = true
-var bool  hit1  = false
-var float stopNow = na
-
-var int nWin = 0
-var int nBE  = 0
-var int nLoss = 0
-var int nMiss = 0
-
-// levels for the current A, B
-calcLevels() =&gt;
-    e  = fibAt(A, B, entryLvl)
-    s  = dir == 1 ? A - bufTk * tick : A + bufTk * tick
-    t1 = B - dir * (tp1Pct / 100) * math.abs(B - A)
-    lv = nearestAhead(B, dir)
-    t2 = na(lv) ? B + dir * extMult * math.abs(B - A) : lv
-    rm = roomPct &lt;= 0 or na(lv) or math.abs(lv - B) &gt;= (roomPct / 100) * math.abs(B - A)
-    big = minImp &lt;= 0 or math.abs(B - A) &gt;= minImp * atr14
-    [e, s, t1, t2, rm and big]
-
-// ---------------------------------------------------------------- break of structure
-bosUp = not na(lastPH) and close &gt; lastPH and close[1] &lt;= lastPH
-bosDn = not na(lastPL) and close &lt; lastPL and close[1] &gt;= lastPL
-
-evFill  = false
-evT1    = false
-evT2    = false
-evStop  = false
-evMiss  = false
-evArm   = false
-evBos   = 0
-
-if bosUp and dir != 1
-    evBos := 1
-    if st == 1
-        st := 0
-    if st != 2
-        [lo, k] = lowestBack(math.min(bar_index - lastPHb, maxLook))
-        [hi, kh] = highestBack(k)
-        dir := 1
-        st := 1
-        A := lo
-        aBar := bar_index - k
-        B := hi
-        bBar := bar_index - kh
-        pbX := na
-        pbBar := na
-        valid := false
-        evArm := true
-    else
-        dir := 1
-    lastPH := na
-else if bosDn and dir != -1
-    evBos := -1
-    if st == 1
-        st := 0
-    if st != 2
-        [hi, k] = highestBack(math.min(bar_index - lastPLb, maxLook))
-        [lo, kl] = lowestBack(k)
-        dir := -1
-        st := 1
-        A := hi
-        aBar := bar_index - k
-        B := lo
-        bBar := bar_index - kl
-        pbX := na
-        pbBar := na
-        valid := false
-        evArm := true
-    else
-        dir := -1
-    lastPL := na
-
-// ---------------------------------------------------------------- the leg: order working
-if st == 1 and evBos == 0
-    [e0, s0, t10, t20, r0] = calcLevels()
-    newExt = dir == 1 ? high &gt; B : low &lt; B
-    if newExt
-        if valid
-            // a real pullback came and went without the order: no fill, measure from the pullback
-            evMiss := true
-            nMiss += 1
-            label.new(pbBar, pbX, "no fill", style = dir == 1 ? label.style_label_up : label.style_label_down, color = color.new(color.gray, 30), textcolor = color.white, size = size.small)
-            A := pbX
-            aBar := pbBar
-        B := dir == 1 ? high : low
-        bBar := bar_index
-        pbX := na
-        pbBar := na
-        valid := false
-    else
-        ext = dir == 1 ? low : high
-        if na(pbX) or (dir == 1 ? ext &lt; pbX : ext &gt; pbX)
-            pbX := ext
-            pbBar := bar_index
-        if not valid and (dir == 1 ? pbX &lt;= fibAt(A, B, validLvl) : pbX &gt;= fibAt(A, B, validLvl))
-            valid := true
-        touched = dir == 1 ? low &lt;= e0 : high &gt;= e0
-        if touched and bar_index &gt; bBar
-            if r0
-                st := 2
-                E := e0, S := s0, T1 := t10, T2 := t20, stopNow := s0, hit1 := false
-                evFill := true
-                label.new(bar_index, E, (dir == 1 ? "buy " : "sell ") + fmt(E), style = dir == 1 ? label.style_label_upper_left : label.style_label_lower_left, color = cGold, textcolor = color.black, size = size.small)
-            else
-                // skipped for room (or size): wait for the next impulse
-                label.new(bar_index, e0, "skip: no room", style = dir == 1 ? label.style_label_up : label.style_label_down, color = color.new(color.gray, 30), textcolor = color.white, size = size.small)
-                st := 0
-
-// ---------------------------------------------------------------- in the trade
-if st == 2 and not evFill
-    hitStop = dir == 1 ? low &lt;= stopNow : high &gt;= stopNow
-    hitT1   = dir == 1 ? high &gt;= T1 : low &lt;= T1
-    hitT2   = dir == 1 ? high &gt;= T2 : low &lt;= T2
-    if hitStop
-        evStop := true
-        if hit1
-            nBE += 1
-            label.new(bar_index, stopNow, "break even", style = dir == 1 ? label.style_label_up : label.style_label_down, color = color.new(color.gray, 20), textcolor = color.white, size = size.small)
-        else
-            nLoss += 1
-            label.new(bar_index, stopNow, "stop -1R", style = dir == 1 ? label.style_label_up : label.style_label_down, color = cDn, textcolor = color.white, size = size.small)
-        st := 0
-    else
-        if not hit1 and hitT1
-            hit1 := true
-            stopNow := E
-            evT1 := true
-            label.new(bar_index, T1, "TP1 · half · stop to entry", style = dir == 1 ? label.style_label_down : label.style_label_up, color = cTgt, textcolor = color.black, size = size.small)
-        if hit1 and hitT2
-            evT2 := true
-            nWin += 1
-            r = (math.abs(T1 - E) + math.abs(T2 - E)) / 2 / math.abs(E - S)
-            label.new(bar_index, T2, "TP2 · " + str.tostring(r, "#.##") + "R", style = dir == 1 ? label.style_label_down : label.style_label_up, color = cTgt, textcolor = color.black, size = size.small)
-            st := 0
-
-// after a trade (or a skip) in the same trend, measure the next impulse from the latest pullback
-if st == 0 and dir != 0 and evBos == 0 and not evStop and not evT2 and not na(B)
-    newExt2 = dir == 1 ? high &gt; B : low &lt; B
-    if newExt2
-        n = math.min(bar_index - bBar, maxLook)
-        if dir == 1
-            [lo, k] = lowestBack(n)
-            A := lo, aBar := bar_index - k
-            B := high
-        else
-            [hi, k] = highestBack(n)
-            A := hi, aBar := bar_index - k
-            B := low
-        bBar := bar_index
-        pbX := na, pbBar := na, valid := false
-        st := 1
-        evArm := true
-
-// ---------------------------------------------------------------- drawing (the current setup only)
-var line lA = line.new(na, na, na, na, color = color.gray, style = line.style_dotted)
-var array&lt;line&gt; fl = array.new&lt;line&gt;()
-var array&lt;label&gt; fLab = array.new&lt;label&gt;()
-var box bPrem = box.new(na, na, na, na, border_color = color.new(color.black, 100), bgcolor = color.new(#ff453a, 92))
-var box bDisc = box.new(na, na, na, na, border_color = color.new(color.black, 100), bgcolor = color.new(#30d158, 92))
-var box bOte  = box.new(na, na, na, na, border_color = color.new(color.black, 100), bgcolor = color.new(#f4b942, 82))
-var line lE  = line.new(na, na, na, na, color = cGold, width = 2)
-var line lS  = line.new(na, na, na, na, color = cDn, style = line.style_dashed)
-var line lT1 = line.new(na, na, na, na, color = cTgt, style = line.style_dotted)
-var line lT2 = line.new(na, na, na, na, color = cTgt, style = line.style_dotted)
-RAT = array.from(0.0, 0.382, 0.5, 0.618, 0.702, 0.786, 1.0)
-if fl.size() == 0
-    for i = 0 to 6
-        fl.push(line.new(na, na, na, na, color = color.gray, style = line.style_dashed))
-        fLab.push(label.new(na, na, "", style = label.style_none, textcolor = color.gray, size = size.small))
-
-if barstate.islast
-    xr = bar_index + extBars
-    on = st &gt;= 1 and not na(A) and not na(B)
-    if on and showFib
-        mid = fibAt(A, B, 0.5)
-        line.set_xy1(lA, aBar, A), line.set_xy2(lA, bBar, B)
-        for i = 0 to 6
-            r = RAT.get(i)
-            p = fibAt(A, B, r)
-            c = r &gt;= 0.618 and r &lt;= 0.786 ? cGold : r == 0.5 ? color.white : color.gray
-            ln = fl.get(i)
-            line.set_xy1(ln, aBar, p), line.set_xy2(ln, xr, p), line.set_color(ln, c)
-            line.set_style(ln, r == entryLvl ? line.style_solid : line.style_dashed)
-            lb = fLab.get(i)
-            label.set_xy(lb, xr, p), label.set_text(lb, str.tostring(r) + "  " + fmt(p)), label.set_textcolor(lb, c), label.set_style(lb, label.style_label_left)
-            label.set_color(lb, color.new(color.black, 100))
-        box.set_lefttop(bOte, aBar, math.max(fibAt(A, B, 0.618), fibAt(A, B, 0.786)))
-        box.set_rightbottom(bOte, xr, math.min(fibAt(A, B, 0.618), fibAt(A, B, 0.786)))
-        if showPD
-            box.set_lefttop(bPrem, aBar, math.max(A, B)), box.set_rightbottom(bPrem, xr, mid)
-            box.set_lefttop(bDisc, aBar, mid), box.set_rightbottom(bDisc, xr, math.min(A, B))
-            if dir == -1
-                // bearish: premium is still the top half
-                box.set_lefttop(bPrem, aBar, A), box.set_rightbottom(bPrem, xr, mid)
-                box.set_lefttop(bDisc, aBar, mid), box.set_rightbottom(bDisc, xr, B)
-    else
-        line.set_xy1(lA, na, na), line.set_xy2(lA, na, na)
-        for i = 0 to 6
-            line.set_xy1(fl.get(i), na, na), line.set_xy2(fl.get(i), na, na)
-            label.set_xy(fLab.get(i), na, na)
-        box.set_lefttop(bOte, na, na), box.set_rightbottom(bOte, na, na)
-        box.set_lefttop(bPrem, na, na), box.set_rightbottom(bPrem, na, na)
-        box.set_lefttop(bDisc, na, na), box.set_rightbottom(bDisc, na, na)
-    if not showPD or not on
-        box.set_lefttop(bPrem, na, na), box.set_rightbottom(bPrem, na, na)
-        box.set_lefttop(bDisc, na, na), box.set_rightbottom(bDisc, na, na)
-    // the order or the trade
-    [e1, s1, t11, t21, r1] = calcLevels()
-    showE = st == 2 ? E : st == 1 and not na(A) ? e1 : float(na)
-    showS = st == 2 ? stopNow : st == 1 and not na(A) ? s1 : float(na)
-    show1 = st == 2 ? T1 : st == 1 and not na(A) ? t11 : float(na)
-    show2 = st == 2 ? T2 : st == 1 and not na(A) ? t21 : float(na)
-    x0 = st == 2 ? bar_index - 5 : bBar
-    line.set_xy1(lE, x0, showE), line.set_xy2(lE, xr, showE)
-    line.set_style(lE, st == 1 and not r1 ? line.style_dotted : line.style_solid)
-    line.set_xy1(lS, x0, showS), line.set_xy2(lS, xr, showS)
-    line.set_xy1(lT1, x0, show1), line.set_xy2(lT1, xr, show1)
-    line.set_xy1(lT2, x0, show2), line.set_xy2(lT2, xr, show2)
-
-// ---------------------------------------------------------------- break of structure marks
-plotshape(showBos and evBos == 1, "BOS up", shape.triangleup, location.belowbar, cUp, size = size.tiny, text = "BOS")
-plotshape(showBos and evBos == -1, "BOS down", shape.triangledown, location.abovebar, cDn, size = size.tiny, text = "BOS")
-
-// ---------------------------------------------------------------- status table
-var table tb = table.new(position.top_right, 2, 8, bgcolor = color.new(#1d1d1f, 10), border_width = 1, border_color = color.new(#3a3a3c, 0))
-cell(int r, string k, string v, color c) =&gt;
-    table.cell(tb, 0, r, k, text_color = color.gray, text_size = size.small, text_halign = text.align_left)
-    table.cell(tb, 1, r, v, text_color = c, text_size = size.small, text_halign = text.align_right)
-if showTbl and barstate.islast
-    [e2, s2, t12, t22, r2] = calcLevels()
-    cell(0, "Fib OTE", dir == 1 ? "buys only" : dir == -1 ? "sells only" : "no trend yet", dir == 1 ? cUp : dir == -1 ? cDn : color.gray)
-    cell(1, "Status", st == 2 ? (hit1 ? "in trade · stop at entry" : "in trade") : st == 1 ? (r2 ? "limit working" : "no room · skip") : "waiting for an impulse", color.white)
-    eS = st == 2 ? E : st == 1 ? e2 : float(na)
-    sS = st == 2 ? stopNow : st == 1 ? s2 : float(na)
-    cell(2, "Entry " + str.tostring(entryLvl), na(eS) ? "-" : fmt(eS), cGold)
-    cell(3, "Stop", na(sS) ? "-" : fmt(sS), cDn)
-    cell(4, "TP1 / TP2", st &gt;= 1 ? fmt(st == 2 ? T1 : t12) + " / " + fmt(st == 2 ? T2 : t22) : "-", cTgt)
-    rr = st &gt;= 1 and not na(eS) and not na(sS) and math.abs(eS - sS) &gt; 0 ? (math.abs((st == 2 ? T1 : t12) - eS) + math.abs((st == 2 ? T2 : t22) - eS)) / 2 / math.abs(eS - sS) : float(na)
-    cell(5, "Half and half", na(rr) ? "-" : str.tostring(rr, "#.##") + "R", color.white)
-    cell(6, "Wins / BE / losses", str.tostring(nWin) + " / " + str.tostring(nBE) + " / " + str.tostring(nLoss), color.white)
-    cell(7, "No fill", str.tostring(nMiss), color.gray)
-
-// ---------------------------------------------------------------- alerts
-if evArm
-    alert("Fib OTE: new impulse, " + (dir == 1 ? "buy" : "sell") + " limit at " + str.tostring(entryLvl) + " (" + syminfo.ticker + ")", alert.freq_once_per_bar_close)
-if evFill
-    alert("Fib OTE: filled " + (dir == 1 ? "long " : "short ") + fmt(E) + ", stop " + fmt(S) + " (" + syminfo.ticker + ")", alert.freq_once_per_bar_close)
-if evT1
-    alert("Fib OTE: TP1 " + fmt(T1) + ", take half, stop to entry (" + syminfo.ticker + ")", alert.freq_once_per_bar_close)
-if evT2
-    alert("Fib OTE: TP2 " + fmt(T2) + " (" + syminfo.ticker + ")", alert.freq_once_per_bar_close)
-if evStop
-    alert("Fib OTE: stopped (" + syminfo.ticker + ")", alert.freq_once_per_bar_close)
-if evMiss
-    alert("Fib OTE: no fill, new impulse (" + syminfo.ticker + ")", alert.freq_once_per_bar_close)
-alertcondition(evFill, "Fib OTE filled", "Fib OTE: the limit in the OTE filled")
-alertcondition(evT1, "Fib OTE TP1", "Fib OTE: TP1, take half, stop to entry")
-alertcondition(evT2 or evStop, "Fib OTE trade done", "Fib OTE: trade done (TP2 or stop)")</code></pre>
-    </div>
   </section>
 
   <section class="video" id="video" aria-label="Video">
@@ -1285,7 +881,7 @@ alertcondition(evT2 or evStop, "Fib OTE trade done", "Fib OTE: trade done (TP2 o
     <div class="qa"><h3>What is the OTE zone?</h3><p>The part of the retracement between 0.618 and 0.786, where price is cheapest for a buyer (discount) or dearest for a seller (premium). This page uses the classic levels; ICT's original is 0.62 to 0.79 with 0.705 in the middle.</p></div>
     <div class="qa"><h3>Which way do you draw the Fibonacci on the impulse?</h3><p>For a long, 1 on the swing low and 0 on the swing high; for a short, the other way round. If price keeps going, move the 0 with it. A pullback that doesn't reach 0.382 is noise.</p></div>
     <div class="qa"><h3>What if price never reaches 0.618?</h3><p>The limit order never fills and there's no trade. Missed fills are part of the plan: wait for the next impulse.</p></div>
-    <div class="qa"><h3>Does the Fibonacci OTE work?</h3><p>Not better than chance in our test. On the 1-hour chart the 0.702 limit made +0.02R a trade over 856 trades with a 34% win rate, about the same as random entries on the same impulse with the same stop and targets (+0.01R).</p></div>
+    <div class="qa"><h3>Does the Fibonacci OTE work?</h3><p>Not better than chance in our test. Run with the indicator's own rules on the 1-hour chart, the 0.702 limit made +0.02R a trade over 892 trades with a 34% win rate, about the same as random entries on the same impulse with the same stop and targets (&minus;0.01R).</p></div>
   </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
@@ -1317,19 +913,6 @@ alertcondition(evT2 or evStop, "Fib OTE trade done", "Fib OTE: trade done (TP2 o
 </div>
 <footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
 
-<script>
-  /* copy the Pine code */
-  (function () {
-    var b = document.querySelector("[data-copy]"), code = document.querySelector("pre.pine code");
-    if (!b || !code) return;
-    b.addEventListener("click", function () {
-      var t = code.textContent;
-      function done(ok) { b.textContent = ok ? "Copied" : "Select and copy"; setTimeout(function () { b.textContent = "Copy code"; }, 1800); }
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { done(true); }, function () { done(false); });
-      else done(false);
-    });
-  })();
-</script>
 
 </body>
 </html>

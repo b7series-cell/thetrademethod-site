@@ -612,10 +612,10 @@
         5-minute, the neckline break, a sell limit at 0.618 of the break
      ===================================================================== */
   var TWO = (function () {
-    var LV_LO = 1.0850, LV_HI = 1.0860;
-    var T1 = 1.0858, T2 = 1.0857, NECK = 1.0838, LOWB = 1.0826;
-    var SH = 1.0858;                                   // the swing high the impulse starts from
-    var SELL = LOWB + 0.618 * (SH - LOWB), SSTOP = 1.0861, TGT = 1.0790;
+    var LV_LO = 1.1520, LV_HI = 1.1530;
+    var T1 = 1.1528, T2 = 1.1527, NECK = 1.1508, LOWB = 1.1496;
+    var SH = 1.1528;                                   // the swing high the impulse starts from
+    var SELL = LOWB + 0.618 * (SH - LOWB), SSTOP = 1.1531, TGT = 1.1460;
     return { LV_LO: LV_LO, LV_HI: LV_HI, T1: T1, T2: T2, NECK: NECK, LOWB: LOWB, SH: SH, SELL: SELL, SSTOP: SSTOP, TGT: TGT,
              RISKP: (SSTOP - SELL) * 1e4, REWP: (SELL - TGT) * 1e4 };
   })();
@@ -625,16 +625,16 @@
     var svg = root.querySelector("svg"), btn = root.querySelector("[data-play]");
     function p5(v) { return v.toFixed(4); }
     /* 1-hour: the level held as support, as resistance, broke, came back */
-    var HB = [[1.0905, 1.0912, 1.0880, 1.0884], [1.0884, 1.0889, 1.0856, 1.0860], [1.0860, 1.0884, 1.0852, 1.0880], [1.0880, 1.0896, 1.0874, 1.0892],
-              [1.0892, 1.0894, 1.0868, 1.0872], [1.0872, 1.0876, 1.0851, 1.0866], [1.0866, 1.0870, 1.0835, 1.0840], [1.0840, 1.0848, 1.0822, 1.0828],
-              [1.0828, 1.0858, 1.0825, 1.0852], [1.0852, 1.0860, 1.0838, 1.0844], [1.0844, 1.0848, 1.0812, 1.0818], [1.0818, 1.0858, 1.0815, 1.0848],
-              [1.0848, 1.0859, 1.0845, 1.0856]];
+    var HB = [[1.1575, 1.1582, 1.1550, 1.1554], [1.1554, 1.1559, 1.1526, 1.1530], [1.1530, 1.1554, 1.1522, 1.1550], [1.1550, 1.1566, 1.1544, 1.1562],
+              [1.1562, 1.1564, 1.1538, 1.1542], [1.1542, 1.1546, 1.1521, 1.1536], [1.1536, 1.1540, 1.1505, 1.1510], [1.1510, 1.1518, 1.1492, 1.1498],
+              [1.1498, 1.1528, 1.1495, 1.1522], [1.1522, 1.1530, 1.1508, 1.1514], [1.1514, 1.1518, 1.1482, 1.1488], [1.1488, 1.1528, 1.1485, 1.1518],
+              [1.1518, 1.1529, 1.1515, 1.1526]];
     /* 5-minute: up into the level, two tops, the neckline, the break, the pullback to 0.618, the fall */
-    var M = [[1.0836, 1.0842, 1.0834, 1.0841], [1.0841, 1.0849, 1.0840, 1.0848], [1.0848, 1.0858, 1.0847, 1.0853], [1.0853, 1.0854, 1.0843, 1.0845],
-             [1.0845, 1.0846, 1.0838, 1.0841], [1.0841, 1.0851, 1.0839, 1.0850], [1.0850, 1.0857, 1.0848, 1.0849], [1.0849, 1.0850, 1.0840, 1.0841],
-             [1.0841, 1.0842, 1.0831, 1.0833], [1.0833, 1.0835, 1.0826, 1.0829], [1.0829, 1.0838, 1.0828, 1.0836], [1.0836, 1.0846, 1.0835, 1.0843],
-             [1.0843, 1.0847, 1.0839, 1.0840], [1.0840, 1.0841, 1.0824, 1.0826], [1.0826, 1.0828, 1.0810, 1.0812], [1.0812, 1.0815, 1.0796, 1.0799],
-             [1.0799, 1.0802, 1.0788, 1.0791]];
+    var M = [[1.1506, 1.1512, 1.1504, 1.1511], [1.1511, 1.1519, 1.1510, 1.1518], [1.1518, 1.1528, 1.1517, 1.1523], [1.1523, 1.1524, 1.1513, 1.1515],
+             [1.1515, 1.1516, 1.1508, 1.1511], [1.1511, 1.1521, 1.1509, 1.1520], [1.1520, 1.1527, 1.1518, 1.1519], [1.1519, 1.1520, 1.1510, 1.1511],
+             [1.1511, 1.1512, 1.1501, 1.1503], [1.1503, 1.1505, 1.1496, 1.1499], [1.1499, 1.1508, 1.1498, 1.1506], [1.1506, 1.1516, 1.1505, 1.1513],
+             [1.1513, 1.1517, 1.1509, 1.1510], [1.1510, 1.1511, 1.1494, 1.1496], [1.1496, 1.1498, 1.1480, 1.1482], [1.1482, 1.1485, 1.1466, 1.1469],
+             [1.1469, 1.1472, 1.1458, 1.1461]];
     var T = 0, raf = 0, last = 0, END = 9.5;
     function draw() {
       var narrow = isNarrow(svg, 600);
@@ -645,20 +645,20 @@
       /* left / top: the 1-hour */
       var a = narrow ? { x0: 16, x1: 340, yt: 70, yb: 360, tx: 346 } : { x0: 24, x1: 380, yt: 80, yb: 380, tx: 386 };
       var b = narrow ? { x0: 16, x1: 300, yt: 470, yb: 800, tx: 306 } : { x0: 520, x1: 1000, yt: 80, yb: 380, tx: 1006 };
-      var pmn = 1.0780, pmx = 1.0915;
+      var pmn = 1.1450, pmx = 1.1585;
       function ya(p) { return a.yb - (p - pmn) / (pmx - pmn) * (a.yb - a.yt); }
       var dxa = (a.x1 - a.x0) / HB.length, sh = clamp01(T / 2.4) * HB.length;
       s += txt(a.x0, a.yt - 40 * FS, "1-hour · the major level", C.ink, 14, "start", 700);
       s += txt(a.x0, a.yt - 20 * FS, "support, resistance, broken, retested", C.faint, 12);
       s += rect(a.x0, ya(TWO.LV_HI), a.x1 - a.x0, ya(TWO.LV_LO) - ya(TWO.LV_HI), C.purple, 0.22);
-      s += tag(a.tx, ya((TWO.LV_HI + TWO.LV_LO) / 2), narrow ? "level" : "1.0850–60", C.purple, 1, C.ink);
+      s += tag(a.tx, ya((TWO.LV_HI + TWO.LV_LO) / 2), narrow ? "level" : "1.1520–30", C.purple, 1, C.ink);
       HB.forEach(function (q, i) { s += candle(a.x0 + dxa * (i + 0.5), ya, q, clamp01(sh - i), Math.max(4, dxa * 0.55), 1); });
       [1, 5, 8, 11].forEach(function (i, k) { s += ring(a.x0 + dxa * (i + 0.5), ya(i === 1 || i === 5 ? HB[i][2] : HB[i][1]), 9 * FS, C.purple, 2, fade(T, 0.4 + k * 0.5, 0.3)); });
       s += txt(a.x0 + dxa * 11.5, ya(TWO.LV_HI) - 26 * FS, narrow ? "back into it" : "broke, now back into it", C.purple, 12, "middle", 700, fade(T, 2.4, 0.3));
       s += txt(a.x0, a.yb + 26 * FS, "Zoom in one time frame →", C.faint, 12, "start", 600, fade(T, 2.6, 0.3));
 
       /* right / bottom: the 5-minute */
-      var pm2 = 1.0782, px2 = 1.0866;
+      var pm2 = 1.1452, px2 = 1.1536;
       function yb(p) { return b.yb - (p - pm2) / (px2 - pm2) * (b.yb - b.yt); }
       var dxb = (b.x1 - b.x0) / M.length, t0 = 2.8, sh2 = clamp01((T - t0) / 5.6) * M.length;
       s += txt(b.x0, b.yt - 40 * FS, "5-minute · the confirmation and the entry", C.ink, 14, "start", 700, fade(T, t0, 0.3));
