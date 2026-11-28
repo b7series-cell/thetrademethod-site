@@ -103,7 +103,7 @@ FAQ = {
   ("How much does Qullamaggie risk per trade?", "About 0.5% of the account, and never more than 1%. Skip the trade if the low of the day is further from the entry than the stock's average daily range."),
   ("What makes a good base?", "Two weeks to two months of sideways action after a big move, with higher lows, tighter ranges, drying volume, and price riding on top of the 10 and 20-day averages."),
   ("When do you sell the rest of the position?", "On the first daily close below the trailing average: the 10-day for faster, more extended stocks and the 20-day for slower ones. There are no price targets."),
-  ("Does the Qullamaggie breakout work?", "It was one of two setups on this site (with Day Three Breakout) that clearly beat random entries in our tests: 158 trades with a 5-minute opening range entry averaged +0.63R against -0.21R for random entries with the same exits, though only 35% of trades won."),
+  ("Does the Qullamaggie breakout work?", "It was one of three setups on this site (with Day Three Breakout and Gap Give and Go) that clearly beat random entries in our tests: 158 trades with a 5-minute opening range entry averaged +0.63R against -0.21R for random entries with the same exits, though only 35% of trades won."),
  ],
 },
 "/setups/pmh-break.html": {
@@ -159,12 +159,13 @@ FAQ = {
 },
 "/setups/gap-give-and-go.html": {
  "q": "What is the Gap Give and Go?",
- "a": "The Gap Give and Go is an opening gap trade from an SMB Capital playbook review. A stock gaps up on strong, fresh news, then drops fast on light volume into a key level (the give). You don't buy that drop. You wait for a quiet range where sellers can't push it lower, then buy the turn (the go) when the tape flips, with a hard stop under the low of the day.",
+ "a": "The Gap Give and Go is an opening gap trade from an SMB Capital playbook review. A stock gaps up on fresh news, then drops fast on light volume into a key level (the give). Wait for a quiet range, then buy the turn (the go) when the tape flips, with a stop under the low of day.",
  "faq": [
   ("What are the three checks before a Gap Give and Go trade?", "A stock in play with a very strong (or very weak) fresh catalyst (the video's trade graded its news an 8 out of 10), a real key level such as a daily breakout or a big round number, and relative volume well above normal."),
   ("Why not buy the give?", "A give can keep on giving, and you don't know where it ends until it has. Waiting for the go means you give up the low but only own the days that actually turn."),
   ("How big a gap is too big?", "About 10% is significant for an 8 out of 10 catalyst and about 20% is a reasonable ceiling. Past 30%, only a 9 to 10 out of 10 catalyst, news that changes the company, can carry it."),
   ("What are the targets?", "Back through the open, the premarket high and the high of day, then a measured move of about half the relative volume times the daily ATR. Sell into extensions and hold the rest until the trend ends."),
+  ("Does the Gap Give and Go work?", "In our test, a little. On 2,595 trades from 10,255 gap-up days, Dec 2021 to Nov 2026, the video's rules made +0.06R a trade with a 36% win rate, positive before and after 2025, while random entries on the same days with the same stop size lost 0.18R. More than half the go bars had no volume and were scratched; the full trades averaged +0.21R."),
  ],
 },
 "/setups/the-strat.html": {

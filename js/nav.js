@@ -379,7 +379,15 @@ const SETUPS = [
     stages:  6,
     filters: 4,
     status:  "live",
-    indicators: []
+    indicators: [
+      {
+        name:  "Gap Give and Go — The Trade Method",
+        blurb: "Marks the gap, the give on light volume, the tight range from the bar after the low and the go a cent over the range high, with the stop under the low of day, half at the high of day and alerts.",
+        url:   "",
+        file:  "/pine/gap-give-and-go.pine",
+        alerts: true
+      }
+    ]
   }
 
   ,{
