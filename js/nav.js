@@ -375,7 +375,7 @@ const SETUPS = [
     title:   "Gap Give and Go — Let It Give, Buy the Go",
     thesis:  "A stock gaps on a real catalyst, then gives back fast on light volume into a key level. Let the give finish, wait for the quiet range where sellers can't push it any lower, and buy the go when the tape turns, with the stop under the low of the day.",
     session: "09:30 – 10:30",
-    side:    "both",
+    side:    "long",
     stages:  6,
     filters: 4,
     status:  "live",
