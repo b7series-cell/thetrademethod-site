@@ -113,7 +113,7 @@
     "/setups/anchored-vwap.html": ["none", "Loses"],
     "/setups/zero-lag-pullback.html": ["none", "No edge vs random"],
     "/setups/fib-ote.html": ["none", "No edge vs random"],
-    "/setups/ict-made-simple.html": ["none", "No edge on any time frame"],
+    "/setups/ict-made-simple.html": ["none", "No edge on stocks"],
     "/setups/look-above-and-fail.html": ["none", "Fake levels did as well"],
     "/setups/heatmap-scalp.html": ["none", "Breaks even"],
     "/setups/three-candle-crt.html": ["none", "No edge"],

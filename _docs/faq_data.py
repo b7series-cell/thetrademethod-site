@@ -153,7 +153,7 @@ FAQ = {
  "faq": [
   ("What is a market structure break?", "A candle body closing through the last swing high in an uptrend (or swing low in a downtrend). A wick doesn't count. A market structure shift is price breaking the last higher low instead, a sign the trend may be turning."),
   ("What are premium and discount?", "Draw a Fibonacci from the significant low to the significant high of the current leg. Above the 0.5 is premium, where you sell; below it is discount, where you buy. 0.618 to 0.786 is the optimal trade entry."),
-  ("What are the three points of interest?", "An order block (the move before the move that broke structure), a breaker (an order block that failed and flipped), and a fair value gap (three candles where price only went one way)."),
+  ("Does ICT Made Simple work?", "Not on stocks. We coded the video's rules, which take both of its Bitcoin trades. On Bitcoin they made +2.45R a trade, but on only 28 trades since 2016. Across every liquid US stock they lost 0.05R a trade over 26,629 trades, and every intraday pairing lost too."),
   ("How do you enter with two time frames?", "When price reaches the high time frame point of interest, zoom in and wait for the low time frame to flip back in line. Enter on its breaker, stop under the turn, and target external range liquidity."),
  ],
 },
