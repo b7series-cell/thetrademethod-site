@@ -1,0 +1,245 @@
+//@version=6
+// =====================================================================
+// Gap Give and Go — thetrademethod.com
+// https://thetrademethod.com/setups/gap-give-and-go.html
+//
+// The page's rules, made objective so they can be marked and tested.
+// The numbers marked (ours) are our stand-ins for what the video
+// reads off the tape by eye.
+//
+// 1. The gap      The regular session opens 4% to 30% above the prior
+//                 close (ours). A real catalyst can't be coded: check
+//                 the news yourself.
+// 2. The give     The first move is down: price falls at least 0.25
+//                 daily ATR under the open (ours) on lighter volume
+//                 than the opening bars.
+// 3. The range    From the bar after the low, at least 3 bars hold a
+//                 tight range: candle bodies no wider than 0.2 daily
+//                 ATR (ours, the video's "10 to 20 cents" on DKNG),
+//                 with no new low.
+// 4. The go       Price trades a tick above the range high: buy there
+//                 (DKNG: clears 23.40). Stop a tick under the low of
+//                 day. No volume, no entry: if the go bar's volume is
+//                 under 1.25x the range's average (ours), scratch it
+//                 at the bar's close.
+// 5. Targets      Half at the high of day before the entry (the video's
+//                 trader sold into the high-of-day extension). The rest
+//                 exits on a high-volume bar that closes back under the
+//                 open, at the stop, or at the 4:00 close.
+//
+// Only the first go of the day, from 9:31 to 10:30 (ours). Long side
+// only, as in the video. Use a 1-minute chart with extended hours on,
+// so the premarket high is drawn. It marks and alerts. It does not
+// place trades.
+// =====================================================================
+indicator("Gap Give and Go [TTM]", shorttitle = "GGG [TTM]", overlay = true, max_lines_count = 200, max_labels_count = 200, max_boxes_count = 100)
+
+grpG = "Gap and give"
+gapMin = input.float(4.0, "Gap at least (%)", minval = 0, step = 0.5, group = grpG)
+gapMax = input.float(30.0, "Gap at most (%)", minval = 1, step = 1, group = grpG, tooltip = "The video: about 20% is a reasonable ceiling; past 30% only a 9 to 10 out of 10 catalyst carries it.")
+giveAtr = input.float(0.25, "Give: at least (x daily ATR) under the open", minval = 0.05, step = 0.05, group = grpG)
+grpR = "Range and go"
+rngBars = input.int(3, "Range: at least (bars)", minval = 2, maxval = 30, group = grpR)
+rngAtr = input.float(0.2, "Range: no wider than (x daily ATR)", minval = 0.02, step = 0.02, group = grpR)
+goVol = input.float(1.25, "Go bar volume (x the range's average)", minval = 1.0, step = 0.1, group = grpR)
+lastMin = input.int(60, "Latest go (minutes after 9:30)", minval = 5, maxval = 390, group = grpR)
+grpX = "Exits"
+exitVol = input.float(2.0, "Exit bar under the open: volume (x 20-bar average)", minval = 1.0, step = 0.1, group = grpX)
+atrLen = input.int(14, "Daily ATR length", minval = 2, group = grpX)
+grpS = "Show"
+showTable = input.bool(true, "Status table", group = grpS)
+cUp = input.color(#30d158, "Long", group = grpS)
+cDn = input.color(#ff453a, "Stop", group = grpS)
+cLvl = input.color(#f4b942, "Levels", group = grpS)
+
+TZ = "America/New_York"
+mod = hour(time, TZ) * 60 + minute(time, TZ)
+inRth = mod >= 570 and mod < 960
+inPre = mod >= 240 and mod < 570
+okTf = timeframe.isintraday and timeframe.in_seconds() <= 120
+[pClose, dAtr] = request.security(syminfo.tickerid, "D", [close[1], ta.atr(atrLen)[1]], lookahead = barmerge.lookahead_on)
+vAvg20 = ta.sma(volume, 20)
+
+var int dayKey = na
+var float pmh = na
+var float dOpen = na
+var float lod = na
+var float hod = na
+var float openVol = 0.0
+var int openN = 0
+var float giveVol = 0.0
+var int giveN = 0
+var bool gapOk = false
+var bool gaveOk = false
+var int lowBar = na
+var float rHi = na
+var float rLo = na
+var float bHi = na
+var float bLo = na
+var float rVol = 0.0
+var int rN = 0
+var bool took = false
+var int side = 0
+var float eP = na
+var float sl = na
+var float tp = na
+var float risk = na
+var bool half = false
+var float halfX = na
+var bool wasAbove = false
+var int nTr = 0
+var int nWin = 0
+var float sumR = 0.0
+var string status = "Waiting"
+var string lastTrade = "none yet"
+var line pmhLn = na
+var line openLn = na
+bool evGo = false
+bool evHalf = false
+bool evExit = false
+
+key = year(time, TZ) * 10000 + month(time, TZ) * 100 + dayofmonth(time, TZ)
+if okTf and barstate.isconfirmed
+    if na(dayKey) or key != dayKey
+        dayKey := key
+        pmh := na
+        dOpen := na
+        lod := na
+        hod := na
+        openVol := 0.0
+        openN := 0
+        giveVol := 0.0
+        giveN := 0
+        gapOk := false
+        gaveOk := false
+        lowBar := na
+        rHi := na
+        rLo := na
+        rVol := 0.0
+        rN := 0
+        took := false
+        wasAbove := false
+        status := "Pre-market"
+    if inPre
+        pmh := na(pmh) ? high : math.max(pmh, high)
+    if inRth
+        bool first = na(dOpen)
+        if first
+            dOpen := open
+            gapOk := not na(pClose) and dOpen >= pClose * (1 + gapMin / 100) and dOpen <= pClose * (1 + gapMax / 100)
+            status := gapOk ? "Gap " + str.tostring(100 * (dOpen / pClose - 1), "#.#") + "%: watching for the give" : "No qualifying gap today"
+            pmhLn := na(pmh) ? na : line.new(bar_index, pmh, bar_index, pmh, color = cLvl, style = line.style_dotted)
+            openLn := line.new(bar_index, dOpen, bar_index, dOpen, color = color.gray, style = line.style_dashed)
+        else
+            line.set_x2(pmhLn, bar_index)
+            line.set_x2(openLn, bar_index)
+        // exits first, from the bar after entry
+        if side == 1
+            float xPx = na
+            string why = ""
+            if low <= sl
+                xPx := math.min(open, sl)
+                why := "Stop"
+            else
+                if not half and high >= tp
+                    half := true
+                    halfX := math.max(open, tp)
+                    evHalf := true
+                    label.new(bar_index, high, "½ at HOD", style = label.style_label_down, color = color.new(cUp, 15), textcolor = color.white, size = size.small)
+                wasAbove := wasAbove or close > dOpen
+                if wasAbove and close < dOpen and volume >= exitVol * vAvg20[1]
+                    xPx := close
+                    why := "Back under the open"
+                else if mod + 1 >= 960
+                    xPx := close
+                    why := "Close"
+            if not na(xPx)
+                float r = half ? 0.5 * (halfX - eP) / risk + 0.5 * (xPx - eP) / risk : (xPx - eP) / risk
+                nTr += 1
+                nWin += r > 0 ? 1 : 0
+                sumR += r
+                evExit := true
+                lastTrade := (r >= 0 ? "+" : "") + str.tostring(r, "#.##") + "R (" + why + ")"
+                label.new(bar_index, high, why + "\n" + (r >= 0 ? "+" : "") + str.tostring(r, "#.##") + "R", style = label.style_label_down, color = color.new(why == "Stop" ? cDn : r > 0 ? cUp : color.gray, 15), textcolor = color.white, size = size.small)
+                side := 0
+                status := "Done. " + lastTrade
+        // the opening bars, the give, the range, the go
+        if gapOk and not took and side == 0
+            if mod < 573
+                openVol += volume
+                openN += 1
+            bool newLow = na(lod) or low < lod
+            hod := na(hod) ? high : math.max(hod, high)
+            if newLow
+                lod := low
+                lowBar := bar_index
+                rHi := na
+                rLo := low
+                bHi := na
+                bLo := na
+                rVol := 0.0
+                rN := 0
+                if mod >= 571
+                    giveVol += volume
+                    giveN += 1
+                gaveOk := dOpen - lod >= giveAtr * dAtr and (giveN == 0 or openN == 0 or giveVol / giveN < openVol / openN)
+                if gaveOk
+                    status := "Give to " + str.tostring(lod, format.mintick) + ": waiting for a range"
+            else
+                bool goBar = gaveOk and rN >= rngBars and bHi - bLo <= rngAtr * dAtr and high > rHi and mod < 570 + lastMin
+                if goBar
+                    took := true
+                    eP := math.max(open, rHi + syminfo.mintick)
+                    sl := lod - syminfo.mintick
+                    risk := eP - sl
+                    tp := math.max(hod, nz(pmh, hod))
+                    tp := tp > eP ? tp : eP + 2 * risk
+                    half := false
+                    evGo := true
+                    label.new(bar_index, low, "GO " + str.tostring(eP, format.mintick) + "\nstop " + str.tostring(sl, format.mintick), style = label.style_label_up, color = cUp, textcolor = color.white, size = size.small)
+                    box.new(lowBar + 1, rHi, bar_index - 1, lod, border_color = color.new(cLvl, 30), bgcolor = color.new(cLvl, 88))
+                    if volume >= goVol * rVol / rN
+                        side := 1
+                        wasAbove := close > dOpen
+                        status := "Long " + str.tostring(eP, format.mintick) + ", stop " + str.tostring(sl, format.mintick) + ", half at " + str.tostring(tp, format.mintick)
+                    else
+                        float r = (close - eP) / risk
+                        nTr += 1
+                        nWin += r > 0 ? 1 : 0
+                        sumR += r
+                        evExit := true
+                        lastTrade := (r >= 0 ? "+" : "") + str.tostring(r, "#.##") + "R (no volume on the go)"
+                        label.new(bar_index, high, "No volume: scratch\n" + (r >= 0 ? "+" : "") + str.tostring(r, "#.##") + "R", style = label.style_label_down, color = color.new(color.gray, 15), textcolor = color.white, size = size.small)
+                        status := "Done. " + lastTrade
+                else
+                    rHi := na(rHi) ? high : math.max(rHi, high)
+                    bHi := na(bHi) ? math.max(open, close) : math.max(bHi, open, close)
+                    bLo := na(bLo) ? math.min(open, close) : math.min(bLo, open, close)
+                    rVol += volume
+                    rN += 1
+                    if gaveOk and bHi - bLo > rngAtr * dAtr
+                        status := "Range too wide: still the give"
+                    else if gaveOk and rN >= rngBars
+                        status := "Range " + str.tostring(bLo, format.mintick) + " – " + str.tostring(bHi, format.mintick) + ": waiting for the go above " + str.tostring(rHi, format.mintick)
+        if side == 0 and not na(hod)
+            hod := math.max(hod, high)
+
+plot(okTf and inRth and gapOk and not na(lod) ? lod : na, "Low of day", color = color.new(cDn, 40), style = plot.style_linebr)
+
+var table tb = table.new(position.top_right, 2, 5, bgcolor = color.new(#1d1d1f, 10), border_width = 1, border_color = color.new(#3a3a3c, 0))
+row(int r, string k, string v) =>
+    table.cell(tb, 0, r, k, text_color = color.gray, text_size = size.small, text_halign = text.align_left)
+    table.cell(tb, 1, r, v, text_color = color.white, text_size = size.small, text_halign = text.align_right)
+if showTable and barstate.islast
+    if not okTf
+        row(0, "Gap Give and Go", "Use a 1- or 2-minute chart")
+    else
+        row(0, "Gap Give and Go", "long only")
+        row(1, "Now", status)
+        row(2, "Trades on chart", str.tostring(nTr))
+        row(3, "Win rate", nTr > 0 ? str.tostring(100.0 * nWin / nTr, "#") + "%" : "—")
+        row(4, "Average", nTr > 0 ? str.tostring(sumR / nTr, "#.##") + "R" : "—")
+
+alertcondition(evGo, "GGG go", "Gap Give and Go: the go. Long above the range high, stop under the low of day.")
+alertcondition(evHalf, "GGG half off", "Gap Give and Go: high of day reached. Take half.")
+alertcondition(evExit, "GGG done", "Gap Give and Go: trade closed.")
