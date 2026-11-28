@@ -225,8 +225,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=28">
-<script src="/js/nav.js?v=45" defer></script>
-<script src="/js/site.js?v=81" defer></script>
+<link rel="stylesheet" href="/css/tested.css?v=3">
+<script src="/js/nav.js?v=46" defer></script>
+<script src="/js/site.js?v=82" defer></script>
 <script src="/js/gg-anim.js?v=2" defer></script>
 <style>
   /* steps across the page, the two panels side by side under them */
@@ -410,6 +411,14 @@
     "@type": "Answer",
     "text": "Back through the open, the premarket high and the high of day, then a measured move of about half the relative volume times the daily ATR. Sell into extensions and hold the rest until the trend ends."
    }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the Gap Give and Go work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "In our test, a little. On 2,595 trades from 10,255 gap-up days, Dec 2021 to Nov 2026, the video's rules made +0.06R a trade with a 36% win rate, positive before and after 2025, while random entries on the same days with the same stop size lost 0.18R. More than half the go bars had no volume and were scratched; the full trades averaged +0.21R."
+   }
   }
  ]
 }
@@ -464,6 +473,7 @@
         <div><b>&minus;8 &rarr; 0 &rarr; +8</b><small>the tape, give to go</small></div>
         <div><b>1</b><small>hard stop: the low of day</small></div>
       </div>
+      <!--tested-chip--><a class="tested-chip v-edge" href="#tested"><i aria-hidden="true"></i>Tested: <b>Beat random entries</b></a><!--/tested-chip-->
     </div>
   </header>
   <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the Gap Give and Go?</h2><p>The Gap Give and Go is an opening gap trade from an SMB Capital playbook review. A stock gaps up on fresh news, then drops fast on light volume into a key level (the give). Wait for a quiet range, then buy the turn (the go) when the tape flips, with a stop under the low of day.</p></section><!-- /define -->
@@ -715,6 +725,62 @@
     </tbody>
   </table>
 
+  <!--tested:start-->
+  <section class="tested v-edge" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>Beat random entries</span></div>
+    <h2 id="tested-h">A small edge, well ahead of random entries on the same days</h2>
+    <p class="tested-lead">Run with the video's rules on every US stock that gapped up and gave back over five years, it made a little money in both halves of the test. Random entries on the same mornings, with the same stop size, lost. It takes the video's DKNG trade for +3.3R.</p>
+    <ul class="tested-stats">
+      <li><b>2,595</b><span>trades, whole US market, 1-minute</span></li>
+      <li><b>36%</b><span>win rate</span></li>
+      <li><b class="pos">+0.06R</b><span>average per trade</span></li>
+      <li><b>&minus;0.18R</b><span>random entries, same days, same stop size</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Version</th><th scope="col">Trades</th><th scope="col">Avg R</th></tr></thead>
+      <tbody>
+        <tr><td>The video's rules</td><td>2,595</td><td>+0.06R</td></tr>
+        <tr><td>Before 2025 / 2025 to 2026</td><td>&ndash;</td><td>+0.08R / +0.04R</td></tr>
+        <tr><td>Go bar with volume (full trades)</td><td>1,194</td><td>+0.21R</td></tr>
+        <tr><td>Go bar without volume (scratched at the bar's close)</td><td>1,401</td><td>&minus;0.06R</td></tr>
+        <tr><td>Gap 4 to 10% / 10 to 30%</td><td>&ndash;</td><td>+0.10R / 0.00R</td></tr>
+        <tr><td>Random entry 9:35 to 10:30, same days, same stop size in %</td><td>2,537</td><td>&minus;0.18R</td></tr>
+        <tr><td>The video's trade: DKNG, May 5, 2023 (buy 23.38, stop 23.02)</td><td>1</td><td>+3.34R</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tested-notes">
+      <li>The edge is small: the median trade lost 0.12R and the profit factor is 1.16. The 10 best trades made 100R of the 162R total (single trades capped at 10R), so it depends on the days that run.</li>
+      <li>More than half the setups were scratched because the go bar came on light volume, which is the video's &ldquo;no volume, no entry&rdquo; rule. The ones with volume did much better.</li>
+      <li>Smaller gaps worked better than big ones. The catalyst grade and the key level can't be coded, so this tests the price and volume pattern only.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> 10,255 gap-up days from 3,173 US stocks, Dec 2021 to Nov 2026, delisted ones included: gap 4 to 30%, open at least $5, $5M traded a day, day volume at least twice normal, and a dip of 2% or more under the open. 1-minute bars with the premarket. Rules coded line for line from this page's indicator (the give, range and go thresholds are ours, set so it takes the video's DKNG trade), 5 bp a side. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
+
+  <div class="section-head" id="indicator">
+    <h2 class="ind-heading">Indicator for this setup</h2>
+    <p class="ind-note">Add this to a 1-minute TradingView chart of a stock that gapped up, with extended hours on so the premarket high is drawn.
+    It uses the video's rules, made objective, and takes the video's DKNG trade. It draws and alerts on the setup &mdash; it does not place trades,
+    and it can't read the news, so the catalyst and the key level are yours to check.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">Gap Give and Go &mdash; The Trade Method</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">Checks for a gap up of 4% to 30%, then a give of at least a quarter of the daily ATR under the open on lighter volume than
+      the opening bars. From the bar after the low it watches for a tight range of at least 3 bars (candle bodies within 0.2 daily ATR, no new low),
+      and marks the go when price trades a cent over the range high by 10:30, with the stop a cent under the low of day. If the go bar has no volume
+      (under 1.25&times; the range's average) it scratches the trade at that bar's close. Half comes off at the high of day or premarket high, and the
+      rest on a high-volume close back under the open, at the stop or at 4:00. Long side only, as in the video. A status table shows each check;
+      alerts for the go, half off and done. The ATR and volume numbers are our objective version of what the video reads off the tape.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/gap-give-and-go.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+  </ul>
+
   <section class="video" id="video" aria-label="Video">
     <div class="video-frame">
       <iframe src="https://www.youtube-nocookie.com/embed/xYUto1XlJwA" title="Gap Give and Go (video)" loading="lazy"
@@ -733,6 +799,7 @@
     <div class="qa"><h3>Why not buy the give?</h3><p>A give can keep on giving, and you don't know where it ends until it has. Waiting for the go means you give up the low but only own the days that actually turn.</p></div>
     <div class="qa"><h3>How big a gap is too big?</h3><p>About 10% is significant for an 8 out of 10 catalyst and about 20% is a reasonable ceiling. Past 30%, only a 9 to 10 out of 10 catalyst, news that changes the company, can carry it.</p></div>
     <div class="qa"><h3>What are the targets?</h3><p>Back through the open, the premarket high and the high of day, then a measured move of about half the relative volume times the daily ATR. Sell into extensions and hold the rest until the trend ends.</p></div>
+    <div class="qa"><h3>Does the Gap Give and Go work?</h3><p>In our test, a little. On 2,595 trades from 10,255 gap-up days, Dec 2021 to Nov 2026, the video's rules made +0.06R a trade with a 36% win rate, positive before and after 2025, while random entries on the same days with the same stop size lost 0.18R. More than half the go bars had no volume and were scratched; the full trades averaged +0.21R.</p></div>
   </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">

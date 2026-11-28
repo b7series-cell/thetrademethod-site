@@ -22,8 +22,9 @@
 //                 day. No volume, no entry: if the go bar's volume is
 //                 under 1.25x the range's average (ours), scratch it
 //                 at the bar's close.
-// 5. Targets      Half at the high of day before the entry (the video's
-//                 trader sold into the high-of-day extension). The rest
+// 5. Targets      Half at the high of day or the premarket high, if
+//                 higher (the video's trader sold into the high-of-day
+//                 extension; else +2R). The rest
 //                 exits on a high-volume bar that closes back under the
 //                 open, at the stop, or at the 4:00 close.
 //

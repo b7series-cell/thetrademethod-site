@@ -110,6 +110,7 @@
     "/setups/energy-in-the-tank.html": ["none", "Worse than random entries"],
     "/setups/cup-and-handle.html": ["none", "No better than random"],
     "/setups/day-three-breakout.html": ["edge", "Beat random entries"],
+    "/setups/gap-give-and-go.html": ["edge", "Beat random entries"],
     "/setups/anchored-vwap.html": ["none", "Loses"],
     "/setups/zero-lag-pullback.html": ["none", "No edge vs random"],
     "/setups/fib-ote.html": ["none", "No edge vs random"],
@@ -704,7 +705,7 @@
      each page's description and section headings, so a hit on a heading
      links straight to that section. Bump SEARCH_INDEX_URL's ?v= after
      rebuilding the index. */
-  var SEARCH_INDEX_URL = "/js/search-index.js?v=53";
+  var SEARCH_INDEX_URL = "/js/search-index.js?v=54";
   var searchDocs = null, searchIndexState = "";
 
   function searchBase() {

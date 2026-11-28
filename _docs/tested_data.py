@@ -40,8 +40,8 @@ PAGES = [
 {
  "path": "setups/qullamaggie.html", "name": "Qullamaggie Breakout", "group": "Setups",
  "verdict": "edge", "chip": "Beat random entries",
- "headline": "One of two setups that beat random entries",
- "lead": "Of every setup on this site we could code, this is one of two (with Day Three Breakout) that clearly did better than random entries with the "
+ "headline": "One of three setups that beat random entries",
+ "lead": "Of every setup on this site we could code, this is one of three (with Day Three Breakout and Gap Give and Go) that clearly did better than random entries with the "
          "same exits. It still loses on most trades: the profit comes from a few big trend trades.",
  "stats": [["158", "trades, daily + 5-minute ORH"], ["35%", "win rate"], ["+0.63R", "average per trade", "pos"],
            ["&minus;0.21R", "random entries, same exits", "neg"]],
@@ -137,6 +137,30 @@ PAGES = [
  "how": ("Every US common stock over $1 with a day one up 20% on 3&times; volume and an inside day two, delisted ones included, "
          "Nov 2021 to Nov 2026, 5-minute bars on day three. Rules coded line for line from this page's indicator, 5 bp a side. "
          "The catalyst check can't be coded, so this tests the price and volume pattern only."),
+},
+{
+ "path": "setups/gap-give-and-go.html", "name": "Gap Give and Go", "group": "Setups",
+ "verdict": "edge", "chip": "Beat random entries",
+ "headline": "A small edge, well ahead of random entries on the same days",
+ "lead": "Run with the video's rules on every US stock that gapped up and gave back over five years, it made a little money in both "
+         "halves of the test. Random entries on the same mornings, with the same stop size, lost. It takes the video's DKNG trade for +3.3R.",
+ "stats": [["2,595", "trades, whole US market, 1-minute"], ["36%", "win rate"], ["+0.06R", "average per trade", "pos"],
+           ["&minus;0.18R", "random entries, same days, same stop size"]],
+ "table": {"head": ["Version", "Trades", "Avg R"],
+           "rows": [["The video's rules", "2,595", "+0.06R"],
+                    ["Before 2025 / 2025 to 2026", "", "+0.08R / +0.04R"],
+                    ["Go bar with volume (full trades)", "1,194", "+0.21R"],
+                    ["Go bar without volume (scratched at the bar's close)", "1,401", "&minus;0.06R"],
+                    ["Gap 4 to 10% / 10 to 30%", "", "+0.10R / 0.00R"],
+                    ["Random entry 9:35 to 10:30, same days, same stop size in %", "2,537", "&minus;0.18R"],
+                    ["The video's trade: DKNG, May 5, 2023 (buy 23.38, stop 23.02)", "1", "+3.34R"]]},
+ "notes": ["The edge is small: the median trade lost 0.12R and the profit factor is 1.16. The 10 best trades made 100R of the 162R total "
+           "(single trades capped at 10R), so it depends on the days that run.",
+           "More than half the setups were scratched because the go bar came on light volume, which is the video's &ldquo;no volume, no entry&rdquo; rule. The ones with volume did much better.",
+           "Smaller gaps worked better than big ones. The catalyst grade and the key level can't be coded, so this tests the price and volume pattern only."],
+ "how": ("10,255 gap-up days from 3,173 US stocks, Dec 2021 to Nov 2026, delisted ones included: gap 4 to 30%, open at least $5, $5M traded a day, "
+         "day volume at least twice normal, and a dip of 2% or more under the open. 1-minute bars with the premarket. Rules coded line for line from "
+         "this page's indicator (the give, range and go thresholds are ours, set so it takes the video's DKNG trade), 5 bp a side."),
 },
 {
  "path": "setups/anchored-vwap.html", "name": "Anchored VWAP", "group": "Setups",
