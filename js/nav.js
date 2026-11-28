@@ -160,7 +160,11 @@ const SETUPS = [
     stages:  6,
     filters: 4,
     status:  "live",
-    indicators: []
+    indicators: [
+      { name: "MACD Continuation Scalp",
+        blurb: "Finds the flat 3/9/5 MACD, the expansion and the dip that holds its side of zero, and marks the cross-back entry, the stop under the dip and the cross-back exit.",
+        url: "", file: "/pine/macd-continuation-scalp.pine", alerts: true }
+    ]
   },
   {
     slug:    "vwap-reversal",

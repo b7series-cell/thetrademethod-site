@@ -201,6 +201,24 @@
     .panel,.filter,.rule,.stage,table { break-inside:avoid; }
     @page { size:A3 landscape; margin:12mm; }
   }
+  /* ---------- indicator ---------- */
+  .ind-sec { margin-top:56px; scroll-margin-top:110px; }
+  .ind-heading { margin:0 0 5px; font-size:26px; letter-spacing:-0.02em; }
+  .ind-note { margin:0 0 18px; color:var(--dim); max-width:78ch; }
+  .ind-list { list-style:none; margin:0; padding:0; display:grid;
+              grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+  .ind-card { background:var(--panel); border:1px solid var(--line); border-radius:11px; padding:16px 17px; }
+  .ind-card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px; }
+  .ind-name { margin:0; font-size:17px; }
+  .ind-alerts { font-family:var(--mono); font-size:11px; color:var(--gold); border:1px solid #4a3a12;
+                background:#1a1508; border-radius:5px; padding:2px 7px; text-transform:uppercase; letter-spacing:0.04em; }
+  .ind-blurb { margin:0 0 12px; font-size:14px; color:var(--ink); }
+  .ind-links { display:flex; flex-wrap:wrap; gap:10px; }
+  .ind-link { font-size:13px; font-weight:600; color:var(--blue); text-decoration:none; border-bottom:1px solid transparent; }
+  .ind-link:hover { border-bottom-color:var(--blue); }
+  .ind-link--quiet { color:var(--dim); }
+  .ind-link--quiet:hover { border-bottom-color:var(--dim); }
+    @media (max-width:680px) { .ind-sec { margin-top:44px; } }
 </style>
 <!-- site shell (Apple style) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -208,7 +226,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=28">
 <link rel="stylesheet" href="/css/tested.css?v=3">
-<script src="/js/nav.js?v=47" defer></script>
+<script src="/js/nav.js?v=48" defer></script>
 <script src="/js/site.js?v=85" defer></script>
 <script src="/js/anim-kit.js?v=2" defer></script>
 <script src="/js/macd-anim.js?v=1" defer></script>
@@ -633,6 +651,30 @@
       <p class="live-status">QQQ · 1-minute · loading…</p>
     </div>
     <aside class="live-side" aria-live="polite"></aside>
+  </section>
+
+  <section class="ind-sec" id="indicator" aria-label="TradingView indicator">
+    <h2 class="ind-heading">The indicator</h2>
+    <p class="ind-note">One TradingView script for the setup (Pine Script v6), for 1-minute charts. It draws the 3/9/5 MACD, its signal line and the flat band
+    in its own pane, and marks the entry, the stop and the exit on the price chart. It marks and alerts. It does not place trades.</p>
+    <ul class="ind-list">
+      <li class="ind-card">
+        <div class="ind-card-top">
+          <h3 class="ind-name">MACD Continuation Scalp</h3>
+          <span class="ind-alerts">alerts</span>
+        </div>
+        <p class="ind-blurb">A flat run counts when the MACD line stays within 0.15&times; the ATR(14) of zero for 3 to 15 bars. When it leaves that band away
+        from its signal line, the setup arms. The dip is the MACD crossing under its signal (over, for a short) with both lines still on their side of zero;
+        if either crosses zero, there's no trade. The cross back is the entry, marked at the bar's close, with the stop a tick past the dip's low (high).
+        The exit is the cross back against the trade, or the stop. One trade per setup, regular hours only. A panel keeps the trade count, wins and average R, before costs.</p>
+        <p class="ind-blurb" style="color:var(--dim)">The same rules as our test. The video judges &ldquo;wrapped around zero&rdquo; by eye, so the band is ours,
+        and so is the 30-bar window for the expansion and the dip. Jeff often gets out on a test of the cross without waiting for the close; the script waits for the close.
+        No histogram, as in the video. Every number is a setting.</p>
+        <div class="ind-links">
+          <a class="ind-link ind-link--quiet" href="/pine/macd-continuation-scalp.pine" download>Download source (.pine)</a>
+        </div>
+      </li>
+    </ul>
   </section>
 
   <section class="video" aria-label="Video">
