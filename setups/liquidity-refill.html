@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/liquidity-refill.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/liquidity-refill.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-11-22",
+ "dateModified": "2026-11-28",
  "inLanguage": "en",
  "author": {
   "@type": "Person",
@@ -248,7 +248,6 @@
   .code-top .acts { display:flex; gap:8px; }
   .code-top button, .code-top a { font:inherit; font-size:13px; font-weight:600; cursor:pointer; color:var(--ink); background:#1b2a3e; border:0; border-radius:9999px; padding:6px 14px; text-decoration:none; }
   .code-top button:hover, .code-top a:hover { background:#26394f; }
-  pre.pine { margin:0; padding:16px 18px; max-height:520px; overflow:auto; font-family:var(--mono); font-size:12.5px; line-height:1.55; color:#d1d9e3; tab-size:4; }
   @media (max-width:680px) { pre.pine { font-size:11.5px; max-height:420px; } .ind-sec { margin-top:44px; } }
 </style>
 <!-- site shell (Apple style) -->
@@ -481,7 +480,7 @@
 <div class="sheet">
 
   <a class="back" href="/setups/">&lsaquo; All setups</a>
-  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-22">Nov 22, 2026</time></p><!-- /byline -->
+  <!-- byline --><p class="byline">By <a href="/about.html" rel="author">Bryant</a> &middot; Updated <time datetime="2026-11-28">Nov 28, 2026</time></p><!-- /byline -->
 
   <header class="top" data-candle-bg="liquidity-refill">
     <div>
@@ -561,7 +560,7 @@
           <h3>Watch the first seconds of C2</h3>
           <ul>
             <li>For a long, a quick sell-off right as C2 opens. On a 1-minute chart, in the first 10 to 15 seconds.</li>
-            <li>The wick stays small, in the top 10&ndash;20% of C1. It shouldn't come near C1's 50% level.</li>
+            <li>The wick stays small: in the top 10 to 15% of C1 on the whiteboard, and no deeper than 20%. It shouldn't come near C1's 50% level.</li>
             <li>Then buyers absorb it and turn aggressive again: the candle flips. For a short it's all mirrored: a quick pop, absorbed, near C1's low.</li>
           </ul>
           <p class="why">Buyers are now lining up liquidity at a much higher price than before, and doing it quickly enough to absorb the selling instantly.</p>
@@ -826,250 +825,6 @@
         </div>
       </li>
     </ul>
-    <div class="code-wrap">
-      <div class="code-top">
-        <span>liquidity-refill.pine &middot; Pine Script v6</span>
-        <div class="acts"><button type="button" data-copy>Copy code</button><a href="/pine/liquidity-refill.pine" download>Download</a></div>
-      </div>
-      <pre class="pine" tabindex="0"><code>//@version=6
-// =====================================================================
-// Liquidity Refill — thetrademethod.com
-//
-// A quant's two-candle imbalance pattern (aggression against liquidity
-// refill), on any time frame, long or short:
-//
-//   1. C1          A relatively big candle out of compression: its range
-//                  is a multiple of the quiet bars before it, it has a
-//                  real body and closes near its extreme. Chop (another
-//                  bar about as big among the quiet bars) is skipped.
-//   2. C2's wick   The NEXT candle opens with a quick move against C1
-//                  (a sell-off after a green C1) that is done in the
-//                  first moments of the bar and stays in the top 10-20%
-//                  of C1. Timing is read from intrabar data; a wick that
-//                  forms later in the bar doesn't count.
-//   3. The entry   C2 crosses C1's high (low, short). Only C2: a break
-//                  on C3 is no trade. Entry is marked a tick past it.
-//   4. The stop    A few ticks past C2's wick.
-//   5. The exit    The close of the Nth candle (C2 counts as 1), the
-//                  first opposite close, or the previous day's high/low
-//                  (intraday), whichever comes first. Or the stop.
-//
-// Early window, by default (the video's numbers, "not set in stone"):
-//   1-minute: first 15 s · 5-minute: first minute · 15-minute: first
-//   2 minutes · daily: first 4 hours. In between, it scales.
-// Seconds data (used on 1-minute charts) needs a TradingView plan that
-// has it. Without intrabar data, turn "Require intrabar timing" off and
-// judge the timing yourself.
-//
-// The second-chance retest on a lower time frame is left to you.
-// Marks and alerts only; it places no orders.
-// =====================================================================
-indicator("Liquidity Refill", shorttitle = "Liq Refill", overlay = true, max_labels_count = 300, max_lines_count = 300)
-
-// ---------------- inputs ----------------
-grpC = "C1 · the imbalance candle"
-lenQ    = input.int(8, "Quiet bars before C1", minval = 3, maxval = 50, group = grpC)
-bigX    = input.float(2.0, "C1 range ≥ × their average range", minval = 1.0, step = 0.1, group = grpC)
-bodyMin = input.float(0.6, "C1 body ≥ share of its range", minval = 0.0, maxval = 1.0, step = 0.05, group = grpC)
-closeIn = input.float(0.25, "C1 closes within this share of its extreme", minval = 0.05, maxval = 0.5, step = 0.05, group = grpC)
-chopX   = input.float(0.75, "Chop: skip if a quiet bar's range ≥ × C1's", minval = 0.3, maxval = 1.0, step = 0.05, group = grpC)
-useCmp  = input.bool(true, "Require compression", group = grpC, tooltip = "The quiet bars' average range must be at or below this multiple of ATR(50).")
-cmpX    = input.float(1.0, "Quiet average range ≤ × ATR(50)", minval = 0.2, step = 0.1, group = grpC)
-
-grpW = "C2 · the early wick"
-maxDepth = input.float(20, "Max wick depth into C1 (%)", minval = 1, maxval = 100, group = grpW)
-showShaky = input.bool(true, "Also mark shaky wicks up to 50%", group = grpW, tooltip = "Deeper than the max but under C1's halfway point. The live trade in the video was about 30-35%, taken because it was very quick. Check the risk-reward.")
-winIn    = input.int(0, "Early window, seconds (0 = auto)", minval = 0, group = grpW)
-ltfIn    = input.timeframe("", "Intrabar timeframe (blank = auto)", group = grpW, tooltip = "Auto: 1S on 1-minute and faster charts, 1 minute up to 15-minute, 5 minutes up to 1-hour, 15 minutes up to 4-hour, 1 hour above.")
-needTime = input.bool(true, "Require intrabar timing", group = grpW, tooltip = "Off: any wick within the depth counts, early or not.")
-
-grpE = "Entry, stop and exit"
-bufT    = input.int(2, "Stop buffer past the wick (ticks)", minval = 0, group = grpE)
-nBars   = input.int(4, "Exit at the close of candle N (C2 = 1)", minval = 1, maxval = 10, group = grpE)
-oppEx   = input.bool(true, "Exit on the first opposite close", group = grpE)
-pdEx    = input.bool(true, "Exit at the previous day's high / low (intraday)", group = grpE)
-doLong  = input.bool(true, "Longs", group = grpE)
-doShort = input.bool(true, "Shorts", group = grpE)
-
-grpV = "Display"
-showC1    = input.bool(true, "Mark every C1", group = grpV)
-showPanel = input.bool(true, "Show panel", group = grpV)
-cUp  = input.color(color.new(#30d158, 0), "Long", group = grpV)
-cDn  = input.color(color.new(#ff453a, 0), "Short", group = grpV)
-cWk  = input.color(color.new(#f4b942, 0), "Early wick", group = grpV)
-cOut = input.color(color.new(#22d3ee, 0), "Exit", group = grpV)
-
-// ---------------- time frame defaults ----------------
-tfSec   = timeframe.in_seconds()
-autoWin = tfSec &lt;= 60 ? 15 : tfSec &lt;= 300 ? 60 : tfSec &lt;= 900 ? 120 : tfSec &lt;= 3600 ? 600 : tfSec &lt;= 14400 ? 1800 : 14400
-winSec  = winIn &gt; 0 ? winIn : autoWin
-autoLtf = tfSec &lt;= 60 ? "1S" : tfSec &lt;= 900 ? "1" : tfSec &lt;= 3600 ? "5" : tfSec &lt;= 14400 ? "15" : "60"
-ltf     = ltfIn == "" ? autoLtf : ltfIn
-
-// ---------------- intrabar data for C2's timing ----------------
-[iL, iH, iT] = request.security_lower_tf(syminfo.tickerid, ltf, [low, high, time], ignore_invalid_timeframe = true)
-winEnd = time + winSec * 1000
-float eLo = na
-float eHi = na
-float lLo = na
-float lHi = na
-nIn = array.size(iT)
-if nIn &gt; 0
-    for i = 0 to nIn - 1
-        lo_ = array.get(iL, i)
-        hi_ = array.get(iH, i)
-        if array.get(iT, i) &lt; winEnd
-            eLo := na(eLo) ? lo_ : math.min(eLo, lo_)
-            eHi := na(eHi) ? hi_ : math.max(eHi, hi_)
-        else
-            lLo := na(lLo) ? lo_ : math.min(lLo, lo_)
-            lHi := na(lHi) ? hi_ : math.max(lHi, hi_)
-hasTiming = nIn &gt; 0 and not na(eLo)
-// the bar's low (long) / high (short) was printed in the early window and not taken out later
-lowEarly  = hasTiming and (na(lLo) or lLo &gt;= eLo)
-highEarly = hasTiming and (na(lHi) or lHi &lt;= eHi)
-var int barsWithData = 0
-if nIn &gt; 0
-    barsWithData += 1
-
-// ---------------- C1 ----------------
-rng   = high - low
-qAvg  = ta.sma(rng, lenQ)[1]
-qMax  = ta.highest(rng, lenQ)[1]
-atr50 = ta.atr(50)[1]
-big   = rng &gt; 0 and rng &gt;= bigX * qAvg and math.abs(close - open) &gt;= bodyMin * rng
-cmpOK = not useCmp or qAvg &lt;= cmpX * atr50
-chopOK = qMax &lt; chopX * rng
-isC1Up = big and close &gt; open and (high - close) &lt;= closeIn * rng and cmpOK and chopOK
-isC1Dn = big and close &lt; open and (close - low) &lt;= closeIn * rng and cmpOK and chopOK
-
-if showC1 and barstate.isconfirmed and (isC1Up or isC1Dn)
-    label.new(bar_index, isC1Up ? low : high, "C1", yloc = yloc.price, style = isC1Up ? label.style_label_up : label.style_label_down,
-              color = color.new(color.gray, 70), textcolor = color.white, size = size.tiny)
-
-// ---------------- previous day's levels (intraday) ----------------
-[pdh, pdl] = request.security(syminfo.tickerid, "D", [high[1], low[1]], lookahead = barmerge.lookahead_on)
-
-// ---------------- the trade ----------------
-var int   side     = 0      // 1 long, -1 short, 0 flat
-var float ent      = na
-var float stp      = na
-var float risk     = na
-var int   entBar   = na
-var line  lnStop   = na
-var line  lnEnt    = na
-var int   nTrades  = 0
-var int   nWins    = 0
-var float sumR     = 0.0
-var float lastR    = na
-var string lastWhy = ""
-
-exitSig = false
-float exitPx = na
-string why = ""
-
-// exits on bars after the entry bar
-if side != 0 and bar_index &gt; entBar
-    if side == 1 and low &lt;= stp
-        exitPx := math.min(open, stp)
-        why := "stop"
-    else if side == -1 and high &gt;= stp
-        exitPx := math.max(open, stp)
-        why := "stop"
-    else if pdEx and timeframe.isintraday and side == 1 and not na(pdh) and pdh &gt; ent and high &gt;= pdh
-        exitPx := math.max(open, pdh)
-        why := "prior day high"
-    else if pdEx and timeframe.isintraday and side == -1 and not na(pdl) and pdl &lt; ent and low &lt;= pdl
-        exitPx := math.min(open, pdl)
-        why := "prior day low"
-    else if barstate.isconfirmed and oppEx and ((side == 1 and close &lt; open) or (side == -1 and close &gt; open))
-        exitPx := close
-        why := "opposite candle"
-    else if barstate.isconfirmed and bar_index - entBar + 1 &gt;= nBars
-        exitPx := close
-        why := str.tostring(nBars) + " candles"
-
-// a new entry on C2
-c1Up = isC1Up[1]
-c1Dn = isC1Dn[1]
-c1Hi = high[1]
-c1Lo = low[1]
-c1R  = c1Hi - c1Lo
-depthL = c1R &gt; 0 ? (c1Hi - low) / c1R * 100 : na
-depthS = c1R &gt; 0 ? (high - c1Lo) / c1R * 100 : na
-wickL = low &lt; open and (not needTime or lowEarly)
-wickS = high &gt; open and (not needTime or highEarly)
-okL = depthL &lt;= maxDepth or (showShaky and depthL &lt;= 50)
-okS = depthS &lt;= maxDepth or (showShaky and depthS &lt;= 50)
-longSig  = doLong  and side == 0 and na(exitPx) and c1Up and wickL and okL and high &gt; c1Hi
-shortSig = doShort and side == 0 and na(exitPx) and c1Dn and wickS and okS and low &lt; c1Lo
-
-if longSig or shortSig
-    side   := longSig ? 1 : -1
-    ent    := longSig ? math.max(open, c1Hi + syminfo.mintick) : math.min(open, c1Lo - syminfo.mintick)
-    stp    := longSig ? low - bufT * syminfo.mintick : high + bufT * syminfo.mintick
-    risk   := math.abs(ent - stp)
-    entBar := bar_index
-    shakyNow = longSig ? depthL &gt; maxDepth : depthS &gt; maxDepth
-    col = longSig ? cUp : cDn
-    dep = longSig ? depthL : depthS
-    label.new(bar_index, longSig ? low : high, "", yloc = yloc.price, style = label.style_circle, color = cWk, size = size.tiny)
-    label.new(bar_index - 1, ent, (longSig ? "Long " : "Short ") + str.tostring(ent, format.mintick) + "\nwick " + str.tostring(dep, "#") + "%" + (shakyNow ? " · shaky, check R:R" : ""),
-              style = longSig ? label.style_label_lower_right : label.style_label_upper_right, color = shakyNow ? color.new(color.gray, 20) : col,
-              textcolor = color.black, size = size.small)
-    lnEnt  := line.new(bar_index, ent, bar_index, ent, color = color.new(color.white, 30), width = 1)
-    lnStop := line.new(bar_index, stp, bar_index, stp, color = cDn, style = line.style_dashed, width = 1)
-
-// exit on the entry bar itself: C2 closes against you, or N = 1
-if side != 0 and bar_index == entBar and barstate.isconfirmed and na(exitPx)
-    if oppEx and ((side == 1 and close &lt; open) or (side == -1 and close &gt; open))
-        exitPx := close
-        why := "C2 closed against it"
-    else if nBars &lt;= 1
-        exitPx := close
-        why := "1 candle"
-
-// keep the lines running while in the trade
-if side != 0
-    line.set_x2(lnEnt, bar_index)
-    line.set_x2(lnStop, bar_index)
-
-if side != 0 and not na(exitPx) and barstate.isconfirmed
-    r  = side == 1 ? (exitPx - ent) / risk : (ent - exitPx) / risk
-    rs = why
-    nTrades += 1
-    nWins   += r &gt; 0 ? 1 : 0
-    sumR    += r
-    lastR   := r
-    lastWhy := rs
-    label.new(bar_index, side == 1 ? high : low, "Out " + str.tostring(exitPx, format.mintick) + "\n" + str.tostring(r, "+0.0;-0.0") + "R · " + rs,
-              style = side == 1 ? label.style_label_down : label.style_label_up, color = r &gt;= 0 ? cOut : color.new(cDn, 20), textcolor = color.black, size = size.small)
-    exitSig := true
-    side := 0
-
-// ---------------- panel ----------------
-var table pnl = table.new(position.top_right, 2, 6, bgcolor = color.new(#1d1d1f, 10), border_color = color.new(#3a3a3c, 0), border_width = 1)
-if showPanel and barstate.islast
-    table.cell(pnl, 0, 0, "Liquidity Refill", text_color = color.white, text_size = size.small)
-    table.cell(pnl, 1, 0, side == 1 ? "LONG" : side == -1 ? "SHORT" : "flat", text_color = side == 1 ? cUp : side == -1 ? cDn : color.gray, text_size = size.small)
-    table.cell(pnl, 0, 1, "Early window", text_color = color.gray, text_size = size.small)
-    table.cell(pnl, 1, 1, str.tostring(winSec) + " s · " + ltf, text_color = color.white, text_size = size.small)
-    table.cell(pnl, 0, 2, "Intrabar data", text_color = color.gray, text_size = size.small)
-    table.cell(pnl, 1, 2, barsWithData &gt; 0 ? "yes" : needTime ? "none: turn timing off" : "not used", text_color = barsWithData &gt; 0 or not needTime ? color.white : cDn, text_size = size.small)
-    table.cell(pnl, 0, 3, "Trades · wins", text_color = color.gray, text_size = size.small)
-    table.cell(pnl, 1, 3, str.tostring(nTrades) + " · " + str.tostring(nWins), text_color = color.white, text_size = size.small)
-    table.cell(pnl, 0, 4, "Average R", text_color = color.gray, text_size = size.small)
-    table.cell(pnl, 1, 4, nTrades &gt; 0 ? str.tostring(sumR / nTrades, "+0.00;-0.00") : "–", text_color = color.white, text_size = size.small)
-    table.cell(pnl, 0, 5, "Last", text_color = color.gray, text_size = size.small)
-    table.cell(pnl, 1, 5, na(lastR) ? "–" : str.tostring(lastR, "+0.0;-0.0") + "R · " + lastWhy, text_color = color.white, text_size = size.small)
-
-// ---------------- alerts ----------------
-alertcondition(isC1Up and barstate.isconfirmed, "C1 up", "Liquidity Refill: a bullish C1 printed. Watch the first moments of the next candle.")
-alertcondition(isC1Dn and barstate.isconfirmed, "C1 down", "Liquidity Refill: a bearish C1 printed. Watch the first moments of the next candle.")
-alertcondition(longSig, "Long entry", "Liquidity Refill: long, C2 crossed C1's high after an early, shallow wick.")
-alertcondition(shortSig, "Short entry", "Liquidity Refill: short, C2 crossed C1's low after an early, shallow wick.")
-alertcondition(exitSig, "Exit", "Liquidity Refill: exit.")</code></pre>
-    </div>
   </section>
 
   <section class="video" id="video" aria-label="Video">
@@ -1119,19 +874,6 @@ alertcondition(exitSig, "Exit", "Liquidity Refill: exit.")</code></pre>
 </div>
 <footer class="gfoot" data-gfooter><div class="wrap static-foot"><p>The Trade Method is a learning notebook, not an advisory service. Everything here is for education only and is not financial, tax or legal advice, or a recommendation to buy or sell any security. Trading involves substantial risk of loss. Past results, including backtests, don't guarantee future results.</p><p><a href="/about.html">About</a> &middot; <a href="/setups/">Setups</a> &middot; <a href="/fundamentals/">Fundamentals</a> &middot; <a href="/famous-strategies/">Famous strategies</a> &middot; <a href="/tested-results.html">Test results</a> &middot; <a href="/contact.html">Contact</a> &middot; <a href="/privacy.html">Privacy</a></p></div></footer>
 
-<script>
-  /* copy the Pine code */
-  (function () {
-    var b = document.querySelector("[data-copy]"), code = document.querySelector("pre.pine code");
-    if (!b || !code) return;
-    b.addEventListener("click", function () {
-      var t = code.textContent;
-      function done(ok) { b.textContent = ok ? "Copied" : "Select and copy"; setTimeout(function () { b.textContent = "Copy code"; }, 1800); }
-      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(t).then(function () { done(true); }, function () { done(false); });
-      else done(false);
-    });
-  })();
-</script>
 
 </body>
 </html>

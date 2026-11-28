@@ -142,24 +142,29 @@ PAGES = [
  "path": "setups/anchored-vwap.html", "name": "Anchored VWAP", "group": "Setups",
  "verdict": "none", "chip": "Loses",
  "headline": "Loses, though the earnings anchor beats a random one",
- "lead": "Run on five years of earnings releases from 450 heavily traded stocks, the indicator's rules lost money. The same rules "
+ "lead": "Run on five years of earnings releases from every liquid US stock, 2,055 of them, the indicator's rules lost money. The same rules "
          "anchored on random days lost far more, so the earnings line carries real information, just not enough to pay for the stop-outs.",
- "stats": [["5,126", "trades, 450 stocks, 15-minute + daily"], ["29%", "win rate"], ["&minus;0.15R", "average per trade", "neg"],
-           ["&minus;0.72R", "same rules, random anchors"]],
+ "stats": [["22,554", "trades, 2,055 stocks, 15-minute + daily"], ["28%", "win rate"], ["&minus;0.18R", "average per trade", "neg"],
+           ["&minus;0.77R", "same rules, random anchors"]],
  "table": {"head": ["Version", "Trades", "Avg R"],
-           "rows": [["Indicator rules, every release", "5,126", "&minus;0.15R"],
-                    ["After-hours volume &ge; 20% (the minimum)", "1,000", "&minus;0.09R"],
-                    ["Before June 2024 / after (&ge; 20%)", "", "&minus;0.03R / &minus;0.15R"],
-                    ["After-hours volume &ge; 50% (strong)", "484", "&minus;0.24R"],
-                    ["No intraday stop, daily closes only (&ge; 20%)", "1,000", "&minus;0.71R"],
-                    ["Random anchors, same rules", "5,187", "&minus;0.72R"]]},
- "notes": ["About 40% of trades are stopped out on the entry day, at about &minus;1.1R. The stop just under the line gets hit by normal post-earnings swings.",
-           "Trades that survive the first day go on to make +0.4R (+0.8R at &ge; 20% after-hours), but that doesn't cover the stop-outs.",
-           "Heavier report volume didn't help, and on 18 mega caps with earnings-surprise data, big beats were the worst group (&minus;0.79R, 33 trades).",
+           "rows": [["Every liquid US stock, every release", "22,554", "&minus;0.18R"],
+                    ["Before June 2024 / after", "", "&minus;0.21R / &minus;0.16R"],
+                    ["After-hours volume &ge; 20% (the indicator's minimum)", "4,703", "&minus;0.38R"],
+                    ["After-hours volume &ge; 50% (strong)", "3,099", "&minus;0.49R"],
+                    ["Random anchors, same rules", "22,289", "&minus;0.77R"],
+                    ["450 most-traded stocks only", "5,126", "&minus;0.15R"],
+                    ["450 stocks, no intraday stop, daily closes only (&ge; 20%)", "1,000", "&minus;0.71R"],
+                    ["18 large caps, big earnings beats (&gt; 15%)", "33", "&minus;0.79R"]]},
+ "notes": ["In the 450-stock run, 40 to 46% of trades were stopped out on the entry day, at about &minus;1.1R. The stop just under the line gets hit by normal post-earnings swings.",
+           "The ones that survived the first day went on to make +0.4R, but that doesn't cover the stop-outs.",
+           "The indicator's own after-hours filter makes it worse, and the more after-hours volume, the bigger the loss.",
+           "Beating estimates didn't help either: on 18 large caps with earnings-surprise data, big beats were the worst group. Misses were the only positive group (+0.13R), on just 27 trades.",
            "Not tested: the page's &ldquo;daily chart breaking out of a long base&rdquo; condition, which is a judgment call."],
- "how": ("8,579 earnings releases from 450 of the 500 most-traded US stocks, Dec 2021 to Oct 2026, 15-minute bars with extended hours. "
-         "Anchor at the release time from the SEC 8-K filing. Rules coded from this page's indicator with default settings; after the "
-         "entry day, the first daily close below the line sells half and the next sells the rest (ours), 60-day cap. 5 bp a side."),
+ "how": ("38,830 earnings releases from every US common stock that was ever liquid (price at least $10 and $20M traded a day, delisted stocks "
+         "included), Dec 2021 to Oct 2026, 15-minute bars with extended hours. Anchor at the release time from the SEC 8-K filing. Rules coded "
+         "from this page's indicator with default settings; after the entry day, the first daily close below the line sells half and the next "
+         "sells the rest (ours), 60-day cap. 5 bp a side. The first run on the 450 most-traded stocks and the earnings-surprise run on 18 large caps "
+         "used the same rules."),
 },
 {
  "path": "setups/zero-lag-pullback.html", "name": "Zero Lag Pullback", "group": "Setups",

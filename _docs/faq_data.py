@@ -73,7 +73,7 @@ FAQ = {
   ("What QQE Mod settings does it use?", "Mihkel00's QQE Mod with RSI length 8 and RSI smoothing 5, everything else at default, plus a 50-period EMA."),
   ("What do the QQE Mod colors mean?", "Blue means both of the indicator's RSI calculations agree on bullish momentum, red means they agree on bearish momentum, and gray or nothing means they don't agree or the RSI is near 50."),
   ("When should you skip a QQE Mod signal?", "When price is chopping across the EMA 50, when the stop beyond the last swing is too big for your risk limit, or when the next support or resistance sits between the entry and the 2R target."),
-  ("Does the QQE Mod strategy work?", "In our test it came out just under break-even: 256 trades on 5-minute bars across 10 large-cap stocks, Aug to Nov 2026, with a 48% win rate, a 0.97 profit factor and -0.01R per trade. That was on stocks, not the gold futures from the video."),
+  ("Does the QQE Mod strategy work?", "In our test it came out just under break-even: 256 trades on 5-minute bars across 10 large-cap stocks, Aug to Nov 2026, with a 48% win rate, a 0.97 profit factor and -0.01R per trade. That was on stocks, not the 5-minute gold chart from the video."),
  ],
 },
 "/stacked-imbalances.html": {
@@ -134,7 +134,7 @@ FAQ = {
   ("How much after-hours volume do you want?", "At least 20% of the stock's average daily volume in the after-hours session, and 50 to 70% is better."),
   ("What is the anchored VWAP entry?", "On day one or day two, the stock dips off the open toward the anchored VWAP and reclaims. Buy the strength after the dip, not the dip itself."),
   ("When do you sell?", "Cut at least half on a daily close below the anchored VWAP. An intraday dip under it isn't enough."),
-  ("Does the anchored VWAP earnings setup work?", "Not in our test. Over 5,126 earnings trades on 450 heavily traded stocks from 2021 to 2026, the indicator's rules lost 0.15R a trade with a 29% win rate, and 0.09R at the 20% after-hours minimum. The same rules on random days lost 0.72R, so the earnings anchor helps, but about 40% of trades are stopped out on the entry day."),
+  ("Does the anchored VWAP earnings setup work?", "Not in our test. Over 22,554 earnings trades on every liquid US stock (2,055 of them) from 2021 to 2026, the indicator's rules lost 0.18R a trade with a 28% win rate, and 0.38R at the 20% after-hours minimum. The same rules on random days lost 0.77R, so the earnings anchor helps, but the tight stop under the line gets hit on the entry day too often."),
  ],
 },
 "/setups/silver-bullet.html": {
@@ -161,10 +161,10 @@ FAQ = {
  "q": "What is the Gap Give and Go?",
  "a": "The Gap Give and Go is an opening gap trade from an SMB Capital playbook review. A stock gaps up on strong, fresh news, then drops fast on light volume into a key level (the give). You don't buy that drop. You wait for a quiet range where sellers can't push it lower, then buy the turn (the go) when the tape flips, with a hard stop under the low of the day.",
  "faq": [
-  ("What are the three checks before a Gap Give and Go trade?", "A stock in play with a fresh catalyst graded 8 out of 10 or better, a real key level such as a daily breakout or a big round number, and relative volume well above normal."),
+  ("What are the three checks before a Gap Give and Go trade?", "A stock in play with a very strong (or very weak) fresh catalyst (the video's trade graded its news an 8 out of 10), a real key level such as a daily breakout or a big round number, and relative volume well above normal."),
   ("Why not buy the give?", "A give can keep on giving, and you don't know where it ends until it has. Waiting for the go means you give up the low but only own the days that actually turn."),
-  ("How big a gap is too big?", "About 10% is significant for an 8 out of 10 catalyst and about 20% is a reasonable ceiling. Past 30%, only a 9.5 or 10 catalyst, news that changes the company, can carry it."),
-  ("What are the targets?", "Back through the open, the premarket high, then a measured move of about half the relative volume times the daily ATR. Sell into extensions and hold the rest until the trend ends."),
+  ("How big a gap is too big?", "About 10% is significant for an 8 out of 10 catalyst and about 20% is a reasonable ceiling. Past 30%, only a 9 to 10 out of 10 catalyst, news that changes the company, can carry it."),
+  ("What are the targets?", "Back through the open, the premarket high and the high of day, then a measured move of about half the relative volume times the daily ATR. Sell into extensions and hold the rest until the trend ends."),
  ],
 },
 "/setups/the-strat.html": {
