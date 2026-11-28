@@ -13,15 +13,12 @@
 // 2. The give     The first move is down: price falls at least 0.25
 //                 daily ATR under the open (ours) on lighter volume
 //                 than the opening bars.
-// 3. The range    From the bar after the low, at least 3 bars hold a
-//                 tight range: candle bodies no wider than 0.2 daily
-//                 ATR (ours, the video's "10 to 20 cents" on DKNG),
-//                 with no new low.
-// 4. The go       Price trades a tick above the range high: buy there
-//                 (DKNG: clears 23.40). Stop a tick under the low of
-//                 day. No volume, no entry: if the go bar's volume is
-//                 under 1.25x the range's average (ours), scratch it
-//                 at the bar's close.
+// 3. The range    After the low, at least 3 bars hold a tight range,
+//                 no wider than 0.2 daily ATR (ours, the video's
+//                 "10 to 20 cents" on DKNG), with no new low.
+// 4. The go       A bar closes above the range high on at least 1.5x
+//                 the range's average volume (ours). Buy that close.
+//                 Stop a cent under the low of day.
 // 5. Targets      Half at the high of day before the entry (the video's
 //                 trader sold into the high-of-day extension). The rest
 //                 exits on a high-volume bar that closes back under the
@@ -41,7 +38,7 @@ giveAtr = input.float(0.25, "Give: at least (x daily ATR) under the open", minva
 grpR = "Range and go"
 rngBars = input.int(3, "Range: at least (bars)", minval = 2, maxval = 30, group = grpR)
 rngAtr = input.float(0.2, "Range: no wider than (x daily ATR)", minval = 0.02, step = 0.02, group = grpR)
-goVol = input.float(1.25, "Go bar volume (x the range's average)", minval = 1.0, step = 0.1, group = grpR)
+goVol = input.float(1.5, "Go bar volume (x the range's average)", minval = 1.0, step = 0.1, group = grpR)
 lastMin = input.int(60, "Latest go (minutes after 9:30)", minval = 5, maxval = 390, group = grpR)
 grpX = "Exits"
 exitVol = input.float(2.0, "Exit bar under the open: volume (x 20-bar average)", minval = 1.0, step = 0.1, group = grpX)
@@ -74,8 +71,6 @@ var bool gaveOk = false
 var int lowBar = na
 var float rHi = na
 var float rLo = na
-var float bHi = na
-var float bLo = na
 var float rVol = 0.0
 var int rN = 0
 var bool took = false
@@ -173,10 +168,8 @@ if okTf and barstate.isconfirmed
             if newLow
                 lod := low
                 lowBar := bar_index
-                rHi := na
+                rHi := high
                 rLo := low
-                bHi := na
-                bLo := na
                 rVol := 0.0
                 rN := 0
                 if mod >= 571
@@ -186,41 +179,30 @@ if okTf and barstate.isconfirmed
                 if gaveOk
                     status := "Give to " + str.tostring(lod, format.mintick) + ": waiting for a range"
             else
-                bool goBar = gaveOk and rN >= rngBars and bHi - bLo <= rngAtr * dAtr and high > rHi and mod < 570 + lastMin
+                float nHi = math.max(rHi, high)
+                bool goBar = gaveOk and rN >= rngBars and rHi - lod <= rngAtr * dAtr and close > rHi and volume >= goVol * rVol / rN and mod < 570 + lastMin
                 if goBar
                     took := true
-                    eP := math.max(open, rHi + syminfo.mintick)
+                    side := 1
+                    eP := close
                     sl := lod - syminfo.mintick
                     risk := eP - sl
                     tp := math.max(hod, nz(pmh, hod))
                     tp := tp > eP ? tp : eP + 2 * risk
                     half := false
+                    wasAbove := close > dOpen
                     evGo := true
                     label.new(bar_index, low, "GO " + str.tostring(eP, format.mintick) + "\nstop " + str.tostring(sl, format.mintick), style = label.style_label_up, color = cUp, textcolor = color.white, size = size.small)
-                    box.new(lowBar + 1, rHi, bar_index - 1, lod, border_color = color.new(cLvl, 30), bgcolor = color.new(cLvl, 88))
-                    if volume >= goVol * rVol / rN
-                        side := 1
-                        wasAbove := close > dOpen
-                        status := "Long " + str.tostring(eP, format.mintick) + ", stop " + str.tostring(sl, format.mintick) + ", half at " + str.tostring(tp, format.mintick)
-                    else
-                        float r = (close - eP) / risk
-                        nTr += 1
-                        nWin += r > 0 ? 1 : 0
-                        sumR += r
-                        evExit := true
-                        lastTrade := (r >= 0 ? "+" : "") + str.tostring(r, "#.##") + "R (no volume on the go)"
-                        label.new(bar_index, high, "No volume: scratch\n" + (r >= 0 ? "+" : "") + str.tostring(r, "#.##") + "R", style = label.style_label_down, color = color.new(color.gray, 15), textcolor = color.white, size = size.small)
-                        status := "Done. " + lastTrade
+                    box.new(lowBar, rHi, bar_index - 1, lod, border_color = color.new(cLvl, 30), bgcolor = color.new(cLvl, 88))
+                    status := "Long " + str.tostring(eP, format.mintick) + ", stop " + str.tostring(sl, format.mintick) + ", half at " + str.tostring(tp, format.mintick)
                 else
-                    rHi := na(rHi) ? high : math.max(rHi, high)
-                    bHi := na(bHi) ? math.max(open, close) : math.max(bHi, open, close)
-                    bLo := na(bLo) ? math.min(open, close) : math.min(bLo, open, close)
+                    rHi := nHi
                     rVol += volume
                     rN += 1
-                    if gaveOk and bHi - bLo > rngAtr * dAtr
+                    if gaveOk and rHi - lod > rngAtr * dAtr
                         status := "Range too wide: still the give"
                     else if gaveOk and rN >= rngBars
-                        status := "Range " + str.tostring(bLo, format.mintick) + " – " + str.tostring(bHi, format.mintick) + ": waiting for the go above " + str.tostring(rHi, format.mintick)
+                        status := "Range " + str.tostring(lod, format.mintick) + " – " + str.tostring(rHi, format.mintick) + ": waiting for the go"
         if side == 0 and not na(hod)
             hod := math.max(hod, high)
 
@@ -240,6 +222,6 @@ if showTable and barstate.islast
         row(3, "Win rate", nTr > 0 ? str.tostring(100.0 * nWin / nTr, "#") + "%" : "—")
         row(4, "Average", nTr > 0 ? str.tostring(sumR / nTr, "#.##") + "R" : "—")
 
-alertcondition(evGo, "GGG go", "Gap Give and Go: the go. Long above the range high, stop under the low of day.")
+alertcondition(evGo, "GGG go", "Gap Give and Go: the go. Long on the close, stop under the low of day.")
 alertcondition(evHalf, "GGG half off", "Gap Give and Go: high of day reached. Take half.")
 alertcondition(evExit, "GGG done", "Gap Give and Go: trade closed.")
