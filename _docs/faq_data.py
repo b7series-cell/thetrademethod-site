@@ -161,10 +161,10 @@ FAQ = {
  "q": "What is the Gap Give and Go?",
  "a": "The Gap Give and Go is an opening gap trade from an SMB Capital playbook review. A stock gaps up on strong, fresh news, then drops fast on light volume into a key level (the give). You don't buy that drop. You wait for a quiet range where sellers can't push it lower, then buy the turn (the go) when the tape flips, with a hard stop under the low of the day.",
  "faq": [
-  ("What are the three checks before a Gap Give and Go trade?", "A stock in play with a fresh catalyst graded 8 out of 10 or better, a real key level such as a daily breakout or a big round number, and relative volume well above normal."),
+  ("What are the three checks before a Gap Give and Go trade?", "A stock in play with a very strong (or very weak) fresh catalyst (the video's trade graded its news an 8 out of 10), a real key level such as a daily breakout or a big round number, and relative volume well above normal."),
   ("Why not buy the give?", "A give can keep on giving, and you don't know where it ends until it has. Waiting for the go means you give up the low but only own the days that actually turn."),
-  ("How big a gap is too big?", "About 10% is significant for an 8 out of 10 catalyst and about 20% is a reasonable ceiling. Past 30%, only a 9.5 or 10 catalyst, news that changes the company, can carry it."),
-  ("What are the targets?", "Back through the open, the premarket high, then a measured move of about half the relative volume times the daily ATR. Sell into extensions and hold the rest until the trend ends."),
+  ("How big a gap is too big?", "About 10% is significant for an 8 out of 10 catalyst and about 20% is a reasonable ceiling. Past 30%, only a 9 to 10 out of 10 catalyst, news that changes the company, can carry it."),
+  ("What are the targets?", "Back through the open, the premarket high and the high of day, then a measured move of about half the relative volume times the daily ATR. Sell into extensions and hold the rest until the trend ends."),
  ],
 },
 "/setups/the-strat.html": {
