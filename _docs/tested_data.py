@@ -448,13 +448,24 @@ PAGES = [
 },
 {
  "path": "setups/macd-continuation-scalp.html", "name": "MACD Continuation Scalp", "group": "Setups",
- "verdict": "none", "chip": "Loses",
- "headline": "Lost on 7 of 10 stocks",
- "lead": "A flat MACD near zero, then a continuation cross, won about a quarter of the time and lost a tenth of its risk per trade.",
- "stats": [["286", "trades, 5-minute"], ["27%", "win rate"], ["0.67", "profit factor"], ["&minus;0.11R", "average per trade", "neg"]],
- "notes": ["The page teaches it on the 1-minute chart; this ran on 5-minute bars over about 3.5 months.",
-           "&ldquo;Flat&rdquo; had to be defined: MACD inside a band around zero for 3 to 15 bars."],
- "how": TV_STOCKS,
+ "verdict": "none", "chip": "No better than random",
+ "headline": "With the video's rules on 1-minute bars, no better than random entries",
+ "lead": "We coded the video's 3/9/5 MACD rules on five years of 1-minute bars and on 10,255 stocks in play. Before costs it "
+         "came out flat; after costs it lost about a fifth of its risk per trade, the same as random entries with the same stops and exits.",
+ "stats": [["47,524", "trades, 12 large caps, 1-minute, 5 years"], ["27%", "win rate"], ["&minus;0.18R", "average per trade", "neg"],
+           ["&minus;0.17R", "random entries, same days, stop and exit"]],
+ "table": {"head": ["Universe", "Trades", "Avg R", "Before costs", "Random entries"],
+           "rows": [["12 large caps and SPY/QQQ, 2021 to 2026", "47,524", "&minus;0.18R", "&minus;0.01R", "&minus;0.17R"],
+                    ["Gap-up stocks in play (Gap Give and Go days), 2022 to 2026", "27,531", "&minus;0.27R", "&minus;0.03R", "&minus;0.24R"]]},
+ "notes": ["The stop under the dip is tight (about 0.16% of price on the large caps), so a cent or two of costs is a big share of "
+           "the risk. Longs and shorts did the same.",
+           "The video's charts are marked hypothetical, with no ticker, date or prices, so its examples couldn't be checked against real data."],
+ "how": ("1-minute regular-hours bars: AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, QQQ, SPY and TSLA from Nov 2021 to Nov 2026 "
+         "(1 bp a side), and 10,255 gap-up days from the Gap Give and Go test (5 bp a side). MACD 3/9/5 restarted each day (the video). "
+         "Flat around zero: the MACD line within 0.15 &times; the 1-minute ATR(14) of zero for 3 to 15 bars (ours). Expansion past that band, "
+         "a dip under the signal with both lines still above zero, entry at the close of the bar that crosses back over, stop a cent "
+         "under the dip's low, exit at the close of the bar that crosses back under (the video). Shorts are the mirror. One trade per "
+         "setup. Results in R capped at +10R. Random entries: 10 per trade, a random bar the same day, same side, stop size and MACD exit."),
 },
 {
  "path": "setups/nine-ema-continuation.html", "name": "9 EMA Continuation", "group": "Setups",
