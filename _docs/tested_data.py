@@ -262,25 +262,34 @@ PAGES = [
 },
 {
  "path": "setups/heatmap-scalp.html", "name": "Heatmap Scalp", "group": "Setups",
- "verdict": "none", "chip": "Chart side loses",
- "headline": "The chart side alone loses, a little worse than random",
- "lead": "The heatmap trigger can't be tested on price bars, so we tested the part a chart can show: the trend and VWAP bias, "
-         "a pullback that wicks into VWAP and closes back, a fixed stop and a target just before the high of day. It lost, and "
-         "random entries with the same stop and target did slightly better.",
- "stats": [["2,344", "trades, QQQ + SPY 1-minute"], ["23%", "win rate"], ["&minus;0.11R", "average per trade", "neg"],
-           ["&minus;0.08R", "random entries, same stop and target"]],
- "table": {"head": ["Fixed stop", "Rules", "Random entries"],
-           "rows": [["0.08% (the video's 20 NQ points)", "&minus;0.11R (2,344)", "&minus;0.08R"],
-                    ["0.15%", "&minus;0.10R (1,900)", "&minus;0.01R"],
-                    ["0.30%", "&minus;0.08R (1,164)", "+0.04R"]]},
- "notes": ["Longs and shorts lost about the same (&minus;0.11R each). Before June 2024 it was flat (&minus;0.01R), after it &minus;0.22R.",
-           "Not tested: the heatmap itself, the big sell orders that stop working and the bid that holds. That needs NQ and ES "
-           "order-book data, and it's the part the video says makes the trade.",
-           "QQQ and SPY stood in for NQ and ES, New York session only."],
- "how": ("QQQ and SPY 1-minute bars, Nov 2021 to Nov 2026, 9:45 to 15:30 New York. Rules from this page's chart-side indicator: "
-         "above VWAP with rising swing highs and lows (short: mirror), a bar that wicks into VWAP and closes back, green; entry at "
-         "its close, a fixed 0.08% stop, a target 2 ticks before the high of day (skipped under 1R), three trades a day. Random "
-         "entries: the same number per day at random bars and sides with the same stop and target. 0.5 bp a side."),
+ "verdict": "none", "chip": "Breaks even",
+ "headline": "With real order flow it breaks even, no clear edge",
+ "lead": "We tested the video's rules on NQ futures with real buy and sell market orders: higher lows above VWAP, a pullback "
+         "where heavy selling stops moving price and the next minute is net buying, a 20-point stop, 2:1, cut early, add on a "
+         "pullback. It broke even. The order-flow trigger did better than the same pullbacks without it, but not by enough to trust.",
+ "stats": [["163", "trades, NQ 1-minute, 279 days"], ["29%", "win rate"], ["&minus;0.01R", "average per trade"],
+           ["&minus;0.04R", "random entries, same stop and target"]],
+ "table": {"head": ["Version", "Rules", "Random entries"],
+           "rows": [["The video's rules (20-point stop, 2:1)", "&minus;0.01R (163)", "&minus;0.04R"],
+                    ["Same pullbacks, no order-flow trigger", "&minus;0.08R (727)", ""],
+                    ["40-point stop (his wider NY stop)", "+0.03R (159)", "+0.01R"],
+                    ["Heavier selling (2x average)", "+0.02R (85)", "&minus;0.07R"],
+                    ["Lighter selling (1x average)", "&minus;0.01R (254)", "&minus;0.07R"]]},
+ "notes": ["163 trades is a small sample: the likely range for the average runs from about &minus;0.20R to +0.18R. Nothing here is "
+           "clearly better than random.",
+           "Adds almost never happened (1 in 163): by the time a second trigger came, the trade had usually hit its stop or target.",
+           "Not tested: the resting limit orders (the heatmap's bright bars), &ldquo;the bid holds&rdquo; and exiting before the wall. "
+           "That needs order-book data. Also not tested: London and ES. Our data covers 9:30 to noon New York on NQ.",
+           "Our earlier chart-only version on QQQ and SPY (wick into VWAP, 0.08% stop, target at the high of day) lost &minus;0.11R over "
+           "2,344 trades."],
+ "how": ("NQ futures 1-minute bars and footprints with the real CME buy and sell side (Databento), Oct 2025 to Nov 2026, 279 days, "
+         "entries 9:30 to noon New York. Rules from this page's indicator: long when price is above VWAP (from 9:30) and the last two "
+         "swing lows rise (5 bars left, 2 right, ours); short is the mirror with lower highs. A minute in the pullback zone (within 5 points "
+         "of VWAP or the last swing low, ours) with sell volume over buy volume by at least 1.5x the last 20 minutes' average (ours), then "
+         "a minute that holds its low and is net buying: buy its close. Stop 20 points, target 2:1, out early on another heavy-selling "
+         "minute while under water, add once on a new trigger in profit with the stop under VWAP, three trades a day, two losses on one "
+         "side ends that side. 0.5 points a lot round trip. Random entries: 20 per rules trade at random minutes and sides, same stop, "
+         "target and cut-early rule."),
 },
 {
  "path": "setups/three-candle-crt.html", "name": "3-Candle CRT", "group": "Setups",

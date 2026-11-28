@@ -236,7 +236,7 @@ FAQ = {
   ("What does a liquidity heatmap show?", "Resting limit orders as bright horizontal bars (brighter means more contracts at that price) and filled market orders as bubbles, green for buyers and red for sellers. It shows where the size is and whether it's being taken or pulled."),
   ("When do you get out early?", "When big orders stack against the trade: large red bubbles on a long and the bid liquidity under you keeps getting taken. In the video that cut the first loss to about half the planned risk."),
   ("When do you add to the trade?", "Only on a pullback while you're already in profit and the trend still holds, not on a breakout. The stop for both goes under VWAP, then to just above the first entry once the local high breaks."),
-  ("Does the Heatmap Scalp work?", "We could test only the chart side, because the heatmap trigger needs order-book data. On five years of QQQ and SPY 1-minute bars, the trend and VWAP pullback with a fixed 0.08% stop took 2,344 trades, won 23% and lost 0.11R a trade, a little worse than random entries with the same stop and target (-0.08R). The heatmap read itself is untested."),
+  ("Does the Heatmap Scalp work?", "We tested the video's rules on a year of NQ futures with real buy and sell orders, and they broke even: 163 trades, 29% wins, -0.01R a trade, against -0.04R for random entries with the same stop and target. The order-flow trigger beat the same pullbacks without it (-0.08R), but the sample is too small to call an edge. The heatmap's resting orders weren't tested."),
  ],
 },
 "/setups/ready-aim-fire.html": {
