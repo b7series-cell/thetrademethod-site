@@ -828,12 +828,15 @@
         <tr><td>Limit at 0.786</td><td>780</td><td>+0.04R</td></tr>
         <tr><td>Longs only, 0.786</td><td>369</td><td>+0.16R (random longs +0.07R)</td></tr>
         <tr><td>Shorts, any version</td><td>&ndash;</td><td>&minus;0.01 to &minus;0.07R</td></tr>
+        <tr><td>Level filter on, longs (32 tickers)</td><td>84</td><td>+0.67R (random longs +0.05R)</td></tr>
+        <tr><td>Level filter on, shorts (32 tickers)</td><td>77</td><td>+0.03R</td></tr>
       </tbody>
     </table></div>
     <ul class="tested-notes">
       <li>SPY and QQQ together lost &minus;0.07R. Four of the 12 tickers were negative, NVDA worst at &minus;0.40R.</li>
       <li>By year: &minus;0.17, &minus;0.07, +0.01, +0.10, &minus;0.07 and +0.25R. No steady pattern.</li>
       <li>The long side at 0.786 sits about 0.09R above random. That's possible, not proven, and it's the same pattern as other long-only trend rules on hand-picked winners in a bull market.</li>
+      <li>The one thing that helped: a support or resistance level near the OTE zone. With 15-bar pivot levels from the 1-hour and 4-hour charts, kept after a break as the opposite type (support turned resistance), and one of them within 15% of the impulse of the 0.618 to 0.786 zone, longs made +0.67R over 84 trades on 32 stocks and ETFs, against +0.05R for random longs. It held on 20 tickers the first test never saw. Shorts stayed flat. It's a small sample, so it's an off-by-default setting in the indicator, not the page's rule.</li>
       <li>Re-run Nov 28, 2026 with the fixed indicator (a break the other way no longer touches an open trade, and the new direction is measured from the swing the break started at). The old run made +0.02R over 856 trades.</li>
     </ul>
     <p class="tested-how"><b>How we tested.</b> 5 years of price history, Nov 2021 to Nov 2026, on SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA). Rules coded from this page at its default settings. Fills at the bar close, the stop wins when stop and target are hit in the same bar, 0.5 bp a side for the spread, results in R capped at +10R. Trades before June 2024 are the training half, after it the holdout. Trades managed on 5-minute bars inside each hour. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
@@ -855,6 +858,7 @@
         few ticks past the 1, TP1 a little short of the old extreme (half, then the stop moves to entry) and TP2 at the nearest higher time frame swing level ahead (4-hour by default), or an extension
         if there is none. If that level is too close to the 0, the setup is skipped for room. A pullback that reaches 0.382 and then a new extreme without a fill is marked "no fill", and the next fib is
         drawn from that pullback, as in the video. A break the other way while a trade is open leaves that trade alone; when it closes, the new direction is measured from the swing the break started at. A table shows the trend, the working order and the running count of wins, break evens, losses and no fills.</p>
+        <p class="ind-blurb">Level filter (off by default): turn it on to take a setup only when a support or resistance level sits in or near the OTE zone. Levels are 15-bar pivots on the 1-hour and 4-hour charts that last until a close breaks them, and a broken one stays on once as the opposite type. You can also set it to longs only, the side that held up in our test. With the filter on it skips the video's own gold long: no level sat near that zone.</p>
         <p class="ind-blurb" style="color:var(--dim)">"A clean trend" is a judgement call; pivots are a stand-in, so a choppy chart will still draw setups. Close the chart if the waves aren't clear.
         Strategy two (the double top or bottom at a major level) isn't in the script. The swing strength, the buffer, the TP1 offset, the room and the higher time frame are settings, and the defaults are ours, not the video's.</p>
         <div class="ind-links">

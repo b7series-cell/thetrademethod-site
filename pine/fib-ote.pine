@@ -30,6 +30,15 @@
 //   the break started at (Nov 2026 fix: the video's gold long, Mar 27
 //   2026, was missed before it).
 //
+//   Level filter (off by default, Nov 2026): take the setup only when
+//   a support/resistance level sits near the OTE zone. Levels follow
+//   the "Support & Resistance (5-MTF)" rules: 15-bar pivots on the
+//   1-hour and 4-hour charts, broken on a close through, a broken level
+//   flips once (support turned resistance and back). In our test on 32
+//   stocks and ETFs (2021 to 2026) this lifted longs from about break
+//   even to +0.67R a trade (84 trades, random entries +0.05R); shorts
+//   stayed flat. A small sample: treat it as a lead, not a rule.
+//
 //   It marks and alerts. It does not place trades.
 // =====================================================================
 indicator("Fibonacci OTE [TTM]", shorttitle = "Fib OTE", overlay = true, max_lines_count = 300, max_labels_count = 300, max_boxes_count = 50, max_bars_back = 1000)
@@ -51,6 +60,17 @@ htfIn    = input.timeframe("240", "Higher time frame for room and TP2", group = 
 htfLen   = input.int(3, "Higher time frame swing strength", minval = 1, maxval = 20, group = grpR)
 roomPct  = input.float(30, "Need room of at least (% of the impulse)", minval = 0, maxval = 300, group = grpR, tooltip = "Distance from B to the nearest higher time frame level ahead. Less than this and the setup is skipped. 0 turns the check off.")
 extMult  = input.float(0.618, "TP2 if no level ahead: extension (x impulse)", minval = 0.1, step = 0.1, group = grpR)
+
+grpL = "Level filter (off by default)"
+useLvl   = input.bool(false, "Only take setups near a support/resistance level", group = grpL, tooltip = "A level from the time frames below must sit inside the 0.618 to 0.786 zone, give or take the tolerance. Our test: it helped longs, not shorts.")
+lvlTf1On = input.bool(true, "Level time frame 1", group = grpL, inline = "l1")
+lvlTf1   = input.timeframe("60", "", group = grpL, inline = "l1")
+lvlTf2On = input.bool(true, "Level time frame 2", group = grpL, inline = "l2")
+lvlTf2   = input.timeframe("240", "", group = grpL, inline = "l2")
+lvlPiv   = input.int(15, "Level pivot length (bars each side)", minval = 3, maxval = 50, group = grpL)
+lvlFlip  = input.bool(true, "Keep broken levels (they flip once)", group = grpL, tooltip = "A support that closes below stays on as resistance, once (and the other way round). Without this the filter didn't help in our test.")
+lvlTol   = input.float(15, "Tolerance around the zone (% of the impulse)", minval = 0, maxval = 50, step = 1, group = grpL)
+sideIn   = input.string("Longs and shorts", "Take", options = ["Longs and shorts", "Longs only", "Shorts only"], group = grpL)
 
 grpD = "Display"
 showFib  = input.bool(true, "Fib levels", group = grpD)
@@ -95,6 +115,65 @@ if not na(hPL) and (htfLo.size() == 0 or htfLo.last() != hPL)
     htfLo.push(hPL)
     if htfLo.size() > 40
         htfLo.shift()
+
+// support/resistance levels ("Support & Resistance (5-MTF)" rules), on each level time frame's own bars
+srLevels(int len, bool flip) =>
+    var array<float> pr = array.new<float>()
+    var array<int>   ty = array.new<int>()      // 1 = resistance, -1 = support
+    var array<bool>  br = array.new<bool>()
+    var array<bool>  ep = array.new<bool>()     // a flipped copy (flips only once)
+    a20 = ta.atr(20)
+    pH = ta.pivothigh(high, len, len)
+    pL = ta.pivotlow(low, len, len)
+    if not na(pL)
+        ok = true
+        if pr.size() > 0
+            for i = 0 to pr.size() - 1
+                if not br.get(i) and math.abs(pr.get(i) - pL) < nz(a20) / 8
+                    ok := false
+        if ok
+            pr.unshift(pL), ty.unshift(-1), br.unshift(false), ep.unshift(false)
+            while pr.size() > 10
+                pr.pop(), ty.pop(), br.pop(), ep.pop()
+    if not na(pH)
+        pr.unshift(pH), ty.unshift(1), br.unshift(false), ep.unshift(false)
+        while pr.size() > 10
+            pr.pop(), ty.pop(), br.pop(), ep.pop()
+    array<float> nP = array.new<float>()
+    array<int>   nT = array.new<int>()
+    if pr.size() > 0
+        for i = 0 to pr.size() - 1
+            if not br.get(i) and ((ty.get(i) == 1 and close > pr.get(i)) or (ty.get(i) == -1 and close < pr.get(i)))
+                br.set(i, true)
+                if flip and not ep.get(i)
+                    nP.push(pr.get(i)), nT.push(-ty.get(i))
+    if nP.size() > 0
+        for i = 0 to nP.size() - 1
+            pr.unshift(nP.get(i)), ty.unshift(nT.get(i)), br.unshift(false), ep.unshift(true)
+    array<float> out = array.new<float>()
+    if pr.size() > 0
+        for i = 0 to pr.size() - 1
+            if not br.get(i)
+                out.push(pr.get(i))
+    out
+
+array<float> lv1r = request.security(syminfo.tickerid, lvlTf1, srLevels(lvlPiv, lvlFlip), lookahead = barmerge.lookahead_off)
+array<float> lv2r = request.security(syminfo.tickerid, lvlTf2, srLevels(lvlPiv, lvlFlip), lookahead = barmerge.lookahead_off)
+array<float> lv1 = lvlTf1On ? lv1r : array.new<float>()
+array<float> lv2 = lvlTf2On ? lv2r : array.new<float>()
+
+// is there a level in [lo, hi]?
+levelIn(float lo, float hi) =>
+    bool f = false
+    if not na(lv1)
+        for v in lv1
+            if v >= lo and v <= hi
+                f := true
+    if not na(lv2)
+        for v in lv2
+            if v >= lo and v <= hi
+                f := true
+    f
 
 // nearest higher time frame level ahead of x (above for d = 1, below for d = -1)
 nearestAhead(float x, int d) =>
@@ -165,7 +244,16 @@ calcLevels() =>
     t2 = na(lv) ? B + dir * extMult * math.abs(B - A) : lv
     rm = roomPct <= 0 or na(lv) or math.abs(lv - B) >= (roomPct / 100) * math.abs(B - A)
     big = minImp <= 0 or math.abs(B - A) >= minImp * atr14
-    [e, s, t1, t2, rm and big]
+    zt = (lvlTol / 100) * math.abs(B - A)
+    lvOk = not useLvl or levelIn(math.min(fibAt(A, B, 0.618), fibAt(A, B, 0.786)) - zt, math.max(fibAt(A, B, 0.618), fibAt(A, B, 0.786)) + zt)
+    sdOk = sideIn == "Longs and shorts" or (sideIn == "Longs only" and dir == 1) or (sideIn == "Shorts only" and dir == -1)
+    [e, s, t1, t2, rm and big and lvOk and sdOk]
+
+skipWhy() =>
+    lv = nearestAhead(B, dir)
+    rm = roomPct <= 0 or na(lv) or math.abs(lv - B) >= (roomPct / 100) * math.abs(B - A)
+    sdOk = sideIn == "Longs and shorts" or (sideIn == "Longs only" and dir == 1) or (sideIn == "Shorts only" and dir == -1)
+    not sdOk ? "skip: other side" : not rm ? "skip: no room" : (minImp > 0 and math.abs(B - A) < minImp * atr14) ? "skip: small impulse" : "skip: no level near"
 
 // ---------------------------------------------------------------- break of structure
 bosUp = not na(lastPH) and close > lastPH and close[1] <= lastPH
@@ -260,7 +348,7 @@ if st == 1 and evBos == 0
                 label.new(bar_index, E, (dir == 1 ? "buy " : "sell ") + fmt(E), style = dir == 1 ? label.style_label_upper_left : label.style_label_lower_left, color = cGold, textcolor = color.black, size = size.small)
             else
                 // skipped for room (or size): wait for the next impulse
-                label.new(bar_index, e0, "skip: no room", style = dir == 1 ? label.style_label_up : label.style_label_down, color = color.new(color.gray, 30), textcolor = color.white, size = size.small)
+                label.new(bar_index, e0, skipWhy(), style = dir == 1 ? label.style_label_up : label.style_label_down, color = color.new(color.gray, 30), textcolor = color.white, size = size.small)
                 st := 0
 
 // ---------------------------------------------------------------- in the trade
@@ -403,7 +491,7 @@ cell(int r, string k, string v, color c) =>
 if showTbl and barstate.islast
     [e2, s2, t12, t22, r2] = calcLevels()
     cell(0, "Fib OTE", dir == 1 ? "buys only" : dir == -1 ? "sells only" : "no trend yet", dir == 1 ? cUp : dir == -1 ? cDn : color.gray)
-    cell(1, "Status", st == 2 ? (hit1 ? "in trade · stop at entry" : "in trade") : st == 1 ? (r2 ? "limit working" : "no room · skip") : "waiting for an impulse", color.white)
+    cell(1, "Status", st == 2 ? (hit1 ? "in trade · stop at entry" : "in trade") : st == 1 ? (r2 ? "limit working" : skipWhy()) : "waiting for an impulse", color.white)
     eS = st == 2 ? E : st == 1 ? e2 : float(na)
     sS = st == 2 ? stopNow : st == 1 ? s2 : float(na)
     cell(2, "Entry " + str.tostring(entryLvl), na(eS) ? "-" : fmt(eS), cGold)
