@@ -8,7 +8,7 @@ keep each answer to facts the page itself states.
 FAQ = {
 "/setups/hitchhiker-scalp.html": {
  "q": "What is the Hitchhiker Scalp?",
- "a": "The Hitchhiker Scalp is an intraday momentum scalp adapted from SMB Capital. After a stock in play makes an outsized move on strong volume, you wait for the first pullback to the 9 EMA on the 2-minute chart, enter as the pullback slows, stop out on a 2-minute close past the 21 EMA, take 70% into momentum and trail the last 30%.",
+ "a": "The Hitchhiker Scalp is an intraday momentum scalp adapted from SMB Capital. After a stock in play makes an outsized move on strong volume, wait for the first pullback to the 9 EMA on the 2-minute chart. Enter as it slows, stop on a 2-minute close past the 21 EMA, take 70% into momentum and trail 30%.",
  "faq": [
   ("What time frame does the Hitchhiker Scalp use?", "The 2-minute chart. The 9 EMA marks the entry area and a 2-minute close past the 21 EMA is the stop."),
   ("Why not just buy the breakout?", "After an outsized move the stock is stretched from its short-term moving averages. A stop wide enough to survive the pullback makes a scalp not worth taking, so you wait for the first pullback to the 9 EMA on lighter volume instead."),
