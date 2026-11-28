@@ -83,6 +83,7 @@
 <link rel="stylesheet" href="/css/tested.css?v=3">
 <link rel="stylesheet" href="/css/hero2.css?v=2">
 <link rel="stylesheet" href="/css/inside.css?v=1">
+<link rel="stylesheet" href="/css/library.css?v=1">
 
 <style>
   /* important note strip under the hero */
@@ -122,9 +123,10 @@
   }
 </style>
 <script src="/js/nav.js?v=43" defer></script>
-<script src="/js/site.js?v=79" defer></script>
+<script src="/js/site.js?v=80" defer></script>
 <script src="/js/hero2-anim.js?v=1" defer></script>
 <script src="/js/inside.js?v=1" defer></script>
+<script src="/js/library.js?v=1" defer></script>
 </head>
 
 <body>
@@ -162,26 +164,6 @@
         <div>
           <h2>Why this site exists.</h2>
           <p class="lead">Learning to trade, one idea at a time. <b>Any source whose ideas look worth learning gets written down and animated.</b></p>
-        </div>
-      </div>
-      <div class="lessons">
-        <div class="lesson">
-          <p class="k">Lesson one</p>
-          <h3>Understand trading.</h3>
-          <p>Any setup can look easy when someone else explains it. Writing it down and watching it move is how I find out whether the idea <b>makes sense or just sounds good</b>.</p>
-          <ul>
-            <li><span class="tnum" data-stat="setups">34</span> setups, each with its source credited on its page</li>
-            <li>A live chart wherever the rules are mechanical</li>
-          </ul>
-        </div>
-        <div class="lesson si">
-          <p class="k">Lesson two</p>
-          <h3>Study before trading.</h3>
-          <p>Every setup gets the same tools, so ideas can be compared side by side. <b>An idea earns a place in my trading only after I understand it here.</b></p>
-          <ul>
-            <li>Animated diagrams drawn in SVG</li>
-            <li>Indicators written in Pine Script</li>
-          </ul>
         </div>
       </div>
       <h3 class="path-title">How an idea becomes a page.</h3>
@@ -223,52 +205,41 @@
     </div>
   </section>
 
-  <section class="band white" id="sessions">
+  <section class="band" id="setups">
     <div class="wrap">
       <div class="sec-head">
         <div>
-          <h2>Choose your session.</h2>
-          <p class="lead">Every setup belongs to one part of the day. <b>Pick the window you actually trade.</b></p>
+          <h2>Browse the library.</h2>
+          <p class="lead">Setups to trade, basics to start with, fundamentals underneath, and the famous published systems. <b>New to trading? Start with Basics.</b></p>
         </div>
       </div>
-      <div class="session-grid">
-        <div class="swatch-stage">
-          <p class="name" id="sw-name">The opening drive</p>
-          <p class="desc" id="sw-desc"></p>
-          <div class="swatches" id="sw-btns" role="group" aria-label="Session"></div>
-        </div>
-        <ul class="sw-list" id="sw-list"></ul>
+      <div class="lib-tabs" role="tablist" aria-label="Library">
+        <button type="button" role="tab" id="lt-setups" aria-controls="lp-setups" aria-selected="true">Setups <span data-stat="setups">34</span></button>
+        <button type="button" role="tab" id="lt-basics" aria-controls="basics" aria-selected="false" tabindex="-1">Basics <span>14</span></button>
+        <button type="button" role="tab" id="lt-fundamentals" aria-controls="fundamentals" aria-selected="false" tabindex="-1">Fundamentals <span data-lib-count="fund-cards"></span></button>
+        <button type="button" role="tab" id="lt-strategies" aria-controls="strategies" aria-selected="false" tabindex="-1">Famous strategies <span data-lib-count="strat-cards"></span></button>
       </div>
-    </div>
-  </section>
-
-  <section class="band" id="day">
-    <div class="wrap">
-      <div class="sec-head">
-        <div>
-          <h2>Know what's live before the bell.</h2>
-          <p class="lead">Every setup with a fixed window, across the regular session in Eastern time. <b>By noon, most are done for the day.</b></p>
-        </div>
+      <div class="lib-panel" role="tabpanel" id="lp-setups" aria-labelledby="lt-setups">
+        <div class="gallery lib-rail" id="gallery" data-show="6"></div>
+        <div class="sec-foot"><a class="pill pill-buy" href="/setups/"><span>See all <span data-stat="setups">34</span> setups</span></a></div>
       </div>
-      <div class="daycard">
-        <div class="axis"><span style="font-size:12px;color:var(--ash)">Setup</span><div class="track" id="day-ticks"></div></div>
-        <div class="rows" id="day-rows"><div class="glines" id="day-glines"></div><div class="now" id="day-now"></div></div>
-        <div class="day-foot">
-          <div class="legend"><span><i class="lg" style="background:var(--silk)"></i>Long only</span><span><i class="lg" style="background:var(--link)"></i>Long or short</span></div>
-          <span id="day-untimed"></span>
-        </div>
+      <div class="lib-panel" role="tabpanel" id="basics" aria-labelledby="lt-basics" hidden>
+        <div class="bh-grid lib-rail">
+        <div class="bh-card"><div class="bh-ico" style="background:#2997ff1f"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 18V10M9.5 18V10M14.5 18V10M19 18V10M2 8l10-5 10 5z" fill="none" stroke="#2997ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Markets &amp; instruments</h3><p>What you&rsquo;re actually trading.</p><ul><li><a href="/futures-basics.html">How Futures Work</a></li><li><a href="/options-basics.html">How Options Work</a></li><li><a href="/investment-funds.html">Investment Funds Explained</a></li></ul><a class="bh-more" href="/basics/#markets">6 pages &rsaquo;</a></div>
+        <div class="bh-card"><div class="bh-ico" style="background:#ff9f0a1f"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3" fill="none" stroke="#ff9f0a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Orders &amp; execution</h3><p>How a trade gets filled.</p><ul><li><a href="/order-flow.html">Order Flow for Beginners</a></li><li><a href="/arbitrage.html">What Arbitrage Is</a></li></ul><a class="bh-more" href="/basics/#orders">2 pages &rsaquo;</a></div>
+        <div class="bh-card"><div class="bh-ico" style="background:#30d1581f"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4v16M6 8h-2v8h2M12 2v18M12 6h-2v10h2M18 6v14M18 9h-2v7h2" fill="none" stroke="#30d158" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Reading charts</h3><p>What price and volume are saying.</p><ul><li><a href="/analysis-types.html">Fundamental vs Technical vs Macro</a></li><li><a href="/relative-volume.html">Relative Volume</a></li><li><a href="/six-momentum-trades.html">Six Momentum Trades</a></li></ul><a class="bh-more" href="/basics/#charts">3 pages &rsaquo;</a></div>
+        <div class="bh-card"><div class="bh-ico" style="background:#ff453a1f"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M5 7h14M5 7l-3 7h6zM19 7l-3 7h6zM8 21h8" fill="none" stroke="#ff453a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Risk &amp; money</h3><p>How much to risk, and where you&rsquo;re wrong.</p><ul><li><a href="/stop-placement.html">Where Your Stop Belongs</a></li><li><a href="/dynamic-risk-sizing.html">Dynamic Risk Sizing</a></li><li><a href="/recession-investing.html">Investing Through a Recession</a></li></ul><a class="bh-more" href="/basics/#risk">3 pages &rsaquo;</a></div>
       </div>
-    </div>
-  </section>
-
-  <section class="band" id="setups" style="padding-top:0">
-    <div class="wrap">
-      <div class="sec-head">
-        <h2>All <span data-stat="setups">34</span> setups.</h2>
-        <a class="more" href="#sessions">Browse by session &rsaquo;</a>
+        <div class="sec-foot"><a class="pill pill-buy" href="/basics/">Open the basics page</a></div>
       </div>
-      <div class="gallery" id="gallery"></div>
-      <div class="sec-foot"><a class="pill pill-buy" href="/setups/">Open the setups page</a></div>
+      <div class="lib-panel" role="tabpanel" id="fundamentals" aria-labelledby="lt-fundamentals" hidden>
+        <div class="fund lib-rail" id="fund-cards" data-show="8"></div>
+        <div class="sec-foot"><a class="pill pill-buy" href="/fundamentals/"><span>See all <span data-lib-count="fund-cards"></span> fundamentals</span></a></div>
+      </div>
+      <div class="lib-panel" role="tabpanel" id="strategies" aria-labelledby="lt-strategies" hidden>
+        <div class="strat lib-rail" id="strat-cards" data-show="6"></div>
+        <div class="sec-foot"><a class="pill pill-buy" href="/famous-strategies/"><span>See all <span data-lib-count="strat-cards"></span> strategies</span></a></div>
+      </div>
     </div>
   </section>
 
@@ -298,78 +269,6 @@
   </section>
   <!--tested-band:end-->
 
-  <section class="band" id="basics">
-    <div class="wrap">
-      <div class="sec-head">
-        <div>
-          <h2>New to trading? Start here.</h2>
-          <p class="lead">How markets, orders, charts and risk work, before any setup. <b>Plain-English pages, each built from a beginner video.</b></p>
-        </div>
-      </div>
-      <div class="bh-grid">
-        <div class="bh-card"><div class="bh-ico" style="background:#2997ff1f"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 18V10M9.5 18V10M14.5 18V10M19 18V10M2 8l10-5 10 5z" fill="none" stroke="#2997ff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Markets &amp; instruments</h3><p>What you&rsquo;re actually trading.</p><ul><li><a href="/futures-basics.html">How Futures Work</a></li><li><a href="/options-basics.html">How Options Work</a></li><li><a href="/investment-funds.html">Investment Funds Explained</a></li></ul><a class="bh-more" href="/basics/#markets">6 pages &rsaquo;</a></div>
-        <div class="bh-card"><div class="bh-ico" style="background:#ff9f0a1f"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h13l-3-3M20 16H7l3 3" fill="none" stroke="#ff9f0a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Orders &amp; execution</h3><p>How a trade gets filled.</p><ul><li><a href="/order-flow.html">Order Flow for Beginners</a></li><li><a href="/arbitrage.html">What Arbitrage Is</a></li></ul><a class="bh-more" href="/basics/#orders">2 pages &rsaquo;</a></div>
-        <div class="bh-card"><div class="bh-ico" style="background:#30d1581f"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4v16M6 8h-2v8h2M12 2v18M12 6h-2v10h2M18 6v14M18 9h-2v7h2" fill="none" stroke="#30d158" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Reading charts</h3><p>What price and volume are saying.</p><ul><li><a href="/analysis-types.html">Fundamental vs Technical vs Macro</a></li><li><a href="/relative-volume.html">Relative Volume</a></li><li><a href="/six-momentum-trades.html">Six Momentum Trades</a></li></ul><a class="bh-more" href="/basics/#charts">3 pages &rsaquo;</a></div>
-        <div class="bh-card"><div class="bh-ico" style="background:#ff453a1f"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v18M5 7h14M5 7l-3 7h6zM19 7l-3 7h6zM8 21h8" fill="none" stroke="#ff453a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Risk &amp; money</h3><p>How much to risk, and where you&rsquo;re wrong.</p><ul><li><a href="/stop-placement.html">Where Your Stop Belongs</a></li><li><a href="/dynamic-risk-sizing.html">Dynamic Risk Sizing</a></li><li><a href="/recession-investing.html">Investing Through a Recession</a></li></ul><a class="bh-more" href="/basics/#risk">3 pages &rsaquo;</a></div>
-      </div>
-      <div class="sec-foot"><a class="pill pill-buy" href="/basics/">Open the basics page</a></div>
-    </div>
-  </section>
-
-  <section class="band light" id="fundamentals">
-    <div class="wrap">
-      <div class="sec-head">
-        <div>
-          <h2>Start with the fundamentals.</h2>
-          <p class="lead">The process and the rules underneath every setup. <b>Read these first if you're new.</b></p>
-        </div>
-      </div>
-      <div class="fund" id="fund-cards"></div>
-      <div class="sec-foot"><a class="pill pill-buy" href="/fundamentals/">Open the fundamentals page</a></div>
-    </div>
-  </section>
-
-  <section class="band" id="strategies">
-    <div class="wrap">
-      <div class="sec-head">
-        <div>
-          <h2>Famous strategies.</h2>
-          <p class="lead">The published, research-backed systems for stocks and ETFs, each taken apart and animated: the rules, the evidence, and where they break.</p>
-        </div>
-      </div>
-      <div class="strat" id="strat-cards"></div>
-      <div class="sec-foot"><a class="pill pill-buy" href="/famous-strategies/">Open the famous strategies page</a></div>
-    </div>
-  </section>
-
-  <section class="band" id="tape">
-    <div class="wrap">
-      <div class="tape">
-        <div class="tape-head">
-          <div><h2>Volume leaders, right now.</h2><p>Not a plan, just what's moving. Match a setup to a ticker that's actually trading today.</p></div>
-        </div>
-        <!-- TradingView Widget BEGIN -->
-        <div class="tradingview-widget-container">
-          <div class="tradingview-widget-container__widget"></div>
-          <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/screener/" rel="noopener nofollow" target="_blank"><span class="blue-text">Stock Screener</span></a><span class="trademark"> by TradingView</span></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
-          {
-          "market": "america",
-          "showToolbar": true,
-          "defaultColumn": "overview",
-          "defaultScreen": "volume_leaders",
-          "isTransparent": true,
-          "locale": "en",
-          "colorTheme": "dark",
-          "width": "100%",
-          "height": 550
-        }
-          </script>
-        </div>
-        <!-- TradingView Widget END -->
-      </div>
-    </div>
-  </section>
 </main>
 
 <div class="glassbar"><span><b><span data-stat="setups">34</span> setups</b> &middot; in the notebook</span><a class="pill pill-buy" href="#setups">Browse setups</a></div>
