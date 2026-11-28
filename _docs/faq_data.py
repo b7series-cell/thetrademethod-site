@@ -373,12 +373,12 @@ FAQ = {
 },
 "/setups/macd-continuation-scalp.html": {
  "q": "What is a MACD continuation scalp?",
- "a": "A MACD continuation scalp uses a 3/9/5 MACD on the 1-minute chart. After 3 to 15 minutes of the MACD flat around zero, it expands away from zero, pulls back toward its signal line while staying on the same side of zero, and the cross back is the entry. The stop goes below the pullback low and you exit when the lines cross the other way.",
+ "a": "A MACD continuation scalp uses a 3/9/5 MACD on the 1-minute chart. After 3 to 15 minutes of the MACD flat around zero, it expands, dips under its signal line while staying on the same side of zero, and the cross back is the entry. The stop goes below the dip's low; exit when the lines cross back.",
  "faq": [
   ("Why 3/9/5 instead of 12/26/9?", "The MACD line is the spread between a 3 and a 9-period moving average and the signal line is a 5-period average of it, faster than the default. The histogram isn't used."),
   ("Why must the lines stay on one side of zero?", "Staying above zero through the pullback (below for a short) keeps you trading with the trend already established. A cross that straddles zero isn't this trade."),
   ("When should you not take it?", "On a choppy ticker with no consolidation or context, or on a second cross of a move that already ran through the full sequence."),
-  ("Does the MACD continuation scalp work?", "Not in our test: 286 trades on 5-minute bars won 27% of the time, with a 0.67 profit factor and -0.11R per trade, losing on 7 of 10 stocks. The page teaches it on 1-minute bars."),
+  ("Does the MACD continuation scalp work?", "Not in our test. With the video's rules on five years of 1-minute bars, 47,524 trades on 12 large caps lost 0.18R each, the same as random entries (-0.17R). Before costs it was flat; the tight stop makes costs a big share of the risk."),
  ],
 },
 "/relative-volume.html": {

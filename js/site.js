@@ -127,7 +127,7 @@
     "/setups/market-memory.html": ["none", "Loses"],
     "/setups/atr-band-hybrid.html": ["none", "Loses"],
     "/setups/opening-range-break.html": ["none", "Loses"],
-    "/setups/macd-continuation-scalp.html": ["none", "Loses"],
+    "/setups/macd-continuation-scalp.html": ["none", "No better than random"],
     "/setups/nine-ema-continuation.html": ["none", "Loses"],
     "/setups/qqe-mod.html": ["none", "Break-even"],
     "/setups/knock-twice.html": ["thin", "Too few trades"],
