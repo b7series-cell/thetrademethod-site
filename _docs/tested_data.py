@@ -483,13 +483,28 @@ PAGES = [
 },
 {
  "path": "setups/liquidity-refill.html", "name": "Liquidity Refill", "group": "Setups",
- "verdict": "thin", "chip": "Can't be tested on bars",
- "headline": "Looked great, but the bars can't show the trigger",
- "lead": "On 5-minute bars it made +0.83R a trade. But the setup needs the wick in the first seconds of the candle, before the "
-         "break. On 1-minute bars only 10 trades clearly had the wick first.",
- "stats": [["73", "trades, 5-minute"], ["51%", "win rate"], ["+0.83R", "average per trade"], ["10", "trades with the wick clearly first"]],
- "notes": ["Not judged. A fair test needs tick or second-by-second data."],
- "how": LOCAL,
+ "verdict": "none", "chip": "No edge on NQ",
+ "headline": "Timed to the second on NQ, the video's rules didn't hold up",
+ "lead": "We timed every C2 wick to the second with a year of real NQ futures trades. On the 1-minute chart the video teaches on, "
+         "it lost more than random entries. The 5-minute chart came out slightly ahead, on too few trades to trust.",
+ "stats": [["193", "trades, NQ 1-minute, 1 year"], ["15%", "win rate"], ["&minus;0.36R", "average per trade", "neg"],
+           ["&minus;0.12R", "random entries, same days and stop size"]],
+ "table": {"head": ["Chart", "Trades", "Avg R", "Random entries"],
+           "rows": [["1-minute (wick in the first 15 s, &le; 20% deep)", "193", "&minus;0.36R", "&minus;0.12R"],
+                    ["5-minute (first minute)", "64", "+0.15R", "&minus;0.16R"],
+                    ["15-minute (first 2 minutes)", "65", "&minus;0.07R", "+0.26R"],
+                    ["Wicks up to 50% deep: 1 / 5 / 15-minute", "282 / 93 / 79", "&minus;0.23R / +0.29R / &minus;0.21R", "&minus;0.09R / &minus;0.03R / +0.23R"]]},
+ "notes": ["Most trades lose: 15 to 25% win, and about four in five end at the stop. The tight stop is the point of the setup, so the wins are rare and large.",
+           "The video's live trade, NQ 15-minute on Sep 23, 2026: the test shorted the same sell-off one candle earlier (+6.6R to the prior day's low), "
+           "because on NQ the first C2's wick came early. On the CFD chart in the video it came late, and he took the next candle.",
+           "Only 9:30 to noon ET could be tested, because the trade data covers the morning. The prior-day target uses regular hours, not the 23-hour chart in the video."],
+ "how": ("NQ futures, 281 days from Oct 2025 to Nov 2026, every trade (Databento, CME aggressor side) turned into 1-second bars, 9:30 to noon ET; "
+         "1-minute bars for the rest of each day. C1: range at least 2&times; the 8 bars before it, body 60%, close in the top quarter, no bar "
+         "nearly as big before it (ours); a second imbalance candle in a row also counts (the video). C2: the wick against C1 printed in the "
+         "video's early window (15 s / 1 min / 2 min) with no new extreme after it, no deeper than 20% (the video); entry a tick past C1's "
+         "high or low on C2 only, stop 2 ticks past the wick, exit at the 4th candle, the first opposite close or the prior day's high or low. "
+         "One trade at a time, 1 tick a side in costs, results in R capped at +10R. Random entries: 10 per trade, a random second on the "
+         "same day, same side and stop size, same exits."),
 },
 {
  "path": "setups/gamma-wall-footprint.html", "name": "Gamma Wall Footprint", "group": "Setups",

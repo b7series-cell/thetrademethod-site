@@ -27,21 +27,21 @@
 </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Liquidity Refill — the two-candle imbalance setup | The Trade Method</title>
-<meta name="description" content="From order book research: after a big candle out of compression, a quick wick that gets absorbed means liquidity refilled. Buy the C1 high break.">
+<title>Liquidity Refill Strategy: the Two-Candle Imbalance | The Trade Method</title>
+<meta name="description" content="Liquidity refill strategy: after a big candle, an early shallow wick on the next one shows refilled liquidity. Buy the break. Tested on a year of NQ trades.">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="canonical" href="https://thetrademethod.com/setups/liquidity-refill.html">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="The Trade Method">
-<meta property="og:title" content="Liquidity Refill — the two-candle imbalance setup">
-<meta property="og:description" content="From order book research: after a big candle out of compression, a quick wick that gets absorbed means liquidity refilled. Buy the C1 high break.">
+<meta property="og:title" content="Liquidity Refill Strategy: the Two-Candle Imbalance">
+<meta property="og:description" content="Liquidity refill strategy: after a big candle, an early shallow wick on the next one shows refilled liquidity. Buy the break. Tested on a year of NQ trades.">
 <meta property="og:url" content="https://thetrademethod.com/setups/liquidity-refill.html">
 <meta property="og:image" content="https://thetrademethod.com/assets/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Liquidity Refill — the two-candle imbalance setup">
-<meta name="twitter:description" content="From order book research: after a big candle out of compression, a quick wick that gets absorbed means liquidity refilled. Buy the C1 high break.">
+<meta name="twitter:title" content="Liquidity Refill Strategy: the Two-Candle Imbalance">
+<meta name="twitter:description" content="Liquidity refill strategy: after a big candle, an early shallow wick on the next one shows refilled liquidity. Buy the break. Tested on a year of NQ trades.">
 <meta name="twitter:image" content="https://thetrademethod.com/assets/og-image.png">
 <link rel="icon" href="/favicon.ico?v=2" sizes="any">
 <link rel="icon" href="/favicon.svg?v=2" type="image/svg+xml">
@@ -56,7 +56,7 @@
 {
  "@context": "https://schema.org",
  "@type": "Article",
- "headline": "Liquidity Refill — the two-candle imbalance setup",
+ "headline": "Liquidity Refill Strategy: the Two-Candle Imbalance",
  "name": "Liquidity Refill",
  "description": "Liquidity refill, from a quant's order book research: after a relatively big candle out of compression, watch the next candle's first seconds. A quick wick that stays in the top 10–20% and gets absorbed means the refill moved up. Buy the break of the first candle's high, stop past the wick, out after three or four candles.",
  "url": "https://thetrademethod.com/setups/liquidity-refill.html",
@@ -257,7 +257,7 @@
 <link rel="stylesheet" href="/css/apple.css?v=28">
 <link rel="stylesheet" href="/css/tested.css?v=3">
 <script src="/js/nav.js?v=47" defer></script>
-<script src="/js/site.js?v=82" defer></script>
+<script src="/js/site.js?v=83" defer></script>
 <script src="/js/lr-anim.js?v=1" defer></script>
 <style>
   /* steps across the page, the two panels side by side under them (same as hitchhiker-scalp.html) */
@@ -408,7 +408,7 @@
    "name": "What is a liquidity refill setup?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "A liquidity refill is a two-candle pattern from a quant trader's order book research. After a relatively big candle (C1) out of compression, the next candle (C2) dips early and shallow, in the top 10 to 20% of C1, and gets absorbed fast. You buy when C2 breaks C1's high, stop past the wick, and exit after three or four candles."
+    "text": "A liquidity refill is a two-candle pattern from a quant trader's order book research. After a relatively big candle (C1), the next candle (C2) dips early and shallow, in the top 10 to 20% of C1, and gets absorbed fast. Buy when C2 breaks C1's high, stop past the wick, and exit after three or four candles."
    }
   },
   {
@@ -437,10 +437,10 @@
   },
   {
    "@type": "Question",
-   "name": "Has the liquidity refill been backtested?",
+   "name": "Does the liquidity refill strategy work?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Not fairly. On 5-minute bars it made +0.83R a trade over 73 trades, but bars can't show whether the wick came first. On 1-minute bars only 10 trades clearly did, so a real test needs tick or second-by-second data."
+    "text": "Not in our test. We coded the video's rules on a year of NQ futures, using every trade to time the wick to the second (9:30 to noon ET, Oct 2025 to Nov 2026). On the 1-minute chart, 193 trades lost 0.36R each, worse than random entries; 5-minute made +0.15R on 64 trades and 15-minute lost 0.07R on 65. Most trades are stopped out: the wins are rare and big."
    }
   }
  ]
@@ -466,7 +466,7 @@
   {
    "@type": "ListItem",
    "position": 3,
-   "name": "Liquidity Refill",
+   "name": "Liquidity Refill Strategy",
    "item": "https://thetrademethod.com/setups/liquidity-refill.html"
   }
  ]
@@ -496,10 +496,10 @@
         <div><b>10&ndash;20%</b><small>how far into C1 C2's early wick may go</small></div>
         <div><b>3&ndash;4</b><small>candles, then out</small></div>
       </div>
-      <!--tested-chip--><a class="tested-chip v-thin" href="#tested"><i aria-hidden="true"></i>Tested: <b>Can't be tested on bars</b></a><!--/tested-chip-->
+      <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>No edge on NQ</b></a><!--/tested-chip-->
     </div>
   </header>
-  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is a liquidity refill setup?</h2><p>A liquidity refill is a two-candle pattern from a quant trader's order book research. After a relatively big candle (C1) out of compression, the next candle (C2) dips early and shallow, in the top 10 to 20% of C1, and gets absorbed fast. You buy when C2 breaks C1's high, stop past the wick, and exit after three or four candles.</p></section><!-- /define -->
+  <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is a liquidity refill setup?</h2><p>A liquidity refill is a two-candle pattern from a quant trader's order book research. After a relatively big candle (C1), the next candle (C2) dips early and shallow, in the top 10 to 20% of C1, and gets absorbed fast. Buy when C2 breaks C1's high, stop past the wick, and exit after three or four candles.</p></section><!-- /define -->
 
   <nav class="ribbon">
     <div><div class="t">1 &middot; the backdrop</div><div class="n">Compression, low volatility</div></div>
@@ -634,7 +634,7 @@
 
   <div class="section-head">
     <h2>Aggression meets refill</h2>
-    <p>Two ideas from order book microstructure. Aggression is who's taking liquidity: buyers crossing the spread to take what the ask offers. Liquidity refill is the rate at which new limit orders are added back as the old ones get consumed. Together they show an imbalance, and an imbalance moves price.</p>
+    <p>Two ideas from order book microstructure. Aggression is who's taking liquidity: buyers crossing the spread to take what the ask offers. Liquidity refill is the rate at which new limit orders are added back as the old ones get consumed. Together they show an imbalance, and an imbalance moves price. Traders who can see the tape read the same thing on a footprint (<a href="/order-flow.html">order flow</a>, <a href="/stacked-imbalances.html">stacked imbalances</a>) or a heatmap (<a href="/setups/heatmap-scalp.html">Heatmap Scalp</a>); this setup reads it from two candles.</p>
   </div>
   <div class="lr-book" data-lr-book>
     <div class="panel">
@@ -785,20 +785,31 @@
   </div>
 
   <!--tested:start-->
-  <section class="tested v-thin" id="tested" aria-labelledby="tested-h">
-    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>Can't be tested on bars</span></div>
-    <h2 id="tested-h">Looked great, but the bars can't show the trigger</h2>
-    <p class="tested-lead">On 5-minute bars it made +0.83R a trade. But the setup needs the wick in the first seconds of the candle, before the break. On 1-minute bars only 10 trades clearly had the wick first.</p>
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>No edge on NQ</span></div>
+    <h2 id="tested-h">Timed to the second on NQ, the video's rules didn't hold up</h2>
+    <p class="tested-lead">We timed every C2 wick to the second with a year of real NQ futures trades. On the 1-minute chart the video teaches on, it lost more than random entries. The 5-minute chart came out slightly ahead, on too few trades to trust.</p>
     <ul class="tested-stats">
-      <li><b>73</b><span>trades, 5-minute</span></li>
-      <li><b>51%</b><span>win rate</span></li>
-      <li><b>+0.83R</b><span>average per trade</span></li>
-      <li><b>10</b><span>trades with the wick clearly first</span></li>
+      <li><b>193</b><span>trades, NQ 1-minute, 1 year</span></li>
+      <li><b>15%</b><span>win rate</span></li>
+      <li><b class="neg">&minus;0.36R</b><span>average per trade</span></li>
+      <li><b>&minus;0.12R</b><span>random entries, same days and stop size</span></li>
     </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Chart</th><th scope="col">Trades</th><th scope="col">Avg R</th><th scope="col">Random entries</th></tr></thead>
+      <tbody>
+        <tr><td>1-minute (wick in the first 15 s, &le; 20% deep)</td><td>193</td><td>&minus;0.36R</td><td>&minus;0.12R</td></tr>
+        <tr><td>5-minute (first minute)</td><td>64</td><td>+0.15R</td><td>&minus;0.16R</td></tr>
+        <tr><td>15-minute (first 2 minutes)</td><td>65</td><td>&minus;0.07R</td><td>+0.26R</td></tr>
+        <tr><td>Wicks up to 50% deep: 1 / 5 / 15-minute</td><td>282 / 93 / 79</td><td>&minus;0.23R / +0.29R / &minus;0.21R</td><td>&minus;0.09R / &minus;0.03R / +0.23R</td></tr>
+      </tbody>
+    </table></div>
     <ul class="tested-notes">
-      <li>Not judged. A fair test needs tick or second-by-second data.</li>
+      <li>Most trades lose: 15 to 25% win, and about four in five end at the stop. The tight stop is the point of the setup, so the wins are rare and large.</li>
+      <li>The video's live trade, NQ 15-minute on Sep 23, 2026: the test shorted the same sell-off one candle earlier (+6.6R to the prior day's low), because on NQ the first C2's wick came early. On the CFD chart in the video it came late, and he took the next candle.</li>
+      <li>Only 9:30 to noon ET could be tested, because the trade data covers the morning. The prior-day target uses regular hours, not the 23-hour chart in the video.</li>
     </ul>
-    <p class="tested-how"><b>How we tested.</b> 5 years of price history, Nov 2021 to Nov 2026, on SPY, QQQ and 10 large-cap stocks (AAPL, AMD, COIN, GOOG, HOOD, META, MSFT, MU, NVDA, TSLA). Rules coded from this page at its default settings. Fills at the bar close, the stop wins when stop and target are hit in the same bar, 0.5 bp a side for the spread, results in R capped at +10R. Trades before June 2024 are the training half, after it the holdout. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+    <p class="tested-how"><b>How we tested.</b> NQ futures, 281 days from Oct 2025 to Nov 2026, every trade (Databento, CME aggressor side) turned into 1-second bars, 9:30 to noon ET; 1-minute bars for the rest of each day. C1: range at least 2&times; the 8 bars before it, body 60%, close in the top quarter, no bar nearly as big before it (ours); a second imbalance candle in a row also counts (the video). C2: the wick against C1 printed in the video's early window (15 s / 1 min / 2 min) with no new extreme after it, no deeper than 20% (the video); entry a tick past C1's high or low on C2 only, stop 2 ticks past the wick, exit at the 4th candle, the first opposite close or the prior day's high or low. One trade at a time, 1 tick a side in costs, results in R capped at +10R. Random entries: 10 per trade, a random second on the same day, same side and stop size, same exits. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
   </section>
   <!--tested:end-->
 
@@ -813,13 +824,13 @@
           <span class="ind-alerts">alerts</span>
         </div>
         <p class="ind-blurb">C1 counts when its range is at least 2&times; the average of the 8 quiet bars before it, its body is at least 60% of its range,
-        it closes in the top (bottom) quarter, and no bar among the quiet ones was nearly as big (chop). On the next candle it checks that the wick against C1
+        it closes in the top (bottom) quarter, and no bar among the quiet ones was nearly as big (chop). A second imbalance candle right after the first counts too, as in the video's live trade. On the next candle it checks that the wick against C1
         printed in the early window and held, and went no deeper than 20% into C1. Deeper wicks up to 50% show as gray &ldquo;shaky&rdquo; entries. Entry is marked when C2
         crosses C1's high (low), the stop 2 ticks past the wick, and the exit at the close of the 4th candle, the first opposite close or the previous day's high/low,
         whichever comes first. A panel keeps the trade count, wins and average R. Every number is a setting.</p>
         <p class="ind-blurb" style="color:var(--dim)">The early window sets itself from the chart: 15 seconds on 1-minute, the first minute on 5-minute, 2 minutes on
         15-minute, 4 hours on daily. On 1-minute charts it needs seconds data, which only some TradingView plans have. Without it, turn &ldquo;Require intrabar timing&rdquo; off
-        and judge the timing yourself. The second-chance retest is left to you. The 2&times;, 60% and quarter thresholds are ours, not the video's.</p>
+        and judge the timing yourself. The second-chance retest is left to you. The 2&times;, 60% and quarter thresholds are ours, not the video's. A compression check against ATR is there as a setting, off by default, since the video gives no number for it.</p>
         <div class="ind-links">
           <a class="ind-link ind-link--quiet" href="/pine/liquidity-refill.pine" download>Download source (.pine)</a>
         </div>
@@ -844,7 +855,7 @@
     <div class="qa"><h3>What does liquidity refill mean?</h3><p>It's the rate at which new limit orders are added back as old ones get taken. When buyers take liquidity faster than sellers can refill it, price has only one way to go.</p></div>
     <div class="qa"><h3>How early does the C2 wick have to come?</h3><p>On a 1-minute chart, in the first 10 to 15 seconds of C2. On a 5-minute chart roughly the first minute, on a 15-minute chart the first couple of minutes, and on a daily chart the first few hours.</p></div>
     <div class="qa"><h3>When should you skip a liquidity refill?</h3><p>In chop with same-size big candles, when the wick comes late in C2, when it goes past C1's 50% level, or when C2 never breaks C1's high. A break on C3 doesn't count.</p></div>
-    <div class="qa"><h3>Has the liquidity refill been backtested?</h3><p>Not fairly. On 5-minute bars it made +0.83R a trade over 73 trades, but bars can't show whether the wick came first. On 1-minute bars only 10 trades clearly did, so a real test needs tick or second-by-second data.</p></div>
+    <div class="qa"><h3>Does the liquidity refill strategy work?</h3><p>Not in our test. We coded the video's rules on a year of NQ futures, using every trade to time the wick to the second (9:30 to noon ET, Oct 2025 to Nov 2026). On the 1-minute chart, 193 trades lost 0.36R each, worse than random entries; 5-minute made +0.15R on 64 trades and 15-minute lost 0.07R on 65. Most trades are stopped out: the wins are rare and big.</p></div>
   </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">

@@ -131,7 +131,7 @@
     "/setups/nine-ema-continuation.html": ["none", "Loses"],
     "/setups/qqe-mod.html": ["none", "Break-even"],
     "/setups/knock-twice.html": ["thin", "Too few trades"],
-    "/setups/liquidity-refill.html": ["thin", "Can't be tested on bars"],
+    "/setups/liquidity-refill.html": ["none", "No edge on NQ"],
     "/setups/gamma-wall-footprint.html": ["none", "Worse than random entries"],
     "/setups/gex-levels.html": ["mixed", "Levels matter, trades broke even"],
     "/level-radar.html": ["info", "Accurate on SPY/QQQ"],

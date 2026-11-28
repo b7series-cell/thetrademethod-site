@@ -196,7 +196,7 @@ def overview():
     </div>
     <div>
       <p class="thesis">We took the rules on this site, coded them exactly, and ran them on five years of price data with real
-      costs. Then we asked the question that matters: did they beat random entries with the same stop and target? <em>One setup did.</em></p>
+      costs. Then we asked the question that matters: did they beat random entries with the same stop and target? <em>{['No setups did.','One setup did.','Two setups did.','Three setups did.','Four setups did.','Five setups did.'][n['edge']] if n['edge'] < 6 else str(n['edge']) + ' setups did.'}</em></p>
       <div class="counts">
         <div><b>{len(D.PAGES)}</b><small>pages tested</small></div>
         <div><b>{n['edge']}</b><small>beat random entries</small></div>
