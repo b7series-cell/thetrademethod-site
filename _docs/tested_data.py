@@ -194,12 +194,15 @@ PAGES = [
                     ["Limit at 0.618", "984", "+0.01R"],
                     ["Limit at 0.786", "780", "+0.04R"],
                     ["Longs only, 0.786", "369", "+0.16R (random longs +0.07R)"],
-                    ["Shorts, any version", "", "&minus;0.01 to &minus;0.07R"]]},
+                    ["Shorts, any version", "", "&minus;0.01 to &minus;0.07R"],
+        ["Level filter on, longs (32 tickers)", "84", "+0.67R (random longs +0.05R)"],
+        ["Level filter on, shorts (32 tickers)", "77", "+0.03R"]]},
  "notes": ["SPY and QQQ together lost &minus;0.07R. Four of the 12 tickers were negative, NVDA worst at &minus;0.40R.",
            "By year: &minus;0.17, &minus;0.07, +0.01, +0.10, &minus;0.07 and +0.25R. No steady pattern.",
            "The long side at 0.786 sits about 0.09R above random. That's possible, not proven, and it's the same pattern as "
            "other long-only trend rules on hand-picked winners in a bull market.",
-           "Re-run Nov 28, 2026 with the fixed indicator (a break the other way no longer touches an open trade, and the new "
+           "The one thing that helped: a support or resistance level near the OTE zone. With 15-bar pivot levels from the 1-hour and 4-hour charts, kept after a break as the opposite type (support turned resistance), and one of them within 15% of the impulse of the 0.618 to 0.786 zone, longs made +0.67R over 84 trades on 32 stocks and ETFs, against +0.05R for random longs. It held on 20 tickers the first test never saw. Shorts stayed flat. It's a small sample, so it's an off-by-default setting in the indicator, not the page's rule.",
+         "Re-run Nov 28, 2026 with the fixed indicator (a break the other way no longer touches an open trade, and the new "
            "direction is measured from the swing the break started at). The old run made +0.02R over 856 trades."],
  "how": LOCAL + " Trades managed on 5-minute bars inside each hour.",
 },
