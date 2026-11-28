@@ -261,6 +261,28 @@ PAGES = [
          "with the value area high and low moved out or in by 25% or 50% of its width."),
 },
 {
+ "path": "setups/heatmap-scalp.html", "name": "Heatmap Scalp", "group": "Setups",
+ "verdict": "none", "chip": "Chart side loses",
+ "headline": "The chart side alone loses, a little worse than random",
+ "lead": "The heatmap trigger can't be tested on price bars, so we tested the part a chart can show: the trend and VWAP bias, "
+         "a pullback that wicks into VWAP and closes back, a fixed stop and a target just before the high of day. It lost, and "
+         "random entries with the same stop and target did slightly better.",
+ "stats": [["2,344", "trades, QQQ + SPY 1-minute"], ["23%", "win rate"], ["&minus;0.11R", "average per trade", "neg"],
+           ["&minus;0.08R", "random entries, same stop and target"]],
+ "table": {"head": ["Fixed stop", "Rules", "Random entries"],
+           "rows": [["0.08% (the video's 20 NQ points)", "&minus;0.11R (2,344)", "&minus;0.08R"],
+                    ["0.15%", "&minus;0.10R (1,900)", "&minus;0.01R"],
+                    ["0.30%", "&minus;0.08R (1,164)", "+0.04R"]]},
+ "notes": ["Longs and shorts lost about the same (&minus;0.11R each). Before June 2024 it was flat (&minus;0.01R), after it &minus;0.22R.",
+           "Not tested: the heatmap itself, the big sell orders that stop working and the bid that holds. That needs NQ and ES "
+           "order-book data, and it's the part the video says makes the trade.",
+           "QQQ and SPY stood in for NQ and ES, New York session only."],
+ "how": ("QQQ and SPY 1-minute bars, Nov 2021 to Nov 2026, 9:45 to 15:30 New York. Rules from this page's chart-side indicator: "
+         "above VWAP with rising swing highs and lows (short: mirror), a bar that wicks into VWAP and closes back, green; entry at "
+         "its close, a fixed 0.08% stop, a target 2 ticks before the high of day (skipped under 1R), three trades a day. Random "
+         "entries: the same number per day at random bars and sides with the same stop and target. 0.5 bp a side."),
+},
+{
  "path": "setups/three-candle-crt.html", "name": "3-Candle CRT", "group": "Setups",
  "verdict": "none", "chip": "No edge",
  "headline": "Near zero on every timeframe",

@@ -115,6 +115,7 @@
     "/setups/fib-ote.html": ["none", "No edge vs random"],
     "/setups/ict-made-simple.html": ["none", "No edge on any time frame"],
     "/setups/look-above-and-fail.html": ["none", "Fake levels did as well"],
+    "/setups/heatmap-scalp.html": ["none", "Chart side loses"],
     "/setups/three-candle-crt.html": ["none", "No edge"],
     "/setups/fashionably-late.html": ["none", "No edge after costs"],
     "/setups/pmh-break.html": ["none", "No edge"],

@@ -624,7 +624,11 @@ const SETUPS = [
     stages:  6,
     filters: 4,
     status:  "live",
-    indicators: []
+    indicators: [
+      { name: "Heatmap Scalp chart side",
+        blurb: "The chart side only: shades the trend and VWAP bias, marks a pullback that wicks into VWAP and closes back, with the fixed stop and a target before the high or low of day. That is where you check the heatmap.",
+        url: "", file: "/pine/heatmap-scalp-bias.pine", alerts: true }
+    ]
   }
 
   ,{

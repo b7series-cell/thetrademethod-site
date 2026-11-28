@@ -231,12 +231,12 @@ FAQ = {
 },
 "/setups/heatmap-scalp.html": {
  "q": "What is the Heatmap Scalp?",
- "a": "The Heatmap Scalp is an order flow day trade on NQ and ES futures from a funded trader's live session. Market structure and VWAP set the side: higher lows above VWAP means longs only. A liquidity heatmap such as Bookmap times the entry: on a pullback, the other side's big market orders stop moving price and the resting liquidity holds, so you get in on the bid. The stop is a fixed dollar amount, you add on pullbacks while in profit, and you exit just before a big wall of liquidity.",
+ "a": "The Heatmap Scalp is an order flow day trade on NQ and ES futures. Higher lows above VWAP means longs only, and shorts are the mirror. On a pullback, a liquidity heatmap such as Bookmap shows when the other side's big orders stop moving price and the bid holds. Fixed dollar stop, add on pullbacks, exit before the wall.",
  "faq": [
   ("What does a liquidity heatmap show?", "Resting limit orders as bright horizontal bars (brighter means more contracts at that price) and filled market orders as bubbles, green for buyers and red for sellers. It shows where the size is and whether it's being taken or pulled."),
   ("When do you get out early?", "When big orders stack against the trade: large red bubbles on a long and the bid liquidity under you keeps getting taken. In the video that cut the first loss to about half the planned risk."),
   ("When do you add to the trade?", "Only on a pullback while you're already in profit and the trend still holds, not on a breakout. The stop for both goes under VWAP, then to just above the first entry once the local high breaks."),
-  ("How many trades a day?", "Three at most for a day trader. A fourth is usually a re-entry for the adrenaline, and after a green morning he only risks what keeps the day green."),
+  ("Does the Heatmap Scalp work?", "We could test only the chart side, because the heatmap trigger needs order-book data. On five years of QQQ and SPY 1-minute bars, the trend and VWAP pullback with a fixed 0.08% stop took 2,344 trades, won 23% and lost 0.11R a trade, a little worse than random entries with the same stop and target (-0.08R). The heatmap read itself is untested."),
  ],
 },
 "/setups/ready-aim-fire.html": {
