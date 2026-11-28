@@ -639,7 +639,15 @@ const SETUPS = [
     stages:  6,
     filters: 4,
     status:  "live",
-    indicators: []
+    indicators: [
+      {
+        name:  "Gamma Wall Footprint — The Trade Method",
+        blurb: "Type in the day's put wall, call wall and zero gamma. It sorts each touch into a slow or fast approach, reads TradingView's footprint for absorption, stacked imbalances, a delta flip or trapped traders, and marks the entry, the stop past the failed reaction, half off and the next-level target. Also the zero gamma break short. Needs footprint data (Premium).",
+        url:   "",
+        file:  "/pine/gamma-wall-footprint.pine",
+        alerts: true
+      }
+    ]
   }
 
   ,{

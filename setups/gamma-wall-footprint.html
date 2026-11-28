@@ -62,7 +62,7 @@
  "url": "https://thetrademethod.com/setups/gamma-wall-footprint.html",
  "mainEntityOfPage": "https://thetrademethod.com/setups/gamma-wall-footprint.html",
  "image": "https://thetrademethod.com/assets/og-image.png",
- "dateModified": "2026-11-25",
+ "dateModified": "2026-11-28",
  "inLanguage": "en",
  "author": {
   "@type": "Person",
@@ -256,7 +256,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/apple.css?v=28">
-<script src="/js/nav.js?v=41" defer></script>
+<link rel="stylesheet" href="/css/tested.css?v=3">
+<script src="/js/nav.js?v=43" defer></script>
 <script src="/js/site.js?v=78" defer></script>
 <script src="/js/gw-anim.js?v=5" defer></script>
 <style>
@@ -511,6 +512,14 @@
     "@type": "Answer",
     "text": "On a single big options print without context, when a wall has broken and price accepted beyond it, on OPEX, triple witching and VIX expiration days when the levels move, and right after a loss if the next trade isn't from the plan."
    }
+  },
+  {
+   "@type": "Question",
+   "name": "Does the gamma wall footprint work?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Not in our test. On a year of NQ with real gamma walls and real footprints, the full entry recipe gave only one wall trade. With any one footprint sign as the trigger, 70 trades won 17% of the time and lost 0.40R a trade on average, worse than random entries with the same stops and targets (-0.16R) and worse than the same rules on fake levels."
+   }
   }
  ]
 }
@@ -565,6 +574,7 @@
         <div><b>4</b><small>footprint signs that say when</small></div>
         <div><b>8.5R</b><small>entered at the wall; chased late, it's 0.5R</small></div>
       </div>
+      <!--tested-chip--><a class="tested-chip v-none" href="#tested"><i aria-hidden="true"></i>Tested: <b>Worse than random entries</b></a><!--/tested-chip-->
     </div>
   </header>
   <!-- define --><section class="define" id="what-is" aria-labelledby="what-is-h"><h2 id="what-is-h">What is the Gamma Wall Footprint?</h2><p>The Gamma Wall Footprint is a set of three NQ futures day trades at the levels from a GEX (gamma exposure) map: the put wall, the call wall and zero gamma. The wall tells you where, not when. A slow drift into a wall means look for the reaction right at it; a fast push means let it overshoot and enter on the reclaim. The footprint chart confirms the entry with absorption, stacked imbalances, a delta flip or trapped traders. The third setup goes with the move when price breaks below zero gamma and holds.</p></section><!-- /define -->
@@ -894,12 +904,72 @@
     </div>
   </section>
 
+  <!--tested:start-->
+  <section class="tested v-none" id="tested" aria-labelledby="tested-h">
+    <div class="tested-top"><span class="tested-label">We tested it</span> <span class="tested-verdict"><i aria-hidden="true"></i>Worse than random entries</span></div>
+    <h2 id="tested-h">Lost money at the walls, and did worse than random entries</h2>
+    <p class="tested-lead">We ran the indicator's rules on a year of NQ with real gamma walls and real footprints. The page's full recipe almost never lines up on a 5-minute chart. With any one footprint sign as the trigger, the wall fades lost about half a risk unit a trade, more than random entries with the same stops and targets.</p>
+    <ul class="tested-stats">
+      <li><b>70</b><span>trades, NQ 5-minute, 1 year</span></li>
+      <li><b>17%</b><span>win rate</span></li>
+      <li><b class="neg">&minus;0.40R</b><span>average per trade</span></li>
+      <li><b>&minus;0.16R</b><span>random entries, same stops and targets</span></li>
+    </ul>
+    <div class="tested-table-wrap"><table>
+      <thead><tr><th scope="col">Version</th><th scope="col">Trades</th><th scope="col">Avg R</th><th scope="col">Random entries</th></tr></thead>
+      <tbody>
+        <tr><td>Entry rules: absorption, then a stack and a delta flip (the indicator's default)</td><td>11</td><td>+0.35R</td><td>+0.34R</td></tr>
+        <tr><td>Any one footprint sign (the checklist's version)</td><td>70</td><td>&minus;0.40R</td><td>&minus;0.16R</td></tr>
+        <tr><td>&nbsp;&nbsp;Put wall longs / call wall shorts</td><td>32 / 28</td><td>&minus;0.46R / &minus;0.50R</td><td>&minus;0.20R / &minus;0.30R</td></tr>
+        <tr><td>&nbsp;&nbsp;Zero gamma break shorts</td><td>10</td><td>+0.09R</td><td>+0.39R</td></tr>
+        <tr><td>Same rules, every level moved 1% up / down</td><td>53 / 51</td><td>&minus;0.19R / +0.31R</td><td>&ndash;</td></tr>
+        <tr><td>Stop capped at 50 ticks (the page's usual size)</td><td>26</td><td>&minus;0.57R</td><td>&minus;0.17R</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="tested-notes">
+      <li>The full entry recipe is rare. In a year, 199 wall touches gave 1 wall trade: 29 slow touches showed absorption and none then printed the stack and the flip, and only 2 fast ones reclaimed with both. The 11 trades are mostly zero gamma breaks, too few to judge.</li>
+      <li>Fake walls did better than the real ones, so in this test the levels themselves didn't help the fade.</li>
+      <li>The stop past the failed reaction was wider than the page's usual 30 to 50 ticks on 58 of 70 trades. Capping it at 50 ticks made it worse: price ran through the tighter stops.</li>
+      <li>Footprint rows of 1 point or 1 tick instead of the video's 5 points gave the same answer (&minus;0.42R and &minus;0.30R).</li>
+      <li>Our earlier 1-minute tests on the same data agree: 761 wall touches over the year averaged &minus;0.08R, and no footprint sign made the fade better.</li>
+    </ul>
+    <p class="tested-how"><b>How we tested.</b> NQ futures, Oct 6 2025 to Nov 24 2026: 234 trading days, OPEX and VIX expiration days skipped. 5-minute bars, regular hours. Put wall, call wall and zero gamma each morning from NQ's own CME options open interest, not the video's data provider. Footprints from every CME trade with its real buy or sell side, 9:30 to noon. Rules coded line for line from this page's indicator; exits walked on 1-minute bars; no commissions or slippage. Random entries: 200 per real trade, same day and side, any 5-minute close from 9:30 to 11:30, same stop and target distance. +1R means a trade won what it risked. Past results don't promise future ones. <a href="/tested-results.html">Every test result &rsaquo;</a></p>
+  </section>
+  <!--tested:end-->
+
+  <div class="section-head" id="indicator">
+    <h2 class="ind-heading">Indicator for this setup</h2>
+    <p class="ind-note">Add this to a 5-minute TradingView chart of NQ or MNQ and type in the day's put wall, call wall and zero gamma
+    before the open. It uses the same rules as the test above. It reads TradingView's own footprint data, which needs a Premium plan or
+    higher; without it only the zero gamma break can fire. It draws and alerts on the setup &mdash; it does not place trades.</p>
+  </div>
+  <ul class="ind-list">
+    <li class="ind-card">
+      <div class="ind-card-top">
+        <h3 class="ind-name">Gamma Wall Footprint &mdash; The Trade Method</h3>
+        <span class="ind-alerts">alerts</span>
+      </div>
+      <p class="ind-blurb">Draws the walls and zero gamma, marks every touch from 9:30 to 11:30 and sorts the approach into slow or fast
+      (a move of 1.5&times; the ATR over the three bars in). Slow: an absorption bar at the wall (delta against you at least the 20-bar
+      average, no close through), then a bar with no new low (or high), 3 stacked imbalances and delta flipped. Fast: an overshoot with
+      delta pushing through, then a close back inside with the stack and the flip. A setting switches to &ldquo;any one sign&rdquo;. The
+      stop goes a tick past the failed reaction, at least 30 ticks; the target is the next level, skipped if it is under 1R, with half off
+      halfway there. Below zero gamma and holding with the ranges growing, it shorts with a 30-point stop to the put wall. Skips OPEX and VIX
+      expiration days and stops after two trades. Paste older days&rsquo; levels to see past signals. The zone, the fast test and the bar
+      windows are our objective version of the video&rsquo;s judgment calls.</p>
+      <div class="ind-links">
+        <a class="ind-link ind-link--quiet" href="/pine/gamma-wall-footprint.pine" download>Download source (.pine)</a>
+      </div>
+    </li>
+  </ul>
+
   <!-- faq --><div class="section-head" id="faq"><h2>Questions</h2></div>
   <div class="faq">
     <div class="qa"><h3>What are the call wall, put wall and zero gamma?</h3><p>The call wall is the strike with the most positive gamma, where dealers tend to sell rallies. The put wall is the strike with the most negative gamma, where dealers tend to buy dips. Zero gamma is the border: above it dealer hedging absorbs moves, below it the hedging adds fuel and moves stretch.</p></div>
     <div class="qa"><h3>Why not just buy or sell at the wall?</h3><p>Because the wall tells you where, not when. Price can run straight through it, especially on a fast approach. You wait for the footprint to show someone defending the level, or for a fast move to overshoot and come back (the reclaim).</p></div>
     <div class="qa"><h3>Where does the stop go?</h3><p>Where the wall idea is proven wrong: past the failed low or the overshoot high, often 30 to 50 ticks on NQ. The target is the next level. Entering close to the level is what makes the reward big: in the video's first example, entering at the wall was about 8.5R to the next level; the video shows the same trade chased late at 0.5R.</p></div>
     <div class="qa"><h3>When should you not trade the levels?</h3><p>On a single big options print without context, when a wall has broken and price accepted beyond it, on OPEX, triple witching and VIX expiration days when the levels move, and right after a loss if the next trade isn't from the plan.</p></div>
+    <div class="qa"><h3>Does the gamma wall footprint work?</h3><p>Not in our test. On a year of NQ with real gamma walls and real footprints, the full entry recipe gave only one wall trade. With any one footprint sign as the trigger, 70 trades won 17% of the time and lost 0.40R a trade on average, worse than random entries with the same stops and targets (&minus;0.16R) and worse than the same rules on fake levels.</p></div>
   </div><!-- /faq -->
   <!-- related --><div class="section-head" id="related"><h2>Related setups</h2><p>Setups that trade the same part of the day.</p></div>
   <div class="relgrid">
@@ -908,6 +978,7 @@
     <a href="/setups/fib-ote.html"><span class="k">All session</span><h3>Fibonacci OTE</h3><p>Price moves in waves, so don't buy the impulse.</p></a>
     <a href="/setups/micro-range.html"><span class="k">All session</span><h3>Micro Range</h3><p>Price isn't value.</p></a>
   </div><!-- /related -->
+
   <div class="rule">
     <div>
       <h2>The wall is where. The footprint is when.</h2>
