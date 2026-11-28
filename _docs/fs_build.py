@@ -18,7 +18,7 @@ import html
 import importlib.util, os, re, sys, json
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-V = {"KITV": "1", "CBGV": "35", "SITEV": "78", "CSSV": "28", "DATE": "2026-11-17"}
+V = {"KITV": "1", "CBGV": "35", "SITEV": "79", "CSSV": "28", "DATE": "2026-11-17"}
 
 
 def esc(s):
