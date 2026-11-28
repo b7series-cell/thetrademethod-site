@@ -225,6 +225,7 @@ FAQ = {
   ("Why not just buy or sell at the wall?", "Because the wall tells you where, not when. Price can run straight through it, especially on a fast approach. You wait for the footprint to show someone defending the level, or for a fast move to overshoot and come back (the reclaim)."),
   ("Where does the stop go?", "Where the wall idea is proven wrong: past the failed low or the overshoot high, often 30 to 50 ticks on NQ. The target is the next level. Entering close to the level is what makes the reward big: in the video's first example, entering at the wall was about 8.5R to the next level; the video shows the same trade chased late at 0.5R."),
   ("When should you not trade the levels?", "On a single big options print without context, when a wall has broken and price accepted beyond it, on OPEX, triple witching and VIX expiration days when the levels move, and right after a loss if the next trade isn't from the plan."),
+  ("Does the gamma wall footprint work?", "Not in our test. On a year of NQ with real gamma walls and real footprints, the full entry recipe gave only one wall trade. With any one footprint sign as the trigger, 70 trades won 17% of the time and lost 0.40R a trade on average, worse than random entries with the same stops and targets (-0.16R) and worse than the same rules on fake levels."),
  ],
 },
 "/setups/heatmap-scalp.html": {
