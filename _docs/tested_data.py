@@ -394,6 +394,36 @@ PAGES = [
  "how": LOCAL,
 },
 {
+ "path": "setups/gamma-wall-footprint.html", "name": "Gamma Wall Footprint", "group": "Setups",
+ "verdict": "none", "chip": "Worse than random entries",
+ "headline": "Lost money at the walls, and did worse than random entries",
+ "lead": "We ran the indicator's rules on a year of NQ with real gamma walls and real footprints. The page's full recipe almost "
+         "never lines up on a 5-minute chart. With any one footprint sign as the trigger, the wall fades lost about half a risk "
+         "unit a trade, more than random entries with the same stops and targets.",
+ "stats": [["70", "trades, NQ 5-minute, 1 year"], ["17%", "win rate"], ["&minus;0.40R", "average per trade", "neg"],
+           ["&minus;0.16R", "random entries, same stops and targets"]],
+ "table": {"head": ["Version", "Trades", "Avg R", "Random entries"],
+           "rows": [["Entry rules: absorption, then a stack and a delta flip (the indicator's default)", "11", "+0.35R", "+0.34R"],
+                    ["Any one footprint sign (the checklist's version)", "70", "&minus;0.40R", "&minus;0.16R"],
+                    ["&nbsp;&nbsp;Put wall longs / call wall shorts", "32 / 28", "&minus;0.46R / &minus;0.50R", "&minus;0.20R / &minus;0.30R"],
+                    ["&nbsp;&nbsp;Zero gamma break shorts", "10", "+0.09R", "+0.39R"],
+                    ["Same rules, every level moved 1% up / down", "53 / 51", "&minus;0.19R / +0.31R", ""],
+                    ["Stop capped at 50 ticks (the page's usual size)", "26", "&minus;0.57R", "&minus;0.17R"]]},
+ "notes": ["The full entry recipe is rare. In a year, 199 wall touches turned into 2 wall trades: 29 slow touches showed "
+           "absorption and none then printed the stack and the flip. The 11 trades are mostly zero gamma breaks, too few to judge.",
+           "Fake walls did better than the real ones, so in this test the levels themselves didn't help the fade.",
+           "The stop past the failed reaction was wider than the page's usual 30 to 50 ticks on 58 of 70 trades. Capping it at "
+           "50 ticks made it worse: price ran through the tighter stops.",
+           "Footprint rows of 1 point or 1 tick instead of the video's 5 points gave the same answer (&minus;0.42R and &minus;0.30R).",
+           "Our earlier 1-minute tests on the same data agree: 761 wall touches over the year averaged &minus;0.08R, and no "
+           "footprint sign made the fade better."],
+ "how": ("NQ futures, Oct 6 2025 to Nov 24 2026: 234 trading days, OPEX and VIX expiration days skipped. 5-minute bars, regular "
+         "hours. Put wall, call wall and zero gamma each morning from NQ's own CME options open interest, not the video's data "
+         "provider. Footprints from every CME trade with its real buy or sell side, 9:30 to noon. Rules coded line for line from "
+         "this page's indicator; exits walked on 1-minute bars; no commissions or slippage. Random entries: 200 per real trade, "
+         "same day and side, any 5-minute close from 9:30 to 11:30, same stop and target distance."),
+},
+{
  "path": "setups/gex-levels.html", "name": "GEX Levels", "group": "Setups",
  "verdict": "mixed", "chip": "Levels matter, trades broke even",
  "headline": "Price reacts to the walls, but trading them broke even",
