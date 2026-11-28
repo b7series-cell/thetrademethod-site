@@ -25,6 +25,11 @@
 //   a new extreme without filling the order, that setup is marked
 //   "no fill" and the next impulse is measured from the pullback.
 //
+//   A break the other way while a trade is open doesn't touch that
+//   trade. When it closes, the new direction is armed from the swing
+//   the break started at (Nov 2026 fix: the video's gold long, Mar 27
+//   2026, was missed before it).
+//
 //   It marks and alerts. It does not place trades.
 // =====================================================================
 indicator("Fibonacci OTE [TTM]", shorttitle = "Fib OTE", overlay = true, max_lines_count = 300, max_labels_count = 300, max_boxes_count = 50, max_bars_back = 1000)
@@ -140,6 +145,11 @@ var float T2    = na
 var bool  room  = true
 var bool  hit1  = false
 var float stopNow = na
+var int   tDir  = 0       // the open trade's own direction (a break the other way doesn't flip it)
+
+var int   pendDir = 0     // a break of structure that came while a trade was open
+var float pendA   = na
+var int   pendAb  = na
 
 var int nWin = 0
 var int nBE  = 0
@@ -186,7 +196,11 @@ if bosUp and dir != 1
         pbBar := na
         valid := false
         evArm := true
+        pendDir := 0
     else
+        // in a trade: remember where the new impulse started, arm it when the trade ends
+        [lo, k] = lowestBack(math.min(bar_index - lastPHb, maxLook))
+        pendDir := 1, pendA := lo, pendAb := bar_index - k
         dir := 1
     lastPH := na
 else if bosDn and dir != -1
@@ -206,7 +220,10 @@ else if bosDn and dir != -1
         pbBar := na
         valid := false
         evArm := true
+        pendDir := 0
     else
+        [hi, k] = highestBack(math.min(bar_index - lastPLb, maxLook))
+        pendDir := -1, pendA := hi, pendAb := bar_index - k
         dir := -1
     lastPL := na
 
@@ -238,7 +255,7 @@ if st == 1 and evBos == 0
         if touched and bar_index > bBar
             if r0
                 st := 2
-                E := e0, S := s0, T1 := t10, T2 := t20, stopNow := s0, hit1 := false
+                E := e0, S := s0, T1 := t10, T2 := t20, stopNow := s0, hit1 := false, tDir := dir
                 evFill := true
                 label.new(bar_index, E, (dir == 1 ? "buy " : "sell ") + fmt(E), style = dir == 1 ? label.style_label_upper_left : label.style_label_lower_left, color = cGold, textcolor = color.black, size = size.small)
             else
@@ -248,33 +265,50 @@ if st == 1 and evBos == 0
 
 // ---------------------------------------------------------------- in the trade
 if st == 2 and not evFill
-    hitStop = dir == 1 ? low <= stopNow : high >= stopNow
-    hitT1   = dir == 1 ? high >= T1 : low <= T1
-    hitT2   = dir == 1 ? high >= T2 : low <= T2
+    hitStop = tDir == 1 ? low <= stopNow : high >= stopNow
+    hitT1   = tDir == 1 ? high >= T1 : low <= T1
+    hitT2   = tDir == 1 ? high >= T2 : low <= T2
     if hitStop
         evStop := true
         if hit1
             nBE += 1
-            label.new(bar_index, stopNow, "break even", style = dir == 1 ? label.style_label_up : label.style_label_down, color = color.new(color.gray, 20), textcolor = color.white, size = size.small)
+            label.new(bar_index, stopNow, "break even", style = tDir == 1 ? label.style_label_up : label.style_label_down, color = color.new(color.gray, 20), textcolor = color.white, size = size.small)
         else
             nLoss += 1
-            label.new(bar_index, stopNow, "stop -1R", style = dir == 1 ? label.style_label_up : label.style_label_down, color = cDn, textcolor = color.white, size = size.small)
+            label.new(bar_index, stopNow, "stop -1R", style = tDir == 1 ? label.style_label_up : label.style_label_down, color = cDn, textcolor = color.white, size = size.small)
         st := 0
     else
         if not hit1 and hitT1
             hit1 := true
             stopNow := E
             evT1 := true
-            label.new(bar_index, T1, "TP1 · half · stop to entry", style = dir == 1 ? label.style_label_down : label.style_label_up, color = cTgt, textcolor = color.black, size = size.small)
+            label.new(bar_index, T1, "TP1 · half · stop to entry", style = tDir == 1 ? label.style_label_down : label.style_label_up, color = cTgt, textcolor = color.black, size = size.small)
         if hit1 and hitT2
             evT2 := true
             nWin += 1
             r = (math.abs(T1 - E) + math.abs(T2 - E)) / 2 / math.abs(E - S)
-            label.new(bar_index, T2, "TP2 · " + str.tostring(r, "#.##") + "R", style = dir == 1 ? label.style_label_down : label.style_label_up, color = cTgt, textcolor = color.black, size = size.small)
+            label.new(bar_index, T2, "TP2 · " + str.tostring(r, "#.##") + "R", style = tDir == 1 ? label.style_label_down : label.style_label_up, color = cTgt, textcolor = color.black, size = size.small)
             st := 0
 
+// a trade that ended after the trend flipped: arm the new direction from the swing the break started at
+if st == 0 and pendDir != 0 and pendDir == dir
+    n = math.min(bar_index - pendAb, maxLook)
+    if dir == 1
+        [hi, kh] = highestBack(n)
+        B := hi, bBar := bar_index - kh
+    else
+        [lo, kl] = lowestBack(n)
+        B := lo, bBar := bar_index - kl
+    A := pendA, aBar := pendAb
+    pbX := na, pbBar := na, valid := false
+    st := 1
+    pendDir := 0
+    evArm := true
+else if st == 0 and pendDir != 0
+    pendDir := 0
+
 // after a trade (or a skip) in the same trend, measure the next impulse from the latest pullback
-if st == 0 and dir != 0 and evBos == 0 and not evStop and not evT2 and not na(B)
+if st == 0 and dir != 0 and evBos == 0 and not evStop and not evT2 and not na(B) and not evArm
     newExt2 = dir == 1 ? high > B : low < B
     if newExt2
         n = math.min(bar_index - bBar, maxLook)

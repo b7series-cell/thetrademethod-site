@@ -184,7 +184,7 @@ FAQ = {
   ("What is the OTE zone?", "The part of the retracement between 0.618 and 0.786, where price is cheapest for a buyer (discount) or dearest for a seller (premium). This page uses the classic levels; ICT's original is 0.62 to 0.79 with 0.705 in the middle."),
   ("Which way do you draw the Fibonacci on the impulse?", "For a long, 1 on the swing low and 0 on the swing high; for a short, the other way round. If price keeps going, move the 0 with it. A pullback that doesn't reach 0.382 is noise."),
   ("What if price never reaches 0.618?", "The limit order never fills and there's no trade. Missed fills are part of the plan: wait for the next impulse."),
-  ("Does the Fibonacci OTE work?", "Not better than chance in our test. On the 1-hour chart the 0.702 limit made +0.02R a trade over 856 trades with a 34% win rate, about the same as random entries on the same impulse with the same stop and targets (+0.01R)."),
+  ("Does the Fibonacci OTE work?", "Not better than chance in our test. Run with the indicator's own rules on the 1-hour chart, the 0.702 limit made +0.02R a trade over 892 trades with a 34% win rate, about the same as random entries on the same impulse with the same stop and targets (−0.01R)."),
  ],
 },
 "/setups/micro-range.html": {
