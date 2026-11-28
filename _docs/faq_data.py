@@ -42,7 +42,7 @@ FAQ = {
  "faq": [
   ("What time of day does Fashionably Late work?", "Two windows: 10:00 to 10:45 in the morning and 10:46 to 1:30 midday. Outside them the same cross under-performs, so skip it."),
   ("Where are the stop and target?", "Measure from the low of day to the cross. The stop goes a third of that distance back toward the low and the target one full distance above the entry, which makes it 3 to 1."),
-  ("Can you trade Fashionably Late short?", "Yes. It's the same trade in reverse: the 9 EMA crossing down through a flat or falling VWAP."),
+  ("Can you trade Fashionably Late short?", "Yes. It's the same trade in reverse: the 9 EMA crossing down through VWAP, with the stop and target mirrored."),
   ("Does Fashionably Late work?", "Not after costs in our test. On SPY 5-minute bars it made about +0.06R a trade before costs and -0.18R after 1 bp a side, over 848 trades, and other timeframes and single stocks were flat."),
  ],
 },
@@ -134,6 +134,7 @@ FAQ = {
   ("How much after-hours volume do you want?", "At least 20% of the stock's average daily volume in the after-hours session, and 50 to 70% is better."),
   ("What is the anchored VWAP entry?", "On day one or day two, the stock dips off the open toward the anchored VWAP and reclaims. Buy the strength after the dip, not the dip itself."),
   ("When do you sell?", "Cut at least half on a daily close below the anchored VWAP. An intraday dip under it isn't enough."),
+  ("Does the anchored VWAP earnings setup work?", "Not in our test. Over 5,126 earnings trades on 450 heavily traded stocks from 2021 to 2026, the indicator's rules lost 0.15R a trade with a 29% win rate, and 0.09R at the 20% after-hours minimum. The same rules on random days lost 0.72R, so the earnings anchor helps, but about 40% of trades are stopped out on the entry day."),
  ],
 },
 "/setups/silver-bullet.html": {
@@ -295,8 +296,8 @@ FAQ = {
  "faq": [
   ("What counts as a squeeze?", "Two standard deviations of closing prices over 20 bars falling below roughly 1.5 times the ATR, one time frame up from the one you trade: weekly for a daily breakout, monthly for a multi-quarter position."),
   ("Why does the breakout need outlier volume?", "Compressed volatility is the stored energy and heavy volume on the break is the fuel. A breakout on thin volume is a poke, not a launch."),
-  ("When do you take profits?", "When the same volatility measure swings to its expansion extreme, roughly 6 times the ATR in the page's examples. Most of the stored energy is spent, so trim or expect mean reversion."),
-  ("Does Energy in the Tank work?", "Partly. On 13 large caps it made +2.3% a trade over 126 trades with a 22% win rate, mostly from a few multi-year holds. A plain 20-day breakout with the same exits did better (+3.5%), so the exit works but the squeeze signal isn't why."),
+  ("When do you take profits?", "When the same volatility measure swings to its expansion extreme, 6 times the ATR, the presenter's expansion line. Most of the stored energy is spent, so he prepares for mean reversion; trimming there is our reading."),
+  ("Does Energy in the Tank work?", "No. Run on every US stock from 2022 to 2026 with this page's indicator, it lost 2.2% a trade over 21,401 trades with a 15% win rate, and random entries on the same stocks with the same exits made +1.5%. An earlier profit on 13 large caps came from stocks picked with hindsight."),
  ],
 },
 "/setups/market-memory.html": {

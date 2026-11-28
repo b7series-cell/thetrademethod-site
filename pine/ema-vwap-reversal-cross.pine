@@ -352,4 +352,3 @@ alertcondition(sellSignal,"Sell (Any)",       "Pivot high, then signal EMA cross
 alertcondition(tpHit,     "Take Profit Hit",  "Take profit level reached")
 alertcondition(emaExit,   "EMA Exit",         "Price closed across the exit EMA — trade closed")
 alertcondition(slHit,     "Stop Hit",         "Stop level reached")
-alertcondition(barstate.isconfirmed, "Test — Fires Every Bar", "🟢 TEST — plumbing works on {{ticker}} @ {{close}}")

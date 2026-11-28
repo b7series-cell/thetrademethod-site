@@ -179,7 +179,7 @@
   function isoDay(d) { return d.toISOString().slice(0, 10); }
 
   /* ---------- chart ---------- */
-  var chart = null, candles, volS, vlS, mS, shade, lineS = [], RUNS = [], NB = 0;
+  var chart = null, axMask = null, candles, volS, vlS, mS, shade, lineS = [], RUNS = [], NB = 0;
   function makeChart() {
     chart = LightweightCharts.createChart(els.chart, {
       autoSize: true,
@@ -193,6 +193,11 @@
     shade.setAttribute("aria-hidden", "true");
     shade.style.cssText = "position:absolute;left:0;top:0;z-index:-1;pointer-events:none";
     els.chart.appendChild(shade);
+    /* the right axis belongs to the candles; mask it beside the volume and measure panes and label the measure's own lines */
+    axMask = document.createElement("canvas");
+    axMask.setAttribute("aria-hidden", "true");
+    axMask.style.cssText = "position:absolute;z-index:3;pointer-events:none";
+    els.chart.appendChild(axMask);
     var pending = false;
     function soon() { if (pending) return; pending = true; requestAnimationFrame(function () { pending = false; drawShade(); }); }
     chart.timeScale().subscribeVisibleLogicalRangeChange(soon);
@@ -236,6 +241,20 @@
       ctx.fillStyle = q[1]; ctx.fillText(q[2], paneW - 6, yy - 4);
     });
     ctx.textAlign = "left";
+    /* axis mask */
+    var sw = chart.priceScale("right").width(), top = Math.round(H * 0.58), mh = H - top;
+    axMask.style.left = paneW + "px"; axMask.style.top = top + "px";
+    axMask.style.width = sw + "px"; axMask.style.height = mh + "px";
+    axMask.width = Math.max(1, sw * dpr); axMask.height = Math.max(1, mh * dpr);
+    var mx = axMask.getContext("2d");
+    mx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    mx.fillStyle = "#1d1d1f"; mx.fillRect(0, 0, sw, mh);
+    mx.font = "12px -apple-system, BlinkMacSystemFont, Inter, sans-serif"; mx.textBaseline = "middle";
+    [[0, "#a1a1a6"], [OPT.sq, COL.sq], [OPT.ex, COL.ex]].forEach(function (q) {
+      var yy = mS.priceToCoordinate(q[0]);
+      if (yy == null || yy - top < 6 || yy - top > mh - 2) return;
+      mx.fillStyle = q[1]; mx.fillText(String(q[0]), 8, yy - top);
+    });
   }
   function runsOf(state, n) {
     var out = [], cur = null;
